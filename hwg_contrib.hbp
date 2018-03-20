@@ -1,0 +1,19 @@
+#
+# $Id: hwg_contrib.hbp 2076 2013-06-13 15:37:33Z druzus $
+#
+
+-inc
+
+-hblib
+-olib/hwg_contrib
+
+-n -q0 -w -es2
+
+-iinclude
+
+-cflag=-DHWG_USE_POINTER_ITEM
+
+{win}contrib/qhtm/*.c
+{win}contrib/qhtm/*.prg
+contrib/misc/*.c
+contrib/misc/*.prg

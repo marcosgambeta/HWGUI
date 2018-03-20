@@ -1,0 +1,7 @@
+#
+# $Id: hwgdebug.hbp 2076 2013-06-13 15:37:33Z druzus $
+#
+
+..\..\hwgui.hbc
+-n -w
+hwgdebug.prg

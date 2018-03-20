@@ -1,0 +1,18 @@
+#
+# $Id: hwgdebug.hbp 2082 2013-06-19 13:16:05Z druzus $
+#
+
+-inc
+
+-hblib
+-olib/hwgdebug
+
+-n -q0 -w -es2
+
+-iinclude
+
+-cflag=-DHWG_USE_POINTER_ITEM
+"{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
+
+source/debug/*.c
+source/debug/*.prg

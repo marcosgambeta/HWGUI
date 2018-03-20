@@ -1,0 +1,22 @@
+#
+# $Id: hwgui.hbp 2082 2013-06-19 13:16:05Z druzus $
+#
+
+-3rd=hbide_version=1.0
+-3rd=hbide_type=Lib
+-3rd=hbide_title=hwgui
+-3rd=hbide_output=hwgui
+
+-inc
+-hblib
+-olib/hwgui
+-n
+-q0
+-w
+-es2
+-iinclude
+
+-cflag=-DHWG_USE_POINTER_ITEM
+"{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
+
+@hwgui.hbm

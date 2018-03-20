@@ -1,0 +1,100 @@
+# $Id: Makefile.linux 2054 2013-05-29 06:07:21Z alkresin $
+# Building of libhwgui.a - Harbour Linux (GTK) GUI library
+
+ifeq ($(HB_ROOT),)
+HRB_DIR = /apps/harbour
+else
+HRB_DIR = $(HB_ROOT)
+endif
+
+INC_DIR = ../include
+OBJ_DIR = obj
+LIB_DIR = lib
+
+PROCMISC_DIR=../source/procmisc
+XML_DIR=../source/xml
+DEBUG_DIR=../source/debug
+SRC_DIR=./
+
+CFLAGS = -Wall -O3 -DHWG_USE_POINTER_ITEM
+HB_FLAGS = -d__LINUX__
+
+vpath %.a $(LIB_DIR)
+vpath %.o $(OBJ_DIR)
+vpath %.c $(OBJ_DIR):$(PROCMISC_DIR):$(XML_DIR):$(DEBUG_DIR):$(SRC_DIR)
+vpath %.prg $(PROCMISC_DIR):$(XML_DIR):$(DEBUG_DIR):$(SRC_DIR)
+
+$(OBJ_DIR)/%.c : %.prg
+	$(HRB_DIR)/bin/linux/gcc/harbour -n -w -es2 $(HB_FLAGS) -I$(HRB_DIR)/include -I$(INC_DIR) -o$@ $<
+
+%.o : %.c
+	gcc $(CFLAGS) -c -I$(INC_DIR) -I$(HRB_DIR)/include `pkg-config --cflags gtk+-2.0` -o $@ $<
+
+$(OBJ_DIR)/%.o : %.c
+	gcc $(CFLAGS) -c -I$(INC_DIR) -I$(HRB_DIR)/include `pkg-config --cflags gtk+-2.0` -o $@ $<
+
+
+$(LIB_DIR)/%.a ::
+	ar rc $@ $^
+
+all: \
+   $(LIB_DIR)/libhwgui.a \
+   $(LIB_DIR)/libprocmisc.a \
+   $(LIB_DIR)/libhbxml.a \
+   $(LIB_DIR)/libhwgdebug.a
+
+$(LIB_DIR)/libhwgui.a : \
+   $(OBJ_DIR)/commond.o \
+   $(OBJ_DIR)/control.o \
+   $(OBJ_DIR)/draw.o \
+   $(OBJ_DIR)/drawtext.o \
+   $(OBJ_DIR)/window.o \
+   $(OBJ_DIR)/wprint.o \
+   $(OBJ_DIR)/menu_c.o \
+   $(OBJ_DIR)/message.o \
+   $(OBJ_DIR)/misc.o \
+   $(OBJ_DIR)/drawwidg.o \
+   $(OBJ_DIR)/herrsys.o \
+   $(OBJ_DIR)/gtkmain.o \
+   $(OBJ_DIR)/hbrowse.o \
+   $(OBJ_DIR)/hcwindow.o \
+   $(OBJ_DIR)/hcheck.o \
+   $(OBJ_DIR)/hcombo.o \
+   $(OBJ_DIR)/hcontrol.o \
+   $(OBJ_DIR)/hdialog.o \
+   $(OBJ_DIR)/hedit.o \
+   $(OBJ_DIR)/hfrmtmpl.o \
+   $(OBJ_DIR)/hgraph.o \
+   $(OBJ_DIR)/hownbtn.o \
+   $(OBJ_DIR)/hpanel.o \
+   $(OBJ_DIR)/hprinter.o \
+   $(OBJ_DIR)/hradio.o \
+   $(OBJ_DIR)/hsayimg.o \
+   $(OBJ_DIR)/hsplit.o \
+   $(OBJ_DIR)/htab.o \
+   $(OBJ_DIR)/htimer.o \
+   $(OBJ_DIR)/htool.o \
+   $(OBJ_DIR)/hupdown.o \
+   $(OBJ_DIR)/hwindow.o \
+   $(OBJ_DIR)/hwinprn.o \
+   $(OBJ_DIR)/hprogres.o \
+   $(OBJ_DIR)/hmonthc.o \
+   $(OBJ_DIR)/menu.o
+
+$(LIB_DIR)/libprocmisc.a : \
+   $(OBJ_DIR)/procini.o \
+   $(OBJ_DIR)/procs7.o \
+   $(OBJ_DIR)/procscri.o \
+   $(OBJ_DIR)/scrdebug.o
+
+$(LIB_DIR)/libhbxml.a : \
+   $(OBJ_DIR)/xmlparse.o \
+   $(OBJ_DIR)/hxmldoc.o
+
+$(LIB_DIR)/libhwgdebug.a : \
+   $(OBJ_DIR)/dbgentry.o \
+   $(OBJ_DIR)/debugger.o \
+   $(OBJ_DIR)/dbgconnect.o
+
+clean:
+	-(rm -fR obj/ lib/)

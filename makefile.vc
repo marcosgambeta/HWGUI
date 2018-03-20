@@ -1,0 +1,218 @@
+# $Id: makefile.vc 2040 2013-05-23 06:25:00Z alkresin $
+# makefile for Visual C++ 32 bits
+# Building of hwgui.lib - Harbour Win32 GUI library
+
+!IFNDEF HRB_DIR
+HRB_DIR = $(HB_PATH)
+!ENDIF
+INC_DIR = include
+OBJ_DIR = obj
+LIB_DIR = lib
+SRC_DIR = source
+CONTRIB_DIR = contrib
+CFLAGS = /W3 /nologo /DHWG_USE_POINTER_ITEM
+
+HWGUI_OBJ_DIR      = $(OBJ_DIR)
+PROCMISC_OBJ_DIR   = $(OBJ_DIR)
+HBXML_OBJ_DIR      = $(OBJ_DIR)
+HWGDEBUG_OBJ_DIR   = $(OBJ_DIR)
+ACTIVEX_OBJ_DIR    = $(OBJ_DIR)
+CONTRIB_OBJ_DIR    = $(OBJ_DIR)
+
+.SUFFIXES :
+.SUFFIXES : .lib .obj .prg .c
+
+all: \
+   $(LIB_DIR)\hwgui.lib \
+   $(LIB_DIR)\procmisc.lib \
+   $(LIB_DIR)\hbxml.lib \
+   $(LIB_DIR)\hwgdebug.lib \
+   $(LIB_DIR)\hwg_contrib.lib
+
+# Cannot compile under MSVC currently
+# \
+#   $(LIB_DIR)\hbactivex.lib
+
+
+# Rules for main lib
+
+{$(SRC_DIR)\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(SRC_DIR)\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w /es2 -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+HWGUI_LIB_OBJS = \
+   $(HWGUI_OBJ_DIR)\hipedit.obj \
+   $(HWGUI_OBJ_DIR)\animat.obj \
+   $(HWGUI_OBJ_DIR)\commond.obj \
+   $(HWGUI_OBJ_DIR)\control.obj \
+   $(HWGUI_OBJ_DIR)\cxshade.obj \
+   $(HWGUI_OBJ_DIR)\dialog.obj  \
+   $(HWGUI_OBJ_DIR)\draw.obj \
+   $(HWGUI_OBJ_DIR)\winreg.obj \
+   $(HWGUI_OBJ_DIR)\drawtext.obj \
+   $(HWGUI_OBJ_DIR)\freeimg.obj \
+   $(HWGUI_OBJ_DIR)\grid.obj \
+   $(HWGUI_OBJ_DIR)\media_c.obj \
+   $(HWGUI_OBJ_DIR)\menu_c.obj \
+   $(HWGUI_OBJ_DIR)\message.obj \
+   $(HWGUI_OBJ_DIR)\herrsys.obj \
+   $(HWGUI_OBJ_DIR)\misc.obj \
+   $(HWGUI_OBJ_DIR)\nice.obj \
+   $(HWGUI_OBJ_DIR)\resource.obj \
+   $(HWGUI_OBJ_DIR)\richedit.obj \
+   $(HWGUI_OBJ_DIR)\shellapi.obj  \
+   $(HWGUI_OBJ_DIR)\theme.obj \
+   $(HWGUI_OBJ_DIR)\window.obj \
+   $(HWGUI_OBJ_DIR)\wprint.obj \
+   $(HWGUI_OBJ_DIR)\drawwidg.obj \
+   $(HWGUI_OBJ_DIR)\guimain.obj \
+   $(HWGUI_OBJ_DIR)\barcode.obj \
+   $(HWGUI_OBJ_DIR)\hbrowse.obj \
+   $(HWGUI_OBJ_DIR)\hcheck.obj \
+   $(HWGUI_OBJ_DIR)\hcombo.obj \
+   $(HWGUI_OBJ_DIR)\hcontrol.obj \
+   $(HWGUI_OBJ_DIR)\hctrlex.obj \
+   $(HWGUI_OBJ_DIR)\hcwindow.obj \
+   $(HWGUI_OBJ_DIR)\hdatepic.obj \
+   $(HWGUI_OBJ_DIR)\hdialog.obj \
+   $(HWGUI_OBJ_DIR)\hedit.obj \
+   $(HWGUI_OBJ_DIR)\hfreeimg.obj \
+   $(HWGUI_OBJ_DIR)\hgraph.obj \
+   $(HWGUI_OBJ_DIR)\hgrid.obj \
+   $(HWGUI_OBJ_DIR)\hgridex.obj \
+   $(HWGUI_OBJ_DIR)\hlistbox.obj \
+   $(HWGUI_OBJ_DIR)\htool.obj \
+   $(HWGUI_OBJ_DIR)\hmonthc.obj \
+   $(HWGUI_OBJ_DIR)\htrackbr.obj \
+   $(HWGUI_OBJ_DIR)\hanimat.obj \
+   $(HWGUI_OBJ_DIR)\hnice.obj \
+   $(HWGUI_OBJ_DIR)\hownbtn.obj \
+   $(HWGUI_OBJ_DIR)\hpanel.obj \
+   $(HWGUI_OBJ_DIR)\hprinter.obj \
+   $(HWGUI_OBJ_DIR)\hprogres.obj \
+   $(HWGUI_OBJ_DIR)\hradio.obj \
+   $(HWGUI_OBJ_DIR)\hpager.obj \
+   $(HWGUI_OBJ_DIR)\hrebar.obj \
+   $(HWGUI_OBJ_DIR)\hriched.obj \
+   $(HWGUI_OBJ_DIR)\hsayimg.obj \
+   $(HWGUI_OBJ_DIR)\hshbtn.obj \
+   $(HWGUI_OBJ_DIR)\hsplash.obj \
+   $(HWGUI_OBJ_DIR)\hsplit.obj \
+   $(HWGUI_OBJ_DIR)\htab.obj \
+   $(HWGUI_OBJ_DIR)\htimer.obj \
+   $(HWGUI_OBJ_DIR)\htree.obj \
+   $(HWGUI_OBJ_DIR)\hrect.obj \
+   $(HWGUI_OBJ_DIR)\hupdown.obj \
+   $(HWGUI_OBJ_DIR)\hwindow.obj \
+   $(HWGUI_OBJ_DIR)\hwinprn.obj \
+   $(HWGUI_OBJ_DIR)\menu.obj \
+   $(HWGUI_OBJ_DIR)\c_ipaddr.obj \
+   $(HWGUI_OBJ_DIR)\listbox.obj \
+   $(HWGUI_OBJ_DIR)\printdos.obj \
+   $(HWGUI_OBJ_DIR)\hdc.obj \
+   $(HWGUI_OBJ_DIR)\pager.obj \
+   $(HWGUI_OBJ_DIR)\hhyper.obj \
+
+$(LIB_DIR)\hwgui.lib : $(HWGUI_LIB_OBJS)
+  lib /out:$@ $**
+
+
+# Rules for procmisc lib
+
+{$(SRC_DIR)\procmisc\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(SRC_DIR)\procmisc\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+
+PROCMISC_LIB_OBJS = \
+   $(PROCMISC_OBJ_DIR)\hfrmtmpl.obj \
+   $(PROCMISC_OBJ_DIR)\procini.obj \
+   $(PROCMISC_OBJ_DIR)\procs7.obj \
+   $(PROCMISC_OBJ_DIR)\procscri.obj \
+   $(PROCMISC_OBJ_DIR)\scrdebug.obj
+
+$(LIB_DIR)\procmisc.lib : $(PROCMISC_LIB_OBJS)
+  lib /out:$@ $**
+
+
+# Rules for contrib lib
+
+{$(CONTRIB_DIR)\qhtm\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(CONTRIB_DIR)\misc\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(CONTRIB_DIR)\qhtm\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+{$(CONTRIB_DIR)\misc\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+CONTRIB_LIB_OBJS = \
+   $(CONTRIB_OBJ_DIR)\hwg_qhtm.obj \
+   $(CONTRIB_OBJ_DIR)\hqhtm.obj \
+   $(CONTRIB_OBJ_DIR)\arr2str.obj \
+   $(CONTRIB_OBJ_DIR)\blowfish.obj \
+   $(CONTRIB_OBJ_DIR)\miscfunc.obj \
+   $(CONTRIB_OBJ_DIR)\richtext.obj \
+   $(CONTRIB_OBJ_DIR)\saymoney.obj
+
+$(LIB_DIR)\hwg_contrib.lib : $(CONTRIB_LIB_OBJS)
+  lib /out:$@ $**
+
+
+# Rules for xml lib
+
+{$(SRC_DIR)\xml\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(SRC_DIR)\xml\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+
+HBXML_LIB_OBJS = \
+   $(HBXML_OBJ_DIR)\hxmldoc.obj    \
+   $(HBXML_OBJ_DIR)\xmlparse.obj
+
+$(LIB_DIR)\hbxml.lib : $(HBXML_LIB_OBJS)
+  lib /out:$@ $**
+
+
+HWGDEBUG_LIB_OBJS = \
+   $(HWGDEBUG_OBJ_DIR)\debugger.obj \
+   $(HWGDEBUG_OBJ_DIR)\dbgconnect.obj \
+   $(HWGDEBUG_OBJ_DIR)\dbgentry.obj
+
+$(LIB_DIR)\hwgdebug.lib : $(HWGDEBUG_LIB_OBJS)
+  lib /out:$@ $**
+
+# Rules for activex lib
+
+{$(SRC_DIR)\activex\}.c{$(OBJ_DIR)\}.obj:
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $**
+
+{$(SRC_DIR)\activex\}.prg{$(OBJ_DIR)\}.obj:
+  $(HRB_DIR)\bin\harbour.exe $** -n -w -i$(HRB_DIR)\include -i$(INC_DIR) -d__WINDOWS__ -o$*.c
+  cl $(CFLAGS) /c /I$(INC_DIR) /I$(HRB_DIR)\include /Fo$@ $*.c
+
+
+ACTIVEX_LIB_OBJS = \
+   $(ACTIVEX_OBJ_DIR)\htmlcore.obj \
+   $(ACTIVEX_OBJ_DIR)\htmlfunc.obj \
+   $(ACTIVEX_OBJ_DIR)\hhtml.obj \
+   $(ACTIVEX_OBJ_DIR)\h_activex.obj \
+   $(ACTIVEX_OBJ_DIR)\c_activex.obj
+
+$(LIB_DIR)\hbactivex.lib : $(ACTIVEX_LIB_OBJS)
+  lib /out:$@ $**
+

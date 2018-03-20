@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part class="form">
+  <style>
+    <property name="Geometry">{124,144,772,111}</property>
+    <property name="Caption">[Example]</property>
+    <property name="FormType">[Main]</property>
+    <property name="lClipper">.F.</property>
+    <property name="lExitOnEnter">.F.</property>
+    <property name="Variables">{oForm1,oForm2,oForm3,oRep1,oForm4,oForm5}</property>
+    <property name="FromStyle">[Popup]</property>
+    <property name="Icon">[]</property>
+    <property name="Modal">.F.</property>
+    <property name="SystemMenu">.T.</property>
+    <property name="Minimizebox">.F.</property>
+    <property name="Maximizebox">.F.</property>
+    <property name="AbsAlignent">.T.</property>
+    <property name="SizeBox">.T.</property>
+    <property name="Visible">.T.</property>
+    <property name="3DLook">.F.</property>
+    <property name="Clipsiblings">.F.</property>
+    <property name="Clipchildren">.F.</property>
+  </style>
+  <method name="onFormInit">
+    <![CDATA[oForm1 := HFormTmpl():Read( "testget1.xml" )
+oForm2 := HFormTmpl():Read( "testget2.xml" )
+oForm3 := HFormTmpl():Read( "testdbf1.xml" )
+oForm4 := HFormTmpl():Read( "test_ctrl.xml" )
+oForm5 := HFormTmpl():Read( "barcode.xml" )
+orep1 := hreptmpl():Read("testrep1.xml")]]>
+  </method>
+  <part class="menu">
+    <style>
+      <property name="Geometry">{-1,-1,0,0}</property>
+      <property name="Name">[oMenu1]</property>
+      <property name="atree">
+        <item name="Test" id="32000">
+          <item name="Test1" id="32001">
+            <![CDATA[oForm1:Show()]]>
+          </item>
+          <item name="Test2" id="32002">
+            <![CDATA[oForm2:Show()]]>
+          </item>
+          <item name="Test3" id="32003">
+            <![CDATA[oForm3:Show()]]>
+          </item>
+          <item name="-" id="32007"/>
+          <item name="Exit" id="32006">
+            <![CDATA[hwg_EndWindow()]]>
+          </item>
+        </item>
+        <item name="Help" id="32004">
+          <item name="About" id="32005">
+            <![CDATA[hwg_Shellabout("HwGUI forms example","")]]>
+          </item>
+        </item>
+      </property>
+    </style>
+  </part>
+  <part class="toolbar">
+    <style>
+      <property name="Geometry">{0,0,710,48}</property>
+      <property name="Name">[oToolbar1]</property>
+    </style>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{2,3,48,42}</property>
+        <property name="Caption">[Exit]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oDlg:Close()]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{51,3,75,42}</property>
+        <property name="Caption">[Test 1]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oForm1:Show()]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{127,3,75,42}</property>
+        <property name="Caption">[Test 2]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oForm2:Show()]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{202,3,75,42}</property>
+        <property name="Caption">[Test 3]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oForm3:Show()]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{278,3,75,42}</property>
+        <property name="Name">[oOwnerbutton1]</property>
+        <property name="Caption">[Test report 1]</property>
+        <property name="Flat">.T.</property>
+        <property name="font">
+          <font name="" width="0" height="-12" weight="400" charset="204"/>
+        </property>
+      </style>
+      <method name="onClick">
+        <![CDATA[orep1:print(,.t.)]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{354,3,107,42}</property>
+        <property name="Name">[oOwnerbutton2]</property>
+        <property name="Caption">[ProgressBar]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oForm4:Show()]]>
+      </method>
+    </part>
+    <part class="ownerbutton">
+      <style>
+        <property name="Geometry">{462,3,107,42}</property>
+        <property name="Name">[oOwnerbutton3]</property>
+        <property name="Caption">[BarCode]</property>
+        <property name="Flat">.T.</property>
+      </style>
+      <method name="onClick">
+        <![CDATA[oForm5:Show()]]>
+      </method>
+    </part>
+  </part>
+  <part class="status">
+    <style>
+      <property name="Geometry">{0,89,772,22}</property>
+      <property name="Name">[oStatus1]</property>
+      <property name="aParts">{120,0}</property>
+    </style>
+    <method name="onInit">
+      <![CDATA[hwg_WriteStatus( oDlg,1,Dtoc(Date()),.T. )
+]]>
+    </method>
+  </part>
+</part>

@@ -1,0 +1,17 @@
+#
+# $Id: hbxml.hbp 2076 2013-06-13 15:37:33Z druzus $
+#
+
+-inc
+
+-hblib
+-olib/hbxml
+
+-n -q0 -w -es2
+
+-iinclude
+
+-cflag=-DHWG_USE_POINTER_ITEM
+
+source/xml/*.c
+source/xml/*.prg

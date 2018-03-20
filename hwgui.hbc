@@ -1,0 +1,16 @@
+#
+# $Id: hwgui.hbc 2076 2013-06-13 15:37:33Z druzus $
+#
+
+# Include this file in hbmk2 command line to build an app:
+#   'hbmk2 hwgui.hbc test.prg'
+
+incpaths=include
+libpaths=lib
+
+{win}gt=gtgui
+
+libs=hwgui procmisc hbxml hwgdebug
+{win&!allmingw}libs=hbactivex
+
+{unix}ldflags+="`pkg-config --libs gtk+-2.0`"
