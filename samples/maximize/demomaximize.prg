@@ -2,17 +2,16 @@
  * $Id:
  *
  * HWGUI demo for screen Maximized
- * 
+ *
  *
  * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
  *
  * Copyright 2004 Sandro <sandrorrfreire@yahoo.com.br>
- * 
+ *
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
  
 * --------------------------------------------
 function Main

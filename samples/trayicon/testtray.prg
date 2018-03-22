@@ -1,5 +1,4 @@
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 Function Main
 Local oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")

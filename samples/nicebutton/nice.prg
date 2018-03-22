@@ -1,5 +1,4 @@
-#include "guilib.ch"
-#include "windows.ch"
+#include "hwgui.ch"
 func main
 local o
 init window o main

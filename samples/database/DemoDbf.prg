@@ -4,13 +4,12 @@
  *
  * HwGUI by Alexander Kresin
  *
- * Copyright (c) 
+ * Copyright (c)
  * Data 01/07/2003 - Sandro Freire <sandrorrfreire@yahoo.com.br>
  *
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
  
 *---------------------------------------------------------------------------------------
 Function Main

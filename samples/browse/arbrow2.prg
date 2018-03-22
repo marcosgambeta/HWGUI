@@ -2,8 +2,7 @@
  * Demo hbrowse
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 #define x_BLUE       16711680
 #define x_RED             255

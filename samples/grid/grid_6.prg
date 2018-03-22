@@ -10,8 +10,8 @@
  *
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
+
 #define LVS_REPORT              1
 #define LVS_ICON                0x0000
 #define LVS_SMALLICON           0x0002

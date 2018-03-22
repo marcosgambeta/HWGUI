@@ -1,6 +1,6 @@
 /*
  * HWGUI using sample
- * 
+ *
  * Demo for PrintDos CLASS
  * Copyright 2003 Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
  * www - http://www.lumainformatica.com.br
@@ -19,8 +19,8 @@
 * SET DEVICE TO SCREEN
 *
 *
-* In HwGUI    
-* SET PRINTER TO "LPT1" OF oPrint 
+* In HwGUI
+* SET PRINTER TO "LPT1" OF oPrint
 * //SET DEVICE TO PRINTER
 * @ 10, 10 PSAY "PRINTER THIS DEMO" OF oPrint
 * @ hwg_wProw(oPrint), hwg_wPCol(oPrint)+1 PSAY " PROW AND PCOL+1 " OF oPrint
@@ -32,11 +32,9 @@
 *
 *************************************************************************************
 
-
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 #include "fileio.ch"
- 
+
 #define PF_BUFFERS   2048
 
 function Main

@@ -1,6 +1,6 @@
 /*
  * HWGUI using sample
- * 
+ *
  *
  * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
@@ -12,8 +12,7 @@ the Direct and Indirect way
 
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 FUNCTION Main
 Local oMain

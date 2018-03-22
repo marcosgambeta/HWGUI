@@ -6,8 +6,7 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 Function Main
 Local oMainWindow

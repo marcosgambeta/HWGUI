@@ -10,10 +10,8 @@
  * Demo for use Bitmap in menu
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
- 
 Function Main()
 Local oMain
 Private oMenu

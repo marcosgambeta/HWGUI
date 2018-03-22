@@ -1,13 +1,12 @@
 /*
  * HWGUI using sample
- * 
+ *
  *
  * Jose Augusto M de Andrade Jr - jamaj@terra.com.br
- * 
+ *
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 static aChilds := {}
 static Thisform

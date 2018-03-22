@@ -7,8 +7,8 @@
  *
 */
 
-
 #Include "hwgui.ch"
+
 STATIC Thisform
 
 Function Main ()

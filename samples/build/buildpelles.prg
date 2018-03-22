@@ -1,15 +1,15 @@
 /*
  *$Id: buildpelles.prg 2012 2013-03-07 09:03:56Z alkresin $
  *
- * HWGUI - Harbour Win32 GUI library 
- * 
+ * HWGUI - Harbour Win32 GUI library
+ *
  * File to Build APP using Pelles C Compiler
  * Copyright 2004 Sandro R. R. Freire <sandrorrfreire@yahoo.com.br>
  * www - http://www.lumainformatica.com.br
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
+
 #DEFINE  ID_EXENAME     10001
 #DEFINE  ID_LIBFOLDER   10002
 #DEFINE  ID_INCFOLDER   10003

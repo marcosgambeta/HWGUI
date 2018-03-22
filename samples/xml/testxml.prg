@@ -5,8 +5,7 @@
  * while run-time.
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 #include "hxml.ch"
 
 Function Main

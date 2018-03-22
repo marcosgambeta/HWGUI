@@ -2,11 +2,10 @@
  *$Id: testini.prg 2012 2013-03-07 09:03:56Z alkresin $
  *
  * HwGUI Samples
- * testini.prg - Test to use files ini 
+ * testini.prg - Test to use files ini
  */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 Function Main
 

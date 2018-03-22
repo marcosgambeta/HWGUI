@@ -1,13 +1,12 @@
 /*
  * HWGUI using sample
- * 
+ *
  *
  * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 // REQUEST HB_CODEPAGE_RU866
 // REQUEST HB_CODEPAGE_RU1251
@@ -561,4 +560,3 @@ INIT DIALOG oDlg TITLE "Sample HRect"    ;
    oDlg:Activate()
 
 return nil
-

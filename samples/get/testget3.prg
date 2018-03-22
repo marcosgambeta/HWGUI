@@ -1,7 +1,6 @@
 //ANNOUNCE HB_GT_DEFAULT_GUI
 //REQUEST HB_GT_GUI
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 Function Main
 Local oMainWindow

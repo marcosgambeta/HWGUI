@@ -1,9 +1,8 @@
 /*
  * $Id: browse_1.prg 2012 2013-03-07 09:03:56Z alkresin $
  */
- 
-#include "windows.ch"
-#include "guilib.ch"
+
+#include "hwgui.ch"
 
 Static nCount := 0
 Static oBrowse

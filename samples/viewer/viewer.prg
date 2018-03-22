@@ -8,8 +8,7 @@
  * www - http://kresin.belgorod.su
 */
 
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 #define SB_HORZ             0
 #define SB_VERT             1

@@ -1,5 +1,4 @@
-#include "windows.ch"
-#include "guilib.ch"
+#include "hwgui.ch"
 
 Function Main
 Local oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
