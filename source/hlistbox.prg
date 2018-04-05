@@ -15,14 +15,16 @@
 
 CLASS HListBox INHERIT HControl
 
-CLASS VAR winclass   INIT "LISTBOX"
-   DATA  aItems
-   DATA  bSetGet
-   DATA  value         INIT 1
-   DATA  nItemHeight
-   DATA  bChangeSel
-   DATA  bkeydown, bDblclick
-   DATA  bValid
+   CLASS VAR winclass INIT "LISTBOX"
+
+   DATA aItems
+   DATA bSetGet
+   DATA value       INIT 1
+   DATA nItemHeight
+   DATA bChangeSel
+   DATA bkeydown
+   DATA bDblclick
+   DATA bValid
 
    METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight, ;
               aItems,oFont,bInit,bSize,bPaint,bChange,cTooltip,tColor,bcolor,bGFocus,bLFocus, bKeydown, bDblclick,bOther )
@@ -45,7 +47,7 @@ CLASS VAR winclass   INIT "LISTBOX"
 ENDCLASS
 
 METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
-            bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther )  CLASS HListBox
+            bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther ) CLASS HListBox
 
    nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + LBS_DISABLENOSCROLL + LBS_NOTIFY + LBS_NOINTEGRALHEIGHT + WS_BORDER )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
@@ -65,9 +67,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ::bChangeSel := bChange
    ::bGetFocus := bGFocus
    ::bLostFocus := bLFocus
-    ::bKeydown := bKeydown
-    ::bDblclick := bDblclick
-      ::bOther := bOther
+   ::bKeydown := bKeydown
+   ::bDblclick := bDblclick
+   ::bOther := bOther
 
    IF bSetGet != Nil
       IF bGFocus != Nil
@@ -92,15 +94,17 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    RETURN Self
 
 METHOD Activate() CLASS HListBox
+
    IF ! Empty( ::oParent:handle )
       ::handle := hwg_Createlistbox( ::oParent:handle, ::id, ;
                                  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
    ENDIF
+
    RETURN Nil
 
 METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
-                 bChange, cTooltip, bKeydown, bOther )  CLASS HListBox
+                 bChange, cTooltip, bKeydown, bOther ) CLASS HListBox
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
               bSize, bPaint, cTooltip )
@@ -108,7 +112,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
    ::value   := IIf( vari == Nil .OR. ValType( vari ) != "N", 1, vari )
    ::bSetGet := bSetGet
    ::bKeydown := bKeydown
-    ::bOther := bOther
+   ::bOther := bOther
 
    IF aItems == Nil
       ::aItems := { }
@@ -120,9 +124,11 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
       ::bChangeSel := bChange
       ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, "onChange" )
    ENDIF
+
    RETURN Self
 
 METHOD Init() CLASS HListBox
+
    LOCAL i
 
    IF ! ::lInit
@@ -144,10 +150,12 @@ METHOD Init() CLASS HListBox
          hwg_Listboxsetstring( ::handle, ::value )
       ENDIF
    ENDIF
+
    RETURN Nil
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
- Local nEval
+
+   LOCAL nEval
 
    IF ::bOther != Nil
       IF (nEval := Eval( ::bOther,Self,msg,wParam,lParam )) != -1 .AND. nEval != Nil
@@ -159,7 +167,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
          RETURN - 1
       ENDIF
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+         hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
         //RETURN 0
       ENDIF
          IF ::bKeyDown != Nil .and. ValType( ::bKeyDown ) == 'B'
@@ -174,10 +182,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
    ELSEIF  msg = WM_GETDLGCODE .AND. ( wParam = VK_RETURN .OR.wParam = VK_ESCAPE ) .AND. ::bKeyDown != Nil
       RETURN DLGC_WANTALLKEYS  //DLGC_WANTARROWS + DLGC_WANTTAB + DLGC_WANTCHARS
    ENDIF
+
    RETURN -1
 
 METHOD Requery() CLASS HListBox
-   Local i
+
+   LOCAL i
 
    hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0)
    FOR i := 1 TO Len( ::aItems )
@@ -185,20 +195,24 @@ METHOD Requery() CLASS HListBox
    NEXT
    hwg_Listboxsetstring( ::handle, ::value )
    ::refresh()
-   Return Nil
 
+   RETURN Nil
 
 METHOD Refresh() CLASS HListBox
+
    LOCAL vari
+
    IF ::bSetGet != Nil
       vari := Eval( ::bSetGet )
    ENDIF
 
    ::value := IIf( vari == Nil .OR. ValType( vari ) != "N", 0, vari )
    ::SetItem( ::value )
+
    RETURN Nil
 
 METHOD SetItem( nPos ) CLASS HListBox
+
    ::value := nPos
    hwg_Sendmessage( ::handle, LB_SETCURSEL, nPos - 1, 0 )
 
@@ -209,17 +223,21 @@ METHOD SetItem( nPos ) CLASS HListBox
    IF ::bChangeSel != Nil
       Eval( ::bChangeSel, ::value, Self )
    ENDIF
+
    RETURN Nil
 
-METHOD onDblClick()  CLASS HListBox
-  IF ::bDblClick != Nil
-       ::oParent:lSuspendMsgsHandling := .T.
+METHOD onDblClick() CLASS HListBox
+
+   IF ::bDblClick != Nil
+      ::oParent:lSuspendMsgsHandling := .T.
       Eval( ::bDblClick, self, ::value )
-       ::oParent:lSuspendMsgsHandling := .F.
+      ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
+
    RETURN Nil
 
 METHOD AddItems( p ) CLASS HListBox
+
 // Local i
    AAdd( ::aItems, p )
    hwg_Listboxaddstring( ::handle, p )
@@ -228,6 +246,7 @@ METHOD AddItems( p ) CLASS HListBox
 //      hwg_Listboxaddstring( ::handle, ::aItems[i] )
 //   NEXT
    hwg_Listboxsetstring( ::handle, ::value )
+
    RETURN Self
 
 METHOD DeleteItem( nPos ) CLASS HListBox
@@ -241,17 +260,20 @@ METHOD DeleteItem( nPos ) CLASS HListBox
       ENDIF
       RETURN .T.
    ENDIF
+
    RETURN .F.
 
 METHOD Clear() CLASS HListBox
+
    ::aItems := { }
    ::value := 0
    hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
    hwg_Listboxsetstring( ::handle, ::value )
+
    RETURN .T.
 
-
 METHOD onChange( oCtrl ) CLASS HListBox
+
    LOCAL nPos
 
    HB_SYMBOL_UNUSED( oCtrl )
@@ -261,14 +283,14 @@ METHOD onChange( oCtrl ) CLASS HListBox
 
    RETURN Nil
 
-
 METHOD When( oCtrl ) CLASS HListBox
-   LOCAL res := .t., nSkip
+
+   LOCAL res := .T., nSkip
 
    HB_SYMBOL_UNUSED( oCtrl )
 
-   IF ! hwg_CheckFocus( Self, .f. )
-      RETURN .t.
+   IF ! hwg_CheckFocus( Self, .F. )
+      RETURN .T.
    ENDIF
     nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
    IF ::bSetGet != Nil
@@ -276,27 +298,28 @@ METHOD When( oCtrl ) CLASS HListBox
    ENDIF
    IF ::bGetFocus != Nil
       ::lnoValid := .T.
-      ::oparent:lSuspendMsgsHandling := .t.
+      ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::Value, Self )
-      ::oparent:lSuspendMsgsHandling := .f.
+      ::oparent:lSuspendMsgsHandling := .F.
       ::lnoValid := ! res
       IF ! res
          hwg_WhenSetFocus( Self, nSkip )
       ELSE
-         ::Setfocus()      
+         ::Setfocus()
       ENDIF
    ENDIF
+
    RETURN res
 
-
 METHOD Valid( oCtrl ) CLASS HListBox
+
    LOCAL res, oDlg
    //LOCAL ltab :=  hwg_Getkeystate( VK_TAB ) < 0, , nSkip
 
    HB_SYMBOL_UNUSED( oCtrl )
 
-   IF ! hwg_CheckFocus( Self, .t. ) .or. ::lNoValid
-      RETURN .t.
+   IF ! hwg_CheckFocus( Self, .T. ) .or. ::lNoValid
+      RETURN .T.
    ENDIF
    //nSkip := IIf( hwg_Getkeystate( VK_SHIFT ) < 0 , - 1, 1 )
    IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
@@ -308,9 +331,9 @@ METHOD Valid( oCtrl ) CLASS HListBox
          oDlg:nLastKey := 27
       ENDIF
       IF ::bLostFocus != Nil
-         ::oparent:lSuspendMsgsHandling := .t.
+         ::oparent:lSuspendMsgsHandling := .T.
          res := Eval( ::bLostFocus, ::value, Self )
-         ::oparent:lSuspendMsgsHandling := .f.
+         ::oparent:lSuspendMsgsHandling := .F.
          IF ! res
             ::Setfocus( .T. ) //( ::handle )
             IF oDlg != Nil
@@ -335,4 +358,5 @@ METHOD Valid( oCtrl ) CLASS HListBox
       hwg_GetSkip( ::oparent, ::handle,, nSkip )
    ENDIF
    */
+
    RETURN .T.
