@@ -173,7 +173,7 @@ METHOD Savedc() CLASS HDC
    IF ( ! Empty( ::m_hAttribDC ) )
       nRetVal := hwg_Savedc( ::m_hAttribDC )
    ENDIF
-   IF ( ::m_hDC != ::m_hAttribDC .and. hwg_Savedc( ::m_hDC ) != 0 )
+   IF ( ::m_hDC != ::m_hAttribDC .AND. hwg_Savedc( ::m_hDC ) != 0 )
       nRetVal := - 1   // -1 is the only valid restore value for complex DCs
    ENDIF
 
@@ -188,7 +188,7 @@ METHOD Restoredc( nSavedDC ) CLASS HDC
       bRetVal := hwg_Restoredc( ::m_hDC, nSavedDC )
    ENDIF
    IF ( ! Empty( ::m_hAttribDC ) )
-      bRetVal := ( bRetVal .and. hwg_Restoredc( ::m_hAttribDC, nSavedDC ) )
+      bRetVal := ( bRetVal .AND. hwg_Restoredc( ::m_hAttribDC, nSavedDC ) )
    ENDIF
 
    RETURN bRetVal

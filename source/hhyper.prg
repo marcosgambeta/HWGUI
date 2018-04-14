@@ -237,10 +237,10 @@ METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
    //hwg_Shellexecute(NULL              , _T("open")                             , csLink.operator LPCTSTR(), NULL                                 , NULL                                   , 2);
 
    IF hInstance < 33
-      RETURN .f.
+      RETURN .F.
    ENDIF
 
-   RETURN .t.
+   RETURN .T.
 
 METHOD GetLinkText() CLASS HStaticLink
 
@@ -301,7 +301,7 @@ METHOD OnSetCursor( pWnd, nHitTest, message ) CLASS HStaticLink
 
    hwg_SetCursor( ::m_hHyperCursor )
 
-   RETURN .t.
+   RETURN .T.
 
 METHOD SetLinkText( csLinkText ) CLASS HStaticLink
 
@@ -320,7 +320,7 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
 
    LOCAL xPos
    LOCAL yPos
-   LOCAL res  := .f.
+   LOCAL res  := .F.
 
    HB_SYMBOL_UNUSED( nFlags )
 
@@ -336,15 +336,15 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
            res := .T.
         ENDIF
       ENDIF
-      IF ( res .AND. ! ::m_bVisited ) .or. ( res .AND. ::m_bVisited )
+      IF ( res .AND. ! ::m_bVisited ) .OR. ( res .AND. ::m_bVisited )
          ::state := LBL_NORMAL
          /*
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
          */
       ENDIF
-      IF ( ::state == LBL_NORMAL .AND. ! res ) .or. ;
-         ( ::state == LBL_NORMAL .AND. ! res .and. ::m_bVisited )
+      IF ( ::state == LBL_NORMAL .AND. ! res ) .OR. ;
+         ( ::state == LBL_NORMAL .AND. ! res .AND. ::m_bVisited )
          ::state := LBL_MOUSEOVER
          hwg_Invalidaterect( ::handle, 0 )
     	    hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
@@ -389,7 +389,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    ENDIF
 
    IF  ValType( ::hbitmap ) == "N"
-      bHasTitle := ValType( strtext ) == "C" .and. ! Empty( strtext )
+      bHasTitle := ValType( strtext ) == "C" .AND. ! Empty( strtext )
       itemRect[ 4 ] := aBmpSize[ 2 ] + 1
       bmpRect := hwg_Prepareimagerect( ::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle )
       itemRect[ 4 ] := drawInfo[ 7 ]

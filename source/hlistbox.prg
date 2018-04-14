@@ -170,7 +170,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
          hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
         //RETURN 0
       ENDIF
-         IF ::bKeyDown != Nil .and. ValType( ::bKeyDown ) == 'B'
+         IF ::bKeyDown != Nil .AND. ValType( ::bKeyDown ) == 'B'
          ::oparent:lSuspendMsgsHandling := .T.
          nEval := Eval( ::bKeyDown, Self, wParam )
          IF (VALTYPE( nEval ) == "L" .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != Nil )
@@ -292,7 +292,7 @@ METHOD When( oCtrl ) CLASS HListBox
    IF ! hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
-    nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
+    nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
    IF ::bSetGet != Nil
       Eval( ::bSetGet, ::value, Self )
    ENDIF
@@ -318,7 +318,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
 
    HB_SYMBOL_UNUSED( oCtrl )
 
-   IF ! hwg_CheckFocus( Self, .T. ) .or. ::lNoValid
+   IF ! hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
       RETURN .T.
    ENDIF
    //nSkip := IIf( hwg_Getkeystate( VK_SHIFT ) < 0 , - 1, 1 )

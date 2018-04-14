@@ -33,7 +33,7 @@ ENDCLASS
 METHOD New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid ) CLASS TVideo
 
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", ;
-   lNoBorder TO .f.
+   lNoBorder TO .F.
 
    ::nTop      := nRow *  VID_CHARPIX_H  // 8
    ::nLeft     := nCol * VID_CHARPIX_W   // 14

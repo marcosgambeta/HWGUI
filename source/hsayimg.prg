@@ -117,7 +117,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ENDIF
 
    IF Image != NIL .AND. ! Empty( Image )
-      IF lRes == NIL ; lRes := .F. ; ENDIF
+      IF lRes == NIL
+         lRes := .F.
+      ENDIF
       ::oImage := IIf( lRes .OR. ValType( Image ) == "N",     ;
             HBitmap():AddResource( Image ), ;
             IIf( ValType( Image ) == "C",     ;
@@ -140,7 +142,9 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp 
       ::BackStyle := TRANSPARENT
       ::extStyle +=  WS_EX_TRANSPARENT
    ENDIF
-   IF lRes == NIL ; lRes := .F. ; ENDIF
+   IF lRes == NIL
+      lRes := .F.
+   ENDIF
    ::oImage := IIf( lRes .OR. ValType( xImage ) == "N",     ;
          HBitmap():AddResource( xImage ), ;
          IIf( ValType( xImage ) == "C",     ;
@@ -200,7 +204,9 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
    IF ::oImage != NIL
       ::oImage:Release()
    ENDIF
-   IF lRes == NIL ; lRes := .F. ; ENDIF
+   IF lRes == NIL
+      lRes := .F.
+   ENDIF
    ::oImage := IIf( lRes .OR. ValType( Image ) == "N",     ;
          HBitmap():AddResource( Image ), ;
          IIf( ValType( Image ) == "C",     ;
@@ -224,8 +230,12 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 
    ::Super:New( oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick )
 
-   IF lRes == NIL ; lRes := .F. ; ENDIF
-   IF lOEM == NIL ; lOEM := .F. ; ENDIF
+   IF lRes == NIL
+      lRes := .F.
+   ENDIF
+   IF lOEM == NIL
+      lOEM := .F.
+   ENDIF
    IF ::oImage == NIL
       ::oImage := IIf( lRes .OR. ValType( Image ) == "N",  ;
             HIcon():AddResource( Image,,,, lOEM ),  ;
@@ -240,7 +250,9 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip ) CLASS H
 
    ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
 
-   IF lRes == NIL ; lRes := .F. ; ENDIF
+   IF lRes == NIL
+      lRes := .F.
+   ENDIF
    IF ::oImage == NIL
       ::oImage := IIf( lRes .OR. ValType( xImage ) == "N",   ;
             HIcon():AddResource( xImage ), ;

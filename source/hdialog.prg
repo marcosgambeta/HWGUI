@@ -554,7 +554,7 @@ STATIC FUNCTION onActivate( oDlg, wParam, lParam )
    ENDIF
    IF  iParLow = WA_ACTIVE  .AND. hwg_Selffocus( lParam, oDlg:Handle )
       IF ValType( oDlg:bOnActivate ) == "B"
-         //- oDlg:lSuspendMsgsHandling := .t.
+         //- oDlg:lSuspendMsgsHandling := .T.
          Eval( oDlg:bOnActivate, oDlg )
          //-oDlg:lSuspendMsgsHandling := .F.
       ENDIF
@@ -730,8 +730,12 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
 
    LOCAL i, aKeys, bOldSet
 
-   IF oDlg == Nil ; oDlg := HCustomWindow():oDefaultParent ; ENDIF
-   IF nctrl == Nil ; nctrl := 0 ; ENDIF
+   IF oDlg == Nil
+      oDlg := HCustomWindow():oDefaultParent
+   ENDIF
+   IF nctrl == Nil
+      nctrl := 0
+   ENDIF
 
    IF ! __ObjHasMsg( oDlg, "KEYLIST" )
       RETURN nil

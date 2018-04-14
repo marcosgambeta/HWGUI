@@ -245,9 +245,9 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    LOCAL i, j, cType
    LOCAL nLeft, nTop, nWidth, nHeight, cTitle, oFont, lClipper := .F., lExitOnEnter := .F.
    LOCAL xProperty, block, bFormExit, nstyle
-   LOCAL lModal := .f.
+   LOCAL lModal := .F.
    LOCAL lMdi := .F.
-   LOCAL lMdiChild := .f.
+   LOCAL lMdiChild := .F.
    LOCAL cBitmap := NIL
    LOCAL oBmp := NIL
    MEMVAR oDlg
@@ -443,7 +443,7 @@ METHOD F( id, n ) CLASS HFormTmpl
    RETURN IIf( i == 0, NIL, ::aForms[ i ] )
 
 METHOD Find( cId ) CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, { | o | o:cId != NIL .and. o:cId == cId } )
+   LOCAL i := AScan( ::aForms, { | o | o:cId != NIL .AND. o:cId == cId } )
 
    RETURN IIf( i == 0, NIL, ::aForms[ i ] )
 
@@ -764,7 +764,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ENDIF
       ELSEIF cPName == "justify"
          nStyle += IIf( xProperty == "Center", SS_CENTER, IIf( xProperty == "Right", SS_RIGHT, 0 ) )
-      ELSEIF cPName == "multiline" .or. cPName == "wordwrap"
+      ELSEIF cPName == "multiline" .OR. cPName == "wordwrap"
          IF xProperty
             nStyle += ES_MULTILINE
          ENDIF
@@ -1062,7 +1062,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
                m->nLength := j[ i, 3 ] //len(&(FieldName(i)))
                m->nDec := j[ i, 4 ]
                m->cPicture := NIL
-               lEdit := .t.
+               lEdit := .T.
                oCtrl:AddColumn( HColumn():New( cHeader, fBlock, cValType, nLength, nDec, lEdit ) )
             NEXT
          ENDIF
@@ -1614,7 +1614,7 @@ METHOD ReleaseObj( aControls ) CLASS HRepTmpl
    RETURN NIL
 
 METHOD Find( cId ) CLASS HRepTmpl
-   LOCAL i := AScan( ::aReports, { | o | o:cId != NIL .and. o:cId == cId } )
+   LOCAL i := AScan( ::aReports, { | o | o:cId != NIL .AND. o:cId == cId } )
 
    RETURN IIf( i == 0, NIL, ::aReports[ i ] )
 

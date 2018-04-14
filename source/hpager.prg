@@ -57,7 +57,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
    HB_SYMBOL_UNUSED( cCaption )
 
-   DEFAULT  lvert  TO .f.
+   DEFAULT  lvert  TO .F.
    ::lvert := lvert
    nStyle   := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ), ;
                           WS_VISIBLE + WS_CHILD + IIF( lvert, PGS_VERT, PGS_HORZ ) )
@@ -77,7 +77,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
    HB_SYMBOL_UNUSED( cCaption )
 
-   DEFAULT  lVert TO .f.
+   DEFAULT  lVert TO .F.
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor )
    HWG_InitCommonControlsEx()

@@ -46,8 +46,12 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
       lVertical, TickStyle, TickMarks ) CLASS HTrackBar
 
-   IF TickStyle == NIL ; TickStyle := TBS_AUTOTICKS ; ENDIF
-   IF TickMarks == NIL ; TickMarks := 0 ; ENDIF
+   IF TickStyle == NIL
+      TickStyle := TBS_AUTOTICKS
+   ENDIF
+   IF TickMarks == NIL
+      TickMarks := 0
+   ENDIF
    IF bPaint != NIL
       TickStyle := Hwg_BitOr( TickStyle, TBS_AUTOTICKS )
    ENDIF
@@ -104,7 +108,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
    ELSEIF msg == WM_CHAR
       IF wParam = VK_TAB
          hwg_GetSkip( ::oParent, ::handle, , ;
-               iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+               iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0
       ENDIF
     ELSEIF msg = WM_KEYDOWN

@@ -118,7 +118,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::lMultiLine := .T.
       ::lWantReturn := Hwg_BitAnd( nStyle, ES_WANTRETURN ) != 0
    ENDIF
-   IF ( nMaxLength != Nil .AND. ! Empty( nMaxLength ) ) //.AND. (  Empty( cPicture ) .or. cPicture == Nil)
+   IF ( nMaxLength != Nil .AND. ! Empty( nMaxLength ) ) //.AND. (  Empty( cPicture ) .OR. cPicture == Nil)
       ::nMaxLength := nMaxLength
    ENDIF
    IF ::cType == "N" .AND. Hwg_BitAnd( nStyle, ES_LEFT + ES_CENTER ) == 0
@@ -253,7 +253,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
             ELSEIF wParam == VK_TAB
                IF ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. ;
                      ! hwg_GetParentForm( Self ):lModal )
-                  //- hwg_GetSkip( oParent, ::handle, , iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+                  //- hwg_GetSkip( oParent, ::handle, , iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
                ENDIF
                RETURN 0
             ELSEIF wParam == VK_ESCAPE
@@ -590,8 +590,12 @@ FUNCTION hwg_IsCtrlShift( lCtrl, lShift )
 
    LOCAL cKeyb := hwg_Getkeyboardstate()
 
-   IF lCtrl == Nil ; lCtrl := .T. ; ENDIF
-   IF lShift == Nil ; lShift := .T. ; ENDIF
+   IF lCtrl == Nil
+      lCtrl := .T.
+   ENDIF
+   IF lShift == Nil
+      lShift := .T.
+   ENDIF
 
    RETURN ( lCtrl .AND. ( Asc( SubStr( cKeyb, VK_CONTROL + 1, 1 ) ) >= 128 ) ) .OR. ;
       ( lShift .AND. ( Asc( SubStr( cKeyb, VK_SHIFT + 1, 1 ) ) >= 128 ) )

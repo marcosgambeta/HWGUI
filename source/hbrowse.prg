@@ -1327,14 +1327,26 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
 
    // Validate some variables
 
-   IF ::tcolor == NIL ; ::tcolor := 0 ; ENDIF
-   IF ::bcolor == NIL ; ::bcolor := hwg_VColor( "FFFFFF" ) ; ENDIF
+   IF ::tcolor == NIL
+      ::tcolor := 0
+   ENDIF
+   IF ::bcolor == NIL
+      ::bcolor := hwg_VColor( "FFFFFF" )
+   ENDIF
 
-   IF ::httcolor == NIL ; ::httcolor := hwg_Getsyscolor( COLOR_HIGHLIGHTTEXT ) ; ENDIF
-   IF ::htbcolor == NIL ; ::htbcolor := hwg_Getsyscolor( COLOR_HIGHLIGHT )  ; ENDIF
+   IF ::httcolor == NIL
+      ::httcolor := hwg_Getsyscolor( COLOR_HIGHLIGHTTEXT )
+   ENDIF
+   IF ::htbcolor == NIL
+      ::htbcolor := hwg_Getsyscolor( COLOR_HIGHLIGHT )
+   ENDIF
 
-   IF ::tcolorSel == NIL ; ::tcolorSel := hwg_VColor( "FFFFFF" ) ; ENDIF
-   IF ::bcolorSel == NIL ; ::bcolorSel := hwg_VColor( "808080" ) ; ENDIF
+   IF ::tcolorSel == NIL
+      ::tcolorSel := hwg_VColor( "FFFFFF" )
+   ENDIF
+   IF ::bcolorSel == NIL
+      ::bcolorSel := hwg_VColor( "808080" )
+   ENDIF
 
    // Open Paint procedure
 
@@ -2049,7 +2061,9 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowse
 
    nColumn := 1
    x := ::x1
-   IF lClear == NIL ; lClear := .F. ; ENDIF
+   IF lClear == NIL
+      lClear := .F.
+   ENDIF
    IF ::bLineOut != NIL
       Eval( ::bLineOut, Self, lSelected )
    ENDIF
@@ -3377,7 +3391,7 @@ METHOD When() CLASS HBrowse
 METHOD Valid() CLASS HBrowse
    LOCAL res
 
-   //IF ::bLostFocus != NIL .AND. ( ! hwg_CheckFocus( Self, .t. ) .OR.::lNoValid  )
+   //IF ::bLostFocus != NIL .AND. ( ! hwg_CheckFocus( Self, .T. ) .OR.::lNoValid  )
    IF !hwg_CheckFocus( self, .T. ) .OR. ::lNoValid
       RETURN .T.
    ENDIF

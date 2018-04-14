@@ -23,7 +23,7 @@ CLASS VAR cPath SHARED
    DATA state
    DATA bClick
    DATA lPress  INIT .F.
-   DATA lCheck  INIT .f.
+   DATA lCheck  INIT .F.
    DATA xt, yt, widtht, heightt
    DATA oBitmap, xb, yb, widthb, heightb, lTransp, trColor
    DATA lEnabled INIT .T.
@@ -138,7 +138,7 @@ METHOD Activate() CLASS HOwnButton
                                 ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
       IF ! ::lEnabled
-         hwg_Enablewindow( ::handle, .f. )
+         hwg_Enablewindow( ::handle, .F. )
          ::Disable()
       ENDIF
    ENDIF
@@ -488,12 +488,12 @@ METHOD Release()  CLASS HOwnButton
 
 
 METHOD onGetFocus()  CLASS HOwnButton
-   LOCAL res := .t., nSkip
+   LOCAL res := .T., nSkip
 
-   IF ::bGetFocus == Nil .OR. !hwg_CheckFocus(Self, .f.)
-      RETURN .t.
+   IF ::bGetFocus == Nil .OR. !hwg_CheckFocus(Self, .F.)
+      RETURN .T.
    ENDIF
-   nSkip := iif( hwg_Getkeystate( VK_UP ) < 0 .or. (hwg_Getkeystate( VK_TAB ) < 0 .and. hwg_Getkeystate(VK_SHIFT) < 0 ), -1, 1 )
+   nSkip := iif( hwg_Getkeystate( VK_UP ) < 0 .OR. (hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), -1, 1 )
    IF ::bGetFocus != Nil
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::title, Self )
@@ -506,7 +506,7 @@ METHOD onGetFocus()  CLASS HOwnButton
 
 METHOD onLostFocus()  CLASS HOwnButton
 
-    IF ::bLostFocus != Nil .AND. !hwg_CheckFocus(Self, .t.)
+    IF ::bLostFocus != Nil .AND. !hwg_CheckFocus(Self, .T.)
        RETURN .T.
    ENDIF
     IF ::bLostFocus != Nil

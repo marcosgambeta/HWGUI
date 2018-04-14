@@ -142,7 +142,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       nPos := Len( aMenuInit[ 1 ] )
       aMenu := aMenuInit[ 1, nPosParent ]
       /* This code just for sure menu runtime hfrmtmpl.prg is enable */
-      IIf( ValType( aMenu[ 4 ] ) == "L", aMenu[ 4 ] := .f., )
+      IIf( ValType( aMenu[ 4 ] ) == "L", aMenu[ 4 ] := .F., )
       hMenu := hwg__AddMenuItem( hMenu, aMenu[ 2 ], nPos + 1, .T., aMenu[ 3 ], aMenu[ 4 ], .T. )
       IF Len( aMenu ) < 5
          AAdd( aMenu, hMenu )
@@ -158,7 +158,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       ELSE
          IF aMenu[ 1, nPos, 1 ] == Nil .OR. aMenu[ 1, nPos, 2 ] != Nil
             /* This code just for sure menu runtime hfrmtmpl.prg is enable */
-            IIf( ValType( aMenu[ 1, nPos, 4 ] ) == "L", aMenu[ 1, nPos, 4 ] := .f., )
+            IIf( ValType( aMenu[ 1, nPos, 4 ] ) == "L", aMenu[ 1, nPos, 4 ] := .F., )
             hwg__AddMenuItem( hMenu, aMenu[ 1, nPos, 2 ], nPos, .T., ;
                               aMenu[ 1, nPos, 3 ], aMenu[ 1, nPos, 4 ], .F. )
             oBmp := Hwg_SearchPosBitmap( aMenu[ 1, nPos, 3 ] )
@@ -235,7 +235,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    LOCAL aMenu, i, oBmp, nFlag
 
    lCheck := IIf( lCheck == Nil, .F., lCheck )
-   lDisabled := IIf( lDisabled == Nil, .f., lDisabled )
+   lDisabled := IIf( lDisabled == Nil, .F., lDisabled )
    nFlag := Hwg_BitOr( IIf( lCheck, FLAG_CHECK, 0 ), IIf( lDisabled, FLAG_DISABLED, 0 ) )
 
    aMenu := _aMenuDef
@@ -247,14 +247,16 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    ENDIF
    nId := IIf( nId == Nil .AND. cItem != Nil, ++ _Id, nId )
    AAdd( aMenu, { bItem, cItem, nId, nFlag } )
-   IF lBitmap != Nil .or. ! Empty( lBitmap )
-      IF lResource == Nil ;lResource := .F. ; ENDIF
+   IF lBitmap != Nil .OR. ! Empty( lBitmap )
+      IF lResource == Nil
+         lResource := .F.
+      ENDIF
       IF lResource .OR. AT("." ,lBitmap ) = 0
          oBmp := HBitmap():AddResource( lBitmap, LR_LOADMAP3DCOLORS + LR_SHARED + LR_LOADTRANSPARENT , ,s_nWidthBmp, s_nHeightBmp  )
       ELSE
          oBmp := HBitmap():AddFile( lBitmap, , .T. , s_nWidthBmp, s_nHeightBmp  )
       ENDIF
-      AAdd( _oBitmap, { .t., oBmp:Handle, cItem, nId } )
+      AAdd( _oBitmap, { .T., oBmp:Handle, cItem, nId } )
    ELSE
       AAdd( _oBitmap, { .F., "", cItem, nId } )
    ENDIF
@@ -288,7 +290,7 @@ FUNCTION Hwg_InsertBitmapMenu( aMenu, nId, lBitmap, oResource )
    LOCAL oMenu, oBmp
 
    //Serge(seohic) sugest
-   IF oResource == Nil .or. ! oResource
+   IF oResource == Nil .OR. ! oResource
       oBmp := HBitmap():AddFile( lBitmap )
    ELSE
       oBmp := HBitmap():AddResource( lBitmap )

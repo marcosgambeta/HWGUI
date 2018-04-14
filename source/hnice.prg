@@ -64,7 +64,7 @@ METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
    DEFAULT b := ::b
 
    DEFAULT r := ::r
-   ::lFlat  := .t.
+   ::lFlat  := .T.
    ::bClick := bClick
    ::nOrder  := IIf( oWndParent == nil, 0, Len( oWndParent:aControls ) )
 
@@ -94,7 +94,7 @@ METHOD Redefine( oWndParent, nId, nStyleEx, ;
    DEFAULT b := ::b
    DEFAULT r := ::r
 
-   ::lFlat  := .t.
+   ::lFlat  := .T.
 
    ::bClick := bClick
 
@@ -180,7 +180,7 @@ METHOD Size( ) CLASS HNICEButton
 
 METHOD Moving( ) CLASS HNICEButton
 
-   ::State := .f.
+   ::State := .F.
    hwg_Invalidaterect( ::Handle, 0, 0 )
 
    RETURN Self

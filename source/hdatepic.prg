@@ -148,7 +148,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HDatePicker
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB
-        hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.f., .t.), -1, 1) )
+        hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
         RETURN 0
       ELSEIF wParam == VK_RETURN
          hwg_GetSkip( ::oParent, ::handle, , 1 )
@@ -256,13 +256,13 @@ METHOD onChange( nMess ) CLASS HDatePicker
    RETURN .T.
 
 METHOD When( ) CLASS HDatePicker
-   LOCAL res := .t.,  nSkip
+   LOCAL res := .T.,  nSkip
 
-   IF ! hwg_CheckFocus( Self, .f. )
-      RETURN .t.
+   IF ! hwg_CheckFocus( Self, .F. )
+      RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .or. ( hwg_Getkeystate( VK_TAB ) < 0 .and. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
+      nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
       res :=  Eval( ::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
@@ -279,7 +279,7 @@ METHOD When( ) CLASS HDatePicker
    RETURN res
 
 METHOD Valid( ) CLASS HDatePicker
-   LOCAL  res := .t.
+   LOCAL  res := .T.
 
    IF ! hwg_CheckFocus( Self, .T. ) .OR. ::lnoValid
       RETURN .T.

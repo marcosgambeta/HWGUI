@@ -333,7 +333,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,
       ::aImages := { }
       FOR i := 1 TO Len( aImages )
          AAdd( ::aImages, Upper( aImages[ i ] ) )
-         aImages[ i ] := IIf( lResour <> NIL.and.lResour, hwg_Loadbitmap( aImages[ i ] ), hwg_Openbitmap( aImages[ i ] ) )
+         aImages[ i ] := IIf( lResour <> NIL.AND.lResour, hwg_Loadbitmap( aImages[ i ] ), hwg_Openbitmap( aImages[ i ] ) )
       NEXT
       aBmpSize := hwg_Getbitmapsize( aImages[ 1 ] )
       ::himl := hwg_Createimagelist( aImages, aBmpSize[ 1 ], aBmpSize[ 2 ], 12, nBC )
@@ -577,14 +577,14 @@ METHOD Notify( lParam )  CLASS HTree
          ENDIF
       ENDIF
 	
-   ELSEIF nCode == TVN_BEGINLABELEDIT .or. nCode == TVN_BEGINLABELEDITW
+   ELSEIF nCode == TVN_BEGINLABELEDIT .OR. nCode == TVN_BEGINLABELEDITW
       ::hTreeEdit := hwg_Sendmessage( ::Handle, TVM_GETEDITCONTROL, 0, 0 )
       s_aEvents := aClone( ::oParent:aEvents )
       ::oParent:AddEvent( 0, IDOK, { || hwg_Sendmessage( ::handle, TVM_ENDEDITLABELNOW , 0, 0 ) } )
       ::oParent:AddEvent( 0, IDCANCEL, { || hwg_Sendmessage( ::handle, TVM_ENDEDITLABELNOW , 1, 0 ) } )
       hwg_Sendmessage( ::hTreeEdit, WM_KEYDOWN, VK_END, 0 )
 
-   ELSEIF nCode == TVN_ENDLABELEDIT  .or. nCode == TVN_ENDLABELEDITW
+   ELSEIF nCode == TVN_ENDLABELEDIT  .OR. nCode == TVN_ENDLABELEDITW
       ::hTreeEdit := Nil
       IF ! Empty( cText := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDIT ) )
          oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDITPARAM )
@@ -597,7 +597,7 @@ METHOD Notify( lParam )  CLASS HTree
       ENDIF
       ::oParent:aEvents := s_aEvents
       
-   ELSEIF nCode == TVN_ITEMEXPANDING .or. nCode == TVN_ITEMEXPANDINGW
+   ELSEIF nCode == TVN_ITEMEXPANDING .OR. nCode == TVN_ITEMEXPANDINGW
       oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_PARAM )
       IF ValType( oItem ) == "O"
          IF ::bExpand != Nil
@@ -657,7 +657,7 @@ METHOD Notify( lParam )  CLASS HTree
       ENDIF
       
       /* working only windows 7
-   ELSEIF nCode == - 24 .and. ::oitem != Nil
+   ELSEIF nCode == - 24 .AND. ::oitem != Nil
       //nhitem := hwg_Treehittest( ::handle,,, @nAct )
       IF ::bCheck != Nil
          lEval := Eval( ::bCheck, ! ::oItem:checked, ::oItem, Self )

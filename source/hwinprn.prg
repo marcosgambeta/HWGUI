@@ -78,12 +78,24 @@ Return Self
 
 METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder ) CLASS HWinPrn
 
-   IF lElite != Nil; ::lElite := lElite;  ENDIF
-   IF lCond != Nil; ::lCond := lCond;  ENDIF
-   IF nLineInch != Nil; ::nLineInch := nLineInch;  ENDIF
-   IF lBold != Nil; ::lBold := lBold;  ENDIF
-   IF lItalic != Nil; ::lItalic := lItalic;  ENDIF
-   IF lUnder != Nil; ::lUnder := lUnder;  ENDIF
+   IF lElite != Nil
+      ::lElite := lElite
+   ENDIF
+   IF lCond != Nil
+      ::lCond := lCond
+   ENDIF
+   IF nLineInch != Nil
+      ::nLineInch := nLineInch
+   ENDIF
+   IF lBold != Nil
+      ::lBold := lBold
+   ENDIF
+   IF lItalic != Nil
+      ::lItalic := lItalic
+   ENDIF
+   IF lUnder != Nil
+      ::lUnder := lUnder
+   ENDIF
    ::lChanged := .T.
 
 Return Nil
@@ -121,16 +133,26 @@ Local nMode := 0, oFont, nWidth, nPWidth
          oFont:Release()
       ENDIF
 
-      IF ::lElite; nMode++; ENDIF
-      IF ::lCond; nMode += 2; ENDIF
+      IF ::lElite
+         nMode++
+      ENDIF
+      IF ::lCond
+         nMode += 2
+      ENDIF
 
       ::nLineHeight := ( ::nStdHeight / aKoef[nMode+1] ) * ::oPrinter:nVRes
       ::nLined := ( 25.4 * ::oPrinter:nVRes ) / ::nLineInch - ::nLineHeight
 
 #ifdef __GTK__
-      IF ::lBold; cFont += "Bold"; ENDIF
-      IF ::lItalic; cFont += "Italic"; ENDIF
-      IF !::lBold .AND. !::lItalic; cFont += "Regular"; ENDIF
+      IF ::lBold
+         cFont += "Bold"
+      ENDIF
+      IF ::lItalic
+         cFont += "Italic"
+      ENDIF
+      IF !::lBold .AND. !::lItalic
+         cFont += "Regular"
+      ENDIF
       oFont := ::oPrinter:AddFont( cFont, ::nLineHeight )
 #else
       oFont := ::oPrinter:AddFont( "Lucida Console", ::nLineHeight, ::lBold, ::lItalic, ::lUnder, 204 )
@@ -283,18 +305,18 @@ Return Nil
 
 METHOD PutCode( cLine ) CLASS HWinPrn
 Static aCodes := {   ;
-   { Chr(27)+'@',.f.,.f.,6,.f.,.f.,.f. },  ;     /* Reset */
-   { Chr(27)+'M',.t.,,,,, },  ;     /* Elite */
-   { Chr(15),,.t.,,,, },      ;     /* Cond */
-   { Chr(18),,.f.,,,, },      ;     /* Cancel Cond */
+   { Chr(27)+'@',.F.,.F.,6,.F.,.F.,.F. },  ;     /* Reset */
+   { Chr(27)+'M',.T.,,,,, },  ;     /* Elite */
+   { Chr(15),,.T.,,,, },      ;     /* Cond */
+   { Chr(18),,.F.,,,, },      ;     /* Cancel Cond */
    { Chr(27)+'0',,,8,,, },    ;     /* 8 lines per inch */
    { Chr(27)+'2',,,6,,, },    ;     /* 6 lines per inch ( standard ) */
-   { Chr(27)+'-1',,,,,,.t. }, ;     /* underline */
-   { Chr(27)+'-0',,,,,,.f. }, ;     /* cancel underline */
-   { Chr(27)+'4',,,,,.t., },  ;     /* italic */
-   { Chr(27)+'5',,,,,.f., },  ;     /* cancel italic */
-   { Chr(27)+'G',,,,,.t., },  ;     /* bold */
-   { Chr(27)+'H',,,,.f.,, }   ;     /* cancel bold */
+   { Chr(27)+'-1',,,,,,.T. }, ;     /* underline */
+   { Chr(27)+'-0',,,,,,.F. }, ;     /* cancel underline */
+   { Chr(27)+'4',,,,,.T., },  ;     /* italic */
+   { Chr(27)+'5',,,,,.F., },  ;     /* cancel italic */
+   { Chr(27)+'G',,,,,.T., },  ;     /* bold */
+   { Chr(27)+'H',,,,.F.,, }   ;     /* cancel bold */
  }
 Local i, sLen := Len( aCodes ), c := Left( cLine,1 )
 

@@ -348,7 +348,9 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
       AAdd( aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ) )
    NEXT
 
-   IF cTitle == NIL ; cTitle := "Print preview - " + ::cPrinterName ; ENDIF
+   IF cTitle == NIL
+      cTitle := "Print preview - " + ::cPrinterName
+   ENDIF
    ::nZoom := 0
    ::nCurrPage := 1
    ::NeedsRedraw := .T.

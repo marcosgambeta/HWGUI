@@ -97,10 +97,16 @@ METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight, ;
 
    ::Increment := IIF( nIncr = Nil, 1, nIncr )
    ::styleUpDown := UDS_ALIGNRIGHT  + UDS_ARROWKEYS + UDS_NOTHOUSANDS //+ UDS_SETBUDDYINT //+ UDS_HORZ
-   IF nLower != Nil ; ::nLower := nLower ; ENDIF
-   IF nUpper != Nil ; ::nUpper := nUpper ; ENDIF
+   IF nLower != Nil
+      ::nLower := nLower
+   ENDIF
+   IF nUpper != Nil
+      ::nUpper := nUpper
+   ENDIF
    // width of spinner
-   IF nUpDWidth != Nil ; ::nUpDownWidth := nUpDWidth ; ENDIF
+   IF nUpDWidth != Nil
+      ::nUpDownWidth := nUpDWidth
+   ENDIF
    ::nMaxLength :=  nMaxLength //= Nil, 4, nMaxLength )
    ::cPicture := IIF( cPicture = Nil, Replicate("9", 4), cPicture )
    ::lNoBorder := lNoBorder
@@ -258,7 +264,7 @@ METHOD Valid() CLASS HUpDown
       Eval( ::bSetGet, ::nValue )
    ENDIF
    */
-   res :=  ::nValue <= ::nUpper .and. ::nValue >= ::nLower
+   res :=  ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
    IF ! res
       ::nValue := IIF( ::nValue > ::nUpper, Min( ::nValue, ::nUpper ), Max( ::nValue, ::nLower ) )
       ::SetValue( ::nValue )

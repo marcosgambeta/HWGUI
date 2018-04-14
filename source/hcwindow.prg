@@ -138,7 +138,7 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
    LOCAL oCtrl
 
    DO WHILE i > 0
-      IF Len( ::aControls[ i ]:aControls ) > 0 .and. ;
+      IF Len( ::aControls[ i ]:aControls ) > 0 .AND. ;
          ( oCtrl := ::aControls[ i ]:FindControl( nId, nHandle ) ) != nil
          RETURN oCtrl
       ENDIF

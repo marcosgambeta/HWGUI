@@ -92,7 +92,9 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
          RETURN oParent
       ENDIF
    ENDIF
-   IF nLevel == Nil ; nLevel := 0 ; ENDIF
+   IF nLevel == Nil
+      nLevel := 0
+   ENDIF
    IF nLevel < 2
       IF ( oParent := hwg_FindParent( hParent, nLevel + 1 ) ) != Nil
          RETURN oParent:FindControl( , hParent )
@@ -141,11 +143,11 @@ FUNCTION hwg_VColor( cColor )
    cColor := Trim( cColor )
    FOR i := 1 TO Len( cColor )
       iValue := Asc( SubStr( cColor, Len( cColor ) - i + 1, 1 ) )
-      IF iValue < 58 .and. iValue > 47
+      IF iValue < 58 .AND. iValue > 47
          iValue -= 48
-      ELSEIF iValue >= 65 .and. iValue <= 70
+      ELSEIF iValue >= 65 .AND. iValue <= 70
          iValue -= 55
-      ELSEIF iValue >= 97 .and. iValue <= 102
+      ELSEIF iValue >= 97 .AND. iValue <= 102
          iValue -= 87
       ELSE
          RETURN 0
@@ -209,10 +211,18 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    LOCAL hDC, aMetr, width, height, aArea, aRect
    LOCAL nStyle := WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX
 
-   IF cTitle == Nil ; cTitle := "" ; ENDIF
-   IF nLeft == Nil .AND. nTop == Nil ; nStyle += DS_CENTER ; ENDIF
-   IF nLeft == Nil ; nLeft := 0 ; ENDIF
-   IF nTop == Nil ; nTop := 0 ; ENDIF
+   IF cTitle == Nil
+      cTitle := ""
+   ENDIF
+   IF nLeft == Nil .AND. nTop == Nil
+      nStyle += DS_CENTER
+   ENDIF
+   IF nLeft == Nil
+      nLeft := 0
+   ENDIF
+   IF nTop == Nil
+      nTop := 0
+   ENDIF
    IF oFont == Nil
       oFont := HFont():Add( "MS Sans Serif", 0, - 13 )
       lNewFont := .T.
@@ -499,7 +509,7 @@ FUNCTION hwg_CheckFocus( oCtrl, lInside )
    LOCAL hGetFocus := hwg_Ptrtoulong( hwg_Getfocus() ), lModal
 
    IF ( !EMPTY( oParent ) .AND. ! hwg_Iswindowvisible( oParent:handle ) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
-      IF ! lInside .and. Empty( oParent:nInitFocus ) // = 0
+      IF ! lInside .AND. Empty( oParent:nInitFocus ) // = 0
          oParent:Show()
          hwg_Setfocus( oParent:handle )
          hwg_Setfocus( hGetFocus )
@@ -556,7 +566,7 @@ LOCAL oParent, nCtrl,nPos
    IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
       oParent := IIF( oMain != Nil, oMain, hwg_GetParentForm( oCtrl ) )
       IF oParent != Nil .AND. ! Empty( oParent:KeyList )
-         nctrl := IIf( hwg_IsCtrlShift(.t., .f.), FCONTROL, iif(hwg_IsCtrlShift(.f., .t.), FSHIFT, 0 ) )
+         nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
          IF ( nPos := AScan( oParent:KeyList, { | a | a[ 1 ] == nctrl.AND.a[ 2 ] == wParam } ) ) > 0
             Eval( oParent:KeyList[ nPos, 3 ], oCtrl )
             RETURN .T.
@@ -576,7 +586,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
 
    lForce := ! Empty( lForce )
    lEscape := nKey = VK_ESCAPE .AND. ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. ! oCtrl:IsEnabled()
-   IF ( ( oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. ! lForce .and. !lEscape )  .OR. ( nKey != VK_RETURN .AND. nKey != VK_ESCAPE )
+   IF ( ( oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. ! lForce .AND. !lEscape )  .OR. ( nKey != VK_RETURN .AND. nKey != VK_ESCAPE )
       Return .F.
 	 ENDIF
    IF iParHigh == IDOK
@@ -603,7 +613,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
          IF oCtrl  != Nil .AND.  __ObjHasMsg( oCtrl, "OGROUP" )  .AND. oCtrl:oGroup:oHGroup != Nil
              oCtrl := oCtrl:oGroup:oHGroup
          ENDIF
-         IF oCtrl  != Nil .and. hwg_GetSkip( oCtrl:oParent, oCtrl:Handle, , - 1 )
+         IF oCtrl  != Nil .AND. hwg_GetSkip( oCtrl:oParent, oCtrl:Handle, , - 1 )
             IF AScan( oWin:GetList, { | o | o:handle == oCtrl:Handle } ) > 1
                RETURN .T.
             ENDIF

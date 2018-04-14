@@ -101,7 +101,7 @@ METHOD New( oPorta ) CLASS PrintDos
    ::nProw    := 0
    ::nPcol    := 0
    ::oTopMar  := 0
-   ::oAns2Oem := .t.
+   ::oAns2Oem := .T.
    ::oLeftMar := 0
    ::oText    := ""
 
@@ -144,7 +144,7 @@ METHOD New( oPorta ) CLASS PrintDos
       ENDIF
    ENDIF
 
-   IF oPorta == "GRAPHIC" .or. oPorta == "PREVIEW"
+   IF oPorta == "GRAPHIC" .OR. oPorta == "PREVIEW"
       ::gText := ""
    ELSE
       // tracelog([          ::gText:=fCreate(::oPorta)])
@@ -168,15 +168,33 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
 
    oStr := Chr( Val ( oComm1 ) )
 
-   IF oComm2  != NIL ;  oStr += Chr( Val( oComm2 ) ) ;   ENDIF
-   IF oComm3  != NIL ;  oStr += Chr( Val( oComm3 ) ) ;   ENDIF
-   IF oComm4  != NIL ;  oStr += Chr( Val( oComm4 ) ) ;   ENDIF
-   IF oComm5  != NIL ;  oStr += Chr( Val( oComm5 ) ) ;   ENDIF
-   IF oComm6  != NIL ;  oStr += Chr( Val( oComm6 ) ) ;   ENDIF
-   IF oComm7  != NIL ;  oStr += Chr( Val( oComm7 ) ) ;   ENDIF
-   IF oComm8  != NIL ;  oStr += Chr( Val( oComm8 ) ) ;   ENDIF
-   IF oComm9  != NIL ;  oStr += Chr( Val( oComm9 ) ) ;   ENDIF
-   IF oComm10 != NIL ;  oStr += Chr( Val( oComm10 ) ) ;   ENDIF
+   IF oComm2  != NIL
+      oStr += Chr( Val( oComm2 ) )
+   ENDIF
+   IF oComm3  != NIL
+      oStr += Chr( Val( oComm3 ) )
+   ENDIF
+   IF oComm4  != NIL
+      oStr += Chr( Val( oComm4 ) )
+   ENDIF
+   IF oComm5  != NIL
+      oStr += Chr( Val( oComm5 ) )
+   ENDIF
+   IF oComm6  != NIL
+      oStr += Chr( Val( oComm6 ) )
+   ENDIF
+   IF oComm7  != NIL
+      oStr += Chr( Val( oComm7 ) )
+   ENDIF
+   IF oComm8  != NIL
+      oStr += Chr( Val( oComm8 ) )
+   ENDIF
+   IF oComm9  != NIL
+      oStr += Chr( Val( oComm9 ) )
+   ENDIF
+   IF oComm10 != NIL
+      oStr += Chr( Val( oComm10 ) )
+   ENDIF
 
 
    IF ::oAns2Oem
@@ -268,7 +286,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
    IF ValType( oTexto ) == "N"
 
-      IF ! Empty( oPicture ) .or. oPicture # Nil
+      IF ! Empty( oPicture ) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
       ELSE
          oTexto := Str( oTexto )
@@ -277,7 +295,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    ELSEIF ValType( oTexto ) == "D"
       oTexto := DToC( oTexto )
    ELSE
-      IF ! Empty( oPicture ) .or. oPicture # Nil
+      IF ! Empty( oPicture ) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
       ENDIF
    ENDIF
@@ -336,11 +354,13 @@ METHOD PrinterFile( fname ) CLASS PrintDos
 
    IF han <> - 1
 
-      DO WHILE .t.
+      DO WHILE .T.
 
          nRead := FRead( han, @strbuf, PF_BUFFERS )
 
-         IF nRead = 0 ; EXIT ; ENDIF
+         IF nRead = 0
+            EXIT
+         ENDIF
 
          IF FWrite( ::gText, Left( strbuf, nRead ) ) < nRead
             ::ErrosAnt := FError()
@@ -383,7 +403,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
    INIT PRINTER oPrinter // HPrinter():New()
 // added by Giuseppe Mastrangelo
    IF oPrinter == nil
-      RETURN .f.
+      RETURN .F.
    ENDIF
 // end of added code
    oFont := oPrinter:AddFont( "Courier New", osize )
@@ -436,7 +456,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL oText := { "" }
    LOCAL oDlg, oColor1, oColor2
    LOCAL oEdit
-   LOCAL oPrt := IIf( Empty( ::oPorta ) .or. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
+   LOCAL oPrt := IIf( Empty( ::oPorta ) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
 
    IF han <> - 1
       DO WHILE .T.
@@ -493,7 +513,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    @ 6, 30 BUTTON "<<"    ON CLICK { || nPage := PrintDosAnt( nPage, oText ) } SIZE 69, 32  STYLE IIF( nPage = 1, WS_DISABLED, 0 )
    @ 6, 80 BUTTON ">>"    ON CLICK { || nPage := PrintDosNext( oPage, nPage, oText ) } SIZE 69, 32 STYLE IIF( nPage = 1, WS_DISABLED, 0 )
    @ 6, 130 BUTTON "Imprimir" ON CLICK { || PrintDosPrint( oText, oPrt ) } SIZE 69, 32
-//   @ 6,180 BUTTON "Grafico" on Click {||hwg_EndDialog(),oDos2:TxttoGraphic(fName,2,.t.),oDos2:end()} SIZE 69,32
+//   @ 6,180 BUTTON "Grafico" on Click {||hwg_EndDialog(),oDos2:TxttoGraphic(fName,2,.T.),oDos2:end()} SIZE 69,32
    @ 6, 230 BUTTON "Fechar" ON CLICK { || hwg_EndDialog() } SIZE 69, 32
 
    oDlg:Activate()
@@ -513,7 +533,9 @@ STATIC FUNCTION PrintDosPrint( oText, oPrt )
 STATIC FUNCTION PrintDosAnt( nPage, oText )
    LOCAL oDlg := hwg_GetModalHandle()
    nPage := -- nPage
-   IF nPage < 1 ; nPage := 1 ; ENDIF
+   IF nPage < 1
+      nPage := 1
+   ENDIF
    IF nPage = 1  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
       hwg_Setdlgitemtext( oDlg, 1001, SUBS( oText[ nPage ], 2 ) )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
    ELSE
@@ -524,7 +546,9 @@ STATIC FUNCTION PrintDosAnt( nPage, oText )
 STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
    LOCAL oDlg := hwg_GetModalHandle()
    nPage := ++ nPage
-   IF nPage > oPage ; nPage := oPage ; ENDIF
+   IF nPage > oPage
+      nPage := oPage
+   ENDIF
    hwg_Setdlgitemtext( oDlg, 1001, oText[ nPage ] )
    RETURN nPage
 

@@ -641,7 +641,9 @@ STATIC FUNCTION strip_path( cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF cFileName == Nil; cFileName := ""; ENDIF
+   IF cFileName == Nil
+      cFileName := ""
+   ENDIF
 
    hb_FNameSplit( cFileName, NIL, @cName, @cExt )
 

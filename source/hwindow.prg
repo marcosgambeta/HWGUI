@@ -469,7 +469,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
        ( !::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE )
       Return Eval( ::aMessages[2,i], Self, wParam, lParam )
    ELSE
-      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .or. msg == WM_MOUSEWHEEL
+      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
          IF ::nScrollBars != -1
              hwg_ScrollHV( Self,msg,wParam,lParam )
          ENDIF
@@ -643,7 +643,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
    IF ( i := AScan( ::aMessages[ 1 ], msg ) ) != 0
       RETURN Eval( ::aMessages[ 2, i ], Self, wParam, lParam )
    ELSE
-      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .or. msg == WM_MOUSEWHEEL
+      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
          IF ::nScrollBars != -1
              hwg_ScrollHV( Self,msg,wParam,lParam )
          ENDIF
@@ -768,7 +768,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HChildWindow
    ELSEIF ( i := AScan( HMainWindow():aMessages[ 1 ], msg ) ) != 0
       RETURN Eval( HMainWindow():aMessages[ 2, i ], Self, wParam, lParam )
    ELSE
-      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .or. msg == WM_MOUSEWHEEL
+      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
          hwg_onTrackScroll( Self, msg, wParam, lParam )
       ELSEIF msg = WM_NOTIFY .AND. !::lSuspendMsgsHandling
          IF ( oCtrl := ::FindControl( wParam ) ) != Nil .AND. oCtrl:className != "HTAB"
@@ -846,7 +846,7 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    iParHigh := hwg_Hiword( wParam )
    iParLow := hwg_Loword( wParam )
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, { | a | a[ 1 ] == iParHigh.and.a[ 2 ] == iParLow } ) ) > 0
+      ( iItem := AScan( oWnd:aEvents, { | a | a[ 1 ] == iParHigh.AND.a[ 2 ] == iParLow } ) ) > 0
       Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
    ELSEIF ValType( oWnd:menu ) == "A" .AND. ;
       ( aMenu := Hwg_FindMenuItem( oWnd:menu, iParLow, @iCont ) ) != Nil
@@ -922,7 +922,7 @@ STATIC FUNCTION onSysCommand( oWnd, wParam, lParam )
          oWnd:lSuspendMsgsHandling := .T.
          i := Eval( oWnd:bDestroy, oWnd )
          oWnd:lSuspendMsgsHandling := .F.
-         i := IIf( ValType( i ) == "L", i, .t. )
+         i := IIf( ValType( i ) == "L", i, .T. )
          IF ! i
             RETURN 0
          ENDIF
@@ -1009,7 +1009,7 @@ STATIC FUNCTION onEndSession( oWnd, wParam )
 
    IF ISBLOCK( oWnd:bDestroy )
       i := Eval( oWnd:bDestroy, oWnd )
-      i := IIf( ValType( i ) == "L", i, .t. )
+      i := IIf( ValType( i ) == "L", i, .T. )
       IF ! i
          RETURN 0
       ENDIF
@@ -1082,7 +1082,7 @@ STATIC FUNCTION onMdiCommand( oWnd, wParam )
       oCtrl := oWnd:FindControl( iParLow )
    ENDIF
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, { | a | a[ 1 ] == iParHigh.and.a[ 2 ] == iParLow } ) ) > 0
+      ( iItem := AScan( oWnd:aEvents, { | a | a[ 1 ] == iParHigh.AND.a[ 2 ] == iParLow } ) ) > 0
       IF hwg_Ptrtoulong( hwg_Getparent( hwg_Getfocus() ) ) = hwg_Ptrtoulong( oWnd:Handle )
          oWnd:nFocus := hwg_Getfocus()
       ENDIF
@@ -1152,9 +1152,9 @@ Static Function onMdiActivate( oWnd,wParam, lParam )
       RETURN 0
    ELSEIF lConf //oWnd:Handle = wParam
       IF  ! hwg_Selffocus( oWnd:Screen:handle, wParam ) .AND. oWnd:bLostFocus != Nil //.AND.wParam == 0
-         oWnd:lSuspendMsgsHandling := .t.
+         oWnd:lSuspendMsgsHandling := .T.
          Eval( oWnd:bLostFocus, oWnd )
-         oWnd:lSuspendMsgsHandling := .f.
+         oWnd:lSuspendMsgsHandling := .F.
       ENDIF
       IF oWnd:lModal
          aWndMain := oWnd:GETMAIN():aWindows
@@ -1172,12 +1172,12 @@ Static Function onMdiActivate( oWnd,wParam, lParam )
          AEVAL( oWnd:aChilds,{| wH | hwg_Enablewindow( wH, .T. ) })
      ENDIF
       IF oWnd:bGetFocus != Nil .AND. ! oWnd:lSuspendMsgsHandling .AND. ! oWnd:IsMaximized()
-         oWnd:lSuspendMsgsHandling := .t.
+         oWnd:lSuspendMsgsHandling := .T.
          IF EMPTY( oWnd:nFocus )
              hwg_Updatewindow( oWnd:Handle)
          ENDIF
          Eval( oWnd:bGetFocus, oWnd )
-         oWnd:lSuspendMsgsHandling := .f.
+         oWnd:lSuspendMsgsHandling := .F.
       ENDIF
    ENDIF
 

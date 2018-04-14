@@ -84,8 +84,8 @@ FUNCTION main
    nTop := 15
    nLeft := 5
    nBCodeType := 8
-   lHorz := .t.
-   lTransparent := .f.
+   lHorz := .T.
+   lTransparent := .F.
    nPinWidth := 1
 
    nWidth    := 200

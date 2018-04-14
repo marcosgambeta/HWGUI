@@ -221,7 +221,9 @@ Return Nil
 Function hwg_dbg_SetActiveLine( cPrgName, nLine, aStack, aLocals, aWatch )
 Local i, s := cPrgName + "," + Ltrim(Str(nLine)), nLen
 
-   IF !lDebugRun ; Return Nil; ENDIF
+   IF !lDebugRun
+      Return Nil
+   ENDIF
 
    IF nId2 == 0
       s += ",ver," + Ltrim(Str(DEBUG_PROTO_VERSION))
@@ -254,14 +256,18 @@ Return Nil
 
 Function hwg_dbg_Wait( nWait )
 
-   IF !lDebugRun ; Return Nil; ENDIF
+   IF !lDebugRun
+      Return Nil
+   ENDIF
 
 Return Nil
 
 Function hwg_dbg_Input( p1, p2 )
 Local n, cmd, arr
 
-   IF !lDebugRun ; Return CMD_GO; ENDIF
+   IF !lDebugRun
+      Return CMD_GO
+   ENDIF
 
    DO WHILE .T.
 
@@ -334,7 +340,9 @@ Return 0
 Function hwg_dbg_Answer( ... )
 Local arr := hb_aParams(), i, j, s := "", lConvert
 
-   IF !lDebugRun ; Return Nil; ENDIF
+   IF !lDebugRun
+      Return Nil
+   ENDIF
 
    FOR i := 1 TO Len( arr )
       IF Valtype( arr[i] ) == "A"
@@ -356,7 +364,9 @@ Return Nil
 
 Function hwg_dbg_Msg( cMessage )
 
-   IF !lDebugRun ; Return Nil; ENDIF
+   IF !lDebugRun
+      Return Nil
+   ENDIF
 
 Return Nil
 

@@ -61,7 +61,7 @@ METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeig
       ::lnoValid := .T.
    ENDIF
    IF bKillFocus != Nil
-      ::oParent:AddEvent( IPN_FIELDCHANGED, Self, ::bKillFocus, .t., "onChange" )
+      ::oParent:AddEvent( IPN_FIELDCHANGED, Self, ::bKillFocus, .T., "onChange" )
    ENDIF
 
    // Notificacoes de Ganho e perda de foco
@@ -84,7 +84,7 @@ METHOD Init() CLASS HIPedit
    IF ! ::lInit
       ::Super:Init()
       ::SetValue( ::aValue )
-      ::lInit := .t.
+      ::lInit := .T.
    ENDIF
 
    RETURN Nil
@@ -116,8 +116,8 @@ METHOD END() CLASS HIPedit
 STATIC FUNCTION __GetFocus( oCtrl )
    LOCAL xRet
 
-   IF ! hwg_CheckFocus( oCtrl, .f. )
-      RETURN .t.
+   IF ! hwg_CheckFocus( oCtrl, .F. )
+      RETURN .T.
    ENDIF
 
    IF ValType( oCtrl:bGetFocus ) == "B"
@@ -134,8 +134,8 @@ STATIC FUNCTION __GetFocus( oCtrl )
 STATIC FUNCTION __KillFocus( oCtrl )
    LOCAL xRet
 
-   IF ! hwg_CheckFocus( oCtrl, .t. ) .or. oCtrl:lNoValid
-      RETURN .t.
+   IF ! hwg_CheckFocus( oCtrl, .T. ) .OR. oCtrl:lNoValid
+      RETURN .T.
    ENDIF
 
    IF ValType( oCtrl:bKillFocus ) == "B"

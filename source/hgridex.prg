@@ -35,7 +35,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    DATA aItems     INIT { }
    DATA ItemCount
    DATA color
-   DATA bFlag      INIT .f.
+   DATA bFlag      INIT .F.
    DATA bkcolor
    DATA aColumns   INIT { }
    DATA nRow       INIT 0
@@ -75,7 +75,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    METHOD AddRow( a, bUpdate )
    METHOD Notify( lParam )
 
-   METHOD DELETEROW()    INLINE IIF( ::bFlag , ( hwg_Sendmessage( ::HANDLE, LVM_DELETEITEM, ::iRowSelect , 0 ), ::bFlag := .f. ), .T. )
+   METHOD DELETEROW()    INLINE IIF( ::bFlag , ( hwg_Sendmessage( ::HANDLE, LVM_DELETEITEM, ::iRowSelect , 0 ), ::bFlag := .F. ), .T. )
    METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := { }, hwg_Sendmessage( ::Handle, LVM_DELETEALLITEMS, 0, 0 )
    METHOD SELECTALL()    INLINE hwg_Listviewselectall( ::Handle )
    METHOD SELECTLAST()   INLINE hwg_Listviewselectlastitem( ::handle )
@@ -228,7 +228,7 @@ METHOD AddRow( a , bupdate ) CLASS HGRIDEX
    LOCAL aTmp2 := { }
 
 
-   DEFAULT bupdate TO .f.
+   DEFAULT bupdate TO .F.
    FOR n := 1 TO nLen STEP 4
       AAdd( aTmp1, a[ n ] )
       AAdd( aTmp,  IIF( ValType( a[ n + 1 ] ) == "N", a[ n + 1 ], - 1 ) )
@@ -254,7 +254,7 @@ METHOD Notify( lParam )  CLASS HGRIDEX
    LOCAL nCode := hwg_Getnotifycode( lParam )
    LOCAL Res, iSelect, oParent := hwg_GetParentForm(Self)
 
-   IF nCode == NM_CUSTOMDRAW .and. hwg_Getnotifycodefrom( lParam ) == ::Handle
+   IF nCode == NM_CUSTOMDRAW .AND. hwg_Getnotifycodefrom( lParam ) == ::Handle
       Res := hwg_Processcustu( ::handle, lParam, ::aColors )
       Hwg_SetDlgResult( oParent:Handle, Res )
       RETURN Res
@@ -268,11 +268,11 @@ METHOD Notify( lParam )  CLASS HGRIDEX
       ENDIF
 
       ::iRowSelect := iSelect
-      ::bFlag := .t.
+      ::bFlag := .T.
       RETURN 1
    ENDIF
 
-   IF nCode == LVN_COLUMNCLICK //.and. hwg_Getnotifycodefrom(lParam) == ::Handle
+   IF nCode == LVN_COLUMNCLICK //.AND. hwg_Getnotifycodefrom(lParam) == ::Handle
       IF Empty( ::hsort )
          ::hSort := hwg_Listviewsortinfonew( lParam, nil )
       ENDIF
@@ -322,4 +322,4 @@ METHOD UpdateData() CLASS hGridex
       hwg_Listview_insertitemex( ::handle, n, n1, aTemp[ n1 ], atemp1[ n1 ] )
    NEXT
 
-   RETURN .t.
+   RETURN .T.
