@@ -32,7 +32,11 @@ STDAPI OleLoadPicture(LPSTREAM,LONG,BOOL,REFIID,PVOID*);
 #endif
 #endif
 
+#if defined(__HARBOURPP__)
+typedef int ( __stdcall * TRANSPARENTBLT ) ( HDC, int, int, int, int, HDC, int, int, int, int, int );
+#else
 typedef int ( _stdcall * TRANSPARENTBLT ) ( HDC, int, int, int, int, HDC, int, int, int, int, int );
+#endif
 
 static TRANSPARENTBLT s_pTransparentBlt = NULL;
 
