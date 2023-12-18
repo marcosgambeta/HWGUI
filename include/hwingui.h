@@ -34,7 +34,9 @@
 #if !defined( __XHARBOUR__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && \
     !defined( HB_EMULATE_STR_API )
    #include "hbwinuni.h"
+   #if !defined(__HARBOURPP__)
    #include "hbwince.h"
+   #endif
    #define HB_HAS_STR_FUNC
 #else
    #undef HB_HAS_STR_FUNC
