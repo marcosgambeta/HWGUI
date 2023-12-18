@@ -42,8 +42,11 @@ typedef struct _TRIVERTEX
 
 #endif
 
-typedef int ( _stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int,
-      int );
+#if defined(__HARBOURPP__)
+typedef int ( __stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int, int );
+#else
+typedef int ( _stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int, int );
+#endif
 LRESULT CALLBACK NiceButtProc( HWND, UINT, WPARAM, LPARAM );
 
 static GRADIENTFILL s_pGradientfill = NULL;
