@@ -14,6 +14,11 @@
 #include "hwingui.h"
 #include "hbapiitm.h"
 
+#if defined(__HARBOURPP__)
+#define max(a, b) HB_MAX(a, b)
+#define min(a, b) HB_MIN(a, b)
+#endif
+
 #define STATE_DEFAULT    1
 #define STATE_SELECTED   2
 #define STATE_FOCUS      4
