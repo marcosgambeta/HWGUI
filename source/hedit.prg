@@ -264,7 +264,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                   hwg_Sendmessage( oParent:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), ::handle )
                ENDIF
                IF ( oParent:Type < WND_DLG_RESOURCE .OR. ! oParent:lModal )
-                  hwg_Setfocus( 0 )
+                  hwg_Setfocus(0)
                   hwg_ProcOkCancel( Self, VK_ESCAPE )
                   RETURN 0
                ENDIF
@@ -631,7 +631,7 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
    IF Empty( ::cPicMask )
       IF ::cType == "D"
          ::cPicFunc   := "@D" + iif( "K" $ ::cPicFunc, "K", "" )
-         ::cPicMask := StrTran( Dtoc( CToD( Space( 8 ) ) ), ' ', '9' )
+         ::cPicMask := StrTran( Dtoc( CToD( Space(8) ) ), ' ', '9' )
       ELSEIF ::cType == "N"
          vari := Str( vari )
          IF ( nAt := At( ".", vari ) ) > 0
@@ -1112,7 +1112,7 @@ METHOD Valid( ) CLASS HEdit
          ::title := vari
          IF ::cType == "D"
             IF ::IsBadDate( vari )
-               hwg_Setfocus( 0 )
+               hwg_Setfocus(0)
                ::Setfocus( .T. )
                hwg_Msgbeep()
                hwg_Sendmessage( ::handle, EM_SETSEL, 0, 0 )
@@ -1218,10 +1218,10 @@ METHOD Untransform( cBuffer ) CLASS HEdit
          FOR nFor := 1 TO Len( ::cPicMask )
             cChar := SubStr( ::cPicMask, nFor, 1 )
             IF ! cChar $ "ANX9#!"
-               cBuffer := SubStr( cBuffer, 1, nFor - 1 ) + Chr( 1 ) + SubStr( cBuffer, nFor + 1 )
+               cBuffer := SubStr( cBuffer, 1, nFor - 1 ) + Chr(1) + SubStr( cBuffer, nFor + 1 )
             ENDIF
          NEXT
-         cBuffer := StrTran( cBuffer, Chr( 1 ), "" )
+         cBuffer := StrTran( cBuffer, Chr(1), "" )
       ENDIF
 
       xValue := cBuffer
@@ -1233,7 +1233,7 @@ METHOD Untransform( cBuffer ) CLASS HEdit
       IF "D" $ ::cPicFunc
          FOR nFor := ::FirstEditable() TO ::LastEditable()
             IF ! ::IsEditable( nFor )
-               cBuffer = Left( cBuffer, nFor - 1 ) + Chr( 1 ) + SubStr( cBuffer, nFor + 1 )
+               cBuffer = Left( cBuffer, nFor - 1 ) + Chr(1) + SubStr( cBuffer, nFor + 1 )
             ENDIF
          NEXT
       ELSE
@@ -1255,12 +1255,12 @@ METHOD Untransform( cBuffer ) CLASS HEdit
 
          FOR nFor := ::FirstEditable() TO ::LastEditable()
             IF ! ::IsEditable( nFor ) .AND. SubStr( cBuffer, nFor, 1 ) != "."
-               cBuffer = Left( cBuffer, nFor - 1 ) + Chr( 1 ) + SubStr( cBuffer, nFor + 1 )
+               cBuffer = Left( cBuffer, nFor - 1 ) + Chr(1) + SubStr( cBuffer, nFor + 1 )
             ENDIF
          NEXT
       ENDIF
 
-      cBuffer := StrTran( cBuffer, Chr( 1 ), "" )
+      cBuffer := StrTran( cBuffer, Chr(1), "" )
 
       cBuffer := StrTran( cBuffer, "$", " " )
       cBuffer := StrTran( cBuffer, "*", " " )
@@ -1305,7 +1305,7 @@ METHOD Untransform( cBuffer ) CLASS HEdit
 METHOD FirstEditable( ) CLASS HEdit
    LOCAL nFor, nMaxLen := Len( ::cPicMask )
 
-   IF ::IsEditable( 1 )
+   IF ::IsEditable(1)
       RETURN 1
    ENDIF
 
@@ -1446,7 +1446,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
       IF  __ObjHasMsg( oCtrl, "BLOSTFOCUS" ) .AND. oCtrl:blostfocus != Nil .AND. ! oForm:lClipper
          hwg_Sendmessage( nexthandle, WM_KILLFOCUS, 0,  0 )
       ELSE
-         hwg_Setfocus( 0 )
+         hwg_Setfocus(0)
          oCtrl:Setfocus( )
       ENDIF
    ENDIF

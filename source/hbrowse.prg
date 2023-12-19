@@ -662,7 +662,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ENDIF
          ::isMouseOver := .F.
          IF wParam == VK_PRIOR .OR. wParam == VK_NEXT .OR. wParam == VK_UP .OR. wParam == VK_DOWN
-            IF ! ::ChangeRowCol( 1 )
+            IF ! ::ChangeRowCol(1)
                RETURN - 1
             ENDIF
          ENDIF
@@ -913,7 +913,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
             xres     := Eval( oColumn:block, , oBrw, n )
             ctype    := ValType( xres )
          ELSE
-            xRes     := Space( 10 )
+            xRes     := Space(10)
             ctype    := "C"
          ENDIF
       ENDIF
@@ -1116,8 +1116,8 @@ METHOD LinkMaster( cLinkMaster ) CLASS HBrowse
             ::rowCurrCount := 1
          ENDIF
       ELSE
-         ( ::Alias ) -> ( OrdScope( 0 ) )
-         ( ::Alias ) -> ( OrdScope( 1 ) )
+         ( ::Alias ) -> ( OrdScope(0) )
+         ( ::Alias ) -> ( OrdScope(1) )
          ::bFirst := { |  | ( ::Alias ) -> ( DBGoTop() ) }
          ::bLast  := { |  | ( ::Alias ) -> ( dbGoBottom() ) }
          ::rowCurrCount := 0
@@ -2072,7 +2072,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowse
       ::nPaintRow  := nRow
       IF ::lDeleteMark
          hwg_Fillrect( hDC, ::x1 - ::nDeleteMark - 0, ::y1 + ( ::height + 1 ) * ( ::nPaintRow - 1 ) + 1 , ;
-            ::x1 - 1 , ::y1 + ( ::height + 1 ) * ::nPaintRow , iif( Deleted(), hwg_Getstockobject( 7 ), hwg_Getstockobject( 0 ) ) ) //::brush:handle ))
+            ::x1 - 1 , ::y1 + ( ::height + 1 ) * ::nPaintRow , iif( Deleted(), hwg_Getstockobject(7), hwg_Getstockobject(0) ) ) //::brush:handle ))
       ENDIF
       IF ::lShowMark
          IF ::hTheme != NIL
@@ -2088,7 +2088,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowse
             ::y1 + ( ::height + 1 ) * ::nPaintRow + 1, 1 )
             hwg_Selectobject( hDC, oPen64:handle )
             hwg_Rectangle( hDC, ::x1 - ::nShowMark - ::nDeleteMark - 1 , ::y1 + ( ::height + 1 ) * ( ::nPaintRow - 1 )  , ;
-               ::x1  - ::nDeleteMark - 1 , ::y1 + ( ::height + 1 ) * ::nPaintRow - 0 ) //, IIF( Deleted(), hwg_Getstockobject( 7 ), ::brush:handle ))
+               ::x1  - ::nDeleteMark - 1 , ::y1 + ( ::height + 1 ) * ::nPaintRow - 0 ) //, IIF( Deleted(), hwg_Getstockobject(7), ::brush:handle ))
          ENDIF
          IF lSelected
             hwg_Drawtransparentbitmap( hDC, ::oBmpMark:Handle, ::x1 - ::nShowMark - ::nDeleteMark + 1, ;
@@ -2393,7 +2393,7 @@ METHOD DoHScroll( wParam ) CLASS HBrowse
    LOCAL nPos
    LOCAL oldLeft := ::nLeftCol, nLeftCol, colpos, oldPos := ::colpos
 
-   IF ! ::ChangeRowCol( 2 )
+   IF ! ::ChangeRowCol(2)
       RETURN .F.
    ENDIF
 
@@ -2999,7 +2999,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
             AAdd( ::aArray, Array( Len( ::aColumns ) ) )
             FOR fif := 1 TO Len( ::aColumns )
                ::aArray[ 1, fif ] := ;
-                  iif( ::aColumns[ fif ]:Type == "D", CToD( Space( 8 ) ), ;
+                  iif( ::aColumns[ fif ]:Type == "D", CToD( Space(8) ), ;
                   iif( ::aColumns[ fif ]:Type == "N", 0, iif( ::aColumns[ fif ]:Type == "L", .F. , "" ) ) )
             NEXT
             ::lAppMode := .F.
@@ -3158,7 +3158,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
                      AAdd( ::aArray, Array( Len( ::aArray[ 1 ] ) ) )
                      FOR fif := 2 TO Len( ( ::aArray[ 1 ] ) )
                         ::aArray[ Len( ::aArray ), fif ] := ;
-                           iif( ::aColumns[ fif ]:Type == "D", CToD( Space( 8 ) ), ;
+                           iif( ::aColumns[ fif ]:Type == "D", CToD( Space(8) ), ;
                            iif( ::aColumns[ fif ]:Type == "N", 0, "" ) )
                      NEXT
                   ELSE
@@ -3660,7 +3660,7 @@ METHOD ShowSizes() CLASS HBrowse
    LOCAL cText := ""
 
    AEval( ::aColumns, ;
-      { | v, e | HB_SYMBOL_UNUSED( v ), cText += ::aColumns[ e ]:heading + ": " + Str( Round( ::aColumns[ e ]:width / 8, 0 ) - 2  ) + Chr( 10 ) + Chr( 13 ) } )
+      { | v, e | HB_SYMBOL_UNUSED( v ), cText += ::aColumns[ e ]:heading + ": " + Str( Round( ::aColumns[ e ]:width / 8, 0 ) - 2  ) + Chr(10) + Chr(13) } )
    hwg_Msginfo( cText )
 
    RETURN NIL

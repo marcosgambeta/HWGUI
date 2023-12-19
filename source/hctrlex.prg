@@ -451,8 +451,8 @@ CLASS HButtonEX INHERIT HButtonX
    DATA m_dcBk
    DATA m_bFirstTime INIT .T.
    DATA Themed INIT .F.
-   DATA m_crColors INIT Array( 6 )
-   DATA m_crBrush INIT Array( 6 )
+   DATA m_crColors INIT Array(6)
+   DATA m_crBrush INIT Array(6)
    DATA hTheme
    // DATA Caption
    DATA state
@@ -726,7 +726,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          ENDIF
       ENDIF
       IF ( ! ::bMouseOverButton )
-         hwg_Setfocus( 0 )
+         hwg_Setfocus(0)
          ::Setfocus()
          RETURN 0
       ENDIF

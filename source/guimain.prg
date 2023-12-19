@@ -132,7 +132,7 @@ FUNCTION hwg_ReadStatus( oWnd, nPart )
    aControls := oWnd:aControls
    IF ( i := AScan( aControls, { | o | o:ClassName() == "HSTATUS" } ) ) > 0
       ntxtLen := hwg_Sendmessage( aControls[ i ]:handle, SB_GETTEXTLENGTH, nPart - 1, 0 )
-      cText := Replicate( Chr( 0 ), ntxtLen )
+      cText := Replicate( Chr(0), ntxtLen )
       hwg_Sendmessage( aControls[ i ]:handle, SB_GETTEXT, nPart - 1, @cText )
    ENDIF
    RETURN cText
@@ -422,26 +422,26 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
    LOCAL nFlags := NIL
    LOCAL nIndex := 1
 
-   cFilter := cDescr + Chr( 0 ) + cTip + Chr( 0 )
+   cFilter := cDescr + Chr(0) + cTip + Chr(0)
    /* initialize buffer with 0 bytes. Important is the 1-st character,
     * from MSDN:  The first character of this buffer must be NULL
     *             if initialization is not necessary
     */
-   cFile := repl( chr( 0 ), 32000 )
+   cFile := repl( chr(0), 32000 )
    aFiles := {}
 
    cPath := hwg_GetOpenFileName( hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex )
 
-   nAt := At( Chr( 0 ) + Chr( 0 ), cFile )
+   nAt := At( Chr(0) + Chr(0), cFile )
    IF nAt != 0
       cFile := Left( cFile, nAt - 1 )
-      nAt := At( Chr( 0 ), cFile )
+      nAt := At( Chr(0), cFile )
       IF nAt != 0
          /* skip path which is already in cPath variable */
          cFile := SubStr( cFile, nAt + 1 )
          /* decode files */
          WHILE ! cFile == ""
-            nAt := At( Chr( 0 ), cFile )
+            nAt := At( Chr(0), cFile )
             IF nAt != 0
                AAdd( aFiles, cPath + hb_osPathSeparator() + ;
                              Left( cFile, nAt - 1 ) )

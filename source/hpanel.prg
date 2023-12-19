@@ -97,7 +97,7 @@ METHOD Activate() CLASS HPanel
    IF !Empty( handle )
       ::handle := hwg_Createpanel( handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
-      ::ResizeOffSet( 0 )
+      ::ResizeOffSet(0)
       /*
       IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
          aCoors := hwg_Getwindowrect( ::handle )
@@ -251,7 +251,7 @@ METHOD Paint() CLASS HPanel
 METHOD Release() CLASS HPanel
 
    hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
-   ::ResizeOffSet( 3 )
+   ::ResizeOffSet(3)
    /*
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF (::nWidth > ::nHeight .OR. ::nWidth == 0 ).AND. ::oParent:aOffset[2] > 0
@@ -285,7 +285,7 @@ METHOD Hide() CLASS HPanel
       Return NIL
    ENDIF
    ::nrePaint := 0
-   lres := ::ResizeOffSet( 3 )
+   lres := ::ResizeOffSet(3)
    /*
    IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) .AND. ::oParent:aOffset[2] > 0
@@ -314,7 +314,7 @@ METHOD Show() CLASS HPanel
       Return NIL
    ENDIF
    ::nrePaint := - 1
-   lRes := ::ResizeOffSet( 2 )
+   lRes := ::ResizeOffSet(2)
    /*
    IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) .AND. ::oParent:aOffset[2] > 0
@@ -345,7 +345,7 @@ METHOD Resize() CLASS HPanel
       Return NIL
    ENDIF
 
-   IF ! ::ResizeOffSet( 1 )
+   IF ! ::ResizeOffSet(1)
       RETURN NIL
    ENDIF
    /*

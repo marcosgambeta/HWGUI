@@ -1348,8 +1348,8 @@ HB_FUNC( HWG_ENDTHEMELIB )
 
 HB_FUNC( HWG_ONNOTIFYCUSTOMDRAW )
 {
-   // HWND hWnd = ( HWND ) hb_parnl( 1 ) ;
-   LPARAM lParam = ( LPARAM ) hb_parnl( 1 );
+   // HWND hWnd = ( HWND ) hb_parnl(1) ;
+   LPARAM lParam = ( LPARAM ) hb_parnl(1);
    // PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
    hb_retnl( ( LONG ) OnNotifyCustomDraw( lParam ) );
 }
@@ -1769,8 +1769,8 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
 
 HB_FUNC( HWG_OPENTHEMEDATA )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE( 1 );
-   LPCSTR pText = hb_parc( 2 );
+   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   LPCSTR pText = hb_parc(2);
    HTHEME p;
    int mlen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, NULL, 0 );
    WCHAR *output = ( WCHAR * ) hb_xgrab( mlen * sizeof( WCHAR ) );
@@ -1790,16 +1790,16 @@ HB_FUNC( HWG_ISTHEMEDLOAD )
 
 HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
 {
-   HTHEME hTheme = ( HTHEME ) hb_parptr( 1 );
-   HDC hdc = ( HDC ) HB_PARHANDLE( 2 );
-   int iPartId = hb_parni( 3 );
-   int iStateId = hb_parni( 4 );
+   HTHEME hTheme = ( HTHEME ) hb_parptr(1);
+   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   int iPartId = hb_parni(3);
+   int iStateId = hb_parni(4);
    RECT pRect;
    RECT pClipRect;
 
-   if( HB_ISARRAY( 5 ) )
+   if( HB_ISARRAY(5) )
       Array2Rect( hb_param( 5, HB_IT_ARRAY ), &pRect );
-   if( HB_ISARRAY( 6 ) )
+   if( HB_ISARRAY(6) )
       Array2Rect( hb_param( 6, HB_IT_ARRAY ), &pClipRect );
 
    hb_retnl( hb_DrawThemeBackground( hTheme, hdc,
@@ -1808,22 +1808,22 @@ HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
 
 HB_FUNC( HWG_DRAWTHEICON )
 {
-   HWND hButtonWnd = ( HWND ) HB_PARHANDLE( 1 );
-   HDC dc = ( HDC ) HB_PARHANDLE( 2 );
-   BOOL bHasTitle = hb_parl( 3 );
+   HWND hButtonWnd = ( HWND ) HB_PARHANDLE(1);
+   HDC dc = ( HDC ) HB_PARHANDLE(2);
+   BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
    RECT rpTitle;
-   BOOL bIsPressed = hb_parl( 6 );
-   BOOL bIsDisabled = hb_parl( 7 );
-   HICON hIco = ( HB_ISNUM( 8 ) ||
-         HB_ISPOINTER( 8 ) ) ? ( HICON ) HB_PARHANDLE( 8 ) : NULL;
-   HBITMAP hBit = ( HB_ISNUM( 9 ) ||
-         HB_ISPOINTER( 9 ) ) ? ( HBITMAP ) HB_PARHANDLE( 9 ) : NULL;
-   int iStyle = hb_parni( 10 );
+   BOOL bIsPressed = hb_parl(6);
+   BOOL bIsDisabled = hb_parl(7);
+   HICON hIco = ( HB_ISNUM(8) ||
+         HB_ISPOINTER(8) ) ? ( HICON ) HB_PARHANDLE(8) : NULL;
+   HBITMAP hBit = ( HB_ISNUM(9) ||
+         HB_ISPOINTER(9) ) ? ( HBITMAP ) HB_PARHANDLE(9) : NULL;
+   int iStyle = hb_parni(10);
 
-   if( HB_ISARRAY( 4 ) )
+   if( HB_ISARRAY(4) )
       Array2Rect( hb_param( 4, HB_IT_ARRAY ), &rpItem );
-   if( HB_ISARRAY( 5 ) )
+   if( HB_ISARRAY(5) )
       Array2Rect( hb_param( 5, HB_IT_ARRAY ), &rpTitle );
 
    DrawTheIcon( hButtonWnd, dc, bHasTitle, &rpItem, &rpTitle, bIsPressed,
@@ -1846,9 +1846,9 @@ HB_FUNC( HWG_DRAWTHEICON )
 HB_FUNC( HWG_PREPAREIMAGERECT )
 {
 
-   HWND hButtonWnd = (HWND) HB_PARHANDLE( 1 ) ;
-   HDC dc = (HDC) HB_PARHANDLE( 2 ) ;
-   BOOL bHasTitle = hb_parl( 3 );
+   HWND hButtonWnd = (HWND) HB_PARHANDLE(1) ;
+   HDC dc = (HDC) HB_PARHANDLE(2) ;
+   BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
    RECT rpTitle;
    //
@@ -1856,16 +1856,16 @@ HB_FUNC( HWG_PREPAREIMAGERECT )
    DWORD cx =0 ;
    DWORD cy =0 ;
    //
-   BOOL bIsPressed = hb_parl( 6 );
-   HICON   hIco = (HB_ISNUM( 7 ) ||
-         HB_ISPOINTER( 7 ) ) ? ( HICON ) HB_PARHANDLE( 7 ) : NULL;
-   HBITMAP hBitmap = (HB_ISNUM( 8 ) ||
-         HB_ISPOINTER( 8 ) ) ? ( HBITMAP ) HB_PARHANDLE( 8 ) : NULL;
-   int iStyle = hb_parni( 9 );
+   BOOL bIsPressed = hb_parl(6);
+   HICON   hIco = (HB_ISNUM(7) ||
+         HB_ISPOINTER(7) ) ? ( HICON ) HB_PARHANDLE(7) : NULL;
+   HBITMAP hBitmap = (HB_ISNUM(8) ||
+         HB_ISPOINTER(8) ) ? ( HBITMAP ) HB_PARHANDLE(8) : NULL;
+   int iStyle = hb_parni(9);
 
-   if( HB_ISARRAY( 4 ) )
+   if( HB_ISARRAY(4) )
       Array2Rect( hb_param( 4, HB_IT_ARRAY ), &rpItem );
-   if( HB_ISARRAY( 5 ) )
+   if( HB_ISARRAY(5) )
       Array2Rect( hb_param( 5, HB_IT_ARRAY ), &rpTitle );
 
    if ( hIco )
@@ -1891,18 +1891,18 @@ HB_FUNC( HWG_PREPAREIMAGERECT )
 
 HB_FUNC( HWG_DRAWTHEMETEXT )
 {
-   HTHEME hTheme = ( HTHEME ) hb_parptr( 1 );
-   HDC hdc = ( HDC ) HB_PARHANDLE( 2 );
-   int iPartId = hb_parni( 3 );
-   int iStateId = hb_parni( 4 );
-   LPCSTR pText = hb_parc( 5 );
-   DWORD dwTextFlags = hb_parnl( 6 );
-   DWORD dwTextFlags2 = hb_parnl( 7 );
+   HTHEME hTheme = ( HTHEME ) hb_parptr(1);
+   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   int iPartId = hb_parni(3);
+   int iStateId = hb_parni(4);
+   LPCSTR pText = hb_parc(5);
+   DWORD dwTextFlags = hb_parnl(6);
+   DWORD dwTextFlags2 = hb_parnl(7);
    RECT pRect;
    int mlen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, NULL, 0 );
    WCHAR *output = ( WCHAR * ) hb_xgrab( mlen * sizeof( WCHAR ) );
 
-   if( HB_ISARRAY( 8 ) )
+   if( HB_ISARRAY(8) )
       Array2Rect( hb_param( 8, HB_IT_ARRAY ), &pRect );
    MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, output, mlen );
    hb_DrawThemeText( hTheme, hdc, iPartId,
@@ -1913,15 +1913,15 @@ HB_FUNC( HWG_DRAWTHEMETEXT )
 
 HB_FUNC( HWG_CLOSETHEMEDATA )
 {
-   HTHEME hTheme = ( HTHEME ) hb_parptr( 1 );
+   HTHEME hTheme = ( HTHEME ) hb_parptr(1);
    hb_CloseThemeData( hTheme );
 }
 
 HB_FUNC( HWG_TRACKMOUSEVENT )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   DWORD dwFlags = ( DWORD ) hb_parnl( 2 );
-   DWORD dwHoverTime = ( DWORD ) hb_parnl( 3 );
+   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   DWORD dwFlags = ( DWORD ) hb_parnl(2);
+   DWORD dwHoverTime = ( DWORD ) hb_parnl(3);
    TRACKMOUSEEVENT csTME;
 
    csTME.cbSize = sizeof( csTME );
@@ -1933,9 +1933,9 @@ HB_FUNC( HWG_TRACKMOUSEVENT )
 
 HB_FUNC( HWG_BUTTONEXONSETSTYLE )
 {
-   WPARAM wParam = ( WPARAM ) hb_parnl( 1 );
-   LPARAM lParam = ( LPARAM ) hb_parnl( 2 );
-   HWND h = ( HWND ) HB_PARHANDLE( 3 );
+   WPARAM wParam = ( WPARAM ) hb_parnl(1);
+   LPARAM lParam = ( LPARAM ) hb_parnl(2);
+   HWND h = ( HWND ) HB_PARHANDLE(3);
 
    UINT nNewType = ( wParam & BS_TYPEMASK );
 
@@ -1962,26 +1962,26 @@ HB_FUNC( HWG_BUTTONEXONSETSTYLE )
 
 HB_FUNC( HWG_GETTHESTYLE )
 {
-   LONG nBS = hb_parnl( 1 );
-   LONG nBS1 = hb_parnl( 2 );
+   LONG nBS = hb_parnl(1);
+   LONG nBS1 = hb_parnl(2);
    hb_retnl( nBS & nBS1 );
 }
 
 HB_FUNC( HWG_MODSTYLE )
 {
-   LONG nbs = hb_parnl( 1 );
-   LONG b = hb_parnl( 2 );
-   LONG c = hb_parnl( 3 );
+   LONG nbs = hb_parnl(1);
+   LONG b = hb_parnl(2);
+   LONG c = hb_parnl(3);
    hb_retnl( ( nbs & ~b ) | c );
 }
 
 HB_FUNC( HWG_DRAWTHEMEPARENTBACKGROUND )
 {
-   HWND hTheme = ( HWND ) HB_PARHANDLE( 1 );
-   HDC hdc = ( HDC ) HB_PARHANDLE( 2 );
+   HWND hTheme = ( HWND ) HB_PARHANDLE(1);
+   HDC hdc = ( HDC ) HB_PARHANDLE(2);
    RECT pRect;
 
-   if( HB_ISARRAY( 3 ) )
+   if( HB_ISARRAY(3) )
       Array2Rect( hb_param( 3, HB_IT_ARRAY ), &pRect );
 
    hb_retnl( hb_DrawThemeParentBackground( hTheme, hdc, &pRect ) );
@@ -1995,8 +1995,8 @@ HB_FUNC( HWG_ISTHEMEACTIVE )
 
 HB_FUNC( HWG_GETTHEMESYSCOLOR )
 {
-   HWND hTheme = ( HWND ) HB_PARHANDLE( 1 );
-   int iColor = ( int ) hb_parnl( 2 );
+   HWND hTheme = ( HWND ) HB_PARHANDLE(1);
+   int iColor = ( int ) hb_parnl(2);
 
    HB_RETHANDLE( hb_GetThemeSysColor( hTheme, iColor ) );
 }
@@ -2006,7 +2006,7 @@ HB_FUNC( HWG_GETTHEMESYSCOLOR )
                                                             
 HB_FUNC( HWG_SETWINDOWTHEME)
 {
-   HWND hwnd = (HWND) HB_PARHANDLE( 1 ) ;
+   HWND hwnd = (HWND) HB_PARHANDLE(1) ;
    //LPCWSTR pszSubAppName = hb_parc(2);
    //LPCWSTR pszSubIdList = hb_parc(3);
    int ienable = hb_parni(2);
@@ -2039,10 +2039,10 @@ HB_FUNC( HWG_GETWINDOWTHEME )
    {
      //Windows XP detected
       HTHEME hTheme; // = (HTHEME) hb_parptr(1) ;
-      hTheme = hb_GetWindowTheme( (HWND) HB_PARHANDLE( 1 ) );
+      hTheme = hb_GetWindowTheme( (HWND) HB_PARHANDLE(1) );
       HB_RETHANDLE ( hTheme );
    }
    else
-      HB_RETHANDLE ( 0 );
+      HB_RETHANDLE(0);
 }
 

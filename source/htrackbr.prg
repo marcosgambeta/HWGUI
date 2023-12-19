@@ -159,13 +159,13 @@ HB_FUNC ( HWG_INITTRACKBAR )
 
     hTrackBar = CreateWindow( TRACKBAR_CLASS,
                              0,
-                             ( LONG )  hb_parnl( 3 ),
-                                       hb_parni( 4 ),
-                                       hb_parni( 5 ),
-                                       hb_parni( 6 ),
-                                       hb_parni( 7 ),
-                             ( HWND )  HB_PARHANDLE( 1 ),
-                             ( HMENU ) hb_parni( 2 ),
+                             ( LONG )  hb_parnl(3),
+                                       hb_parni(4),
+                                       hb_parni(5),
+                                       hb_parni(6),
+                                       hb_parni(7),
+                             ( HWND )  HB_PARHANDLE(1),
+                             ( HMENU ) hb_parni(2),
                              GetModuleHandle( NULL ),
                              NULL ) ;
 
@@ -174,8 +174,8 @@ HB_FUNC ( HWG_INITTRACKBAR )
 
 HB_FUNC ( HWG_TRACKBARSETRANGE )
 {
-    SendMessage( (HWND) HB_PARHANDLE( 1 ), TBM_SETRANGE, TRUE,
-                  MAKELONG( hb_parni( 2 ), hb_parni( 3 ) ) );
+    SendMessage( (HWND) HB_PARHANDLE(1), TBM_SETRANGE, TRUE,
+                  MAKELONG( hb_parni(2), hb_parni(3) ) );
 }
 
 #pragma ENDDUMP

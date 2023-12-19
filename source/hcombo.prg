@@ -23,10 +23,10 @@
 #include "hwingui.h"
 HB_FUNC( COPYDATA )
 {
-   LPARAM lParam = ( LPARAM ) hb_parnl( 1 ) ;
+   LPARAM lParam = ( LPARAM ) hb_parnl(1) ;
    void * hText;
    LPCTSTR m_strText = HB_PARSTR( 2, &hText, NULL );
-   WPARAM wParam = ( WPARAM ) hb_parnl( 3 ) ;
+   WPARAM wParam = ( WPARAM ) hb_parnl(3) ;
 
    lstrcpyn( ( LPTSTR ) lParam, m_strText, ( INT ) wParam ) ;
    hb_strfree( hText );
@@ -422,7 +422,7 @@ METHOD Requery( aItems, xValue ) CLASS HComboBox
    IF xValue != Nil
       ::SetValue( xValue )
    ELSEIF  Empty( ::Value ) .AND. Len( ::aItems ) > 0 .AND. ::bSetGet = Nil  .AND. ! ::lEdit
-      ::SetItem( 1 )
+      ::SetItem(1)
    ENDIF
 
    RETURN Nil
@@ -1007,8 +1007,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
 
       IF wParam = VK_HOME .OR. wParam = VK_END
          nPos := iif( wParam = VK_HOME, ;
-            Ascan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr( 0 ) + "\]" } , , ) , ;
-            RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr( 0 ) + "\]" } , , ) )
+            Ascan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" } , , ) , ;
+            RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" } , , ) )
          IF nPos - 1 != ::nCurPos
             hwg_Setfocus( Nil )
             hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos - 1, 0 )
@@ -1372,8 +1372,8 @@ METHOD SkipItems( nNav ) CLASS hCheckComboBox
    hwg_Comboboxgetlbtext( ::handle, ::nCurPos + nNav, @strText ) // NEXT
    IF Left( strText, 2 ) == "\]" .OR. Left( strText, 2 ) == "\-"
       nPos := iif( nNav > 0, ;
-         Ascan(  ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr( 0 ) + "\]" }, ::nCurPos + 2  ), ;
-         RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr( 0 ) + "\]" }, ::nCurPos - 1, ) )
+         Ascan(  ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
+         RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
       nPos := iif( nPos = 0, ::nCurPos , nPos - 1 )
       hwg_Setfocus( Nil )
       hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos , 0 )

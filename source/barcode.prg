@@ -217,13 +217,13 @@ METHOD ShowBarcode() CLASS BarCode
    CASE ::nBCodeType = 6
       cCode := ::InitCode128( "C" )
    CASE ::nBCodeType = 7
-      cCode  := ::InitUPC( 7 )
-      cCode2 := ::InitE13BL( 8 )
+      cCode  := ::InitUPC(7)
+      cCode2 := ::InitE13BL(8)
    CASE ::nBCodeType = 8
       cCode := ::InitEAN13()
    CASE ::nBCodeType = 9
-      cCode  := ::InitUPC( 11 )
-      cCode2 := ::InitE13BL( 12 )
+      cCode  := ::InitUPC(11)
+      cCode2 := ::InitE13BL(12)
    CASE ::nBCodeType = 10
       cCode  := ::InitCodabar()
    CASE ::nBCodeType = 11
@@ -895,34 +895,34 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
 
 HB_FUNC_STATIC( RICH_RECTANGLE )
 {
-   hb_retl( Rectangle( (HDC) HB_PARHANDLE( 1 ),
-                       hb_parni( 2 )      ,
-                       hb_parni( 3 )      ,
-                       hb_parni( 4 )      ,
-                       hb_parni( 5 )
+   hb_retl( Rectangle( (HDC) HB_PARHANDLE(1),
+                       hb_parni(2)      ,
+                       hb_parni(3)      ,
+                       hb_parni(4)      ,
+                       hb_parni(5)
                        ) ) ;
 }
 
 
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE( CreatePen( hb_parni( 1 ),   // pen style
-                            hb_parni( 2 ),   // pen width
-                            (COLORREF) hb_parnl( 3 )    // pen color
+   HB_RETHANDLE( CreatePen( hb_parni(1),   // pen style
+                            hb_parni(2),   // pen width
+                            (COLORREF) hb_parnl(3)    // pen color
                            ) );
 }
 
 
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE( SelectObject( (HDC) HB_PARHANDLE( 1 ), (HGDIOBJ) HB_PARHANDLE( 2 ) ) ) ;
+   HB_RETHANDLE( SelectObject( (HDC) HB_PARHANDLE(1), (HGDIOBJ) HB_PARHANDLE(2) ) ) ;
 }
 
 
 
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE( CreateSolidBrush( (COLORREF) hb_parnl( 1 ) ) ) ;    // brush color
+   HB_RETHANDLE( CreateSolidBrush( (COLORREF) hb_parnl(1) ) ) ;    // brush color
 }
 
 #pragma ENDDUMP

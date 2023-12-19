@@ -269,7 +269,7 @@ METHOD Init() CLASS HTab
          hwg_Sendmessage( ::handle, TCM_SETCURFOCUS, ::nActive - 1, 0 )
          IF ::nActive = 0
             ::Disable()
-            ::ShowPage( 1 )
+            ::ShowPage(1)
          ELSE
             ::ShowPage( ::nActive )
          ENDIF
@@ -479,7 +479,7 @@ METHOD ShowPage( nPage ) CLASS HTab
          ENDIF
       NEXT
       IF ::Pages[ nPage ]:brush = NIL .AND. ::oPaint:nHeight > 1
-         ::SetPaintSizePos( 1 )
+         ::SetPaintSizePos(1)
       ENDIF
    ELSE
       ::aPages[ nPage, 1 ]:show()
@@ -585,7 +585,7 @@ Local nFirst, nEnd, i
          ::SetTab( ::nActive )
       ELSEIF Len( ::aPages ) > 0
          ::nActive := 1
-         ::SetTab( 1 )
+         ::SetTab(1)
       ENDIF
    ENDIF
 
@@ -689,7 +689,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       ENDIF
       //::lClick := .T.
       IF ! hwg_Selffocus( ::Handle )
-         ::Setfocus( 0 )
+         ::Setfocus(0)
       ENDIF
       RETURN - 1
    ELSEIF msg = WM_LBUTTONUP

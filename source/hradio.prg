@@ -422,7 +422,7 @@ METHOD onClick() CLASS HRadioButton
    ::lWhen := .F.
    ::lnoValid := .F.
 
-   RETURN ::Valid( 0 )
+   RETURN ::Valid(0)
 
 METHOD When( ) CLASS HRadioButton
    LOCAL res := .T., nSkip

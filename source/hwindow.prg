@@ -176,7 +176,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       ::HelpId := nHelpId
    END
 
-   ::aOffset := Array( 4 )
+   ::aOffset := Array(4)
    AFill( ::aOffset, 0 )
 
    IF VALTYPE( cTitle ) != "N"
@@ -791,7 +791,7 @@ FUNCTION hwg_ReleaseAllWindows( hWnd )
       ENDIF
    NEXT
    IF hwg_Ptrtoulong( HWindow():aWindows[ 1 ]:handle ) == hwg_Ptrtoulong( hWnd )
-      hwg_Postquitmessage( 0 )
+      hwg_Postquitmessage(0)
    ENDIF
 
    RETURN - 1

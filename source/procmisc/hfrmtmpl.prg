@@ -485,7 +485,7 @@ FUNCTION ParseMethod( cMethod )
    ELSE
       Aadd( arr, RTrim( Left( cMethod,nPos1-1 ) ) )
       DO WHILE .T.
-         IF ( nPos2 := hb_At( Chr( 10 ), cMethod, nPos1 + 1 ) ) == 0
+         IF ( nPos2 := hb_At( Chr(10), cMethod, nPos1 + 1 ) ) == 0
             cLine := AllTrim( SubStr( cMethod, nPos1 + 1 ) )
          ELSE
             cLine := AllTrim( SubStr( cMethod, nPos1 + 1, nPos2 - nPos1 - 1 ) )
@@ -585,7 +585,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
 
 STATIC PROCEDURE CompileErr( e, stroka )
 
-   hwg_Msgstop( hwg_ErrMsg( e ) + Chr( 10 ) + Chr( 13 ) + "in" + Chr( 10 ) + Chr( 13 ) + ;
+   hwg_Msgstop( hwg_ErrMsg( e ) + Chr(10) + Chr(13) + "in" + Chr(10) + Chr(13) + ;
             AllTrim( stroka ), "Script compiling error" )
    BREAK( NIL )
 

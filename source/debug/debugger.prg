@@ -84,7 +84,7 @@
 #define CSTACK_STATICS          6  // an array with static variables
 
 /* Information structure stored in aCallStack[ n ][ CSTACK_LOCALS ]
-   { cLocalName, nLocalIndex, "Local", ProcName( 1 ), nLevel } */
+   { cLocalName, nLocalIndex, "Local", ProcName(1), nLevel } */
 #define VAR_NAME                1
 #define VAR_POS                 2
 #define VAR_TYPE                3
@@ -261,7 +261,7 @@ METHOD Activate() CLASS HBDebugger
    ENDIF
 
    // show the topmost procedure
-   ::ShowCodeLine( 1 )
+   ::ShowCodeLine(1)
    ::HandleEvent()
 
    RETURN NIL

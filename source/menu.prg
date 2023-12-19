@@ -243,7 +243,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
       aMenu := ATail( aMenu )[ 1 ]
    NEXT
    IF ! Empty( cItem )
-      cItem := StrTran( cItem, "\t", Chr( 9 ) )
+      cItem := StrTran( cItem, "\t", Chr(9) )
    ENDIF
    nId := IIf( nId == Nil .AND. cItem != Nil, ++ _Id, nId )
    AAdd( aMenu, { bItem, cItem, nId, nFlag } )

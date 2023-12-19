@@ -522,7 +522,7 @@ METHOD GetTextPanel( nPart ) CLASS HStatus
    LOCAL ntxtLen, cText := ""
 
    ntxtLen := hwg_Sendmessage( ::handle, SB_GETTEXTLENGTH, nPart - 1, 0 )
-   cText := Replicate( Chr( 0 ), ntxtLen )
+   cText := Replicate( Chr(0), ntxtLen )
    hwg_Sendmessage( ::handle, SB_GETTEXT, nPart - 1, @cText )
 
    RETURN cText

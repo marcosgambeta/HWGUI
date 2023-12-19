@@ -12,7 +12,7 @@ FUNCTION RDSTR( han, strbuf, poz, buflen )
 LOCAL stro := "", rez, oldpoz, poz1
 
    oldpoz := poz
-   poz    := At( Chr( 10 ), Substr( strbuf, poz ) )
+   poz    := At( Chr(10), Substr( strbuf, poz ) )
    IF poz = 0
       IF han <> Nil
          stro += Substr( strbuf, oldpoz )
@@ -20,9 +20,9 @@ LOCAL stro := "", rez, oldpoz, poz1
          IF rez = 0
             RETURN ""
          ELSEIF rez < buflen
-            strbuf := Substr( strbuf, 1, rez ) + Chr( 10 ) + Chr( 13 )
+            strbuf := Substr( strbuf, 1, rez ) + Chr(10) + Chr(13)
          ENDIF
-         poz  := At( Chr( 10 ), strbuf )
+         poz  := At( Chr(10), strbuf )
          stro += Substr( strbuf, 1, poz )
       ELSE
          stro += Rtrim( Substr( strbuf, oldpoz ) )
@@ -37,8 +37,8 @@ LOCAL stro := "", rez, oldpoz, poz1
    ENDIF
    poz ++
    poz1 := Len( stro )
-   IF poz1 > 2 .AND. Right( stro, 1 ) $ Chr( 13 ) + Chr( 10 )
-      IF Substr( stro, poz1 - 1, 1 ) $ Chr( 13 ) + Chr( 10 )
+   IF poz1 > 2 .AND. Right( stro, 1 ) $ Chr(13) + Chr(10)
+      IF Substr( stro, poz1 - 1, 1 ) $ Chr(13) + Chr(10)
          poz1 --
       ENDIF
       stro := Substr( stro, 1, poz1 - 1 )

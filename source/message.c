@@ -69,7 +69,7 @@ HB_FUNC( HWG_MSGRETRYCANCEL )
 
 HB_FUNC( HWG_MSGBEEP )
 {
-   MessageBeep( ( hb_pcount() == 0 ) ? ( LONG ) 0xFFFFFFFF : hb_parnl( 1 ) );
+   MessageBeep( ( hb_pcount() == 0 ) ? ( LONG ) 0xFFFFFFFF : hb_parnl(1) );
 }
 
 HB_FUNC( HWG_MSGTEMP )

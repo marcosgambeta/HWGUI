@@ -463,7 +463,7 @@ METHOD Paint( lpdis ) CLASS HContainer
             hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , ::brush:handle )
          ENDIF
       ELSE
-         hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , hwg_Getstockobject( 5 ) )
+         hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , hwg_Getstockobject(5) )
       ENDIF
       //hwg_Setbkmode( hDC, 0 )
    ENDIF

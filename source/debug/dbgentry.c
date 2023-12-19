@@ -225,7 +225,7 @@ static void hb_dbgActivate( HB_DEBUGINFO * info )
       for( i = 0; i < info->nCallStackLen; i++ )
       {
          HB_CALLSTACKINFO * pEntry = &info->aCallStack[ i ];
-         PHB_ITEM aEntry = hb_itemArrayNew( 6 );
+         PHB_ITEM aEntry = hb_itemArrayNew(6);
          PHB_ITEM pItem;
 
          hb_arraySetC( aEntry, 1, pEntry->szModule );
@@ -261,7 +261,7 @@ static void hb_dbgActivate( HB_DEBUGINFO * info )
       hb_itemRelease( aModules );
       hb_itemRelease( aBreak );
 
-      hb_vmDo( 6 );
+      hb_vmDo(6);
    }
 }
 
@@ -273,7 +273,7 @@ static PHB_ITEM hb_dbgActivateBreakArray( HB_DEBUGINFO * info )
 
    for( i = 0; i < info->nBreakPoints; i++ )
    {
-      PHB_ITEM pBreak = hb_itemArrayNew( 3 );
+      PHB_ITEM pBreak = hb_itemArrayNew(3);
 
       if( !info->aBreak[ i ].szFunction )
       {
@@ -301,7 +301,7 @@ static PHB_ITEM hb_dbgActivateModuleArray( void )
 
    for( i = 0; i < s_common.nModules; i++ )
    {
-      PHB_ITEM pModule = hb_itemArrayNew( 4 );
+      PHB_ITEM pModule = hb_itemArrayNew(4);
       PHB_ITEM item;
 
       hb_arraySetC( pModule, 1, s_common.aModules[ i ].szModule );
@@ -338,7 +338,7 @@ static PHB_ITEM hb_dbgActivateVarArray( int nVars, HB_VARINFO * aVars )
 
    for( i = 0; i < nVars; i++ )
    {
-      PHB_ITEM aVar = hb_itemArrayNew( 4 );
+      PHB_ITEM aVar = hb_itemArrayNew(4);
 
       hb_arraySetC( aVar, 1, aVars[ i ].szName );
       hb_arraySetNL( aVar, 2, aVars[ i ].nIndex );
@@ -1636,7 +1636,7 @@ static void hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue )
             hb_vmPushNil();
             hb_vmPushString( scope->szName, ( HB_SIZE ) strlen( scope->szName ) );
             hb_vmPush( xNewValue );
-            hb_vmDo( 2 );
+            hb_vmDo(2);
          }
          break;
       }
@@ -1653,57 +1653,57 @@ HB_FUNC( __DBGSETENTRY )
 
 HB_FUNC( __DBGSETGO )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
       hb_dbgSetGo( ptr );
 }
 
 HB_FUNC( __DBGSETTRACE )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
       hb_dbgSetTrace( ptr );
 }
 
 HB_FUNC( __DBGSETCBTRACE )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgSetCBTrace( ptr, hb_parl( 2 ) );
+      hb_dbgSetCBTrace( ptr, hb_parl(2) );
 }
 
 HB_FUNC( __DBGSETNEXTROUTINE )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
       hb_dbgSetNextRoutine( ptr );
 }
 
 HB_FUNC( __DBGSETQUIT )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
       hb_dbgSetQuit( ptr );
 }
 
 HB_FUNC( __DBGSETTOCURSOR )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgSetToCursor( ptr, hb_parc( 2 ), hb_parni( 3 ) );
+      hb_dbgSetToCursor( ptr, hb_parc(2), hb_parni(3) );
 }
 
 HB_FUNC( __DBGGETEXPRVALUE )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
    {
       PHB_ITEM pItem;
 
-      if( HB_ISCHAR( 2 ) )
-         pItem = hb_dbgGetExpressionValue( hb_parptr( 1 ), hb_parc( 2 ) );
+      if( HB_ISCHAR(2) )
+         pItem = hb_dbgGetExpressionValue( hb_parptr(1), hb_parc(2) );
       else
-         pItem = hb_dbgGetWatchValue( hb_parptr( 1 ), hb_parni( 2 ) - 1 );
+         pItem = hb_dbgGetWatchValue( hb_parptr(1), hb_parni(2) - 1 );
 
       if( pItem )
       {
@@ -1717,56 +1717,56 @@ HB_FUNC( __DBGGETEXPRVALUE )
 
 HB_FUNC( __DBGGETSOURCEFILES )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
       hb_itemReturnRelease( hb_dbgGetSourceFiles( ptr ) );
 }
 
 HB_FUNC( __DBGISVALIDSTOPLINE )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_retl( hb_dbgIsValidStopLine( ptr, hb_parc( 2 ), hb_parni( 3 ) ) );
+      hb_retl( hb_dbgIsValidStopLine( ptr, hb_parc(2), hb_parni(3) ) );
 }
 
 HB_FUNC( __DBGADDBREAK )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgAddBreak( ptr, hb_parc( 2 ), hb_parni( 3 ), NULL );
+      hb_dbgAddBreak( ptr, hb_parc(2), hb_parni(3), NULL );
 }
 
 HB_FUNC( __DBGDELBREAK )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgDelBreak( ptr, hb_parni( 2 ) );
+      hb_dbgDelBreak( ptr, hb_parni(2) );
 }
 
 HB_FUNC( __DBGADDWATCH )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgAddWatch( ptr, hb_parc( 2 ), hb_parl( 3 ) );
+      hb_dbgAddWatch( ptr, hb_parc(2), hb_parl(3) );
 }
 
 HB_FUNC( __DBGDELWATCH )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgDelWatch( ptr, hb_parni( 2 ) );
+      hb_dbgDelWatch( ptr, hb_parni(2) );
 }
 
 HB_FUNC( __DBGSETWATCH )
 {
-   void * ptr = hb_parptr( 1 );
+   void * ptr = hb_parptr(1);
    if( ptr )
-      hb_dbgSetWatch( ptr, hb_parni( 2 ), hb_parc( 3 ), hb_parl( 4 ) );
+      hb_dbgSetWatch( ptr, hb_parni(2), hb_parc(3), hb_parl(4) );
 }
 
 HB_FUNC( __DBGSENDMSG )
 {
-   hb_dbg_objSendMessage( hb_parnl( 1 ), hb_param( 2, HB_IT_ANY ),
+   hb_dbg_objSendMessage( hb_parnl(1), hb_param( 2, HB_IT_ANY ),
                           hb_param( 3, HB_IT_ANY ), 4 );
 }
 

@@ -67,7 +67,7 @@ BOOL Array2Rect( PHB_ITEM aRect, RECT * rc )
 
 PHB_ITEM Rect2Array( RECT * rc )
 {
-   PHB_ITEM aRect = hb_itemArrayNew( 4 );
+   PHB_ITEM aRect = hb_itemArrayNew(4);
    PHB_ITEM element = hb_itemNew( NULL );
 
    hb_arraySet( aRect, 1, hb_itemPutNL( element, rc->left ) );
@@ -80,7 +80,7 @@ PHB_ITEM Rect2Array( RECT * rc )
 
 HB_FUNC( HWG_GETPPSRECT )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE( 1 );
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(1);
 
    PHB_ITEM aMetr = Rect2Array( &pps->rcPaint );
 
@@ -90,14 +90,14 @@ HB_FUNC( HWG_GETPPSRECT )
 
 HB_FUNC( HWG_GETPPSERASE )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE( 1 );
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(1);
    BOOL fErase = (BOOL)(&pps->fErase) ;
    hb_retni( fErase );
 }
 
 HB_FUNC( HWG_GETUPDATERECT )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 ) ;
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1) ;
    BOOL fErase ;
    fErase =  GetUpdateRect( hWnd, NULL, 0 ) ;
    hb_retni( fErase );
@@ -109,37 +109,37 @@ HB_FUNC( HWG_INVALIDATERECT )
 
    if( hb_pcount(  ) > 2 )
    {
-      rc.left = hb_parni( 3 );
-      rc.top = hb_parni( 4 );
-      rc.right = hb_parni( 5 );
-      rc.bottom = hb_parni( 6 );
+      rc.left = hb_parni(3);
+      rc.top = hb_parni(4);
+      rc.right = hb_parni(5);
+      rc.bottom = hb_parni(6);
    }
 
-   InvalidateRect( ( HWND ) HB_PARHANDLE( 1 ),  // handle of window with changed update region
+   InvalidateRect( ( HWND ) HB_PARHANDLE(1),  // handle of window with changed update region
          ( hb_pcount(  ) > 2 ) ? &rc : NULL,    // address of rectangle coordinates
-         hb_parni( 2 )          // erase-background flag
+         hb_parni(2)          // erase-background flag
           );
 }
 
 HB_FUNC( HWG_MOVETO )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   int x1 = hb_parni(2), y1 = hb_parni(3);
    MoveToEx( hDC, x1, y1, NULL );
 }
 
 HB_FUNC( HWG_LINETO )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   int x1 = hb_parni(2), y1 = hb_parni(3);
    LineTo( hDC, x1, y1 );
 }
 
 HB_FUNC( HWG_RECTANGLE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   int x1 = hb_parni( 2 ), y1 = hb_parni( 3 ), x2 = hb_parni( 4 ), y2 =
-         hb_parni( 5 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 =
+         hb_parni(5);
    MoveToEx( hDC, x1, y1, NULL );
    LineTo( hDC, x2, y1 );
    LineTo( hDC, x2, y2 );
@@ -149,11 +149,11 @@ HB_FUNC( HWG_RECTANGLE )
 
 HB_FUNC( HWG_BOX )
 {
-   Rectangle( ( HDC ) HB_PARHANDLE( 1 ),        // handle of device context
-         hb_parni( 2 ),         // x-coord. of bounding rectangle's upper-left corner
-         hb_parni( 3 ),         // y-coord. of bounding rectangle's upper-left corner
-         hb_parni( 4 ),         // x-coord. of bounding rectangle's lower-right corner
-         hb_parni( 5 )          // y-coord. of bounding rectangle's lower-right corner
+   Rectangle( ( HDC ) HB_PARHANDLE(1),        // handle of device context
+         hb_parni(2),         // x-coord. of bounding rectangle's upper-left corner
+         hb_parni(3),         // y-coord. of bounding rectangle's upper-left corner
+         hb_parni(4),         // x-coord. of bounding rectangle's lower-right corner
+         hb_parni(5)          // y-coord. of bounding rectangle's lower-right corner
           );
 }
 
@@ -161,21 +161,21 @@ HB_FUNC( HWG_BOX )
 
 HB_FUNC( HWG_DRAWLINE )
 {
-   MoveToEx( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ), hb_parni( 3 ), NULL );
-   LineTo( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 4 ), hb_parni( 5 ) );
+   MoveToEx( ( HDC ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3), NULL );
+   LineTo( ( HDC ) HB_PARHANDLE(1), hb_parni(4), hb_parni(5) );
 }
 
 HB_FUNC( HWG_PIE )
 {
-   int res = Pie( ( HDC ) HB_PARHANDLE( 1 ),    // handle to device context
-         hb_parni( 2 ),         // x-coord. of bounding rectangle's upper-left corner
-         hb_parni( 3 ),         // y-coord. of bounding rectangle's upper-left corner
-         hb_parni( 4 ),         // x-coord. of bounding rectangle's lower-right corner
-         hb_parni( 5 ),         // y-coord. bounding rectangle's f lower-right corner
-         hb_parni( 6 ),         // x-coord. of first radial's endpoint
-         hb_parni( 7 ),         // y-coord. of first radial's endpoint
-         hb_parni( 8 ),         // x-coord. of second radial's endpoint
-         hb_parni( 9 )          // y-coord. of second radial's endpoint
+   int res = Pie( ( HDC ) HB_PARHANDLE(1),    // handle to device context
+         hb_parni(2),         // x-coord. of bounding rectangle's upper-left corner
+         hb_parni(3),         // y-coord. of bounding rectangle's upper-left corner
+         hb_parni(4),         // x-coord. of bounding rectangle's lower-right corner
+         hb_parni(5),         // y-coord. bounding rectangle's f lower-right corner
+         hb_parni(6),         // x-coord. of first radial's endpoint
+         hb_parni(7),         // y-coord. of first radial's endpoint
+         hb_parni(8),         // x-coord. of second radial's endpoint
+         hb_parni(9)          // y-coord. of second radial's endpoint
           );
 
    hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
@@ -183,11 +183,11 @@ HB_FUNC( HWG_PIE )
 
 HB_FUNC( HWG_ELLIPSE )
 {
-   int res = Ellipse( ( HDC ) HB_PARHANDLE( 1 ),        // handle to device context
-         hb_parni( 2 ),         // x-coord. of bounding rectangle's upper-left corner
-         hb_parni( 3 ),         // y-coord. of bounding rectangle's upper-left corner
-         hb_parni( 4 ),         // x-coord. of bounding rectangle's lower-right corner
-         hb_parni( 5 )          // y-coord. bounding rectangle's f lower-right corner
+   int res = Ellipse( ( HDC ) HB_PARHANDLE(1),        // handle to device context
+         hb_parni(2),         // x-coord. of bounding rectangle's upper-left corner
+         hb_parni(3),         // y-coord. of bounding rectangle's upper-left corner
+         hb_parni(4),         // x-coord. of bounding rectangle's lower-right corner
+         hb_parni(5)          // y-coord. bounding rectangle's f lower-right corner
           );
 
    hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
@@ -197,35 +197,35 @@ HB_FUNC( HWG_FILLRECT )
 {
    RECT rc;
 
-   rc.left = hb_parni( 2 );
-   rc.top = hb_parni( 3 );
-   rc.right = hb_parni( 4 );
-   rc.bottom = hb_parni( 5 );
+   rc.left = hb_parni(2);
+   rc.top = hb_parni(3);
+   rc.right = hb_parni(4);
+   rc.bottom = hb_parni(5);
 
-   FillRect( HB_ISPOINTER( 1 ) ? ( HDC ) HB_PARHANDLE( 1 ) : ( HDC ) hb_parnl( 1 ),        // handle to device context
+   FillRect( HB_ISPOINTER(1) ? ( HDC ) HB_PARHANDLE(1) : ( HDC ) hb_parnl(1),        // handle to device context
          &rc,                   // pointer to structure with rectangle
-         ( HBRUSH ) HB_PARHANDLE( 6 )   // handle to brush
+         ( HBRUSH ) HB_PARHANDLE(6)   // handle to brush
           );
 }
 
 HB_FUNC( HWG_ROUNDRECT )
 {
-   hb_parl( RoundRect( ( HDC ) HB_PARHANDLE( 1 ),       // handle of device context
-               hb_parni( 2 ),   // x-coord. of bounding rectangle's upper-left corner
-               hb_parni( 3 ),   // y-coord. of bounding rectangle's upper-left corner
-               hb_parni( 4 ),   // x-coord. of bounding rectangle's lower-right corner
-               hb_parni( 5 ),   // y-coord. of bounding rectangle's lower-right corner
-               hb_parni( 6 ),   // width of ellipse used to draw rounded corners
-               hb_parni( 7 )    // height of ellipse used to draw rounded corners
+   hb_parl( RoundRect( ( HDC ) HB_PARHANDLE(1),       // handle of device context
+               hb_parni(2),   // x-coord. of bounding rectangle's upper-left corner
+               hb_parni(3),   // y-coord. of bounding rectangle's upper-left corner
+               hb_parni(4),   // x-coord. of bounding rectangle's lower-right corner
+               hb_parni(5),   // y-coord. of bounding rectangle's lower-right corner
+               hb_parni(6),   // width of ellipse used to draw rounded corners
+               hb_parni(7)    // height of ellipse used to draw rounded corners
           ) );
 }
 /*
 HB_FUNC( HWG_REDRAWWINDOW )
 {
-   RedrawWindow( ( HWND ) HB_PARHANDLE( 1 ),    // handle of window
+   RedrawWindow( ( HWND ) HB_PARHANDLE(1),    // handle of window
          NULL,                  // address of structure with update rectangle
          NULL,                  // handle of update region
-         ( UINT ) hb_parni( 2 ) // array of redraw flags
+         ( UINT ) hb_parni(2) // array of redraw flags
           );
 }
 */
@@ -245,23 +245,23 @@ HB_FUNC( HWG_REDRAWWINDOW )
       rc.bottom = y + h + 1 ;
    }   
    RedrawWindow(
-    ( HWND ) HB_PARHANDLE( 1 ),  // handle of window
+    ( HWND ) HB_PARHANDLE(1),  // handle of window
     ( hb_pcount() > 3 )? &rc:NULL,  // address of structure with update rectangle
      NULL,   // handle of update region
-    ( UINT )hb_parni( 2 )     // array of redraw flags
+    ( UINT )hb_parni(2)     // array of redraw flags
    );
 }
 
 HB_FUNC( HWG_DRAWBUTTON )
 {
    RECT rc;
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   UINT iType = hb_parni( 6 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   UINT iType = hb_parni(6);
 
-   rc.left = hb_parni( 2 );
-   rc.top = hb_parni( 3 );
-   rc.right = hb_parni( 4 );
-   rc.bottom = hb_parni( 5 );
+   rc.left = hb_parni(2);
+   rc.top = hb_parni(3);
+   rc.right = hb_parni(4);
+   rc.bottom = hb_parni(5);
 
    if( iType == 0 )
       FillRect( hDC, &rc, ( HBRUSH ) ( COLOR_3DFACE + 1 ) );
@@ -300,22 +300,22 @@ HB_FUNC( HWG_DRAWBUTTON )
 HB_FUNC( HWG_DRAWEDGE )
 {
    RECT rc;
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   UINT edge = ( HB_ISNIL( 6 ) ) ? EDGE_RAISED : ( UINT ) hb_parni( 6 );
-   UINT grfFlags = ( HB_ISNIL( 7 ) ) ? BF_RECT : ( UINT ) hb_parni( 7 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   UINT edge = ( HB_ISNIL(6) ) ? EDGE_RAISED : ( UINT ) hb_parni(6);
+   UINT grfFlags = ( HB_ISNIL(7) ) ? BF_RECT : ( UINT ) hb_parni(7);
 
-   rc.left = hb_parni( 2 );
-   rc.top = hb_parni( 3 );
-   rc.right = hb_parni( 4 );
-   rc.bottom = hb_parni( 5 );
+   rc.left = hb_parni(2);
+   rc.top = hb_parni(3);
+   rc.right = hb_parni(4);
+   rc.bottom = hb_parni(5);
 
    hb_retl( DrawEdge( hDC, &rc, edge, grfFlags ) );
 }
 
 HB_FUNC( HWG_LOADICON )
 {
-   if( HB_ISNUM( 1 ) )
-      HB_RETHANDLE( LoadIcon( NULL, MAKEINTRESOURCE( hb_parni( 1 ) ) ) );
+   if( HB_ISNUM(1) )
+      HB_RETHANDLE( LoadIcon( NULL, MAKEINTRESOURCE( hb_parni(1) ) ) );
    else
    {
       void * hString;
@@ -328,25 +328,25 @@ HB_FUNC( HWG_LOADIMAGE )
 {
    void * hString = NULL;
 
-   HB_RETHANDLE( LoadImage( HB_ISNIL( 1 ) ? GetModuleHandle( NULL ) : ( HINSTANCE ) hb_parnl( 1 ), // handle of the instance that contains the image
-               HB_ISNUM( 2 ) ? MAKEINTRESOURCE( hb_parni( 2 ) ) : HB_PARSTR( 2, &hString, NULL ),  // name or identifier of image
-               ( UINT ) hb_parni( 3 ),  // type of image
-               hb_parni( 4 ),   // desired width
-               hb_parni( 5 ),   // desired height
-               ( UINT ) hb_parni( 6 )   // load flags
+   HB_RETHANDLE( LoadImage( HB_ISNIL(1) ? GetModuleHandle( NULL ) : ( HINSTANCE ) hb_parnl(1), // handle of the instance that contains the image
+               HB_ISNUM(2) ? MAKEINTRESOURCE( hb_parni(2) ) : HB_PARSTR( 2, &hString, NULL ),  // name or identifier of image
+               ( UINT ) hb_parni(3),  // type of image
+               hb_parni(4),   // desired width
+               hb_parni(5),   // desired height
+               ( UINT ) hb_parni(6)   // load flags
           ) );
    hb_strfree( hString );
 }
 
 HB_FUNC( HWG_LOADBITMAP )
 {
-   if( HB_ISNUM( 1 ) )
+   if( HB_ISNUM(1) )
    {
-      if( !HB_ISNIL( 2 ) && hb_parl( 2 ) )
-         HB_RETHANDLE( LoadBitmap( NULL, MAKEINTRESOURCE( hb_parni( 1 ) ) ) );
+      if( !HB_ISNIL(2) && hb_parl(2) )
+         HB_RETHANDLE( LoadBitmap( NULL, MAKEINTRESOURCE( hb_parni(1) ) ) );
       else
          HB_RETHANDLE( LoadBitmap( GetModuleHandle( NULL ),
-                                   MAKEINTRESOURCE( hb_parni( 1 ) ) ) );
+                                   MAKEINTRESOURCE( hb_parni(1) ) ) );
    }
    else
    {
@@ -361,8 +361,8 @@ HB_FUNC( HWG_LOADBITMAP )
  */
 HB_FUNC( HWG_WINDOW2BITMAP )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 );
-   BOOL lFull = ( HB_ISNIL( 2 ) ) ? 0 : ( BOOL ) hb_parl( 2 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
+   BOOL lFull = ( HB_ISNIL(2) ) ? 0 : ( BOOL ) hb_parl(2);
    HDC hDC = ( lFull ) ? GetWindowDC( hWnd ) : GetDC( hWnd );
    HDC hDCmem = CreateCompatibleDC( hDC );
    HBITMAP hBitmap;
@@ -392,14 +392,14 @@ HB_FUNC( HWG_WINDOW2BITMAP )
  */
 HB_FUNC( HWG_DRAWBITMAP )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
    HDC hDCmem = CreateCompatibleDC( hDC );
-   DWORD dwraster = ( HB_ISNIL( 3 ) ) ? SRCCOPY : ( DWORD ) hb_parnl( 3 );
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE( 2 );
+   DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : ( DWORD ) hb_parnl(3);
+   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    BITMAP bitmap;
-   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL( 6 ) ) ? hb_parni( 6 ) : 0;
+   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
    int nHeightDest = ( hb_pcount(  ) >= 6 &&
-         !HB_ISNIL( 7 ) ) ? hb_parni( 7 ) : 0;
+         !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    SelectObject( hDCmem, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
@@ -407,12 +407,12 @@ HB_FUNC( HWG_DRAWBITMAP )
                nHeightDest != bitmap.bmHeight ) )
    {
       SetStretchBltMode(  hDC, COLORONCOLOR );    
-      StretchBlt( hDC, hb_parni( 4 ), hb_parni( 5 ), nWidthDest, nHeightDest,
+      StretchBlt( hDC, hb_parni(4), hb_parni(5), nWidthDest, nHeightDest,
             hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwraster );
    }
    else
    {
-      BitBlt( hDC, hb_parni( 4 ), hb_parni( 5 ), bitmap.bmWidth,
+      BitBlt( hDC, hb_parni(4), hb_parni(5), bitmap.bmWidth,
             bitmap.bmHeight, hDCmem, 0, 0, dwraster );
    }
 
@@ -424,21 +424,21 @@ HB_FUNC( HWG_DRAWBITMAP )
  */
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE( 2 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    COLORREF trColor =
-         ( HB_ISNIL( 5 ) ) ? 0x00FFFFFF : ( COLORREF ) hb_parnl( 5 );
+         ( HB_ISNIL(5) ) ? 0x00FFFFFF : ( COLORREF ) hb_parnl(5);
    COLORREF crOldBack = SetBkColor( hDC, 0x00FFFFFF );
    COLORREF crOldText = SetTextColor( hDC, 0 );
    HBITMAP bitmapTrans;
    HBITMAP pOldBitmapImage, pOldBitmapTrans;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
-   int x = hb_parni( 3 );
-   int y = hb_parni( 4 );
-   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL( 6 ) ) ? hb_parni( 6 ) : 0;
+   int x = hb_parni(3);
+   int y = hb_parni(4);
+   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
    int nHeightDest = ( hb_pcount(  ) >= 6 &&
-         !HB_ISNIL( 7 ) ) ? hb_parni( 7 ) : 0;
+         !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    // Create two memory dcs for the image and the mask
    dcImage = CreateCompatibleDC( hDC );
@@ -501,16 +501,16 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 HB_FUNC( HWG_SPREADBITMAP )
 {
    HDC hDC =
-         HB_ISPOINTER( 1 ) ? ( HDC ) HB_PARHANDLE( 1 ) : ( HDC ) hb_parnl( 1 );
+         HB_ISPOINTER(1) ? ( HDC ) HB_PARHANDLE(1) : ( HDC ) hb_parnl(1);
    HDC hDCmem = CreateCompatibleDC( hDC );
-   DWORD dwraster = ( HB_ISNIL( 4 ) ) ? SRCCOPY : ( DWORD ) hb_parnl( 4 );
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE( 3 );
+   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
+   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
    BITMAP bitmap;
    RECT rc;
 
    SelectObject( hDCmem, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
-   GetClientRect( ( HWND ) HB_PARHANDLE( 2 ), &rc );
+   GetClientRect( ( HWND ) HB_PARHANDLE(2), &rc );
 
    while( rc.top < rc.bottom )
    {
@@ -533,19 +533,19 @@ HB_FUNC( HWG_SPREADBITMAP )
 
 HB_FUNC( HWG_CENTERBITMAP )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
    HDC hDCmem = CreateCompatibleDC( hDC );
-   DWORD dwraster = ( HB_ISNIL( 4 ) ) ? SRCCOPY : ( DWORD ) hb_parnl( 4 );
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE( 3 );
+   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
+   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
    BITMAP bitmap;
    RECT rc;
    HBRUSH hBrush =
-         ( HB_ISNIL( 5 ) ) ? ( HBRUSH ) ( COLOR_WINDOW +
-         1 ) : ( HBRUSH ) HB_PARHANDLE( 5 );
+         ( HB_ISNIL(5) ) ? ( HBRUSH ) ( COLOR_WINDOW +
+         1 ) : ( HBRUSH ) HB_PARHANDLE(5);
 
    SelectObject( hDCmem, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
-   GetClientRect( ( HWND ) HB_PARHANDLE( 2 ), &rc );
+   GetClientRect( ( HWND ) HB_PARHANDLE(2), &rc );
 
    FillRect( hDC, &rc, hBrush );
    BitBlt( hDC, ( rc.right - bitmap.bmWidth ) / 2,
@@ -559,11 +559,11 @@ HB_FUNC( HWG_CENTERBITMAP )
 HB_FUNC( HWG_GETBITMAPSIZE )
 {
    BITMAP bitmap;
-   PHB_ITEM aMetr = hb_itemArrayNew( 4 );
+   PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject( ( HBITMAP ) HB_PARHANDLE( 1 ), sizeof( BITMAP ),
+   nret = GetObject( ( HBITMAP ) HB_PARHANDLE(1), sizeof( BITMAP ),
          ( LPVOID ) & bitmap );
 
    temp = hb_itemPutNL( NULL, bitmap.bmWidth );
@@ -590,11 +590,11 @@ HB_FUNC( HWG_GETBITMAPSIZE )
 HB_FUNC( HWG_GETICONSIZE )
 {
    ICONINFO iinfo;
-   PHB_ITEM aMetr = hb_itemArrayNew( 3 );
+   PHB_ITEM aMetr = hb_itemArrayNew(3);
    PHB_ITEM temp;
    int nret;
 
-   nret = GetIconInfo( ( HICON ) HB_PARHANDLE( 1 ), &iinfo );
+   nret = GetIconInfo( ( HICON ) HB_PARHANDLE(1), &iinfo );
 
    temp = hb_itemPutNL( NULL, iinfo.xHotspot * 2 );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -622,8 +622,8 @@ HB_FUNC( HWG_OPENBITMAP )
    LPVOID lpvBits;
    HGLOBAL hmem1, hmem2;
    HBITMAP hbm;
-   HDC hDC = ( hb_pcount(  ) > 1 && !HB_ISNIL( 2 ) ) ?
-             ( HDC ) HB_PARHANDLE( 2 ) : NULL;
+   HDC hDC = ( hb_pcount(  ) > 1 && !HB_ISNIL(2) ) ?
+             ( HDC ) HB_PARHANDLE(2) : NULL;
    void * hString;
    HANDLE hfbm;
 
@@ -695,13 +695,13 @@ HB_FUNC( HWG_OPENBITMAP )
    ReadFile( hfbm, lpvBits, ( bmfh.bfSize - bmfh.bfOffBits ), &dwRead, NULL );
 
    if( !hDC )
-      hDC = GetDC( 0 );
+      hDC = GetDC(0);
 
    /* Create a bitmap from the data stored in the .BMP file.  */
    hbm = CreateDIBitmap( hDC, &bmih, CBM_INIT, lpvBits, lpbmi,
          DIB_RGB_COLORS );
 
-   if( hb_pcount(  ) < 2 || HB_ISNIL( 2 ) )
+   if( hb_pcount(  ) < 2 || HB_ISNIL(2) )
       ReleaseDC( 0, hDC );
 
    /* Unlock the global memory objects and close the .BMP file. */
@@ -716,69 +716,69 @@ HB_FUNC( HWG_OPENBITMAP )
 
 HB_FUNC( HWG_DRAWICON )
 {
-   DrawIcon( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 3 ), hb_parni( 4 ),
-         ( HICON ) HB_PARHANDLE( 2 ) );
+   DrawIcon( ( HDC ) HB_PARHANDLE(1), hb_parni(3), hb_parni(4),
+         ( HICON ) HB_PARHANDLE(2) );
 }
 
 HB_FUNC( HWG_GETSYSCOLOR )
 {
-   hb_retnl( ( LONG ) GetSysColor( hb_parni( 1 ) ) );
+   hb_retnl( ( LONG ) GetSysColor( hb_parni(1) ) );
 }
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
 {
-   HB_RETHANDLE( GetSysColorBrush(  hb_parni( 1 ) ) ) ;
+   HB_RETHANDLE( GetSysColorBrush(  hb_parni(1) ) ) ;
 }
 
 HB_FUNC( HWG_CREATEPEN )
 {
-   HB_RETHANDLE( CreatePen( hb_parni( 1 ),      // pen style
-               hb_parni( 2 ),   // pen width
-               ( COLORREF ) hb_parnl( 3 )       // pen color
+   HB_RETHANDLE( CreatePen( hb_parni(1),      // pen style
+               hb_parni(2),   // pen width
+               ( COLORREF ) hb_parnl(3)       // pen color
           ) );
 }
 
 HB_FUNC( HWG_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE( CreateSolidBrush( ( COLORREF ) hb_parnl( 1 )   // brush color
+   HB_RETHANDLE( CreateSolidBrush( ( COLORREF ) hb_parnl(1)   // brush color
           ) );
 }
 
 HB_FUNC( HWG_CREATEHATCHBRUSH )
 {
-   HB_RETHANDLE( CreateHatchBrush( hb_parni( 1 ),
-               ( COLORREF ) hb_parnl( 2 ) ) );
+   HB_RETHANDLE( CreateHatchBrush( hb_parni(1),
+               ( COLORREF ) hb_parnl(2) ) );
 }
 
 HB_FUNC( HWG_SELECTOBJECT )
 {
-   HB_RETHANDLE( SelectObject( ( HDC ) HB_PARHANDLE( 1 ),       // handle of device context
-               ( HGDIOBJ ) HB_PARHANDLE( 2 )    // handle of object
+   HB_RETHANDLE( SelectObject( ( HDC ) HB_PARHANDLE(1),       // handle of device context
+               ( HGDIOBJ ) HB_PARHANDLE(2)    // handle of object
           ) );
 }
 
 HB_FUNC( HWG_DELETEOBJECT )
 {
-   DeleteObject( ( HGDIOBJ ) HB_PARHANDLE( 1 )  // handle of object
+   DeleteObject( ( HGDIOBJ ) HB_PARHANDLE(1)  // handle of object
           );
 }
 
 HB_FUNC( HWG_GETDC )
 {
-   HB_RETHANDLE( GetDC( ( HWND ) HB_PARHANDLE( 1 ) ) );
+   HB_RETHANDLE( GetDC( ( HWND ) HB_PARHANDLE(1) ) );
 }
 
 HB_FUNC( HWG_RELEASEDC )
 {
-   HB_RETHANDLE( ReleaseDC( ( HWND ) HB_PARHANDLE( 1 ),
-               ( HDC ) HB_PARHANDLE( 2 ) ) );
+   HB_RETHANDLE( ReleaseDC( ( HWND ) HB_PARHANDLE(1),
+               ( HDC ) HB_PARHANDLE(2) ) );
 }
 
 HB_FUNC( HWG_GETDRAWITEMINFO )
 {
 
-   DRAWITEMSTRUCT *lpdis = ( DRAWITEMSTRUCT * ) HB_PARHANDLE( 1 );      //hb_parnl( 1 );
-   PHB_ITEM aMetr = hb_itemArrayNew( 9 );
+   DRAWITEMSTRUCT *lpdis = ( DRAWITEMSTRUCT * ) HB_PARHANDLE(1);      //hb_parnl(1);
+   PHB_ITEM aMetr = hb_itemArrayNew(9);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL( NULL, lpdis->itemID );
@@ -826,14 +826,14 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
  */
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE( 2 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    HBITMAP bitmapgray;
    HBITMAP pOldBitmapImage, pOldbitmapgray;
    BITMAP bitmap;
    HDC dcImage, dcTrans;
-   int x = hb_parni( 3 );
-   int y = hb_parni( 4 );
+   int x = hb_parni(3);
+   int y = hb_parni(4);
 
    SetBkColor( hDC, GetSysColor( COLOR_BTNHIGHLIGHT ) );
    //SetTextColor( hDC, GetSysColor( COLOR_BTNFACE ) );
@@ -876,8 +876,8 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
 
 HB_FUNC( HWG_OPENIMAGE )
 {
-   const char *cFileName = hb_parc( 1 );
-   BOOL lString = ( HB_ISNIL( 2 ) ) ? 0 : hb_parl( 2 );
+   const char *cFileName = hb_parc(1);
+   BOOL lString = ( HB_ISNIL(2) ) ? 0 : hb_parl(2);
    int iFileSize;
    FILE *fp;
    // IPicture * pPic;
@@ -888,11 +888,11 @@ HB_FUNC( HWG_OPENIMAGE )
 
    if( lString )
    {
-      iFileSize = hb_parclen( 1 );
+      iFileSize = hb_parclen(1);
       hG = GlobalAlloc( GPTR, iFileSize );
       if( !hG )
       {
-         HB_RETHANDLE( 0 );
+         HB_RETHANDLE(0);
          return;
       }
       memcpy( ( void * ) hG, ( void * ) cFileName, iFileSize );
@@ -902,7 +902,7 @@ HB_FUNC( HWG_OPENIMAGE )
       fp = fopen( cFileName, "rb" );
       if( !fp )
       {
-         HB_RETHANDLE( 0 );
+         HB_RETHANDLE(0);
          return;
       }
 
@@ -912,7 +912,7 @@ HB_FUNC( HWG_OPENIMAGE )
       if( !hG )
       {
          fclose( fp );
-         HB_RETHANDLE( 0 );
+         HB_RETHANDLE(0);
          return;
       }
       fseek( fp, 0, SEEK_SET );
@@ -925,7 +925,7 @@ HB_FUNC( HWG_OPENIMAGE )
    if( !pStream )
    {
       GlobalFree( hG );
-      HB_RETHANDLE( 0 );
+      HB_RETHANDLE(0);
       return;
    }
 
@@ -941,7 +941,7 @@ HB_FUNC( HWG_OPENIMAGE )
 
    if( !pPic )
    {
-      HB_RETHANDLE( 0 );
+      HB_RETHANDLE(0);
       return;
    }
 
@@ -962,23 +962,23 @@ HB_FUNC( HWG_OPENIMAGE )
 
 HB_FUNC( HWG_PATBLT )
 {
-   hb_retl( PatBlt( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-               hb_parni( 4 ), hb_parni( 5 ), hb_parnl( 6 ) ) );
+   hb_retl( PatBlt( ( HDC ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
+               hb_parni(4), hb_parni(5), hb_parnl(6) ) );
 }
 
 HB_FUNC( HWG_SAVEDC )
 {
-   hb_retl( SaveDC( ( HDC ) HB_PARHANDLE( 1 ) ) );
+   hb_retl( SaveDC( ( HDC ) HB_PARHANDLE(1) ) );
 }
 
 HB_FUNC( HWG_RESTOREDC )
 {
-   hb_retl( RestoreDC( ( HDC ) HB_PARHANDLE( 1 ), hb_parni( 2 ) ) );
+   hb_retl( RestoreDC( ( HDC ) HB_PARHANDLE(1), hb_parni(2) ) );
 }
 
 HB_FUNC( HWG_CREATECOMPATIBLEDC )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
    HDC hDCmem = CreateCompatibleDC( hDC );
 
    HB_RETHANDLE( hDCmem );
@@ -986,72 +986,72 @@ HB_FUNC( HWG_CREATECOMPATIBLEDC )
 
 HB_FUNC( HWG_SETMAPMODE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   hb_retni( SetMapMode( hDC, hb_parni( 2 ) ) );
+   hb_retni( SetMapMode( hDC, hb_parni(2) ) );
 }
 
 HB_FUNC( HWG_SETWINDOWORGEX )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   SetWindowOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), NULL );
+   SetWindowOrgEx( hDC, hb_parni(2), hb_parni(3), NULL );
    hb_stornl( 0, 4 );
 }
 
 HB_FUNC( HWG_SETWINDOWEXTEX )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   SetWindowExtEx( hDC, hb_parni( 2 ), hb_parni( 3 ), NULL );
+   SetWindowExtEx( hDC, hb_parni(2), hb_parni(3), NULL );
    hb_stornl( 0, 4 );
 }
 
 HB_FUNC( HWG_SETVIEWPORTORGEX )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   SetViewportOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), NULL );
+   SetViewportOrgEx( hDC, hb_parni(2), hb_parni(3), NULL );
    hb_stornl( 0, 4 );
 }
 
 HB_FUNC( HWG_SETVIEWPORTEXTEX )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   SetViewportExtEx( hDC, hb_parni( 2 ), hb_parni( 3 ), NULL );
+   SetViewportExtEx( hDC, hb_parni(2), hb_parni(3), NULL );
    hb_stornl( 0, 4 );
 }
 
 HB_FUNC( HWG_SETARCDIRECTION )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   hb_retni( SetArcDirection( hDC, hb_parni( 2 ) ) );
+   hb_retni( SetArcDirection( hDC, hb_parni(2) ) );
 }
 
 HB_FUNC( HWG_SETROP2 )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
 
-   hb_retni( SetROP2( hDC, hb_parni( 2 ) ) );
+   hb_retni( SetROP2( hDC, hb_parni(2) ) );
 }
 
 HB_FUNC( HWG_BITBLT )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
-   HDC hDC1 = ( HDC ) HB_PARHANDLE( 6 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC1 = ( HDC ) HB_PARHANDLE(6);
 
-   hb_retl( BitBlt( hDC, hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ),
-               hb_parni( 5 ), hDC1, hb_parni( 7 ), hb_parni( 8 ),
-               hb_parnl( 9 ) ) );
+   hb_retl( BitBlt( hDC, hb_parni(2), hb_parni(3), hb_parni(4),
+               hb_parni(5), hDC1, hb_parni(7), hb_parni(8),
+               hb_parnl(9) ) );
 }
 
 HB_FUNC( HWG_CREATECOMPATIBLEBITMAP )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hDC = ( HDC ) HB_PARHANDLE(1);
    HBITMAP hBitmap;
-   hBitmap = CreateCompatibleBitmap( hDC, hb_parni( 2 ), hb_parni( 3 ) );
+   hBitmap = CreateCompatibleBitmap( hDC, hb_parni(2), hb_parni(3) );
 
    HB_RETHANDLE( hBitmap );
 }
@@ -1059,10 +1059,10 @@ HB_FUNC( HWG_CREATECOMPATIBLEBITMAP )
 HB_FUNC( HWG_INFLATERECT )
 {
    RECT pRect;
-   int x = hb_parni( 2 );
-   int y = hb_parni( 3 );
+   int x = hb_parni(2);
+   int y = hb_parni(3);
 
-   if( HB_ISARRAY( 1 ) )
+   if( HB_ISARRAY(1) )
       Array2Rect( hb_param( 1, HB_IT_ARRAY ), &pRect );
    hb_retl( InflateRect( &pRect, x, y ) );
 
@@ -1074,11 +1074,11 @@ HB_FUNC( HWG_INFLATERECT )
 
 HB_FUNC( HWG_FRAMERECT )
 {
-   HDC hdc = ( HDC ) HB_PARHANDLE( 1 );
-   HBRUSH hbr = ( HBRUSH ) HB_PARHANDLE( 3 );
+   HDC hdc = ( HDC ) HB_PARHANDLE(1);
+   HBRUSH hbr = ( HBRUSH ) HB_PARHANDLE(3);
    RECT pRect;
 
-   if( HB_ISARRAY( 2 ) )
+   if( HB_ISARRAY(2) )
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &pRect );
 
    hb_retni( FrameRect( hdc, &pRect, hbr ) );
@@ -1086,12 +1086,12 @@ HB_FUNC( HWG_FRAMERECT )
 
 HB_FUNC( HWG_DRAWFRAMECONTROL )
 {
-   HDC hdc = ( HDC ) HB_PARHANDLE( 1 );
+   HDC hdc = ( HDC ) HB_PARHANDLE(1);
    RECT pRect;
-   UINT uType = hb_parni( 3 );  // frame-control type
-   UINT uState = hb_parni( 4 ); // frame-control state
+   UINT uType = hb_parni(3);  // frame-control type
+   UINT uState = hb_parni(4); // frame-control state
 
-   if( HB_ISARRAY( 2 ) )
+   if( HB_ISARRAY(2) )
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &pRect );
 
    hb_retl( DrawFrameControl( hdc, &pRect, uType, uState ) );
@@ -1100,10 +1100,10 @@ HB_FUNC( HWG_DRAWFRAMECONTROL )
 HB_FUNC( HWG_OFFSETRECT )
 {
    RECT pRect;
-   int x = hb_parni( 2 );
-   int y = hb_parni( 3 );
+   int x = hb_parni(2);
+   int y = hb_parni(3);
 
-   if( HB_ISARRAY( 1 ) )
+   if( HB_ISARRAY(1) )
       Array2Rect( hb_param( 1, HB_IT_ARRAY ), &pRect );
 
    hb_retl( OffsetRect( &pRect, x, y ) );
@@ -1116,8 +1116,8 @@ HB_FUNC( HWG_OFFSETRECT )
 HB_FUNC( HWG_DRAWFOCUSRECT )
 {
    RECT pRect;
-   HDC hc = ( HDC ) HB_PARHANDLE( 1 );
-   if( HB_ISARRAY( 2 ) )
+   HDC hc = ( HDC ) HB_PARHANDLE(1);
+   if( HB_ISARRAY(2) )
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &pRect );
    hb_retl( DrawFocusRect( hc, &pRect ) );
 }
@@ -1145,8 +1145,8 @@ HB_FUNC( HWG_PTINRECT )
 
 HB_FUNC( HWG_GETMEASUREITEMINFO )
 {
-   MEASUREITEMSTRUCT *lpdis = ( MEASUREITEMSTRUCT * ) HB_PARHANDLE( 1 );        //hb_parnl(1);
-   PHB_ITEM aMetr = hb_itemArrayNew( 5 );
+   MEASUREITEMSTRUCT *lpdis = ( MEASUREITEMSTRUCT * ) HB_PARHANDLE(1);        //hb_parnl(1);
+   PHB_ITEM aMetr = hb_itemArrayNew(5);
    PHB_ITEM temp;
 
    temp = hb_itemPutNL( NULL, lpdis->CtlType );
@@ -1182,17 +1182,17 @@ HB_FUNC( HWG_COPYRECT )
 
 HB_FUNC( HWG_GETWINDOWDC )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    HDC hDC = GetWindowDC( hWnd );
    HB_RETHANDLE( hDC );
 }
 
 HB_FUNC( HWG_MODIFYSTYLE )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE( 1 );
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    DWORD dwStyle = GetWindowLongPtr( ( HWND ) hWnd, GWL_STYLE );
-   DWORD a = hb_parnl( 2 );
-   DWORD b = hb_parnl( 3 );
+   DWORD a = hb_parnl(2);
+   DWORD b = hb_parnl(3);
    DWORD dwNewStyle = ( dwStyle & ~a ) | b;
    SetWindowLongPtr( hWnd, GWL_STYLE, dwNewStyle );
 }
@@ -1200,7 +1200,7 @@ HB_FUNC( HWG_MODIFYSTYLE )
 /*
 HB_FUNC( HWG_PTRRECT2ARRAY )
 {
-   RECT *rect =   (RECT *) HB_PARHANDLE( 1 ) ;
+   RECT *rect =   (RECT *) HB_PARHANDLE(1) ;
    hb_itemRelease(hb_itemReturn(Rect2Array(&rect)));
 } 
 */

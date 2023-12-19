@@ -78,17 +78,17 @@ HB_FUNC( HWG_CREATEACTIVEX )
    HWND hWndCtrl;
 
    _Ax_Init(  );
-   hWndCtrl = CreateWindowEx( ( DWORD ) ISNIL( 1 ) ? 0 : hb_parni( 1 ), // nExStyle
-         ( LPCTSTR ) ISNIL( 2 ) ? "A3434_CLASS" : hb_parc( 2 ), // cClsName
-         ( LPCTSTR ) ISNIL( 3 ) ? "" : hb_parc( 3 ),    // cProgId
-         ( DWORD ) ISNIL( 4 ) ? WS_OVERLAPPEDWINDOW : hb_parni( 4 ),    // style
-         ISNIL( 5 ) ? CW_USEDEFAULT : hb_parni( 5 ),    // nLeft
-         ISNIL( 6 ) ? CW_USEDEFAULT : hb_parni( 6 ),    // nTop
-         ISNIL( 7 ) ? 544 : hb_parni( 7 ),      // nWidth
-         ISNIL( 8 ) ? 375 : hb_parni( 8 ),      // nHeight
-         ISNIL( 9 ) ? HWND_DESKTOP : ( HWND ) hb_parnl( 9 ),    // oParent:handle
-         // ISNIL( 10 ) ? NULL                : (HMENU) hb_parnl( 10 ),  // Id
-         // GetModuleHandle( 0 ),
+   hWndCtrl = CreateWindowEx( ( DWORD ) ISNIL(1) ? 0 : hb_parni(1), // nExStyle
+         ( LPCTSTR ) ISNIL(2) ? "A3434_CLASS" : hb_parc(2), // cClsName
+         ( LPCTSTR ) ISNIL(3) ? "" : hb_parc(3),    // cProgId
+         ( DWORD ) ISNIL(4) ? WS_OVERLAPPEDWINDOW : hb_parni(4),    // style
+         ISNIL(5) ? CW_USEDEFAULT : hb_parni(5),    // nLeft
+         ISNIL(6) ? CW_USEDEFAULT : hb_parni(6),    // nTop
+         ISNIL(7) ? 544 : hb_parni(7),      // nWidth
+         ISNIL(8) ? 375 : hb_parni(8),      // nHeight
+         ISNIL(9) ? HWND_DESKTOP : ( HWND ) hb_parnl(9),    // oParent:handle
+         // ISNIL(10) ? NULL                : (HMENU) hb_parnl(10),  // Id
+         // GetModuleHandle(0),
          0, 0, NULL );
 
    HB_RETHANDLE( hWndCtrl );
@@ -101,7 +101,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
    IUnknown *pUnk;
    IDispatch *pDisp;
    _Ax_Init(  );
-   AtlAxGetControl( ( HWND ) HB_PARHANDLE( 1 ), &pUnk );
+   AtlAxGetControl( ( HWND ) HB_PARHANDLE(1), &pUnk );
    pUnk->lpVtbl->QueryInterface( pUnk, &IID_IDispatch, ( void ** ) &pDisp );
    pUnk->lpVtbl->Release( pUnk );
    HB_RETHANDLE( pDisp );
@@ -282,7 +282,7 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * this )
    if( --( ( MyRealIEventHandler * ) this )->count == 0 )
    {
       GlobalFree( this );
-      return ( 0 );
+      return (0);
    }
    return ( ( ( MyRealIEventHandler * ) this )->count );
 }
@@ -555,7 +555,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
    register IEventHandler *thisobj;
    DWORD dwCookie = 0;
 
-   device_interface *pdevice_interface = ( device_interface * ) hb_parnl( 1 );
+   device_interface *pdevice_interface = ( device_interface * ) hb_parnl(1);
    MyRealIEventHandler *pThis;
 
    // Allocate our IEventHandler object (actually a MyRealIEventHandler)
@@ -681,7 +681,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 //------------------------------------------------------------------------------
 HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 {
-   MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE( 1 );
+   MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE(1);
    if( this->pIConnectionPoint )
    {
       this->pIConnectionPoint->lpVtbl->Unadvise( this->pIConnectionPoint,
@@ -696,7 +696,7 @@ HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
 HB_FUNC( HWG_RELEASEDISPATCH )
 {
    IDispatch *pObj;
-   pObj = ( IDispatch * ) HB_PARHANDLE( 1 );
+   pObj = ( IDispatch * ) HB_PARHANDLE(1);
    pObj->lpVtbl->Release( pObj );
 }
 

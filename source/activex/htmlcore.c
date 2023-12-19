@@ -518,13 +518,13 @@ HRESULT STDMETHODCALLTYPE UI_QueryInterface( IDocHostUIHandler * This,
 ULONG STDMETHODCALLTYPE UI_AddRef( IDocHostUIHandler * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 ULONG STDMETHODCALLTYPE UI_Release( IDocHostUIHandler * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 // Called when the browser object is about to display its context menu.
@@ -979,13 +979,13 @@ HRESULT STDMETHODCALLTYPE Site_QueryInterface( IOleClientSite * This,
 ULONG STDMETHODCALLTYPE Site_AddRef( IOleClientSite * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 ULONG STDMETHODCALLTYPE Site_Release( IOleClientSite * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 HRESULT STDMETHODCALLTYPE Site_SaveObject( IOleClientSite * This )
@@ -1062,13 +1062,13 @@ HRESULT STDMETHODCALLTYPE InPlace_QueryInterface( IOleInPlaceSite * This,
 ULONG STDMETHODCALLTYPE InPlace_AddRef( IOleInPlaceSite * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 ULONG STDMETHODCALLTYPE InPlace_Release( IOleInPlaceSite * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 HRESULT STDMETHODCALLTYPE InPlace_GetWindow( IOleInPlaceSite * This,
@@ -1236,13 +1236,13 @@ HRESULT STDMETHODCALLTYPE Frame_QueryInterface( IOleInPlaceFrame * This,
 ULONG STDMETHODCALLTYPE Frame_AddRef( IOleInPlaceFrame * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 ULONG STDMETHODCALLTYPE Frame_Release( IOleInPlaceFrame * This )
 {
    ( void ) This;
-   return ( 1 );
+   return (1);
 }
 
 HRESULT STDMETHODCALLTYPE Frame_GetWindow( IOleInPlaceFrame * This,
@@ -1399,7 +1399,7 @@ ULONG STDMETHODCALLTYPE Dispatch_Release( IDispatch * This )
 
       GlobalFree( ( ( char * ) This -
                   ( ( _IDispatchEx * ) This )->extraSize ) );
-      return ( 0 );
+      return (0);
    }
 
    return ( ( ( _IDispatchEx * ) This )->refCount );
@@ -1724,7 +1724,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
       obj->lpVtbl->Release( obj );
 
    // FAILURE.
-   return ( 0 );
+   return (0);
 }
 
 
@@ -1907,7 +1907,7 @@ BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
       if( ( buffer =
                   ( WCHAR * ) GlobalAlloc( GMEM_FIXED,
                         sizeof( WCHAR ) * size ) ) == NULL )
-         return ( 0 );
+         return (0);
       MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, buffer, size );
       bstr = SysAllocString( buffer );
       GlobalFree( buffer );
@@ -2148,7 +2148,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
          goto yes;
 
       // We may need a sleep here on Win9x/Me systems to avoid a system hang.
-      Sleep( 10 );
+      Sleep(10);
 
       // Did we timeout yet?
    }
@@ -2319,7 +2319,7 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
 
    // No error?
    if( myURL.DEF_VT != VT_BSTR )
-      return ( 0 );
+      return (0);
 
    // An error
    return ( -1 );
@@ -2394,7 +2394,7 @@ long WINAPI DisplayHTMLPage( HWND hwnd, const char *webPageName )
       webBrowser2->lpVtbl->Release( webBrowser2 );
 
       // Success
-      return ( 0 );
+      return (0);
    }
 
    return ( -5 );
@@ -2687,7 +2687,7 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
                webBrowser2->lpVtbl->Release( webBrowser2 );
 
                // Success
-               return ( 0 );
+               return (0);
             }
          }
 

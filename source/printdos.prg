@@ -226,11 +226,11 @@ METHOD Eject()   CLASS PrintDos
    FWrite( ::gText, ::oText )
 
    IF ::oAns2Oem
-      FWrite( ::gText, HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) ) )
-      FWrite( ::gText, HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) ) )
+      FWrite( ::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) ) )
+      FWrite( ::gText, HB_ANSITOOEM( Chr(13) + Chr(10) ) )
    ELSE
-      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) )
-      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) )
+      FWrite( ::gText, Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) )
+      FWrite( ::gText, Chr(13) + Chr(10) )
    ENDIF
 
    ::oText := ""
@@ -275,9 +275,9 @@ METHOD UnBold() CLASS PrintDos
 METHOD NewLine() CLASS PrintDos
 
    IF ::oAns2Oem
-      ::oText += HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) )
+      ::oText += HB_ANSITOOEM( Chr(13) + Chr(10) )
    ELSE
-      ::oText += Chr( 13 ) + Chr( 10 )
+      ::oText += Chr(13) + Chr(10)
    ENDIF
    ::nPcol := 0
    RETURN Nil
@@ -427,7 +427,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
             oCol := oCol + ( osize + 2 )   //Added by  Por Fernando Athayde
          ENDIF
 
-         IF Left( stroka, 1 ) == Chr( 12 )
+         IF Left( stroka, 1 ) == Chr(12)
             oPrinter:EndPage()
             oPrinter:StartPage()
             oCol := 0  //Added by  Por Fernando Athayde
@@ -465,11 +465,11 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
             EXIT
          ENDIF
          IF ::oAns2Oem
-            oText[ oPage ] += HB_ANSITOOEM( stroka ) + Chr( 13 ) + Chr( 10 )
+            oText[ oPage ] += HB_ANSITOOEM( stroka ) + Chr(13) + Chr(10)
          ELSE
-            oText[ oPage ] += stroka + Chr( 13 ) + Chr( 10 )
+            oText[ oPage ] += stroka + Chr(13) + Chr(10)
          ENDIF
-         IF Left( stroka, 1 ) == Chr( 12 )
+         IF Left( stroka, 1 ) == Chr(12)
             AAdd( oText, "" )
             ++ oPage
          ENDIF
@@ -564,7 +564,7 @@ FUNCTION hwg_regenfile( o, new )
    FOR i := 1 TO Len( aText )
 
       stroka := aText[ i ]
-      nChr12 := At( Chr( 12 ), stroka )
+      nChr12 := At( Chr(12), stroka )
 
       IF nChr12 > 0
          stroka := SubStr( stroka, 1, nChr12 - 1 )
@@ -643,20 +643,20 @@ HB_FUNC( AFILLTEXT )
 
    if ( !pSrc )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
 
    if ( strlen( pSrc ) == 0 )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
    inFile = fopen( pSrc, "r" );
 
    if ( !inFile )
    {
-      hb_reta( 0 );
+      hb_reta(0);
       return;
    }
 

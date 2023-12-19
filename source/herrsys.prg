@@ -59,23 +59,23 @@ STATIC FUNCTION DefError( oError )
 
    n := 2
    WHILE ! Empty( ProcName( n ) )
-      cMessage += Chr( 13 ) + Chr( 10 ) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
    ENDDO
 
    //included aditional informations
 
-   cMessage += Chr( 13 ) + Chr( 10 )
+   cMessage += Chr(13) + Chr(10)
 
-   cMessage += Chr( 13 ) + Chr( 10 ) + hwg_version( 1 )
-   cMessage += Chr( 13 ) + Chr( 10 ) + "Date:" + DToC( Date() )
-   cMessage += Chr( 13 ) + Chr( 10 ) + "Time:" + Time()
+   cMessage += Chr(13) + Chr(10) + hwg_version(1)
+   cMessage += Chr(13) + Chr(10) + "Date:" + DToC( Date() )
+   cMessage += Chr(13) + Chr(10) + "Time:" + Time()
 
 
    MemoWrit( LogInitialPath + "Error.log", cMessage )
 
    ErrorPreview( cMessage )
    hwg_EndWindow()
-   hwg_Postquitmessage( 0 )
+   hwg_Postquitmessage(0)
 
    RETURN .F.
 
@@ -131,7 +131,7 @@ FUNCTION hwg_WriteLog( cText, fname )
       nHand := FOpen( fname, 1 )
    ENDIF
    FSeek( nHand, 0, 2 )
-   FWrite( nHand, cText + Chr( 10 ) )
+   FWrite( nHand, cText + Chr(10) )
    FClose( nHand )
 
    RETURN nil

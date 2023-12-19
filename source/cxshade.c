@@ -734,9 +734,9 @@ HB_FUNC( HWG_SHADE_NEW )
    RECT rect;
    PCXSHADE pshade;
 
-   SetRect( &rect, hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-         hb_parni( 4 ) );
-   pshade = cxshade_New( &rect, ( HB_ISNIL( 5 ) ) ? 0 : hb_parl( 5 ) );
+   SetRect( &rect, hb_parni(1), hb_parni(2), hb_parni(3),
+         hb_parni(4) );
+   pshade = cxshade_New( &rect, ( HB_ISNIL(5) ) ? 0 : hb_parl(5) );
    HB_RETHANDLE( pshade );
 }
 
@@ -745,7 +745,7 @@ HB_FUNC( HWG_SHADE_NEW )
  */
 HB_FUNC( HWG_SHADE_RELEASE )
 {
-   cxshade_Release( ( PCXSHADE ) HB_PARHANDLE( 1 ) );
+   cxshade_Release( ( PCXSHADE ) HB_PARHANDLE(1) );
 }
 
 /*
@@ -753,21 +753,21 @@ HB_FUNC( HWG_SHADE_RELEASE )
  */
 HB_FUNC( HWG_SHADE_SET )
 {
-   PCXSHADE pshade = ( PCXSHADE ) HB_PARHANDLE( 1 );
-   UINT shadeID = ( HB_ISNIL( 2 ) ) ? SHS_SOFTBUMP : hb_parni( 2 );
-   BYTE palette = ( HB_ISNIL( 3 ) ) ? 0 : ( BYTE ) hb_parni( 3 );
-   BYTE granularity = ( HB_ISNIL( 4 ) ) ? 8 : ( BYTE ) hb_parni( 4 );
-   BYTE highlight = ( HB_ISNIL( 5 ) ) ? 10 : ( BYTE ) hb_parni( 5 );
-   BYTE coloring = ( HB_ISNIL( 6 ) ) ? 0 : ( BYTE ) hb_parni( 6 );
-   COLORREF color = ( HB_ISNIL( 7 ) ) ? 0 : ( COLORREF ) hb_parnl( 7 );
+   PCXSHADE pshade = ( PCXSHADE ) HB_PARHANDLE(1);
+   UINT shadeID = ( HB_ISNIL(2) ) ? SHS_SOFTBUMP : hb_parni(2);
+   BYTE palette = ( HB_ISNIL(3) ) ? 0 : ( BYTE ) hb_parni(3);
+   BYTE granularity = ( HB_ISNIL(4) ) ? 8 : ( BYTE ) hb_parni(4);
+   BYTE highlight = ( HB_ISNIL(5) ) ? 10 : ( BYTE ) hb_parni(5);
+   BYTE coloring = ( HB_ISNIL(6) ) ? 0 : ( BYTE ) hb_parni(6);
+   COLORREF color = ( HB_ISNIL(7) ) ? 0 : ( COLORREF ) hb_parnl(7);
    RECT rect;
 
-   if( !HB_ISNIL( 7 ) )
-      SetRect( &rect, hb_parni( 7 ), hb_parni( 8 ), hb_parni( 9 ),
-            hb_parni( 10 ) );
+   if( !HB_ISNIL(7) )
+      SetRect( &rect, hb_parni(7), hb_parni(8), hb_parni(9),
+            hb_parni(10) );
 
    cxshade_SetShade( pshade, shadeID, palette, granularity, highlight,
-         coloring, color, ( HB_ISNIL( 8 ) ) ? NULL : &rect );
+         coloring, color, ( HB_ISNIL(8) ) ? NULL : &rect );
 }
 
 /*
@@ -775,7 +775,7 @@ HB_FUNC( HWG_SHADE_SET )
  */
 HB_FUNC( HWG_SHADE_DRAW )
 {
-   cxshade_Draw( ( PCXSHADE ) HB_PARHANDLE( 1 ), ( HDC ) HB_PARHANDLE( 2 ),
-         (short) hb_parni( 3 ) );
+   cxshade_Draw( ( PCXSHADE ) HB_PARHANDLE(1), ( HDC ) HB_PARHANDLE(2),
+         (short) hb_parni(3) );
 }
 
