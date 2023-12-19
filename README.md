@@ -11,4 +11,4 @@ Harbour++
 
 To compile with Harbour++ and MinGW:  
 
-hbmk2 hwguipp.hbp -cflag=-fpermissive
+hbmk2 hwguiall.hbp -cflag=-fpermissive
