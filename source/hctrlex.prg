@@ -126,7 +126,7 @@ METHOD Init() CLASS HStaticEx
       IF ::nHolder != 1
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
-         Hwg_InitStaticProc( ::handle )
+         Hwg_InitStaticProc(::handle)
       ENDIF
       IF ::classname == "HSTATIC"
          ::Auto_Size( ::Title )
@@ -158,7 +158,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
       ENDIF
       RETURN 0
    ELSEIF msg == WM_SYSKEYUP
-      IF ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc( Upper( SubStr( ::title, ++ pos, 1 ) ) )
+      IF ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr( ::title, ++ pos, 1 ) ))
          hwg_GetSkip( ::oparent, ::handle, , 1 )
          RETURN  0
       ENDIF
@@ -340,7 +340,7 @@ METHOD Init() CLASS HButtonX
             ! hwg_GetParentForm( Self ):lModal  .OR. ::nHolder = 1
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
-         HWG_INITBUTTONPROC( ::handle )
+         HWG_INITBUTTONPROC(::handle)
       ENDIF
       ::Super:init()
    ENDIF
@@ -589,7 +589,7 @@ METHOD INIT() CLASS HButtonEx
 
    IF ! ::lInit
       ::nHolder := 1
-      IF HB_IsNumeric( ::handle ) .AND. ::handle > 0
+      IF HB_IsNumeric(::handle) .AND. ::handle > 0
          nbs := HWG_GETWINDOWSTYLE( ::handle )
          ::m_nTypeStyle :=  hwg_Getthestyle( nbs , BS_TYPEMASK )
 
@@ -620,7 +620,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
    IF msg == WM_THEMECHANGED
       IF ::Themed
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
             ::hTheme       := NIL
          ENDIF
          ::Themed := .F.
@@ -686,12 +686,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       IF hwg_Checkbit( lParam, 23 ) .AND. ( wParam > 95 .AND. wParam < 106 )
          wParam -= 48
       ENDIF
-      IF ! Empty( ::title ) .AND. ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc( Upper( SubStr( ::title, ++ pos, 1 ) ) )
+      IF ! Empty( ::title ) .AND. ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr( ::title, ++ pos, 1 ) ))
          IF ValType( ::bClick ) == "B" .OR. ::id < 3
             hwg_Sendmessage( ::oParent:handle, WM_COMMAND, hwg_Makewparam( ::id, BN_CLICKED ), ::handle )
          ENDIF
       ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( ValType( o:title ) = "C", ( pos := At( "&", o:title ) ) > 0 .AND. ;
-            wParam == Asc( Upper( SubStr( o:title, ++ pos, 1 ) ) ), ) } ) ) > 0
+            wParam == Asc(Upper( SubStr( o:title, ++ pos, 1 ) )), ) } ) ) > 0
          IF __ObjHasMsg( ::oParent:aControls[ nID ], "BCLICK" ) .AND. ;
                ValType( ::oParent:aControls[ nID ]:bClick ) == "B" .OR. ::oParent:aControls[ nID]:id < 3
             hwg_Sendmessage( ::oParent:handle, WM_COMMAND, hwg_Makewparam( ::oParent:aControls[ nID ]:id, BN_CLICKED ), ::oParent:aControls[ nID ]:handle )
@@ -862,11 +862,11 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       ::m_bFirstTime := .F.
       IF ( hwg_Isthemedload() )
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
          ENDIF
          ::hTheme := NIL
          IF ::WindowsManifest
-            ::hTheme := hwg_openthemedata( ::handle, "BUTTON" )
+            ::hTheme := hwg_openthemedata(::handle, "BUTTON")
          ENDIF
       ENDIF
    ENDIF
@@ -902,7 +902,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       ENDIF
    ELSE
       IF bIsFocused .OR. ::id = IDOK
-         br := HBRUSH():Add( hwg_Rgb( 1, 1, 1 ) )
+         br := HBRUSH():Add( hwg_Rgb(1, 1, 1) )
          hwg_Framerect( dc, itemRect, br:handle )
          hwg_Inflaterect( @itemRect, - 1, - 1 )
       ENDIF
@@ -1134,7 +1134,7 @@ METHOD PAINTBK( hdc ) CLASS HBUTTONEx
    hwg_Screentoclient( ::oparent:handle, rect1 )
    IF ValType( ::m_dcBk ) == "U"
       ::m_dcBk := hdc():New()
-      ::m_dcBk:Createcompatibledc( clDC:m_hDC )
+      ::m_dcBk:Createcompatibledc(clDC:m_hDC)
       ::m_bmpBk := hwg_Createcompatiblebitmap( clDC:m_hDC, rect[3] - rect[1], rect[4] - rect[2] )
       ::m_pbmpOldBk := ::m_dcBk:Selectobject( ::m_bmpBk )
       ::m_dcBk:Bitblt( 0, 0, rect[3] - rect[1], rect[4] - rect[4], clDC:m_hDc, rect1[1], rect1[2], SRCCOPY )
@@ -1227,7 +1227,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
 
    IF Hwg_BitAND( dwStyle, BS_FLAT ) != 0  // "flat" frame
       //pnFrmDark  := hwg_Createpen( PS_SOLID, 1, hwg_Rgb(0, 0, 0) ) )
-      pnFrmDark  := HPen():Add( PS_SOLID, 1,  hwg_Rgb( 64, 64, 64 ) )
+      pnFrmDark  := HPen():Add( PS_SOLID, 1,  hwg_Rgb(64, 64, 64) )
       pnFrmLight := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:Handle )
       hwg_Moveto( dc, rcText[1] - 2, rcText[2]  )

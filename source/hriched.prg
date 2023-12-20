@@ -99,7 +99,7 @@ METHOD Init()  CLASS HRichEdit
    IF ! ::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitRichProc( ::handle )
+      Hwg_InitRichProc(::handle)
       ::Super:Init()
       ::SetColor( ::tColor, ::bColor )
       IF ::bChange != Nil
@@ -283,18 +283,18 @@ METHOD Print( )  CLASS HRichEdit
    IF ::hDCPrinter = Nil
     //  ::hDCPrinter := hwg_Printsetup()
    ENDIF
-   IF HWG_STARTDOC( ::hDCPrinter ) <> 0
+   IF HWG_STARTDOC(::hDCPrinter) <> 0
       IF hwg_Printrtf( ::Handle, ::hDCPrinter ) <> 0
-          HWG_ENDDOC( ::hDCPrinter )
+          HWG_ENDDOC(::hDCPrinter)
       ELSE
-         HWG_ABORTDOC( ::hDCPrinter )
+         HWG_ABORTDOC(::hDCPrinter)
       ENDIF
    ENDIF
    RETURN .F.
 
 
 /*
-Function hwg_DefRichProc( hEdit, msg, wParam, lParam )
+Function hwg_DefRichProc(hEdit, msg, wParam, lParam)
 
 Local oEdit
    // writelog( "RichProc: " + Str(hEdit,10)+"|"+Str(msg,6)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )

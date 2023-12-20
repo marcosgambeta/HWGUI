@@ -47,7 +47,7 @@ typedef int ( __stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int, int
 #else
 typedef int ( _stdcall * GRADIENTFILL ) ( HDC, PTRIVERTEX, int, PVOID, int, int );
 #endif
-LRESULT CALLBACK NiceButtProc( HWND, UINT, WPARAM, LPARAM );
+LRESULT CALLBACK NiceButtProc(HWND, UINT, WPARAM, LPARAM);
 
 static GRADIENTFILL s_pGradientfill = NULL;
 
@@ -134,8 +134,8 @@ void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int 
    s_pGradientfill( hdc, Vert, 2, &Rect, 1, nmode ); //GRADIENT_FILL_RECT_H );
 }
 
-LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam,
+      LPARAM lParam)
 {
    long int res;
    PHB_DYNS pSymTest;
@@ -152,10 +152,10 @@ LRESULT CALLBACK NiceButtProc( HWND hWnd, UINT message, WPARAM wParam,
       if( res )
          return 0;
       else
-         return ( DefWindowProc( hWnd, message, wParam, lParam ) );
+         return ( DefWindowProc(hWnd, message, wParam, lParam) );
    }
    else
-      return ( DefWindowProc( hWnd, message, wParam, lParam ) );
+      return ( DefWindowProc(hWnd, message, wParam, lParam) );
 }
 
 
@@ -236,7 +236,7 @@ HB_FUNC( HWG_ISMOUSEOVER )
 
 HB_FUNC( HWG_RGB )
 {
-   hb_retnl( RGB( hb_parni(1), hb_parni(2), hb_parni(3) ) );
+   hb_retnl( RGB(hb_parni(1), hb_parni(2), hb_parni(3)) );
 }
 
 HB_FUNC( HWG_DRAW_GRADIENT )

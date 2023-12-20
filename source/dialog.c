@@ -23,9 +23,9 @@
 
 #define  WM_PSPNOTIFY         WM_USER+1010
 
-static LRESULT CALLBACK s_ModalDlgProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_DlgProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_PSPProc( HWND, UINT, WPARAM, LPARAM );
+static LRESULT CALLBACK s_ModalDlgProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_DlgProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_PSPProc(HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK s_PSPProcRelease( HWND, UINT, LPPROPSHEETPAGE );
 
 #define	WND_DLG_RESOURCE       10
@@ -42,7 +42,7 @@ HB_FUNC( HWG_DIALOGBOX )
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
 
-   if( !lpResource && HB_IS_NUMERIC( pData ) )
+   if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
 
    DialogBoxParam( hModule, lpResource,
@@ -63,7 +63,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
 
-   if( !lpResource && HB_IS_NUMERIC( pData ) )
+   if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE( hb_itemGetNI( pData ) );
 
    hDlg = CreateDialogParam( hModule, lpResource,
@@ -115,7 +115,7 @@ HB_FUNC( HWG_SETDLGITEMINT )
 HB_FUNC( HWG_GETDLGITEMTEXT )
 {
    USHORT uiLen = hb_parni(3);
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab( ( uiLen + 1 ) * sizeof( TCHAR ) );
+   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 1 ) * sizeof( TCHAR ));
 
    GetDlgItemText( ( HWND ) HB_PARHANDLE(1),  // handle of dialog box
                    hb_parni(2),               // identifier of control
@@ -132,7 +132,7 @@ HB_FUNC( HWG_GETEDITTEXT )
    int id = hb_parni(2);
    USHORT uiLen =
       ( USHORT ) SendMessage( GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0 );
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab( ( uiLen + 2 ) * sizeof( TCHAR ) );
+   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 2 ) * sizeof( TCHAR ));
 
    GetDlgItemText( hDlg,      // handle of dialog box
                    id,        // identifier of control
@@ -267,7 +267,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
    }
    lTemplateSize += 2;  /* 2 to keep DWORD boundary block size */
 
-   hgbl = GlobalAlloc( GMEM_ZEROINIT, lTemplateSize * sizeof( WORD ) );
+   hgbl = GlobalAlloc(GMEM_ZEROINIT, lTemplateSize * sizeof( WORD ));
    if( !hgbl )
       return NULL;
 
@@ -394,7 +394,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
       temp = GetObjectVar( pObj, "XRESOURCEID" );
       if( HB_IS_STRING( temp ) )
          lpTitle = HB_ITEMGETSTR( temp, &hTitle, NULL );
-      else if( HB_IS_NUMERIC( temp ) )
+      else if( HB_IS_NUMERIC(temp) )
          lpTitle = MAKEINTRESOURCE( hb_itemGetNL( temp ) );
       else
          lpTitle = NULL;
@@ -519,8 +519,8 @@ HB_FUNC( HWG_DIALOGBASEUNITS )
    hb_retnl( GetDialogBaseUnits(  ) );
 }
 
-static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
-      LPARAM lParam )
+static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
+      LPARAM lParam)
 {
    // PHB_DYNS pSymTest;
    long int res;
@@ -572,7 +572,7 @@ static LRESULT CALLBACK s_ModalDlgProc( HWND hDlg, UINT uMsg, WPARAM wParam,
 
 }
 
-static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject;
@@ -595,11 +595,11 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab( sizeof( HWND ) * s_nDialogs );
+            aDialogs = ( HWND * ) hb_xgrab(sizeof( HWND ) * s_nDialogs);
          else
             aDialogs =
-                  ( HWND * ) hb_xrealloc( aDialogs,
-                  sizeof( HWND ) * s_nDialogs );
+                  ( HWND * ) hb_xrealloc(aDialogs,
+                  sizeof( HWND ) * s_nDialogs);
       }
       aDialogs[iDialogs++] = hDlg;
    }
@@ -646,7 +646,7 @@ static LRESULT CALLBACK s_DlgProc( HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
 
 }
 
-static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam )
+static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject;
@@ -671,11 +671,11 @@ static LRESULT CALLBACK s_PSPProc( HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab( sizeof( HWND ) * s_nDialogs );
+            aDialogs = ( HWND * ) hb_xgrab(sizeof( HWND ) * s_nDialogs);
          else
             aDialogs =
-                  ( HWND * ) hb_xrealloc( aDialogs,
-                  sizeof( HWND ) * s_nDialogs );
+                  ( HWND * ) hb_xrealloc(aDialogs,
+                  sizeof( HWND ) * s_nDialogs);
       }
       aDialogs[iDialogs++] = hDlg;
       // hb_itemRelease( pObj );

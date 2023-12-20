@@ -149,7 +149,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
    IF msg == WM_THEMECHANGED
       IF ::Themed
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
             ::hTheme := nil
          ENDIF
          ::Themed := .F.
@@ -282,10 +282,10 @@ METHOD Paint() CLASS HOwnButton
       ::m_bFirstTime := .F.
       IF ( hwg_Isthemedload() )
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
          ENDIF
          IF ::WindowsManifest
-            ::hTheme := hwg_openthemedata( ::handle, "BUTTON" )
+            ::hTheme := hwg_openthemedata(::handle, "BUTTON")
          ENDIF
          ::hTheme := IIF( EMPTY( ::hTheme  ), Nil, ::hTheme )
       ENDIF
@@ -392,7 +392,7 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
       IF ::lEnabled
          hwg_Settextcolor( hDC, ::tcolor )
       ELSE
-         //hwg_Settextcolor( hDC, hwg_Rgb( 255, 255, 255 ) )
+         //hwg_Settextcolor( hDC, hwg_Rgb(255, 255, 255) )
          hwg_Settextcolor( hDC, hwg_Getsyscolor( COLOR_INACTIVECAPTION ) )
       ENDIF
       x1 := IIf( ::xt != 0, ::xt, 4 )

@@ -31,9 +31,9 @@
 #define  FIRST_MDICHILD_ID     501
 #define  WND_MDICHILD          3
 
-static LRESULT CALLBACK s_MainWndProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_FrameWndProc( HWND, UINT, WPARAM, LPARAM );
-static LRESULT CALLBACK s_MDIChildWndProc( HWND, UINT, WPARAM, LPARAM );
+static LRESULT CALLBACK s_MainWndProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_FrameWndProc(HWND, UINT, WPARAM, LPARAM);
+static LRESULT CALLBACK s_MDIChildWndProc(HWND, UINT, WPARAM, LPARAM);
 
 static HWND s_hMytoolMenu = NULL;
 static HHOOK s_OrigDockHookProc;
@@ -590,7 +590,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
 {
    HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    ULONG ulLen = ( ULONG ) SendMessage( hWnd, WM_GETTEXTLENGTH, 0, 0 );
-   LPTSTR cText = ( TCHAR * ) hb_xgrab( ( ulLen + 1 ) * sizeof( TCHAR  ) );
+   LPTSTR cText = ( TCHAR * ) hb_xgrab(( ulLen + 1 ) * sizeof( TCHAR  ));
 
    ulLen = ( ULONG ) SendMessage( hWnd, WM_GETTEXT, ( WPARAM ) ( ulLen + 1 ),
                                   ( LPARAM ) cText );
@@ -639,7 +639,7 @@ HB_FUNC( HWG_RESTOREWINDOW )
 
 HB_FUNC( HWG_ISICONIC )
 {
-   hb_retl( IsIconic( ( HWND ) HB_PARHANDLE(1) ) );
+   hb_retl( IsIconic(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_ISWINDOWENABLED )
@@ -722,8 +722,8 @@ HB_FUNC( HWG_RESETWINDOWPOS )
    s_MainWndProc alteradas na HWGUI. Agora as funcoes em hWindow.prg
    retornam 0 para indicar que deve ser usado o processamento default.
 */
-static LRESULT CALLBACK s_MainWndProc( HWND hWnd, UINT message,
-                                       WPARAM wParam, LPARAM lParam )
+static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message,
+                                       WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -743,16 +743,16 @@ static LRESULT CALLBACK s_MainWndProc( HWND hWnd, UINT message,
       hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
-         return DefWindowProc( hWnd, message, wParam, lParam );
+         return DefWindowProc(hWnd, message, wParam, lParam);
       else
          return res;
    }
    else
-      return DefWindowProc( hWnd, message, wParam, lParam );
+      return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-static LRESULT CALLBACK s_FrameWndProc( HWND hWnd, UINT message,
-                                        WPARAM wParam, LPARAM lParam )
+static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message,
+                                        WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -771,16 +771,16 @@ static LRESULT CALLBACK s_FrameWndProc( HWND hWnd, UINT message,
       hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
-         return DefFrameProc( hWnd, aWindows[1], message, wParam, lParam );
+         return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
       else
          return res;
    }
    else
-      return DefFrameProc( hWnd, aWindows[1], message, wParam, lParam );
+      return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
 }
 
-static LRESULT CALLBACK s_MDIChildWndProc( HWND hWnd, UINT message,
-                                           WPARAM wParam, LPARAM lParam )
+static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
+                                           WPARAM wParam, LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject;
@@ -820,12 +820,12 @@ static LRESULT CALLBACK s_MDIChildWndProc( HWND hWnd, UINT message,
       hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
-         return DefMDIChildProc( hWnd, message, wParam, lParam );
+         return DefMDIChildProc(hWnd, message, wParam, lParam);
       else
          return res;
    }
    else
-      return DefMDIChildProc( hWnd, message, wParam, lParam );
+      return DefMDIChildProc(hWnd, message, wParam, lParam);
 
 }
 
@@ -911,7 +911,7 @@ char * hwg_strunshare( void ** phStr, const char * pStr, HB_SIZE nLen )
 
    if( *phStr == ( void * ) s_szConstStr && nLen > 0 )
    {
-      char * pszDest = ( char * ) hb_xgrab( ( nLen + 1 ) * sizeof( char ) );
+      char * pszDest = ( char * ) hb_xgrab(( nLen + 1 ) * sizeof( char ));
       memcpy( pszDest, pStr, nLen * sizeof( char ) );
       pszDest[ nLen ] = 0;
       * phStr = ( void * ) pszDest;
@@ -959,7 +959,7 @@ const wchar_t * hwg_wstrget( PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen )
       }
       else
       {
-         wchar_t * pResult = ( wchar_t * ) hb_xgrab( ( nDest + 1 ) * sizeof( wchar_t ) );
+         wchar_t * pResult = ( wchar_t * ) hb_xgrab(( nDest + 1 ) * sizeof( wchar_t ));
 
          pResult[ nDest ] = 0;
          nDest = MultiByteToWideChar( s_iVM_CP, 0, pszText, nLen, pResult, nDest );
@@ -990,13 +990,13 @@ void hwg_wstrlenset( PHB_ITEM pItem, const wchar_t * pStr, HB_SIZE nLen )
 
       if( nDest )
       {
-         char * pResult = ( char * ) hb_xgrab( nDest + 1 );
+         char * pResult = ( char * ) hb_xgrab(nDest + 1);
 
          nDest = WideCharToMultiByte( s_iVM_CP, 0, pStr, nLen, pResult, nDest, NULL, NULL );
          hb_itemPutCLPtr( pItem, pResult, nDest );
       }
       else
-         hb_itemPutC( pItem, NULL );
+         hb_itemPutC(pItem, NULL);
    }
 }
 
@@ -1054,7 +1054,7 @@ wchar_t * hwg_wstrunshare( void ** phStr, const wchar_t * pStr, HB_SIZE nLen )
 
    if( *phStr == ( void * ) s_wszConstStr && nLen > 0 )
    {
-      wchar_t * pszDest = ( wchar_t * ) hb_xgrab( ( nLen + 1 ) * sizeof( wchar_t ) );
+      wchar_t * pszDest = ( wchar_t * ) hb_xgrab(( nLen + 1 ) * sizeof( wchar_t ));
       memcpy( pszDest, pStr, nLen * sizeof( wchar_t ) );
       pszDest[ nLen ] = 0;
       * phStr = ( void * ) pszDest;
@@ -1221,7 +1221,7 @@ HB_FUNC( HWG_BRINGTOTOP )
    //DWORD    ThisThreadID;
    //DWORD      timeout;
    //BOOL Res = FALSE;
-   if( IsIconic( hWnd ) )
+   if( IsIconic(hWnd) )
    {
       ShowWindow( hWnd, SW_RESTORE );
       hb_retl( TRUE );
@@ -1259,7 +1259,7 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
    HB_SYMBOL_UNUSED( f );
 
    //get the hdc to the main window
-   hDc = GetDC( h );
+   hDc = GetDC(h);
 
    //with the current font attributes, select the font
    //hFont = f;//GetStockObject(ANSI_VAR_FONT)   ;
@@ -1274,7 +1274,7 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
    //re-select the previous font & delete the hDc
    SelectObject( hDc, hFontOld );
    DeleteObject( hFont );
-   ReleaseDC( h, hDc );
+   ReleaseDC(h, hDc);
 
    return avgWidth;
 }
@@ -1439,7 +1439,7 @@ HB_FUNC( HWG_FLASHWINDOW )
 
 HB_FUNC( HWG_ANSITOUNICODE )
 {
-   void * hText = ( TCHAR * ) hb_xgrab( ( 1024 + 1 ) * sizeof( TCHAR  ) );
+   void * hText = ( TCHAR * ) hb_xgrab(( 1024 + 1 ) * sizeof( TCHAR  ));
 #if !defined(__XHARBOUR__)
     hb_parstr_u16( 1, HB_CDP_ENDIAN_NATIVE, &hText, NULL );
 #else
@@ -1470,7 +1470,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
 
 HB_FUNC( HWG_PAINTWINDOW )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab( sizeof( PAINTSTRUCT ) );
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof( PAINTSTRUCT ));
    HDC hDC = BeginPaint( ( HWND ) HB_PARHANDLE(1), pps );
    BOOL fErase = pps->fErase ;
    RECT rc = pps->rcPaint ;

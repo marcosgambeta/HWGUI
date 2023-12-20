@@ -31,7 +31,7 @@ CLASS HPager INHERIT HControl
                bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
    METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
                     bSize, bPaint, ctooltip, tcolor, bcolor, lVert )
-   METHOD SetScrollArea( nWidth, nHeight ) INLINE  ::m_nWidth := nWidth, ::m_nHeight := nHeight
+   METHOD SetScrollArea(nWidth, nHeight) INLINE  ::m_nWidth := nWidth, ::m_nHeight := nHeight
    METHOD Activate()
    METHOD INIT()
 

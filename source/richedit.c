@@ -23,8 +23,8 @@
 #include "hbstack.h"
 #include "hbdate.h"
 
-LRESULT APIENTRY RichSubclassProc( HWND hwnd, UINT uMsg, WPARAM wParam,
-      LPARAM lParam );
+LRESULT APIENTRY RichSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam,
+      LPARAM lParam);
 
 static HINSTANCE hRichEd = 0;
 static WNDPROC wpOrigRichProc;
@@ -314,8 +314,8 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.chrg.cpMin = hb_parnl(2) - 1;
    tr.chrg.cpMax = hb_parnl(3) - 1;
 
-   tr.lpstrText = ( LPTSTR ) hb_xgrab( ( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
-                                       sizeof( TCHAR ) );
+   tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
+                                       sizeof( TCHAR ));
    ul = SendMessage( hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr );
    HB_RETSTRLEN( tr.lpstrText, ul );
    hb_xfree( tr.lpstrText );
@@ -331,7 +331,7 @@ HB_FUNC( HWG_RE_GETLINE )
    int nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage( hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0 );
    ULONG ul = SendMessage( hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0 );
-   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab( ( ul + 4 ) * sizeof( TCHAR ) );
+   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab(( ul + 4 ) * sizeof( TCHAR ));
 
    *( ( ULONG * ) lpBuf ) = ul;
    ul = SendMessage( hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf );
@@ -444,8 +444,8 @@ HB_FUNC( HWG_INITRICHPROC )
          GWLP_WNDPROC, ( LONG_PTR ) RichSubclassProc );
 }
 
-LRESULT APIENTRY RichSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
-      LPARAM lParam )
+LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
+      LPARAM lParam)
 {
    long int res;
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
@@ -463,14 +463,14 @@ LRESULT APIENTRY RichSubclassProc( HWND hWnd, UINT message, WPARAM wParam,
       hb_vmSend(3);
       res = hb_parnl( -1 );
       if( res == -1 )
-         return ( CallWindowProc( wpOrigRichProc, hWnd, message, wParam,
-                     lParam ) );
+         return ( CallWindowProc(wpOrigRichProc, hWnd, message, wParam,
+                     lParam) );
       else
          return res;
    }
    else
-      return ( CallWindowProc( wpOrigRichProc, hWnd, message, wParam,
-                  lParam ) );
+      return ( CallWindowProc(wpOrigRichProc, hWnd, message, wParam,
+                  lParam) );
 }
 
 static DWORD CALLBACK RichStreamOutCallback( DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb )

@@ -32,7 +32,7 @@
 HB_FUNC( HWG_OPENPRINTER )
 {
    void * hText;
-   HB_RETHANDLE( CreateDC( NULL, HB_PARSTR( 1, &hText, NULL ), NULL, NULL ) );
+   HB_RETHANDLE( CreateDC(NULL, HB_PARSTR( 1, &hText, NULL ), NULL, NULL) );
    hb_strfree( hText );
 }
 
@@ -48,12 +48,12 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, NULL,
             0, &dwNeeded, &dwReturned );
 
-      pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab( dwNeeded );
+      pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab(dwNeeded);
 
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( PBYTE ) pinfo5,
             dwNeeded, &dwNeeded, &dwReturned );
 
-      hDC = CreateDC( NULL, pinfo5->pPrinterName, NULL, NULL );
+      hDC = CreateDC(NULL, pinfo5->pPrinterName, NULL, NULL);
       if( hb_pcount(  ) > 0 )
          HB_STORSTR( pinfo5->pPrinterName, 1 );
 
@@ -64,11 +64,11 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
       EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, NULL,
             0, &dwNeeded, &dwReturned );
 
-      pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab( dwNeeded );
+      pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab(dwNeeded);
 
       EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, ( PBYTE ) pinfo4,
             dwNeeded, &dwNeeded, &dwReturned );
-      hDC = CreateDC( NULL, pinfo4->pPrinterName, NULL, NULL );
+      hDC = CreateDC(NULL, pinfo4->pPrinterName, NULL, NULL);
       if( hb_pcount(  ) > 0 )
          HB_STORSTR( pinfo4->pPrinterName, 1 );
 
@@ -95,7 +95,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, NULL,
             0, &dwNeeded, &dwReturned );
 
-      pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab( dwNeeded );
+      pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab(dwNeeded);
 
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) pinfo5,
             dwNeeded, &dwNeeded, &dwReturned );
@@ -119,7 +119,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
          EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, NULL,
                0, &dwNeeded, &dwReturned );
 
-         pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab( dwNeeded );
+         pinfo4 = ( PRINTER_INFO_4 * ) hb_xgrab(dwNeeded);
 
          EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, ( PBYTE ) pinfo4,
                dwNeeded, &dwNeeded, &dwReturned );
@@ -146,7 +146,7 @@ HB_FUNC( HWG_GETPRINTERS )
             0, &dwNeeded, &dwReturned );
       if( dwNeeded )
       {
-         pBuffer = ( PBYTE ) hb_xgrab( dwNeeded );
+         pBuffer = ( PBYTE ) hb_xgrab(dwNeeded);
          pinfo5 = ( PRINTER_INFO_5 * ) pBuffer;
          EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 5, pBuffer,
                dwNeeded, &dwNeeded, &dwReturned );
@@ -158,7 +158,7 @@ HB_FUNC( HWG_GETPRINTERS )
             0, &dwNeeded, &dwReturned );
       if( dwNeeded )
       {
-         pBuffer = ( PBYTE ) hb_xgrab( dwNeeded );
+         pBuffer = ( PBYTE ) hb_xgrab(dwNeeded);
          pinfo4 = ( PRINTER_INFO_4 * ) pBuffer;
          EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, pBuffer,
                dwNeeded, &dwNeeded, &dwReturned );
@@ -212,7 +212,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
    {
       /* Determine the size of DEVMODE structure */
       nSize = DocumentProperties( NULL, hPrinter, ( LPTSTR ) lpPrinterName, NULL, NULL, 0 );
-      pdm = ( PDEVMODE ) GlobalAlloc( GPTR, nSize );
+      pdm = ( PDEVMODE ) GlobalAlloc(GPTR, nSize);
 
       /* Get the printer mode */
       DocumentProperties( NULL, hPrinter, ( LPTSTR ) lpPrinterName, pdm, NULL, DM_OUT_BUFFER );
@@ -229,7 +229,7 @@ HB_FUNC( HWG_SETPRINTERMODE )
                           pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER );
 
       // создадим контекст устройства принтера
-      HB_RETHANDLE( CreateDC( NULL, lpPrinterName, NULL, pdm ) );
+      HB_RETHANDLE( CreateDC(NULL, lpPrinterName, NULL, pdm) );
       HB_STOREHANDLE( hPrinter, 2 );
       GlobalFree( pdm );
    }
@@ -254,18 +254,18 @@ HB_FUNC( HWG_STARTDOC )
    di.lpszDatatype = NULL;
    di.fwType = 0;
 
-   hb_retnl( ( LONG ) StartDoc( ( HDC ) HB_PARHANDLE(1), &di ) );
+   hb_retnl( ( LONG ) StartDoc(( HDC ) HB_PARHANDLE(1), &di) );
    hb_strfree( hText );
 }
 
 HB_FUNC( HWG_ENDDOC )
 {
-   EndDoc( ( HDC ) HB_PARHANDLE(1) );
+   EndDoc(( HDC ) HB_PARHANDLE(1));
 }
 
 HB_FUNC( HWG_ABORTDOC )
 {
-   AbortDoc( ( HDC ) HB_PARHANDLE(1) );
+   AbortDoc(( HDC ) HB_PARHANDLE(1));
 }
 
 HB_FUNC( HWG_STARTPAGE )
@@ -344,7 +344,7 @@ HB_FUNC( HWG_GETDEVICEAREA )
 HB_FUNC( HWG_CREATEENHMETAFILE )
 {
    HWND hWnd = ( HWND ) HB_PARHANDLE(1);
-   HDC hDCref = GetDC( hWnd ), hDCmeta;
+   HDC hDCref = GetDC(hWnd), hDCmeta;
    void * hFileName;
    int iWidthMM, iHeightMM, iWidthPels, iHeightPels;
    RECT rc;
@@ -387,7 +387,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 
    hDCmeta = CreateEnhMetaFile( hDCref, HB_PARSTR( 2, &hFileName, NULL ),
                                 &rc, NULL );
-   ReleaseDC( hWnd, hDCref );
+   ReleaseDC(hWnd, hDCref);
    HB_RETHANDLE( hDCmeta );
    hb_strfree( hFileName );
 }
@@ -452,7 +452,7 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
       rc.bottom = hb_parni(6);
    }
    else
-      GetClientRect( WindowFromDC( hDC ), &rc );
+      GetClientRect( WindowFromDC(hDC), &rc );
    hb_retnl( ( LONG ) PlayEnhMetaFile( hDC,
                ( HENHMETAFILE ) HB_PARHANDLE(2), &rc ) );
 }

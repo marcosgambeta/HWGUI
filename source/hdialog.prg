@@ -587,7 +587,7 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
          cDir := iif( Empty( FilePath( hwg_SetHelpFileName() ) ), CurDir(), FilePath( hwg_SetHelpFileName() ) )
       ENDIF
       IF ! Empty( lParam )
-         oCtrl := oDlg:FindControl( Nil, hwg_Gethelpdata( lParam ) )
+         oCtrl := oDlg:FindControl( Nil, hwg_Gethelpdata(lParam) )
       ENDIF
       IF oCtrl != nil
          nHelpId := oCtrl:HelpId

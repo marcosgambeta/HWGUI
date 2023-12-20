@@ -230,11 +230,11 @@ Local han
       han := FOpen( fname, FO_READ )
       ::nLastErr := 0
       IF han != -1
-         ::nLastErr := hbxml_GetDoc( Self,han )
+         ::nLastErr := hbxml_GetDoc(Self, han)
          FClose( han )
       ENDIF
    ELSEIF buffer != Nil
-      ::nLastErr := hbxml_GetDoc( Self,buffer )
+      ::nLastErr := hbxml_GetDoc(Self, buffer)
    ELSE
       Return Nil
    ENDIF

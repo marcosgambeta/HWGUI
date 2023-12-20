@@ -97,8 +97,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
 METHOD Activate() CLASS HRect_Line
 
    IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
+            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -208,8 +208,8 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
 METHOD Activate() CLASS HDrawShape
 
    IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
+            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -347,13 +347,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
 METHOD Activate() CLASS HContainer
 
    IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
-            ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
+            ::nLeft, ::nTop, ::nWidth, ::nHeight)
       IF ! ::lInit
          hwg_Addtooltip( ::handle, ::handle, "" )
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
-         Hwg_InitStaticProc( ::handle )
+         Hwg_InitStaticProc(::handle)
          ::linit := .T.
          IF Empty( ::oParent:oParent ) .AND. ::oParent:Type >= WND_DLG_RESOURCE
             ::Create()
@@ -376,7 +376,7 @@ METHOD Init() CLASS HContainer
       hwg_Addtooltip( ::handle, ::handle, "" )
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitStaticProc( ::handle )
+      Hwg_InitStaticProc(::handle)
       //hwg_Setwindowpos( ::Handle, HWND_BOTTOM, 0, 0, 0, 0 , SWP_NOSIZE + SWP_NOMOVE + SWP_NOZORDER)
    ENDIF
 

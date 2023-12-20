@@ -172,7 +172,7 @@ METHOD CREATEUPDOWN() CLASS Hupdown
    ELSEIF hwg_getParentForm(Self):Type < WND_DLG_RESOURCE .AND. ::oParent:ClassName = "HTAB" //!EMPTY( ::oParent:oParent )
       ::nHolder := 1
       hwg_Setwindowobject( ::oEditUpDown:handle, ::oEditUpDown )
-      Hwg_InitEditProc( ::oEditUpDown:handle )
+      Hwg_InitEditProc(::oEditUpDown:handle)
    ELSE
       hwg_Addtooltip( hwg_GetParentForm(Self):handle, ::oEditUpDown:handle, ::tooltip )
    ENDIF
@@ -185,7 +185,7 @@ METHOD CREATEUPDOWN() CLASS Hupdown
    IF ::nHolder = 0
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, ::oEditUpDown )
-      Hwg_InitEditProc( ::handle )
+      Hwg_InitEditProc(::handle)
    ENDIF
    RETURN Nil
 

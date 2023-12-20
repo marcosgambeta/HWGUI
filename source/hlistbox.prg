@@ -134,7 +134,7 @@ METHOD Init() CLASS HListBox
    IF ! ::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      HWG_INITLISTPROC( ::handle )
+      HWG_INITLISTPROC(::handle)
       ::Super:Init()
       IF ::aItems != Nil
          IF ::value == Nil

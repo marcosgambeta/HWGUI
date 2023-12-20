@@ -49,7 +49,7 @@ typedef struct CXDIB_STRU
 
 PCXDIB cxdib_New( void );
 void cxdib_Release( PCXDIB pdib );
-BOOL cxdib_IsWin30Dib( PCXDIB pdib );
+BOOL cxdib_IsWin30Dib(PCXDIB pdib);
 WORD cxdib_GetPaletteSize( PCXDIB pdib );
 BYTE *cxdib_GetBits( PCXDIB pdib );
 long cxdib_GetSize( PCXDIB pdib );
@@ -212,7 +212,7 @@ HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
    // table, and the bits
    dwLen = cxdib_GetSize( pdib );
 
-   pdib->hDib = hb_xgrab( dwLen );        // alloc memory block to store our bitmap
+   pdib->hDib = hb_xgrab(dwLen);        // alloc memory block to store our bitmap
    // hDib = new (HDIB[dwLen]); //fixes allocation problem under Win2k
    if( !pdib->hDib )
       return NULL;
@@ -322,7 +322,7 @@ void cxdib_SetPixelIndex( PCXDIB pdib, long x, long y, BYTE i )
 
 PCXSHADE cxshade_New( RECT * prect, BOOL lFlat )
 {
-   PCXSHADE pshade = ( PCXSHADE ) hb_xgrab( sizeof( CXSHADE ) );
+   PCXSHADE pshade = ( PCXSHADE ) hb_xgrab(sizeof( CXSHADE ));
 
    memset( pshade, 0, sizeof( CXSHADE ) );
    SetRect( &( pshade->m_rect ), prect->left, prect->top, prect->right,
@@ -361,7 +361,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
    SetRect( &r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right,
          pshade->m_rect.bottom );
 
-   hdcMem = CreateCompatibleDC( pRealDC );
+   hdcMem = CreateCompatibleDC(pRealDC);
    pDC = hdcMem;                //(just use pRealDC to paint directly the screen)
 
    hBitmap = CreateCompatibleBitmap( pRealDC, cx, cy );
@@ -452,7 +452,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
 
    if( holdBitmap )
       SelectObject( hdcMem, holdBitmap );
-   DeleteDC( hdcMem );
+   DeleteDC(hdcMem);
    DeleteObject( hBitmap );
 
 }

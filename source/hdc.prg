@@ -46,7 +46,7 @@ CLASS HDC
    DATA m_hAttribDC
 
    METHOD NEW( )
-   METHOD SetAttribDC( hDC )
+   METHOD SetAttribDC(hDC)
    METHOD ATTACH( hDc )
    METHOD Moveto( x1, y1 )
    METHOD Lineto( x1, y1 )
@@ -58,17 +58,17 @@ CLASS HDC
    METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor( ::m_hDC, clr )
    METHOD Selectobject( xMode )
    METHOD Drawtext( strText, Rect, dwFlags )
-   METHOD Createcompatibledc( x )
+   METHOD Createcompatibledc(x)
    METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt( ::m_hDc, a, s, d, f, g )
    METHOD Savedc()
-   METHOD Restoredc( nSavedDC )
+   METHOD Restoredc(nSavedDC)
    METHOD Setmapmode( nMapMode )
    METHOD SetWindowOrg( x, y )
    METHOD SetWindowExt( x, y )
    METHOD SetViewportOrg( x, y )
    METHOD SetViewportExt( x, y )
    METHOD Setarcdirection( nArcDirection )
-   METHOD Gettextmetric() INLINE hwg_Gettextmetric( ::m_hDC )
+   METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
    METHOD Setrop2( nDrawMode )
    METHOD Bitblt( x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop ) INLINE    hwg_Bitblt( ::m_hDc, x, y, nWidth, nHeight,  pSrcDC,       xSrc,  ySrc,  dwRop )
 
@@ -101,18 +101,18 @@ METHOD Attach( hDC ) CLASS HDC
 
    ::m_hDC := hDC
 
-   ::SetAttribDC( ::m_hDC )
+   ::SetAttribDC(::m_hDC)
 
    RETURN .T.
 
-METHOD Deletedc(  ) CLASS HDC
-   hwg_Deletedc( ::m_hDC )
+METHOD Deletedc() CLASS HDC
+   hwg_Deletedc(::m_hDC)
    ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN NIL
 
-METHOD SetAttribDC( hDC ) CLASS HDC
+METHOD SetAttribDC(hDC) CLASS HDC
 
    ::m_hAttribDC := hDC
 
@@ -163,32 +163,32 @@ METHOD Fillrect( lpRect, clr ) CLASS HDC
 
    RETURN NIL
 
-METHOD Createcompatibledc( x ) CLASS HDC
+METHOD Createcompatibledc(x) CLASS HDC
 
-   RETURN ::Attach( hwg_Createcompatibledc( x ) )
+   RETURN ::Attach( hwg_Createcompatibledc(x) )
 
 METHOD Savedc() CLASS HDC
    LOCAL nRetVal := 0
 
    IF ( ! Empty( ::m_hAttribDC ) )
-      nRetVal := hwg_Savedc( ::m_hAttribDC )
+      nRetVal := hwg_Savedc(::m_hAttribDC)
    ENDIF
-   IF ( ::m_hDC != ::m_hAttribDC .AND. hwg_Savedc( ::m_hDC ) != 0 )
+   IF ( ::m_hDC != ::m_hAttribDC .AND. hwg_Savedc(::m_hDC) != 0 )
       nRetVal := - 1   // -1 is the only valid restore value for complex DCs
    ENDIF
 
    RETURN nRetVal
 
-METHOD Restoredc( nSavedDC ) CLASS HDC
+METHOD Restoredc(nSavedDC) CLASS HDC
    // if two distinct DCs, nSavedDC can only be -1
 
    LOCAL bRetVal := .T.
 
    IF ( ::m_hDC != ::m_hAttribDC )
-      bRetVal := hwg_Restoredc( ::m_hDC, nSavedDC )
+      bRetVal := hwg_Restoredc(::m_hDC, nSavedDC)
    ENDIF
    IF ( ! Empty( ::m_hAttribDC ) )
-      bRetVal := ( bRetVal .AND. hwg_Restoredc( ::m_hAttribDC, nSavedDC ) )
+      bRetVal := ( bRetVal .AND. hwg_Restoredc(::m_hAttribDC, nSavedDC) )
    ENDIF
 
    RETURN bRetVal
@@ -297,13 +297,13 @@ METHOD NEW( nWnd ) CLASS HCLIENTDC
 
    ::Super:new()
    ::m_hWnd := nWnd
-   ::Attach( hwg_Getdc( ::m_hWnd ) )
+   ::Attach( hwg_Getdc(::m_hWnd) )
 
    RETURN Self
 
 METHOD END () CLASS HCLIENTDC
 
-   hwg_Releasedc( ::m_hWnd, ::m_hDC )
+   hwg_Releasedc(::m_hWnd, ::m_hDC)
    ::m_hDC       := NIL
    ::m_hAttribDC := NIL
 

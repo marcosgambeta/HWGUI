@@ -72,11 +72,11 @@ CLASS PrintDos
    METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
                 oComm8, oComm9, oComm10 )
 
-   METHOD SetPrc( x, y )
+   METHOD SetPrc(x, y)
 
    METHOD PrinterFile( fName )
 
-   METHOD TxttoGraphic( fName, osize, oPreview )
+   METHOD TxttoGraphic(fName, osize, oPreview)
 
    METHOD Preview( fname, cTitle )
 
@@ -293,7 +293,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
       ENDIF
 
    ELSEIF ValType( oTexto ) == "D"
-      oTexto := DToC( oTexto )
+      oTexto := DToC(oTexto)
    ELSE
       IF ! Empty( oPicture ) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
@@ -329,7 +329,7 @@ METHOD SetCols( nProw, nPcol ) CLASS PrintDos
 
    RETURN Nil
 
-METHOD SetPrc( x, y ) CLASS PrintDos
+METHOD SetPrc(x, y) CLASS PrintDos
    ::nProw := x
    ::nPCol := y
    RETURN Nil
@@ -387,12 +387,12 @@ FUNCTION hwg_wPCol( oPrinter )
 
    RETURN oPrinter:nPcol
 
-FUNCTION hwg_wSetPrc( x, y, oPrinter )
+FUNCTION hwg_wSetPrc(x, y, oPrinter)
 
-   oPrinter:SetPrc( x, y )
+   oPrinter:SetPrc(x, y)
    RETURN Nil
 
-METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
+METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
    LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
    LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
@@ -408,7 +408,7 @@ METHOD TxttoGraphic( fName, osize, oPreview ) CLASS PrintDos
 // end of added code
    oFont := oPrinter:AddFont( "Courier New", osize )
 
-   oPrinter:StartDoc( oPreview  )
+   oPrinter:StartDoc(oPreview)
    oPrinter:StartPage()
 
    hwg_Selectobject( oPrinter:hDC, oFont:handle )
@@ -660,12 +660,12 @@ HB_FUNC( AFILLTEXT )
       return;
    }
 
-   string = (char*) hb_xgrab( LINE_MAX + 1 );
+   string = (char*) hb_xgrab(LINE_MAX + 1);
    hb_arrayNew( pArray, 0 );
 
    while ( file_read ( inFile, string ) )
    {
-      hb_arrayAddForward( pArray, hb_itemPutC( pTemp, string ));
+      hb_arrayAddForward( pArray, hb_itemPutC(pTemp, string));
    }
 
    hb_itemRelease( hb_itemReturn( pArray ) );

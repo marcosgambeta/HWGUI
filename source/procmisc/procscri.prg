@@ -528,7 +528,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
 
 RETURN m->doscr_RetValue
 
-FUNCTION CallFunc( cProc, aParams, aScript )
+FUNCTION CallFunc(cProc, aParams, aScript)
 
 LOCAL i := 1, RetValue := Nil
 

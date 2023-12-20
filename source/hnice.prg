@@ -125,7 +125,7 @@ METHOD INIT() CLASS HNiceButton
    ENDIF
    RETURN Nil
 
-FUNCTION hwg_NICEBUTTPROC( hBtn, msg, wParam, lParam )
+FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
 
 
    LOCAL oBtn

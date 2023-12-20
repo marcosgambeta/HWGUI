@@ -812,7 +812,7 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler * This,
    if( len >= 4 && !_wcsnicmp( pchURLIn, ( WCHAR * ) & AppUrl[0], 4 ) )
    {
       // Allocate a new buffer to return an "about:blank" URL
-      if( ( dest = ( OLECHAR * ) CoTaskMemAlloc( 12 << 1 ) ) != NULL )
+      if( ( dest = ( OLECHAR * ) CoTaskMemAlloc(12 << 1) ) != NULL )
       {
          HWND hwnd;
 
@@ -1530,9 +1530,9 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
                      WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) strType, -1,
                      0, 0, 0, 0 );
                if( ( webParams.eventStr =
-                           GlobalAlloc( GMEM_FIXED,
+                           GlobalAlloc(GMEM_FIXED,
                                  sizeof( char ) *
-                                 webParams.nmhdr.idFrom ) ) == NULL )
+                                 webParams.nmhdr.idFrom) ) == NULL )
                   goto bad;
                WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) strType, -1,
                      ( char * ) webParams.eventStr, webParams.nmhdr.idFrom, 0,
@@ -1634,9 +1634,9 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
       // Invoke() function when it wants to inform us that a specific event
       // has occurred.
       if( ( lpDispatchEx =
-                  ( _IDispatchEx * ) GlobalAlloc( GMEM_FIXED,
+                  ( _IDispatchEx * ) GlobalAlloc(GMEM_FIXED,
                         sizeof( _IDispatchEx ) + extraData +
-                        varDisp.DEF_VT ) ) != NULL )
+                        varDisp.DEF_VT) ) != NULL )
       {
          // Clear out the extradata area in case the caller wants that.
          ZeroMemory( lpDispatchEx, extraData );
@@ -1905,8 +1905,8 @@ BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
 
       size = MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, 0, 0 );
       if( ( buffer =
-                  ( WCHAR * ) GlobalAlloc( GMEM_FIXED,
-                        sizeof( WCHAR ) * size ) ) == NULL )
+                  ( WCHAR * ) GlobalAlloc(GMEM_FIXED,
+                        sizeof( WCHAR ) * size) ) == NULL )
          return (0);
       MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, buffer, size );
       bstr = SysAllocString( buffer );
@@ -1938,14 +1938,14 @@ void *WINAPI BStr2TStr( HWND hwnd, BSTR strIn )
    {
       size = WideCharToMultiByte( CP_ACP, 0,
             ( WCHAR * ) ( ( char * ) strIn + 2 ), -1, 0, 0, 0, 0 );
-      if( ( strOut = GlobalAlloc( GMEM_FIXED, size ) ) != NULL )
+      if( ( strOut = GlobalAlloc(GMEM_FIXED, size) ) != NULL )
          WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) ( ( char * ) strIn + 2 ),
                -1, ( char * ) strOut, size, 0, 0 );
    }
    else
    {
       size = ( *( ( short * ) strIn ) + 1 ) * sizeof( wchar_t );
-      if( ( strOut = GlobalAlloc( GMEM_FIXED, size ) ) != NULL )
+      if( ( strOut = GlobalAlloc(GMEM_FIXED, size) ) != NULL )
          CopyMemory( strOut, ( char * ) strIn + 2, size );
    }
 
@@ -2272,7 +2272,7 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
                         SafeArrayCreate( VT_VARIANT, 1,
                               ( SAFEARRAYBOUND * ) & ArrayBound ) ) != NULL )
             {
-               if( !SafeArrayAccessData( sfArray, ( void ** ) &pVar ) )
+               if( !SafeArrayAccessData(sfArray, ( void ** ) &pVar) )
                {
                   pVar->DEF_VT = VT_BSTR;
 
@@ -2580,9 +2580,9 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
    //
    // One final thing. We're going to allocate extra room to store the pointer
    // to the browser object.
-   if( ( ptr = ( char * ) GlobalAlloc( GMEM_FIXED,
+   if( ( ptr = ( char * ) GlobalAlloc(GMEM_FIXED,
                      sizeof( _IOleClientSiteEx ) +
-                     sizeof( IOleObject * ) ) ) == NULL )
+                     sizeof( IOleObject * )) ) == NULL )
       return ( -1 );
 
    // Initialize our IOleClientSite object with a pointer to our
@@ -2664,10 +2664,10 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
             // Set the display area of our browser control the same as our
             // window's size and actually put the browser object into our window.
             GetClientRect( hwnd, &rect );
-            if( !browserObject->lpVtbl->DoVerb( browserObject,
+            if( !browserObject->lpVtbl->DoVerb(browserObject,
                         OLEIVERB_INPLACEACTIVATE, 0,
                         ( IOleClientSite * ) _iOleClientSiteEx, 0, hwnd,
-                        &rect ) )
+                        &rect) )
             {
                // Let's call several functions in the IWebBrowser2 object to
                // position the browser display area in our window. The

@@ -562,8 +562,8 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
    // intentional misrepresentation of size
 
    thisobj =
-         ( IEventHandler * ) GlobalAlloc( GMEM_FIXED,
-         sizeof( MyRealIEventHandler ) );
+         ( IEventHandler * ) GlobalAlloc(GMEM_FIXED,
+         sizeof( MyRealIEventHandler ));
 
    if( !thisobj )
    {

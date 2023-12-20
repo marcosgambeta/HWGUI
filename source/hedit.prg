@@ -126,7 +126,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       cPicture := iif( cPicture == Nil .AND. ::nMaxLength != Nil, Replicate( "9", ::nMaxLength ), cPicture )
    ENDIF
    IF ::cType == "D" .AND. bSetGet != Nil
-      ::nMaxLength := Len( Dtoc( vari ) ) //IIF( SET( _SET_CENTURY ), 10, 8 )
+      ::nMaxLength := Len( Dtoc(vari) ) //IIF( SET( _SET_CENTURY ), 10, 8 )
    ENDIF
 
    ::ParsePict( cPicture, vari )
@@ -181,7 +181,7 @@ METHOD Init()  CLASS HEdit
       ::Super:Init()
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitEditProc( ::handle )
+      Hwg_InitEditProc(::handle)
       ::Refresh()
       ::oParent:AddEvent( EN_CHANGE, Self, { | | ::onChange( ) }, , "onChange"  )
    ENDIF
@@ -551,7 +551,7 @@ METHOD Refresh()  CLASS HEdit
          vari := iif( vari = Nil, "", Vari )
          vari := Transform( vari, ::cPicFunc + iif( Empty( ::cPicFunc ), "", " " ) + ::cPicMask )
       ELSE
-         vari := iif( ::cType == "D", Dtoc( vari ), iif( ::cType == "N", Str( vari ), ;
+         vari := iif( ::cType == "D", Dtoc(vari), iif( ::cType == "N", Str( vari ), ;
             iif( ::cType == "C" .AND. ValType( vari ) == "C", Trim( vari ), "" ) ) )
       ENDIF
       ::Title := vari
@@ -597,8 +597,8 @@ FUNCTION hwg_IsCtrlShift( lCtrl, lShift )
       lShift := .T.
    ENDIF
 
-   RETURN ( lCtrl .AND. ( Asc( SubStr( cKeyb, VK_CONTROL + 1, 1 ) ) >= 128 ) ) .OR. ;
-      ( lShift .AND. ( Asc( SubStr( cKeyb, VK_SHIFT + 1, 1 ) ) >= 128 ) )
+   RETURN ( lCtrl .AND. ( Asc(SubStr( cKeyb, VK_CONTROL + 1, 1 )) >= 128 ) ) .OR. ;
+      ( lShift .AND. ( Asc(SubStr( cKeyb, VK_SHIFT + 1, 1 )) >= 128 ) )
 
 METHOD ParsePict( cPicture, vari ) CLASS HEdit
    LOCAL nAt, i, masklen, cChar
@@ -631,7 +631,7 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
    IF Empty( ::cPicMask )
       IF ::cType == "D"
          ::cPicFunc   := "@D" + iif( "K" $ ::cPicFunc, "K", "" )
-         ::cPicMask := StrTran( Dtoc( CToD( Space(8) ) ), ' ', '9' )
+         ::cPicMask := StrTran( Dtoc(CToD( Space(8) )), ' ', '9' )
       ELSEIF ::cType == "N"
          vari := Str( vari )
          IF ( nAt := At( ".", vari ) ) > 0
@@ -857,11 +857,11 @@ METHOD INPUT( cChar, nPos ) CLASS HEdit
 
       cChar := Transform( cChar, cPic )
       IF cPic == "A"
-         IF ! IsAlpha( cChar )
+         IF ! IsAlpha(cChar)
             cChar := Nil
          ENDIF
       ELSEIF cPic == "N"
-         IF ! IsAlpha( cChar ) .AND. ! IsDigit( cChar )
+         IF ! IsAlpha(cChar) .AND. ! IsDigit( cChar )
             cChar := Nil
          ENDIF
       ELSEIF cPic == "9"
@@ -1120,7 +1120,7 @@ METHOD Valid( ) CLASS HEdit
             ENDIF
             vari := CToD( vari )
             IF __SetCentury() .AND. Len( Trim ( ::title ) ) < 10
-               ::title :=  Dtoc( vari )
+               ::title :=  Dtoc(vari)
                hwg_Setdlgitemtext( ::oParent:handle, ::id, ::title )
             ENDIF
          ELSEIF ::cType == "N"
@@ -1400,7 +1400,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
    oCtrl := iif( i > 0, oParent:acontrols[ i ], oParent )
 
    IF nSkip != 0
-      nextHandle := iif( oParent:className == "HTAB", NextFocusTab( oParent, hCtrl, nSkip ), ;
+      nextHandle := iif( oParent:className == "HTAB", NextFocusTab(oParent, hCtrl, nSkip), ;
          iif( oParent:className == oForm:ClassName, NextFocus( oParent, hCtrl, nSkip ), ;
          NextFocuscontainer( oParent, hCtrl, nSkip ) ) )
    ELSE
@@ -1509,7 +1509,7 @@ STATIC FUNCTION GetSkipScroll( oForm, oCtrl )
 
    RETURN Nil
 
-STATIC FUNCTION NextFocusTab( oParent, hCtrl, nSkip )
+STATIC FUNCTION NextFocusTab(oParent, hCtrl, nSkip)
    LOCAL nextHandle := NIL, i, nPage, nFirst , nLast , k := 0
 
    IF Len( oParent:aPages ) > 0
@@ -1526,7 +1526,7 @@ STATIC FUNCTION NextFocusTab( oParent, hCtrl, nSkip )
             k := AScan( oParent:acontrols, { | o | o:Handle == nextHandle } )
             IF Len( oParent:aControls[ k ]:aControls ) > 0 .AND. hCtrl != nextHandle .AND. oParent:aControls[ k ]:classname != "HTAB"
                nextHandle := NextFocusContainer( oParent:aControls[ k ], oParent:aControls[ k ]:Handle, nSkip )
-               RETURN iif( !Empty( nextHandle ), nextHandle, NextFocusTab( oParent, oParent:aControls[ k ]:Handle, nSkip ) )
+               RETURN iif( !Empty( nextHandle ), nextHandle, NextFocusTab(oParent, oParent:aControls[ k ]:Handle, nSkip) )
             ENDIF
          ENDIF
       ELSE
@@ -1535,7 +1535,7 @@ STATIC FUNCTION NextFocusTab( oParent, hCtrl, nSkip )
       ENDIF
       IF ( nSkip < 0 .AND. ( k > i .OR. k == 0 ) ) .OR. ( nSkip > 0 .AND. i > k )
          IF oParent:oParent:classname = "HTAB" .AND. oParent:oParent:classname != oParent:classname
-            NextFocusTab( oParent:oParent, nextHandle, nSkip )
+            NextFocusTab(oParent:oParent, nextHandle, nSkip)
          ENDIF
          IF Type( "oParent:oParent:Type" ) = "N" .AND. oParent:oParent:Type < WND_DLG_RESOURCE
             nextHandle := hwg_Getnextdlgtabitem ( oParent:oParent:handle , hctrl, ( nSkip < 0 ) )
@@ -1548,7 +1548,7 @@ STATIC FUNCTION NextFocusTab( oParent, hCtrl, nSkip )
             hwg_Postmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, nextHandle , 1 )
          ENDIF
          IF !Empty( nextHandle ) .AND. Hwg_BitaND( HWG_GETWINDOWSTYLE( nextHandle ), WS_TABSTOP ) = 0
-            NextFocusTab( oParent, nextHandle, nSkip )
+            NextFocusTab(oParent, nextHandle, nSkip)
          ENDIF
       ENDIF
    ENDIF
@@ -1628,7 +1628,7 @@ STATIC FUNCTION NextFocusContainer( oParent, hCtrl, nSkip )
          IF ( ( i2 > i .OR. hCtrl == nextHandle ) .AND. nSkip < 0 )  .AND.  Hwg_BitaND( HWG_GETWINDOWSTYLE( oParent:Handle ), WS_TABSTOP ) != 0
             RETURN oParent:Handle
          ENDIF
-         RETURN iif( oParent:oParent:className == "HTAB", NextFocusTab( oParent:oParent, nWindow, nSkip ), ;
+         RETURN iif( oParent:oParent:className == "HTAB", NextFocusTab(oParent:oParent, nWindow, nSkip), ;
             iif( hwg_GetParentForm( oParent ):ClassName == oParent:oParent:Classname, ;
             NextFocus( oParent:oparent, hCtrl, nSkip ), NextFocusContainer( oParent:oparent, hCtrl, nSkip ) ) )
       ENDIF

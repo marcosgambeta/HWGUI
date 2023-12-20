@@ -112,7 +112,7 @@ METHOD AddName( cName ) CLASS HControl
          cName := SubStr( cName, nPos + 1 )
       ENDIF
       ::xName := cName
-      __objAddData( ::oParent, cName )
+      __objAddData(::oParent, cName)
       ::oParent: & ( cName ) := Self
    ENDIF
 
@@ -239,7 +239,7 @@ METHOD Enabled( lEnabled ) CLASS HControl
 METHOD ControlSource( cControlSource ) CLASS HControl
    LOCAL temp
 
-   IF cControlSource != NIL .AND. !Empty( cControlSource ) .AND. __objHasData( Self, "BSETGETFIELD" )
+   IF cControlSource != NIL .AND. !Empty( cControlSource ) .AND. __objHasData(Self, "BSETGETFIELD")
       ::xControlSource := cControlSource
       temp := SubStr( cControlSource, At( "->", cControlSource ) + 2 )
       ::bSetGetField := iif( "->" $ cControlSource, FieldWBlock( temp, Select( SubStr( cControlSource, 1, At( "->", cControlSource ) - 1 ) ) ), FieldBlock( cControlSource ) )
@@ -544,7 +544,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
    DEFAULT nHeight := 16
    DEFAULT cIcon := ""
 
-   IF HB_IsNumeric( cIcon ) .OR. At( ".", cIcon ) = 0
+   IF HB_IsNumeric(cIcon) .OR. At( ".", cIcon ) = 0
       //oIcon := HIcon():addResource( cIcon, nWidth, nHeight )
       oIcon := HIcon():addResource( cIcon, nWidth, nHeight, LR_LOADMAP3DCOLORS + ;
          iif( Empty( HWG_GETWINDOWTHEME( ::handle ) ), LR_LOADTRANSPARENT, 0 ) )
@@ -644,9 +644,9 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 METHOD Activate() CLASS HStatic
 
    IF !Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-         ::extStyle )
+         ::extStyle)
       ::Init()
    ENDIF
 
@@ -818,8 +818,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
 METHOD Activate() CLASS HLine
 
    IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ::style, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
+         ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 

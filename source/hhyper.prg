@@ -90,9 +90,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, bClick )
 
-   DEFAULT vColor TO hwg_Rgb( 5, 34, 143 )
-   DEFAULT lColor TO hwg_Rgb( 0, 0, 255 )
-   DEFAULT hColor TO hwg_Rgb( 255, 0, 0 )
+   DEFAULT vColor TO hwg_Rgb(5, 34, 143)
+   DEFAULT lColor TO hwg_Rgb(0, 0, 255)
+   DEFAULT hColor TO hwg_Rgb(255, 0, 0)
    ::m_csUrl := cLink
    ::m_sHoverColor   := hColor
    ::m_sLinkColor    := lColor
@@ -133,9 +133,9 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor )
 
-   DEFAULT vColor TO hwg_Rgb( 5, 34, 143 )
-   DEFAULT lColor TO hwg_Rgb( 0, 0, 255 )
-   DEFAULT hColor TO hwg_Rgb( 255, 0, 0 )
+   DEFAULT vColor TO hwg_Rgb(5, 34, 143)
+   DEFAULT lColor TO hwg_Rgb(0, 0, 255)
+   DEFAULT hColor TO hwg_Rgb(255, 0, 0)
    ::state := LBL_INIT
    ::m_csUrl := cLink
    ::m_sHoverColor   := hColor
@@ -382,9 +382,9 @@ METHOD PAint( lpDis ) CLASS HStaticLink
       hwg_Setbkmode( dc, TRANSPARENT )
       hwg_Drawfocusrect( dc, focusRect )
       IF hwg_Isthemedload() .AND. ::WindowsManifest
-         hTheme := hwg_openthemedata( ::handle, "MENU" )
+         hTheme := hwg_openthemedata(::handle, "MENU")
          hwg_drawthemebackground( hTheme, dc, MENU_POPUPITEM, MPI_HOT, focusRect, Nil )
-         hwg_closethemedata( htheme )
+         hwg_closethemedata(htheme)
       ENDIF
    ENDIF
 

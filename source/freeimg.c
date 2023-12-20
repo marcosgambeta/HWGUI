@@ -231,7 +231,7 @@ HB_FUNC( HWG_FI_VERSION )
          ( FREEIMAGE_GETVERSION ) s_getFunction( NULL,
          "_FreeImage_GetVersion@0" );
 
-   hb_retc( ( pFunc ) ? pFunc(  ) : "" );
+   hb_retc(( pFunc ) ? pFunc() : "");
 }
 
 HB_FUNC( HWG_FI_UNLOAD )
@@ -378,13 +378,13 @@ HB_FUNC( HWG_FI_2BITMAP )
    hb_retnl( ( LONG ) CreateDIBitmap( hDC, pGetinfoHead( dib ),
                CBM_INIT, pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS ) );
 
-   ReleaseDC( 0, hDC );
+   ReleaseDC(0, hDC);
 }
 
 /* 24/02/2005 - <maurilio.longo@libero.it>
   from internet, possibly code from win32 sdk
 */
-static HANDLE CreateDIB( DWORD dwWidth, DWORD dwHeight, WORD wBitCount )
+static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 {
    BITMAPINFOHEADER bi;         // bitmap header
    LPBITMAPINFOHEADER lpbi;     // pointer to BITMAPINFOHEADER
@@ -432,7 +432,7 @@ static HANDLE CreateDIB( DWORD dwWidth, DWORD dwHeight, WORD wBitCount )
    bi.biSizeImage = dwBytesPerLine * dwHeight;
 
    // alloc memory block to store our bitmap
-   hDIB = GlobalAlloc( GHND, dwLen );
+   hDIB = GlobalAlloc(GHND, dwLen);
 
    // major bummer if we couldn't get memory block
    if( !hDIB )
@@ -481,7 +481,7 @@ HB_FUNC( HWG_FI_FI2DIB )
          ( FREEIMAGE_GETBITS ) s_getFunction( ( FARPROC ) pGetbits,
          "_FreeImage_GetBits@4" );
 
-   hdib = CreateDIB( (WORD) pGetwidth( dib ), (WORD) pGetheight( dib ), (WORD) pGetBPP( dib ) );
+   hdib = CreateDIB((WORD) pGetwidth( dib ), (WORD) pGetheight( dib ), (WORD) pGetBPP( dib ));
 
    if( hdib )
    {
@@ -562,7 +562,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       dib_size += pGetPitch( _dib ) * pGetheight( _dib );
 
       // Allocate a DIB
-      hMem = GlobalAlloc( GHND, dib_size );
+      hMem = GlobalAlloc(GHND, dib_size);
       dib = ( BYTE * ) GlobalLock( hMem );
 
       memset( dib, 0, dib_size );
@@ -666,13 +666,13 @@ HB_FUNC( HWG_FI_BMP2FI )
 
       if( pAllocate && pGetbits && pGetinfo && pGetheight )
       {
-         HDC hDC = GetDC( NULL );
+         HDC hDC = GetDC(NULL);
 
          GetObject( hbmp, sizeof( BITMAP ), ( LPVOID ) &bm );
          dib = pAllocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
-         ReleaseDC( NULL, hDC );
+         ReleaseDC(NULL, hDC);
          hb_retnl( ( LONG ) dib );
          return;
       }
@@ -836,8 +836,8 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
  * Set of functions for loading the image from memory
  */
 
-unsigned DLL_CALLCONV _ReadProc( void *buffer, unsigned size, unsigned count,
-      fi_handle handle )
+unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count,
+      fi_handle handle)
 {
    BYTE *tmp = ( BYTE * ) buffer;
    unsigned u;
@@ -852,8 +852,8 @@ unsigned DLL_CALLCONV _ReadProc( void *buffer, unsigned size, unsigned count,
    return count;
 }
 
-unsigned DLL_CALLCONV _WriteProc( void *buffer, unsigned size, unsigned count,
-      fi_handle handle )
+unsigned DLL_CALLCONV _WriteProc(void *buffer, unsigned size, unsigned count,
+      fi_handle handle)
 {
    HB_SYMBOL_UNUSED( buffer );
    HB_SYMBOL_UNUSED( count );
@@ -862,7 +862,7 @@ unsigned DLL_CALLCONV _WriteProc( void *buffer, unsigned size, unsigned count,
    return size;
 }
 
-int DLL_CALLCONV _SeekProc( fi_handle handle, long offset, int origin )
+int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 {
    /* assert( origin != SEEK_END ); */
 
@@ -873,7 +873,7 @@ int DLL_CALLCONV _SeekProc( fi_handle handle, long offset, int origin )
    return 0;
 }
 
-long DLL_CALLCONV _TellProc( fi_handle handle )
+long DLL_CALLCONV _TellProc(fi_handle handle)
 {
    /* assert( (long int)handle >= (long int)g_load_address ); */
 
@@ -929,8 +929,8 @@ HB_FUNC( HWG_FI_ROTATECLASSIC )
          ( FREEIMAGE_ROTATECLASSIC ) s_getFunction( ( FARPROC ) pRotateClassic,
          "_FreeImage_RotateClassic@12" );
 
-   hb_retnl( ( pRotateClassic ) ? ( LONG ) pRotateClassic( ( FIBITMAP * )
-               hb_parnl(1), hb_parnd(2) ) : 0 );
+   hb_retnl( ( pRotateClassic ) ? ( LONG ) pRotateClassic(( FIBITMAP * )
+               hb_parnl(1), hb_parnd(2)) : 0 );
 }
 
 HB_FUNC( HWG_FI_GETDOTSPERMETERX )

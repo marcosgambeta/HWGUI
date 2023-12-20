@@ -95,15 +95,15 @@ HB_FUNC( HBXML_SETENTITY )
       ulLen = ( HB_ULONG ) hb_arrayLen( pArray );
 
       nPredefsKol = (int) ulLen;
-      pEntity1 = (unsigned char **) hb_xgrab( ulLen * sizeof(unsigned char *) );
-      pEntity2 = (unsigned char *) hb_xgrab( ulLen+1 );
+      pEntity1 = (unsigned char **) hb_xgrab(ulLen * sizeof(unsigned char *));
+      pEntity2 = (unsigned char *) hb_xgrab(ulLen+1);
       pEntity2[ulLen] = '\0';
 
       for( ul = 1; ul <= ulLen; ul++ )
       {
          pArr = (PHB_ITEM) hb_arrayGetItemPtr( pArray, ul );
          ulItemLen = hb_arrayGetCLen( pArr, 1 );
-         pEntity1[ul-1] = (unsigned char *) hb_xgrab( ulItemLen+1 );
+         pEntity1[ul-1] = (unsigned char *) hb_xgrab(ulItemLen+1);
          // hwg_writelog( NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen );
          memcpy( pEntity1[ul-1], hb_arrayGetCPtr( pArr, 1 ), ulItemLen );
          pEntity1[ul-1][ulItemLen] = '\0';
@@ -140,7 +140,7 @@ HB_FUNC( HBXML_TRANSFORM )
    }
    if( iLenAdd )
    {
-      pNew = ( unsigned char * ) hb_xgrab( ulLen + iLenAdd + 1 );
+      pNew = ( unsigned char * ) hb_xgrab(ulLen + iLenAdd + 1);
       ptr = pBuffer;
       ptr1 = pNew;
       while( ( c = *ptr ) != 0 )
@@ -220,7 +220,7 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, HB_ULONG ulLen )
    HB_SKIPTABSPACES( ptr );
    ulLen -= ( ptr - ptrStart );
    if( !ulLen )
-      return hb_itemPutC( NULL, "" );
+      return hb_itemPutC(NULL, "");
    ptrStart = ptr;
    ptr = ptrStart + ulLen - 1;
    while( *ptr == ' ' || *ptr == '\t' || *ptr == '\r' || *ptr == '\n' )
@@ -385,7 +385,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    return ( nParseError ) ? HB_FALSE : HB_TRUE;
 }
 
-HB_BOOL hbxml_readCDATA( PHB_ITEM pParent, unsigned char **pBuffer )
+HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
 {
    unsigned char *ptr;
    PHB_ITEM pNode = hbxml_addnode( pParent );
@@ -437,7 +437,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
    memcpy( cNodeName, *pBuffer, nLenNodeName );
    cNodeName[nLenNodeName] = '\0';
 
-   pTemp = hb_itemPutC( NULL, ( char * ) cNodeName );
+   pTemp = hb_itemPutC(NULL, ( char * ) cNodeName);
    hb_objSendMsg( pNode, "_TITLE", 1, pTemp );
    hb_itemRelease( pTemp );
 
@@ -516,7 +516,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
             }
             else if( !memcmp( *pBuffer + 1, "![CDATA[", 8 ) )
             {
-               if( !hbxml_readCDATA( pNode, pBuffer ) )
+               if( !hbxml_readCDATA(pNode, pBuffer) )
                {
                   hb_itemRelease( pNode );
                   return HB_FALSE;
@@ -539,7 +539,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
 }
 
 /*
- * hbxml_Getdoc( PHB_ITEM pDoc, char * cData || HB_FHANDLE handle )
+ * hbxml_Getdoc(PHB_ITEM pDoc, char * cData || HB_FHANDLE handle)
  */
 
 HB_FUNC( HBXML_GETDOC )
@@ -565,7 +565,7 @@ HB_FUNC( HBXML_GETDOC )
       HB_ULONG ulLen = hb_fsSeek( hInput, 0, FS_END ), ulRead;
 
       hb_fsSeek( hInput, 0, FS_SET );
-      cBuffer = ( unsigned char * ) hb_xgrab( ulLen + 1 );
+      cBuffer = ( unsigned char * ) hb_xgrab(ulLen + 1);
       ulRead = hb_fsReadLarge( hInput, ( HB_BYTE * ) cBuffer, ulLen );
       cBuffer[ulRead] = '\0';
       bFile = HB_TRUE;

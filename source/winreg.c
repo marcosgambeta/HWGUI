@@ -112,7 +112,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
    if( lError == ERROR_SUCCESS )
    {
       BYTE *lpData = ( BYTE * )
-                     memset( hb_xgrab( lpcbData + 1 ), 0, lpcbData + 1 );
+                     memset( hb_xgrab(lpcbData + 1), 0, lpcbData + 1 );
       lError = RegQueryValueEx( hwKey, lpValue, NULL, &lpType,
                                 lpData, &lpcbData );
       if( lError > 0 )
@@ -121,7 +121,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
       }
       else
       {
-         hb_storc( ( char * ) lpData, 5 );
+         hb_storc(( char * ) lpData, 5);
          hb_retni(0);
       }
 

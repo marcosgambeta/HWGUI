@@ -452,10 +452,10 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    if( ListView_GetItem( hList, &Item ) )
       HB_RETSTR( Buffer );
    else
-      hb_retc( NULL );
+      hb_retc(NULL);
 }
 
-int CALLBACK CompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
+int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
    PSORTINFO pSortInfo = ( PSORTINFO ) lParamSort;
    //int nResult      = 0;
@@ -487,7 +487,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFONEW )
       return;
    }
 
-   p = ( PSORTINFO ) hb_xgrab( sizeof( SortInfo ) );
+   p = ( PSORTINFO ) hb_xgrab(sizeof( SortInfo ));
 
    if( p )
    {

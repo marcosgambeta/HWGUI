@@ -60,8 +60,8 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HSplitter
    IF ! Empty( ::oParent:handle )
-      ::handle := hwg_Createstatic( ::oParent:handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle )
+      ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
+            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
    ENDIF
 
@@ -134,7 +134,7 @@ METHOD Paint() CLASS HSplitter
          Eval( ::bPaint, Self )
       ELSEIF ! ::lScrolling
         IF ::lCaptured
-           oBrushFill := HBrush():Add( hwg_Rgb( 156, 156, 156 ) )
+           oBrushFill := HBrush():Add( hwg_Rgb(156, 156, 156) )
            hwg_Selectobject( hDC, oBrushFill:handle )
            hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical,BF_RECT,BF_TOP ) + BF_MIDDLE )
            hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushFill:handle )

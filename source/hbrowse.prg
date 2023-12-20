@@ -546,7 +546,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
       IF msg == WM_THEMECHANGED
          IF ::Themed
             IF ValType( ::hTheme ) == "P"
-               hwg_closethemedata( ::htheme )
+               hwg_closethemedata(::htheme)
                ::hTheme := NIL
             ENDIF
             ::Themed := .F.
@@ -642,7 +642,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
             ENDDO
             IF oParent != NIL .AND. ! Empty( oParent:KeyList )
                cKeyb := hwg_Getkeyboardstate()
-               nCtrl := iif( Asc( SubStr( cKeyb, VK_CONTROL + 1, 1 ) ) >= 128, FCONTROL, iif( Asc( SubStr( cKeyb, VK_SHIFT + 1, 1 ) ) >= 128, FSHIFT, 0 ) )
+               nCtrl := iif( Asc(SubStr( cKeyb, VK_CONTROL + 1, 1 )) >= 128, FCONTROL, iif( Asc(SubStr( cKeyb, VK_SHIFT + 1, 1 )) >= 128, FSHIFT, 0 ) )
                IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nCtrl .AND. a[2] == wParam } ) ) > 0
                   Eval( oParent:KeyList[ nPos, 3 ], Self )
                ENDIF
@@ -831,7 +831,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ENDIF
       ELSEIF msg == WM_DESTROY
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
             ::hTheme := NIL
          ENDIF
          ::END()
@@ -924,7 +924,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
    oColumn:lEditable := iif( oColumn:lEditable != NIL, oColumn:lEditable, .F. )
    oColumn:oParent := oBrw
    oColumn:Column := n
-   __objAddData( oBrw, cName )
+   __objAddData(oBrw, cName)
    oBrw:&( cName ) := oColumn
 
    RETURN NIL
@@ -1051,7 +1051,7 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowse
             arrowCursor := hwg_Loadcursor( IDC_ARROW )
             downCursor := hwg_Loadcursor( IDC_HAND )
          ENDIF
-         oPen64 :=  HPen():Add( PS_SOLID, 1, hwg_Rgb( 156, 156, 156 ) )
+         oPen64 :=  HPen():Add( PS_SOLID, 1, hwg_Rgb(156, 156, 156) )
       ENDIF
    ENDIF
 
@@ -1316,10 +1316,10 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
       ::m_bFirstTime := .F.
       IF ( hwg_Isthemedload() )
          IF ValType( ::hTheme ) == "P"
-            hwg_closethemedata( ::htheme )
+            hwg_closethemedata(::htheme)
          ENDIF
          IF ::WindowsManifest
-            ::hTheme := hwg_openthemedata( ::handle, "HEADER" )
+            ::hTheme := hwg_openthemedata(::handle, "HEADER")
          ENDIF
          ::hTheme := iif( Empty( ::hTheme  ), NIL, ::hTheme )
       ENDIF
@@ -1363,7 +1363,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
    // Get client area coordinate
 
    aCoors := hwg_Getclientrect( ::handle )
-   aMetr := hwg_Gettextmetric( hDC )
+   aMetr := hwg_Gettextmetric(hDC)
    ::width := Round( ( aMetr[3] + aMetr[2] ) / 2 - 1, 0 )
    // If forceHeight is set, we should use that value
    IF ( ::forceHeight > 0 )
@@ -1375,7 +1375,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
    aMetrHead := AClone( aMetr )
    IF ::oHeadFont != NIL
       oldfont := hwg_Selectobject( hDC, ::oHeadFont:handle )
-      aMetrHead := hwg_Gettextmetric( hDC )
+      aMetrHead := hwg_Gettextmetric(hDC)
       hwg_Selectobject( hDC, oldfont )
    ENDIF
    // USER DEFINE Height  IF != 0
@@ -3500,7 +3500,7 @@ METHOD FldStr( oBrw, numf ) CLASS HBrowse
                   oBrw:aColumns[ numf ]:dec ), oBrw:aColumns[ numf ]:length )
             ENDIF
          ELSEIF Type == "D"
-            cRes := PadR( Dtoc( vartmp ), oBrw:aColumns[ numf ]:length )
+            cRes := PadR( Dtoc(vartmp), oBrw:aColumns[ numf ]:length )
          ELSEIF Type == "L"
             cRes := PadR( iif( vartmp, "T", "F" ), oBrw:aColumns[ numf ]:length )
          ELSEIF Type == "M"
@@ -3942,7 +3942,7 @@ STATIC FUNCTION LenVal( xVal, cType, cPict )
          EXIT
 
       CASE "D"
-         nLen := Len( Dtoc( xVal ) )
+         nLen := Len( Dtoc(xVal) )
          EXIT
       END
       EXIT

@@ -349,7 +349,7 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    ULONG ul, ulEntries = hb_arrayLen( pArray );
    HACCEL h;
 
-   lpaccl = ( LPACCEL ) hb_xgrab( sizeof( ACCEL ) * ulEntries );
+   lpaccl = ( LPACCEL ) hb_xgrab(sizeof( ACCEL ) * ulEntries);
 
    for( ul = 1; ul <= ulEntries; ul++ )
    {
@@ -417,13 +417,13 @@ HB_FUNC( HWG_GETMENUCAPTION )
       mii.fType = MFT_STRING;
       GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii );
       mii.cch++;
-      lpBuffer = ( LPTSTR ) hb_xgrab( mii.cch * sizeof( TCHAR ) );
+      lpBuffer = ( LPTSTR ) hb_xgrab(mii.cch * sizeof( TCHAR ));
       lpBuffer[0] = '\0';
       mii.dwTypeData = lpBuffer;
       if( GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
          HB_RETSTR( mii.dwTypeData );
       else
-         hb_retc( "Error" );
+         hb_retc("Error");
       hb_xfree( lpBuffer );
    }
 }

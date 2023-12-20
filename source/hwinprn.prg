@@ -50,7 +50,7 @@ CLASS HWinPrn INHERIT HObject
    METHOD New( cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies )
    METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder  )
    METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder )
-   METHOD StartDoc( lPreview,cMetaName )
+   METHOD StartDoc(lPreview, cMetaName)
    METHOD NextPage()
    METHOD PrintLine( cLine,lNewLine )
    METHOD PrintText( cText )
@@ -171,10 +171,10 @@ Local nMode := 0, oFont, nWidth, nPWidth
 
 Return Nil
 
-METHOD StartDoc( lPreview,cMetaName ) CLASS HWinPrn
+METHOD StartDoc(lPreview, cMetaName) CLASS HWinPrn
 
    ::lDocStart := .T.
-   ::oPrinter:StartDoc( lPreview,cMetaName )
+   ::oPrinter:StartDoc(lPreview, cMetaName)
    ::NextPage()
 
 Return Nil

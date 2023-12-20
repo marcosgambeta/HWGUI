@@ -277,7 +277,7 @@ METHOD Init() CLASS HRadioButton
    IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      HWG_INITBUTTONPROC( ::handle )
+      HWG_INITBUTTONPROC(::handle)
       ::Enabled :=  ::oGroup:lEnabled .AND. ::Enabled
       ::Super:Init()
    ENDIF

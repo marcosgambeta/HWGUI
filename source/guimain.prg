@@ -142,7 +142,7 @@ FUNCTION hwg_VColor( cColor )
    LOCAL i, res := 0, n := 1, iValue
    cColor := Trim( cColor )
    FOR i := 1 TO Len( cColor )
-      iValue := Asc( SubStr( cColor, Len( cColor ) - i + 1, 1 ) )
+      iValue := Asc(SubStr( cColor, Len( cColor ) - i + 1, 1 ))
       IF iValue < 58 .AND. iValue > 47
          iValue -= 48
       ELSEIF iValue >= 65 .AND. iValue <= 70
@@ -255,12 +255,12 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       ENDIF
    ENDIF
 
-   hDC := hwg_Getdc( hwg_Getactivewindow() )
+   hDC := hwg_Getdc(hwg_Getactivewindow())
    hwg_Selectobject( hDC, oFont:handle )
-   aMetr := hwg_Gettextmetric( hDC )
-   aArea := hwg_GetDeviceArea( hDC )
+   aMetr := hwg_Gettextmetric(hDC)
+   aArea := hwg_GetDeviceArea(hDC)
    aRect := hwg_Getwindowrect( hwg_Getactivewindow() )
-   hwg_Releasedc( hwg_Getactivewindow(), hDC )
+   hwg_Releasedc(hwg_Getactivewindow(), hDC)
    height := ( aMetr[1] + 1 ) * aLen + 4 + addY + 8
    IF height > aArea[2] - aRect[2] - nTop - 60
       height := aArea[2] - aRect[2] - nTop - 60
@@ -476,7 +476,7 @@ FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
 
    oFont := IIF( oFont != Nil, oFont, oWin:oFont )
 
-   hDC       := hwg_Getdc( oWin:handle )
+   hDC       := hwg_Getdc(oWin:handle)
    IF oFont == Nil .AND. oWin:oParent != Nil
       oFont := oWin:oParent:oFont
    ENDIF
@@ -487,7 +487,7 @@ FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
    IF oFont != Nil
       hwg_Selectobject( hDC, hFont )
    ENDIF
-   hwg_Releasedc( oWin:handle, hDC )
+   hwg_Releasedc(oWin:handle, hDC)
    RETURN ASize
 
 FUNCTION hwg_getParentForm( o )
@@ -639,7 +639,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
      IF oCtrl:aControls[ i ]:classname = "HTAB"
         IF ( pos := hwg_FindTabAccelerator( oCtrl:aControls[ i ], lParam ) ) > 0 .AND. ;
   	  oCtrl:aControls[ i ]:Pages[ pos ]:Enabled
-            oCtrl:aControls[ i ]:SetTab( pos )
+            oCtrl:aControls[ i ]:SetTab(pos)
             RETURN oCtrl:aControls[ i ]
         ENDIF
      ENDIF
@@ -668,10 +668,10 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
        IF Len( oCtrl:aPages ) > 0 .AND. oCtrl:Pages[ oCtrl:GETACTIVEPAGE() ]:bColor != Nil
           bColor := oCtrl:Pages[ oCtrl:GetActivePage() ]:bColor
        ELSEIF hwg_Isthemeactive() .AND. oCtrl:WindowsManifest
-          hTheme := hwg_openthemedata( oCtrl:handle, "TAB" )
+          hTheme := hwg_openthemedata(oCtrl:handle, "TAB")
           IF !EMPTY( hTheme )
              bColor := HWG_GETTHEMESYSCOLOR( hTheme, COLOR_WINDOW  )
-             hwg_closethemedata( hTheme )
+             hwg_closethemedata(hTheme)
           ENDIF
        ENDIF
    ELSEIF oCtrl:bColor != Nil

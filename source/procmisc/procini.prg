@@ -111,15 +111,15 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                   AADD( prm1[ LEN( prm1 ), 2 ], { UPPER( vname ), stroka } )
                ELSE
                   IF TYPE( vname ) = "U"
-                     IF ASC( stroka ) = 123                 // {
-                        IF ASC( vname ) = 35                // #
+                     IF ASC(stroka) = 123                 // {
+                        IF ASC(vname) = 35                // #
                            vname := SUBSTR( vname, 2 )
                            PRIVATE &vname := {}
                         ELSE
                            PUBLIC &vname := {}
                         ENDIF
                      ELSE
-                        IF ASC( vname ) = 35                // #
+                        IF ASC(vname) = 35                // #
                            vname := SUBSTR( vname, 2 )
                            PRIVATE &vname
                         ELSE
@@ -127,7 +127,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                         ENDIF
                      ENDIF
                   ELSE
-                     IF lTruncAr .AND. ASC( stroka ) = 123 .AND. LEN( &vname ) > 0
+                     IF lTruncAr .AND. ASC(stroka) = 123 .AND. LEN( &vname ) > 0
                         ASIZE( &vname, 0 )
                      ENDIF
                   ENDIF
@@ -136,7 +136,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                      &vname := .T.
                   CASE stroka = "off" .OR. stroka = "OFF" .OR. stroka = "Off" .OR. EMPTY( stroka )
                      &vname := .F.
-                  CASE ASC( stroka ) = 123 .AND. SUBSTR( stroka, 2, 1 ) <> "|"  // {
+                  CASE ASC(stroka) = 123 .AND. SUBSTR( stroka, 2, 1 ) <> "|"  // {
                      RDARR( vname, stroka )
                   OTHERWISE
                      &vname := RDZNACH( stroka )
@@ -159,7 +159,7 @@ STATIC FUNCTION RDZNACH( ps )
 
 LOCAL poz, znc
    ps := ALLTRIM( ps )
-   IF ASC( ps ) = 34
+   IF ASC(ps) = 34
       poz := AT( CHR( 34 ), SUBSTR( ps, 2 ) )
       IF poz <> 0
          znc := SUBSTR( ps, 2, poz - 1 )
@@ -181,7 +181,7 @@ LOCAL poz1, len1, strv, newname
          ELSE
             poz1 := FIND_Z( stroka )
             strv := LTRIM( SUBSTR( stroka, 1, IIF( poz1 = 0, 9999, poz1 - 1 ) ) )
-            IF ASC( strv ) = 123 .AND. SUBSTR( strv, 2, 1 ) != "|"
+            IF ASC(strv) = 123 .AND. SUBSTR( strv, 2, 1 ) != "|"
                AADD( &vname, {} )
                len1    := LEN( &vname )
                newname := vname + "[" + LTRIM( STR( len1, 3 ) ) + "]"

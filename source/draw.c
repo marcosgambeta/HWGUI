@@ -363,8 +363,8 @@ HB_FUNC( HWG_WINDOW2BITMAP )
 {
    HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    BOOL lFull = ( HB_ISNIL(2) ) ? 0 : ( BOOL ) hb_parl(2);
-   HDC hDC = ( lFull ) ? GetWindowDC( hWnd ) : GetDC( hWnd );
-   HDC hDCmem = CreateCompatibleDC( hDC );
+   HDC hDC = ( lFull ) ? GetWindowDC(hWnd) : GetDC(hWnd);
+   HDC hDCmem = CreateCompatibleDC(hDC);
    HBITMAP hBitmap;
    RECT rc;
 
@@ -381,8 +381,8 @@ HB_FUNC( HWG_WINDOW2BITMAP )
    BitBlt( hDCmem, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0,
          SRCCOPY );
 
-   DeleteDC( hDCmem );
-   DeleteDC( hDC );
+   DeleteDC(hDCmem);
+   DeleteDC(hDC);
    //hb_retnl( (LONG) hBitmap );
    HB_RETHANDLE( hBitmap );
 }
@@ -393,7 +393,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
 HB_FUNC( HWG_DRAWBITMAP )
 {
    HDC hDC = ( HDC ) HB_PARHANDLE(1);
-   HDC hDCmem = CreateCompatibleDC( hDC );
+   HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : ( DWORD ) hb_parnl(3);
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    BITMAP bitmap;
@@ -416,7 +416,7 @@ HB_FUNC( HWG_DRAWBITMAP )
             bitmap.bmHeight, hDCmem, 0, 0, dwraster );
    }
 
-   DeleteDC( hDCmem );
+   DeleteDC(hDCmem);
 }
 
 /*
@@ -441,8 +441,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    // Create two memory dcs for the image and the mask
-   dcImage = CreateCompatibleDC( hDC );
-   dcTrans = CreateCompatibleDC( hDC );
+   dcImage = CreateCompatibleDC(hDC);
+   dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
@@ -492,8 +492,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    SetTextColor( hDC, crOldText );
 
    DeleteObject( bitmapTrans );
-   DeleteDC( dcImage );
-   DeleteDC( dcTrans );
+   DeleteDC(dcImage);
+   DeleteDC(dcTrans);
 }
 
 /*  SpreadBitmap( hDC, hWnd, hBitmap, style )
@@ -502,7 +502,7 @@ HB_FUNC( HWG_SPREADBITMAP )
 {
    HDC hDC =
          HB_ISPOINTER(1) ? ( HDC ) HB_PARHANDLE(1) : ( HDC ) hb_parnl(1);
-   HDC hDCmem = CreateCompatibleDC( hDC );
+   HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
    BITMAP bitmap;
@@ -524,7 +524,7 @@ HB_FUNC( HWG_SPREADBITMAP )
       rc.top += bitmap.bmHeight;
    }
 
-   DeleteDC( hDCmem );
+   DeleteDC(hDCmem);
 }
 
 
@@ -534,7 +534,7 @@ HB_FUNC( HWG_SPREADBITMAP )
 HB_FUNC( HWG_CENTERBITMAP )
 {
    HDC hDC = ( HDC ) HB_PARHANDLE(1);
-   HDC hDCmem = CreateCompatibleDC( hDC );
+   HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
    BITMAP bitmap;
@@ -552,7 +552,7 @@ HB_FUNC( HWG_CENTERBITMAP )
          ( rc.bottom - bitmap.bmHeight ) / 2, bitmap.bmWidth, bitmap.bmHeight,
          hDCmem, 0, 0, dwraster );
 
-   DeleteDC( hDCmem );
+   DeleteDC(hDCmem);
 }
 
 
@@ -644,8 +644,8 @@ HB_FUNC( HWG_OPENBITMAP )
 
    /* Allocate memory for the BITMAPINFO structure. */
 
-   hmem1 = GlobalAlloc( GHND, sizeof( BITMAPINFOHEADER ) +
-         ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ) );
+   hmem1 = GlobalAlloc(GHND, sizeof( BITMAPINFOHEADER ) +
+         ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ));
    lpbmi = ( LPBITMAPINFO ) GlobalLock( hmem1 );
 
    /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
@@ -687,7 +687,7 @@ HB_FUNC( HWG_OPENBITMAP )
    }
 
    /* Allocate memory for the required number of  bytes. */
-   hmem2 = GlobalAlloc( GHND, ( bmfh.bfSize - bmfh.bfOffBits ) );
+   hmem2 = GlobalAlloc(GHND, ( bmfh.bfSize - bmfh.bfOffBits ));
    lpvBits = GlobalLock( hmem2 );
 
    /* Retrieve the bitmap data. */
@@ -702,7 +702,7 @@ HB_FUNC( HWG_OPENBITMAP )
          DIB_RGB_COLORS );
 
    if( hb_pcount(  ) < 2 || HB_ISNIL(2) )
-      ReleaseDC( 0, hDC );
+      ReleaseDC(0, hDC);
 
    /* Unlock the global memory objects and close the .BMP file. */
    GlobalUnlock( hmem1 );
@@ -765,13 +765,13 @@ HB_FUNC( HWG_DELETEOBJECT )
 
 HB_FUNC( HWG_GETDC )
 {
-   HB_RETHANDLE( GetDC( ( HWND ) HB_PARHANDLE(1) ) );
+   HB_RETHANDLE( GetDC(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_RELEASEDC )
 {
-   HB_RETHANDLE( ReleaseDC( ( HWND ) HB_PARHANDLE(1),
-               ( HDC ) HB_PARHANDLE(2) ) );
+   HB_RETHANDLE( ReleaseDC(( HWND ) HB_PARHANDLE(1),
+               ( HDC ) HB_PARHANDLE(2)) );
 }
 
 HB_FUNC( HWG_GETDRAWITEMINFO )
@@ -839,8 +839,8 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    //SetTextColor( hDC, GetSysColor( COLOR_BTNFACE ) );
    SetTextColor( hDC, GetSysColor( COLOR_BTNSHADOW ) );
    // Create two memory dcs for the image and the mask
-   dcImage = CreateCompatibleDC( hDC );
-   dcTrans = CreateCompatibleDC( hDC );
+   dcImage = CreateCompatibleDC(hDC);
+   dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
@@ -849,7 +849,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    // Select the mask bitmap into the appropriate dc
    pOldbitmapgray = ( HBITMAP ) SelectObject( dcTrans, bitmapgray );
    // Build mask based on transparent colour
-   SetBkColor( dcImage, RGB( 255, 255, 255 ) );
+   SetBkColor( dcImage, RGB(255, 255, 255) );
    BitBlt( dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
          SRCCOPY );
    // Do the work - True Mask method - cool if not actual display
@@ -866,8 +866,8 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    SetTextColor( hDC, 0 );
 
    DeleteObject( bitmapgray );
-   DeleteDC( dcImage );
-   DeleteDC( dcTrans );
+   DeleteDC(dcImage);
+   DeleteDC(dcTrans);
 }
 
 #include <olectl.h>
@@ -889,7 +889,7 @@ HB_FUNC( HWG_OPENIMAGE )
    if( lString )
    {
       iFileSize = hb_parclen(1);
-      hG = GlobalAlloc( GPTR, iFileSize );
+      hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG )
       {
          HB_RETHANDLE(0);
@@ -908,7 +908,7 @@ HB_FUNC( HWG_OPENIMAGE )
 
       fseek( fp, 0, SEEK_END );
       iFileSize = ftell( fp );
-      hG = GlobalAlloc( GPTR, iFileSize );
+      hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG )
       {
          fclose( fp );
@@ -968,18 +968,18 @@ HB_FUNC( HWG_PATBLT )
 
 HB_FUNC( HWG_SAVEDC )
 {
-   hb_retl( SaveDC( ( HDC ) HB_PARHANDLE(1) ) );
+   hb_retl( SaveDC(( HDC ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_RESTOREDC )
 {
-   hb_retl( RestoreDC( ( HDC ) HB_PARHANDLE(1), hb_parni(2) ) );
+   hb_retl( RestoreDC(( HDC ) HB_PARHANDLE(1), hb_parni(2)) );
 }
 
 HB_FUNC( HWG_CREATECOMPATIBLEDC )
 {
    HDC hDC = ( HDC ) HB_PARHANDLE(1);
-   HDC hDCmem = CreateCompatibleDC( hDC );
+   HDC hDCmem = CreateCompatibleDC(hDC);
 
    HB_RETHANDLE( hDCmem );
 }
@@ -1183,7 +1183,7 @@ HB_FUNC( HWG_COPYRECT )
 HB_FUNC( HWG_GETWINDOWDC )
 {
    HWND hWnd = ( HWND ) HB_PARHANDLE(1);
-   HDC hDC = GetWindowDC( hWnd );
+   HDC hDC = GetWindowDC(hWnd);
    HB_RETHANDLE( hDC );
 }
 

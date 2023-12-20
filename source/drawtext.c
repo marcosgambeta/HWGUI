@@ -21,7 +21,7 @@ HB_FUNC_EXTERN( HB_ANSITOOEM );
 
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab( sizeof( PAINTSTRUCT ) );
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof( PAINTSTRUCT ));
    HB_RETHANDLE( pps );
 }
 
@@ -292,7 +292,7 @@ HB_FUNC( HWG_GETBKCOLOR )
 HB_FUNC( HWG_GETTEXTSIZE )
 {
 
-   HDC hdc = GetDC( (HWND)HB_PARHANDLE(1) );
+   HDC hdc = GetDC((HWND)HB_PARHANDLE(1));
    SIZE size;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
@@ -354,7 +354,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 
 HB_FUNC( HWG_WINDOWFROMDC )
 {
-   HB_RETHANDLE( WindowFromDC( ( HDC ) HB_PARHANDLE(1) ) );
+   HB_RETHANDLE( WindowFromDC(( HDC ) HB_PARHANDLE(1)) );
 }
 
 /* CreateFont( fontName, nWidth, hHeight [,fnWeight] [,fdwCharSet],

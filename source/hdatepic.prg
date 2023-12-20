@@ -131,7 +131,7 @@ METHOD Init() CLASS HDatePicker
    
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      HWG_INITDATEPICKERPROC( ::handle )
+      HWG_INITDATEPICKERPROC(::handle)
       ::Refresh()
       ::Super:Init()
 

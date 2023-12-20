@@ -52,7 +52,7 @@ HB_FUNC( HWG_SELECTFONT )
    cf.lpLogFont = &lf;
    cf.iPointSize = 0;
    cf.Flags = CF_SCREENFONTS | ( ( pObj ) ? CF_INITTOLOGFONTSTRUCT : 0 );
-   cf.rgbColors = RGB( 0, 0, 0 );
+   cf.rgbColors = RGB(0, 0, 0);
    cf.lCustData = 0L;
    cf.lpfnHook = ( LPCFHOOKPROC ) NULL;
    cf.lpTemplateName = NULL;
@@ -127,7 +127,7 @@ HB_FUNC( HWG_SELECTFILE )
       lpStr1 = HB_PARSTRDEF( 1, &hStr1, &nLen1 );
       lpStr2 = HB_PARSTRDEF( 2, &hStr2, &nLen2 );
 
-      lpFilter = ( LPTSTR ) hb_xgrab( ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
+      lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ));
       memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
       memcpy( lpFilter, lpStr1, nLen1 * sizeof( TCHAR ) );
       memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof( TCHAR ) );
@@ -151,7 +151,7 @@ HB_FUNC( HWG_SELECTFILE )
       LPTSTR ptr;
 
       pArrStr = ( struct _hb_arrStr * )
-                hb_xgrab( nArrLen * sizeof( struct _hb_arrStr ) );
+                hb_xgrab(nArrLen * sizeof( struct _hb_arrStr ));
       nSize = 4;
       for( n = 0; n < nArrLen; n++ )
       {
@@ -163,7 +163,7 @@ HB_FUNC( HWG_SELECTFILE )
                                                &pArrStr[ n ].nLen2 );
          nSize += pArrStr[ n ].nLen1 + pArrStr[ n ].nLen2 + 2;
       }
-      lpFilter = ( LPTSTR ) hb_xgrab( nSize * sizeof( TCHAR ) );
+      lpFilter = ( LPTSTR ) hb_xgrab(nSize * sizeof( TCHAR ));
       ptr = lpFilter;
       for( n = 0; n < nArrLen; n++ )
       {
@@ -182,7 +182,7 @@ HB_FUNC( HWG_SELECTFILE )
    }
    else
    {
-      hb_retc( NULL );
+      hb_retc(NULL);
       return;
    }
 
@@ -200,7 +200,7 @@ HB_FUNC( HWG_SELECTFILE )
    if( GetOpenFileName( &ofn ) )
       HB_RETSTR( ofn.lpstrFile );
    else
-      hb_retc( NULL );
+      hb_retc(NULL);
    hb_xfree( lpFilter );
 
    hb_strfree( hInitDir );
@@ -231,7 +231,7 @@ HB_FUNC( HWG_SAVEFILE )
    lpStr1 = HB_PARSTRDEF( 2, &hStr1, &nLen1 );
    lpStr2 = HB_PARSTRDEF( 3, &hStr2, &nLen2 );
 
-   lpFilter = ( LPTSTR ) hb_xgrab( ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
+   lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ));
    memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
    memcpy( lpFilter, lpStr1, nLen1 * sizeof( TCHAR ) );
    memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof( TCHAR ) );
@@ -254,7 +254,7 @@ HB_FUNC( HWG_SAVEFILE )
    if( GetSaveFileName( &ofn ) )
       HB_RETSTR( ofn.lpstrFile );
    else
-      hb_retc( NULL );
+      hb_retc(NULL);
    hb_xfree( lpFilter );
 
    hb_strfree( hFileName );
@@ -530,7 +530,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
       HB_RETSTR( ofn.lpstrFile );
    }
    else
-      hb_retc( NULL );
+      hb_retc(NULL);
 
    hb_strfree( hFileName );
    hb_strfree( hTitle );

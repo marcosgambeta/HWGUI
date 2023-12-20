@@ -668,9 +668,9 @@ FUNCTION __dbgValToStr( uVal )
       RETURN "Array(" + hb_ntos( Len( uVal ) ) + "): { " + s + " }"
    CASE cType $ "CM" ; RETURN '"' + uVal + '"'
    CASE cType == "L" ; RETURN Iif( uVal, ".T.", ".F." )
-   CASE cType == "D" ; RETURN DToC( uVal )
+   CASE cType == "D" ; RETURN DToC(uVal)
 #ifndef __XHARBOUR__
-   CASE cType == "T" ; RETURN hb_TToC( uVal )
+   CASE cType == "T" ; RETURN hb_TToC(uVal)
 #endif
    CASE cType == "N" ; RETURN Str( uVal )
    CASE cType == "O" ; RETURN "Class " + uVal:ClassName() + " object"

@@ -519,7 +519,7 @@ STATIC FUNCTION CompileMethod( cMethod, oForm, oCtrl, cName )
       // writelog( oCtrl:cClass+" "+oCtrl:oParent:cClass+" "+ oCtrl:oParent:oParent:Classname() )
       nContainer := oForm:nContainer
    ENDIF
-   IF Asc( cMethod ) <= 32
+   IF Asc(cMethod) <= 32
       cMethod := Ltrim( cMethod )
    ENDIF
    IF Lower( Left( cMethod ,11 ) ) == "parameters " .AND. ;
@@ -1005,7 +1005,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             m->nLength := &cAliasdbf->( fieldlen( AScan( j, temp ) ) )
             m->nLength := IIf( m->nLength = 0 , IIf( Type( "&fblock" ) = "C", Len( &fBlock ), 10 ), m->nLength )
          ENDIF
-         m->nDec := &cAliasdbf->( FIELDDEC( AScan( j, temp ) ) )
+         m->nDec := &cAliasdbf->( FIELDDEC(AScan(j, temp)) )
          cHeader  := IIf( cHeader == NIL .OR. Empty( cHeader ) , temp, cHeader )
          fBlock   := { || &fBlock }
       ELSE  //IF brwtype = 1
@@ -1352,9 +1352,9 @@ METHOD Print( printer, lPreview, p1, p2, p3 ) CLASS HRepTmpl
       ENDIF
    NEXT
 #ifdef __GTK__
-   xTemp := hwg_gp_GetDeviceArea( oPrinter:hDC )
+   xTemp := hwg_gp_GetDeviceArea(oPrinter:hDC)
 #else
-   xTemp := hwg_GetDeviceArea( oPrinter:hDCPrn )
+   xTemp := hwg_GetDeviceArea(oPrinter:hDCPrn)
 #endif
    ::nKoefPix := ( ( xTemp[1] / xTemp[3] + xTemp[2] / xTemp[4] ) / 2 ) / 3.8
    oPrinter:SetMode( nOrientation )
@@ -1367,7 +1367,7 @@ METHOD Print( printer, lPreview, p1, p2, p3 ) CLASS HRepTmpl
       oFont := hrep_FontFromxml( oPrinter, xProperty, aGetSecond( ::aProp, "fonth" ) * ::nKoefY )
    ENDIF
 
-   oPrinter:StartDoc( lPreview )
+   oPrinter:StartDoc(lPreview)
    ::lNextPage := .F.
 
    ::lFinish := .T.

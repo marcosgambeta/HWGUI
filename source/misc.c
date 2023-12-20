@@ -64,7 +64,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       EmptyClipboard();
 
       lpStr = HB_PARSTRDEF( 1, &hStr, &nLen );
-      hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ) );
+      hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ));
       if( hglbCopy != NULL )
       {
          // Lock the handle and copy the text to the buffer.
@@ -76,9 +76,9 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
          // Place the handle on the clipboard.
 #ifdef UNICODE
-         SetClipboardData( CF_UNICODETEXT, hglbCopy );
+         SetClipboardData(CF_UNICODETEXT, hglbCopy);
 #else
-         SetClipboardData( CF_TEXT, hglbCopy );
+         SetClipboardData(CF_TEXT, hglbCopy);
 #endif
       }
       CloseClipboard();
@@ -93,9 +93,9 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    if( OpenClipboard( hWnd ) )
    {
 #ifdef UNICODE
-      HGLOBAL hglb = GetClipboardData( CF_UNICODETEXT );
+      HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT);
 #else
-      HGLOBAL hglb = GetClipboardData( CF_TEXT );
+      HGLOBAL hglb = GetClipboardData(CF_TEXT);
 #endif
       if( hglb )
       {
@@ -105,7 +105,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
             HB_SIZE nSize = ( HB_SIZE ) GlobalSize( hglb );
             if( nSize )
             {
-               lpText = ( LPTSTR ) hb_xgrab( nSize + 1 );
+               lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
                memcpy( lpText, lpMem, nSize );
                lpText[ nSize ] = 0;
             }
@@ -275,7 +275,7 @@ HB_FUNC( HWG_GETCURRENTDIR )
 
 HB_FUNC( HWG_WINEXEC )
 {
-   hb_retni( WinExec( hb_parc(1), ( UINT ) hb_parni(2) ) );
+   hb_retni( WinExec(hb_parc(1), ( UINT ) hb_parni(2)) );
 }
 
 HB_FUNC( HWG_GETKEYBOARDSTATE )
@@ -341,11 +341,11 @@ HB_FUNC( HWG_PTS2PIX )
       lDC = 0;
    }
    else
-      hDC = CreateDC( TEXT( "DISPLAY" ), NULL, NULL, NULL );
+      hDC = CreateDC(TEXT( "DISPLAY" ), NULL, NULL, NULL);
 
    hb_retni( MulDiv( hb_parni(1), GetDeviceCaps( hDC, LOGPIXELSY ), 72 ) );
    if( lDC )
-      DeleteDC( hDC );
+      DeleteDC(hDC);
 }
 
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes( culikr@uol.com.br) */
@@ -874,5 +874,5 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
 HB_FUNC( HWG_RUNAPP )
 {
-   hb_retni( WinExec( hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2) ) );
+   hb_retni( WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2)) );
 }

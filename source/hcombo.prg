@@ -270,7 +270,7 @@ METHOD INIT() CLASS HComboBox
    IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      HWG_INITCOMBOPROC( ::handle )
+      HWG_INITCOMBOPROC(::handle)
       IF ::aItems != Nil .AND. !Empty( ::aItems )
          ::RowSource( ::aItems )
          LongComboWidth := ::Populate()
@@ -1088,7 +1088,7 @@ METHOD Refresh() CLASS hCheckComboBox
 
 METHOD SetCheck( nIndex, bFlag ) CLASS hCheckComboBox
 
-   LOCAL nResult := hwg_Comboboxsetitemdata( ::handle, nIndex - 1, bFlag )
+   LOCAL nResult := hwg_Comboboxsetitemdata(::handle, nIndex - 1, bFlag)
 
    IF ( nResult < 0 )
       RETURN nResult
@@ -1103,7 +1103,7 @@ METHOD SetCheck( nIndex, bFlag ) CLASS hCheckComboBox
 
 METHOD GetCheck( nIndex ) CLASS hCheckComboBox
 
-   LOCAL l := hwg_Comboboxgetitemdata( ::handle, nIndex - 1 )
+   LOCAL l := hwg_Comboboxgetitemdata(::handle, nIndex - 1)
 
    RETURN iif( l == 1, .T. , .F. )
 
@@ -1149,7 +1149,7 @@ METHOD RecalcText() CLASS hCheckComboBox
 
       FOR i := 1 TO ncount
 
-         IF ( hwg_Comboboxgetitemdata( ::handle, i ) ) = 1
+         IF ( hwg_Comboboxgetitemdata(::handle, i) ) = 1
 
             hwg_Comboboxgetlbtext( ::handle, i, @stritem )
 
@@ -1197,8 +1197,8 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       hwg_Comboboxgetlbtext( ::handle, drawInfo[1], @strtext )
 
       IF  ::lCheck
-         ncheck := 1 + ( hwg_Comboboxgetitemdata( ::handle, drawInfo[1] ) )
-         metrics := hwg_Gettextmetric( dc )
+         ncheck := 1 + ( hwg_Comboboxgetitemdata(::handle, drawInfo[1]) )
+         metrics := hwg_Gettextmetric(dc)
          rcBitmap[1] := 0
          rcBitmap[3] := rcBitmap[1] + metrics[1] + metrics[4] + 6
          rcBitmap[2] += 1
@@ -1320,7 +1320,7 @@ METHOD OnGetText( wParam, lParam ) CLASS hCheckComboBox
    ENDIF
 
    // Copy the 'fake' window text
-   copydata( lParam, ::m_strText, wParam )
+   copydata(lParam, ::m_strText, wParam)
 
    RETURN iif( Empty( ::m_strText ), 0, Len( ::m_strText ) )
 

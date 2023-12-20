@@ -385,7 +385,7 @@ Eval( bCode )
 Return Nil
 
 Static Function Hex2Int( stroka )
-Local i := ASC( stroka ), res
+Local i := ASC(stroka), res
 
    IF i > 64 .AND. i < 71
       res := ( i - 55 ) * 16
@@ -395,7 +395,7 @@ Local i := ASC( stroka ), res
       Return 0
    ENDIF
 
-   i := ASC( SubStr( stroka,2,1 ) )
+   i := ASC(SubStr( stroka,2,1 ))
    IF i > 64 .AND. i < 71
       res += i - 55
    ELSEIF i > 47 .AND. i < 58
@@ -415,7 +415,7 @@ Static Function Str2Hex( stroka )
 Local cRes := "", i, nLen := Len( stroka )
 
    FOR i := 1 to nLen
-      cRes += Int2Hex( Asc( Substr(stroka,i,1) ) )
+      cRes += Int2Hex( Asc(Substr(stroka,i,1)) )
    NEXT
 Return cRes
 

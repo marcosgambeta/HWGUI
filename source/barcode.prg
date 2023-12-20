@@ -91,7 +91,7 @@ FUNCTION main
    nWidth    := 200
    nHeight   := 40
 
-   oBC := Barcode():New( hwg_Getdc( oMainWindow:handle ) , "993198042124", nTop, nLeft, ;
+   oBC := Barcode():New( hwg_Getdc(oMainWindow:handle) , "993198042124", nTop, nLeft, ;
                          nWidth, nHeight, nBCodeType, ;
                          nColText, nColPane, lHorz, ;
                          lTransparent, nPinWidth )
@@ -149,7 +149,7 @@ CLASS Barcode
    METHOD InitCode39( lCheck )
    METHOD InitCode128( cMode )
    METHOD InitEAN13()
-   METHOD InitUPC( nLen )
+   METHOD InitUPC(nLen)
    METHOD InitE13BL( nLen )
    METHOD InitCodabar()
    METHOD InitSub5()
@@ -171,7 +171,7 @@ METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
    DEFAULT nHeight      := 20
 
    DEFAULT nColText     := 0
-   DEFAULT nColPane     := hwg_Rgb( 255, 255, 255 )
+   DEFAULT nColPane     := hwg_Rgb(255, 255, 255)
    DEFAULT lHorz        := .T.
    DEFAULT lTransparent := .F.
    DEFAULT nPinWidth    := 1
@@ -267,7 +267,7 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
    //nX    := ::nLeft
    //nY    := ::nTop
 
-   IF ::lTransparent = .F. .AND. ::nColPane <> hwg_Rgb( 255, 255, 255 )
+   IF ::lTransparent = .F. .AND. ::nColPane <> hwg_Rgb(255, 255, 255)
 
       IF ::lHorizontal = .F.
          RICH_Rectangle( ::hDC, nX, nY, nX + ::nHeight, nY + Min( Len( cCode ) * ::nPinWidth, ::nWidth ) )
@@ -449,7 +449,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
          nSum   := 105
       ELSE
          FOR n := 1 TO Len( cCode )
-            nCount += IIF( Asc( SubStr( cCode, n, 1 ) ) > 31, 1, 0 ) // no cars. de control
+            nCount += IIF( Asc(SubStr( cCode, n, 1 )) > 31, 1, 0 ) // no cars. de control
          NEXT
          IF nCount < Len( cCode ) / 2
             lCodeA := .T.
@@ -486,7 +486,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
       IF lCodeC
          IF Len( cCode ) = n                        // ultimo caracter
             cTemp += aCode[101]                 // SHIFT Code B
-            nCar := Asc( cCar ) - 31
+            nCar := Asc(cCar) - 31
          ELSE
             nCar := Val( SubStr( cCode, n, 2 ) ) + 1
             n ++
@@ -494,18 +494,18 @@ METHOD InitCode128( cMode ) CLASS BarCode
       ELSEIF lCodeA
          IF cCar > "_"                           // Shift Code B
             cTemp += aCode[101]
-            nCar := Asc( cCar ) - 31
+            nCar := Asc(cCar) - 31
          ELSEIF cCar <= " "
-            nCar := Asc( cCar ) + 64
+            nCar := Asc(cCar) + 64
          ELSE
-            nCar := Asc( cCar ) - 31
+            nCar := Asc(cCar) - 31
          ENDIF
       ELSE                                      // code B standard
          IF cCar <= " "                         // shift code A
             cTemp += aCode[102]
-            nCar := Asc( cCar ) + 64
+            nCar := Asc(cCar) + 64
          ELSE
-            nCar := Asc( cCar ) - 31
+            nCar := Asc(cCar) - 31
          ENDIF
       ENDIF
 
@@ -601,7 +601,7 @@ METHOD InitEAN13() CLASS BarCode
 *         Name: InitUPC
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitUPC( nLen ) CLASS BarCode
+METHOD InitUPC(nLen) CLASS BarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]

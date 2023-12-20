@@ -431,7 +431,7 @@ METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate ) CLASS HMa
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    Local i, xPos, yPos, oMdi, aCoors
-   LOCAL nFocus := IIf( Hb_IsNumeric( ::nFocus ), ::nFocus, 0 )
+   LOCAL nFocus := IIf( Hb_IsNumeric(::nFocus), ::nFocus, 0 )
 
    // writelog( str(msg) + str(wParam) + str(lParam) + chr(13) )
 
@@ -610,7 +610,7 @@ METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate, lModal ) C
 
 METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
    LOCAL i, oCtrl
-   LOCAL nFocus := IIf( Hb_IsNumeric( ::nFocus ), ::nFocus, 0 )
+   LOCAL nFocus := IIf( Hb_IsNumeric(::nFocus), ::nFocus, 0 )
    //IF msg = WM_NCLBUTTONDBLCLK .AND. ::lChild
    //   Return 0
 
