@@ -187,7 +187,7 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
    IF Empty( oDoc:aItems )
       hwg_Msgstop( "Can't open " + fname )
       RETURN NIL
-   ELSEIF oDoc:aItems[ 1 ]:title != "part" .OR. oDoc:aItems[ 1 ]:GetAttribute( "class" ) != "form"
+   ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != "form"
       hwg_Msgstop( "Form description isn't found" )
       RETURN NIL
    ENDIF
@@ -200,14 +200,14 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
 
    ppScript( ,.T. )
    AAdd( ::aForms, Self )
-   aItems := oDoc:aItems[ 1 ]:aItems
+   aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
       IF aItems[ i ]:title == "style"
          FOR j := 1 TO Len( aItems[ i ]:aItems )
             o := aItems[ i ]:aItems[ j ]
             IF o:title == "property"
                IF ! Empty( o:aItems )
-                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), o:aItems[ 1 ] } )
+                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), o:aItems[1] } )
                   IF Atail(aProp)[1] == "ldebug" .AND. hwg_hfrm_GetProperty( Atail(aProp)[2] )
                      ::lDebug := .T.
                      SetDebugInfo( .T. )
@@ -219,14 +219,14 @@ METHOD Read( fname, cId ) CLASS HFormTmpl
          Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),CompileMethod(aItems[i]:aItems[1]:aItems[1],Self,,cName) } )
          IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
             ::aFuncs := ::aMethods[ j, 2, 2 ]
-            FOR j := 1 TO Len( ::aFuncs[ 2 ] )
-               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] + ;
+            FOR j := 1 TO Len( ::aFuncs[2] )
+               cPre := "#xtranslate " + ::aFuncs[2, j, 1] + ;
                      "( <params,...> ) => callfunc('"  + ;
-                     Upper( ::aFuncs[ 2, j, 1 ] ) + "',\{ <params> \}, oDlg:oParent:aFuncs )"
+                     Upper( ::aFuncs[2, j, 1] ) + "',\{ <params> \}, oDlg:oParent:aFuncs )"
                ppScript( cPre )
-               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] + ;
+               cPre := "#xtranslate " + ::aFuncs[2, j, 1] + ;
                      "() => callfunc('"  + ;
-                     Upper( ::aFuncs[ 2, j, 1 ] ) + "',, oDlg:oParent:aFuncs )"
+                     Upper( ::aFuncs[2, j, 1] ) + "',, oDlg:oParent:aFuncs )"
                ppScript( cPre )
             NEXT
          ENDIF
@@ -261,10 +261,10 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       xProperty := hwg_hfrm_GetProperty( ::aProp[ i, 2 ] )
 
       IF ::aProp[ i, 1 ] == "geometry"
-         nLeft   := Val( xProperty[ 1 ] )
-         nTop    := Val( xProperty[ 2 ] )
-         nWidth  := Val( xProperty[ 3 ] )
-         nHeight := Val( xProperty[ 4 ] )
+         nLeft   := Val( xProperty[1] )
+         nTop    := Val( xProperty[2] )
+         nWidth  := Val( xProperty[3] )
+         nHeight := Val( xProperty[4] )
       ELSEIF ::aProp[ i, 1 ] == "caption"
          cTitle := xProperty
       ELSEIF ::aProp[ i, 1 ] == "font"
@@ -463,7 +463,7 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
    FOR i := 1 TO Len( oDesc:aItems )
       oNode := oDesc:aItems[ i ]
       IF oNode:Type == HBXML_TYPE_CDATA
-         aParent[ 1 ] := CompileMethod( oNode:aItems[ 1 ], oForm )
+         aParent[1] := CompileMethod( oNode:aItems[1], oForm )
       ELSE
          AAdd( aTree, { NIL, oNode:GetAttribute( "name" ), ;
                Val( oNode:GetAttribute( "id" ) ), .T. } )
@@ -500,11 +500,11 @@ FUNCTION ParseMethod( cMethod )
          ENDIF
       ENDDO
    ENDIF
-   IF Right( arr[ 1 ], 1 ) < " "
-      arr[ 1 ] := Left( arr[ 1 ], Len( arr[ 1 ] ) - 1 )
+   IF Right( arr[1], 1 ) < " "
+      arr[1] := Left( arr[1], Len( arr[1] ) - 1 )
    ENDIF
-   IF Len( arr ) > 1 .AND. Right( arr[ 2 ], 1 ) < " "
-      arr[ 2 ] := Left( arr[ 2 ], Len( arr[ 2 ] ) - 1 )
+   IF Len( arr ) > 1 .AND. Right( arr[2], 1 ) < " "
+      arr[2] := Left( arr[2], Len( arr[2] ) - 1 )
    ENDIF
 
    RETURN arr
@@ -605,14 +605,14 @@ STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
             o := aItems[ i ]:aItems[ j ]
             IF o:title == "property"
                IF ( cName := Lower( o:GetAttribute( "name" ) ) ) == "varname"
-                  AAdd( oForm:aVars, hwg_hfrm_GetProperty( o:aItems[ 1 ] ) )
+                  AAdd( oForm:aVars, hwg_hfrm_GetProperty( o:aItems[1] ) )
                ELSEIF cName == "name"
-                  AAdd( oForm:aNames, hwg_hfrm_GetProperty( o:aItems[ 1 ] ) )
+                  AAdd( oForm:aNames, hwg_hfrm_GetProperty( o:aItems[1] ) )
                ENDIF
                IF cName == "atree"
                   AAdd( aProp, { cName, ReadTree( oForm,, o ) } )
                ELSE
-                  AAdd( aProp, { cName, IIf( Empty( o:aItems ), "", o:aItems[ 1 ] ) } )
+                  AAdd( aProp, { cName, IIf( Empty( o:aItems ), "", o:aItems[1] ) } )
                ENDIF
             ENDIF
          NEXT
@@ -742,10 +742,10 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       cPName := oCtrlTmpl:aProp[ i, 1 ]
       //hwg_Msginfo(cpname)
       IF cPName == "geometry"
-         nLeft   := Val( xProperty[ 1 ] )
-         nTop    := Val( xProperty[ 2 ] )
-         nWidth  := Val( xProperty[ 3 ] )
-         nHeight := Val( xProperty[ 4 ] )
+         nLeft   := Val( xProperty[1] )
+         nTop    := Val( xProperty[2] )
+         nWidth  := Val( xProperty[3] )
+         nHeight := Val( xProperty[4] )
          IF __ObjHasMsg( oParent, "ID" )
             nLeft -= oParent:nLeft
             nTop -= oParent:nTop
@@ -957,7 +957,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    ENDIF
    //
    IF oCtrlTmpl:cClass == "combobox"
-      IF ( AScan( oCtrlTmpl:aProp, { | a | Lower( a[ 1 ] ) == "nmaxlines" } ) ) > 0
+      IF ( AScan( oCtrlTmpl:aProp, { | a | Lower( a[1] ) == "nmaxlines" } ) ) > 0
          *-  nHeight := nHeight * nMaxLines
       ELSE
       *-  nHeight := nHeight * 4
@@ -998,7 +998,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          *- verificar se tem mais de um campo
          temp = SubStr( temp, 1, IIf( At( '+', temp ) > 0, At( '+', temp ) - 1, Len( temp ) ) )
          j := { }
-         AEval( &cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd( j, aField[ 1 ] ) } )
+         AEval( &cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd( j, aField[1] ) } )
          IF m->nLength = NIL
             // m->nLength := &cTmpAlias->(fieldlen(ascan(j,temp)))
             // m->nLength := IIF(m->nLength = 0 ,IIF(type("&cCampo") = "C",LEN(&cCampo),10),m->nLength)
@@ -1263,7 +1263,7 @@ METHOD Read( fname, cId ) CLASS HRepTmpl
    IF Empty( oDoc:aItems )
       hwg_Msgstop( "Can't open " + fname )
       RETURN NIL
-   ELSEIF oDoc:aItems[ 1 ]:title != "part" .OR. oDoc:aItems[ 1 ]:GetAttribute( "class" ) != "report"
+   ELSEIF oDoc:aItems[1]:title != "part" .OR. oDoc:aItems[1]:GetAttribute( "class" ) != "report"
       hwg_Msgstop( "Report description isn't found" )
       RETURN NIL
    ENDIF
@@ -1276,14 +1276,14 @@ METHOD Read( fname, cId ) CLASS HRepTmpl
 
    ppScript( ,.T. )
    AAdd( ::aReports, Self )
-   aItems := oDoc:aItems[ 1 ]:aItems
+   aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
       IF aItems[ i ]:title == "style"
          FOR j := 1 TO Len( aItems[ i ]:aItems )
             o := aItems[ i ]:aItems[ j ]
             IF o:title == "property"
                IF ! Empty( o:aItems )
-                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), hwg_hfrm_GetProperty( o:aItems[ 1 ] ) } )
+                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), hwg_hfrm_GetProperty( o:aItems[1] ) } )
                   IF Atail(aProp)[1] == "ldebug" .AND. hwg_hfrm_GetProperty( Atail(aProp)[2] )
                      ::lDebug := .T.
                      SetDebugInfo( .T. )
@@ -1295,14 +1295,14 @@ METHOD Read( fname, cId ) CLASS HRepTmpl
          Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),RdScript(,aItems[i]:aItems[1]:aItems[1],,.T.,cName) } )
          IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
             ::aFuncs := ::aMethods[ j, 2 ]
-            FOR j := 1 TO Len( ::aFuncs[ 2 ] )
-               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] + ;
+            FOR j := 1 TO Len( ::aFuncs[2] )
+               cPre := "#xtranslate " + ::aFuncs[2, j, 1] + ;
                      "( <params,...> ) => callfunc('"  + ;
-                     Upper( ::aFuncs[ 2, j, 1 ] ) + "',\{ <params> \}, oReport:aFuncs )"
+                     Upper( ::aFuncs[2, j, 1] ) + "',\{ <params> \}, oReport:aFuncs )"
                ppScript( cPre )
-               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] + ;
+               cPre := "#xtranslate " + ::aFuncs[2, j, 1] + ;
                      "() => callfunc('"  + ;
-                     Upper( ::aFuncs[ 2, j, 1 ] ) + "',, oReport:aFuncs )"
+                     Upper( ::aFuncs[2, j, 1] ) + "',, oReport:aFuncs )"
                ppScript( cPre )
             NEXT
          ENDIF
@@ -1356,7 +1356,7 @@ METHOD Print( printer, lPreview, p1, p2, p3 ) CLASS HRepTmpl
 #else
    xTemp := hwg_GetDeviceArea( oPrinter:hDCPrn )
 #endif
-   ::nKoefPix := ( ( xTemp[ 1 ] / xTemp[ 3 ] + xTemp[ 2 ] / xTemp[ 4 ] ) / 2 ) / 3.8
+   ::nKoefPix := ( ( xTemp[1] / xTemp[3] + xTemp[2] / xTemp[4] ) / 2 ) / 3.8
    oPrinter:SetMode( nOrientation )
    ::nKoefX := oPrinter:nWidth / nPWidth
    ::nKoefY := oPrinter:nHeight / nPHeight
@@ -1409,7 +1409,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
       cText := aGetSecond( oItem:aProp, "areatype" )
       IF cText == "DocHeader"
          IF ::oPrinter:nPage > 1
-            ::nAOffSet := Val( aGetSecond( oItem:aProp, "geometry" )[ 4 ] ) * ::nKoefY
+            ::nAOffSet := Val( aGetSecond( oItem:aProp, "geometry" )[4] ) * ::nKoefY
             RETURN NIL
          ENDIF
       ELSEIF cText == "DocFooter"
@@ -1427,16 +1427,16 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
       IF ( aMethod := aGetSecond( oItem:aMethods, "condition" ) ) != NIL
          lRes := DoScript( aMethod )
          IF ! lRes .AND. oItem:cClass == "area"
-            ::nAOffSet += Val( aGetSecond( oItem:aProp, "geometry" )[ 4 ] ) * ::nKoefY
+            ::nAOffSet += Val( aGetSecond( oItem:aProp, "geometry" )[4] ) * ::nKoefY
          ENDIF
       ENDIF
    ENDIF
    IF lRes
       xProperty := aGetSecond( oItem:aProp, "geometry" )
-      x   := Val( xProperty[ 1 ] ) * ::nKoefX
-      y   := Val( xProperty[ 2 ] ) * ::nKoefY
-      x2  := Val( xProperty[ 5 ] ) * ::nKoefX
-      y2  := Val( xProperty[ 6 ] ) * ::nKoefY
+      x   := Val( xProperty[1] ) * ::nKoefX
+      y   := Val( xProperty[2] ) * ::nKoefY
+      x2  := Val( xProperty[5] ) * ::nKoefX
+      y2  := Val( xProperty[6] ) * ::nKoefY
       // writelog( xProperty[1]+" "+xProperty[2] )
 
       IF oItem:cClass == "area"
@@ -1641,7 +1641,7 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
          FOR j := 1 TO Len( aItems[ i ]:aItems )
             o := aItems[ i ]:aItems[ j ]
             IF o:title == "property"
-               AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), IIf( Empty( o:aItems ), "", hwg_hfrm_GetProperty( o:aItems[ 1 ] ) ) } )
+               AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), IIf( Empty( o:aItems ), "", hwg_hfrm_GetProperty( o:aItems[1] ) ) } )
             ENDIF
          NEXT
       ELSEIF aItems[ i ]:title == "method"
@@ -1658,7 +1658,7 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
    RETURN NIL
 
 STATIC FUNCTION aGetSecond( arr, xFirst )
-   LOCAL i := AScan( arr, { | a | a[ 1 ] == xFirst } )
+   LOCAL i := AScan( arr, { | a | a[1] == xFirst } )
 
    RETURN IIf( i == 0, NIL, arr[ i, 2 ] )
 

@@ -244,7 +244,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       nLen := dbFieldInfo( 3, nField )
    ELSE
       aLen := Len( arr )
-      IF ValType( arr[ 1 ] ) == "A"
+      IF ValType( arr[1] ) == "A"
          FOR i := 1 TO aLen
             nLen := Max( nLen, Len( arr[ i, 1 ] ) )
          NEXT
@@ -261,11 +261,11 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    aArea := hwg_GetDeviceArea( hDC )
    aRect := hwg_Getwindowrect( hwg_Getactivewindow() )
    hwg_Releasedc( hwg_Getactivewindow(), hDC )
-   height := ( aMetr[ 1 ] + 1 ) * aLen + 4 + addY + 8
-   IF height > aArea[ 2 ] - aRect[ 2 ] - nTop - 60
-      height := aArea[ 2 ] - aRect[ 2 ] - nTop - 60
+   height := ( aMetr[1] + 1 ) * aLen + 4 + addY + 8
+   IF height > aArea[2] - aRect[2] - nTop - 60
+      height := aArea[2] - aRect[2] - nTop - 60
    ENDIF
-   width := Max( aMetr[ 2 ] * 2 * nLen + addX, minWidth )
+   width := Max( aMetr[2] * 2 * nLen + addX, minWidth )
 
    INIT DIALOG oDlg TITLE cTitle ;
         At nLeft, nTop           ;
@@ -276,7 +276,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    IF lArray
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
-      IF ValType( arr[ 1 ] ) == "A"
+      IF ValType( arr[1] ) == "A"
          oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED( value ), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
       ELSE
          oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED( value ), o:aArray[ o:nCurrent ] }, "C", nLen ) )
@@ -370,7 +370,7 @@ FUNCTION hwg_ShowProgress( nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, h
 FUNCTION hwg_EndWindow()
 
    IF HWindow():GetMain() != Nil
-      hwg_Sendmessage( HWindow():aWindows[ 1 ]:handle, WM_SYSCOMMAND, SC_CLOSE, 0 )
+      hwg_Sendmessage( HWindow():aWindows[1]:handle, WM_SYSCOMMAND, SC_CLOSE, 0 )
    ENDIF
    RETURN Nil
 
@@ -567,13 +567,13 @@ LOCAL oParent, nCtrl,nPos
       oParent := IIF( oMain != Nil, oMain, hwg_GetParentForm( oCtrl ) )
       IF oParent != Nil .AND. ! Empty( oParent:KeyList )
          nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
-         IF ( nPos := AScan( oParent:KeyList, { | a | a[ 1 ] == nctrl.AND.a[ 2 ] == wParam } ) ) > 0
+         IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
             Eval( oParent:KeyList[ nPos, 3 ], oCtrl )
             RETURN .T.
          ENDIF
       ENDIF
       IF oParent != Nil .AND. oMain = Nil .AND. HWindow():GetMain() != Nil
-          hwg_ProcKeyList( oCtrl, wParam, HWindow():GetMain():aWindows[ 1 ] )
+          hwg_ProcKeyList( oCtrl, wParam, HWindow():GetMain():aWindows[1] )
       ENDIF
    ENDIF
    RETURN .F.

@@ -357,7 +357,7 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
 
 METHOD PAint( lpDis ) CLASS HStaticLink
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
-   LOCAL dc := drawInfo[ 3 ]
+   LOCAL dc := drawInfo[3]
    LOCAL strtext    := ::Title
 //   LOCAL nOldBkMode
    LOCAL dwFlags
@@ -367,15 +367,15 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
    LOCAL aBmpSize    := IIF( ! EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0,0} )
-   LOCAL itemRect    := hwg_Copyrect( { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] } )
-   LOCAL captionRect := { drawInfo[ 4 ]  , drawInfo[ 5 ], drawInfo[ 6 ] , drawInfo[ 7 ]  }
+   LOCAL itemRect    := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
+   LOCAL captionRect := { drawInfo[4]  , drawInfo[5], drawInfo[6] , drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
    
    IF ::state == LBL_INIT
       ::State := LBL_NORMAL
    ENDIF
-   focusrect := hwg_Copyrect( { drawInfo[ 4 ] , drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] } )
-   rcClient  := hwg_Copyrect( { drawInfo[ 4 ] , drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] } )
+   focusrect := hwg_Copyrect( { drawInfo[4] , drawInfo[5], drawInfo[6], drawInfo[7] } )
+   rcClient  := hwg_Copyrect( { drawInfo[4] , drawInfo[5], drawInfo[6], drawInfo[7] } )
    
    // Draw the focus rect
    IF hwg_Selffocus( ::handle ) .AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
@@ -390,24 +390,24 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 
    IF  ValType( ::hbitmap ) == "N"
       bHasTitle := ValType( strtext ) == "C" .AND. ! Empty( strtext )
-      itemRect[ 4 ] := aBmpSize[ 2 ] + 1
+      itemRect[4] := aBmpSize[2] + 1
       bmpRect := hwg_Prepareimagerect( ::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle )
-      itemRect[ 4 ] := drawInfo[ 7 ]
+      itemRect[4] := drawInfo[7]
       IF ::backstyle = TRANSPARENT
-         hwg_Drawtransparentbitmap( dc, ::hbitmap, bmpRect[ 1 ], bmpRect[ 2 ] + 1 )
+         hwg_Drawtransparentbitmap( dc, ::hbitmap, bmpRect[1], bmpRect[2] + 1 )
       ELSE
-         hwg_Drawbitmap( dc, ::hbitmap, , bmpRect[ 1 ], bmpRect[ 2 ] + 1 )
+         hwg_Drawbitmap( dc, ::hbitmap, , bmpRect[1], bmpRect[2] + 1 )
       ENDIF
-      rcclient[ 1 ] +=  IIF( ::iStyle = ST_ALIGN_HORIZ, aBmpSize[ 1 ] + 8, 1 )
-      rcclient[ 2 ] +=  2
+      rcclient[1] +=  IIF( ::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1 )
+      rcclient[2] +=  2
    ELSEIF Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
-      rcclient[ 1 ] += 3
-      rcclient[ 2 ] += 1
+      rcclient[1] += 3
+      rcclient[2] += 1
    ENDIF
    hwg_Setbkmode( DC, ::backstyle )
    IF ::backstyle != TRANSPARENT
       hwg_Setbkcolor( DC,  IIF( ::bColor = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::bcolor ) )
-      hwg_Fillrect( dc, rcclient[ 1 ], rcclient[ 2 ], rcclient[ 3 ], rcclient[ 4 ] ) //, ::brush:handle )
+      hwg_Fillrect( dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4] ) //, ::brush:handle )
    ENDIF
    dwFlags    := DT_LEFT + DT_WORDBREAK
    //dwstyle    := ::style
@@ -453,18 +453,18 @@ METHOD Resize( x, y ) CLASS HStaticLink
 
    x := iif( x == Nil, 0, x - ::nWidth + 1 )
    aBmpSize := IIF( ! EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), { 0,0 } )
-   aBmpSize[ 1 ] += IIF( aBmpSize[ 1 ] > 0, 6, 0 )
+   aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
    ::Move( , , ::nWidth + x , , 0 )
    aTxtSize := hwg_TxtRect( ::Title, Self )
-   aTxtSize[ 2 ] += IIF( ::lAllUnderline, 0, 3 )
-   IF aTxtSize[ 1 ] + 1  <  ::nWidth - aBmpSize[ 1 ] //tava 20
-      ::nHeight := aTxtSize[ 2 ] + 2
+   aTxtSize[2] += IIF( ::lAllUnderline, 0, 3 )
+   IF aTxtSize[1] + 1  <  ::nWidth - aBmpSize[1] //tava 20
+      ::nHeight := aTxtSize[2] + 2
    ELSE
-      ::nHeight := aTxtSize[ 2 ] * 2 + 1
+      ::nHeight := aTxtSize[2] * 2 + 1
    ENDIF
-   ::nWidthOver  := MIN( aTxtSize[ 1 ] + 1 + aBmpSize[ 1 ], ::nWidth )
-   ::nHeight := MAX( ::nHeight, aTxtSize[ 2 ] )
-   ::nHeight := MAX( ::nHeight, aBmpSize[ 2 ] + 4 )
+   ::nWidthOver  := MIN( aTxtSize[1] + 1 + aBmpSize[1], ::nWidth )
+   ::nHeight := MAX( ::nHeight, aTxtSize[2] )
+   ::nHeight := MAX( ::nHeight, aBmpSize[2] + 4 )
 
    IF nHeight != ::nHeight
       ::Move( , , , ::nHeight , 0 )

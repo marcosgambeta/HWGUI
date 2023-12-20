@@ -78,8 +78,8 @@ LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0
             ms2[ j ] ++
          ENDIF
       NEXT
-      IF ms2[ 1 ] == ms2[ 2 ] .AND. ms2[ 3 ] == ms2[ 4 ] .AND. ;
-                 ms2[ 5 ] == ms2[ 6 ] .AND. ms2[ 7 ] % 2 == 0 .AND. ms2[ 8 ] % 2 == 0
+      IF ms2[1] == ms2[2] .AND. ms2[3] == ms2[4] .AND. ;
+                 ms2[5] == ms2[6] .AND. ms2[7] % 2 == 0 .AND. ms2[8] % 2 == 0
          EXIT
       ELSE
          IF ( j := At( Substr( stroka, poz, 1 ), ms1 ) ) <> 0

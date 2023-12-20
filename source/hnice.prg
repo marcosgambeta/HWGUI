@@ -163,8 +163,8 @@ METHOD Create( ) CLASS HNICEButton
    LOCAL h
 
    Rct    := hwg_Getclientrect( ::handle )
-   w      := Rct[ 3 ] - Rct[ 1 ]
-   h      := Rct[ 4 ] - Rct[ 2 ]
+   w      := Rct[3] - Rct[1]
+   h      := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
    hwg_Setwindowrgn( ::Handle, Region, .T. )
    hwg_Invalidaterect( ::Handle, 0, 0 )
@@ -260,12 +260,12 @@ METHOD PAINT() CLASS HNICEButton
    //  *******************
 
    Rct  := hwg_Getclientrect( ::Handle )
-   x    := Rct[ 1 ]
-   y    := Rct[ 2 ]
-   w    := Rct[ 3 ] - Rct[ 1 ]
-   h    := Rct[ 4 ] - Rct[ 2 ]
-   XCtr := ( Rct[ 1 ] + Rct[ 3 ] ) / 2
-   YCtr := ( Rct[ 2 ] + Rct[ 4 ] ) / 2
+   x    := Rct[1]
+   y    := Rct[2]
+   w    := Rct[3] - Rct[1]
+   h    := Rct[4] - Rct[2]
+   XCtr := ( Rct[1] + Rct[3] ) / 2
+   YCtr := ( Rct[2] + Rct[4] ) / 2
    T    := hwg_Getwindowtext( ::Handle )
    // **********************************
    //         Draw our control
@@ -282,10 +282,10 @@ METHOD PAINT() CLASS HNICEButton
 
    IF ( ::State == OBTN_MOUSOVER )
       hwg_Settextcolor( hDC, hwg_VColor( "FF0000" ) )
-      hwg_Textout( hDC, XCtr - ( Size[ 1 ] / 2 ) + 1, YCtr - ( Size[ 2 ] / 2 ) + 1, T )
+      hwg_Textout( hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T )
    ELSE
       hwg_Settextcolor( hDC, hwg_VColor( "0000FF" ) )
-      hwg_Textout( hDC, XCtr - Size[ 1 ] / 2, YCtr - Size[ 2 ] / 2, T )
+      hwg_Textout( hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T )
    ENDIF
 
    hwg_Endpaint( ::Handle, ps )

@@ -633,7 +633,7 @@ HB_FUNC( HWG_SETFILEATTRIBUTES )
 // GETCOMPUTERNAME( [@nLengthChar] ) -> cComputerName
 HB_FUNC( HWG_GETCOMPUTERNAME )
 {
-   TCHAR cText[ 64 ] = { 0 };
+   TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
    GetComputerName( cText, &nSize );
    HB_RETSTR( cText );
@@ -644,7 +644,7 @@ HB_FUNC( HWG_GETCOMPUTERNAME )
 // GETUSERNAME( [@nLengthChar] ) -> cUserName
 HB_FUNC( HWG_GETUSERNAME )
 {
-   TCHAR cText[ 64 ] = { 0 };
+   TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
    GetUserName( cText, &nSize );
    HB_RETSTR( cText );
@@ -767,7 +767,7 @@ HB_FUNC( HWG_GETSYSTEMMETRICS )
 // nando
 HB_FUNC( HWG_LASTKEY )
 {
-   BYTE kbBuffer[ 256 ];
+   BYTE kbBuffer[256];
    int i ;
 
    GetKeyboardState( kbBuffer );

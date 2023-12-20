@@ -90,7 +90,7 @@ METHOD Init() CLASS HIPedit
    RETURN Nil
 
 METHOD SetValue( aValue ) CLASS HIPedit
-   hwg_SetIpAddress( ::handle , aValue[ 1 ], aValue[ 2 ], aValue[ 3 ], aValue[ 4 ] )
+   hwg_SetIpAddress( ::handle , aValue[1], aValue[2], aValue[3], aValue[4] )
    ::aValue := aValue
    RETURN Nil
 

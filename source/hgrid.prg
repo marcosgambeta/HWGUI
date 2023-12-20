@@ -127,21 +127,21 @@ METHOD Init() CLASS HGrid
 
       IF Len( aButton ) > 0
 
-         aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
+         aBmpSize := hwg_Getbitmapsize( aButton[1] )
 
-         IF aBmpSize[ 3 ] == 4
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR4 + ILC_MASK )
-         ELSEIF aBmpSize[ 3 ] == 8
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR8 + ILC_MASK )
-         ELSEIF aBmpSize[ 3 ] == 24
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+         IF aBmpSize[3] == 4
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
+         ELSEIF aBmpSize[3] == 8
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
+         ELSEIF aBmpSize[3] == 24
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
          FOR nPos := 1 TO Len( aButton )
 
             aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
 
-            IF aBmpSize[ 3 ] == 24
+            IF aBmpSize[3] == 24
 //             hwg_Imagelist_addmasked( ::hIm,aButton[nPos],hwg_Rgb(236,223,216) )
                hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
             ELSE
@@ -195,8 +195,8 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
    ELSEIF hwg_Getnotifycode ( lParam ) == NM_DBLCLK .AND. oCtrl:bEnter != nil
       aCord := hwg_Listview_hittest( oCtrl:handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(oCtrl:handle)[2], ;
                                  hwg_GetCursorPos()[1] - hwg_GetWindowRect(oCtrl:handle)[1] )
-      oCtrl:nRow := aCord[ 1 ]
-      oCtrl:nCol := aCord[ 2 ]
+      oCtrl:nRow := aCord[1]
+      oCtrl:nCol := aCord[2]
 
       Eval( oCtrl:bEnter, oCtrl )
 
@@ -216,8 +216,8 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
    ELSEIF hwg_Getnotifycode ( lParam ) = LVN_GETDISPINFO .AND. oCtrl:bDispInfo != nil
       aCord := hwg_Listview_getdispinfo( lParam )
 
-      oCtrl:nRow := aCord[ 1 ]
-      oCtrl:nCol := aCord[ 2 ]
+      oCtrl:nRow := aCord[1]
+      oCtrl:nCol := aCord[2]
 
       hwg_Listview_setdispinfo( lParam, Eval( oCtrl:bDispInfo, oCtrl, oCtrl:nRow, oCtrl:nCol ) )
 

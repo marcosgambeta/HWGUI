@@ -149,27 +149,27 @@ METHOD Init() CLASS HGridEx
 
       IF Len( aButton ) > 0
 
-         aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
-         nmax := aBmpSize[ 3 ]
+         aBmpSize := hwg_Getbitmapsize( aButton[1] )
+         nmax := aBmpSize[3]
          FOR n := 2 TO Len( aButton )
             aBmpSize := hwg_Getbitmapsize( aButton[ n ] )
-            nmax := Max( nmax, aBmpSize[ 3 ] )
+            nmax := Max( nmax, aBmpSize[3] )
          NEXT
 
 
          IF nmax == 4
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR4 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
          ELSEIF nmax == 8
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR8 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
          ELSEIF nmax == 24
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
          FOR nPos := 1 TO Len( aButton )
 
             aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
 
-            IF aBmpSize[ 3 ] == 24
+            IF aBmpSize[3] == 24
                hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
             ELSE
                hwg_Imagelist_add( ::hIm, aButton[ nPos ] )

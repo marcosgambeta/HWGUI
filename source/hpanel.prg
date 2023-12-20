@@ -54,12 +54,12 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    /*
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:Type == WND_MDI
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] := ::nHeight
+         ::oParent:aOffset[2] := ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] := ::nWidth
+            ::oParent:aOffset[1] := ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] := ::nWidth
+            ::oParent:aOffset[3] := ::nWidth
          ENDIF
       ENDIF
    ENDIF
@@ -101,8 +101,8 @@ METHOD Activate() CLASS HPanel
       /*
       IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
          aCoors := hwg_Getwindowrect( ::handle )
-         nWidth := aCoors[ 3 ] - aCoors[ 1 ]
-         nHeight:= aCoors[ 4 ] - aCoors[ 2 ]
+         nWidth := aCoors[3] - aCoors[1]
+         nHeight:= aCoors[4] - aCoors[2]
          IF nWidth > nHeight .OR. nWidth == 0
             ::oParent:aOffset[2] += nHeight
          ELSEIF nHeight > nWidth .OR. nHeight == 0
@@ -225,10 +225,10 @@ METHOD Paint() CLASS HPanel
       aCoors := hwg_Getclientrect( ::handle )
       IF ::brush != NIL
          IF Valtype( ::brush ) != "N"
-            hwg_Fillrect( hDC, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ], ::brush:handle )
+            hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::brush:handle )
          ENDIF
       ELSE
-         hwg_Fillrect( hDC, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ], COLOR_3DFACE + 1 )
+         hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], COLOR_3DFACE + 1 )
       ENDIF
    ENDIF
    ::nrePaint := -1
@@ -237,9 +237,9 @@ METHOD Paint() CLASS HPanel
          oPenLight := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
          oPenGray := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW) )
          hwg_Selectobject( hDC, oPenLight:handle )
-         hwg_Drawline( hDC, 0, 1, aCoors[ 3 ] - 1, 1 )
+         hwg_Drawline( hDC, 0, 1, aCoors[3] - 1, 1 )
          hwg_Selectobject( hDC, oPenGray:handle )
-         hwg_Drawline( hDC, 0, 0, aCoors[ 3 ] - 1, 0 )
+         hwg_Drawline( hDC, 0, 0, aCoors[3] - 1, 0 )
          oPenGray:Release()
          oPenLight:Release()
       ENDIF
@@ -255,17 +255,17 @@ METHOD Release() CLASS HPanel
    /*
    IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF (::nWidth > ::nHeight .OR. ::nWidth == 0 ).AND. ::oParent:aOffset[2] > 0
-         ::oParent:aOffset[ 2 ] -= ::nHeight
+         ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] -= ::nWidth
+            ::oParent:aOffset[1] -= ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] -= ::nWidth
+            ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      ::oParent:aOffset[ 1 ] := MAX( ::oParent:aOffset[ 1 ] , 0 )
-      ::oParent:aOffset[ 2 ] := MAX( ::oParent:aOffset[ 2 ] , 0 )
-      ::oParent:aOffset[ 3 ] := MAX( ::oParent:aOffset[ 3 ] , 0 )
+      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1] , 0 )
+      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2] , 0 )
+      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3] , 0 )
       hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
       ::nHeight := 0
       ::nWidth := 0
@@ -338,8 +338,8 @@ METHOD Show() CLASS HPanel
 
 METHOD Resize() CLASS HPanel
    LOCAL aCoors := hwg_Getwindowrect( ::handle )
-   Local nHeight := aCoors[ 4 ] - aCoors[ 2 ]
-   Local nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
+   Local nHeight := aCoors[4] - aCoors[2]
+   Local nWidth  := aCoors[3] - aCoors[1]
 
    IF !hwg_Iswindowvisible( ::handle ) .OR.  ( ::nHeight = nHeight .AND. ::nWidth = nWidth )
       Return NIL
@@ -364,8 +364,8 @@ METHOD Resize() CLASS HPanel
       RETURN NIL
    ENDIF
    */
-   ::nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
-   ::nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+   ::nWidth  := aCoors[3] - aCoors[1]
+   ::nHeight := aCoors[4] - aCoors[2]
    //  hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW )  // Force a complete redraw
 
    RETURN NIL
@@ -373,8 +373,8 @@ METHOD Resize() CLASS HPanel
 /* nMode => nMode = 0 INIT  / nMode = 1 RESIZE  / nMode = 2 SHOW  / nMode = 3 HIDE */
 METHOD ResizeOffSet( nMode ) CLASS HPanel
    LOCAL aCoors := hwg_Getwindowrect( ::handle )
-   LOCAL nHeight := aCoors[ 4 ] - aCoors[ 2 ]
-   LOCAL nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
+   LOCAL nHeight := aCoors[4] - aCoors[2]
+   LOCAL nWidth  := aCoors[3] - aCoors[1]
    LOCAL nWinc :=  nWidth  - ::nWidth
    LOCAL nHinc :=  nHeight - ::nHeight
    LOCAL lres := .F.
@@ -389,15 +389,15 @@ METHOD ResizeOffSet( nMode ) CLASS HPanel
          lRes := .T.
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] += IIF( nMode != 3, nWinc, - nWinc )
+            ::oParent:aOffset[1] += IIF( nMode != 3, nWinc, - nWinc )
          ELSE
-            ::oParent:aOffset[ 3 ] += IIF( nMode != 3, nWinc, - nWinc )
+            ::oParent:aOffset[3] += IIF( nMode != 3, nWinc, - nWinc )
          ENDIF
          lRes := .T.
       ENDIF
-      ::oParent:aOffset[ 1 ] := MAX( ::oParent:aOffset[ 1 ] , 0 )
-      ::oParent:aOffset[ 2 ] := MAX( ::oParent:aOffset[ 2 ] , 0 )
-      ::oParent:aOffset[ 3 ] := MAX( ::oParent:aOffset[ 3 ] , 0 )
+      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1] , 0 )
+      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2] , 0 )
+      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3] , 0 )
       IF lRes
          hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
       ENDIF

@@ -85,7 +85,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
       RETURN Nil
    ENDIF
 
-   RETURN ::Add( af[ 2 ], af[ 3 ], af[ 4 ], af[ 5 ], iif( Empty( nCharSet ), af[ 6 ], nCharSet ), af[ 7 ], af[ 8 ], af[ 9 ], af[ 1 ] )
+   RETURN ::Add( af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1] )
 
 METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
    LOCAL  weight, Italic, Underline, StrikeOut
@@ -380,8 +380,8 @@ METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
    ENDIF
    ::name    := name
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    ::nFlags  :=  nFlags
    AAdd( ::aBitmaps, Self )
 
@@ -409,8 +409,8 @@ METHOD AddStandard( nId ) CLASS HBitmap
    ::handle :=   hwg_Loadbitmap( nId, .T. )
    ::name   := name
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -458,8 +458,8 @@ METHOD AddFile( name, hDC, lTranparent, nWidth, nHeight ) CLASS HBitmap
    ENDIF
    ::name := cname
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -470,8 +470,8 @@ METHOD AddWindow( oWnd, lFull ) CLASS HBitmap
    ::handle := hwg_Window2bitmap( oWnd:handle, lFull )
    ::name := LTrim( hb_valToStr( oWnd:handle ) )
    aBmpSize  := hwg_Getbitmapsize( ::handle )
-   ::nWidth  := aBmpSize[ 1 ]
-   ::nHeight := aBmpSize[ 2 ]
+   ::nWidth  := aBmpSize[1]
+   ::nHeight := aBmpSize[2]
    AAdd( ::aBitmaps, Self )
 
    RETURN Self
@@ -564,8 +564,8 @@ METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
    ENDIF
    ::name   := name
    aIconSize := hwg_Geticonsize( ::handle )
-   ::nWidth  := aIconSize[ 1 ]
-   ::nHeight := aIconSize[ 2 ]
+   ::nWidth  := aIconSize[1]
+   ::nHeight := aIconSize[2]
 
    AAdd( ::aIcons, Self )
 
@@ -607,8 +607,8 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
    ::handle := hwg_Loadimage( 0, name, IMAGE_ICON, nWidth, nHeight, LR_DEFAULTSIZE + LR_LOADFROMFILE + LR_SHARED )
    ::name := cname
    aIconSize := hwg_Geticonsize( ::handle )
-   ::nWidth  := aIconSize[ 1 ]
-   ::nHeight := aIconSize[ 2 ]
+   ::nWidth  := aIconSize[1]
+   ::nHeight := aIconSize[2]
 
    AAdd( ::aIcons, Self )
 

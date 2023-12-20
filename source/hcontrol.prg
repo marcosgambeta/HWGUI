@@ -503,16 +503,16 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
       aCoors := hwg_Getwindowrect( ::handle )
       IF nHeight != 0
          IF ::lInit .AND. __ObjHasMsg( ::oParent, "AOFFSET" )
-            ::oParent:aOffset[ 4 ] -= ( aCoors[ 4 ] - aCoors[ 2 ] )
+            ::oParent:aOffset[4] -= ( aCoors[4] - aCoors[2] )
          ENDIF
          hwg_Sendmessage( ::handle, ;           // (HWND) handle to destination control
             SB_SETMINHEIGHT, nHeight, 0 )      // (UINT) message ID  // = (WPARAM)(int) minHeight;
          hwg_Sendmessage( ::handle, WM_SIZE, 0, 0 )
          aCoors := hwg_Getwindowrect( ::handle )
       ENDIF
-      ::nStatusHeight := ( aCoors[ 4 ] - aCoors[ 2 ] ) - 1
+      ::nStatusHeight := ( aCoors[4] - aCoors[2] ) - 1
       IF __ObjHasMsg( ::oParent, "AOFFSET" )
-         ::oParent:aOffset[ 4 ] += ( aCoors[ 4 ] - aCoors[ 2 ]  )
+         ::oParent:aOffset[4] += ( aCoors[4] - aCoors[2]  )
       ENDIF
    ENDIF
 
@@ -827,9 +827,9 @@ METHOD Activate() CLASS HLine
 
 METHOD Paint( lpdis ) CLASS HLine
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[ 3 ]
-   LOCAL x1  := drawInfo[ 4 ], y1 := drawInfo[ 5 ]
-   LOCAL x2  := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+   LOCAL hDC := drawInfo[3]
+   LOCAL x1  := drawInfo[4], y1 := drawInfo[5]
+   LOCAL x2  := drawInfo[6], y2 := drawInfo[7]
 
    hwg_Selectobject( hDC, ::oPenLight:handle )
 

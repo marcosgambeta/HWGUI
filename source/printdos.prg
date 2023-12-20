@@ -483,8 +483,8 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    oEdit := SUBS( oText[ nPage ], 2 )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
 
    IF ! Empty( ::colorpreview )
-      oColor1 := ::colorpreview[ 1 ]
-      oColor2 := ::colorpreview[ 2 ]
+      oColor1 := ::colorpreview[1]
+      oColor2 := ::colorpreview[2]
    ELSE
       oColor1 := 16777088
       oColor2 := 0

@@ -175,7 +175,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bC
    ELSEIF nPos == 1
       AAdd( aItems, Nil )
       AIns( aItems, 1 )
-      aItems[ 1 ] := Self
+      aItems[1] := Self
    ELSE
       AAdd( aItems, Nil )
       h := oPrev:handle
@@ -291,7 +291,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD ItemHeight( nHeight ) SETGET
    METHOD SearchString( cText, iNivel, oNode, inodo )
    METHOD Selecteds( oItem, aSels )
-   METHOD Top()    INLINE IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ 1 ] ), hwg_Sendmessage( ::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_TOP ), Nil ) ), )
+   METHOD Top()    INLINE IIF( !Empty( ::aItems ), ( ::Select( ::aItems[1] ), hwg_Sendmessage( ::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_TOP ), Nil ) ), )
    METHOD Bottom() INLINE IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ LEN( ::aItems ) ] ), hwg_Sendmessage( ::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_BOTTOM ), Nil ) ),)
 
 ENDCLASS
@@ -335,8 +335,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,
          AAdd( ::aImages, Upper( aImages[ i ] ) )
          aImages[ i ] := IIf( lResour <> NIL.AND.lResour, hwg_Loadbitmap( aImages[ i ] ), hwg_Openbitmap( aImages[ i ] ) )
       NEXT
-      aBmpSize := hwg_Getbitmapsize( aImages[ 1 ] )
-      ::himl := hwg_Createimagelist( aImages, aBmpSize[ 1 ], aBmpSize[ 2 ], 12, nBC )
+      aBmpSize := hwg_Getbitmapsize( aImages[1] )
+      ::himl := hwg_Createimagelist( aImages, aBmpSize[1], aBmpSize[2], 12, nBC )
       ::Image1 := 0
       IF Len( aImages ) > 1
          ::Image2 := 1

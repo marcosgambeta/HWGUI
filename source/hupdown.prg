@@ -62,7 +62,7 @@ CLASS HUpDown INHERIT HControl
    METHOD Disable() INLINE ( ::Super:Disable(), hwg_Enablewindow( ::hwndUpDown, .F. ) )
    METHOD Valid()
    METHOD SetRange( nLower, nUpper ) 
-   METHOD Move( x1, y1, width, height, nRepaint ) INLINE ;                             // + hwg_Getclientrect( ::hwndUpDown )[ 3 ] - 1
+   METHOD Move( x1, y1, width, height, nRepaint ) INLINE ;                             // + hwg_Getclientrect( ::hwndUpDown )[3] - 1
                               ::Super:Move( x1, y1 , IIF( width != Nil, width, ::nWidth ), height, nRepaint  ) ,;
                               hwg_Sendmessage( ::hwndUpDown, UDM_SETBUDDY, ::oEditUpDown:handle, 0 ),;
                               IIF( ::lHide, ::Hide(), ::Show() )

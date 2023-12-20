@@ -110,7 +110,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
       poz := 1
    ENDIF
    IF cTitle != Nil
-      rezArray[ 1 ] := cTitle
+      rezArray[1] := cTitle
    ENDIF
    nLastError := 0
    IF scrSource == Nil
@@ -379,7 +379,7 @@ LOCAL i, j, bOldError
       IF UPPER( LEFT( tmpArray[ i ], 2 ) ) == "IF"
          bOldError := ERRORBLOCK( { | e | MacroError(1,e,tmpArray[ i ]) } )
          BEGIN SEQUENCE
-            rezArray[ 2,i ] := &( "{||IIF(" + ALLTRIM( SUBSTR( tmpArray[ i ], 4 ) ) + ;
+            rezArray[2, i] := &( "{||IIF(" + ALLTRIM( SUBSTR( tmpArray[ i ], 4 ) ) + ;
                  ",.T.,iscr:=" + LTRIM( STR( j, 5 ) ) + ")}" )
          RECOVER
             ERRORBLOCK( bOldError )
@@ -389,7 +389,7 @@ LOCAL i, j, bOldError
          tmpArray[ i ] := ""
          i --
          IF i > 0 .AND. tmpArray[ i ] == "JUMP"
-            rezArray[ 2,i ] := &( "{||iscr:=" + LTRIM( STR( IIF( prju, j - 1, j ), 5 ) ) + "}" )
+            rezArray[2, i] := &( "{||iscr:=" + LTRIM( STR( IIF( prju, j - 1, j ), 5 ) ) + "}" )
             tmpArray[ i ] := ""
          ENDIF
          RETURN .T.
@@ -444,20 +444,20 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
    IF Type( "aScriptt" ) != "A"
       PRIVATE aScriptt := aScript
    ENDIF
-   IF aScript == Nil .OR. ( arlen := Len( aScript[ 2 ] ) ) == 0
+   IF aScript == Nil .OR. ( arlen := Len( aScript[2] ) ) == 0
       RETURN .T.
    ENDIF
    lDebug := ( Len( aScript ) >= 3 )
-   DO WHILE Valtype( aScript[ 2, iscr ] ) != "B"
-      IF Valtype( aScript[ 2, iscr ] ) == "C"
-         IF Left( aScript[ 2, iscr ], 1 ) == "#"
+   DO WHILE Valtype( aScript[2, iscr] ) != "B"
+      IF Valtype( aScript[2, iscr] ) == "C"
+         IF Left( aScript[2, iscr], 1 ) == "#"
             IF !lDebugger
                lSetDebugger := .T.
                SetDebugger()
             ENDIF
          ELSE
-            stroka    := Substr( aScript[ 2, iscr ], 2 )
-            lParam    := ( Left( aScript[ 2, iscr ], 1 ) == "/" )
+            stroka    := Substr( aScript[2, iscr], 2 )
+            lParam    := ( Left( aScript[2, iscr], 1 ) == "/" )
             bOldError := Errorblock( { | e | MacroError( 2, e ) } )
             BEGIN SEQUENCE
                j := 1
@@ -482,7 +482,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
       iscr ++
    ENDDO
    IF lDebug
-      bOldError := Errorblock( { | e | MacroError( 3, e, aScript[ 3, iscr ] ) } )
+      bOldError := Errorblock( { | e | MacroError( 3, e, aScript[3, iscr] ) } )
    ELSE
       bOldError := Errorblock( { | e | MacroError( 3, e, Ltrim( Str( iscr ) ) ) } )
    ENDIF
@@ -498,7 +498,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
                ENDDO
             ENDIF
 #endif
-            Eval( aScript[ 2, iscr ] )
+            Eval( aScript[2, iscr] )
             iscr ++
          ENDDO
 #ifdef __WINDOWS__
@@ -509,7 +509,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
 #endif
       ELSE
          DO WHILE iscr > 0 .AND. iscr <= arlen
-            Eval( aScript[ 2, iscr ] )
+            Eval( aScript[2, iscr] )
             iscr ++
          ENDDO
       ENDIF
@@ -536,9 +536,9 @@ LOCAL i := 1, RetValue := Nil
       aScript := m->aScriptt
    ENDIF
    cProc := Upper( cProc )
-   DO WHILE i <= Len( aScript[ 2 ] ) .AND. Valtype( aScript[ 2, i ] ) == "A"
-      IF aScript[ 2, i, 1 ] == cProc
-         RetValue := DoScript( aScript[ 2, i ], aParams )
+   DO WHILE i <= Len( aScript[2] ) .AND. Valtype( aScript[2, i] ) == "A"
+      IF aScript[2, i, 1] == cProc
+         RetValue := DoScript( aScript[2, i], aParams )
          EXIT
       ENDIF
       i ++

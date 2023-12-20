@@ -124,10 +124,10 @@ METHOD Paint() CLASS HSplitter
       //aCoors := hwg_Getclientrect( ::handle )
       aCoors := hwg_Getppsrect( pps )
 
-      x1 := aCoors[ 1 ] //+ IIf( ::lVertical, 1, 2 )
-      y1 := aCoors[ 2 ] //+ IIf( ::lVertical, 2, 1 )
-      x2 := aCoors[ 3 ] //- IIf( ::lVertical, 0, 3 )
-      y2 := aCoors[ 4 ] //- IIf( ::lVertical, 3, 0 )
+      x1 := aCoors[1] //+ IIf( ::lVertical, 1, 2 )
+      y1 := aCoors[2] //+ IIf( ::lVertical, 2, 1 )
+      x2 := aCoors[3] //- IIf( ::lVertical, 0, 3 )
+      y2 := aCoors[4] //- IIf( ::lVertical, 3, 0 )
 
       hwg_Setbkmode( hDC, ::backStyle )
       IF ::bPaint != NIL

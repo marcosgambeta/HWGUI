@@ -136,7 +136,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ::DisableBackColor := bDisablecolor
    // defines the number of characters based on the size of control
    IF  Empty( ::nMaxLength ) .AND. ::cType = "C" .AND. Empty( cPicture ) .AND. Hwg_BitAnd( nStyle, ES_AUTOHSCROLL ) = 0
-      nWidth :=  ( hwg_TxtRect( " ", Self ) )[ 1 ]
+      nWidth :=  ( hwg_TxtRect( " ", Self ) )[1]
       ::nMaxLength := Int( ( ::nWidth - nWidth ) / nWidth ) - 1
       ::nMaxLength := iif( ::nMaxLength < 10, 10, ::nMaxLength )
    ENDIF
@@ -1530,7 +1530,7 @@ STATIC FUNCTION NextFocusTab( oParent, hCtrl, nSkip )
             ENDIF
          ENDIF
       ELSE
-         hwg_Setfocus( oParent:aPages[ nPage, 1 ]:aControls[ 1 ]:Handle )
+         hwg_Setfocus( oParent:aPages[ nPage, 1 ]:aControls[1]:Handle )
          RETURN 0
       ENDIF
       IF ( nSkip < 0 .AND. ( k > i .OR. k == 0 ) ) .OR. ( nSkip > 0 .AND. i > k )

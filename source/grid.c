@@ -439,7 +439,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    int Index = hb_parni(2);
    int Index2 = hb_parni(3);
    LVITEM Item;
-   TCHAR Buffer[ 256 ] = { 0 };
+   TCHAR Buffer[256] = { 0 };
 
    memset( &Item, '\0', sizeof( Item ) );
 

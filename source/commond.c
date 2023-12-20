@@ -493,7 +493,7 @@ HB_FUNC( HWG_PRINTSETUPEX )
 HB_FUNC( HWG_GETOPENFILENAME )
 {
    OPENFILENAME ofn;
-   TCHAR buffer[ 1024 ];
+   TCHAR buffer[1024];
    void * hFileName, * hTitle, * hFilter, * hInitDir, * hDefExt;
    HB_SIZE nSize;
    LPCTSTR lpFileName = HB_PARSTR( 2, &hFileName, &nSize );

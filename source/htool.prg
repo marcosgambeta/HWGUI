@@ -197,14 +197,14 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFo
       ENDIF
    ENDIF
    IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI .AND. ;
-        ::oParent:aOffset[ 2 ] + ::oParent:aOffset[ 3 ] = 0
+        ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
-         ::oParent:aOffset[ 2 ] += ::nHeight
+         ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[ 1 ] += ::nWidth
+            ::oParent:aOffset[1] += ::nWidth
          ELSE
-            ::oParent:aOffset[ 3 ] += ::nWidth
+            ::oParent:aOffset[3] += ::nWidth
          ENDIF
       ENDIF
    ENDIF
@@ -357,32 +357,32 @@ METHOD CREATETOOL() CLASS hToolBar
       ENDIF
    NEXT
    IF Len( aButton ) > 0 .AND. ::lResource
-      aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
+      aBmpSize := hwg_Getbitmapsize( aButton[1] )
          /*
-         nmax := aBmpSize[ 3 ]
+         nmax := aBmpSize[3]
 
          FOR n := 2 TO Len( aButton )
             aBmpSize := hwg_Getbitmapsize( aButton[ n ] )
-            nmax := Max( nmax, aBmpSize[ 3 ] )
+            nmax := Max( nmax, aBmpSize[3] )
          NEXT
-         aBmpSize := hwg_Getbitmapsize( aButton[ 1 ] )
+         aBmpSize := hwg_Getbitmapsize( aButton[1] )
 
          IF nmax == 4
-            hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR4 + ILC_MASK )
+            hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
          ELSEIF nmax == 8
-            hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLOR8 + ILC_MASK )
+            hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
          ELSEIF nMax == 16 //
-             hIm := hwg_Createimagelist( {} ,aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+             hIm := hwg_Createimagelist( {} ,aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ELSEIF nmax == 24
-            hIm := hwg_Createimagelist( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+            hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
          */
-      hIm := hwg_Createimagelist( {} ,aBmpSize[ 1 ], aBmpSize[ 2 ], 1, ILC_COLORDDB + ILC_MASK )
+      hIm := hwg_Createimagelist( {} ,aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
       FOR nPos := 1 TO Len( aButton )
 
 //            aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
             /*
-            IF aBmpSize[ 3 ] == 24
+            IF aBmpSize[3] == 24
 //             hwg_Imagelist_addmasked( hIm,aButton[nPos],hwg_Rgb(236,223,216) )
                hwg_Imagelist_add( hIm, aButton[ nPos ] )
             ELSE
@@ -442,27 +442,27 @@ METHOD Notify( lParam ) CLASS hToolBar
    IF nCode == TTN_GETDISPINFO
 
       nButton := hwg_Toolbar_getdispinfoid( lParam )
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nButton } )
+      nPos := AScan( ::aItem,  { | x | x[2] == nButton } )
       hwg_Toolbar_setdispinfo( lParam, ::aItem[ nPos, 8 ] )
 
    ELSEIF nCode == TBN_GETINFOTIP
 
       nId := hwg_Toolbar_getinfotipid( lParam )
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+      nPos := AScan( ::aItem,  { | x | x[2] == nId } )
       hwg_Toolbar_getinfotip( lParam, ::aItem[ nPos, 8 ] )
 
    ELSEIF nCode == TBN_DROPDOWN
       nId := hwg_Toolbar_submenuexgetid( lParam )
       IF nId > 0 //valtype(::aItem[1,9]) ="A"
 //       nid := hwg_Toolbar_submenuexgetid( lParam )
-         nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+         nPos := AScan( ::aItem,  { | x | x[2] == nId } )
          hwg_Toolbar_submenuex( lParam, ::aItem[ nPos, 10 ], ::oParent:handle )
       ELSE
          hwg_Toolbar_submenu( lParam, 1, ::oParent:handle )
       ENDIF
    elseif nCode == NM_CLICK
       nId := hwg_Toolbar_idclick( lParam )     
-      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+      nPos := AScan( ::aItem,  { | x | x[2] == nId } )
       if nPos > 0 .AND. ::aItem[nPos,7] != NIL
          Eval( ::aItem[nPos,7], ::aItem[nPos,11], nId )
       endif

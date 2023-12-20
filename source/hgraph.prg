@@ -125,7 +125,7 @@ METHOD CalcMinMax() CLASS HGraph
 
 METHOD Paint( lpdis ) CLASS HGraph
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
-   LOCAL hDC := drawInfo[ 3 ], x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ], x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+   LOCAL hDC := drawInfo[3], x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
    LOCAL i, j, nLen
    LOCAL x0, y0, px1, px2, py1, py2, nWidth
 
@@ -152,11 +152,11 @@ METHOD Paint( lpdis ) CLASS HGraph
    x0 := x1 + ( 0 - ::xmin ) / ::scaleX
    y0 := Iif( ::lPositive, y2, y2 - ( 0 - ::ymin ) / ::scaleY )
 
-   hwg_Fillrect( hDC, drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ], ::brush:handle )
+   hwg_Fillrect( hDC, drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle )
    IF ::nType != 3
       hwg_Selectobject( hDC, ::oPenCoor:handle )
-      hwg_Drawline( hDC, x0, drawInfo[ 5 ] + 3, x0, drawInfo[ 7 ] - 3 )
-      hwg_Drawline( hDC, drawInfo[ 4 ] + 3, y0, drawInfo[ 6 ] - 3, y0 )
+      hwg_Drawline( hDC, x0, drawInfo[5] + 3, x0, drawInfo[7] - 3 )
+      hwg_Drawline( hDC, drawInfo[4] + 3, y0, drawInfo[6] - 3, y0 )
    ENDIF
 
    IF ::ymax != ::ymin .OR. ::ymax != 0

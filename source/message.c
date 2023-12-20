@@ -74,7 +74,7 @@ HB_FUNC( HWG_MSGBEEP )
 
 HB_FUNC( HWG_MSGTEMP )
 {
-   char cres[ 60 ];
+   char cres[60];
    LPCTSTR msg;
 
 #if __HARBOUR__ - 0 >= 0x010100
@@ -86,7 +86,7 @@ HB_FUNC( HWG_MSGTEMP )
 #endif
    {
 #ifdef UNICODE
-      TCHAR wcres[ 60 ];
+      TCHAR wcres[60];
       MultiByteToWideChar( CP_ACP, 0, cres, -1, wcres, HB_SIZEOFARRAY( wcres ) );
       msg = wcres;
 #else

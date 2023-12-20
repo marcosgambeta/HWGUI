@@ -194,9 +194,9 @@ METHOD Move( x1, y1, width, height, nRePaint )  CLASS HCustomWindow
    height := IIF( height = NIL, ::nHeight, height )
    IF  Hwg_BitAnd( ::style,WS_CHILD ) = 0
       rect := hwg_Getwindowrect( ::Handle )
-      nHx := rect[ 4 ] - rect[ 2 ]  - hwg_Getclientrect( ::Handle )[ 4 ] - ;
+      nHx := rect[4] - rect[2]  - hwg_Getclientrect( ::Handle )[4] - ;
                  IIF( Hwg_BitAnd( ::style, WS_HSCROLL ) > 0, hwg_Getsystemmetrics( SM_CYHSCROLL ), 0 )
-      nWx := rect[ 3 ] - rect[ 1 ]  - hwg_Getclientrect( ::Handle )[ 3 ] - ;
+      nWx := rect[3] - rect[1]  - hwg_Getclientrect( ::Handle )[3] - ;
                  IIF( Hwg_BitAnd( ::style, WS_VSCROLL ) > 0, hwg_Getsystemmetrics( SM_CXVSCROLL ), 0 )
    ENDIF
 
@@ -392,8 +392,8 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          IF nCode == EN_PROTECTED
             RETURN 1
          ELSEIF oWnd:aNotify != NIL .AND. ! oWnd:lSuspendMsgsHandling .AND. ;
-            ( iItem := AScan( oWnd:aNotify, { | a | a[ 1 ] == nCode .AND. ;
-                                              a[ 2 ] == wParam } ) ) > 0
+            ( iItem := AScan( oWnd:aNotify, { | a | a[1] == nCode .AND. ;
+                                              a[2] == wParam } ) ) > 0
             IF ( res := Eval( oWnd:aNotify[ iItem, 3 ], oWnd, wParam ) ) != NIL
                RETURN res
             ENDIF
@@ -470,8 +470,8 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
 
    HB_SYMBOL_UNUSED( lParam )
    IF oWnd:aEvents != NIL .AND. ! oForm:lSuspendMsgsHandling .AND. ! oWnd:lSuspendMsgsHandling .AND. ;
-      ( iItem := AScan( oWnd:aEvents, { | a | a[ 1 ] == iParHigh .AND. ;
-                                        a[ 2 ] == iParLow } ) ) > 0
+      ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh .AND. ;
+                                        a[2] == iParLow } ) ) > 0
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty( oForm:nFocus )
          oForm:nFocus := IIF( hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus )
       ENDIF
@@ -492,13 +492,13 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
    nh1 := oWnd:nHeight
    aCoors := hwg_Getwindowrect( oWnd:handle )
    IF EMPTY( oWnd:Type )
-      oWnd:nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
-      oWnd:nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+      oWnd:nWidth  := aCoors[3] - aCoors[1]
+      oWnd:nHeight := aCoors[4] - aCoors[2]
    ELSE
       nWindowState := oWnd:WindowState
       IF wParam != 1 .AND. ( oWnd:GETMDIMAIN() != Nil .AND. ! oWnd:GETMDIMAIN():IsMinimized() ) //SIZE_MINIMIZED 
-         oWnd:nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
-         oWnd:nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+         oWnd:nWidth  := aCoors[3] - aCoors[1]
+         oWnd:nHeight := aCoors[4] - aCoors[2]
          IF  oWnd:Type = WND_MDICHILD .AND. oWnd:GETMDIMAIN() != Nil .AND. wParam != 1 .AND. oWnd:GETMDIMAIN():WindowState = 2
              nWindowState := SW_SHOWMINIMIZED
          ENDIF 
@@ -601,15 +601,15 @@ METHOD SetupScrollbars() CLASS HScrollArea
    aMenu := IIF( __objHasData( Self, "MENU" ), ::menu, Nil )
     // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
-      nwMax := Max( ::ncurWidth, tempRect[ 3 ] ) //::maxWidth
-      nhMax := Max( ::ncurHeight , tempRect[ 4 ] ) //::maxHeight
-      ::nHorzInc := INT( ( nwMax - tempRect[ 3 ] ) / HORZ_PTS )
-      ::nVertInc := INT( ( nhMax - tempRect[ 4 ] ) / VERT_PTS )
+      nwMax := Max( ::ncurWidth, tempRect[3] ) //::maxWidth
+      nhMax := Max( ::ncurHeight , tempRect[4] ) //::maxHeight
+      ::nHorzInc := INT( ( nwMax - tempRect[3] ) / HORZ_PTS )
+      ::nVertInc := INT( ( nhMax - tempRect[4] ) / VERT_PTS )
    ELSE
-      nwMax := Max( ::ncurWidth, ::Rect[ 3 ] )
-      nhMax := Max( ::ncurHeight, ::Rect[ 4 ] )
-      ::nHorzInc := INT( ( nwMax - tempRect[ 3 ] ) / HORZ_PTS + HORZ_PTS )
-      ::nVertInc := INT( ( nhMax - tempRect[ 4 ] ) / VERT_PTS + VERT_PTS - ;
+      nwMax := Max( ::ncurWidth, ::Rect[3] )
+      nhMax := Max( ::ncurHeight, ::Rect[4] )
+      ::nHorzInc := INT( ( nwMax - tempRect[3] ) / HORZ_PTS + HORZ_PTS )
+      ::nVertInc := INT( ( nhMax - tempRect[4] ) / VERT_PTS + VERT_PTS - ;
                       IIF( amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0 ) )  // MENU
    ENDIF
     // Set the vertical and horizontal scrolling info

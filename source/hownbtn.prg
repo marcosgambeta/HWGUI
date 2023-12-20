@@ -274,9 +274,9 @@ METHOD Paint() CLASS HOwnButton
    IF ::state == OBTN_INIT
       ::state := OBTN_NORMAL
    ENDIF
-   IF ::nWidth != aCoors[ 3 ] .OR. ::nHeight != aCoors[ 4 ]
-      ::nWidth  := aCoors[ 3 ]
-      ::nHeight := aCoors[ 4 ]
+   IF ::nWidth != aCoors[3] .OR. ::nHeight != aCoors[4]
+      ::nWidth  := aCoors[3]
+      ::nHeight := aCoors[4]
    ENDIF
    IF ::Themed .AND. ::m_bFirstTime
       ::m_bFirstTime := .F.
@@ -313,20 +313,20 @@ METHOD Paint() CLASS HOwnButton
              hwg_drawthemebackground( ::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil )
          ELSE
             // hwg_Setbkmode( hdc, 1 )
-            hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 0 )
+            hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 0 )
          ENDIF
       ELSE
          IF ::state == OBTN_NORMAL
             IF ! hwg_Selffocus( ::handle, hwg_Getfocus() )
                // NORM
-               hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 0 )
+               hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 0 )
             ELSE
-               hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 1 )
+               hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 1 )
             ENDIF
          ELSEIF ::state == OBTN_MOUSOVER
-            hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 1 )
+            hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 1 )
          ELSEIF ::state == OBTN_PRESSED
-            hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 2 )
+            hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 2 )
          ENDIF
       ENDIF
    ELSE
@@ -341,9 +341,9 @@ METHOD Paint() CLASS HOwnButton
          ENDIF
       ELSE
          IF ::state == OBTN_NORMAL
-            hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 5 )
+            hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 5 )
          ELSEIF ::state == OBTN_PRESSED
-            hwg_Drawbutton( hDC, 0, 0, aCoors[ 3 ], aCoors[ 4 ], 6 )
+            hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 6 )
          ENDIF
       ENDIF
    ENDIF
@@ -358,7 +358,7 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
 
    aCoors := hwg_Getclientrect( ::handle )
    IF ! EMPTY( ::brush )
-      hwg_Fillrect( hDC, aCoors[ 1 ] + 2, aCoors[ 2 ] + 2, aCoors[ 3 ] - 2, aCoors[ 4 ] - 2, ::Brush:handle )
+      hwg_Fillrect( hDC, aCoors[1] + 2, aCoors[2] + 2, aCoors[3] - 2, aCoors[4] - 2, ::Brush:handle )
    ENDIF
 
    IF ::oBitmap != Nil

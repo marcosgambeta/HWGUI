@@ -418,7 +418,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
       GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii );
       mii.cch++;
       lpBuffer = ( LPTSTR ) hb_xgrab( mii.cch * sizeof( TCHAR ) );
-      lpBuffer[ 0 ] = '\0';
+      lpBuffer[0] = '\0';
       mii.dwTypeData = lpBuffer;
       if( GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
          HB_RETSTR( mii.dwTypeData );

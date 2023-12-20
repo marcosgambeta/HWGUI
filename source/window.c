@@ -851,7 +851,7 @@ void SetObjectVar( PHB_ITEM pObject, const char *varname, PHB_ITEM pValue )
  * versions which do not support automatic UNICODE conversions
  */
 
-static const char s_szConstStr[ 1 ] = { 0 };
+static const char s_szConstStr[1] = { 0 };
 
 const char * hwg_strnull( const char * str )
 {
@@ -899,7 +899,7 @@ HB_SIZE hwg_strcopy( PHB_ITEM pItem, char * pStr, HB_SIZE nLen )
       return size;
    }
    else if( pStr && nLen )
-      pStr[ 0 ] = '\0';
+      pStr[0] = '\0';
 
    return 0;
 }
@@ -933,7 +933,7 @@ void hwg_strfree( void * hString )
 
 static int s_iVM_CP = CP_ACP; /* CP_OEMCP */
 
-static const wchar_t s_wszConstStr[ 1 ] = { 0 };
+static const wchar_t s_wszConstStr[1] = { 0 };
 
 const wchar_t * hwg_wstrnull( const wchar_t * str )
 {
@@ -1042,7 +1042,7 @@ HB_SIZE hwg_wstrcopy( PHB_ITEM pItem, wchar_t * pStr, HB_SIZE nLen )
       return size;
    }
    else if( pStr && nLen )
-      pStr[ 0 ] = '\0';
+      pStr[0] = '\0';
 
    return 0;
 }
@@ -1451,7 +1451,7 @@ HB_FUNC( HWG_ANSITOUNICODE )
 
 HB_FUNC( HWG_CLEARKEYBOARD )
 {
-   BYTE kbBuffer[ 256 ];
+   BYTE kbBuffer[256];
    int i = 1 ;
    int lClear = TRUE;
 

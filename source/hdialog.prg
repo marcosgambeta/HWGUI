@@ -169,8 +169,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
       RETURN onSysCommand( Self, SC_KEYMENU, hwg_Loword( wParam ) )
    ELSEIF msg = WM_MOVE
       aCoors := hwg_Getwindowrect( ::handle )
-      ::nLeft := aCoors[ 1 ]
-      ::nTop  := aCoors[ 2 ]
+      ::nLeft := aCoors[1]
+      ::nTop  := aCoors[2]
    ELSEIF  msg = WM_UPDATEUISTATE .AND. hwg_Hiword( wParam ) != UISF_HIDEFOCUS
       // prevent the screen flicker
       RETURN 1
@@ -181,7 +181,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
          hwg_Postmessage( ::Handle, WM_ACTIVATE, hwg_Makewparam( WA_ACTIVE, 0 ), ::handle )
       ENDIF
    ENDIF
-   IF ( i := AScan( aMessModalDlg, { | a | a[ 1 ] == msg } ) ) != 0
+   IF ( i := AScan( aMessModalDlg, { | a | a[1] == msg } ) ) != 0
       IF ::lRouteCommand .AND. ( msg == WM_COMMAND .OR. msg == WM_NOTIFY )
          nPos := AScan( ::aControls, { | x | x:className() == "HTAB" } )
          IF nPos > 0
@@ -456,7 +456,7 @@ STATIC FUNCTION onDlgCommand( oDlg, wParam, lParam )
       oDlg:nInitFocus := 0
    ENDIF
    IF oDlg:aEvents != Nil .AND. ;
-         ( i := AScan( oDlg:aEvents, { | a | a[ 1 ] == iParHigh .AND. a[ 2 ] == iParLow } ) ) > 0
+         ( i := AScan( oDlg:aEvents, { | a | a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       IF ! oDlg:lSuspendMsgsHandling
          Eval( oDlg:aEvents[ i, 3 ], oDlg, iParLow )
       ENDIF
@@ -480,16 +480,16 @@ STATIC FUNCTION onDlgCommand( oDlg, wParam, lParam )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "MENU" ) .AND. ValType( oDlg:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:menu, iParLow, @i ) ) != Nil
-      IF Hwg_BitAnd( aMenu[ 1, i, 4 ], FLAG_CHECK ) > 0
-         hwg_Checkmenuitem( , aMenu[ 1, i, 3 ], ! hwg_Ischeckedmenuitem( , aMenu[ 1, i, 3 ] ) )
+      IF Hwg_BitAnd( aMenu[1, i, 4], FLAG_CHECK ) > 0
+         hwg_Checkmenuitem( , aMenu[1, i, 3], ! hwg_Ischeckedmenuitem( , aMenu[1, i, 3] ) )
       ENDIF
-      IF aMenu[ 1, i, 1 ] != Nil
-         Eval( aMenu[ 1, i, 1 ], i, iParlow )
+      IF aMenu[1, i, 1] != Nil
+         Eval( aMenu[1, i, 1], i, iParlow )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "OPOPUP" ) .AND. oDlg:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu, wParam, @i ) ) != Nil ;
-         .AND. aMenu[ 1, i, 1 ] != Nil
-      Eval( aMenu[ 1, i, 1 ], i, wParam )
+         .AND. aMenu[1, i, 1] != Nil
+      Eval( aMenu[1, i, 1], i, wParam )
    ENDIF
 
    RETURN 1
@@ -741,7 +741,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
       RETURN nil
    ENDIF
    aKeys := oDlg:KeyList
-   IF ( i := AScan( aKeys, { | a | a[ 1 ] == nctrl .AND. a[ 2 ] == nkey } ) ) > 0
+   IF ( i := AScan( aKeys, { | a | a[1] == nctrl .AND. a[2] == nkey } ) ) > 0
       bOldSet := aKeys[ i, 3 ]
    ENDIF
    IF block == Nil

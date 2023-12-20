@@ -170,30 +170,30 @@ METHOD Paint( lpdis ) CLASS HSayBmp
       IF ::nZoom == NIL
          IF ::BackStyle = TRANSPARENT
             IF ::nStretch = 1  // isometric
-               hwg_Drawtransparentbitmap( drawInfo[ 3 ], ::oImage:handle, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV,, ) // ::nWidth+1, ::nHeight+1 )
+               hwg_Drawtransparentbitmap( drawInfo[3], ::oImage:handle, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV,, ) // ::nWidth+1, ::nHeight+1 )
             ELSEIF ::nStretch = 2  // CLIP
-               hwg_Drawtransparentbitmap( drawInfo[ 3 ], ::oImage:handle, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV,, ::nWidth + 1, ::nHeight + 1 )
+               hwg_Drawtransparentbitmap( drawInfo[3], ::oImage:handle, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV,, ::nWidth + 1, ::nHeight + 1 )
             ELSE // stretch (DEFAULT)
-               hwg_Drawtransparentbitmap( drawInfo[ 3 ], ::oImage:handle, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV,, drawInfo[ 6 ] - drawInfo[ 4 ] + 1, drawInfo[ 7 ] - drawInfo[ 5 ] + 1  )
+               hwg_Drawtransparentbitmap( drawInfo[3], ::oImage:handle, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV,, drawInfo[6] - drawInfo[4] + 1, drawInfo[7] - drawInfo[5] + 1  )
             ENDIF
          ELSE
             IF ::nStretch = 1  // isometric
-               hwg_Drawbitmap( drawInfo[ 3 ], ::oImage:handle,, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV ) //, ::nWidth+1, ::nHeight+1 )
+               hwg_Drawbitmap( drawInfo[3], ::oImage:handle,, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV ) //, ::nWidth+1, ::nHeight+1 )
             ELSEIF ::nStretch = 2  // CLIP
-               hwg_Drawbitmap( drawInfo[ 3 ], ::oImage:handle,, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV, ::nWidth + 1, ::nHeight + 1 )
+               hwg_Drawbitmap( drawInfo[3], ::oImage:handle,, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV, ::nWidth + 1, ::nHeight + 1 )
             ELSE // stretch (DEFAULT)
-               hwg_Drawbitmap( drawInfo[ 3 ], ::oImage:handle,, drawInfo[ 4 ] + ::nOffsetH, ;
-                     drawInfo[ 5 ] + ::nOffsetV, drawInfo[ 6 ] - drawInfo[ 4 ] + 1, drawInfo[ 7 ] - drawInfo[ 5 ] + 1 )
+               hwg_Drawbitmap( drawInfo[3], ::oImage:handle,, drawInfo[4] + ::nOffsetH, ;
+                     drawInfo[5] + ::nOffsetV, drawInfo[6] - drawInfo[4] + 1, drawInfo[7] - drawInfo[5] + 1 )
             ENDIF
          ENDIF
       ELSE
-         hwg_Drawbitmap( drawInfo[ 3 ], ::oImage:handle,, drawInfo[ 4 ] + ::nOffsetH, ;
-               drawInfo[ 5 ] + ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
+         hwg_Drawbitmap( drawInfo[3], ::oImage:handle,, drawInfo[4] + ::nOffsetH, ;
+               drawInfo[5] + ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
       ENDIF
    ENDIF
 

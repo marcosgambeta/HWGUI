@@ -445,7 +445,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
       // autodetect mode
       IF Str( Val( cCode ), Len( cCode ) ) = cCode
          lCodeC := .T.
-         cTemp  := aCode[ 106 ]
+         cTemp  := aCode[106]
          nSum   := 105
       ELSE
          FOR n := 1 TO Len( cCode )
@@ -453,24 +453,24 @@ METHOD InitCode128( cMode ) CLASS BarCode
          NEXT
          IF nCount < Len( cCode ) / 2
             lCodeA := .T.
-            cTemp  := aCode[ 104 ]
+            cTemp  := aCode[104]
             nSum   := 103
          ELSE
-            cTemp := aCode[ 105 ]
+            cTemp := aCode[105]
             nSum  := 104
          ENDIF
       ENDIF
    ELSE
       IF cMode == "C"
          lCodeC := .T.
-         cTemp  := aCode[ 106 ]
+         cTemp  := aCode[106]
          nSum   := 105
       ELSEIF cMode == "A"
          lCodeA := .T.
-         cTemp  := aCode[ 104 ]
+         cTemp  := aCode[104]
          nSum   := 103
       ELSE
-         cTemp := aCode[ 105 ]
+         cTemp := aCode[105]
          nSum  := 104
       ENDIF
    ENDIF
@@ -485,7 +485,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
 
       IF lCodeC
          IF Len( cCode ) = n                        // ultimo caracter
-            cTemp += aCode[ 101 ]                 // SHIFT Code B
+            cTemp += aCode[101]                 // SHIFT Code B
             nCar := Asc( cCar ) - 31
          ELSE
             nCar := Val( SubStr( cCode, n, 2 ) ) + 1
@@ -493,7 +493,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
          ENDIF
       ELSEIF lCodeA
          IF cCar > "_"                           // Shift Code B
-            cTemp += aCode[ 101 ]
+            cTemp += aCode[101]
             nCar := Asc( cCar ) - 31
          ELSEIF cCar <= " "
             nCar := Asc( cCar ) + 64
@@ -502,7 +502,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
          ENDIF
       ELSE                                      // code B standard
          IF cCar <= " "                         // shift code A
-            cTemp += aCode[ 102 ]
+            cTemp += aCode[102]
             nCar := Asc( cCar ) + 64
          ELSE
             nCar := Asc( cCar ) - 31
@@ -515,7 +515,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
    NEXT
 
    nSum  := nSum % 103 + 1
-   cTemp := cTemp + aCode[ nSum ] + aCode[ 107 ]
+   cTemp := cTemp + aCode[ nSum ] + aCode[107]
    cBarra := ""
 
    FOR n := 1 TO Len( cTemp ) STEP 2

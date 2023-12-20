@@ -693,7 +693,7 @@ METHOD When( ) CLASS HComboBox
          oParent := hwg_GetParentForm( Self )
          IF Self == ATail( oParent:GetList )
             nSkip := - 1
-         ELSEIF Self == oParent:getList[ 1 ]
+         ELSEIF Self == oParent:getList[1]
             nSkip := 1
          ENDIF
          hwg_WhenSetFocus( Self, nSkip )
@@ -749,8 +749,8 @@ METHOD RowSource( xSource ) CLASS HComboBox
 
    IF xSource != Nil
       IF ValType( xSource ) = "A"
-         IF Len( xSource ) > 0 .AND. ! hb_IsArray( xSource[ 1 ] ) .AND. Len( xSource ) <= 2 .AND. "->" $ xSource[ 1 ] // COLUMNS MAX = 2
-            ::xrowsource := { xSource[ 1 ] , iif( Len( xSource ) > 1, xSource[ 2 ], Nil ) }
+         IF Len( xSource ) > 0 .AND. ! hb_IsArray( xSource[1] ) .AND. Len( xSource ) <= 2 .AND. "->" $ xSource[1] // COLUMNS MAX = 2
+            ::xrowsource := { xSource[1] , iif( Len( xSource ) > 1, xSource[2], Nil ) }
          ENDIF
       ELSE
          ::xrowsource := { xSource, Nil }
@@ -768,7 +768,7 @@ METHOD Populate() CLASS HComboBox
    IF Empty( ::aItems )
       RETURN Nil
    ENDIF
-   xRowSource := iif( hb_IsArray( ::xRowSource[ 1 ] ), ::xRowSource[ 1, 1 ], ::xRowSource[ 1 ] )
+   xRowSource := iif( hb_IsArray( ::xRowSource[1] ), ::xRowSource[1, 1], ::xRowSource[1] )
    IF xRowSource != Nil .AND. ( i := At( "->", xRowSource ) ) > 0
       cAlias := AllTrim( Left( xRowSource, i - 1 ) )
       IF SELECT( cAlias ) = 0 .AND. ( i := At( "(", cAlias ) ) > 0
@@ -776,9 +776,9 @@ METHOD Populate() CLASS HComboBox
       ENDIF
       value  := StrTran( xRowSource, calias + "->", , , 1, 1 )
       cAlias := iif( ValType( xRowSource ) == "U",  Nil, cAlias )
-      cValueBound := iif( ::xrowsource[ 2 ]  != Nil  .AND. cAlias != Nil, StrTran( ::xrowsource[ 2 ] , calias + "->" ), Nil )
+      cValueBound := iif( ::xrowsource[2]  != Nil  .AND. cAlias != Nil, StrTran( ::xrowsource[2] , calias + "->" ), Nil )
    ELSE
-      cValueBound := iif( ValType( ::aItems[ 1 ] ) == "A" .AND. Len(  ::aItems[ 1 ] ) > 1, ::aItems[ 1, 2 ], NIL )
+      cValueBound := iif( ValType( ::aItems[1] ) == "A" .AND. Len(  ::aItems[1] ) > 1, ::aItems[1, 2], NIL )
    ENDIF
    ::columnBound := iif( cValueBound = Nil, 1 , 2 )
    IF ::value == Nil
@@ -989,7 +989,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
       IF ( wParam == VK_SPACE )
          nIndex := hwg_Sendmessage( ::handle, CB_GETCURSEL, wParam, lParam ) + 1
          rcItem := hwg_Combogetitemrect( ::handle, nIndex - 1 )
-         hwg_Invalidaterect( ::handle, .F. , rcItem[ 1 ], rcItem[ 2 ], rcItem[ 3 ], rcItem[ 4 ] )
+         hwg_Invalidaterect( ::handle, .F. , rcItem[1], rcItem[2], rcItem[3], rcItem[4] )
          ::SetCheck( nIndex, !::GetCheck( nIndex ) )
          hwg_Sendmessage( ::oParent:handle, WM_COMMAND, hwg_Makelong( ::id, CBN_SELCHANGE ), ::handle )
       ENDIF
@@ -1007,8 +1007,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
 
       IF wParam = VK_HOME .OR. wParam = VK_END
          nPos := iif( wParam = VK_HOME, ;
-            Ascan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" } , , ) , ;
-            RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" } , , ) )
+            Ascan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" } , , ) , ;
+            RAscan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" } , , ) )
          IF nPos - 1 != ::nCurPos
             hwg_Setfocus( Nil )
             hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos - 1, 0 )
@@ -1034,8 +1034,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
       rcClient := hwg_Getclientrect( ::handle )
 
       pt := { , }
-      pt[ 1 ] = hwg_Loword( lParam )
-      pt[ 2 ] = hwg_Hiword( lParam )
+      pt[1] = hwg_Loword( lParam )
+      pt[2] = hwg_Hiword( lParam )
 
       IF ( hwg_Ptinrect( rcClient, pt ) )
 
@@ -1043,12 +1043,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
          nTopIndex   := hwg_Sendmessage( ::handle, LB_GETTOPINDEX, 0, 0 )
 
          // Compute which index to check/uncheck
-         nIndex := ( nTopIndex + pt[ 2 ] / nItemHeight ) + 1
+         nIndex := ( nTopIndex + pt[2] / nItemHeight ) + 1
          rcItem := hwg_Combogetitemrect( ::handle, nIndex - 1 )
 
-         IF pt[ 1 ] < ::nWidthCheck
+         IF pt[1] < ::nWidthCheck
             // Invalidate this window
-            hwg_Invalidaterect( ::handle, .F. , rcItem[ 1 ], rcItem[ 2 ], rcItem[ 3 ], rcItem[ 4 ] )
+            hwg_Invalidaterect( ::handle, .F. , rcItem[1], rcItem[2], rcItem[3], rcItem[4] )
             nIndex := hwg_Sendmessage( ::handle, CB_GETCURSEL, wParam, lParam ) + 1
             ::SetCheck( nIndex, !::GetCheck( nIndex ) )
 
@@ -1172,10 +1172,10 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
 
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
 
-   LOCAL dc := drawInfo[ 3 ]
+   LOCAL dc := drawInfo[3]
 
-   LOCAL rcBitmap := { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] }
-   LOCAL rcText   := { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] }
+   LOCAL rcBitmap := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] }
+   LOCAL rcText   := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] }
    LOCAL strtext  := "", cTmp
    LOCAL ncheck   := 0
    LOCAL metrics
@@ -1185,7 +1185,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
    LOCAL hbitmap := 0, bmpRect
    LOCAL lDroped := hwg_Sendmessage( ::handle, CB_GETDROPPEDSTATE, 0, 0 ) > 0
 
-   IF ( drawInfo[ 1 ] < 0 )
+   IF ( drawInfo[1] < 0 )
 
       ::RecalcText()
 
@@ -1194,27 +1194,27 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       ncheck := 0
 
    ELSE
-      hwg_Comboboxgetlbtext( ::handle, drawInfo[ 1 ], @strtext )
+      hwg_Comboboxgetlbtext( ::handle, drawInfo[1], @strtext )
 
       IF  ::lCheck
-         ncheck := 1 + ( hwg_Comboboxgetitemdata( ::handle, drawInfo[ 1 ] ) )
+         ncheck := 1 + ( hwg_Comboboxgetitemdata( ::handle, drawInfo[1] ) )
          metrics := hwg_Gettextmetric( dc )
-         rcBitmap[ 1 ] := 0
-         rcBitmap[ 3 ] := rcBitmap[ 1 ] + metrics[ 1 ] + metrics[ 4 ] + 6
-         rcBitmap[ 2 ] += 1
-         rcBitmap[ 4 ] -= 1
+         rcBitmap[1] := 0
+         rcBitmap[3] := rcBitmap[1] + metrics[1] + metrics[4] + 6
+         rcBitmap[2] += 1
+         rcBitmap[4] -= 1
 
-         rcText[ 1 ]   := rcBitmap[ 3 ]
-         ::nWidthCheck := rcBitmap[ 3 ]
+         rcText[1]   := rcBitmap[3]
+         ::nWidthCheck := rcBitmap[3]
 
-      ELSEIF ::aHImages != Nil .AND. DrawInfo[ 1 ] + 1 <= Len( ::aHImages ) .AND. ;
-            ! Empty( ::aHImages[ DrawInfo[ 1 ] + 1 ] )
-         nIndent := iif( ! lDroped, 1, ( Len( strText ) - Len( LTrim( strText ) ) ) * hwg_TxtRect( "a", Self, ::oFont )[ 1 ] )
+      ELSEIF ::aHImages != Nil .AND. DrawInfo[1] + 1 <= Len( ::aHImages ) .AND. ;
+            ! Empty( ::aHImages[ DrawInfo[1] + 1 ] )
+         nIndent := iif( ! lDroped, 1, ( Len( strText ) - Len( LTrim( strText ) ) ) * hwg_TxtRect( "a", Self, ::oFont )[1] )
          strtext := LTrim( strtext )
-         hbitmap := ::aHImages[ DrawInfo[ 1 ] + 1 ]
-         rcBitmap[ 1 ] := nIndent
+         hbitmap := ::aHImages[ DrawInfo[1] + 1 ]
+         rcBitmap[1] := nIndent
          bmpRect := hwg_Prepareimagerect( ::handle, dc, .T. , @rcBitmap, @rcText, , , hbitmap, iStyle )
-         rcText[ 1 ] :=  iif( iStyle = ST_ALIGN_HORIZ, nIndent + hwg_Getbitmapsize( hbitmap )[ 1 ] + iif( lDroped, 3, 4 ) , 1 )
+         rcText[1] :=  iif( iStyle = ST_ALIGN_HORIZ, nIndent + hwg_Getbitmapsize( hbitmap )[1] + iif( lDroped, 3, 4 ) , 1 )
       ENDIF
 
    ENDIF
@@ -1228,7 +1228,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
 
    IF cTmp == "\]" .OR. cTmp == "\-"
       IF ! lDroped
-         hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[ 1 ], 0 ), rcText[ 2 ], rcText[ 3 ], rcText[ 4 ] )
+         hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[1], 0 ), rcText[2], rcText[3], rcText[4] )
          RETURN 0
       ENDIF
    ENDIF
@@ -1246,7 +1246,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       hwg_Drawframecontrol( dc, rcBitmap, DFC_BUTTON, nstate )
    ENDIF
 
-   IF ( hwg_Bitand( drawInfo[ 9 ], ODS_SELECTED ) != 0 )
+   IF ( hwg_Bitand( drawInfo[9], ODS_SELECTED ) != 0 )
       hwg_Setbkcolor( dc, hwg_Getsyscolor( COLOR_HIGHLIGHT ) )
       hwg_Settextcolor( dc, hwg_Getsyscolor( COLOR_HIGHLIGHTTEXT ) )
    ELSE
@@ -1259,22 +1259,22 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
       strtext := SubStr( strText, 3 )
    ENDIF
    IF cTmp == "\-"
-      hwg_Drawline( DC, 1, rcText[ 2 ] + ( rcText[ 4 ] - rcText[ 2 ] ) / 2 , ;
-         rcText[ 3 ] - 1, ;
-         rcText[ 2 ] + ( rcText[ 4 ] - rcText[ 2 ] ) / 2 )
+      hwg_Drawline( DC, 1, rcText[2] + ( rcText[4] - rcText[2] ) / 2 , ;
+         rcText[3] - 1, ;
+         rcText[2] + ( rcText[4] - rcText[2] ) / 2 )
    ELSE
-      hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[ 1 ], 0 ), rcText[ 2 ], rcText[ 3 ], rcText[ 4 ] )
-      hwg_Drawtext( dc, ' ' + strtext, rcText[ 1 ], rcText[ 2 ], rcText[ 3 ], rcText[ 4 ], DT_SINGLELINE + DT_VCENTER + DT_END_ELLIPSIS )
+      hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[1], 0 ), rcText[2], rcText[3], rcText[4] )
+      hwg_Drawtext( dc, ' ' + strtext, rcText[1], rcText[2], rcText[3], rcText[4], DT_SINGLELINE + DT_VCENTER + DT_END_ELLIPSIS )
    ENDIF
    IF hbitmap != 0
       hwg_Setbkmode( dc, TRANSPARENT )
       IF cTmp == "\]"
-         hwg_Drawgraybitmap( dc, hbitmap, bmpRect[ 1 ]  , bmpRect[ 2 ] + 1 )
+         hwg_Drawgraybitmap( dc, hbitmap, bmpRect[1]  , bmpRect[2] + 1 )
       ELSE
-         hwg_Drawtransparentbitmap( dc, hbitmap, bmpRect[ 1 ]  , bmpRect[ 2 ] + 1 )
+         hwg_Drawtransparentbitmap( dc, hbitmap, bmpRect[1]  , bmpRect[2] + 1 )
       ENDIF
    ENDIF
-   IF ( ( hwg_Bitand( DrawInfo[ 9 ], ODS_FOCUS + ODS_SELECTED ) ) == ( ODS_FOCUS + ODS_SELECTED ) )
+   IF ( ( hwg_Bitand( DrawInfo[9], ODS_FOCUS + ODS_SELECTED ) ) == ( ODS_FOCUS + ODS_SELECTED ) )
       IF  cTmp != "\-"  .AND. ! lDroped
          hwg_Drawfocusrect( dc, iif( ::lCheck, rcText , rcBitmap ) )
       ENDIF
@@ -1296,13 +1296,13 @@ METHOD MeasureItem( l ) CLASS hCheckComboBox
 
       metrics := dc:Gettextmetric()
 
-      lpMeasureItemStruct[ 5 ] := metrics[ 1 ] + metrics[ 4 ]
+      lpMeasureItemStruct[5] := metrics[1] + metrics[4]
 
-      lpMeasureItemStruct[ 5 ] += 2
+      lpMeasureItemStruct[5] += 2
 
       IF ( !::m_bItemHeightSet )
          ::m_bItemHeightSet := .T.
-         hwg_Sendmessage( ::handle, CB_SETITEMHEIGHT, - 1, hwg_Makelong( lpMeasureItemStruct[ 5 ], 0 ) )
+         hwg_Sendmessage( ::handle, CB_SETITEMHEIGHT, - 1, hwg_Makelong( lpMeasureItemStruct[5], 0 ) )
       ENDIF
 
       dc:Selectobject( pFont )
@@ -1372,8 +1372,8 @@ METHOD SkipItems( nNav ) CLASS hCheckComboBox
    hwg_Comboboxgetlbtext( ::handle, ::nCurPos + nNav, @strText ) // NEXT
    IF Left( strText, 2 ) == "\]" .OR. Left( strText, 2 ) == "\-"
       nPos := iif( nNav > 0, ;
-         Ascan(  ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
-         RAscan( ::aItems, { | a | ! Left( a[ 1 ], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
+         Ascan(  ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2  ), ;
+         RAscan( ::aItems, { | a | ! Left( a[1], 2 ) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1, ) )
       nPos := iif( nPos = 0, ::nCurPos , nPos - 1 )
       hwg_Setfocus( Nil )
       hwg_Sendmessage( ::handle, CB_SETCURSEL, nPos , 0 )
