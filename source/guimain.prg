@@ -440,7 +440,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
          /* skip path which is already in cPath variable */
          cFile := SubStr( cFile, nAt + 1 )
          /* decode files */
-         WHILE !cFile == ""
+         DO WHILE !cFile == ""
             nAt := At( Chr(0), cFile )
             IF nAt != 0
                AAdd( aFiles, cPath + hb_osPathSeparator() + ;

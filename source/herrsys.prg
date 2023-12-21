@@ -58,7 +58,7 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    n := 2
-   WHILE !Empty( ProcName( n ) )
+   DO WHILE !Empty( ProcName( n ) )
       cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
    ENDDO
 

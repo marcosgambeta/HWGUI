@@ -2118,7 +2118,7 @@ METHOD LineOut( nRow, nCol, hDC, lSelected, lClear ) CLASS HBrowse
       oldBkColor := hwg_Setbkcolor(   hDC, iif( nCol >= 1, ::htbcolor, iif( lSelected, ::bcolorSel, ::bcolor ) ) )
       oldTColor  := hwg_Settextcolor( hDC, iif( nCol >= 1, ::httcolor, iif( lSelected, ::tcolorSel, ::tcolor ) ) )
       ::nVisibleColLeft :=  ::nPaintCol
-      WHILE x < ::x2 - 2
+      DO WHILE x < ::x2 - 2
          aCores := {}
          IF ( nCol == 0 .OR. nCol == nColumn ) .AND. ::aColumns[ ::nPaintCol ]:bColorBlock != NIL .AND. !lClear
             // nando
@@ -3700,7 +3700,7 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
       FOR n := 1 TO nLines
          ( oBrw:Alias ) -> ( dbSkip( iif( lDesc, - 1, + 1 ) ) )
          IF Empty( oBrw:RelationalExpr )
-            WHILE ( oBrw:Alias ) -> ( !Eof() ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+            DO WHILE ( oBrw:Alias ) -> ( !Eof() ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
                // SKIP IF( lDesc, - 1, + 1 )
                ( oBrw:Alias ) -> ( dbSkip( iif( lDesc, - 1, + 1 ) ) )
             ENDDO
@@ -3719,7 +3719,7 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
             ( oBrw:Alias ) -> ( dbSkip( iif( lDesc, + 1, - 1 ) ) )
          ENDIF
          IF Empty( oBrw:RelationalExpr )
-            WHILE !( oBrw:Alias ) -> ( Bof() ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+            DO WHILE !( oBrw:Alias ) -> ( Bof() ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
                // SKIP IF( lDesc, + 1, - 1 )
                ( oBrw:Alias ) -> ( dbSkip( iif( lDesc, + 1, - 1 ) ) )
             ENDDO
@@ -3735,7 +3735,7 @@ STATIC FUNCTION FltGoTop( oBrw )
       Eval( oBrw:bFirst )
       IF ( oBrw:Alias ) -> ( !Eof() )
          IF Empty( oBrw:RelationalExpr )
-            WHILE ( oBrw:Alias ) -> ( !Eof() ) .AND. !( Eval( oBrw:bWhile, oBrw ) .AND. Eval( oBrw:bFor, oBrw ) )
+            DO WHILE ( oBrw:Alias ) -> ( !Eof() ) .AND. !( Eval( oBrw:bWhile, oBrw ) .AND. Eval( oBrw:bFor, oBrw ) )
                ( oBrw:Alias ) -> ( dbSkip() )
             ENDDO
          ENDIF
@@ -3755,10 +3755,10 @@ STATIC FUNCTION FltGoBottom( oBrw )
       Eval( oBrw:bLast )
       IF Empty( oBrw:RelationalExpr )
          IF !Eval( oBrw:bWhile, oBrw ) .OR. !Eval( oBrw:bFor, oBrw )
-            WHILE ( oBrw:Alias ) -> ( !Bof() ) .AND. !Eval( oBrw:bWhile, oBrw )
+            DO WHILE ( oBrw:Alias ) -> ( !Bof() ) .AND. !Eval( oBrw:bWhile, oBrw )
                ( oBrw:Alias ) -> ( dbSkip( - 1 ) )
             ENDDO
-            WHILE !Bof() .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+            DO WHILE !Bof() .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
                ( oBrw:Alias ) -> ( dbSkip( - 1 ) )
             ENDDO
          ENDIF
@@ -3836,7 +3836,7 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
    IF nLines > 0 .AND. n > 0
       FOR n := 1 TO nLines
          Eval( abSkip, oBrw, 1 )  //IIF( lDesc, - 1, + 1 ) )
-         WHILE !Eval( oBrw:bEof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+         DO WHILE !Eval( oBrw:bEof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
             Eval( abSkip, oBrw, 1 ) //IIF( lDesc, - 1, + 1 ) )
          ENDDO
       NEXT
@@ -3847,7 +3847,7 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
          ELSE
             Eval( abSkip, oBrw, - 1 ) //IIF( lDesc, - 1, + 1 ) )
          ENDIF
-         WHILE !Eval( oBrw:bBof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+         DO WHILE !Eval( oBrw:bBof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
             Eval( abSkip, oBrw, - 1 ) //IIF( lDesc, - 1, + 1 ) )
          ENDDO
          IF Eval( oBrw:bBof, oBrw )
@@ -3865,7 +3865,7 @@ STATIC FUNCTION aFltGoTop( oBrw )
    IF oBrw:nFirstRecordFilter == 0
       oBrw:nCurrent := 1
       IF !Eval( oBrw:bEof, oBrw )
-         WHILE !Eval( oBrw:bEof, oBrw ) .AND.  Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+         DO WHILE !Eval( oBrw:bEof, oBrw ) .AND.  Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
             Eval( abskip, oBrw,  1 )
          ENDDO
          oBrw:nFirstRecordFilter := aFltRecNo( oBrw )
@@ -3884,10 +3884,10 @@ STATIC FUNCTION aFltGoBottom( oBrw )
    IF oBrw:nLastRecordFilter == 0
       oBrw:nCurrent := oBrw:nRecords
       IF !Eval( oBrw:bWhile, oBrw ) .OR. !Eval( oBrw:bFor, oBrw )
-         WHILE !Eval( oBrw:bBof, oBrw ) .AND. !Eval( oBrw:bWhile, oBrw )
+         DO WHILE !Eval( oBrw:bBof, oBrw ) .AND. !Eval( oBrw:bWhile, oBrw )
             Eval( abskip, oBrw, - 1 )
          ENDDO
-         WHILE !Eval( oBrw:bBof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
+         DO WHILE !Eval( oBrw:bBof, oBrw ) .AND. Eval( oBrw:bWhile, oBrw ) .AND. !Eval( oBrw:bFor, oBrw )
             Eval( abskip, oBrw,  - 1 )
          ENDDO
       ENDIF

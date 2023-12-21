@@ -335,7 +335,7 @@ Local n, cTitle
       cTitle := "Script variables error"
    ELSEIF nm == 3
       n := 2
-      WHILE !Empty( ProcName( n ) )
+      DO WHILE !Empty( ProcName( n ) )
         stroka += Chr(13)+Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n++ ) ) ) + ")"
       ENDDO
       stroka := hwg_ErrMsg( e )+ Chr(10)+Chr(13) + stroka
@@ -354,7 +354,7 @@ Local n, cTitle
    ELSEIF nm == 3
       stroka += ";" + hwg_ErrMsg( e )
       n := 2
-      WHILE !Empty( ProcName( n ) )
+      DO WHILE !Empty( ProcName( n ) )
         stroka += ";Called from " + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n++ ) ) ) + ")"
       ENDDO
       Alert( "Script execution error:;"+stroka )
