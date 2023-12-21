@@ -46,7 +46,7 @@ METHOD New( vari, bSetGet, bInit, bClick, bGFocus, nStyle ) CLASS HRadioGroup
    ::oGroupCurrent := Self
    ::aButtons := { }
    ::oParent := IIF( HWindow():GetMain() != NIL, HWindow():GetMain():oDefaultParent, Nil )
-   ::lEnabled :=  ! Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
+   ::lEnabled :=  !Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
 
    ::Super:New( ::oParent, ,, ,,,,, bInit)
 
@@ -70,7 +70,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
 
    ::oGroupCurrent := Self
    ::aButtons := {}
-   ::lEnabled :=  ! Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
+   ::lEnabled :=  !Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
 
    ::Super:New( ::oParent,,,nLeft, nTop, nWidth, nHeight, oFont, bInit )
    ::oHGroup := HGroup():New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
@@ -223,7 +223,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::id      := IIf( nId == NIL, ::NewId(), nId )
    ::title   := cCaption
    ::oGroup  := HRadioGroup():oGroupCurrent
-   ::Enabled := ! Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
+   ::Enabled := !Hwg_BitAnd( nStyle, WS_DISABLED ) > 0
    ::style   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), BS_RADIOBUTTON + ; // BS_AUTORADIOBUTTON+;
          BS_NOTIFY + ;  // WS_CHILD + WS_VISIBLE
          IIf( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP , 0 ) )
@@ -340,11 +340,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
          RETURN 0
       ENDIF
    ENDIF
-   IF msg = WM_GETDLGCODE //.AND.  ! EMPTY( wParam )
+   IF msg = WM_GETDLGCODE //.AND.  !EMPTY( wParam )
       IF wParam = VK_RETURN .AND. hwg_ProcOkCancel( Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE )
          RETURN 0
       ELSEIF wParam = VK_ESCAPE  .AND. ;
-            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != Nil .AND. ! oCtrl:IsEnabled()
+            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != Nil .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF ( wParam != VK_TAB .AND. hwg_Getdlgmessage( lParam ) = WM_CHAR ) .OR. hwg_Getdlgmessage( lParam ) = WM_SYSCHAR .OR. ;
             wParam = VK_ESCAPE
@@ -436,7 +436,7 @@ METHOD When( ) CLASS HRadioButton
       ::lnoValid := .T.
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::oGroup:nValue, Self )
-      ::lnoValid := ! res
+      ::lnoValid := !res
       ::oparent:lSuspendMsgsHandling := .F.
       IF !res
          hwg_WhenSetFocus( Self, nSkip )
@@ -465,7 +465,7 @@ METHOD Valid( nKey ) CLASS HRadioButton
             ::oGroup:SetValue( ::oGroup:nValue )
             ::Setfocus( .T. )
          ENDIF
-      ELSEIF nEnter = 0 .AND. ! hwg_Getkeystate( VK_RETURN ) < 0
+      ELSEIF nEnter = 0 .AND. !hwg_Getkeystate( VK_RETURN ) < 0
          IF !::GetValue()
             ::oGroup:nValue := Ascan( ::oGroup:aButtons, {| o | o:id == ::id } )
             ::oGroup:SetValue( ::oGroup:nValue )

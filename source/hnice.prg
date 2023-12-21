@@ -195,7 +195,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
    IF ::lFlat .AND. ::state != OBTN_INIT
       otmp := hwg_SetNiceBtnSelected()
 
-      IF otmp != Nil .AND. otmp:id != ::id .AND. ! otmp:lPress
+      IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
          hwg_Invalidaterect( otmp:handle, 0 )
          hwg_Postmessage( otmp:handle, WM_PAINT, 0, 0 )

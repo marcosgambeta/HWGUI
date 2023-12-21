@@ -116,7 +116,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       ::extStyle +=  WS_EX_TRANSPARENT
    ENDIF
 
-   IF Image != NIL .AND. ! Empty( Image )
+   IF Image != NIL .AND. !Empty( Image )
       IF lRes == NIL
          lRes := .F.
       ENDIF

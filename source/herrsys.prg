@@ -58,7 +58,7 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    n := 2
-   WHILE ! Empty( ProcName( n ) )
+   WHILE !Empty( ProcName( n ) )
       cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
    ENDDO
 
@@ -107,9 +107,9 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add either filename or operation
    DO CASE
-   CASE ! Empty( oError:filename )
+   CASE !Empty( oError:filename )
       cMessage += ": " + oError:filename
-   CASE ! Empty( oError:operation )
+   CASE !Empty( oError:operation )
       cMessage += ": " + oError:operation
    ENDCASE
 

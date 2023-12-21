@@ -54,12 +54,12 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
    IF pArray != Nil
       FOR i := 1 TO Len( pArray )
          // writelog( "InitControl1"+str(pArray[i]:handle)+"/"+pArray[i]:classname+" "+str(pArray[i]:nWidth)+"/"+str(pArray[i]:nHeight) )
-         IF Empty( pArray[ i ]:handle ) .AND. ! lNoActivate
+         IF Empty( pArray[ i ]:handle ) .AND. !lNoActivate
             lInit := pArray[ i ]:lInit
             pArray[ i ]:lInit := .T.
             pArray[ i ]:Activate()
             pArray[ i ]:lInit := lInit
-         ELSEIF  ! lNoActivate
+         ELSEIF  !lNoActivate
             pArray[ i ]:lInit := .T.
          ENDIF
          IF IIF( ValType( pArray[ i ]:handle ) == "P", hwg_Ptrtoulong( pArray[ i ]:handle ), pArray[ i ]:handle ) <= 0
@@ -176,7 +176,7 @@ FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cResIni )
    @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
-   ACTIVATE DIALOG oModDlg ON ACTIVATE { || IIF( ! EMPTY( cRes ), hwg_Keyb_event( VK_END ), .T. ) }
+   ACTIVATE DIALOG oModDlg ON ACTIVATE { || IIF( !EMPTY( cRes ), hwg_Keyb_event( VK_END ), .T. ) }
 
    oFont:Release()
    IF oModDlg:lResult
@@ -440,7 +440,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
          /* skip path which is already in cPath variable */
          cFile := SubStr( cFile, nAt + 1 )
          /* decode files */
-         WHILE ! cFile == ""
+         WHILE !cFile == ""
             nAt := At( Chr(0), cFile )
             IF nAt != 0
                AAdd( aFiles, cPath + hb_osPathSeparator() + ;
@@ -508,26 +508,26 @@ FUNCTION hwg_CheckFocus( oCtrl, lInside )
    LOCAL oParent := hwg_GetParentForm( oCtrl )
    LOCAL hGetFocus := hwg_Ptrtoulong( hwg_Getfocus() ), lModal
 
-   IF ( !EMPTY( oParent ) .AND. ! hwg_Iswindowvisible( oParent:handle ) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
+   IF ( !EMPTY( oParent ) .AND. !hwg_Iswindowvisible( oParent:handle ) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
       IF !lInside .AND. Empty( oParent:nInitFocus ) // = 0
          oParent:Show()
          hwg_Setfocus( oParent:handle )
          hwg_Setfocus( hGetFocus )
-      ELSEIF ! lInside .AND. ! EMPTY( oParent:nInitFocus )
+      ELSEIF !lInside .AND. !EMPTY( oParent:nInitFocus )
        //  hwg_Setfocus( oParent:handle )        
          RETURN .T.
      ENDIF
       RETURN .F.
-   ELSEIF ! lInside .AND. ! oCtrl:lNoWhen
+   ELSEIF !lInside .AND. !oCtrl:lNoWhen
       oCtrl:lNoWhen := .T.
-   ELSEIF ! lInside
+   ELSEIF !lInside
       RETURN .F.
    ENDIF
    IF oParent  != Nil .AND. lInside   // valid
       lModal :=  oParent:lModal .AND.  oParent:Type >  WND_DLG_RESOURCE
 
-      IF ( ( ! Empty( hGetFocus ) .AND. lModal .AND. ;
-         ! hwg_Selffocus( hwg_GetWindowParent( hGetFocus ), hwg_Ptrtoulong(oParent:Handle) ) ) .OR. ;
+      IF ( ( !Empty( hGetFocus ) .AND. lModal .AND. ;
+         !hwg_Selffocus( hwg_GetWindowParent( hGetFocus ), hwg_Ptrtoulong(oParent:Handle) ) ) .OR. ;
          (  hwg_Selffocus( hGetFocus, oCtrl:oParent:Handle  ) ) ) .AND. ;
             hwg_Selffocus( oParent:handle, oCtrl:oParent:Handle )
          RETURN .F.
@@ -550,7 +550,7 @@ FUNCTION hwg_WhenSetFocus( oCtrl, nSkip )
 FUNCTION hwg_GetWindowParent( nHandle )
 
 
-   DO WHILE ! Empty( hwg_Getparent( nHandle ) ) .AND. ! hwg_Selffocus( nHandle, hwg_Getactivewindow() )
+   DO WHILE !Empty( hwg_Getparent( nHandle ) ) .AND. !hwg_Selffocus( nHandle, hwg_Getactivewindow() )
       nHandle := hwg_Getparent( nHandle )
    ENDDO
    RETURN hwg_Ptrtoulong( nHandle )
@@ -565,7 +565,7 @@ LOCAL oParent, nCtrl,nPos
    ENDIF
    IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
       oParent := IIF( oMain != Nil, oMain, hwg_GetParentForm( oCtrl ) )
-      IF oParent != Nil .AND. ! Empty( oParent:KeyList )
+      IF oParent != Nil .AND. !Empty( oParent:KeyList )
          nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
          IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
             Eval( oParent:KeyList[ nPos, 3 ], oCtrl )
@@ -584,9 +584,9 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
    Local iParHigh := IIF( nKey = VK_RETURN, IDOK, IDCANCEL )
    LOCAL oCtrlFocu := oCtrl
 
-   lForce := ! Empty( lForce )
-   lEscape := nKey = VK_ESCAPE .AND. ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. ! oCtrl:IsEnabled()
-   IF ( ( oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. ! lForce .AND. !lEscape )  .OR. ( nKey != VK_RETURN .AND. nKey != VK_ESCAPE )
+   lForce := !Empty( lForce )
+   lEscape := nKey = VK_ESCAPE .AND. ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. !oCtrl:IsEnabled()
+   IF ( ( oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. !lForce .AND. !lEscape )  .OR. ( nKey != VK_RETURN .AND. nKey != VK_ESCAPE )
       Return .F.
 	 ENDIF
    IF iParHigh == IDOK
@@ -594,7 +594,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
          oCtrl:Setfocus()
   	     oWin:lResult := .T.
   	     IF lForce
-	       ELSEIF ISBLOCK( oCtrl:bClick ) .AND. ! lForce
+	       ELSEIF ISBLOCK( oCtrl:bClick ) .AND. !lForce
 	          hwg_Sendmessage( oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle )
 	       ELSEIF oWin:lExitOnEnter
             oWin:close()
@@ -620,7 +620,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
          ENDIF                                               
       ELSEIF oWin:lExitOnEsc
           oWin:close()
-      ELSEIF ! oWin:lExitOnEsc
+      ELSEIF !oWin:lExitOnEsc
          oWin:nLastKey := 0
          hwg_Sendmessage( oWin:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), oCtrlFocu:handle )
          RETURN .F.
@@ -647,7 +647,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
          RETURN hwg_FindAccelerator( oCtrl:aControls[ i ], lParam)
 	   ENDIF
      IF __ObjHasMsg( oCtrl:aControls[ i ],"TITLE") .AND. VALTYPE( oCtrl:aControls[ i ]:title) = "C" .AND. ;
-         ! oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled( oCtrl:aControls[ i ]:handle )
+         !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled( oCtrl:aControls[ i ]:handle )
         IF ( pos := At( "&", oCtrl:aControls[ i ]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr( oCtrl:aControls[ i ]:title, ++ pos, 1 ) )
            RETURN oCtrl:aControls[ i ]
         ENDIF
@@ -661,7 +661,7 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
    Local brush := nil
 
    DEFAULT lTransparent := .F.
-   IF lSelf == Nil .OR. ! lSelf
+   IF lSelf == Nil .OR. !lSelf
       oCtrl := oCtrl:oParent
    ENDIF
    IF  oCtrl != Nil .AND. oCtrl:Classname = "HTAB"

@@ -134,7 +134,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
          RETURN 0
       ELSEIF  ( wParam == VK_RETURN ) //  .OR. wParam == VK_SPACE )
          IF ::lEnter
-            ::SetValue( ! ::GetValue() )
+            ::SetValue( !::GetValue() )
             ::VALID()
             RETURN 0 //-1
          ELSE
@@ -148,7 +148,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
          RETURN -1
       ELSEIF wParam = VK_ESCAPE  .AND. ;
-            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != NIL .AND. ! oCtrl:IsEnabled()
+            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != NIL .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF hwg_Getdlgmessage( lParam ) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
       ELSEIF hwg_Getdlgmessage( lParam ) = WM_CHAR .OR. wParam = VK_ESCAPE .OR.;
@@ -237,7 +237,7 @@ METHOD killFocus() CLASS HCheckButton
       ENDIF
    ENDIF
    IF hwg_Getkeystate( VK_RETURN ) < 0 .AND. ::lEnter
-      ::SetValue( ! ::GetValue() )
+      ::SetValue( !::GetValue() )
       ::VALID( )
    ENDIF
    IF ::bLostFocus != NIL
@@ -263,7 +263,7 @@ METHOD When( ) CLASS HCheckButton
       ELSE
          res := Eval( ::bGetFocus,::lValue, Self )
       ENDIF
-      ::lnoValid := ! res
+      ::lnoValid := !res
       IF !res
          hwg_WhenSetFocus( Self, nSkip )
       ENDIF

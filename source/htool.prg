@@ -187,7 +187,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFo
    ::nIndent := IIF( nIndent != NIL , nIndent, 1 )
    ::nwSize := IIF( nwSize != NIL .AND. nwSize > 11 , nwSize, 16 )
    ::nhSize := IIF( nhSize != NIL .AND. nhSize > 11 , nhSize, ::nwSize - 1 )
-   ::lnoThemes := ! hwg_Isthemeactive() .OR. ! ::WindowsManifest
+   ::lnoThemes := !hwg_Isthemeactive() .OR. !::WindowsManifest
    IF Hwg_BitAnd( ::Style, WS_DLGFRAME + WS_BORDER + CCS_NODIVIDER ) = 0
       IF !::lVertical
          ::Line := HLine():New( oWndParent,,, nLeft, nTop + nHeight + ;
@@ -272,7 +272,7 @@ METHOD CREATETOOL() CLASS hToolBar
       IF Empty( ::handle )
          RETURN Nil
 			   ENDIF
-		   	IF ! ::lCreate
+		   	IF !::lCreate
 			      hwg_Destroywindow( ::Handle )
 			      ::Activate()
 			      //IF !EMPTY( ::oFont )
@@ -411,10 +411,10 @@ METHOD CREATETOOL() CLASS hToolBar
       ELSEIF Hwg_BitAnd( ::Style,  TBSTYLE_FLAT ) > 0
          nMax := 2
       ENDIF
-      ::ndrop := nMax + IIF( ! ::WindowsManifest , 0, nDrop )
+      ::ndrop := nMax + IIF( !::WindowsManifest , 0, nDrop )
       ::BtnHeight := MAX( hwg_Hiword( hwg_Sendmessage( ::handle, TB_GETBUTTONSIZE, 0, 0 ) ),;
-                     ::nHeight - ::nDrop - IIF( ! ::lnoThemes .AND. Hwg_BitAnd( ::Style,  TBSTYLE_FLAT ) > 0, 0, 2 ) )
-      IF  ! ::lVertical
+                     ::nHeight - ::nDrop - IIF( !::lnoThemes .AND. Hwg_BitAnd( ::Style,  TBSTYLE_FLAT ) > 0, 0, 2 ) )
+      IF  !::lVertical
          hwg_Sendmessage( ::handle, TB_SETBUTTONSIZE, 0,  hwg_Makelparam( ::BtnWidth , ::BtnHeight ) )
       ELSE
          hwg_Sendmessage( ::handle, TB_SETBUTTONSIZE, 0,  hwg_Makelparam( ::nWidth - ::nDrop - 1, ::BtnWidth )  )
@@ -506,7 +506,7 @@ METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, n
 METHOD RESIZE( xIncrSize, lWidth, lHeight  ) CLASS hToolBar
    LOCAL nSize
 
-   IF ::Anchor = 0 .OR. ( ! lWidth .AND. ! lHeight )
+   IF ::Anchor = 0 .OR. ( !lWidth .AND. !lHeight )
       RETURN Nil
    ENDIF
    nSize := hwg_Sendmessage( ::handle, TB_GETBUTTONSIZE, 0, 0 )
@@ -520,7 +520,7 @@ METHOD RESIZE( xIncrSize, lWidth, lHeight  ) CLASS hToolBar
    ENDIF
    hwg_Sendmessage( ::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam( ::BtnWidth - 1, ::BtnWidth + 1 ) )
    IF ::BtnWidth != Nil
-      IF  ! ::lVertical
+      IF  !::lVertical
          hwg_Sendmessage( ::handle, TB_SETBUTTONSIZE, 0,  hwg_Makelparam( ::BtnWidth, ::BtnHeight ))
       ELSE
          hwg_Sendmessage( ::handle, TB_SETBUTTONSIZE, 0,  hwg_Makelparam( ::nWidth - ::nDrop - 1, ::BtnWidth )  )

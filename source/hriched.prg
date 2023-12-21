@@ -60,7 +60,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
             tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder ) CLASS HRichEdit
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
-                        IIf( lNoBorder = Nil.OR. ! lNoBorder, WS_BORDER, 0 ) )
+                        IIf( lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0 ) )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, hwg_Getsyscolor( COLOR_BTNHIGHLIGHT ), bcolor ) )
 
@@ -137,7 +137,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-         IF  ( hwg_IsCtrlShift(.T.,.F.) .OR. ! ::lAllowTabs )
+         IF  ( hwg_IsCtrlShift(.T.,.F.) .OR. !::lAllowTabs )
             RETURN 0
          ENDIF
       ENDIF
@@ -159,7 +159,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          ENDIF
       ENDIF
    ELSEIF msg == WM_KEYDOWN
-      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T.,.F.) .OR. ! ::lAllowTabs )
+      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T.,.F.) .OR. !::lAllowTabs )
          hwg_GetSkip( ::oParent, ::handle, , ;
                       iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0

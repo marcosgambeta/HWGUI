@@ -145,7 +145,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
    IF msg == WM_PAINT .AND. hwg_Getupdaterect( ::Handle ) > 0
       ::Paint()
 
-   ELSEIF msg == WM_NCPAINT .AND. ! hwg_Selffocus( hwg_GetParentForm(Self):handle, hwg_Getactivewindow() )
+   ELSEIF msg == WM_NCPAINT .AND. !hwg_Selffocus( hwg_GetParentForm(Self):handle, hwg_Getactivewindow() )
       hwg_Redrawwindow( ::Handle, RDW_UPDATENOW )
 
    ELSEIF msg == WM_ERASEBKGND
@@ -181,7 +181,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
    ENDIF
    IF ::bOther != NIL
       IF Valtype( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) != "N"
-         nRet := IIF( VALTYPE( nRet ) = "L" .AND. ! nRet, 0, -1 )
+         nRet := IIF( VALTYPE( nRet ) = "L" .AND. !nRet, 0, -1 )
       ENDIF
       IF nRet >= 0
          RETURN -1
@@ -192,7 +192,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), hwg_Getparent( ::Handle ) ) )
       hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus , , IIF( hwg_Selffocus( hwg_GetParentForm(Self):nInitFocus, ::Handle ), 1, 0 ) )
       hwg_GetParentForm(Self):nInitFocus := 0
-   ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. ! ::lSuspendMsgsHandling  //.AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. !::lSuspendMsgsHandling  //.AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
       hwg_GetSkip( ::oParent, ::handle, , ::nGetSkip )
 
    ELSE
@@ -233,7 +233,7 @@ METHOD Paint() CLASS HPanel
    ENDIF
    ::nrePaint := -1
    IF ::nScrollBars = - 1
-      IF  ! ::lBorder
+      IF  !::lBorder
          oPenLight := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
          oPenGray := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW) )
          hwg_Selectobject( hDC, oPenLight:handle )

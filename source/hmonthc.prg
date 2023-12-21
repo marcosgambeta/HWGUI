@@ -50,13 +50,13 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
             lWeekNumbers, bSelect ) CLASS HMonthCalendar
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 0 ) //WS_TABSTOP )
-   nStyle   += IIf( lNoToday == Nil.OR. ! lNoToday, 0, MCS_NOTODAY )
-   nStyle   += IIf( lNoTodayCircle == Nil.OR. ! lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
-   nStyle   += IIf( lWeekNumbers == Nil.OR. ! lWeekNumbers, 0, MCS_WEEKNUMBERS )
+   nStyle   += IIf( lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY )
+   nStyle   += IIf( lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
+   nStyle   += IIf( lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               ,, cTooltip )
 
-   ::value   := IIf( ValType( vari ) == "D" .And. ! Empty( vari ), vari, Date() )
+   ::value   := IIf( ValType( vari ) == "D" .And. !Empty( vari ), vari, Date() )
 
    ::bChange := bChange
    ::bSelect := bSelect
@@ -105,7 +105,7 @@ METHOD Init() CLASS HMonthCalendar
 
 METHOD SetValue( dValue ) CLASS HMonthCalendar
 
-   IF ValType( dValue ) == "D" .And. ! Empty( dValue )
+   IF ValType( dValue ) == "D" .And. !Empty( dValue )
       hwg_SetMonthCalendardate( ::handle, dValue )
       ::value := dValue
    ENDIF
@@ -122,7 +122,7 @@ METHOD GetValue() CLASS HMonthCalendar
 
 METHOD onChange( ) CLASS HMonthCalendar
 
-   IF ::bChange != Nil .AND. ! ::oparent:lSuspendMsgsHandling
+   IF ::bChange != Nil .AND. !::oparent:lSuspendMsgsHandling
       hwg_Sendmessage( ::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam( 1, 1 ) )
       ::oparent:lSuspendMsgsHandling := .T.
       Eval( ::bChange, ::value, Self )
@@ -133,7 +133,7 @@ METHOD onChange( ) CLASS HMonthCalendar
 
 METHOD onSelect( ) CLASS HMonthCalendar
 
-   IF ::bSelect != Nil .AND. ! ::oparent:lSuspendMsgsHandling
+   IF ::bSelect != Nil .AND. !::oparent:lSuspendMsgsHandling
       ::oparent:lSuspendMsgsHandling := .T.
       Eval( ::bSelect, ::value, Self )
       ::oparent:lSuspendMsgsHandling := .F.

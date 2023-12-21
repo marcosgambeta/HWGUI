@@ -56,14 +56,14 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime ) CLASS HDatePicker
 
    nStyle := Hwg_BitOr( Iif( nStyle==NIL, 0, nStyle ), IIF( bSetGet != NIL, WS_TABSTOP, 0 ) + ;
-         IIF( lShowTime == NIL .OR. ! lShowTime, 0, DTS_TIMEFORMAT ) )
+         IIF( lShowTime == NIL .OR. !lShowTime, 0, DTS_TIMEFORMAT ) )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
          ,, ctooltip, tcolor, bcolor )
 
    ::lShowTime := Hwg_BitAnd( nStyle, DTS_TIMEFORMAT ) > 0
    ::dValue    := IIF( vari == NIL .OR. ValType( vari ) != "D", CToD( Space(8) ), vari )
    ::tValue    := IIF( vari == NIL .OR. Valtype( vari ) != "C", SPACE(6), vari )
-   ::title     := IIF( ! ::lShowTime, ::dValue, ::tValue )
+   ::title     := IIF( !::lShowTime, ::dValue, ::tValue )
 
    ::bSetGet := bSetGet
    ::bChange := bChange
@@ -193,7 +193,7 @@ METHOD Value( Value )  CLASS HDatePicker
 
 METHOD GetValue() CLASS HDatePicker
 
-   RETURN IIF( ! ::lShowTime, hwg_Getdatepicker( ::handle ), hwg_Gettimepicker( ::handle ) )
+   RETURN IIF( !::lShowTime, hwg_Getdatepicker( ::handle ), hwg_Gettimepicker( ::handle ) )
 
 METHOD SetValue( xValue ) CLASS HDatePicker
 
@@ -222,11 +222,11 @@ METHOD Refresh() CLASS HDatePicker
          ::tValue := Eval( ::bSetGet,, Self )
       ENDIF
    ENDIF
-   IF Empty( ::dValue ) .AND. ! ::lShowTime
+   IF Empty( ::dValue ) .AND. !::lShowTime
       //hwg_Setdatepickernull( ::handle )
       hwg_Setdatepicker( ::handle, date(), STRTRAN( Time(), ":", "" ) )
    ELSE
-      ::SetValue( IIF( ! ::lShowTime, ::dValue, ::tValue ) )
+      ::SetValue( IIF( !::lShowTime, ::dValue, ::tValue ) )
    ENDIF
 
    RETURN NIL
@@ -266,9 +266,9 @@ METHOD When( ) CLASS HDatePicker
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
       res :=  Eval( ::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
-      ::lnoValid := ! res
+      ::lnoValid := !res
       ::oParent:lSuspendMsgsHandling := .F.
-      IF VALTYPE(res) = "L" .AND. ! res
+      IF VALTYPE(res) = "L" .AND. !res
          hwg_WhenSetFocus( Self, nSkip )
          hwg_Sendmessage( ::handle, DTM_CLOSEMONTHCAL, 0, 0 )
       ELSE

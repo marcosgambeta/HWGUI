@@ -134,7 +134,7 @@ METHOD F( nId ) CLASS HCtrlTmpl
    FOR i := 1 TO nLen
       IF aControls[ i ]:nId == nId
          RETURN aControls[ i ]
-      ELSEIF ! Empty( aControls[ i ]:aControls ) .AND. ( o := aControls[ i ]:F( nId ) ) != NIL
+      ELSEIF !Empty( aControls[ i ]:aControls ) .AND. ( o := aControls[ i ]:F( nId ) ) != NIL
          RETURN o
       ENDIF
    NEXT
@@ -346,7 +346,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       __mvPrivate( ::aVars[ i ] )
    NEXT
 
-   oBmp := IIF( ! Empty( cBitmap ), HBitmap():addfile( cBitmap, NIL ), NIL )
+   oBmp := IIF( !Empty( cBitmap ), HBitmap():addfile( cBitmap, NIL ), NIL )
 
    IF nMode == NIL .OR. nMode == 2
       INIT DIALOG ::oDlg TITLE cTitle         ;
@@ -849,13 +849,13 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       //ELSEIF cPName == "brwtype"
       //   brwtype := xProperty
       ELSEIF cPName == "aarray"
-         caArray := IIf( xProperty != NIL .AND. ! Empty( xProperty ), &( xProperty ) , { } )
+         caArray := IIf( xProperty != NIL .AND. !Empty( xProperty ), &( xProperty ) , { } )
       ELSEIF cPName == "childorder"
-         cKey := IIf( xProperty != NIL .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+         cKey := IIf( xProperty != NIL .AND. !Empty( xProperty ), Trim( xProperty ), "" )
       ELSEIF cPName == "relationalexpr"
-         cRelexpr := IIf( xProperty != NIL .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+         cRelexpr := IIf( xProperty != NIL .AND. !Empty( xProperty ), Trim( xProperty ), "" )
       ELSEIF cPName == "linkmaster"
-         cLink := IIf( xProperty != NIL .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+         cLink := IIf( xProperty != NIL .AND. !Empty( xProperty ), Trim( xProperty ), "" )
       /*
       ELSEIF cPName == "filedbf"
          IF !Empty( xProperty )
@@ -892,9 +892,9 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ELSEIF cPName == "heading"
          cHeader := IIf( xProperty != NIL , xProperty , "" )
       ELSEIF cPName == "fieldname"
-         fBlock  := Lower( IIf( xProperty != NIL .AND. ! Empty( xProperty ), xProperty , FieldName( i ) ) )
+         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty , FieldName( i ) ) )
       ELSEIF cPName == "fieldexpr"
-         fBlock  := Lower( IIf( xProperty != NIL .AND. ! Empty( xProperty ), xProperty , fBlock ) )
+         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty , fBlock ) )
          //IF !(cAlias == cTmpAlias) .AND. cTmpAlias $ cCampo
          //  cCampo := STRTRAN(cCampo,cTmpAlias,cAlias)
          //ENDIF
@@ -926,7 +926,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          the same name as the property */
          __mvPut( cPName, xProperty )
 
-         IF cPName == "varname" .AND. ! Empty( xProperty )
+         IF cPName == "varname" .AND. !Empty( xProperty )
             cVarName := xProperty
             bSetGet := &( "{|v|Iif(v == NIL," + xProperty + "," + xProperty + ":=v)}" )
             IF __mvGet( xProperty ) == NIL
@@ -963,7 +963,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       *-  nHeight := nHeight * 4
       ENDIF
    ELSEIF oCtrlTmpl:cClass == "line"
-      nLength := IIf( lVertical == NIL.OR. ! lVertical, nWidth, nHeight )
+      nLength := IIf( lVertical == NIL.OR. !lVertical, nWidth, nHeight )
    ELSEIF oCtrlTmpl:cClass == "browse"
       brwType := IIf( brwType == NIL .OR. brwType == "dbf", BRW_DATABASE, BRW_ARRAY )
    ELSEIF oCtrlTmpl:cClass == "trackbar"
@@ -992,7 +992,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    // criacao
    IF oCtrlTmpl:cClass == "column"
       cValType := Type( "&fblock" )
-      IF &( cOName ):Type = BRW_DATABASE .AND. ! Empty( Alias() )
+      IF &( cOName ):Type = BRW_DATABASE .AND. !Empty( Alias() )
          cAliasdbf := Alias()
          temp = StrTran( Upper( fBlock ), Alias() + "->", "" )
          *- verificar se tem mais de um campo
@@ -1044,7 +1044,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             cKey := ( oCtrl:Alias ) ->( ordkey( cKey ) )
             cKey := IIf( At( '+', cKey ) > 0, Left( cKey, At( '+', cKey ) - 1 ), cKey )
          ENDIF
-         cRelexpr := IIf( ! Empty( cRelexpr ), cRelexpr, cKey )
+         cRelexpr := IIf( !Empty( cRelexpr ), cRelexpr, cKey )
          IF !Empty( cRelexpr + cLink )
             &cLink->( DBSetRelation( oCtrl:Alias, { || &cRelexpr }, cRelexpr ) )
             &( oCtrl:Alias ) ->( DBSetFilter( &( "{|| " + cRelexpr + " = " + cLink + "->(" + cRelexpr + ")}" ), "&crelexpr = &clink->(&crelexpr) " ) )
@@ -1420,7 +1420,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
          PRIVATE lSkipItem := .T.
       ENDIF
    ENDIF
-   IF !__mvExist( "LSKIPITEM" ) .OR. ! lSkipItem
+   IF !__mvExist( "LSKIPITEM" ) .OR. !lSkipItem
       IF ( aMethod := aGetSecond( oItem:aMethods, "onbegin" ) ) != NIL
          DoScript( aMethod )
       ENDIF
@@ -1443,13 +1443,13 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
          oItem:y2 := y2
          // writelog( "Area: "+cText+" "+Iif(::lNextPage,"T","F") )
          IF ( xProperty := aGetSecond( oItem:aProp, "varoffset" ) ) == NIL ;
-              .OR. ! xProperty
+              .OR. !xProperty
             ::nTOffset := ::nAOffSet := 0
          ENDIF
          IF cText == "Table"
             PRIVATE lLastCycle := .F.
             ::lFinish := .F.
-            DO WHILE ! lLastCycle
+            DO WHILE !lLastCycle
                ::ny := 0
                FOR i := 1 TO Len( oItem:aControls )
                   IF !::lNextPage .OR. oItem:aControls[ i ]:lMark

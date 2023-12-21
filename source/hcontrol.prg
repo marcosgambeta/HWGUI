@@ -107,7 +107,7 @@ METHOD NewId() CLASS HControl
 METHOD AddName( cName ) CLASS HControl
    LOCAL nPos
 
-   IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. ::oParent != Nil .AND. ! "[" $ cName
+   IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
       IF ( nPos :=  RAt( ":", cName ) ) > 0 .OR. ( nPos :=  RAt( ">", cName ) ) > 0
          cName := SubStr( cName, nPos + 1 )
       ENDIF
@@ -159,7 +159,7 @@ METHOD Setfocus( lValid ) CLASS HControl
       hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 )
       ::oParent:lSuspendMsgsHandling  := lSuspend
    ELSE
-      ::oParent:lSuspendMsgsHandling  := ! Empty( lValid )
+      ::oParent:lSuspendMsgsHandling  := !Empty( lValid )
       IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
          hwg_Setfocus( ::handle )
       ELSE
@@ -177,7 +177,7 @@ METHOD Enable() CLASS HControl
    LOCAL lEnable := hwg_Iswindowenabled( ::Handle ), nPos, nNext
 
    hwg_Enablewindow( ::handle, .T. )
-   IF ::oParent:lGetSkipLostFocus .AND. ! lEnable .AND. Hwg_BitaND( HWG_GETWINDOWSTYLE( ::Handle ), WS_TABSTOP ) > 0
+   IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND( HWG_GETWINDOWSTYLE( ::Handle ), WS_TABSTOP ) > 0
       nNext := Ascan( ::oParent:aControls, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( hwg_Getfocus() ) } )
       nPos  := Ascan( ::oParent:acontrols, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( ::handle ) } )
       IF nPos < nNext
@@ -368,7 +368,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
          ENDIF
          IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
-               ( ::Title != NIL .AND. ! Empty( ::Title ) ) ) .OR. __ObjHasMsg( Self, "oImage" )
+               ( ::Title != NIL .AND. !Empty( ::Title ) ) ) .OR. __ObjHasMsg( Self, "oImage" )
             IF __ObjHasMsg( Self, "oImage" ) .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
                hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1 , y1 + h1 + 1 )
             ELSE
@@ -792,7 +792,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
 
    ::title := ""
    ::lVert := iif( lVert == NIL, .F. , lVert )
-   ::LineSlant := iif( Empty( cSlant ) .OR. ! cSlant $ "/\", "", cSlant )
+   ::LineSlant := iif( Empty( cSlant ) .OR. !cSlant $ "/\", "", cSlant )
    ::nBorder := iif( Empty( nBorder ), 1, nBorder )
 
    IF Empty( ::LineSlant )

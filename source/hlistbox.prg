@@ -173,7 +173,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
          IF ::bKeyDown != Nil .AND. ValType( ::bKeyDown ) == 'B'
          ::oparent:lSuspendMsgsHandling := .T.
          nEval := Eval( ::bKeyDown, Self, wParam )
-         IF (VALTYPE( nEval ) == "L" .AND. ! nEval ) .OR. ( nEval != -1 .AND. nEval != Nil )
+         IF (VALTYPE( nEval ) == "L" .AND. !nEval ) .OR. ( nEval != -1 .AND. nEval != Nil )
             ::oparent:lSuspendMsgsHandling := .F.
             RETURN 0
          ENDIF
@@ -301,7 +301,7 @@ METHOD When( oCtrl ) CLASS HListBox
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::Value, Self )
       ::oparent:lSuspendMsgsHandling := .F.
-      ::lnoValid := ! res
+      ::lnoValid := !res
       IF !res
          hwg_WhenSetFocus( Self, nSkip )
       ELSE

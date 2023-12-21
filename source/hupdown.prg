@@ -76,7 +76,7 @@ METHOD New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight, ;
 
    HB_SYMBOL_UNUSED( bOther )
 
-   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + IIf( lNoBorder == Nil.OR. ! lNoBorder, WS_BORDER, 0 ) )
+   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + IIf( lNoBorder == Nil.OR. !lNoBorder, WS_BORDER, 0 ) )
 
    IF Valtype(vari) != "N"
       vari := 0
@@ -305,7 +305,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
 
  	 IF ::oUpDown = Nil .OR. Hwg_BitAnd( hwg_Getwindowlong( ::handle, GWL_STYLE ), ES_READONLY ) != 0 .OR. ;
  	     hwg_Getfocus() != ::Handle .OR. ;
-       ( ::oUpDown:bGetFocus != Nil .AND. ! Eval( ::oUpDown:bGetFocus, ::oUpDown:nValue, ::oUpDown ) )
+       ( ::oUpDown:bGetFocus != Nil .AND. !Eval( ::oUpDown:bGetFocus, ::oUpDown:nValue, ::oUpDown ) )
 	     Return 0
    ENDIF
 

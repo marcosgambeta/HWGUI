@@ -421,13 +421,13 @@ METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
          res := .T.
       ENDIF
 
-      IF res .AND. ! ::lPress
+      IF res .AND. !::lPress
          ::state := OBTN_NORMAL
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
          //hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
       ENDIF
-      IF ::state == OBTN_NORMAL .AND. ! res
+      IF ::state == OBTN_NORMAL .AND. !res
          ::state := OBTN_MOUSOVER
          hwg_Invalidaterect( ::handle, 0 )
          //hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )

@@ -122,7 +122,7 @@ ENDCLASS
 
 METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindow
 
-   AAdd( IIf( lNotify == NIL .OR. ! lNotify, ::aEvents, ::aNotify ), ;
+   AAdd( IIf( lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify ), ;
          { nEvent, IIf( ValType( oCtrl ) == "N", oCtrl, oCtrl:id ), bAction } )
    IF bAction != Nil .AND. ValType( oCtrl ) == "O"  //.AND. ValType(oCtrl) != "N"
       IF cMethName != Nil //.AND. !__objHasMethod( oCtrl, cMethName )
@@ -277,17 +277,17 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
    IF hwg_Iswindowvisible( ::Handle ) .OR. nLen > 0
       FOR i = 1 to nLen
          oCtrlTmp :=  oCtrl:aControls[ i ]
-         lRefresh :=  ! Empty( __ObjHasMethod( oCtrlTmp, "REFRESH" ) )
+         lRefresh :=  !Empty( __ObjHasMethod( oCtrlTmp, "REFRESH" ) )
          IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN( oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
-            ( ! oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
+            ( !oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
   	        IF LEN( oCtrlTmp:aControls) > 0
   	            ::Refresh( lAll, oCtrlTmp )
-		        ELSEIF  ! Empty( lRefresh ) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
+		        ELSEIF  !Empty( lRefresh ) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
                oCtrlTmp:Refresh( )
                IF oCtrlTmp:bRefresh != Nil  
                   EVAL( oCtrlTmp:bRefresh, oCtrlTmp )
                ENDIF   
-            ELSEIF  hwg_Iswindowenabled( oCtrlTmp:Handle ) .AND. ! oCtrlTmp:lHide .AND.  ! lRefresh
+            ELSEIF  hwg_Iswindowenabled( oCtrlTmp:Handle ) .AND. !oCtrlTmp:lHide .AND.  !lRefresh
                oCtrlTmp:SHOW( SW_SHOWNOACTIVATE )
 				    ENDIF  
          ENDIF
@@ -391,7 +391,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          nCode := hwg_Getnotifycode( lParam )
          IF nCode == EN_PROTECTED
             RETURN 1
-         ELSEIF oWnd:aNotify != NIL .AND. ! oWnd:lSuspendMsgsHandling .AND. ;
+         ELSEIF oWnd:aNotify != NIL .AND. !oWnd:lSuspendMsgsHandling .AND. ;
             ( iItem := AScan( oWnd:aNotify, { | a | a[1] == nCode .AND. ;
                                               a[2] == wParam } ) ) > 0
             IF ( res := Eval( oWnd:aNotify[ iItem, 3 ], oWnd, wParam ) ) != NIL
@@ -430,7 +430,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
          hwg_Settextcolor( wParam, oCtrl:tcolor )
       ENDIF
       hwg_Setbkmode( wParam, oCtrl:backstyle )
-      IF ! oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
+      IF !oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
          hwg_Setbkmode( wParam, TRANSPARENT ) 
          hwg_Setbkcolor( wParam, oCtrl:DisablebColor )
          RETURN oCtrl:disablebrush:handle
@@ -469,7 +469,7 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
    LOCAL oForm := hwg_GetParentForm( oWnd )
 
    HB_SYMBOL_UNUSED( lParam )
-   IF oWnd:aEvents != NIL .AND. ! oForm:lSuspendMsgsHandling .AND. ! oWnd:lSuspendMsgsHandling .AND. ;
+   IF oWnd:aEvents != NIL .AND. !oForm:lSuspendMsgsHandling .AND. !oWnd:lSuspendMsgsHandling .AND. ;
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh .AND. ;
                                         a[2] == iParLow } ) ) > 0
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty( oForm:nFocus )
@@ -477,7 +477,7 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
       ENDIF
       Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl( , hwg_Getfocus() ) = Nil .AND. ;
-         ! Empty( oForm:nFocus ) .AND. ! hwg_Selffocus( hwg_Getactivewindow() )
+         !Empty( oForm:nFocus ) .AND. !hwg_Selffocus( hwg_Getactivewindow() )
          hwg_Setfocus( oForm:nFocus )
       ENDIF
    ENDIF
@@ -496,7 +496,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
       oWnd:nHeight := aCoors[4] - aCoors[2]
    ELSE
       nWindowState := oWnd:WindowState
-      IF wParam != 1 .AND. ( oWnd:GETMDIMAIN() != Nil .AND. ! oWnd:GETMDIMAIN():IsMinimized() ) //SIZE_MINIMIZED 
+      IF wParam != 1 .AND. ( oWnd:GETMDIMAIN() != Nil .AND. !oWnd:GETMDIMAIN():IsMinimized() ) //SIZE_MINIMIZED 
          oWnd:nWidth  := aCoors[3] - aCoors[1]
          oWnd:nHeight := aCoors[4] - aCoors[2]
          IF  oWnd:Type = WND_MDICHILD .AND. oWnd:GETMDIMAIN() != Nil .AND. wParam != 1 .AND. oWnd:GETMDIMAIN():WindowState = 2
@@ -504,13 +504,13 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
          ENDIF 
       ENDIF
    ENDIF
-   IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. ! EMPTY( oWnd:Type )
+   IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. !EMPTY( oWnd:Type )
       hwg_onMove( oWnd )
       oWnd:ResetScrollbars()
       oWnd:SetupScrollbars()
    ENDIF
    IF  wParam != 1 .AND. nWindowState != 2
-      IF !EMPTY( oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. ! EMPTY( oWnd:Screen )
+      IF !EMPTY( oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. !EMPTY( oWnd:Screen )
          oWnd:Anchor( oWnd:Screen, nw1, nh1, oWnd:nWidth, oWnd:nHeight )
       ENDIF
       IF !EMPTY( oWnd:Type)

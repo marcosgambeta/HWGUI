@@ -94,7 +94,7 @@ METHOD Enabled( lEnabled ) CLASS HPage
 
    IF lEnabled != NIL .AND. ::lEnabled != lEnabled
       ::lEnabled := lEnabled
-      IF lEnabled .AND. ( ::PageOrder != ::oParent:nActive .OR. ! hwg_Iswindowenabled( ::oParent:Handle ) )
+      IF lEnabled .AND. ( ::PageOrder != ::oParent:nActive .OR. !hwg_Iswindowenabled( ::oParent:Handle ) )
          IF !hwg_Iswindowenabled( ::oParent:Handle )
             ::oParent:Enable()
             ::oParent:setTab(::PageOrder)
@@ -371,17 +371,17 @@ METHOD EndPage() CLASS HTab
 
    IF !::lResourceTab
       ::aPages[ ::nActive, 2 ] := Len( ::aControls ) - ::aPages[ ::nActive, 1 ]
-      IF ::handle != NIL .AND. ! Empty( ::handle )
+      IF ::handle != NIL .AND. !Empty( ::handle )
          hwg_Addtab(::handle, ::nActive, ::aTabs[ ::nActive ])
       ENDIF
-      IF ::nActive > 1 .AND. ::handle != NIL .AND. ! Empty( ::handle )
+      IF ::nActive > 1 .AND. ::handle != NIL .AND. !Empty( ::handle )
          ::HidePage( ::nActive )
       ENDIF
       // add news objects how property in tab
       FOR i = ::aPages[ ::nActive,1 ] + 1 TO ::aPages[ ::nActive,1 ] + ::aPages[ ::nActive,2 ]
          cName := ::aControls[ i ]:name
-         IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. ! ":" $ cName .AND. ;
-               ! "->" $ cName .AND. ! "[" $ cName
+         IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. !":" $ cName .AND. ;
+               !"->" $ cName .AND. !"[" $ cName
             __objAddData(::&cPage, cName)
             ::&cPage:&( ::aControls[ i ]:name ) := ::aControls[ i ]
          ENDIF
@@ -391,10 +391,10 @@ METHOD EndPage() CLASS HTab
       ::oTemp := NIL
       ::bChange = { | n, o | o:ChangePage( n ) }
    ELSE
-      IF ::handle != NIL .AND. ! Empty( ::handle )
+      IF ::handle != NIL .AND. !Empty( ::handle )
          hwg_Addtabdialog( ::handle, ::nActive, ::aTabs[ ::nActive ], ::aPages[ ::nactive, 1 ]:handle )
       ENDIF
-      IF ::nActive > 1 .AND. ::handle != NIL .AND. ! Empty( ::handle )
+      IF ::nActive > 1 .AND. ::handle != NIL .AND. !Empty( ::handle )
          ::HidePage( ::nActive )
       ENDIF
       ::nActive := 1
@@ -407,7 +407,7 @@ METHOD EndPage() CLASS HTab
 
 METHOD ChangePage( nPage ) CLASS HTab
 
-   IF nPage = ::nActive  //.OR. ! ::pages[ nPage ]:enabled
+   IF nPage = ::nActive  //.OR. !::pages[ nPage ]:enabled
       RETURN NIL
    ENDIF
    IF !Empty( ::aPages ) .AND. ::pages[ nPage ]:enabled
@@ -451,7 +451,7 @@ METHOD HidePage( nPage ) CLASS HTab
       FOR i := nFirst TO nEnd
          IF ( k := ASCAN( ::aControlsHide, ::aControls[ i ]:id  ) ) = 0 .AND. ::aControls[ i ]:lHide
             AAdd( ::aControlsHide,  ::aControls[ i ]:id )
-         ELSEIF k > 0 .AND. ! ::aControls[i]:lHide
+         ELSEIF k > 0 .AND. !::aControls[i]:lHide
             ADel( ::aControlsHide, k )
             ASize( ::aControlsHide, Len( ::aControlsHide ) - 1 )
          ENDIF
@@ -505,7 +505,7 @@ METHOD Refresh( lAll ) CLASS HTab
          nFirst := ::aPages[ ::nActive, 1 ] + 1
          nEnd   := ::aPages[ ::nActive, 1 ] + ::aPages[ ::nActive, 2 ]
          FOR i := nFirst TO nEnd
-            lRefresh :=  ! Empty( __ObjHasMethod( ::aControls[ i ], "REFRESH" ) ) .AND.  ;
+            lRefresh :=  !Empty( __ObjHasMethod( ::aControls[ i ], "REFRESH" ) ) .AND.  ;
                ( __ObjHasMsg( ::aControls[ i ], "BSETGET" ) .OR. lAll ) .AND. ::aControls[ i ]:Handle != hCtrl
             IF !Empty( lRefresh )
                ::aControls[ i ]:Refresh( )
@@ -603,7 +603,7 @@ METHOD Notify( lParam ) CLASS HTab
       IF nCode == TCN_SELCHANGE .AND. ::handle != hwg_Getfocus() .AND. ::lClick
          hwg_Sendmessage( ::handle, TCM_SETCURSEL, hwg_Sendmessage( ::handle, ::nPrevPage - 1, 0, 0 ), 0 )
          RETURN 0
-      ELSEIF nCode == TCN_SELCHANGE .AND. ! ::lClick
+      ELSEIF nCode == TCN_SELCHANGE .AND. !::lClick
          hwg_Sendmessage( ::handle, TCM_SETCURSEL, ::nActive  - 1, 0  )
       ENDIF
       ::nPrevPage := nPage
@@ -655,7 +655,7 @@ METHOD Notify( lParam ) CLASS HTab
          ENDIF
       ENDIF
    CASE nCode == TCN_SETFOCUS
-      IF ::bGetFocus != NIL .AND. ! ::Pages[ nPage ]:Enabled
+      IF ::bGetFocus != NIL .AND. !::Pages[ nPage ]:Enabled
          Eval( ::bGetFocus, hwg_Getcurrenttab(::handle), Self )
       ENDIF
    CASE nCode == TCN_KILLFOCUS
@@ -755,7 +755,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       ENDIF
    ELSEIF msg = WM_GETDLGCODE
       IF wparam == VK_RETURN .OR. wParam = VK_ESCAPE  .AND. ;
-            ( ( oCtrl := hwg_GetParentForm(Self ):FindControl( IDCANCEL ) ) != NIL .AND. ! oCtrl:IsEnabled() )
+            ( ( oCtrl := hwg_GetParentForm(Self ):FindControl( IDCANCEL ) ) != NIL .AND. !oCtrl:IsEnabled() )
          RETURN DLGC_WANTMESSAGE
       ENDIF
    ENDIF
@@ -797,7 +797,7 @@ METHOD ShowDisablePage( nPageEnable, nEvent ) CLASS HTab
    LOCAL client_rect, i, pt := { , }
 
    DEFAULT nPageEnable := 0
-   IF !hwg_Iswindowvisible( ::handle ) .OR. ( Ascan( ::Pages, { | p | ! p:lEnabled } ) = 0  .AND. nPageEnable = NIL )
+   IF !hwg_Iswindowvisible( ::handle ) .OR. ( Ascan( ::Pages, { | p | !p:lEnabled } ) = 0  .AND. nPageEnable = NIL )
       RETURN - 1
    ENDIF
    nPageEnable := iif( nPageEnable = NIL, 0, nPageEnable )
@@ -961,7 +961,7 @@ METHOD Paint( lpdis ) CLASS HPaintTab
                client_rect[4] - 1, oPage:brush:Handle )
          ENDIF
       ENDIF
-      IF oPage:brush != NIL .OR. oPage:tColor != NIL .OR. ! oPage:lenabled
+      IF oPage:brush != NIL .OR. oPage:tColor != NIL .OR. !oPage:lenabled
          ::showTextTabs( oPage , client_rect )
       ENDIF
    NEXT

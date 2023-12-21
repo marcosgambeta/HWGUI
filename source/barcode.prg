@@ -802,7 +802,7 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
    DEFAULT lMode := .F.
 
    nLen   := Len( cCode )
-   IF ( nLen % 2 = 1 .AND. ! lMode )
+   IF ( nLen % 2 = 1 .AND. !lMode )
       nLen ++
       cCode += "0"
    ENDIF

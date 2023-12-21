@@ -327,24 +327,24 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
    IF ::state != LBL_INIT
       xPos := hwg_Loword( lParam )
       yPos := hwg_Hiword( lParam )
-      IF (  ! hwg_Ptinrect( { 0, 0, ::nWidthOver , ::nHeight }, { xPos, yPos } ) ) .AND. ::state != LBL_MOUSEOVER
+      IF (  !hwg_Ptinrect( { 0, 0, ::nWidthOver , ::nHeight }, { xPos, yPos } ) ) .AND. ::state != LBL_MOUSEOVER
           res := .T.
       ELSE
         hwg_SetCursor( ::m_hHyperCursor )
-        IF ( !  hwg_Ptinrect( { 4, 4, ::nWidthover - 4, ::nHeight - 4 }, { xPos, yPos } ) )
+        IF ( !hwg_Ptinrect( { 4, 4, ::nWidthover - 4, ::nHeight - 4 }, { xPos, yPos } ) )
           // hwg_Releasecapture()
            res := .T.
         ENDIF
       ENDIF
-      IF ( res .AND. ! ::m_bVisited ) .OR. ( res .AND. ::m_bVisited )
+      IF ( res .AND. !::m_bVisited ) .OR. ( res .AND. ::m_bVisited )
          ::state := LBL_NORMAL
          /*
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
          */
       ENDIF
-      IF ( ::state == LBL_NORMAL .AND. ! res ) .OR. ;
-         ( ::state == LBL_NORMAL .AND. ! res .AND. ::m_bVisited )
+      IF ( ::state == LBL_NORMAL .AND. !res ) .OR. ;
+         ( ::state == LBL_NORMAL .AND. !res .AND. ::m_bVisited )
          ::state := LBL_MOUSEOVER
          hwg_Invalidaterect( ::handle, 0 )
     	    hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
@@ -366,7 +366,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 //   LOCAL POLDFONT
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
-   LOCAL aBmpSize    := IIF( ! EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0,0} )
+   LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0,0} )
    LOCAL itemRect    := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
    LOCAL captionRect := { drawInfo[4]  , drawInfo[5], drawInfo[6] , drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
@@ -389,7 +389,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    ENDIF
 
    IF  ValType( ::hbitmap ) == "N"
-      bHasTitle := ValType( strtext ) == "C" .AND. ! Empty( strtext )
+      bHasTitle := ValType( strtext ) == "C" .AND. !Empty( strtext )
       itemRect[4] := aBmpSize[2] + 1
       bmpRect := hwg_Prepareimagerect( ::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle )
       itemRect[4] := drawInfo[7]
@@ -429,7 +429,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    ENDIF
 
    //::dc:Drawtext( strtext, rcClient, dwFlags )
-   IF ::state = LBL_MOUSEOVER .AND. ! ::lAllUnderline
+   IF ::state = LBL_MOUSEOVER .AND. !::lAllUnderline
       hwg_Selectobject( DC, ::oFontUnder:handle )
       hwg_Drawtext( dc, strText, rcClient, dwFlags )
       hwg_Selectobject( DC, ::oFont:handle )
@@ -452,7 +452,7 @@ METHOD Resize( x, y ) CLASS HStaticLink
    ENDIF
 
    x := iif( x == Nil, 0, x - ::nWidth + 1 )
-   aBmpSize := IIF( ! EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), { 0,0 } )
+   aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), { 0,0 } )
    aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
    ::Move( , , ::nWidth + x , , 0 )
    aTxtSize := hwg_TxtRect( ::Title, Self )
