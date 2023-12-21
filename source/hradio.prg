@@ -122,7 +122,7 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
 
 METHOD Init() CLASS HRadioGroup
 
-   IF ! ::lInit
+   IF !::lInit
       /*
       IF ::oHGroup != NIL
         ::id := ::oHGroup:id
@@ -264,7 +264,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
 METHOD Activate() CLASS HRadioButton
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
@@ -385,7 +385,7 @@ METHOD Notify( lParam ) CLASS HRadioButton
    LOCAL ndown := hwg_Getkeystate( VK_RIGHT ) + hwg_Getkeystate( VK_DOWN ) + hwg_Getkeystate( VK_TAB )
    LOCAL nSkip := 0
 
-   IF ! hwg_CheckFocus( Self, .T. )
+   IF !hwg_CheckFocus( Self, .T. )
       RETURN 0
    ENDIF
 
@@ -427,7 +427,7 @@ METHOD onClick() CLASS HRadioButton
 METHOD When( ) CLASS HRadioButton
    LOCAL res := .T., nSkip
 
-   IF ! hwg_CheckFocus( Self, .F. )
+   IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
    nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
@@ -438,7 +438,7 @@ METHOD When( ) CLASS HRadioButton
       res := Eval( ::bGetFocus, ::oGroup:nValue, Self )
       ::lnoValid := ! res
       ::oparent:lSuspendMsgsHandling := .F.
-      IF ! res
+      IF !res
          hwg_WhenSetFocus( Self, nSkip )
       ELSE
          ::Setfocus()
@@ -460,13 +460,13 @@ METHOD Valid( nKey ) CLASS HRadioButton
        iValue := Ascan( ::oGroup:aButtons, {| o | o:id == ::id } )
       IF nEnter = VK_RETURN //< 0
          *-iValue := Ascan( ::oGroup:aButtons,{ | o | o:id == ::id } )
-         IF ! ::GetValue()
+         IF !::GetValue()
             ::oGroup:nValue  := iValue
             ::oGroup:SetValue( ::oGroup:nValue )
             ::Setfocus( .T. )
          ENDIF
       ELSEIF nEnter = 0 .AND. ! hwg_Getkeystate( VK_RETURN ) < 0
-         IF ! ::GetValue()
+         IF !::GetValue()
             ::oGroup:nValue := Ascan( ::oGroup:aButtons, {| o | o:id == ::id } )
             ::oGroup:SetValue( ::oGroup:nValue )
          ENDIF

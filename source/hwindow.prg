@@ -47,7 +47,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
              hwg_Invalidaterect( oWnd:Screen:handle, 1 )
           ENDIF
       ENDIF
-      IF ! Empty( oWnd := oWnd:GetMdiActive() ) .AND.oWnd:type = WND_MDICHILD .AND. oWnd:lMaximized .AND.;
+      IF !Empty( oWnd := oWnd:GetMdiActive() ) .AND.oWnd:type = WND_MDICHILD .AND. oWnd:lMaximized .AND.;
            ( oWnd:lModal .OR. oWnd:lChild )
          oWnd:lMaximized := .F.
       ENDIF
@@ -386,7 +386,7 @@ METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate ) CLASS HMa
 
       ::nInitFocus := IIF(VALTYPE( ::nInitFocus ) = "O", ::nInitFocus:Handle, ::nInitFocus )
       ::nInitFocus := IIF( Empty( ::nInitFocus ), FindInitFocus( ::aControls ), ::nInitFocus )
-      IF ! Empty( ::nInitFocus )
+      IF !Empty( ::nInitFocus )
          hwg_Setfocus( ::nInitFocus )
          ::nFocus := hwg_Getfocus()
       ENDIF
@@ -418,7 +418,7 @@ METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate ) CLASS HMa
       
       ::nInitFocus := IIF(VALTYPE( ::nInitFocus ) = "O", ::nInitFocus:Handle, ::nInitFocus )
       ::nInitFocus := IIF( Empty( ::nInitFocus ), FindInitFocus( ::aControls ), ::nInitFocus )
-      IF ! Empty( ::nInitFocus )
+      IF !Empty( ::nInitFocus )
          hwg_Setfocus( ::nInitFocus )
          ::nFocus := hwg_Getfocus()
       ENDIF
@@ -565,7 +565,7 @@ METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate, lModal ) C
    
    ::nInitFocus := IIF(VALTYPE( ::nInitFocus ) = "O", ::nInitFocus:Handle, ::nInitFocus )
    ::nInitFocus := IIF( Empty( ::nInitFocus ), FindInitFocus( ::aControls ), ::nInitFocus )
-   IF ! Empty( ::nInitFocus )
+   IF !Empty( ::nInitFocus )
        hwg_Setfocus( ::nInitFocus )
        ::nFocus := hwg_Getfocus()
     ENDIF
@@ -633,7 +633,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
       hwg_Setfocus( nFocus )
       *-::nFocus := 0
    ELSEIF msg = WM_DESTROY .AND. ::lModal .AND. ! hwg_Selffocus( ::Screen:Handle, ::handle )
-      IF ! EMPTY( ::hActive ) .AND. ! hwg_Selffocus( ::hActive, ::Screen:Handle )
+      IF !EMPTY( ::hActive ) .AND. ! hwg_Selffocus( ::hActive, ::Screen:Handle )
          hwg_Postmessage( nFocus, WM_SETFOCUS, 0, 0 )
          hwg_Postmessage( ::hActive , WM_SETFOCUS, 0, 0 )
       ENDIF
@@ -744,7 +744,7 @@ METHOD Activate( lShow, lMaximized, lMinimized,lCentered, bActivate, lModal ) CL
 
    ::nInitFocus := IIF(VALTYPE( ::nInitFocus ) = "O", ::nInitFocus:Handle, ::nInitFocus )
    ::nInitFocus := IIF( Empty( ::nInitFocus ), FindInitFocus( ::aControls ), ::nInitFocus )
-   IF ! Empty( ::nInitFocus )
+   IF !Empty( ::nInitFocus )
      hwg_Setfocus( ::nInitFocus )
      ::nFocus := hwg_Getfocus()
    ENDIF
@@ -814,14 +814,14 @@ STATIC FUNCTION onCommand( oWnd, wParam, lParam )
          // CLOSE ONLY MDICHILD HERE
          oChild := oWnd:FindWindow( nHandle )
          IF oChild != Nil
-            IF ! oChild:Closable
+            IF !oChild:Closable
                RETURN 0
             ELSEIF  ISBLOCK( oChild:bDestroy )
                oChild:lSuspendMsgsHandling := .T.
                i := Eval( oChild:bDestroy, oChild )
                oChild:lSuspendMsgsHandling := .F.
                i := IIf( Valtype(i) == "L", i, .T. )
-               IF ! i
+               IF !i
                   Return 0
                ENDIF
             ENDIF
@@ -923,7 +923,7 @@ STATIC FUNCTION onSysCommand( oWnd, wParam, lParam )
          i := Eval( oWnd:bDestroy, oWnd )
          oWnd:lSuspendMsgsHandling := .F.
          i := IIf( ValType( i ) == "L", i, .T. )
-         IF ! i
+         IF !i
             RETURN 0
          ENDIF
          oWnd:bDestroy := Nil
@@ -979,7 +979,7 @@ STATIC FUNCTION onSysCommand( oWnd, wParam, lParam )
 
    ELSEIF wParam = SC_NEXTWINDOW .OR. wParam = SC_PREVWINDOW
       // ctrl+tab   IN Mdi child
-      IF ! Empty( oWnd:lDisableCtrlTab ) .AND. oWnd:lDisableCtrlTab
+      IF !Empty( oWnd:lDisableCtrlTab ) .AND. oWnd:lDisableCtrlTab
           RETURN 0
       ENDIF
    ELSEIF wParam = SC_KEYMENU
@@ -1010,7 +1010,7 @@ STATIC FUNCTION onEndSession( oWnd, wParam )
    IF ISBLOCK( oWnd:bDestroy )
       i := Eval( oWnd:bDestroy, oWnd )
       i := IIf( ValType( i ) == "L", i, .T. )
-      IF ! i
+      IF !i
          RETURN 0
       ENDIF
    ENDIF
@@ -1042,10 +1042,10 @@ STATIC FUNCTION onMdiCreate( oWnd, lParam )
    IF ISBLOCK( oWnd:bSetForm )
       EVAL( oWnd:bSetForm, oWnd )
    ENDIF
-   IF ! EMPTY ( oWnd:oWndParent )
+   IF !EMPTY ( oWnd:oWndParent )
        oWnd:oParent := oWnd:oWndParent
    ENDIF
-   IF ! oWnd:lClosable
+   IF !oWnd:lClosable
       oWnd:Closable( .F. )
    ENDIF
    IF oWnd:oFont != Nil
@@ -1102,7 +1102,7 @@ STATIC FUNCTION onMdiCommand( oWnd, wParam )
 
 STATIC FUNCTION onMdiNcActivate( oWnd, wParam )
 
-   IF ! Empty( oWnd:Screen )
+   IF !Empty( oWnd:Screen )
       IF wParam = 1 .AND. hwg_Selffocus( oWnd:Screen:handle, oWnd:handle )
          hwg_Setwindowpos( oWnd:Screen:HANDLE, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOACTIVATE + SWP_NOOWNERZORDER + SWP_NOSIZE + SWP_NOMOVE )
          RETURN 1

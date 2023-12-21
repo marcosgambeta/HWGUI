@@ -126,7 +126,7 @@ METHOD Selectcliprgn( pRgn ) CLASS HDC
       nRetVal := hwg_Selectcliprgn( ::m_hDC, pRgn )
    ENDIF
 
-   IF ! Empty( ::m_hAttribDC  )
+   IF !Empty( ::m_hAttribDC  )
       nRetVal := hwg_Selectcliprgn( ::m_hAttribDC, pRgn )
    ENDIF
 
@@ -200,7 +200,7 @@ METHOD Setmapmode( nMapMode ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       nRetVal := ::Setmapmode( ::m_hDC, nMapMode )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       nRetVal := hwg_Setmapmode( ::m_hAttribDC, nMapMode )
    ENDIF
 
@@ -212,7 +212,7 @@ METHOD SetWindowOrg( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setwindoworgex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       hwg_Setwindoworgex( ::m_hAttribDC, x, y, @point )
    ENDIF
 
@@ -224,7 +224,7 @@ METHOD SetWindowExt( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setwindowextex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       hwg_Setwindowextex( ::m_hAttribDC, x, y, @point )
    ENDIF
 
@@ -236,7 +236,7 @@ METHOD SetViewportOrg( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setviewportorgex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       hwg_Setviewportorgex( ::m_hAttribDC, x, y, @point )
    ENDIF
 
@@ -248,7 +248,7 @@ METHOD SetViewportExt( x, y ) CLASS HDC
    IF ( ::m_hDC != ::m_hAttribDC )
       hwg_Setviewportextex( ::m_hDC, x, y, @point )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       hwg_Setviewportextex( ::m_hAttribDC, x, y, @point )
    ENDIF
 
@@ -260,7 +260,7 @@ METHOD Setarcdirection( nArcDirection )
    IF ( ::m_hDC != ::m_hAttribDC )
       nResult = hwg_Setarcdirection( ::m_hDC, nArcDirection )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       nResult = hwg_Setarcdirection( ::m_hAttribDC, nArcDirection )
    ENDIF
 
@@ -277,7 +277,7 @@ METHOD Setrop2( nDrawMode )
    IF ( ::m_hDC != ::m_hAttribDC )
       nRetVal := hwg_Setrop2( ::m_hDC, nDrawMode )
    ENDIF
-   IF ! Empty( ::m_hAttribDC )
+   IF !Empty( ::m_hAttribDC )
       nRetVal := hwg_Setrop2( ::m_hAttribDC, nDrawMode )
    ENDIF
 

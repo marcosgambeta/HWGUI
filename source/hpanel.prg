@@ -310,7 +310,7 @@ METHOD Hide() CLASS HPanel
 METHOD Show() CLASS HPanel
    LOCAL lRes
 
-   IF ! ::lHide
+   IF !::lHide
       Return NIL
    ENDIF
    ::nrePaint := - 1
@@ -345,7 +345,7 @@ METHOD Resize() CLASS HPanel
       Return NIL
    ENDIF
 
-   IF ! ::ResizeOffSet(1)
+   IF !::ResizeOffSet(1)
       RETURN NIL
    ENDIF
    /*

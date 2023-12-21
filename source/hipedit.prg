@@ -72,7 +72,7 @@ METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeig
    RETURN Self
 
 METHOD Activate() CLASS HIPedit
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_InitIPAddress( ::oParent:handle, ::id, ::style , ;
                                   ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -81,7 +81,7 @@ METHOD Activate() CLASS HIPedit
 
 METHOD Init() CLASS HIPedit
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::SetValue( ::aValue )
       ::lInit := .T.
@@ -116,7 +116,7 @@ METHOD END() CLASS HIPedit
 STATIC FUNCTION __GetFocus( oCtrl )
    LOCAL xRet
 
-   IF ! hwg_CheckFocus( oCtrl, .F. )
+   IF !hwg_CheckFocus( oCtrl, .F. )
       RETURN .T.
    ENDIF
 
@@ -134,7 +134,7 @@ STATIC FUNCTION __GetFocus( oCtrl )
 STATIC FUNCTION __KillFocus( oCtrl )
    LOCAL xRet
 
-   IF ! hwg_CheckFocus( oCtrl, .T. ) .OR. oCtrl:lNoValid
+   IF !hwg_CheckFocus( oCtrl, .T. ) .OR. oCtrl:lNoValid
       RETURN .T.
    ENDIF
 

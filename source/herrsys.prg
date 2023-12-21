@@ -49,11 +49,11 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    cMessage := hwg_ErrMsg( oError )
-   IF ! Empty( oError:osCode )
+   IF !Empty( oError:osCode )
       cDOSError := "(DOS Error " + LTrim( Str( oError:osCode ) ) + ")"
    ENDIF
 
-   IF ! Empty( oError:osCode )
+   IF !Empty( oError:osCode )
       cMessage += " " + cDOSError
    ENDIF
 
@@ -114,7 +114,7 @@ FUNCTION hwg_ErrMsg( oError )
    ENDCASE
 
    /*
-   IF ! Empty( oError:Args )
+   IF !Empty( oError:Args )
       cMessage += "Arguments: " + ValToPrgExp( oError:Args )
    ENDIF
    */
@@ -125,7 +125,7 @@ FUNCTION hwg_WriteLog( cText, fname )
    LOCAL nHand
 
    fname := LogInitialPath + IIf( fname == Nil, "a.log", fname )
-   IF ! File( fname )
+   IF !File( fname )
       nHand := FCreate( fname )
    ELSE
       nHand := FOpen( fname, 1 )

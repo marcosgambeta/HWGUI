@@ -95,7 +95,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HListBox
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createlistbox( ::oParent:handle, ::id, ;
                                  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -131,7 +131,7 @@ METHOD Init() CLASS HListBox
 
    LOCAL i
 
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       HWG_INITLISTPROC(::handle)
@@ -289,7 +289,7 @@ METHOD When( oCtrl ) CLASS HListBox
 
    HB_SYMBOL_UNUSED( oCtrl )
 
-   IF ! hwg_CheckFocus( Self, .F. )
+   IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
     nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
@@ -302,7 +302,7 @@ METHOD When( oCtrl ) CLASS HListBox
       res := Eval( ::bGetFocus, ::Value, Self )
       ::oparent:lSuspendMsgsHandling := .F.
       ::lnoValid := ! res
-      IF ! res
+      IF !res
          hwg_WhenSetFocus( Self, nSkip )
       ELSE
          ::Setfocus()
@@ -318,7 +318,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
 
    HB_SYMBOL_UNUSED( oCtrl )
 
-   IF ! hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
+   IF !hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
       RETURN .T.
    ENDIF
    //nSkip := IIf( hwg_Getkeystate( VK_SHIFT ) < 0 , - 1, 1 )
@@ -334,7 +334,7 @@ METHOD Valid( oCtrl ) CLASS HListBox
          ::oparent:lSuspendMsgsHandling := .T.
          res := Eval( ::bLostFocus, ::value, Self )
          ::oparent:lSuspendMsgsHandling := .F.
-         IF ! res
+         IF !res
             ::Setfocus( .T. ) //( ::handle )
             IF oDlg != Nil
                oDlg:nLastKey := 0

@@ -200,7 +200,7 @@ METHOD AddNode( cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick ) CLASS H
 METHOD Delete( lInternal ) CLASS HTreeNode
    LOCAL h := ::handle, j, alen, aItems
 
-   IF ! Empty( ::aItems )
+   IF !Empty( ::aItems )
       alen := Len( ::aItems )
       FOR j := 1 TO alen
          ::aItems[ j ]:Delete( .T. )
@@ -349,7 +349,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,
 
 METHOD Init() CLASS HTree
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
@@ -364,7 +364,7 @@ METHOD Init() CLASS HTree
 
 METHOD Activate() CLASS HTree
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createtree( ::oParent:handle, ::id, ;
                               ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::tcolor, ::bcolor )
       ::Init()
@@ -425,7 +425,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
       IF ::bDrag != Nil
          nEval :=  Eval( ::bDrag, Self, ::hitemDrag, ::hitemDrop )
          nEval := IIF( VALTYPE( nEval ) = "L", nEval, .T. )
-         IF ! nEval
+         IF !nEval
             RETURN 0
          ENDIF
       ENDIF
@@ -440,7 +440,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
                RETURN 0
             ENDIF
          ENDDO
-         IF ! hwg_IsCtrlShift( .T. )
+         IF !hwg_IsCtrlShift( .T. )
             IF ( ::hitemDrag:oParent = Nil .OR. ::hitemDrop:oParent = Nil ) .OR. ;
                ( ::hitemDrag:oParent:handle == ::hitemDrop:oParent:handle )
                IF ::FindChildPos( ::hitemDrop:oParent, ::hitemDrag:Handle ) > ::FindChildPos( ::hitemDrop:oParent, ::hitemDrop:Handle )
@@ -518,7 +518,7 @@ METHOD SearchString( cText, iNivel, oNode, inodo ) CLASS HTree
    
    iNodo := IIF( inodo = Nil, 0, iNodo )
    FOR i := 1 TO aLen
-      IF ! Empty( aItems[ i ]:aItems ) .AND. ;
+      IF !Empty( aItems[ i ]:aItems ) .AND. ;
          ( oNodeRet := ::SearchString( cText, iNivel, aItems[ i ], iNodo ) ) != Nil 
          RETURN oNodeRet
       ENDIF
@@ -586,10 +586,10 @@ METHOD Notify( lParam )  CLASS HTree
 
    ELSEIF nCode == TVN_ENDLABELEDIT  .OR. nCode == TVN_ENDLABELEDITW
       ::hTreeEdit := Nil
-      IF ! Empty( cText := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDIT ) )
+      IF !Empty( cText := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDIT ) )
          oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDITPARAM )
          IF ValType( oItem ) == "O"
-            IF ! cText ==  oItem:GetText()  .AND. ;
+            IF !cText ==  oItem:GetText()  .AND. ;
                ( oItem:oTree:bItemChange == Nil .OR. Eval( oItem:oTree:bItemChange, oItem, cText ) )
                hwg_Treesetitem( oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText )
             ENDIF
@@ -634,7 +634,7 @@ METHOD Notify( lParam )  CLASS HTree
          ENDIF
          RETURN 1   
       ELSEIF ! ::lEditLabels .AND. EMPTY( nHitem )
-         IF ! oItem:oTree:lEmpty
+         IF !oItem:oTree:lEmpty
             IF oItem:bClick != Nil
                Eval( oItem:bClick, oItem, Self )
             ENDIF
@@ -695,7 +695,7 @@ METHOD Expand( oNode, lAllNode )  CLASS HTree
    
    hwg_Sendmessage( ::handle, TVM_EXPAND, TVE_EXPAND, oNode:handle )
    FOR i := 1 TO iLen
-      IF ! EMPTY( lAllNode ) .AND. Len( oNode:aitems ) > 0
+      IF !EMPTY( lAllNode ) .AND. Len( oNode:aitems ) > 0
          ::Expand( oNode:aItems[ i ], lAllNode )
       ENDIF
    NEXT

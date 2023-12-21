@@ -256,7 +256,7 @@ METHOD Activate() CLASS HBDebugger
 
    ::LoadCallStack()
 
-   IF ! ::lActive
+   IF !::lActive
       ::lActive := .T.
    ENDIF
 
@@ -284,7 +284,7 @@ METHOD GetExprValue( xExpr, lValid ) CLASS HBDebugger
    bOldError := Errorblock( {|oErr|Break(oErr)} ) 
    BEGIN SEQUENCE
       xResult := __dbgGetExprValue( ::pInfo, xExpr, @lValid )
-      IF ! lValid
+      IF !lValid
          xResult := "Syntax error"
       ENDIF
    RECOVER USING oErr
@@ -471,7 +471,7 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
 
    // we only update the stack window and up a new browse
    // to view the code if we have just broken execution
-   IF ! ::lGo
+   IF !::lGo
       nLine := ::aProcStack[ nProc ][ CSTACK_LINE ]
       cPrgName := ::aProcStack[ nProc ][ CSTACK_MODULE ]
       IF nLine == NIL
@@ -480,7 +480,7 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
          RETURN NIL
       ENDIF
 
-      IF ! Empty( cPrgName )
+      IF !Empty( cPrgName )
          hwg_dbg_SetActiveLine( cPrgName, nLine, ;
                Iif( ::lViewStack, SendStack(), Nil ),  ;
                Iif( ::lShowLocals, SendLocal(), Nil ), ;

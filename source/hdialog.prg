@@ -192,7 +192,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
          ENDIF
       ENDIF
       //AgE SOMENTE NO DIALOG
-      IF ! ::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE
+      IF !::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE
          //writelog( str(msg) + str(wParam) + str(lParam)+CHR(13) )
          RETURN Eval( aMessModalDlg[ i, 2 ], Self, wParam, lParam )
       ENDIF
@@ -277,7 +277,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
    IF oDlg:Title != NIL
       hwg_Setwindowtext( oDlg:Handle, oDlg:Title )
    ENDIF
-   IF ! oDlg:lClosable
+   IF !oDlg:lClosable
       oDlg:Closable( .F. )
    ENDIF
 
@@ -325,7 +325,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
    hwg_Postmessage( oDlg:handle, WM_CHANGEUISTATE, hwg_Makelong( UIS_CLEAR, UISF_HIDEFOCUS ), 0 )
 
-   IF ! oDlg:lModal .AND. ! hwg_Iswindowvisible( oDlg:handle )
+   IF !oDlg:lModal .AND. ! hwg_Iswindowvisible( oDlg:handle )
       hwg_Showwindow( oDlg:Handle, SW_SHOWDEFAULT )
    ENDIF
 
@@ -341,7 +341,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       oDlg:maximize()
    ENDIF
 
-   IF ! oDlg:lModal
+   IF !oDlg:lModal
       IF ValType( oDlg:bOnActivate ) == "B"
          Eval( oDlg:bOnActivate, oDlg )
       ENDIF
@@ -457,7 +457,7 @@ STATIC FUNCTION onDlgCommand( oDlg, wParam, lParam )
    ENDIF
    IF oDlg:aEvents != Nil .AND. ;
          ( i := AScan( oDlg:aEvents, { | a | a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
-      IF ! oDlg:lSuspendMsgsHandling
+      IF !oDlg:lSuspendMsgsHandling
          Eval( oDlg:aEvents[ i, 3 ], oDlg, iParLow )
       ENDIF
    ELSEIF iParHigh == 0 .AND. ( ;
@@ -582,11 +582,11 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
 
    HB_SYMBOL_UNUSED( wParam )
 
-   IF ! Empty( hwg_SetHelpFileName() )
+   IF !Empty( hwg_SetHelpFileName() )
       IF "chm" $ Lower( CutPath( hwg_SetHelpFileName() ) )
          cDir := iif( Empty( FilePath( hwg_SetHelpFileName() ) ), CurDir(), FilePath( hwg_SetHelpFileName() ) )
       ENDIF
-      IF ! Empty( lParam )
+      IF !Empty( lParam )
          oCtrl := oDlg:FindControl( Nil, hwg_Gethelpdata(lParam) )
       ENDIF
       IF oCtrl != nil
@@ -710,7 +710,7 @@ FUNCTION hwg_EndDialog( handle )
       ENDIF
    ENDIF
    // force control triggered killfocus
-   IF ! Empty( hFocus ) .AND. ( oCtrl := oDlg:FindControl( , hFocus ) ) != Nil .AND. ;
+   IF !Empty( hFocus ) .AND. ( oCtrl := oDlg:FindControl( , hFocus ) ) != Nil .AND. ;
          oCtrl:bLostFocus != Nil .AND. oDlg:lModal
       hwg_Sendmessage( hFocus, WM_KILLFOCUS, 0, 0 )
    ENDIF
@@ -718,7 +718,7 @@ FUNCTION hwg_EndDialog( handle )
       //oDlg:lSuspendMsgsHandling := .T.
       res := Eval( oDlg:bDestroy, oDlg )
       //oDlg:lSuspendMsgsHandling := .F.
-      IF ! res
+      IF !res
          oDlg:nLastKey := 0
          RETURN Nil
       ENDIF
@@ -737,7 +737,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
       nctrl := 0
    ENDIF
 
-   IF ! __ObjHasMsg( oDlg, "KEYLIST" )
+   IF !__ObjHasMsg( oDlg, "KEYLIST" )
       RETURN nil
    ENDIF
    aKeys := oDlg:KeyList
@@ -763,7 +763,7 @@ STATIC FUNCTION onSysCommand( oDlg, wParam, lParam )
    LOCAL oCtrl
 
    IF wParam == SC_CLOSE
-      IF ! oDlg:Closable
+      IF !oDlg:Closable
          RETURN 1
       ENDIF
    ELSEIF wParam == SC_MINIMIZE

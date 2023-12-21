@@ -106,7 +106,7 @@ METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint,
    RETURN Self
 
 METHOD Activate() CLASS HGrid
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Listview_create ( ::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll )
 
       ::Init()
@@ -119,7 +119,7 @@ METHOD Init() CLASS HGrid
    LOCAL aBmpSize
    LOCAL n
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       FOR n := 1 TO Len( ::aBitmaps )
          AAdd( aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ) )

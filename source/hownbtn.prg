@@ -133,11 +133,11 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    RETURN Self
 
 METHOD Activate() CLASS HOwnButton
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
                                 ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
-      IF ! ::lEnabled
+      IF !::lEnabled
          hwg_Enablewindow( ::handle, .F. )
          ::Disable()
       ENDIF
@@ -176,18 +176,18 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
       ::END()
    ELSEIF msg == WM_SETFOCUS
       /*
-      IF ! Empty( ::bGetfocus )
+      IF !Empty( ::bGetfocus )
          Eval( ::bGetfocus, Self, msg, wParam, lParam )
       ENDIF
       */
       ::onGetFocus()
    ELSEIF msg == WM_KILLFOCUS
       /*
-      IF ! Empty( ::bLostfocus )
+      IF !Empty( ::bLostfocus )
          Eval( ::bLostfocus, Self, msg, wParam, lParam )
       ENDIF
       */
-      IF ! ::lCheck
+      IF !::lCheck
          ::release()
       ENDIF
       ::onLostFocus()
@@ -198,7 +198,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
          ::Release()
       ENDIF
    ELSE
-      IF ! Empty( ::bOther )
+      IF !Empty( ::bOther )
          Eval( ::bOther, Self, msg, wParam, lParam )
       ENDIF
    ENDIF
@@ -207,7 +207,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
 
 METHOD Init() CLASS HOwnButton
 
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       ::Super:Init()
@@ -294,7 +294,7 @@ METHOD Paint() CLASS HOwnButton
       ENDIF
    ENDIF
    IF ::Themed
-      IF ! ::lEnabled
+      IF !::lEnabled
          state :=  PBS_DISABLED
       ELSE
          state := IIF( ::state == OBTN_PRESSED, PBS_PRESSED, PBS_NORMAL )
@@ -317,7 +317,7 @@ METHOD Paint() CLASS HOwnButton
          ENDIF
       ELSE
          IF ::state == OBTN_NORMAL
-            IF ! hwg_Selffocus( ::handle, hwg_Getfocus() )
+            IF !hwg_Selffocus( ::handle, hwg_Getfocus() )
                // NORM
                hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 0 )
             ELSE
@@ -357,7 +357,7 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
    LOCAL x1, y1, x2, y2,  aCoors
 
    aCoors := hwg_Getclientrect( ::handle )
-   IF ! EMPTY( ::brush )
+   IF !EMPTY( ::brush )
       hwg_Fillrect( hDC, aCoors[1] + 2, aCoors[2] + 2, aCoors[3] - 2, aCoors[4] - 2, ::Brush:handle )
    ENDIF
 
@@ -452,7 +452,7 @@ METHOD MDown()  CLASS HOwnButton
 
 METHOD MUp() CLASS HOwnButton
 //   IF ::state == OBTN_PRESSED
-      IF ! ::lPress
+      IF !::lPress
          //::state := OBTN_NORMAL  // IIF( ::lFlat,OBTN_MOUSOVER,OBTN_NORMAL )
          ::state := IIF( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
       ENDIF

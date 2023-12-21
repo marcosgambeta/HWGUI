@@ -88,7 +88,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Activate() CLASS HRichEdit
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createrichedit( ::oParent:handle, ::id, ;
                                   ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
@@ -96,7 +96,7 @@ METHOD Activate() CLASS HRichEdit
    RETURN Nil
 
 METHOD Init()  CLASS HRichEdit
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       Hwg_InitRichProc(::handle)
@@ -201,7 +201,7 @@ METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
 METHOD ReadOnly( lreadOnly )
 
    IF lreadOnly != Nil
-      IF ! EMPTY( hwg_Sendmessage( ::handle,  EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0 ) )
+      IF !EMPTY( hwg_Sendmessage( ::handle,  EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0 ) )
           ::lReadOnly := lReadOnly
       ENDIF
    ENDIF
@@ -263,7 +263,7 @@ METHOD Valid( ) CLASS HRichEdit
 METHOD Savefile( cFile )  CLASS HRichEdit
 
    IF !EMPTY( cFile )
-      IF ! EMPTY( hwg_Saverichedit( ::Handle, cFile ) )
+      IF !EMPTY( hwg_Saverichedit( ::Handle, cFile ) )
           RETURN .T.
       ENDIF
    ENDIF
@@ -272,7 +272,7 @@ METHOD Savefile( cFile )  CLASS HRichEdit
 METHOD OpenFile( cFile )  CLASS HRichEdit
 
    IF !EMPTY( cFile )
-      IF ! EMPTY( hwg_Loadrichedit( ::Handle, cFile ) )
+      IF !EMPTY( hwg_Loadrichedit( ::Handle, cFile ) )
           RETURN .T.
       ENDIF
    ENDIF

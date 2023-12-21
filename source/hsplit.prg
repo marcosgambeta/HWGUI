@@ -59,7 +59,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Activate() CLASS HSplitter
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
@@ -69,7 +69,7 @@ METHOD Activate() CLASS HSplitter
 
 METHOD Init() CLASS HSplitter
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
@@ -166,7 +166,7 @@ METHOD Drag( lParam ) CLASS HSplitter
       xPos := 0
    ENDIF
    ::Move( ::nLeft + xPos, ::nTop + yPos, ::nWidth, ::nHeight )
-   IF ! ::lScrolling
+   IF !::lScrolling
       hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth , ::nTop + ::nHeight )
    ENDIF
    ::lMoved := .T.
@@ -209,7 +209,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       ENDIF
    NEXT
    //::lMoved := .F.
-   IF ! lScroll
+   IF !lScroll
       hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft ,::nTop  , ::nLeft + ::nWidth , ::nTop + ::nHeight  )
    ELSEIF ::lVertical
       hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft - ::nWidth - xDiff - 1 , ::nTop , ::nLeft + ::nWidth + xDiff + 1, ::nTop + ::nHeight )

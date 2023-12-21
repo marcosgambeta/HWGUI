@@ -57,7 +57,7 @@ METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip ) CLASS HSayImage
 
 METHOD Activate() CLASS HSayImage
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
@@ -264,7 +264,7 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip ) CLASS H
 
 METHOD Init() CLASS HSayIcon
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle )
    ENDIF

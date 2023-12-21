@@ -26,7 +26,7 @@ FUNCTION hwg_InitObjects( oWnd )
 
    IF !EMPTY( LoadArray )
       FOR i := 1 TO Len( LoadArray )
-         IF ! EMPTY( oWnd:Handle )
+         IF !EMPTY( oWnd:Handle )
             IF __ObjHasMsg( LoadArray[ i ],"INIT")
                LoadArray[ i ]:Init( oWnd )
                LoadArray[ i ]:lInit := .T.
@@ -67,12 +67,12 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
 
             // writelog( "InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname )
          ENDIF
-         IF ! Empty( pArray[ i ]:aControls )
+         IF !Empty( pArray[ i ]:aControls )
             hwg_InitControls( pArray[ i ] )
          ENDIF
          pArray[ i ]:Init()
           // nando required to classes that inherit the class of patterns hwgui
-         IF ! pArray[i]:lInit
+         IF !pArray[i]:lInit
             pArray[i]:Super:Init()
          ENDIF
       NEXT
@@ -509,7 +509,7 @@ FUNCTION hwg_CheckFocus( oCtrl, lInside )
    LOCAL hGetFocus := hwg_Ptrtoulong( hwg_Getfocus() ), lModal
 
    IF ( !EMPTY( oParent ) .AND. ! hwg_Iswindowvisible( oParent:handle ) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
-      IF ! lInside .AND. Empty( oParent:nInitFocus ) // = 0
+      IF !lInside .AND. Empty( oParent:nInitFocus ) // = 0
          oParent:Show()
          hwg_Setfocus( oParent:handle )
          hwg_Setfocus( hGetFocus )

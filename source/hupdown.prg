@@ -265,7 +265,7 @@ METHOD Valid() CLASS HUpDown
    ENDIF
    */
    res :=  ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
-   IF ! res
+   IF !res
       ::nValue := IIF( ::nValue > ::nUpper, Min( ::nValue, ::nUpper ), Max( ::nValue, ::nLower ) )
       ::SetValue( ::nValue )
       ::oEditUpDown:Refresh()
@@ -288,7 +288,7 @@ ENDCLASS
 
 METHOD Init() CLASS HEditUpDown
 
-   IF ! ::lInit
+   IF !::lInit
       IF ::bChange != Nil
          ::oParent:AddEvent( EN_CHANGE, self,{|| ::onChange()},,"onChange")
       ENDIF

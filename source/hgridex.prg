@@ -124,7 +124,7 @@ METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint,
    RETURN Self
 
 METHOD Activate() CLASS HGridEx
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::Style :=  ::Style - WS_BORDER
       ::handle := hwg_Listview_create ( ::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll )
       ::Init()
@@ -139,7 +139,7 @@ METHOD Init() CLASS HGridEx
    LOCAL n1
    LOCAL aTemp, aTemp1, nmax
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::nHolder := 1
 

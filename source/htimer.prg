@@ -65,7 +65,7 @@ METHOD New( oParent, nId, value, bAction ) CLASS HTimer
 
 METHOD Init() CLASS HTimer
 
-   IF ! ::lInit .AND. ! EMPTY( ::oParent:handle )
+   IF !::lInit .AND. ! EMPTY( ::oParent:handle )
       IF ::value > 0
          hwg_Settimer( ::oParent:handle, ::id, ::value )
       ENDIF

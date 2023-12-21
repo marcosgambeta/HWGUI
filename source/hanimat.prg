@@ -51,7 +51,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Activate() CLASS HAnimation
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Animate_Create( ::oParent:handle, ::id, ::style, ;
                                   ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -59,7 +59,7 @@ METHOD Activate() CLASS HAnimation
    RETURN Nil
 
 METHOD Init() CLASS HAnimation
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       IF ::xResID != Nil
          hwg_Animate_OpenEx( ::handle, hwg_Getresources(), ::xResID )

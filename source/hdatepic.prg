@@ -118,7 +118,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
    RETURN Self
 
 METHOD Activate() CLASS HDatePicker
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createdatepicker( ::oParent:handle, ::id, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style )
       ::Init()
@@ -127,7 +127,7 @@ METHOD Activate() CLASS HDatePicker
    RETURN NIL
 
 METHOD Init() CLASS HDatePicker
-   IF ! ::lInit
+   IF !::lInit
    
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
@@ -174,7 +174,7 @@ METHOD CheckValue( lValue )  CLASS HDatePicker
    ENDIF
    IF lValue != Nil
       IF IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE ,.F., .T. ) != lValue
-         IF ! lValue
+         IF !lValue
             hwg_Sendmessage( ::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0 )
          ELSE
             hwg_Setdatepicker( ::handle, ::dValue, STRTRAN( ::tValue, ":", "" ) )
@@ -216,7 +216,7 @@ METHOD SetValue( xValue ) CLASS HDatePicker
 METHOD Refresh() CLASS HDatePicker
 
    IF ::bSetGet != NIL
-      IF ! ::lShowTime
+      IF !::lShowTime
          ::dValue := Eval( ::bSetGet,, Self )
       ELSE
          ::tValue := Eval( ::bSetGet,, Self )
@@ -258,7 +258,7 @@ METHOD onChange( nMess ) CLASS HDatePicker
 METHOD When( ) CLASS HDatePicker
    LOCAL res := .T.,  nSkip
 
-   IF ! hwg_CheckFocus( Self, .F. )
+   IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
@@ -281,7 +281,7 @@ METHOD When( ) CLASS HDatePicker
 METHOD Valid( ) CLASS HDatePicker
    LOCAL  res := .T.
 
-   IF ! hwg_CheckFocus( Self, .T. ) .OR. ::lnoValid
+   IF !hwg_CheckFocus( Self, .T. ) .OR. ::lnoValid
       RETURN .T.
    ENDIF
    ::dValue := hwg_Getdatepicker( ::handle )
@@ -293,7 +293,7 @@ METHOD Valid( ) CLASS HDatePicker
       res := Eval( ::bLostFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
       res := IIF( ValType( res ) == "L", res, .T. )
       ::oparent:lSuspendMsgsHandling := .F.
-      IF ! res
+      IF !res
          hwg_Postmessage( ::handle, WM_KEYDOWN, VK_RIGHT, 0 )
          ::Setfocus( .T. )
       ENDIF

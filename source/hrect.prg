@@ -96,7 +96,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HRect_Line
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -207,7 +207,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HDrawShape
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -219,7 +219,7 @@ METHOD SetColor( tcolor, bColor, lRedraw ) CLASS HDrawShape
 
    ::brushFill := HBrush():Add( tColor, ::nfstyle )
    ::Super:SetColor( tColor, bColor )
-   IF ! Empty( lRedraw )
+   IF !Empty( lRedraw )
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
    ENDIF
 
@@ -349,7 +349,7 @@ METHOD Activate() CLASS HContainer
    IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight)
-      IF ! ::lInit
+      IF !::lInit
          hwg_Addtooltip( ::handle, ::handle, "" )
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
@@ -362,7 +362,7 @@ METHOD Activate() CLASS HContainer
       ENDIF
       ::Init()
    ENDIF
-   IF ! ::lCreate
+   IF !::lCreate
       ::Create()
       ::lCreate := .T.
    ENDIF
@@ -371,7 +371,7 @@ METHOD Activate() CLASS HContainer
 
 METHOD Init() CLASS HContainer
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:init()
       hwg_Addtooltip( ::handle, ::handle, "" )
       ::nHolder := 1
@@ -442,7 +442,7 @@ METHOD Paint( lpdis ) CLASS HContainer
 
    IF ::ncStyle != NIL
       hwg_Setbkmode( hDC, ::backStyle )
-      IF ! ::lnoBorder
+      IF !::lnoBorder
          IF ::ncStyle == 0      // RAISED
             hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_RAISED,BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM)  // raised  forte      8
          ELSEIF ::ncStyle == 1  // sunken

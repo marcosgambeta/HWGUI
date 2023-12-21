@@ -95,7 +95,7 @@ METHOD Enabled( lEnabled ) CLASS HPage
    IF lEnabled != NIL .AND. ::lEnabled != lEnabled
       ::lEnabled := lEnabled
       IF lEnabled .AND. ( ::PageOrder != ::oParent:nActive .OR. ! hwg_Iswindowenabled( ::oParent:Handle ) )
-         IF ! hwg_Iswindowenabled( ::oParent:Handle )
+         IF !hwg_Iswindowenabled( ::oParent:Handle )
             ::oParent:Enable()
             ::oParent:setTab(::PageOrder)
          ENDIF
@@ -210,7 +210,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HTab
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createtabcontrol( ::oParent:handle, ::id, ;
          ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -239,7 +239,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 METHOD Init() CLASS HTab
    LOCAL i, x := 0
 
-   IF ! ::lInit
+   IF !::lInit
       hwg_Inittabcontrol( ::handle, ::aTabs, iif( ::himl != NIL, ::himl, 0 ) )
       hwg_Sendmessage( ::HANDLE, TCM_SETMINTABWIDTH , 0 , 0 )
       IF Hwg_BitAnd( ::Style, TCS_FIXEDWIDTH  ) != 0
@@ -307,7 +307,7 @@ METHOD SetPaintSizePos( nFlag ) CLASS HTab
    ELSEIF nFlag > 0
       ::npaintheight  := nFlag
       ::oPaint:nHeight := nFlag
-      IF ! hwg_Iswindowenabled( ::Handle )
+      IF !hwg_Iswindowenabled( ::Handle )
          RETURN NIL
       ENDIF
    ENDIF
@@ -369,7 +369,7 @@ STATIC FUNCTION InitPage( oTab, oPage, cCaption, n )
 METHOD EndPage() CLASS HTab
    LOCAL i, cName, cPage := "Page" + AllTrim( Str( ::nActive ) )
 
-   IF ! ::lResourceTab
+   IF !::lResourceTab
       ::aPages[ ::nActive, 2 ] := Len( ::aControls ) - ::aPages[ ::nActive, 1 ]
       IF ::handle != NIL .AND. ! Empty( ::handle )
          hwg_Addtab(::handle, ::nActive, ::aTabs[ ::nActive ])
@@ -410,7 +410,7 @@ METHOD ChangePage( nPage ) CLASS HTab
    IF nPage = ::nActive  //.OR. ! ::pages[ nPage ]:enabled
       RETURN NIL
    ENDIF
-   IF ! Empty( ::aPages ) .AND. ::pages[ nPage ]:enabled
+   IF !Empty( ::aPages ) .AND. ::pages[ nPage ]:enabled
       //-client_rect := hwg_Tabitempos( ::Handle, ::nActive - 1 )
       IF ::nActive > 0
          ::HidePage( ::nActive )
@@ -445,7 +445,7 @@ METHOD onChange( ) CLASS HTab
 METHOD HidePage( nPage ) CLASS HTab
    LOCAL i, nFirst, nEnd, k
 
-   IF ! ::lResourceTab
+   IF !::lResourceTab
       nFirst := ::aPages[ nPage, 1 ] + 1
       nEnd   := ::aPages[ nPage, 1 ] + ::aPages[ nPage, 2 ]
       FOR i := nFirst TO nEnd
@@ -466,7 +466,7 @@ METHOD HidePage( nPage ) CLASS HTab
 METHOD ShowPage( nPage ) CLASS HTab
    LOCAL i, nFirst, nEnd
 
-   IF ! ::lResourceTab
+   IF !::lResourceTab
       nFirst := ::aPages[ nPage, 1 ] + 1
       nEnd   := ::aPages[ nPage, 1 ] + ::aPages[ nPage, 2 ]
       IF ::oPaint:nHeight > 1 .AND. ::Pages[ nPage ]:brush != NIL .AND. ;
@@ -474,7 +474,7 @@ METHOD ShowPage( nPage ) CLASS HTab
          ::SetPaintSizePos( - 2 )
       ENDIF
       FOR i := nFirst TO nEnd
-         IF ! ::aControls[i]:lHide .OR. ( Len( ::aControlsHide ) = 0 .OR. ASCAN( ::aControlsHide, ::aControls[i]:id ) = 0 )
+         IF !::aControls[i]:lHide .OR. ( Len( ::aControlsHide ) = 0 .OR. ASCAN( ::aControlsHide, ::aControls[i]:id ) = 0 )
             ::aControls[ i ]:Show( SW_SHOWNA )
          ENDIF
       NEXT
@@ -500,14 +500,14 @@ METHOD Refresh( lAll ) CLASS HTab
    LOCAL hCtrl := hwg_Getfocus()
 
    IF ::nActive != 0
-      IF ! ::lResourceTab
+      IF !::lResourceTab
          lAll := iif( lAll = NIL, .F. , lAll )
          nFirst := ::aPages[ ::nActive, 1 ] + 1
          nEnd   := ::aPages[ ::nActive, 1 ] + ::aPages[ ::nActive, 2 ]
          FOR i := nFirst TO nEnd
             lRefresh :=  ! Empty( __ObjHasMethod( ::aControls[ i ], "REFRESH" ) ) .AND.  ;
                ( __ObjHasMsg( ::aControls[ i ], "BSETGET" ) .OR. lAll ) .AND. ::aControls[ i ]:Handle != hCtrl
-            IF ! Empty( lRefresh )
+            IF !Empty( lRefresh )
                ::aControls[ i ]:Refresh( )
                IF ::aControls[ i ]:bRefresh != NIL
                   Eval( ::aControls[ i ]:bRefresh, ::aControls[ i ] )
@@ -525,7 +525,7 @@ METHOD RedrawControls() CLASS HTab
    LOCAL i
 
    IF ::nActive != 0
-      IF ! ::lResourceTab
+      IF !::lResourceTab
          ::oParent:lSuspendMsgsHandling := .T.
          FOR i := ::aPages[ ::nActive, 1 ] + 1 TO ::aPages[ ::nActive, 1 ] + ::aPages[ ::nActive, 2 ]
             IF hwg_Iswindowvisible( ::aControls[ i ]:Handle )
@@ -542,8 +542,8 @@ METHOD RedrawControls() CLASS HTab
 METHOD GetActivePage( nFirst, nEnd ) CLASS HTab
 
    IF ::nActive > 0
-      IF ! ::lResourceTab
-         IF ! Empty( ::aPages ) .AND. Valtype(::aPages[1]) == "A"
+      IF !::lResourceTab
+         IF !Empty( ::aPages ) .AND. Valtype(::aPages[1]) == "A"
             nFirst := ::aPages[ ::nActive, 1 ] + 1
             nEnd   := ::aPages[ ::nActive, 1 ] + ::aPages[ ::nActive, 2 ]
          ELSE
@@ -620,7 +620,7 @@ METHOD Notify( lParam ) CLASS HTab
    CASE nCode == TCN_FOCUSCHANGE  //-554
    CASE nCode == TCN_SELCHANGE
       // ACTIVATE NEW PAGE
-      IF ! ::pages[nPage]:enabled
+      IF !::pages[nPage]:enabled
          ::lClick := .F.
          ::nPrevPage := nPage
          RETURN 0
@@ -647,7 +647,7 @@ METHOD Notify( lParam ) CLASS HTab
       ::nPrevPage := nPage
       RETURN 0
    CASE nCode == TCN_RCLICK
-      IF ! Empty( ::pages ) .AND. ::nActive > 0 .AND. ::pages[ ::nActive ]:enabled
+      IF !Empty( ::pages ) .AND. ::nActive > 0 .AND. ::pages[ ::nActive ]:enabled
          IF ::bRClick != NIL
             ::oparent:lSuspendMsgsHandling := .T.
             Eval( ::bRClick, Self, hwg_Getcurrenttab(::handle) )
@@ -688,7 +688,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
          RETURN 0
       ENDIF
       //::lClick := .T.
-      IF ! hwg_Selffocus( ::Handle )
+      IF !hwg_Selffocus( ::Handle )
          ::Setfocus(0)
       ENDIF
       RETURN - 1
@@ -776,7 +776,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
-   IF ! ( ( msg = WM_COMMAND .OR. msg = WM_NOTIFY ) .AND. ::oParent:lSuspendMsgsHandling .AND. ::lSuspendMsgsHandling )
+   IF !( ( msg = WM_COMMAND .OR. msg = WM_NOTIFY ) .AND. ::oParent:lSuspendMsgsHandling .AND. ::lSuspendMsgsHandling )
       IF msg = WM_NCPAINT .AND. !Empty( hwg_GetParentForm( Self ):nInitFocus )  .AND. hwg_Ptrtoulong( hwg_Getparent( hwg_GetParentForm(Self ):nInitFocus ) ) = hwg_Ptrtoulong( ::Handle )
          hwg_GetSkip( ::oParent, hwg_GetParentForm( Self ):nInitFocus , , 0 )
          hwg_GetParentForm( Self ):nInitFocus := 0
@@ -797,7 +797,7 @@ METHOD ShowDisablePage( nPageEnable, nEvent ) CLASS HTab
    LOCAL client_rect, i, pt := { , }
 
    DEFAULT nPageEnable := 0
-   IF ! hwg_Iswindowvisible( ::handle ) .OR. ( Ascan( ::Pages, { | p | ! p:lEnabled } ) = 0  .AND. nPageEnable = NIL )
+   IF !hwg_Iswindowvisible( ::handle ) .OR. ( Ascan( ::Pages, { | p | ! p:lEnabled } ) = 0  .AND. nPageEnable = NIL )
       RETURN - 1
    ENDIF
    nPageEnable := iif( nPageEnable = NIL, 0, nPageEnable )
@@ -807,7 +807,7 @@ METHOD ShowDisablePage( nPageEnable, nEvent ) CLASS HTab
       pt[2] = hwg_Hiword( nPageEnable )
    ENDIF
    FOR i = 1 TO Len( ::Pages )
-      IF ! ::pages[ i ]:enabled .OR. i = hwg_Ptrtoulong( nPageEnable )
+      IF !::pages[ i ]:enabled .OR. i = hwg_Ptrtoulong( nPageEnable )
          client_rect := hwg_Tabitempos( ::Handle, i - 1 )
          IF ( hwg_Ptinrect( client_rect, pt ) ) .AND. i != nPageEnable
             RETURN 0

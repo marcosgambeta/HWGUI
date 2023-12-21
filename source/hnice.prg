@@ -110,7 +110,7 @@ METHOD Redefine( oWndParent, nId, nStyleEx, ;
 
 METHOD Activate() CLASS HNiceButton
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createnicebtn( ::oParent:handle, ::id, ;
                                  ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text )
       ::Init()
@@ -119,7 +119,7 @@ METHOD Activate() CLASS HNiceButton
 
 METHOD INIT() CLASS HNiceButton
 
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       ::Create()
    ENDIF
@@ -217,12 +217,12 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
 METHOD MUp( ) CLASS HNICEButton
 
    IF ::state == OBTN_PRESSED
-      IF ! ::lPress
+      IF !::lPress
          ::state := IIf( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
       ENDIF
-      IF ! ::lFlat
+      IF !::lFlat
          hwg_SetNiceBtnSelected( Nil )
       ENDIF
       IF ::bClick != Nil

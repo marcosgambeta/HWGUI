@@ -168,7 +168,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
 METHOD INIT() CLASS HStaticLink
 
-   IF ! ::lInit
+   IF !::lInit
       ::Resize( )
       ::Super:init()
       IF ::Title != NIL

@@ -647,7 +647,7 @@ METHOD onSelect() CLASS HComboBox
 
 METHOD onChange( lForce ) CLASS HComboBox
 
-   IF ! hwg_Selffocus( ::handle ) .AND. Empty( lForce )
+   IF !hwg_Selffocus( ::handle ) .AND. Empty( lForce )
       RETURN Nil
    ENDIF
    IF  ! hwg_Iswindowvisible( ::handle )
@@ -1227,7 +1227,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
    cTmp := Left( ::Title, 2 )
 
    IF cTmp == "\]" .OR. cTmp == "\-"
-      IF ! lDroped
+      IF !lDroped
          hwg_Exttextout( dc, 0, 0, iif( ::lCheck, rcText[1], 0 ), rcText[2], rcText[3], rcText[4] )
          RETURN 0
       ENDIF

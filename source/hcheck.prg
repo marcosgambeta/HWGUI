@@ -73,7 +73,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    RETURN Self
 
 METHOD Activate() CLASS HCheckButton
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
@@ -101,7 +101,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bC
    RETURN Self
 
 METHOD Init() CLASS HCheckButton
-   IF ! ::lInit
+   IF !::lInit
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       HWG_INITBUTTONPROC(::handle)
@@ -221,7 +221,7 @@ METHOD killFocus() CLASS HCheckButton
    LOCAL ndown := hwg_Getkeystate( VK_RIGHT ) + hwg_Getkeystate( VK_DOWN ) + hwg_Getkeystate( VK_TAB )
    LOCAL nSkip := 0
 
-   IF ! hwg_CheckFocus( Self, .T. )
+   IF !hwg_CheckFocus( Self, .T. )
       RETURN .T.
    ENDIF
 
@@ -251,7 +251,7 @@ METHOD killFocus() CLASS HCheckButton
 METHOD When( ) CLASS HCheckButton
    LOCAL res := .T., nSkip
 
-   IF ! hwg_CheckFocus( Self, .F. )
+   IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
    nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
@@ -264,7 +264,7 @@ METHOD When( ) CLASS HCheckButton
          res := Eval( ::bGetFocus,::lValue, Self )
       ENDIF
       ::lnoValid := ! res
-      IF ! res
+      IF !res
          hwg_WhenSetFocus( Self, nSkip )
       ENDIF
    ENDIF
@@ -275,7 +275,7 @@ METHOD When( ) CLASS HCheckButton
 METHOD Valid() CLASS HCheckButton
    LOCAL l := hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 )
 
-   IF ! hwg_CheckFocus( Self, .T. )  .OR. ::lnoValid
+   IF !hwg_CheckFocus( Self, .T. )  .OR. ::lnoValid
       RETURN .T.
    ENDIF
    IF l == BST_INDETERMINATE

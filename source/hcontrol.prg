@@ -121,7 +121,7 @@ METHOD AddName( cName ) CLASS HControl
 METHOD INIT() CLASS HControl
    LOCAL oForm := hwg_GetParentForm( Self )
 
-   IF ! ::lInit
+   IF !::lInit
       ::oparent:lSuspendMsgsHandling := .T.
       IF Len( ::aControls ) = 0 .AND. ::winclass != "SysTabControl32" .AND. ValType( oForm ) != "N"
          hwg_Addtooltip( oForm:handle, ::handle, ::tooltip )
@@ -154,7 +154,7 @@ METHOD INIT() CLASS HControl
 METHOD Setfocus( lValid ) CLASS HControl
    LOCAL lSuspend := ::oParent:lSuspendMsgsHandling
 
-   IF ! hwg_Iswindowenabled( ::Handle )
+   IF !hwg_Iswindowenabled( ::Handle )
       ::oParent:lSuspendMsgsHandling  := .T.
       hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 )
       ::oParent:lSuspendMsgsHandling  := lSuspend
@@ -195,7 +195,7 @@ METHOD DisableBackColor( DisableBColor )
          ::Disablebrush:Release()
       ENDIF
       ::Disablebrush := HBrush():Add( ::DisableBColor )
-      IF ! ::IsEnabled() .AND. hwg_Iswindowvisible( ::Handle )
+      IF !::IsEnabled() .AND. hwg_Iswindowvisible( ::Handle )
          hwg_Invalidaterect( ::Handle, 0 )
       ENDIF
    ENDIF
@@ -440,7 +440,7 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClic
 
 METHOD Activate() CLASS HStatus
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatuswindow( ::oParent:handle, ::id )
       ::StatusHeight( ::nStatusHeight )
       ::Init()
@@ -450,8 +450,8 @@ METHOD Activate() CLASS HStatus
 
 METHOD Init() CLASS HStatus
 
-   IF ! ::lInit
-      IF ! Empty( ::aParts )
+   IF !::lInit
+      IF !Empty( ::aParts )
          hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
       ENDIF
       ::Super:Init()
@@ -551,7 +551,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
    ELSE
       oIcon := HIcon():addFile( cIcon, nWidth, nHeight )
    ENDIF
-   IF ! Empty( oIcon )
+   IF !Empty( oIcon )
       hwg_Sendmessage( ::handle, SB_SETICON, nPart - 1, oIcon:handle )
    ENDIF
 
@@ -560,7 +560,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
 METHOD Resize( xIncrSize ) CLASS HStatus
    LOCAL i
 
-   IF ! Empty( ::aParts )
+   IF !Empty( ::aParts )
       FOR i := 1 TO Len( ::aParts )
          ::aParts[ i ] := Round( ::aParts[ i ] * xIncrSize, 0 )
       NEXT
@@ -817,7 +817,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
 
 METHOD Activate() CLASS HLine
 
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()

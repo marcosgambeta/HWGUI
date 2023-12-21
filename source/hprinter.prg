@@ -291,7 +291,7 @@ METHOD StartDoc(lPreview, cMetaName) CLASS HPrinter
 
 METHOD EndDoc() CLASS HPrinter
 
-   IF ! ::lPreview
+   IF !::lPreview
       Hwg_EndDoc(::hDC)
    ENDIF
 

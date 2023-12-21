@@ -75,7 +75,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    RETURN Self
 
 METHOD Activate() CLASS HTrackBar
-   IF ! Empty( ::oParent:handle )
+   IF !Empty( ::oParent:handle )
       ::handle := hwg_InitTrackbar ( ::oParent:handle, ::id, ::style, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
             ::nLow, ::nHigh )
@@ -122,7 +122,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
    RETURN - 1
 
 METHOD Init() CLASS HTrackBar
-   IF ! ::lInit
+   IF !::lInit
       ::Super:Init()
       hwg_TrackbarSetrange( ::handle, ::nLow, ::nHigh )
       hwg_Sendmessage( ::handle, TBM_SETPOS, 1, ::value )

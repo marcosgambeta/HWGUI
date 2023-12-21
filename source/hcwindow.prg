@@ -359,12 +359,12 @@ METHOD Closable( lClosable ) CLASS HCustomWindow
    Local hMenu
 
    IF lClosable != Nil
-      IF ! lClosable
+      IF !lClosable
          hMenu := hwg_Enablemenusystemitem( ::Handle, SC_CLOSE, .F. )
       ELSE
          hMenu := hwg_Enablemenusystemitem( ::Handle, SC_CLOSE, .T. )
       ENDIF
-      IF ! EMPTY( hMenu )
+      IF !EMPTY( hMenu )
          ::lClosable := lClosable
       ENDIF
    ENDIF
@@ -430,7 +430,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
          hwg_Settextcolor( wParam, oCtrl:tcolor )
       ENDIF
       hwg_Setbkmode( wParam, oCtrl:backstyle )
-      IF !  oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
+      IF ! oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
          hwg_Setbkmode( wParam, TRANSPARENT ) 
          hwg_Setbkcolor( wParam, oCtrl:DisablebColor )
          RETURN oCtrl:disablebrush:handle
@@ -455,7 +455,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
 
 STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
    LOCAL oCtrl
-   IF ! EMPTY( wParam ) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
+   IF !EMPTY( wParam ) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
                  VALTYPE( oCtrl ) != "N"  .AND. oCtrl:bPaint != NIL
       Eval( oCtrl:bPaint, oCtrl, lParam )
       RETURN 1
@@ -513,7 +513,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
       IF !EMPTY( oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. ! EMPTY( oWnd:Screen )
          oWnd:Anchor( oWnd:Screen, nw1, nh1, oWnd:nWidth, oWnd:nHeight )
       ENDIF
-      IF ! EMPTY( oWnd:Type)
+      IF !EMPTY( oWnd:Type)
          oWnd:Anchor( oWnd, nw1, nh1, oWnd:nWidth, oWnd:nHeight)
       ENDIF
    ENDIF

@@ -57,7 +57,7 @@ FUNCTION Hwg_CreateMenu
 
 FUNCTION Hwg_SetMenu( oWnd, aMenu )
 
-   IF ! Empty( oWnd:handle )
+   IF !Empty( oWnd:handle )
       IF hwg__SetMenu( oWnd:handle, aMenu[5] )
          oWnd:menu := aMenu
       ELSE
@@ -242,7 +242,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
    FOR i := 1 TO _nLevel
       aMenu := ATail( aMenu )[1]
    NEXT
-   IF ! Empty( cItem )
+   IF !Empty( cItem )
       cItem := StrTran( cItem, "\t", Chr(9) )
    ENDIF
    nId := IIf( nId == Nil .AND. cItem != Nil, ++ _Id, nId )
