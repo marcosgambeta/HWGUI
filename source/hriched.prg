@@ -189,7 +189,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
 METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
 
    IF tcolor != NIL
-      hwg_Re_setdefault( ::handle, tColor ) //, ID_FONT ,, ) // cor e fonte padrao
+      hwg_Re_setdefault( ::handle, tColor ) //, ID_FONT,, ) // cor e fonte padrao
    ENDIF
    IF bColor != NIL
       hwg_Sendmessage( ::Handle, EM_SETBKGNDCOLOR, 0, bColor )  // cor de fundo
@@ -201,7 +201,7 @@ METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
 METHOD ReadOnly( lreadOnly )
 
    IF lreadOnly != Nil
-      IF !EMPTY( hwg_Sendmessage( ::handle,  EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0 ) )
+      IF !EMPTY( hwg_Sendmessage( ::handle, EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0 ) )
           ::lReadOnly := lReadOnly
       ENDIF
    ENDIF
@@ -209,7 +209,7 @@ METHOD ReadOnly( lreadOnly )
 
 METHOD UpdatePos( ) CLASS HRichEdit
     LOCAL npos := hwg_Sendmessage( ::handle, EM_GETSEL, 0, 0 )
-   LOCAL pos1 := hwg_Loword(npos) + 1,   pos2 := hwg_Hiword(npos) + 1
+   LOCAL pos1 := hwg_Loword(npos) + 1, pos2 := hwg_Hiword(npos) + 1
 
     ::Line := hwg_Sendmessage( ::Handle, EM_LINEFROMCHAR, pos1 - 1, 0 ) + 1
     ::LinesTotal := hwg_Sendmessage( ::handle, EM_GETLINECOUNT, 0, 0 )

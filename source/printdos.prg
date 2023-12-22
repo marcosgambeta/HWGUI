@@ -85,11 +85,11 @@ CLASS PrintDos
 ENDCLASS
 
 METHOD New( oPorta ) CLASS PrintDos
-   LOCAL oDouble  := { oMATRIXDOUBLE,   oINKJETDOUBLE,   oLASER10CPI }
-   LOCAL oNormal  := { oMATRIXNORMAL,   oINKJETNORMAL,   oLASER12CPI }
+   LOCAL oDouble  := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
+   LOCAL oNormal  := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
    LOCAL oCompress := { oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI }
-   LOCAL oBold    := { oMATRIXBOLD,     oINKJETBOLD,     oLASERBOLD  }       //Added by  por Fernando Athayde
-   LOCAL oUnBold  := { oMATRIXUNBOLD,   oINKJETUNBOLD,   oLASERUNBOLD }       //Added by  por Fernando Athayde
+   LOCAL oBold    := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD  }       //Added by  por Fernando Athayde
+   LOCAL oUnBold  := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
    LOCAL oPtrSetup, oPtrName
 
    ::cCompr   := oCompress[ ::oPrintStyle ]
@@ -493,7 +493,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    IIf( cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle )
 
    INIT DIALOG oDlg TITLE cTitle ;
-        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage( oedit1:handle, WM_VSCROLL  , SB_TOP, 0 ) }
+        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage( oedit1:handle, WM_VSCROLL, SB_TOP, 0 ) }
 
 
 

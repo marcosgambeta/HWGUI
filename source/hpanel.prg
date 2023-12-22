@@ -190,7 +190,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
    IF msg = WM_NCPAINT .AND. !Empty( hwg_GetParentForm(Self):nInitFocus ) .AND. ;
          ( hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), ::Handle  ) .OR. ;
          hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), hwg_Getparent( ::Handle ) ) )
-      hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus , , IIF( hwg_Selffocus( hwg_GetParentForm(Self):nInitFocus, ::Handle ), 1, 0 ) )
+      hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus, , IIF( hwg_Selffocus( hwg_GetParentForm(Self):nInitFocus, ::Handle ), 1, 0 ) )
       hwg_GetParentForm(Self):nInitFocus := 0
    ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. !::lSuspendMsgsHandling  //.AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_GetSkip( ::oParent, ::handle, , ::nGetSkip )
@@ -263,9 +263,9 @@ METHOD Release() CLASS HPanel
             ::oParent:aOffset[3] -= ::nWidth
          ENDIF
       ENDIF
-      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1] , 0 )
-      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2] , 0 )
-      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3] , 0 )
+      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1], 0 )
+      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2], 0 )
+      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3], 0 )
       hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
       ::nHeight := 0
       ::nWidth := 0
@@ -395,9 +395,9 @@ METHOD ResizeOffSet( nMode ) CLASS HPanel
          ENDIF
          lRes := .T.
       ENDIF
-      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1] , 0 )
-      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2] , 0 )
-      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3] , 0 )
+      ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1], 0 )
+      ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2], 0 )
+      ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3], 0 )
       IF lRes
          hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
       ENDIF

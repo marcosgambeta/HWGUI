@@ -226,7 +226,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::Enabled := !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
    ::style   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), BS_RADIOBUTTON + ; // BS_AUTORADIOBUTTON+;
          BS_NOTIFY + ;  // WS_CHILD + WS_VISIBLE
-         IIf( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP , 0 ) )
+         IIf( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
    ::Super:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, ;
          oFont, bInit, bSize, bPaint,ctooltip, tcolor, bColor )
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
@@ -306,7 +306,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
    ENDIF
    */
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
-   ::setcolor( tColor, bColor ,.T.)
+   ::setcolor(tColor, bColor, .T.)
    ::oParent:AddControl( Self )
 
    IF bClick != NIL .AND. ( ::oGroup == NIL .OR. ::oGroup:bSetGet == NIL )

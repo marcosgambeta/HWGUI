@@ -173,7 +173,7 @@ METHOD CheckValue( lValue )  CLASS HDatePicker
        RETURN .F.
    ENDIF
    IF lValue != Nil
-      IF IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE ,.F., .T. ) != lValue
+      IF IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE, .F., .T. ) != lValue
          IF !lValue
             hwg_Sendmessage( ::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0 )
          ELSE
@@ -181,7 +181,7 @@ METHOD CheckValue( lValue )  CLASS HDatePicker
          ENDIF
       ENDIF
    ENDIF
-   RETURN IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE ,.F., .T. )
+   RETURN IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE, .F., .T. )
 
 METHOD Value( Value )  CLASS HDatePicker
 
@@ -256,7 +256,7 @@ METHOD onChange( nMess ) CLASS HDatePicker
    RETURN .T.
 
 METHOD When( ) CLASS HDatePicker
-   LOCAL res := .T.,  nSkip
+   LOCAL res := .T., nSkip
 
    IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
@@ -279,7 +279,7 @@ METHOD When( ) CLASS HDatePicker
    RETURN res
 
 METHOD Valid() CLASS HDatePicker
-   LOCAL  res := .T.
+   LOCAL res := .T.
 
    IF !hwg_CheckFocus( Self, .T. ) .OR. ::lnoValid
       RETURN .T.

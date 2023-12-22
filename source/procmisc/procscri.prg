@@ -128,7 +128,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
    ENDIF
    IF han == Nil .OR. han != - 1
       IF !lppNoInit
-         ppScript( ,.T. )
+         ppScript( , .T. )
       ENDIF
       IF Valtype( scrSource ) == "C"
          WndOut( "Compiling ..." )
@@ -143,7 +143,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
          Fclose( han )
       ENDIF
       IF !lppNoInit
-         ppScript( ,.F. )
+         ppScript( , .F. )
       ENDIF
    ELSE
 #ifdef __WINDOWS__

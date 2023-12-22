@@ -27,7 +27,7 @@ STATIC aClass := { "label", "button", "buttonex", "toolbutton", "checkbox",     
        "bitmap", "icon", "richedit", "datepicker", "updown", ;
        "combobox", "line", "toolbar", "panel", "ownerbutton",     ;
        "browse", "column", "monthcalendar", "trackbar", "page",      ;
-       "tree", "status", "menu", "animation" ,             ;
+       "tree", "status", "menu", "animation",             ;
        "progressbar", "shadebutton", "listbox", "gridex",  ;
        "timer", "link"                                   ;
      }
@@ -63,8 +63,8 @@ STATIC aCtrls := { ;
        "HProgressBar():New( oPrnt,nId,nLeft,nTop,nWidth,nHeight,maxPos,nRange,bInit,bSize,bPaint,ctooltip )", ;
        "HshadeButton():New( oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,onClick,lFlat,caption,color,font,xt,yt,bmp,lResour,xb,yb,widthb,heightb,lTr,trColor,cTooltip,lEnabled,shadeID,palette,granularity,highlight,coloring,shcolor)", ;
        "HListBox():New(oPrnt,nId,nInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,Items,oFont,onInit,onSize,onPaint,onChange,cTooltip)", ;
-       "HGridEx():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onEnter,onGetfocus,onLostfocus,lNoVScroll,lNoBorder,onKeyDown,onPosChg,onDispInfo,nItemCout,lNoLines,TextColor,BackColor,lNoHeader,aBit,Items)" , ;
-       "HTimer():New(oPrnt,nId,nInterval, onAction)" , ;
+       "HGridEx():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onEnter,onGetfocus,onLostfocus,lNoVScroll,lNoBorder,onKeyDown,onPosChg,onDispInfo,nItemCout,lNoLines,TextColor,BackColor,lNoHeader,aBit,Items)", ;
+       "HTimer():New(oPrnt,nId,nInterval, onAction)", ;
        "HStaticLink():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,cTooltip,TextColor,BackColor,lTransp,Link,VisitedColor,LinkColor,HoverColor)" ;
      }
 
@@ -198,7 +198,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
    ::aProp := aProp
    ::aMethods := aMethods
 
-   ppScript( ,.T. )
+   ppScript( , .T. )
    AAdd(::aForms, Self)
    aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
@@ -237,7 +237,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
       ENDIF
    NEXT
    SetDebugInfo( .F. )
-   ppScript( ,.F. )
+   ppScript( , .F. )
 
    RETURN Self
 
@@ -364,13 +364,13 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
       IF lMdi
          INIT WINDOW ::oDlg MDI TITLE cTitle    ;
                At nLeft, nTop SIZE nWidth, nHeight ;
-               STYLE IIF( nstyle > 0 , nstyle, NIL ) ;
+               STYLE IIF( nstyle > 0, nstyle, NIL ) ;
                FONT oFont ;
                BACKGROUND BITMAP oBmp
       ELSEIF lMdiChild
          INIT WINDOW ::oDlg  MDICHILD TITLE cTitle    ;
                At nLeft, nTop SIZE nWidth, nHeight ;
-               STYLE IIF( nstyle > 0 , nstyle, NIL ) ;
+               STYLE IIF( nstyle > 0, nstyle, NIL ) ;
                FONT oFont ;
                BACKGROUND BITMAP oBmp
       ELSE
@@ -379,7 +379,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
                At nLeft, nTop SIZE nWidth, nHeight ;
                FONT oFont ;
                BACKGROUND BITMAP oBmp ;
-               STYLE IIF( nstyle > 0 , nstyle, NIL )
+               STYLE IIF( nstyle > 0, nstyle, NIL )
 #ifndef __GTK__
       ENDIF
 #endif
@@ -522,7 +522,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
    IF Asc(cMethod) <= 32
       cMethod := Ltrim( cMethod )
    ENDIF
-   IF Lower( Left( cMethod ,11 ) ) == "parameters " .AND. ;
+   IF Lower( Left( cMethod, 11 ) ) == "parameters " .AND. ;
          ( nPos := At( Chr(10),cMethod ) ) != 0
       DO WHILE Substr( cMethod, --nPos, 1 ) <= ' '; ENDDO
       cParam := Alltrim( Substr( Left( cMethod,nPos ), 12 ) )
@@ -555,7 +555,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
                "aControls["+Ltrim(Str(Len(oForm:aControls)))+"]", ;
                "F("+Ltrim(Str(oCtrl:nId))+")" )
          arrExe := Array(2)
-         arrExe[2] := RdScript( ,cMethod,1,.T.,cName )
+         arrExe[2] := RdScript( , cMethod, 1, .T., cName )
          cCode :=  "{|" + cParam + ;
                "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0,","+Ltrim(Str(nContainer)),"")+"):" + ;
                Iif( oCtrl == NIL,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2],{", ;
@@ -571,7 +571,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
          "aControls["+Ltrim(Str(Len(oForm:aControls)))+"]", ;
          "F("+Ltrim(Str(oCtrl:nId))+")" )
    arrExe := Array(2)
-   arrExe[2] := RdScript( ,cMethod,,.T.,cName )
+   arrExe[2] := RdScript( , cMethod, , .T., cName )
    cCode := "{|" + Iif( Empty(cParam),"",cParam ) + ;
          "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0,","+Ltrim(Str(nContainer)),"")+"):" + ;
          Iif( oCtrl == NIL,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2]" + ;
@@ -637,7 +637,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    LOCAL cAliasdbf, caArray, nHeadRows := 1, nFootRows := 0, lDispHead := .T., lDispSep := .T., lSep3d := .F., ladjright := .T.
    LOCAL nheadColor := 0, nsepColor := 12632256, nLeftCol := 0, nfreeze := 0, nColumns := 0
 #ifdef __XHARBOUR__
-   LOCAL cKey := "" , cRelexpr := "", cLink := ""
+   LOCAL cKey := "", cRelexpr := "", cLink := ""
 #else
    LOCAL cKey := ""
 #endif
@@ -849,7 +849,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       //ELSEIF cPName == "brwtype"
       //   brwtype := xProperty
       ELSEIF cPName == "aarray"
-         caArray := IIf( xProperty != NIL .AND. !Empty( xProperty ), &( xProperty ) , { } )
+         caArray := IIf( xProperty != NIL .AND. !Empty( xProperty ), &( xProperty ), { } )
       ELSEIF cPName == "childorder"
          cKey := IIf( xProperty != NIL .AND. !Empty( xProperty ), Trim( xProperty ), "" )
       ELSEIF cPName == "relationalexpr"
@@ -890,11 +890,11 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ladjright := xProperty
       // COLUNAS
       ELSEIF cPName == "heading"
-         cHeader := IIf( xProperty != NIL , xProperty , "" )
+         cHeader := IIf( xProperty != NIL, xProperty, "" )
       ELSEIF cPName == "fieldname"
-         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty , FieldName( i ) ) )
+         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty, FieldName( i ) ) )
       ELSEIF cPName == "fieldexpr"
-         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty , fBlock ) )
+         fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty, fBlock ) )
          //IF !(cAlias == cTmpAlias) .AND. cTmpAlias $ cCampo
          //  cCampo := STRTRAN(cCampo,cTmpAlias,cAlias)
          //ENDIF
@@ -920,7 +920,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             cPName := "c" + cPName
          ELSEIF cPName == "name"
             __mvPrivate( cPName )
-            cOName := IIf( oCtrlTmpl:cClass = "browse" .OR. oCtrlTmpl:cClass = "toolbar", xProperty , cOName )
+            cOName := IIf( oCtrlTmpl:cClass = "browse" .OR. oCtrlTmpl:cClass = "toolbar", xProperty, cOName )
          ENDIF
          /* Assigning the value of the property to the variable with
          the same name as the property */
@@ -1001,15 +1001,15 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          AEval( &cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd(j, aField[1]) } )
          IF m->nLength = NIL
             // m->nLength := &cTmpAlias->(fieldlen(ascan(j,temp)))
-            // m->nLength := IIF(m->nLength = 0 ,IIF(type("&cCampo") = "C",LEN(&cCampo),10),m->nLength)
+            // m->nLength := IIF(m->nLength = 0, IIF(type("&cCampo") = "C",LEN(&cCampo),10),m->nLength)
             m->nLength := &cAliasdbf->( fieldlen( AScan( j, temp ) ) )
-            m->nLength := IIf( m->nLength = 0 , IIf( Type( "&fblock" ) = "C", Len( &fBlock ), 10 ), m->nLength )
+            m->nLength := IIf( m->nLength = 0, IIf( Type( "&fblock" ) = "C", Len( &fBlock ), 10 ), m->nLength )
          ENDIF
          m->nDec := &cAliasdbf->( FIELDDEC(AScan(j, temp)) )
-         cHeader  := IIf( cHeader == NIL .OR. Empty( cHeader ) , temp, cHeader )
+         cHeader  := IIf( cHeader == NIL .OR. Empty( cHeader ), temp, cHeader )
          fBlock   := { || &fBlock }
       ELSE  //IF brwtype = 1
-         m->nLength := IIf( m->nLength = NIL , 10, m->nLength )
+         m->nLength := IIf( m->nLength = NIL, 10, m->nLength )
          fBlock := IIf( fBlock = NIL, ".T.", fBlock )
          fBlock := IIf( cValType = "B", &fBlock, { || &fBlock } )
       ENDIF
@@ -1274,7 +1274,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
    ::aProp := aProp
    ::aMethods := aMethods
 
-   ppScript( ,.T. )
+   ppScript( , .T. )
    AAdd(::aReports, Self)
    aItems := oDoc:aItems[1]:aItems
    FOR i := 1 TO Len( aItems )
@@ -1311,7 +1311,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
       ENDIF
    NEXT
    SetDebugInfo( .F. )
-   ppScript( ,.F. )
+   ppScript( , .F. )
 
    RETURN Self
 

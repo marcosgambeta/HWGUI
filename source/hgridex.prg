@@ -75,7 +75,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    METHOD AddRow( a, bUpdate )
    METHOD Notify( lParam )
 
-   METHOD DELETEROW()    INLINE IIF( ::bFlag , ( hwg_Sendmessage( ::HANDLE, LVM_DELETEITEM, ::iRowSelect , 0 ), ::bFlag := .F. ), .T. )
+   METHOD DELETEROW()    INLINE IIF( ::bFlag, ( hwg_Sendmessage( ::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0 ), ::bFlag := .F. ), .T. )
    METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := { }, hwg_Sendmessage( ::Handle, LVM_DELETEALLITEMS, 0, 0 )
    METHOD SELECTALL()    INLINE hwg_Listviewselectall( ::Handle )
    METHOD SELECTLAST()   INLINE hwg_Listviewselectlastitem( ::handle )
@@ -144,7 +144,7 @@ METHOD Init() CLASS HGridEx
       ::nHolder := 1
 
       FOR n := 1 TO Len( ::aBitmaps )
-         AAdd(aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ))
+         AAdd(aButton, hwg_Loadimage( , ::aBitmaps[ n ], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ))
       NEXT
 
       IF Len( aButton ) > 0
@@ -158,11 +158,11 @@ METHOD Init() CLASS HGridEx
 
 
          IF nmax == 4
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
          ELSEIF nmax == 8
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
          ELSEIF nmax == 24
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
          FOR nPos := 1 TO Len( aButton )
@@ -184,7 +184,7 @@ METHOD Init() CLASS HGridEx
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
       FOR i := 1 TO Len( ::aColumns )
-         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[ i, 1 ], ::aColumns[ i , 2 ], ::aColumns[ i, 3 ], IIF( ::aColumns[ i, 4 ] != NIL, ::aColumns[ i, 4 ]  , - 1 ) )
+         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[ i, 1 ], ::aColumns[ i, 2 ], ::aColumns[ i, 3 ], IIF( ::aColumns[ i, 4 ] != NIL, ::aColumns[ i, 4 ], - 1 ) )
 
       NEXT
       IF Len( ::aRow ) > 0
@@ -216,11 +216,11 @@ METHOD Refresh() CLASS HGridEx
 
    iLast := iFirst + hwg_Listview_getcountperpage( ::handle )
 
-   hwg_Listview_redrawitems( ::handle , iFirst, iLast )
+   hwg_Listview_redrawitems( ::handle, iFirst, iLast )
    RETURN Nil
 
 
-METHOD AddRow( a , bupdate ) CLASS HGRIDEX
+METHOD AddRow( a, bupdate ) CLASS HGRIDEX
    LOCAL nLen := Len( a )
    LOCAL n
    LOCAL aTmp := { }
@@ -231,19 +231,19 @@ METHOD AddRow( a , bupdate ) CLASS HGRIDEX
    DEFAULT bupdate TO .F.
    FOR n := 1 TO nLen STEP 4
       AAdd(aTmp1, a[ n ])
-      AAdd(aTmp,  IIF( ValType( a[ n + 1 ] ) == "N", a[ n + 1 ], - 1 ))
+      AAdd(aTmp, IIF( ValType( a[ n + 1 ] ) == "N", a[ n + 1 ], - 1 ))
 
-      AAdd(aTmp2,  IIF( ValType( a[ n + 2  ] ) == "N", a[ n + 2 ], hwg_Rgb(12, 15, 46) ))
+      AAdd(aTmp2, IIF( ValType( a[ n + 2  ] ) == "N", a[ n + 2 ], hwg_Rgb(12, 15, 46) ))
 
 
-      AAdd(aTmp2,  IIF( ValType( a[ n + 3  ] ) == "N", a[ n + 3 ], hwg_Rgb(192, 192, 192) ))
+      AAdd(aTmp2, IIF( ValType( a[ n + 3  ] ) == "N", a[ n + 3 ], hwg_Rgb(192, 192, 192) ))
 
       AAdd(::aColors, aTmp2)
       aTmp2 := { }
    NEXT
 
    AAdd(::aRowBitMap, aTmp)
-   AAdd(::aRow,    aTmp1)
+   AAdd(::aRow, aTmp1)
    IF bupdate
       ::updatedata()
    ENDIF

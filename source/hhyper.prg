@@ -84,7 +84,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    
    nStyle := Hwg_BitOR( nStyle, SS_NOTIFY + SS_RIGHT  )
    ::lAllUnderline := IIF( EMPTY( cLink ), .F., ::lAllUnderline )
-   ::title := IIF(cCaption != Nil,cCaption ,"HWGUI HomePage")
+   ::title := IIF(cCaption != Nil,cCaption, "HWGUI HomePage")
    ::hbitmap := hbitmap
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
@@ -182,7 +182,7 @@ METHOD INIT() CLASS HStaticLink
 METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
    IF ( msg = WM_SETFOCUS .OR. msg = WM_KILLFOCUS ) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
-      hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       
    ELSEIF msg == WM_PAINT
       //::PAint( )
@@ -193,7 +193,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ELSEIF ( msg = WM_MOUSELEAVE .OR. msg = WM_NCMOUSELEAVE )
      ::state := LBL_NORMAL
      hwg_Invalidaterect( ::handle, 0 )
-     hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+     hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 
    ELSEIF msg =  WM_MOUSEHOVER
    ELSEIF msg == WM_SETCURSOR
@@ -287,7 +287,7 @@ METHOD OnClicked() CLASS HStaticLink
       ::m_bVisited := .T.
       ::state := LBL_NORMAL
       hwg_Invalidaterect( ::handle, 0 )
-      hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT  , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
    ENDIF
    ::Setfocus( )
 
@@ -327,7 +327,7 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
    IF ::state != LBL_INIT
       xPos := hwg_Loword(lParam)
       yPos := hwg_Hiword(lParam)
-      IF (  !hwg_Ptinrect( { 0, 0, ::nWidthOver , ::nHeight }, { xPos, yPos } ) ) .AND. ::state != LBL_MOUSEOVER
+      IF (  !hwg_Ptinrect( { 0, 0, ::nWidthOver, ::nHeight }, { xPos, yPos } ) ) .AND. ::state != LBL_MOUSEOVER
           res := .T.
       ELSE
         hwg_SetCursor( ::m_hHyperCursor )
@@ -340,18 +340,18 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
          ::state := LBL_NORMAL
          /*
          hwg_Invalidaterect( ::handle, 0 )
-         hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+         hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
          */
       ENDIF
       IF ( ::state == LBL_NORMAL .AND. !res ) .OR. ;
          ( ::state == LBL_NORMAL .AND. !res .AND. ::m_bVisited )
          ::state := LBL_MOUSEOVER
          hwg_Invalidaterect( ::handle, 0 )
-    	    hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+    	    hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
          //hwg_Setcapture( ::handle )
       ENDIF
    ENDIF
-   hwg_Trackmousevent( ::handle,  TME_LEAVE )
+   hwg_Trackmousevent( ::handle, TME_LEAVE )
    
    RETURN NIL
 
@@ -368,14 +368,14 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    LOCAL bHasTitle
    LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0,0} )
    LOCAL itemRect    := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
-   LOCAL captionRect := { drawInfo[4]  , drawInfo[5], drawInfo[6] , drawInfo[7]  }
+   LOCAL captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
    
    IF ::state == LBL_INIT
       ::State := LBL_NORMAL
    ENDIF
-   focusrect := hwg_Copyrect( { drawInfo[4] , drawInfo[5], drawInfo[6], drawInfo[7] } )
-   rcClient  := hwg_Copyrect( { drawInfo[4] , drawInfo[5], drawInfo[6], drawInfo[7] } )
+   focusrect := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
+   rcClient  := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
    
    // Draw the focus rect
    IF hwg_Selffocus( ::handle ) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
@@ -406,7 +406,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    ENDIF
    hwg_Setbkmode( DC, ::backstyle )
    IF ::backstyle != TRANSPARENT
-      hwg_Setbkcolor( DC,  IIF( ::bColor = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::bcolor ) )
+      hwg_Setbkcolor( DC, IIF( ::bColor = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::bcolor ) )
       hwg_Fillrect( dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4] ) //, ::brush:handle )
    ENDIF
    dwFlags    := DT_LEFT + DT_WORDBREAK
@@ -454,7 +454,7 @@ METHOD Resize( x, y ) CLASS HStaticLink
    x := iif( x == Nil, 0, x - ::nWidth + 1 )
    aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), { 0,0 } )
    aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
-   ::Move( , , ::nWidth + x , , 0 )
+   ::Move( , , ::nWidth + x, , 0 )
    aTxtSize := hwg_TxtRect( ::Title, Self )
    aTxtSize[2] += IIF( ::lAllUnderline, 0, 3 )
    IF aTxtSize[1] + 1  <  ::nWidth - aBmpSize[1] //tava 20
@@ -467,7 +467,7 @@ METHOD Resize( x, y ) CLASS HStaticLink
    ::nHeight := MAX( ::nHeight, aBmpSize[2] + 4 )
 
    IF nHeight != ::nHeight
-      ::Move( , , , ::nHeight , 0 )
+      ::Move( , , , ::nHeight, 0 )
       hwg_Invalidaterect( ::Handle, 0 )
    ENDIF
 

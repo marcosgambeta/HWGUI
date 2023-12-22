@@ -103,7 +103,7 @@ Local nFirst, i
       
       ACTIVATE DIALOG oDlgDebug NOMODAL
 
-      oDlgDebug:Move( ,,,400 )
+      oDlgDebug:Move( ,,, 400 )
    ENDIF
 
    IF aScriptCurr[4] != aScript[4]
@@ -221,10 +221,10 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
          CalcWatch( Len(aWatches) )
       ENDIF
       IF oBrwData:nHeight < 20
-         oSplit:Move( ,56)
-         oBrwScript:Move( ,60,,oDlgDebug:nHeight-oSplit:nTop-oSplit:nHeight-64)
-         oBrwData:Move( ,,,56 )
-         oDlgDebug:Move( ,,,oDlgDebug:nHeight+4 )
+         oSplit:Move( , 56)
+         oBrwScript:Move( , 60,, oDlgDebug:nHeight-oSplit:nTop-oSplit:nHeight-64)
+         oBrwData:Move( ,,, 56 )
+         oDlgDebug:Move( ,,, oDlgDebug:nHeight+4 )
       ENDIF
       oBrwData:Refresh()
    ELSE

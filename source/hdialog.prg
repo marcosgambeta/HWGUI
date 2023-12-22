@@ -85,10 +85,10 @@ METHOD NEW( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    ::bLostFocus := bLfocus
    ::bOther     := bOther
    ::bRefresh   := bRefresh
-   ::lClipper   := iif( lClipper == Nil, .F. , lClipper )
-   ::lExitOnEnter := iif( lExitOnEnter == Nil, .T. , !lExitOnEnter )
-   ::lExitOnEsc  := iif( lExitOnEsc == Nil, .T. , !lExitOnEsc )
-   ::lClosable   := iif( lnoClosable == Nil, .T. , !lnoClosable )
+   ::lClipper   := iif( lClipper == Nil, .F., lClipper )
+   ::lExitOnEnter := iif( lExitOnEnter == Nil, .T., !lExitOnEnter )
+   ::lExitOnEsc  := iif( lExitOnEsc == Nil, .T., !lExitOnEsc )
+   ::lClosable   := iif( lnoClosable == Nil, .T., !lnoClosable )
 
    IF nHelpId != nil
       ::HelpId := nHelpId
@@ -112,7 +112,7 @@ METHOD Activate( lNoModal, bOnActivate, nShow ) CLASS HDialog
    hwg_CreateGetList( Self )
    hParent := iif( ::oParent != Nil .AND. ;
       __ObjHasMsg( ::oParent, "HANDLE" ) .AND. ::oParent:handle != Nil ;
-      .AND. !Empty( ::oParent:handle ) , ::oParent:handle, ;
+      .AND. !Empty( ::oParent:handle ), ::oParent:handle, ;
       iif( ( oWnd := HWindow():GetMain() ) != Nil,    ;
       oWnd:handle, hwg_Getactivewindow() ) )
 
@@ -257,7 +257,7 @@ METHOD GetActive() CLASS HDialog
    // ------------------------------------
 
 STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
-   LOCAL nReturn := 1 , uis
+   LOCAL nReturn := 1, uis
 
    HB_SYMBOL_UNUSED(lParam)
    HB_SYMBOL_UNUSED(wParam)
@@ -306,7 +306,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       nReturn := 0
    ENDIF
 
-   uis := hwg_Sendmessage( oDlg:handle , WM_QUERYUISTATE, 0, 0 )
+   uis := hwg_Sendmessage( oDlg:handle, WM_QUERYUISTATE, 0, 0 )
    // draw focus
    IF  uis != 0
       // triggered to mouse
@@ -402,7 +402,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          IF oCtrl != Nil .AND. oCtrl:classname = "HTAB"
             RETURN 1
          ENDIF
-         IF oCtrl != Nil .AND. ( hwg_Getnextdlgtabitem( hwg_Getactivewindow() , hCtrl, 1 ) == hCtrl .OR. hwg_Selffocus( oCtrl:Handle, hCtrl ) ) .AND. !oDlg:lClipper
+         IF oCtrl != Nil .AND. ( hwg_Getnextdlgtabitem( hwg_Getactivewindow(), hCtrl, 1 ) == hCtrl .OR. hwg_Selffocus( oCtrl:Handle, hCtrl ) ) .AND. !oDlg:lClipper
             hwg_Sendmessage( oCtrl:Handle, WM_KILLFOCUS, 0, 0 )
          ENDIF
          IF oCtrl != Nil .AND. oCtrl:id == IDOK .AND.  __ObjHasMsg( oCtrl, "BCLICK" ) .AND. oCtrl:bClick = Nil
@@ -429,7 +429,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
             hwg_Sendmessage( oCtrl:handle, WM_CLOSE, 0, 0 )
             RETURN 0
          ELSEIF oCtrl != Nil .AND. oCtrl:IsEnabled() .AND. !hwg_Selffocus( oCtrl:Handle )
-            hwg_Postmessage( oDlg:handle, WM_NEXTDLGCTL, oCtrl:Handle , 1 )
+            hwg_Postmessage( oDlg:handle, WM_NEXTDLGCTL, oCtrl:Handle, 1 )
          ELSEIF oDlg:lGetSkiponEsc
             hCtrl := hwg_Getfocus()
             oCtrl := oDlg:FindControl( , hctrl )
@@ -452,7 +452,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
    //IF oDlg:nInitFocus > 0 //.AND. !hwg_Iswindowvisible( oDlg:handle )
    // comentado, vc não pode testar um ponteiro como se fosse numerico
    IF __ObjHasMsg( oDlg, "NINITFOCUS" ) .AND. !Empty( oDlg:nInitFocus )
-      hwg_Postmessage( oDlg:Handle, WM_NEXTDLGCTL, oDlg:nInitFocus , 1 )
+      hwg_Postmessage( oDlg:Handle, WM_NEXTDLGCTL, oDlg:nInitFocus, 1 )
       oDlg:nInitFocus := 0
    ENDIF
    IF oDlg:aEvents != Nil .AND. ;
@@ -509,7 +509,7 @@ FUNCTION hwg_DlgMouseMove()
 
 STATIC FUNCTION onSize( oDlg, wParam, lParam )
 
-   LOCAL aControls, iCont , nW1, nH1
+   LOCAL aControls, iCont, nW1, nH1
 
    IF oDlg:oEmbedded != Nil
       oDlg:oEmbedded:Resize( hwg_Loword(lParam), hwg_Hiword(lParam) )
@@ -602,7 +602,7 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
             hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty( nHelpId ), 3, 1 ), nHelpId )
          ENDIF
       ELSEIF cDir != Nil
-         hwg_Shellexecute( "hh.exe", "open", CutPath( hwg_SetHelpFileName() )  , cDir )
+         hwg_Shellexecute( "hh.exe", "open", CutPath( hwg_SetHelpFileName() ) , cDir )
       ELSE
          hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty( oDlg:HelpId ), 3, 1 ), oDlg:HelpId )
       ENDIF

@@ -141,7 +141,7 @@ METHOD Init() CLASS HListBox
             ::value := 1
          ENDIF
          IF !EMPTY( ::nItemHeight )
-            hwg_Sendmessage( ::handle, LB_SETITEMHEIGHT , 0, ::nItemHeight )
+            hwg_Sendmessage( ::handle, LB_SETITEMHEIGHT, 0, ::nItemHeight )
          ENDIF
          hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0 )
          FOR i := 1 TO Len( ::aItems )
@@ -251,10 +251,10 @@ METHOD AddItems( p ) CLASS HListBox
 
 METHOD DeleteItem( nPos ) CLASS HListBox
 
-   IF hwg_Sendmessage( ::handle, LB_DELETESTRING , nPos - 1, 0 ) >= 0 //<= LEN(ocombo:aitems)
+   IF hwg_Sendmessage( ::handle, LB_DELETESTRING, nPos - 1, 0 ) >= 0 //<= LEN(ocombo:aitems)
       ADel( ::Aitems, nPos )
       ASize( ::Aitems, Len( ::aitems ) - 1 )
-      ::value := Min( Len( ::aitems ) , ::value )
+      ::value := Min( Len( ::aitems ), ::value )
       IF ::bSetGet != Nil
          Eval( ::bSetGet, ::value, Self )
       ENDIF
@@ -321,7 +321,7 @@ METHOD Valid(oCtrl) CLASS HListBox
    IF !hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
       RETURN .T.
    ENDIF
-   //nSkip := IIf( hwg_Getkeystate( VK_SHIFT ) < 0 , - 1, 1 )
+   //nSkip := IIf( hwg_Getkeystate( VK_SHIFT ) < 0, - 1, 1 )
    IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
       IF ::bSetGet != Nil

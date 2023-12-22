@@ -85,7 +85,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
    #endif
    ErrorBlock( bErrorBlock )
 
-   hwg_Setupconnectionpoint( ::hObj, @hSink, ::aAxEv , ::aAxExec )
+   hwg_Setupconnectionpoint( ::hObj, @hSink, ::aAxEv, ::aAxExec )
    ::hSink := hSink
 
    RETURN SELF

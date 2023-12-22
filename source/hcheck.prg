@@ -162,7 +162,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
 
 METHOD SetValue( lValue ) CLASS HCheckButton
 
-   hwg_Sendmessage( ::handle, BM_SETCHECK, IIF( EMPTY( lValue) , 0, 1 ), 0 )
+   hwg_Sendmessage( ::handle, BM_SETCHECK, IIF( EMPTY( lValue), 0, 1 ), 0 )
    ::lValue := IIF( lValue = NIL .OR. Valtype( lValue ) != "L", .F., lValue )
    IF ::bSetGet != NIL
        Eval( ::bSetGet, lValue, Self )

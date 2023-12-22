@@ -62,7 +62,7 @@ CLASS VAR cPath SHARED
    METHOD onLostFocus()
    METHOD Refresh()
    METHOD SetText( cCaption ) INLINE ::title := cCaption, ;
-                hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+                hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 
 
 ENDCLASS
@@ -354,7 +354,7 @@ METHOD Paint() CLASS HOwnButton
    RETURN Nil
 
 METHOD DrawItems( hDC ) CLASS HOwnButton
-   LOCAL x1, y1, x2, y2,  aCoors
+   LOCAL x1, y1, x2, y2, aCoors
 
    aCoors := hwg_Getclientrect( ::handle )
    IF !EMPTY( ::brush )

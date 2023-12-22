@@ -122,7 +122,7 @@ METHOD Init() CLASS HGrid
    IF !::lInit
       ::Super:Init()
       FOR n := 1 TO Len( ::aBitmaps )
-         AAdd(aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ))
+         AAdd(aButton, hwg_Loadimage( , ::aBitmaps[ n ], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ))
       NEXT
 
       IF Len( aButton ) > 0
@@ -130,11 +130,11 @@ METHOD Init() CLASS HGrid
          aBmpSize := hwg_Getbitmapsize( aButton[1] )
 
          IF aBmpSize[3] == 4
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK )
          ELSEIF aBmpSize[3] == 8
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK )
          ELSEIF aBmpSize[3] == 24
-            ::hIm := hwg_Createimagelist( { } , aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
+            ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
          FOR nPos := 1 TO Len( aButton )
@@ -179,7 +179,7 @@ METHOD Refresh() CLASS HGrid
 
    iLast := iFirst + hwg_Listview_getcountperpage( ::handle )
 
-   hwg_Listview_redrawitems( ::handle , iFirst, iLast )
+   hwg_Listview_redrawitems( ::handle, iFirst, iLast )
    RETURN Nil
 
 METHOD Notify( lParam ) CLASS HGrid

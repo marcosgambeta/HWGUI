@@ -18,18 +18,18 @@ CLASS HFont INHERIT HObject
 
    CLASS VAR aFonts   INIT { }
    DATA handle
-   DATA name, width, height , weight
+   DATA name, width, height, weight
    DATA charset, italic, Underline, StrikeOut
    DATA nCounter   INIT 1
 
-   METHOD Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
+   METHOD Add(fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
    METHOD SELECT( oFont, nCharSet )
    METHOD RELEASE()
    METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight )
 
 ENDCLASS
 
-METHOD Add(fontName, nWidth, nHeight , fnWeight, ;
+METHOD Add(fontName, nWidth, nHeight, fnWeight, ;
       fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle) CLASS HFont
 
    LOCAL i, nlen := Len( ::aFonts )
@@ -60,7 +60,7 @@ METHOD Add(fontName, nWidth, nHeight , fnWeight, ;
    NEXT
 
    IF nHandle == Nil
-      ::handle := hwg_Createfont( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
+      ::handle := hwg_Createfont( fontName, nWidth, nHeight, fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
    ELSE
       ::handle := nHandle
    ENDIF
@@ -88,7 +88,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
    RETURN ::Add(af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1])
 
 METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
-   LOCAL  weight, Italic, Underline, StrikeOut
+   LOCAL weight, Italic, Underline, StrikeOut
 
    IF lBold != Nil
       weight = iif( lBold, FW_BOLD, FW_REGULAR )
@@ -96,8 +96,8 @@ METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS 
       weight := ::weight
    ENDIF
    Italic    := iif( lItalic = Nil, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder , 1, 0 ) )
-   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike , 1, 0 ) )
+   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder, 1, 0 ) )
+   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike, 1, 0 ) )
    nheight   := iif( nheight = Nil, ::height, nheight )
    nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
 
@@ -341,7 +341,7 @@ CLASS HBitmap INHERIT HObject
 ENDCLASS
 
 METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
-   LOCAL lPreDefined := .F. , i, aBmpSize
+   LOCAL lPreDefined := .F., i, aBmpSize
 
    IF nFlags == nil
       nFlags := LR_DEFAULTCOLOR
@@ -523,7 +523,7 @@ CLASS HIcon INHERIT HObject
 ENDCLASS
 
 METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
-   LOCAL lPreDefined := .F. , i, aIconSize
+   LOCAL lPreDefined := .F., i, aIconSize
 
    IF nWidth == nil
       nWidth := 0

@@ -41,7 +41,7 @@ ENDCLASS
 METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
       bSize, bDraw, color, bcolor, aLeft, aRight, lTransp, lScrolling ) CLASS HSplitter
    //+  WS_CLIPCHILDREN
-   ::Super:New( oWndParent, nId, WS_VISIBLE + SS_OWNERDRAW , nLeft, nTop, nWidth, nHeight,,, ;
+   ::Super:New( oWndParent, nId, WS_VISIBLE + SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight,,, ;
          bSize, bDraw,, color, bcolor )
 
    ::title := ""
@@ -167,7 +167,7 @@ METHOD Drag( lParam ) CLASS HSplitter
    ENDIF
    ::Move( ::nLeft + xPos, ::nTop + yPos, ::nWidth, ::nHeight )
    IF !::lScrolling
-      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth , ::nTop + ::nHeight )
+      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth, ::nTop + ::nHeight )
    ENDIF
    ::lMoved := .T.
 
@@ -189,7 +189,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
          //oCtrl:nTop += nDiff
          //oCtrl:nHeight -= nDiff
       ENDIF
-      oCtrl:Move( oCtrl:nLeft + xDiff, oCtrl:nTop + yDiff, oCtrl:nWidth - xDiff ,oCtrl:nHeight - yDiff, !lScroll )
+      oCtrl:Move( oCtrl:nLeft + xDiff, oCtrl:nTop + yDiff, oCtrl:nWidth - xDiff, oCtrl:nHeight - yDiff, !lScroll )
       IF ( yDiff < 0.OR. xDiff > 0 ) .OR. !lScroll
          hwg_Invalidaterect( oCtrl:Handle, 0 )
       ENDIF
@@ -203,18 +203,18 @@ METHOD DragAll( lScroll ) CLASS HSplitter
          yDiff := ::nTop - ( oCtrl:nTop + oCtrl:nHeight )
         // oCtrl:nHeight += nDiff
       ENDIF
-      oCtrl:Move( oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth + xDiff, oCtrl:nHeight + yDiff , !lScroll )
+      oCtrl:Move( oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth + xDiff, oCtrl:nHeight + yDiff, !lScroll )
       IF ( yDiff > 0.OR. xDiff > 0 ) .OR. !lScroll
          hwg_Invalidaterect( oCtrl:Handle, 0 )
       ENDIF
    NEXT
    //::lMoved := .F.
    IF !lScroll
-      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft ,::nTop  , ::nLeft + ::nWidth , ::nTop + ::nHeight  )
+      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ELSEIF ::lVertical
-      hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft - ::nWidth - xDiff - 1 , ::nTop , ::nLeft + ::nWidth + xDiff + 1, ::nTop + ::nHeight )
+      hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft - ::nWidth - xDiff - 1, ::nTop, ::nLeft + ::nWidth + xDiff + 1, ::nTop + ::nHeight)
    ELSE
-      hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft , ::nTop - ::nHeight - yDiff - 1 , ::nLeft + ::nWidth, ::nTop + ::nHeight + yDiff + 1 )
+      hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop - ::nHeight - yDiff - 1, ::nLeft + ::nWidth, ::nTop + ::nHeight + yDiff + 1)
    ENDIF
    IF ::bEndDrag != NIL
       Eval( ::bEndDrag,Self )

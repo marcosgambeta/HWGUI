@@ -77,7 +77,7 @@ METHOD Open( cFileName ) CLASS HAnimation
    RETURN Nil
 
 METHOD Play( nFrom, nTo, nRep ) CLASS HAnimation
-   nFrom := IIf( nFrom == Nil,  0, nFrom )
+   nFrom := IIf( nFrom == Nil, 0, nFrom )
    nTo   := IIf( nTo   == Nil, - 1, nTo   )
    nRep  := IIf( nRep  == Nil, - 1, nRep  )
    hwg_Animate_Play( ::handle, nFrom, nTo, nRep )

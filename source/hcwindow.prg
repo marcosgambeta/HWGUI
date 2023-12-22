@@ -64,7 +64,7 @@ METHOD DelObject( oCtrl ) CLASS HObject
 CLASS HCustomWindow INHERIT HObject
 
 CLASS VAR oDefaultParent SHARED
-CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource( , 1 , RT_MANIFEST ) ) SHARED
+CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource( , 1, RT_MANIFEST ) ) SHARED
 
    DATA handle        INIT 0
    DATA oParent
@@ -133,7 +133,7 @@ METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindo
 
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
 
-   LOCAL bSearch := IIf( nId != NIL, { | o | o:id == nId } , { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) } )
+   LOCAL bSearch := IIf( nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) } )
    LOCAL i := Len( ::aControls )
    LOCAL oCtrl
 
@@ -268,7 +268,7 @@ LOCAL aControls, i, nLen
 
 
 METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
-   LOCAL nlen , i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
+   LOCAL nlen, i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
    
 	 oCtrl := IIF( oCtrl == Nil, Self, oCtrl )
 	 lAll  := IIF( lAll  == Nil, .F., lAll )
@@ -335,7 +335,7 @@ METHOD SetColor( tcolor, bColor, lRepaint ) CLASS HCustomWindow
    RETURN Nil
 
 METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
-   LOCAL nlen , i, x1, y1
+   LOCAL nlen, i, x1, y1
 
    IF oCtrl = Nil .OR.;
        ASCAN( oCtrl:aControls, {| o | __ObjHasMsg( o,"ANCHOR") .AND. o:Anchor > 0 } ) = 0
@@ -595,14 +595,14 @@ METHOD RedefineScrollbars() CLASS HScrollArea
 
 
 METHOD SetupScrollbars() CLASS HScrollArea
-   LOCAL tempRect, nwMax, nhMax , aMenu, nPos
+   LOCAL tempRect, nwMax, nhMax, aMenu, nPos
 
    tempRect := hwg_Getclientrect( ::handle )
    aMenu := IIF( __objHasData(Self, "MENU"), ::menu, Nil )
     // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
       nwMax := Max( ::ncurWidth, tempRect[3] ) //::maxWidth
-      nhMax := Max( ::ncurHeight , tempRect[4] ) //::maxHeight
+      nhMax := Max( ::ncurHeight, tempRect[4] ) //::maxHeight
       ::nHorzInc := INT( ( nwMax - tempRect[3] ) / HORZ_PTS )
       ::nVertInc := INT( ( nhMax - tempRect[4] ) / VERT_PTS )
    ELSE
@@ -622,7 +622,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
       ENDIF
       ::nHscrollPos := Min( ::nHscrollPos, ::nHscrollMax )
       hwg_Setscrollpos( ::handle, SB_HORZ, ::nHscrollPos, .T. )
-      hwg_Setscrollinfo( ::Handle, SB_HORZ, 1, ::nHScrollPos , HORZ_PTS, ::nHscrollMax )
+      hwg_Setscrollinfo( ::Handle, SB_HORZ, 1, ::nHScrollPos, HORZ_PTS, ::nHscrollMax )
       IF ::nHscrollPos > 0
          nPos := hwg_Getscrollpos( ::handle, SB_HORZ )
          IF nPos < ::nHscrollPos
@@ -640,7 +640,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
          ::nVScrollMax := 0
       ENDIF
       hwg_Setscrollpos( ::Handle, SB_VERT, ::nVscrollPos, .T. )
-      hwg_Setscrollinfo( ::Handle, SB_VERT, 1, ::nVscrollPos , VERT_PTS,  ::nVscrollMax )
+      hwg_Setscrollinfo( ::Handle, SB_VERT, 1, ::nVscrollPos, VERT_PTS, ::nVscrollMax )
       IF ::nVscrollPos > 0 //.AND. nPosVert != ::nVscrollPos
          nPos := hwg_Getscrollpos( ::handle, SB_VERT )
          IF nPos < ::nVscrollPos

@@ -70,7 +70,7 @@ CLASS HDC
    METHOD Setarcdirection( nArcDirection )
    METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
    METHOD Setrop2( nDrawMode )
-   METHOD Bitblt( x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop ) INLINE    hwg_Bitblt( ::m_hDc, x, y, nWidth, nHeight,  pSrcDC,       xSrc,  ySrc,  dwRop )
+   METHOD Bitblt( x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop ) INLINE    hwg_Bitblt( ::m_hDc, x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop )
 
    METHOD Pie( arect, apt1, apt2 )
    METHOD Deletedc()

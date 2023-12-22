@@ -91,7 +91,7 @@ FUNCTION main
    nWidth    := 200
    nHeight   := 40
 
-   oBC := Barcode():New( hwg_Getdc(oMainWindow:handle) , "993198042124", nTop, nLeft, ;
+   oBC := Barcode():New( hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
                          nWidth, nHeight, nBCodeType, ;
                          nColText, nColPane, lHorz, ;
                          lTransparent, nPinWidth )
@@ -143,7 +143,7 @@ CLASS Barcode
    //  17 = Matrix 2 of 5 check digit
 
    METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-               nColText, nColPane, lHorz, lTransparent,  nPinWidth ) CONSTRUCTOR
+               nColText, nColPane, lHorz, lTransparent, nPinWidth ) CONSTRUCTOR
    METHOD ShowBarcode()
    METHOD CreateBarcode( cCode )
    METHOD InitCode39( lCheck )

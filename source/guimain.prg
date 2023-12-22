@@ -192,7 +192,7 @@ FUNCTION hwg_WAITRUN( cRun )
 //#ifdef __XHARBOUR__
 Local hIn, hOut, nRet, hProc
    // "Launching process", cProc
-   hProc := hb_processOpen( cRun , @hIn, @hOut, @hOut )
+   hProc := hb_processOpen( cRun, @hIn, @hOut, @hOut )
 
    // "Reading output"
    // "Waiting for process termination"
@@ -632,7 +632,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
 
 FUNCTION hwg_FindAccelerator( oCtrl, lParam )
 
-  Local nlen , i ,pos
+  Local nlen, i, pos
 
   nlen := LEN( oCtrl:aControls )
   FOR i = 1 to nLen
@@ -709,7 +709,7 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
 // Value Specifies the new setting for the property. The data type of Value depends on the property being set.
  //aControls - property of the Control with objectos inside
  // cClass baseclass hwgui
-   Local nLen , i
+   Local nLen, i
 
    aControls := IIF( EMPTY( aControls ), oWnd:aControls, aControls )
    nLen := IIF( VALTYPE( aControls ) = "C", Len( oWnd:&aControls ), LEN( aControls ) )
@@ -729,7 +729,7 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    RETURN Nil
 
 FUNCTION HWG_ScrollHV( oForm, msg,wParam,lParam )
-   Local nDelta, nSBCode , nPos, nInc
+   Local nDelta, nSBCode, nPos, nInc
 
    HB_SYMBOL_UNUSED(lParam)
 

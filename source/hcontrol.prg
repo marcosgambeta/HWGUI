@@ -42,9 +42,9 @@ CLASS HControl INHERIT HCustomWindow
    METHOD AddName( cName ) HIDDEN
    METHOD NewId()
    METHOD Show( nShow ) INLINE ::Super:Show( nShow ), iif( ::oParent:lGetSkipLostFocus, ;
-      hwg_Postmessage(  hwg_Getactivewindow() , WM_NEXTDLGCTL, iif( ::oParent:FindControl(, hwg_Getfocus() ) != NIL, 0, ::handle ), 1 ) , .T. )
-   METHOD Hide() INLINE ( ::oParent:lGetSkipLostFocus := .F. , ::Super:Hide() )
-   METHOD Disable() INLINE ( iif( hwg_Selffocus( ::Handle ), hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 ) , ), hwg_Enablewindow( ::handle, .F. ) )
+      hwg_Postmessage(  hwg_Getactivewindow(), WM_NEXTDLGCTL, iif( ::oParent:FindControl(, hwg_Getfocus() ) != NIL, 0, ::handle ), 1 ), .T. )
+   METHOD Hide() INLINE ( ::oParent:lGetSkipLostFocus := .F., ::Super:Hide() )
+   METHOD Disable() INLINE ( iif( hwg_Selffocus( ::Handle ), hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 ), ), hwg_Enablewindow( ::handle, .F. ) )
    METHOD Enable()
    METHOD IsEnabled() INLINE hwg_Iswindowenabled(::Handle)
    METHOD Enabled(lEnabled) SETGET
@@ -68,10 +68,10 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    ::id      := iif( nId == NIL, ::NewId(), nId )
    ::style   := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), ;
       WS_VISIBLE + WS_CHILD )
-   ::nLeft   := iif( nLeft = NIL , 0, nLeft )
-   ::nTop    := iif( nTop = NIL , 0, nTop )
-   ::nWidth  := iif( nWidth = NIL , 0, nWidth )
-   ::nHeight := iif( nHeight = NIL , 0, nHeight )
+   ::nLeft   := iif( nLeft = NIL, 0, nLeft )
+   ::nTop    := iif( nTop = NIL, 0, nTop )
+   ::nWidth  := iif( nWidth = NIL, 0, nWidth )
+   ::nHeight := iif( nHeight = NIL, 0, nHeight )
    ::oFont   := oFont
    ::bInit   := bInit
    IF Valtype( bSize ) == "N"
@@ -181,7 +181,7 @@ METHOD Enable() CLASS HControl
       nNext := Ascan( ::oParent:aControls, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( hwg_Getfocus() ) } )
       nPos  := Ascan( ::oParent:acontrols, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( ::handle ) } )
       IF nPos < nNext
-         hwg_Sendmessage(  hwg_Getactivewindow() , WM_NEXTDLGCTL, ::handle, 1 )
+         hwg_Sendmessage(  hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1 )
       ENDIF
    ENDIF
 
@@ -351,26 +351,26 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    // REDRAW AND INVALIDATE SCREEN
    IF ( x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9 )
       IF hwg_Iswindowvisible( ::handle )
-         nCxv := iif( HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1 , 3 )
-         nCyh := iif( HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1 , 3 )
+         nCxv := iif( HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1, 3 )
+         nCyh := iif( HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1, 3 )
          IF ( x1 != x9 .OR. y1 != y9 ) .AND. x9 < ::oParent:nWidth
             hwg_Invalidaterect( ::oParent:handle, 1, Max( x9 - 1, 0 ), Max( y9 - 1, 0 ), ;
                x9 + w9 + nCxv, y9 + h9 + nCyh )
          ELSE
             IF w1 < w9
                hwg_Invalidaterect( ::oParent:handle, 1, x1 + w1 - nCxv - 1, Max( y1 - 2, 0 ), ;
-                  x1 + w9 + 2 , y9 + h9 + nCxv + 1 )
+                  x1 + w9 + 2, y9 + h9 + nCxv + 1 )
             ENDIF
             IF h1 < h9
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 5, 0 ) , y1 + h1 - nCyh - 1, ;
-                  x1 + w9 + 2 , y1 + h9 + nCYh )
+               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 5, 0 ), y1 + h1 - nCyh - 1, ;
+                  x1 + w9 + 2, y1 + h9 + nCYh )
             ENDIF
          ENDIF
          IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
                ( ::Title != NIL .AND. !Empty( ::Title ) ) ) .OR. __ObjHasMsg( Self, "oImage" )
             IF __ObjHasMsg( Self, "oImage" ) .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1 , y1 + h1 + 1 )
+               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1, y1 + h1 + 1 )
             ELSE
                hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
             ENDIF
@@ -379,16 +379,16 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
                hwg_Invalidaterect( ::handle, 0 )
             ENDIF
             IF w1 > w9
-               hwg_Invalidaterect( ::oParent:handle, 1 , Max( x1 + w9 - nCxv - 1, 0 ) , ;
-                  Max( y1 , 0 ) , x1 + w1 + nCxv  , y1 + h1 + 2  )
+               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 + w9 - nCxv - 1, 0 ), ;
+                  Max( y1, 0 ), x1 + w1 + nCxv, y1 + h1 + 2  )
             ENDIF
             IF h1 > h9
-               hwg_Invalidaterect( ::oParent:handle, 1 , Max( x1 , 0 ) , ;
-                  Max( y1 + h9 - nCyh - 1 , 1 ) , x1 + w1 + 2 , y1 + h1 + nCyh )
+               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1, 0 ), ;
+                  Max( y1 + h9 - nCyh - 1, 1 ), x1 + w1 + 2, y1 + h1 + nCyh )
             ENDIF
          ENDIF
          // redefine new position e new size
-         ::Move( x1, y1, w1, h1,  HWG_BITAND(::Style, WS_CLIPSIBLINGS + WS_CLIPCHILDREN) = 0 )
+         ::Move( x1, y1, w1, h1, HWG_BITAND(::Style, WS_CLIPSIBLINGS + WS_CLIPCHILDREN) = 0 )
       ELSE
          ::Move( x1, y1, w1, h1, 0 )
       ENDIF
@@ -791,7 +791,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
       bSize, { | o, lp | o:Paint( lp ) } , , tcolor )
 
    ::title := ""
-   ::lVert := iif( lVert == NIL, .F. , lVert )
+   ::lVert := iif( lVert == NIL, .F., lVert )
    ::LineSlant := iif( Empty( cSlant ) .OR. !cSlant $ "/\", "", cSlant )
    ::nBorder := iif( Empty( nBorder ), 1, nBorder )
 
@@ -837,7 +837,7 @@ METHOD Paint( lpdis ) CLASS HLine
       IF ::lVert
          hwg_Drawline( hDC, x1 + 1, y1, x1 + 1, y2 )
       ELSE
-         hwg_Drawline( hDC, x1 , y1 + 1, x2, y1 + 1 )
+         hwg_Drawline( hDC, x1, y1 + 1, x2, y1 + 1 )
       ENDIF
       hwg_Selectobject( hDC, ::oPenGray:handle )
       IF ::lVert
@@ -851,9 +851,9 @@ METHOD Paint( lpdis ) CLASS HLine
       ELSEIF ( y2 - y1 ) <= ::nBorder
          hwg_Drawline( hDC, x1, y1, x2, y1 )
       ELSEIF ::LineSlant == "/"
-         hwg_Drawline( hDC, x1  , y1 + y2 , x1 + x2 , y1  )
+         hwg_Drawline( hDC, x1, y1 + y2, x1 + x2, y1  )
       ELSEIF ::LineSlant == "\"
-         hwg_Drawline( hDC, x1 , y1, x1 + x2 , y1 + y2 )
+         hwg_Drawline( hDC, x1, y1, x1 + x2, y1 + y2 )
       ENDIF
    ENDIF
 
