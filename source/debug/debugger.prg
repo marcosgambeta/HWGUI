@@ -126,29 +126,29 @@ STATIC t_oDebugger
 #endif 
 
 #ifdef __XHARBOUR__
-#xtranslate __DBGADDBREAK([<n,...>]) =>  HB_DBG_ADDBREAK(<n>)
-#xtranslate __DBGDELBREAK([<n,...>]) =>  HB_DBG_DELBREAK(<n>)
-#xtranslate __DBGADDWATCH([<n,...>]) =>  HB_DBG_ADDWATCH(<n>)
-#xtranslate __DBGDELWATCH([<n,...>]) =>  HB_DBG_DELWATCH(<n>)
-#xtranslate __DBGISVALIDSTOPLINE([<n,...>]) =>  HB_DBG_ISVALIDSTOPLINE(<n>)
-#xtranslate __DBGSETTOCURSOR([<n,...>]) =>  HB_DBG_SETTOCURSOR(<n>)
-#xtranslate __DBGSETTRACE([<n,...>]) =>  HB_DBG_SETTRACE(<n>)
-#xtranslate __DBGSETNEXTROUTINE([<n,...>]) =>  HB_DBG_SETNEXTROUTINE(<n>)
-#xtranslate __DBGSETCBTRACE([<n,...>]) =>  HB_DBG_SETCBTRACE(<n>)
-#xtranslate __DBGGETEXPRVALUE([<n,...>]) =>  HB_DBG_GETEXPRVALUE(<n>)
-#xtranslate __DBGGETSOURCEFILES([<n,...>]) =>  HB_DBG_GETSOURCEFILES(<n>)
-#xtranslate __DBGSETQUIT([<n,...>]) =>  HB_DBG_SETQUIT(<n>)
-#xtranslate __DBGSETGO([<n,...>]) =>  HB_DBG_SETGO(<n>)
-#xtranslate __DBGSETENTRY([<n,...>]) =>  HB_DBG_SETENTRY(<n>)
+#xtranslate __DBGADDBREAK([<n, ...>]) =>  HB_DBG_ADDBREAK(<n>)
+#xtranslate __DBGDELBREAK([<n, ...>]) =>  HB_DBG_DELBREAK(<n>)
+#xtranslate __DBGADDWATCH([<n, ...>]) =>  HB_DBG_ADDWATCH(<n>)
+#xtranslate __DBGDELWATCH([<n, ...>]) =>  HB_DBG_DELWATCH(<n>)
+#xtranslate __DBGISVALIDSTOPLINE([<n, ...>]) =>  HB_DBG_ISVALIDSTOPLINE(<n>)
+#xtranslate __DBGSETTOCURSOR([<n, ...>]) =>  HB_DBG_SETTOCURSOR(<n>)
+#xtranslate __DBGSETTRACE([<n, ...>]) =>  HB_DBG_SETTRACE(<n>)
+#xtranslate __DBGSETNEXTROUTINE([<n, ...>]) =>  HB_DBG_SETNEXTROUTINE(<n>)
+#xtranslate __DBGSETCBTRACE([<n, ...>]) =>  HB_DBG_SETCBTRACE(<n>)
+#xtranslate __DBGGETEXPRVALUE([<n, ...>]) =>  HB_DBG_GETEXPRVALUE(<n>)
+#xtranslate __DBGGETSOURCEFILES([<n, ...>]) =>  HB_DBG_GETSOURCEFILES(<n>)
+#xtranslate __DBGSETQUIT([<n, ...>]) =>  HB_DBG_SETQUIT(<n>)
+#xtranslate __DBGSETGO([<n, ...>]) =>  HB_DBG_SETGO(<n>)
+#xtranslate __DBGSETENTRY([<n, ...>]) =>  HB_DBG_SETENTRY(<n>)
 
-#xtranslate __DBGVMVARLSET([<n,...>]) =>  HB_DBG_VMVARLSET(<n>)
-#xtranslate __DBGVMVARLGET([<n,...>]) =>  HB_DBG_VMVARLGET(<n>)
-#xtranslate __DBGVMVARSGET([<n,...>]) =>  HB_DBG_VMVARSGET(<n>)
-#xtranslate __DBGVMVARSSET([<n,...>]) =>  HB_DBG_VMVARSSET(<n>)
-#xtranslate __DBGVMVARGGET([<n,...>]) =>  HB_DBG_VMVARGGET(<n>)
-#xtranslate __DBGVMVARGSET([<n,...>]) =>  HB_DBG_VMVARGSET(<n>)
-#xtranslate __DBGPROCLEVEL([<n,...>]) =>  HB_DBG_PROCLEVEL(<n>)
-#xtranslate __DBGINVOKEDEBUG([<n,...>]) =>  HB_DBG_INVOKEDEBUG(<n>)
+#xtranslate __DBGVMVARLSET([<n, ...>]) =>  HB_DBG_VMVARLSET(<n>)
+#xtranslate __DBGVMVARLGET([<n, ...>]) =>  HB_DBG_VMVARLGET(<n>)
+#xtranslate __DBGVMVARSGET([<n, ...>]) =>  HB_DBG_VMVARSGET(<n>)
+#xtranslate __DBGVMVARSSET([<n, ...>]) =>  HB_DBG_VMVARSSET(<n>)
+#xtranslate __DBGVMVARGGET([<n, ...>]) =>  HB_DBG_VMVARGGET(<n>)
+#xtranslate __DBGVMVARGSET([<n, ...>]) =>  HB_DBG_VMVARGSET(<n>)
+#xtranslate __DBGPROCLEVEL([<n, ...>]) =>  HB_DBG_PROCLEVEL(<n>)
+#xtranslate __DBGINVOKEDEBUG([<n, ...>]) =>  HB_DBG_INVOKEDEBUG(<n>)
 #endif
 
 
@@ -354,7 +354,7 @@ METHOD HandleEvent() CLASS HBDebugger
       CASE nKey == CMD_BADD
          IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
             AAdd(::aBreakPoints, { p2, p1 })
-            hwg_dbg_Answer( "line",Ltrim(Str(p2)) )
+            hwg_dbg_Answer( "line", Ltrim(Str(p2)) )
             __dbgAddBreak( ::pInfo, p1, p2 )
          ELSE
             hwg_dbg_Answer( "err" )
@@ -366,7 +366,7 @@ METHOD HandleEvent() CLASS HBDebugger
          ELSE
             ADel( ::aBreakPoints, nAt )
             ASize( ::aBreakPoints, Len( ::aBreakPoints ) - 1 )
-            hwg_dbg_Answer( "ok",Ltrim(Str(p2)) )
+            hwg_dbg_Answer( "ok", Ltrim(Str(p2)) )
             __dbgDelBreak( ::pInfo, nAt-1 )
          ENDIF
 
@@ -418,8 +418,8 @@ METHOD HandleEvent() CLASS HBDebugger
             hwg_dbg_Answer( "valueareas", SendAreas() )
 
       CASE nKey == CMD_CALC
-         IF Left( p1,1 ) == "?"
-            p1 := Ltrim( Substr( p1, Iif( Left(p1,2) == "??",3,2 ) ) )
+         IF Left( p1, 1 ) == "?"
+            p1 := Ltrim( Substr( p1, Iif( Left(p1, 2) == "??", 3, 2 ) ) )
          ENDIF
          hwg_dbg_Answer( "value", __dbgValToStr( ::GetExprValue( p1 ) ) )
 
@@ -559,21 +559,21 @@ Local arr := Array( Len( aStack ) * 3 + 1 ), i, j := 2
 
    arr[1] := Ltrim( Str( Len( aStack ) ) )
    FOR i := 1 TO Len( aStack )
-      arr[j++] := Iif( Empty(aStack[i,CSTACK_MODULE]), "", aStack[i,CSTACK_MODULE] )
-      arr[j++] := Iif( Empty(aStack[i,CSTACK_FUNCTION]), "Unknown", aStack[i,CSTACK_FUNCTION] )
-      arr[j++] := Iif( Empty(aStack[i,CSTACK_LINE]), "", Ltrim(Str( aStack[i,CSTACK_LINE] )) )
+      arr[j++] := Iif( Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE] )
+      arr[j++] := Iif( Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION] )
+      arr[j++] := Iif( Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str( aStack[i, CSTACK_LINE] )) )
    NEXT
 
    RETURN arr
 
 STATIC FUNCTION SendLocal()
-Local aVars := t_oDebugger:aProcStack[1,CSTACK_LOCALS]
+Local aVars := t_oDebugger:aProcStack[1, CSTACK_LOCALS]
 Local arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
 
    arr[1] := Ltrim( Str( Len( aVars ) ) )
    FOR i := 1 TO Len( aVars )
-      arr[++j] := aVars[ i,VAR_NAME ]
-      xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i,VAR_LEVEL], aVars[i,VAR_POS] )
+      arr[++j] := aVars[ i, VAR_NAME ]
+      xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS] )
       arr[++j] := Valtype( xVal )
       arr[++j] := __dbgValToStr( xVal )
       IF Len( arr[j] ) > VAR_MAX_LEN

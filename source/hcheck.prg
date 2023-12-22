@@ -117,7 +117,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
    LOCAL oCtrl
 
    IF ::bOther != NIL
-      IF Eval( ::bOther,Self,msg,wParam,lParam ) != -1
+      IF Eval( ::bOther, Self, msg, wParam, lParam ) != -1
          RETURN 0
       ENDIF
    ENDIF
@@ -177,7 +177,7 @@ METHOD Value( lValue ) CLASS HCheckButton
       ::SetValue( lValue )
    ENDIF
 
-   RETURN hwg_Sendmessage( ::handle,BM_GETCHECK, 0, 0 ) == 1
+   RETURN hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 ) == 1
 
 METHOD Refresh() CLASS HCheckButton
    LOCAL var

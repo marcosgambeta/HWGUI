@@ -13,8 +13,8 @@
 #include "common.ch"
 
 #ifdef __XHARBOUR__
-   #xtranslate hb_processOpen([<x,...>])   => hb_openProcess(<x>)
-   #xtranslate hb_NumToHex([<n,...>])      => NumToHex(<n>)
+   #xtranslate hb_processOpen([<x, ...>])   => hb_openProcess(<x>)
+   #xtranslate hb_NumToHex([<n, ...>])      => NumToHex(<n>)
 #endif
 
 STATIC _winwait
@@ -27,7 +27,7 @@ FUNCTION hwg_InitObjects( oWnd )
    IF !EMPTY( LoadArray )
       FOR i := 1 TO Len( LoadArray )
          IF !EMPTY( oWnd:Handle )
-            IF __ObjHasMsg( LoadArray[ i ],"INIT")
+            IF __ObjHasMsg( LoadArray[ i ], "INIT")
                LoadArray[ i ]:Init( oWnd )
                LoadArray[ i ]:lInit := .T.
             ENDIF
@@ -289,7 +289,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    oBrw:oFont  := oFont
    oBrw:bSize  := { | o, x, y | hwg_Movewindow( o:handle, addX / 2, 10, x - addX, y - addY ) }
    oBrw:bEnter := { | o | nChoice := o:nCurrent, hwg_EndDialog( o:oParent:handle ) }
-   oBrw:bKeyDown := {|o,key|HB_SYMBOL_UNUSED(o),Iif(key==27,(hwg_EndDialog(oDlg:handle),.F.),.T.)}
+   oBrw:bKeyDown := {|o, key|HB_SYMBOL_UNUSED(o), Iif(key==27,(hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
    oBrw:lDispHead := .F.
    IF clrT != Nil
@@ -558,7 +558,7 @@ FUNCTION hwg_GetWindowParent( nHandle )
 
 FUNCTION hwg_ProcKeyList( oCtrl, wParam, oMain )
 
-LOCAL oParent, nCtrl,nPos
+LOCAL oParent, nCtrl, nPos
 
    IF ( wParam = VK_RETURN .OR. wParam = VK_ESCAPE ) .AND. hwg_ProcOkCancel( oCtrl, wParam )
       RETURN .F.
@@ -646,7 +646,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
      IF LEN(oCtrl:aControls[ i ]:aControls ) > 0
          RETURN hwg_FindAccelerator( oCtrl:aControls[ i ], lParam)
 	   ENDIF
-     IF __ObjHasMsg( oCtrl:aControls[ i ],"TITLE") .AND. VALTYPE( oCtrl:aControls[ i ]:title) = "C" .AND. ;
+     IF __ObjHasMsg( oCtrl:aControls[ i ], "TITLE") .AND. VALTYPE( oCtrl:aControls[ i ]:title) = "C" .AND. ;
          !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[ i ]:handle)
         IF ( pos := At( "&", oCtrl:aControls[ i ]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr( oCtrl:aControls[ i ]:title, ++ pos, 1 ) )
            RETURN oCtrl:aControls[ i ]
@@ -692,16 +692,16 @@ Function  hwg_SetFontStyle( oWnd, lBold, lItalic, lUnderline )
       IF oFont == NIL .AND. lBold == NIL .AND. lItalic == NIL .AND. lUnderline == NIL
          RETURN .T.
       ENDIF
-      oWnd:oFont := IIF( oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL)), ;
-            HFont():Add("", 0,, Iif(lBold!=Nil,Iif(lBold,FW_BOLD,FW_REGULAR),NIL),,Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL)) )
+      oWnd:oFont := IIF( oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic!=Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline!=Nil, Iif(lUnderline, 1, 0), NIL)), ;
+            HFont():Add("", 0,, Iif(lBold!=Nil, Iif(lBold, FW_BOLD, FW_REGULAR), NIL),, Iif(lItalic!=Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline!=Nil, Iif(lUnderline, 1, 0), NIL)) )
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
-      oWnd:oFont := oWnd:oFont:SetFontStyle( lBold,,lItalic,lUnderline )
+      oWnd:oFont := oWnd:oFont:SetFontStyle( lBold,, lItalic, lUnderline )
       hwg_Sendmessage( oWnd:handle, WM_SETFONT, oWnd:oFont:handle, hwg_Makelparam( 0, 1 ) )
       hwg_Redrawwindow( oWnd:handle, RDW_NOERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT )
    ENDIF
 
-   RETURN Iif(lBold!=Nil,(oWnd:oFont:weight==FW_BOLD), Iif(lItalic!=Nil,(oWnd:oFont:italic=1),oWnd:oFont:Underline==1))
+   RETURN Iif(lBold!=Nil,(oWnd:oFont:weight==FW_BOLD), Iif(lItalic!=Nil,(oWnd:oFont:italic=1), oWnd:oFont:Underline==1))
 
 Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
 
@@ -728,7 +728,7 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    NEXT
    RETURN Nil
 
-FUNCTION HWG_ScrollHV( oForm, msg,wParam,lParam )
+FUNCTION HWG_ScrollHV( oForm, msg, wParam, lParam )
    Local nDelta, nSBCode, nPos, nInc
 
    HB_SYMBOL_UNUSED(lParam)

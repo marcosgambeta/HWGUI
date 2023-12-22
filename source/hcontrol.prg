@@ -529,7 +529,7 @@ METHOD GetTextPanel( nPart ) CLASS HStatus
 
 METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatus
 
-   //hwg_Writestatuswindow( ::handle,nPart-1,cText )
+   //hwg_Writestatuswindow( ::handle, nPart-1, cText )
    hwg_Sendmessage( ::handle, SB_SETTEXT, nPart - 1, cText )
    IF lRedraw != NIL .AND. lRedraw
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )

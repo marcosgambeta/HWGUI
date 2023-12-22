@@ -152,7 +152,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBor
    nStyle := IIf( nStyle = NIL, 3, nStyle )  // FLAT
    lnoBorder := IIf( lnoBorder = NIL, .F., lnoBorder )  // FLAT
 
-   RETURN HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize,,, nStyle, lnoBorder,,,,, bInit ) //,bClick, bDblClick)
+   RETURN HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize,,, nStyle, lnoBorder,,,,, bInit ) //, bClick, bDblClick)
 
 //---------------------------------------------------------------------------
 CLASS HDrawShape INHERIT HControl
@@ -337,7 +337,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
    ::Activate()
    IF ::bLoad != NIL
       // SET ENVIRONMENT
-      Eval( ::bLoad,Self )
+      Eval( ::bLoad, Self )
    ENDIF
    ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
 
@@ -386,7 +386,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HContainer
    LOCAL nEval
 
    IF ::bOther != NIL
-      IF ( nEval := Eval( ::bOther,Self,msg,wParam,lParam ) ) != NIL .AND. nEval != -1
+      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != NIL .AND. nEval != -1
          RETURN 0
       ENDIF
    ENDIF
@@ -444,19 +444,19 @@ METHOD Paint( lpdis ) CLASS HContainer
       hwg_Setbkmode( hDC, ::backStyle )
       IF !::lnoBorder
          IF ::ncStyle == 0      // RAISED
-            hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_RAISED,BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM)  // raised  forte      8
+            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM)  // raised  forte      8
          ELSEIF ::ncStyle == 1  // sunken
-            hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_SUNKEN,BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM ) // sunken mais forte
+            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKEN, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM ) // sunken mais forte
          ELSEIF ::ncStyle == 2  // FRAME
-            hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_RAISED+BDR_RAISEDOUTER,BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM) // FRAME
+            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED+BDR_RAISEDOUTER, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM) // FRAME
          ELSE                   // FLAT
-            hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_SUNKENINNER,BF_TOP)
-            hwg_Drawedge( hDC, x1, y1, x2, y2,BDR_RAISEDOUTER,BF_BOTTOM)
-            hwg_Drawedge( hDC, x1, y2, x2, y1,BDR_SUNKENINNER,BF_LEFT)
-            hwg_Drawedge( hDC, x1, y2, x2, y1,BDR_RAISEDOUTER,BF_RIGHT)
+            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKENINNER, BF_TOP)
+            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISEDOUTER, BF_BOTTOM)
+            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_SUNKENINNER, BF_LEFT)
+            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_RAISEDOUTER, BF_RIGHT)
          ENDIF
       ELSE
-         hwg_Drawedge( hDC, x1, y1, x2, y2,0,0)
+         hwg_Drawedge( hDC, x1, y1, x2, y2, 0, 0)
       ENDIF
       IF ::backStyle != TRANSPARENT
          IF ::Brush != NIL

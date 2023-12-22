@@ -17,16 +17,16 @@
 
 STATIC aSheet := Nil
 STATIC aMessModalDlg := { ;
-      { WM_COMMAND, { |o,w,l| onDlgCommand(o, w, l) } },       ;
-      { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } },    ;
-      { WM_SIZE, { |o,w,l| onSize( o, w, l ) } },                ;
-      { WM_INITDIALOG, { |o,w,l| InitModalDlg( o, w, l ) } },    ;
-      { WM_ERASEBKGND, { |o,w| onEraseBk( o, w ) } },            ;
+      { WM_COMMAND, { |o, w, l| onDlgCommand(o, w, l) } },       ;
+      { WM_SYSCOMMAND, { |o, w, l| onSysCommand(o, w, l) } },    ;
+      { WM_SIZE, { |o, w, l| onSize( o, w, l ) } },                ;
+      { WM_INITDIALOG, { |o, w, l| InitModalDlg( o, w, l ) } },    ;
+      { WM_ERASEBKGND, { |o, w| onEraseBk( o, w ) } },            ;
       { WM_DESTROY, { |o| hwg_onDestroy( o ) } },                ;
-      { WM_ACTIVATE, { | o, w,l| onActivate( o, w, l ) } },      ;
-      { WM_PSPNOTIFY, { |o,w,l| onPspNotify( o, w, l ) } },      ;
-      { WM_HELP, { |o,w,l| hwg_onHelp( o, w, l ) } },            ;
-      { WM_CTLCOLORDLG, { |o,w,l| onDlgColor( o, w, l ) } }      ;
+      { WM_ACTIVATE, { | o, w, l| onActivate( o, w, l ) } },      ;
+      { WM_PSPNOTIFY, { |o, w, l| onPspNotify( o, w, l ) } },      ;
+      { WM_HELP, { |o, w, l| hwg_onHelp( o, w, l ) } },            ;
+      { WM_CTLCOLORDLG, { |o, w, l| onDlgColor( o, w, l ) } }      ;
       }
 
    // Class HDialog

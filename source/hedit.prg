@@ -21,7 +21,7 @@ STATIC bDisablecolor :=  Nil
 #include "hblang.ch"
 #include "guilib.ch"
 #ifdef __XHARBOUR__
-   #xtranslate hb_RAScan([<x,...>])        => RAScan(<x>)
+   #xtranslate hb_RAScan([<x, ...>])        => RAScan(<x>)
 #endif
 
 #define VK_C  67

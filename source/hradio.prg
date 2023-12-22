@@ -26,7 +26,7 @@ CLASS HRadioGroup INHERIT HControl //HObject
 
    METHOD New( vari, bSetGet, bInit, bClick, bGFocus, nStyle )
    METHOD Newrg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, ;
-         cCaption, oFont, bInit, bSize,tcolor, bColor, bClick, bGFocus, lTransp )
+         cCaption, oFont, bInit, bSize, tcolor, bColor, bClick, bGFocus, lTransp )
    METHOD EndGroup( nSelected )
    METHOD SetValue( nValue )
    METHOD GetValue()  INLINE ::nValue
@@ -65,14 +65,14 @@ METHOD New( vari, bSetGet, bInit, bClick, bGFocus, nStyle ) CLASS HRadioGroup
    RETURN Self
 
 METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize,tcolor, bColor,bClick,;
-      bGFocus,lTransp ) CLASS HRadioGroup
+      cCaption, oFont, bInit, bSize, tcolor, bColor, bClick,;
+      bGFocus, lTransp ) CLASS HRadioGroup
 
    ::oGroupCurrent := Self
    ::aButtons := {}
    ::lEnabled :=  !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
 
-   ::Super:New( ::oParent,,,nLeft, nTop, nWidth, nHeight, oFont, bInit )
+   ::Super:New( ::oParent,,, nLeft, nTop, nWidth, nHeight, oFont, bInit )
    ::oHGroup := HGroup():New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
          oFont, bInit, bSize, , tcolor, bColor, lTransp, Self )
 
@@ -228,7 +228,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
          BS_NOTIFY + ;  // WS_CHILD + WS_VISIBLE
          IIf( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
    ::Super:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, ;
-         oFont, bInit, bSize, bPaint,ctooltip, tcolor, bColor )
+         oFont, bInit, bSize, bPaint, ctooltip, tcolor, bColor )
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
 
    ::Activate()
@@ -256,7 +256,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
       *- ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
-      ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick( ) },,"onClick" )
+      ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick( ) },, "onClick" )
       // ENDIF
    ENDIF
 
@@ -310,9 +310,9 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
    ::oParent:AddControl( Self )
 
    IF bClick != NIL .AND. ( ::oGroup == NIL .OR. ::oGroup:bSetGet == NIL )
-      *::oParent:AddEvent( 0,self,bClick,,"onClick" )
+      *::oParent:AddEvent( 0, self, bClick,, "onClick" )
       ::bLostFocus := bClick
-      //::oParent:AddEvent( 0,self,{|o,id|__Valid(o:FindControl(id))},,"onClick" )
+      //::oParent:AddEvent( 0, self,{|o, id|__Valid(o:FindControl(id))},, "onClick" )
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
@@ -326,7 +326,7 @@ METHOD Redefine( oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip,
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
       //::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
-      ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick( ) },,"onClick" )
+      ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick( ) },, "onClick" )
       // ENDIF
    ENDIF
 
@@ -336,7 +336,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
     LOCAL oCtrl
 
    IF ::bOther != NIL
-      IF Eval( ::bOther,Self,msg,wParam,lParam ) != -1
+      IF Eval( ::bOther, Self, msg, wParam, lParam ) != -1
          RETURN 0
       ENDIF
    ENDIF

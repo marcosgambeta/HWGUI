@@ -182,10 +182,10 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    IF VALTYPE( cTitle ) != "N"
       ::AddItem( Self )
    ENDIF
-   IF Hwg_Bitand(nStyle,WS_HSCROLL) > 0
+   IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
       ::nScrollBars ++
    ENDIF
-   IF  Hwg_Bitand(nStyle,WS_VSCROLL) > 0
+   IF  Hwg_Bitand(nStyle, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
    ::bSetForm := bSetForm
@@ -234,19 +234,19 @@ CLASS VAR aMessages INIT { ;
       { WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_SYSCOMMAND, ;
         WM_NOTIFYICON, WM_ENTERIDLE, WM_ACTIVATEAPP, WM_CLOSE, WM_DESTROY, WM_ENDSESSION, WM_ACTIVATE, WM_HELP }, ;
       { ;
-        {|o,w,l| onCommand(o, w, l) },        ;
-        {|o,w| onEraseBk( o, w ) },             ;
+        {|o, w, l| onCommand(o, w, l) },        ;
+        {|o, w| onEraseBk( o, w ) },             ;
         {|o| hwg_onMove( o ) },                 ;
-        {|o,w,l| onSize( o, w, l ) },           ;
-        {|o,w,l| onSysCommand(o, w, l) },     ;
-        {|o,w,l| onNotifyIcon( o, w, l ) },     ;
-        {|o,w,l| onEnterIdle( o, w, l ) },      ;
-        {|o,w,l| onEnterIdle( o, w, l ) },      ;
+        {|o, w, l| onSize( o, w, l ) },           ;
+        {|o, w, l| onSysCommand(o, w, l) },     ;
+        {|o, w, l| onNotifyIcon( o, w, l ) },     ;
+        {|o, w, l| onEnterIdle( o, w, l ) },      ;
+        {|o, w, l| onEnterIdle( o, w, l ) },      ;
         {|o| onCloseQuery( o ) },               ;
         {|o| hwg_onDestroy( o ) },              ;
-        {|o,w| onEndSession( o, w ) },          ;
-        {|o,w,l| onActivate( o, w, l ) },       ;
-        {|o,w,l| hwg_onHelp( o, w, l ) }        ;
+        {|o, w| onEndSession( o, w ) },          ;
+        {|o, w, l| onActivate( o, w, l ) },       ;
+        {|o, w, l| hwg_onHelp( o, w, l ) }        ;
       } ;
    }
 
@@ -465,13 +465,13 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    ELSEIF msg = WM_SETFOCUS .AND. !Empty( nFocus ) .AND. !hwg_Selffocus( nFocus )
       hwg_Setfocus( nFocus )
    ENDIF
-   IF ( i := Ascan( ::aMessages[1],msg ) ) != 0 .AND. ;
+   IF ( i := Ascan( ::aMessages[1], msg ) ) != 0 .AND. ;
        ( !::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE )
-      Return Eval( ::aMessages[2,i], Self, wParam, lParam )
+      Return Eval( ::aMessages[2, i], Self, wParam, lParam )
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
          IF ::nScrollBars != -1
-             hwg_ScrollHV( Self,msg,wParam,lParam )
+             hwg_ScrollHV( Self, msg, wParam, lParam )
          ENDIF
          hwg_onTrackScroll( Self, msg, wParam, lParam )
       ENDIF
@@ -494,18 +494,18 @@ METHOD InitTray( oNotifyIcon, bNotify, oNotifyMenu, cTooltip ) CLASS HMainWindow
 CLASS HMDIChildWindow INHERIT HWindow
 
 CLASS VAR aMessages INIT { ;
-        { WM_CREATE, WM_COMMAND,WM_ERASEBKGND,WM_MOVE, WM_SIZE, WM_NCACTIVATE, ;
+        { WM_CREATE, WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_NCACTIVATE, ;
           WM_SYSCOMMAND, WM_ENTERIDLE, WM_MDIACTIVATE, WM_DESTROY }, ;
         { ;
-          {|o,w,l| HB_SYMBOL_UNUSED(w), onMdiCreate( o, l ) }, ;
-          {|o,w| onMdiCommand(o, w) },         ;
-          {|o,w| onEraseBk( o, w ) },            ;
+          {|o, w, l| HB_SYMBOL_UNUSED(w), onMdiCreate( o, l ) }, ;
+          {|o, w| onMdiCommand(o, w) },         ;
+          {|o, w| onEraseBk( o, w ) },            ;
           {|o| hwg_onMove( o ) },                ;
-          {|o,w,l| onSize( o, w, l ) },          ;
-          {|o,w| onMdiNcActivate( o, w ) },      ;
-          {|o,w,l| onSysCommand(o, w, l) },    ;
-          {|o,w,l| onEnterIdle( o, w, l ) },     ;
-          {|o,w,l| onMdiActivate( o, w, l ) },   ;
+          {|o, w, l| onSize( o, w, l ) },          ;
+          {|o, w| onMdiNcActivate( o, w ) },      ;
+          {|o, w, l| onSysCommand(o, w, l) },    ;
+          {|o, w, l| onEnterIdle( o, w, l ) },     ;
+          {|o, w, l| onMdiActivate( o, w, l ) },   ;
           {|o| hwg_onDestroy( o ) }              ;
         } ;
    }
@@ -645,7 +645,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
          IF ::nScrollBars != -1
-             hwg_ScrollHV( Self,msg,wParam,lParam )
+             hwg_ScrollHV( Self, msg, wParam, lParam )
          ENDIF
          hwg_onTrackScroll( Self, msg, wParam, lParam )
       ELSEIF msg = WM_NOTIFY .AND.!::lSuspendMsgsHandling
@@ -666,7 +666,7 @@ CLASS HChildWindow INHERIT HWindow
    METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
                bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
                cAppName, oBmp, cHelp, nHelpId, bRefresh )
-   METHOD Activate( lShow, lMaximized, lMinimized,lCentered, bActivate, lModal)
+   METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate, lModal)
    METHOD onEvent( msg, wParam, lParam )
 
 ENDCLASS
@@ -696,7 +696,7 @@ METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
     */
    RETURN Self
 
-METHOD Activate( lShow, lMaximized, lMinimized,lCentered, bActivate, lModal ) CLASS HChildWindow
+METHOD Activate( lShow, lMaximized, lMinimized, lCentered, bActivate, lModal ) CLASS HChildWindow
    LOCAL nReturn
 
    HB_SYMBOL_UNUSED(lModal)
@@ -1122,7 +1122,7 @@ STATIC FUNCTION onMdiNcActivate( oWnd, wParam )
    ENDIF
    RETURN - 1
 
-Static Function onMdiActivate( oWnd,wParam, lParam )
+Static Function onMdiActivate( oWnd, wParam, lParam )
    Local lScreen := oWnd:Screen != nil, aWndMain, oWndDeact
    Local lConf
 

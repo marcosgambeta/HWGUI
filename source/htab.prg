@@ -378,7 +378,7 @@ METHOD EndPage() CLASS HTab
          ::HidePage( ::nActive )
       ENDIF
       // add news objects how property in tab
-      FOR i = ::aPages[ ::nActive,1 ] + 1 TO ::aPages[ ::nActive,1 ] + ::aPages[ ::nActive,2 ]
+      FOR i = ::aPages[ ::nActive, 1 ] + 1 TO ::aPages[ ::nActive, 1 ] + ::aPages[ ::nActive, 2 ]
          cName := ::aControls[ i ]:name
          IF !Empty( cName ) .AND. ValType( cName ) == "C" .AND. !":" $ cName .AND. ;
                !"->" $ cName .AND. !"[" $ cName
@@ -566,13 +566,13 @@ Local nFirst, nEnd, i
       hwg_Deletetab(::handle, nPage)
       ::nActive := nPage - 1
    ELSE
-      nFirst := ::aPages[ nPage,1 ] + 1
-      nEnd   := ::aPages[ nPage,1 ] + ::aPages[ nPage,2 ]
+      nFirst := ::aPages[ nPage, 1 ] + 1
+      nEnd   := ::aPages[ nPage, 1 ] + ::aPages[ nPage, 2 ]
       FOR i := nFirst TO nEnd
          ::DelControl( ::aControls[i] )
       NEXT
       FOR i := nPage + 1 TO Len( ::aPages )
-         ::aPages[ i,1 ] -= ( nEnd-nFirst+1 )
+         ::aPages[ i, 1 ] -= ( nEnd-nFirst+1 )
       NEXT
 
       hwg_Deletetab(::handle, nPage - 1)
@@ -712,7 +712,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       IF ::nActive > 0
          ::ShowPage( ::nActive )
          IF hwg_Sendmessage( ::handle, TCM_GETROWCOUNT, 0, 0 ) > 1
-            hwg_Invalidaterect( ::Handle, 0, 1, ::Pages[1]:aItemPos[2], ::nWidth - 1, ::Pages[1]:aItemPos[4] * hwg_Sendmessage( ::handle,TCM_GETROWCOUNT, 0, 0 )  )
+            hwg_Invalidaterect( ::Handle, 0, 1, ::Pages[1]:aItemPos[2], ::nWidth - 1, ::Pages[1]:aItemPos[4] * hwg_Sendmessage( ::handle, TCM_GETROWCOUNT, 0, 0 )  )
          ENDIF
       ENDIF
    ELSEIF msg = WM_SIZE

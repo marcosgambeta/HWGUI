@@ -161,7 +161,7 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
    hMC = CreateWindowEx( 0,
                          MONTHCAL_CLASS,
                          TEXT( "" ),
-                         (LONG) hb_parnl(3), /* 0,0,0,0, */
+                         (LONG) hb_parnl(3), /* 0, 0, 0, 0, */
                          hb_parni(4), hb_parni(5),      /* x, y       */
                          hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
                          (HWND) HB_PARHANDLE(1),
@@ -171,7 +171,7 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
 
    MonthCal_GetMinReqRect( hMC, &rc );
 
-   SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6),hb_parni(7), SWP_NOZORDER );
+   SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), SWP_NOZORDER );
 
     HB_RETHANDLE(  hMC );
 }

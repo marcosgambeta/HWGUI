@@ -72,15 +72,15 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
       strfull := ""
       DO WHILE .T.
          kolstr ++
-         stroka := Iif( iniDbf, RDSTRDBF(), RDSTR( han,@strbuf,@poz,STR_BUFLEN ) )
+         stroka := Iif( iniDbf, RDSTRDBF(), RDSTR( han, @strbuf, @poz, STR_BUFLEN ) )
          IF LEN( stroka ) = 0
             EXIT
          ENDIF
-         IF Right( stroka,2 ) == '&&'
-            strfull += Left( stroka,Len(stroka)-2 )
+         IF Right( stroka, 2 ) == '&&'
+            strfull += Left( stroka, Len(stroka)-2 )
             LOOP
-         ELSEIF Right( stroka,1 ) == '&'
-            strfull += Left( stroka,Len(stroka)-1 )
+         ELSEIF Right( stroka, 1 ) == '&'
+            strfull += Left( stroka, Len(stroka)-1 )
             LOOP
          ELSE
             IF !Empty( strfull )
@@ -89,7 +89,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
             strfull := ""
          ENDIF
          //
-         IF Left( stroka,1 ) = "["
+         IF Left( stroka, 1 ) = "["
             stroka := UPPER( SUBSTR( stroka, 2, AT( "]", stroka ) - 2 ) )
             IF lWinIni
                AADD(prm1, { UPPER( stroka ), {} })
@@ -101,7 +101,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                ENDIF
                SET EXACT OFF
             ENDIF
-         ELSEIF ( prblo .OR. lWinIni ) .AND. Left( stroka,1 ) <> ";"
+         ELSEIF ( prblo .OR. lWinIni ) .AND. Left( stroka, 1 ) <> ";"
             poz1 := AT( "=", stroka )
             IF poz1 <> 0
                lTruncAr := IIF( SUBSTR( stroka, poz1 - 1, 1 ) == '+', .F., .T. )

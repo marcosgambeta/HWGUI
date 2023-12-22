@@ -84,7 +84,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    
    nStyle := Hwg_BitOR( nStyle, SS_NOTIFY + SS_RIGHT  )
    ::lAllUnderline := IIF( EMPTY( cLink ), .F., ::lAllUnderline )
-   ::title := IIF(cCaption != Nil,cCaption, "HWGUI HomePage")
+   ::title := IIF(cCaption != Nil, cCaption, "HWGUI HomePage")
    ::hbitmap := hbitmap
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
@@ -366,7 +366,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 //   LOCAL POLDFONT
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
-   LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0,0} )
+   LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0, 0} )
    LOCAL itemRect    := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
    LOCAL captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
@@ -452,7 +452,7 @@ METHOD Resize( x, y ) CLASS HStaticLink
    ENDIF
 
    x := iif( x == Nil, 0, x - ::nWidth + 1 )
-   aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), { 0,0 } )
+   aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), {0, 0} )
    aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
    ::Move( , , ::nWidth + x, , 0 )
    aTxtSize := hwg_TxtRect( ::Title, Self )

@@ -101,16 +101,16 @@ METHOD CalcMinMax() CLASS HGraph
       nLen := Len( ::aValues[ i ] )
       IF ::nType == 1
          FOR j := 1 TO nLen
-            ::xmax := Max( ::xmax, ::aValues[ i,j,1 ] )
-            ::xmin := Min( ::xmin, ::aValues[ i,j,1 ] )
-            ::ymax := Max( ::ymax, ::aValues[ i,j,2 ] )
-            ::ymin := Min( ::ymin, ::aValues[ i,j,2 ] )
+            ::xmax := Max( ::xmax, ::aValues[ i, j, 1 ] )
+            ::xmin := Min( ::xmin, ::aValues[ i, j, 1 ] )
+            ::ymax := Max( ::ymax, ::aValues[ i, j, 2 ] )
+            ::ymin := Min( ::ymin, ::aValues[ i, j, 2 ] )
          NEXT
       ELSEIF ::nType == 2
          FOR j := 1 TO nLen
-            IF ::aValues[ i,j,2 ] != Nil
-              ::ymax := Max( ::ymax, ::aValues[ i,j,2 ] )
-              ::ymin := Min( ::ymin, ::aValues[ i,j,2 ] )
+            IF ::aValues[ i, j, 2 ] != Nil
+              ::ymax := Max( ::ymax, ::aValues[ i, j, 2 ] )
+              ::ymin := Min( ::ymin, ::aValues[ i, j, 2 ] )
             ENDIF
          NEXT
          ::xmax := nLen
@@ -165,10 +165,10 @@ METHOD Paint( lpdis ) CLASS HGraph
          nLen := Len( ::aValues[ i ] )
          IF ::nType == 1
             FOR j := 2 TO nLen
-               px1 := Round(x1 + ( ::aValues[ i,j-1,1 ] - ::xmin ) / ::scaleX, 0)
-               py1 := Round(y2 - ( ::aValues[ i,j-1,2 ] - ::ymin ) / ::scaleY, 0)
-               px2 := Round(x1 + ( ::aValues[ i,j,1 ] - ::xmin ) / ::scaleX, 0)
-               py2 := Round(y2 - ( ::aValues[ i,j,2 ] - ::ymin ) / ::scaleY, 0)
+               px1 := Round(x1 + ( ::aValues[ i, j-1, 1 ] - ::xmin ) / ::scaleX, 0)
+               py1 := Round(y2 - ( ::aValues[ i, j-1, 2 ] - ::ymin ) / ::scaleY, 0)
+               px2 := Round(x1 + ( ::aValues[ i, j, 1 ] - ::xmin ) / ::scaleX, 0)
+               py2 := Round(y2 - ( ::aValues[ i, j, 2 ] - ::ymin ) / ::scaleY, 0)
                IF px2 != px1 .OR. py2 != py1
                   hwg_Drawline( hDC, px1, py1, px2, py2 )
                ENDIF
@@ -180,10 +180,10 @@ METHOD Paint( lpdis ) CLASS HGraph
             // nWidth := Round(( x2 - x1 ) / ( nLen * 2 + 1 ), 0)
             nWidth := Round(( x2 - x1 ) / ( nLen ), 0)
             FOR j := 1 TO nLen
-               IF ::aValues[ i,j,2 ] != Nil
+               IF ::aValues[ i, j, 2 ] != Nil
                   // px1 := Round(x1 + nWidth * ( j * 2 - 1 ), 0)
                   px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
-                  py1 := Round(y2 - 2 - ( ::aValues[ i,j,2 ] - ::ymin ) / ::scaleY, 0)
+                  py1 := Round(y2 - 2 - ( ::aValues[ i, j, 2 ] - ::ymin ) / ::scaleY, 0)
                   hwg_Fillrect( hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle )
                ENDIF
             NEXT
@@ -205,12 +205,12 @@ METHOD Paint( lpdis ) CLASS HGraph
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
       FOR i := 1 TO Len( ::aSignY )
-         py1 := Round(y2 - 2 - ( ::aSignY[ i,1 ] - ::ymin ) / ::scaleY, 0)
+         py1 := Round(y2 - 2 - ( ::aSignY[ i, 1 ] - ::ymin ) / ::scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline( hDC, x0-4, py1, x0+1, py1 )
-            IF ::aSignY[ i,2 ] != Nil
-               hwg_Drawtext( hDC, Iif( Valtype(::aSignY[i,2])=="C",::aSignY[i,2], ;
-                     Ltrim(Str(::aSignY[i,2]))), drawInfo[4], py1-8, x0-4, py1+8, DT_RIGHT )
+            IF ::aSignY[ i, 2 ] != Nil
+               hwg_Drawtext( hDC, Iif( Valtype(::aSignY[i, 2])=="C",::aSignY[i, 2], ;
+                     Ltrim(Str(::aSignY[i, 2]))), drawInfo[4], py1-8, x0-4, py1+8, DT_RIGHT )
                IF ::lGridY
                   hwg_Drawline( hDC, x0+1, py1, x2, py1 )
                ENDIF
@@ -225,11 +225,11 @@ METHOD Paint( lpdis ) CLASS HGraph
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
       FOR i := 1 TO Len( ::aSignX )
-         px1 := Round(x0 + nWidth * ::aSignX[ i,1 ] + Iif( ::lGridXMid,nWidth/2,0 ), 0)
+         px1 := Round(x0 + nWidth * ::aSignX[ i, 1 ] + Iif( ::lGridXMid, nWidth/2, 0 ), 0)
          hwg_Drawline( hDC, px1, y0+4, px1, y0-1 )
-         IF ::aSignX[ i,2 ] != Nil
-            hwg_Drawtext( hDC, Iif( Valtype(::aSignX[i,2])=="C",::aSignX[i,2], ;
-                  Ltrim(Str(::aSignX[i,2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER )
+         IF ::aSignX[ i, 2 ] != Nil
+            hwg_Drawtext( hDC, Iif( Valtype(::aSignX[i, 2])=="C",::aSignX[i, 2], ;
+                  Ltrim(Str(::aSignX[i, 2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER )
             IF ::lGridX
                hwg_Drawline( hDC, px1, y0-1, px1, y1 )
             ENDIF

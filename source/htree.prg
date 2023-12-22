@@ -377,7 +377,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
    Local nEval, hitemNew, htiParent, htiPrev, htiNext
    
    IF ::bOther != Nil
-      IF ( nEval := Eval( ::bOther,Self,msg,wParam,lParam )) != Nil .AND. nEval != - 1
+      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam )) != Nil .AND. nEval != - 1
          RETURN 0
       ENDIF
    ENDIF
@@ -573,7 +573,7 @@ METHOD Notify( lParam )  CLASS HTree
             ELSEIF oItem:oTree:bAction != Nil
                Eval( oItem:oTree:bAction, oItem, Self )
             ENDIF
-            hwg_Sendmessage( ::handle,TVM_SETITEM, , oitem:HANDLE)
+            hwg_Sendmessage( ::handle, TVM_SETITEM, , oitem:HANDLE)
          ENDIF
       ENDIF
 	

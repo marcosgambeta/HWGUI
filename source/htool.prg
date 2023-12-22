@@ -35,7 +35,7 @@ CLASS HToolButton INHERIT HObject
    DATA oParent
    //DATA oFont   // not implemented
 
-   METHOD New(oParent,cName,nBitIp,nId,bState,bStyle,cText,bClick,ctip, aMenu )
+   METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu )
    METHOD Enable() INLINE ::oParent:EnableButton( ::id, .T. )
    METHOD Disable() INLINE ::oParent:EnableButton( ::id, .F. )
    METHOD Show() INLINE hwg_Sendmessage( ::oParent:handle, TB_HIDEBUTTON, INT( ::id ), hwg_Makelong( 0, 0 ) )
@@ -48,7 +48,7 @@ CLASS HToolButton INHERIT HObject
 
 ENDCLASS
 
-METHOD New(oParent,cName,nBitIp,nId,bState,bStyle,cText,bClick,ctip,aMenu) CLASS  HToolButton
+METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu) CLASS  HToolButton
 
    ::Name := cName
    ::iD := nId
@@ -63,7 +63,7 @@ METHOD New(oParent,cName,nBitIp,nId,bState,bStyle,cText,bClick,ctip,aMenu) CLASS
      __objAddData(::oParent, cName)
     ::oParent:&(cName) := Self
     
-  //  ::oParent:oParent:AddEvent( BN_CLICKED, Self, {|| ::ONCLICK()},,"click" )
+  //  ::oParent:oParent:AddEvent( BN_CLICKED, Self, {|| ::ONCLICK()},, "click" )
 
 RETURN Self
 
@@ -140,8 +140,8 @@ CLASS HToolBar INHERIT HControl
    DATA nwSize, nHSize
    DATA nDrop
 
-   METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,btnWidth,oFont,bInit, ;
-                  bSize,bPaint,ctooltip,tcolor,bcolor,lTransp, lVertical, aItem, nWSize,nHSize, nIndent, nIDB )
+   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit, ;
+                  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB )
    METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
                     bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )
 
@@ -160,7 +160,7 @@ CLASS HToolBar INHERIT HControl
 ENDCLASS
 
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit, ;
-                  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize,nHSize, nIndent, nIDB ) CLASS hToolBar
+                  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical, aItem, nWSize, nHSize, nIndent, nIDB ) CLASS hToolBar
 
    //HB_SYMBOL_UNUSED(cCaption)
    //HB_SYMBOL_UNUSED(lTransp)
@@ -193,10 +193,10 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFo
          ::Line := HLine():New( oWndParent,,, nLeft, nTop + nHeight + ;
                    IIF( ::lnoThemes .AND. Hwg_BitAnd(nStyle, TBSTYLE_FLAT) > 0, 2, 1 ), nWidth )
       ELSE
-         ::Line := HLine():New(oWndParent,,::lVertical,nLeft + nWidth + 1, nTop,nHeight )
+         ::Line := HLine():New(oWndParent,,::lVertical, nLeft + nWidth + 1, nTop, nHeight )
       ENDIF
    ENDIF
-   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI .AND. ;
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI .AND. ;
         ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
@@ -261,7 +261,7 @@ METHOD INIT() CLASS hToolBar
    RETURN Nil
 
 METHOD CREATETOOL() CLASS hToolBar
-   Local n,n1
+   Local n, n1
    Local aTemp
    Local aButton :={}
    Local aBmpSize, hIm, nPos
@@ -321,10 +321,10 @@ METHOD CREATETOOL() CLASS hToolBar
 				     LOOP
 				  ENDIF
 				  nDrop := Max( nDrop, IIF( Hwg_Bitand(::aItem[ n, 4 ], BTNS_WHOLEDROPDOWN ) != 0, 0, ;
-               IIF( Hwg_Bitand(::aItem[ n, 4 ], BTNS_DROPDOWN ) != 0, 8,0 ) ) )
+               IIF( Hwg_Bitand(::aItem[ n, 4 ], BTNS_DROPDOWN ) != 0, 8, 0 ) ) )
 				 /*
 				 IF ::nSize != Nil
-				    hwg_Sendmessage( ::HANDLE, TB_SETBITMAPSIZE,0, hwg_Makelong ( ::nSize, ::nSize ) )
+				    hwg_Sendmessage( ::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong ( ::nSize, ::nSize ) )
 				 ENDIF
          */
       IF ValType( ::aItem[ n, 1 ] )  == "C" .OR. ::aItem[ n, 1 ] > 1
@@ -383,7 +383,7 @@ METHOD CREATETOOL() CLASS hToolBar
 //            aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
             /*
             IF aBmpSize[3] == 24
-//             hwg_Imagelist_addmasked(hIm,aButton[nPos],hwg_Rgb(236,223,216))
+//             hwg_Imagelist_addmasked(hIm, aButton[nPos], hwg_Rgb(236, 223, 216))
                hwg_Imagelist_add(hIm, aButton[ nPos ])
             ELSE
                hwg_Imagelist_add(hIm, aButton[ nPos ])
@@ -453,7 +453,7 @@ METHOD Notify( lParam ) CLASS hToolBar
 
    ELSEIF nCode == TBN_DROPDOWN
       nId := hwg_Toolbar_submenuexgetid(lParam)
-      IF nId > 0 //valtype(::aItem[1,9]) ="A"
+      IF nId > 0 //valtype(::aItem[1, 9]) ="A"
 //       nid := hwg_Toolbar_submenuexgetid(lParam)
          nPos := AScan( ::aItem, { | x | x[2] == nId } )
          hwg_Toolbar_submenuex( lParam, ::aItem[ nPos, 10 ], ::oParent:handle )
@@ -463,8 +463,8 @@ METHOD Notify( lParam ) CLASS hToolBar
    elseif nCode == NM_CLICK
       nId := hwg_Toolbar_idclick( lParam )     
       nPos := AScan( ::aItem, { | x | x[2] == nId } )
-      if nPos > 0 .AND. ::aItem[nPos,7] != NIL
-         Eval( ::aItem[nPos,7], ::aItem[nPos,11], nId )
+      if nPos > 0 .AND. ::aItem[nPos, 7] != NIL
+         Eval( ::aItem[nPos, 7], ::aItem[nPos, 11], nId )
       endif
    ENDIF
 
@@ -495,7 +495,7 @@ METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, n
       //bStyle := TBSTYLE_SEP //TBSTYLE_FLAT
    ENDIF
 
-   oButton := HToolButton():New(Self,cName,nBitIp,nId,bState,bStyle,cText,bClick, c, aMenu)
+   oButton := HToolButton():New(Self, cName, nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu)
    IF !::lResource
       AAdd(::aItem, { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton })
    ELSE

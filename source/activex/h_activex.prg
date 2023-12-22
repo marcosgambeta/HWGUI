@@ -50,7 +50,7 @@ ENDCLASS
 
 METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
    LOCAL nStyle, nExStyle, cClsName, hSink
-   LOCAL i,a,h,n
+   LOCAL i, a, h, n
    LOCAL oError, bErrorBlock
 
    nStyle   := WS_CHILD + WS_VISIBLE + WS_CLIPCHILDREN

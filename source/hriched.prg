@@ -137,7 +137,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-         IF  ( hwg_IsCtrlShift(.T.,.F.) .OR. !::lAllowTabs )
+         IF  ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
             RETURN 0
          ENDIF
       ENDIF
@@ -152,14 +152,14 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ENDIF
    IF msg == WM_KEYUP
      IF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-         IF   hwg_IsCtrlShift(.T.,.F.)
+         IF   hwg_IsCtrlShift(.T., .F.)
             hwg_GetSkip( ::oParent, ::handle, , ;
                       iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
             RETURN 0
          ENDIF
       ENDIF
    ELSEIF msg == WM_KEYDOWN
-      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T.,.F.) .OR. !::lAllowTabs )
+      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
          hwg_GetSkip( ::oParent, ::handle, , ;
                       iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0
@@ -169,7 +169,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       ENDIF
       IF wParam == VK_ESCAPE .AND. hwg_GetParentForm( Self ):Handle != ::oParent:handle
          IF hwg_Getparent(::oParent:handle) != Nil
-            //hwg_Sendmessage( hwg_Getparent(::oParent:handle),WM_CLOSE,0,0 )
+            //hwg_Sendmessage( hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0 )
          ENDIF
          RETURN 0
       ENDIF
@@ -179,7 +179,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          nDelta -= 65535
       ENDIF
       hwg_Sendmessage( ::handle, EM_SCROLL, IIf( nDelta > 0, SB_LINEUP, SB_LINEDOWN ), 0 )
-//      hwg_Sendmessage( ::handle,EM_SCROLL, Iif(nDelta>0,SB_LINEUP,SB_LINEDOWN), 0 )
+//      hwg_Sendmessage( ::handle, EM_SCROLL, Iif(nDelta>0, SB_LINEUP, SB_LINEDOWN), 0 )
    ELSEIF msg == WM_DESTROY
       ::END()
    ENDIF
@@ -297,7 +297,7 @@ METHOD Print( )  CLASS HRichEdit
 Function hwg_DefRichProc(hEdit, msg, wParam, lParam)
 
 Local oEdit
-   // writelog( "RichProc: " + Str(hEdit,10)+"|"+Str(msg,6)+"|"+Str(wParam,10)+"|"+Str(lParam,10) )
+   // writelog( "RichProc: " + Str(hEdit, 10)+"|"+Str(msg, 6)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10) )
    oEdit := hwg_FindSelf( hEdit )
    IF msg == WM_CHAR
       oEdit:lChanged := .T.

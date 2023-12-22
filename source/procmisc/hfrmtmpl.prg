@@ -216,7 +216,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
             ENDIF
          NEXT
       ELSEIF aItems[ i ]:title == "method"
-         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),CompileMethod(aItems[i]:aItems[1]:aItems[1],Self,,cName) })
+         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), CompileMethod(aItems[i]:aItems[1]:aItems[1], Self,, cName) })
          IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
             ::aFuncs := ::aMethods[ j, 2, 2 ]
             FOR j := 1 TO Len( ::aFuncs[2] )
@@ -480,10 +480,10 @@ STATIC FUNCTION ReadTree( oForm, aParent, oDesc )
 FUNCTION ParseMethod(cMethod)
    LOCAL arr := { }, nPos1, nPos2, cLine
 
-   IF ( nPos1 := At( Chr(10),cMethod ) ) == 0
+   IF ( nPos1 := At( Chr(10), cMethod ) ) == 0
       Aadd(arr, RTrim( cMethod ))
    ELSE
-      Aadd(arr, RTrim( Left( cMethod,nPos1-1 ) ))
+      Aadd(arr, RTrim( Left( cMethod, nPos1-1 ) ))
       DO WHILE .T.
          IF ( nPos2 := hb_At( Chr(10), cMethod, nPos1 + 1 ) ) == 0
             cLine := AllTrim( SubStr( cMethod, nPos1 + 1 ) )
@@ -515,7 +515,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
    IF cMethod = NIL .OR. Empty( cMethod )
       RETURN NIL
    ENDIF
-   IF oCtrl != NIL .AND. Left( oCtrl:oParent:Classname(),2 ) == "HC"
+   IF oCtrl != NIL .AND. Left( oCtrl:oParent:Classname(), 2 ) == "HC"
       // writelog( oCtrl:cClass+" "+oCtrl:oParent:cClass+" "+ oCtrl:oParent:oParent:Classname() )
       nContainer := oForm:nContainer
    ENDIF
@@ -523,9 +523,9 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
       cMethod := Ltrim( cMethod )
    ENDIF
    IF Lower( Left( cMethod, 11 ) ) == "parameters " .AND. ;
-         ( nPos := At( Chr(10),cMethod ) ) != 0
+         ( nPos := At( Chr(10), cMethod ) ) != 0
       DO WHILE Substr( cMethod, --nPos, 1 ) <= ' '; ENDDO
-      cParam := Alltrim( Substr( Left( cMethod,nPos ), 12 ) )
+      cParam := Alltrim( Substr( Left( cMethod, nPos ), 12 ) )
    ENDIF
    IF oForm:lDebug
       arr := {}
@@ -533,8 +533,8 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
       arr := ParseMethod(cMethod)
    ENDIF
    IF Len( arr ) == 1
-      cCode := Iif( Lower( Left(arr[1],6) ) == "return", Ltrim( Substr( arr[1],8 ) ), arr[1] )
-      bOldError := ERRORBLOCK( {|e|CompileErr(e,cCode)} )
+      cCode := Iif( Lower( Left(arr[1], 6) ) == "return", Ltrim( Substr( arr[1], 8 ) ), arr[1] )
+      bOldError := ERRORBLOCK( {|e|CompileErr(e, cCode)} )
       BEGIN SEQUENCE
          bRes := &( "{||" + ppScript( cCode ) + "}" )
       END SEQUENCE
@@ -542,9 +542,9 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
       RETURN bRes
    ELSEIF !Empty(arr) .AND. !Empty( cParam )
       IF Len( arr ) == 2
-         cCode := Iif( Lower( Left(arr[2],6) ) == "return", Ltrim( Substr( arr[2],8 ) ), arr[2] )
+         cCode := Iif( Lower( Left(arr[2], 6) ) == "return", Ltrim( Substr( arr[2], 8 ) ), arr[2] )
          cCode := "{|" + cParam + "|" + ppScript( cCode ) + "}"
-         bOldError := ERRORBLOCK( {|e|CompileErr(e,cCode)} )
+         bOldError := ERRORBLOCK( {|e|CompileErr(e, cCode)} )
          BEGIN SEQUENCE
             bRes := &cCode
          END SEQUENCE
@@ -557,8 +557,8 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
          arrExe := Array(2)
          arrExe[2] := RdScript( , cMethod, 1, .T., cName )
          cCode :=  "{|" + cParam + ;
-               "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0,","+Ltrim(Str(nContainer)),"")+"):" + ;
-               Iif( oCtrl == NIL,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2],{", ;
+               "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0, ","+Ltrim(Str(nContainer)), "")+"):" + ;
+               Iif( oCtrl == NIL, "aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2],{", ;
                cCode1+":aMethods["+ ;
                Ltrim(Str(Len(oCtrl:aMethods)+1))+",2,2],{" ) + ;
                cParam + "})" + "}"
@@ -572,13 +572,13 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
          "F("+Ltrim(Str(oCtrl:nId))+")" )
    arrExe := Array(2)
    arrExe[2] := RdScript( , cMethod, , .T., cName )
-   cCode := "{|" + Iif( Empty(cParam),"",cParam ) + ;
-         "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0,","+Ltrim(Str(nContainer)),"")+"):" + ;
-         Iif( oCtrl == NIL,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2]" + ;
-         Iif( Empty(cParam),"",",{"+cParam+"}" ) + ")", ;
+   cCode := "{|" + Iif( Empty(cParam), "", cParam ) + ;
+         "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0, ","+Ltrim(Str(nContainer)), "")+"):" + ;
+         Iif( oCtrl == NIL, "aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2]" + ;
+         Iif( Empty(cParam), "", ",{"+cParam+"}" ) + ")", ;
          cCode1+":aMethods["+   ;
          Ltrim(Str(Len(oCtrl:aMethods)+1))+",2,2]" + ;
-         Iif( Empty(cParam),"",",{"+cParam+"}" ) + ")" ) + "}"
+         Iif( Empty(cParam), "", ",{"+cParam+"}" ) + ")" ) + "}"
    arrExe[1] := &cCode
 
    RETURN arrExe
@@ -617,7 +617,7 @@ STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
             ENDIF
          NEXT
       ELSEIF aItems[ i ]:title == "method"
-         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),CompileMethod(aItems[i]:aItems[1]:aItems[1],oForm,oCtrl,cName) })
+         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), CompileMethod(aItems[i]:aItems[1]:aItems[1], oForm, oCtrl, cName) })
       ELSEIF aItems[ i ]:title == "part"
          ReadCtrl( aItems[ i ], oCtrl, oForm )
       ENDIF
@@ -845,7 +845,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ELSEIF cPName == "interval"
          nInterval := xProperty
       // browse - colunas
-      //  "cOName:AddColumn(HColumn():New(cHeader,block,cType,nLen,nDec,lEdit,nJusHead, nJusLine, cPicture,bValid, bWhen, Items, bClrBlck, bHeadClick ))",;  //oBrw:AddColumn
+      //  "cOName:AddColumn(HColumn():New(cHeader,block, cType, nLen, nDec, lEdit, nJusHead, nJusLine, cPicture,bValid, bWhen, Items, bClrBlck, bHeadClick ))",;  //oBrw:AddColumn
       //ELSEIF cPName == "brwtype"
       //   brwtype := xProperty
       ELSEIF cPName == "aarray"
@@ -896,10 +896,10 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       ELSEIF cPName == "fieldexpr"
          fBlock  := Lower( IIf( xProperty != NIL .AND. !Empty( xProperty ), xProperty, fBlock ) )
          //IF !(cAlias == cTmpAlias) .AND. cTmpAlias $ cCampo
-         //  cCampo := STRTRAN(cCampo,cTmpAlias,cAlias)
+         //  cCampo := STRTRAN(cCampo, cTmpAlias, cAlias)
          //ENDIF
       ELSEIF cPName == "length"
-         nLength :=   xProperty  //iif(xProperty != NIL,xProperty,10)
+         nLength :=   xProperty  //iif(xProperty != NIL, xProperty, 10)
       ELSEIF cPName == "picture"
          cPicture := IIf( Empty( xProperty ), NIL, xProperty )
       ELSEIF cPName == "editable"
@@ -1000,8 +1000,8 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          j := { }
          AEval( &cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd(j, aField[1]) } )
          IF m->nLength = NIL
-            // m->nLength := &cTmpAlias->(fieldlen(ascan(j,temp)))
-            // m->nLength := IIF(m->nLength = 0, IIF(type("&cCampo") = "C",LEN(&cCampo),10),m->nLength)
+            // m->nLength := &cTmpAlias->(fieldlen(ascan(j, temp)))
+            // m->nLength := IIF(m->nLength = 0, IIF(type("&cCampo") = "C", LEN(&cCampo), 10), m->nLength)
             m->nLength := &cAliasdbf->( fieldlen( AScan( j, temp ) ) )
             m->nLength := IIf( m->nLength = 0, IIf( Type( "&fblock" ) = "C", Len( &fBlock ), 10 ), m->nLength )
          ENDIF
@@ -1055,7 +1055,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             j := ( DBStruct() )
             //AEVAL( aStruct, {|aField| QOUT(aField[DBS_NAME])} )
             FOR i := 1 TO IIf( oCtrl:nColumns = 0, FCount(), oCtrl:nColumns )
-               //"AddColumn(HColumn():New(cHeader,Fblock,cValType,nLength,nDec,lEdit,nJusHead, nJusLine, cPicture,bValid, bWhen, Items, bClrBlck, bHeadClick ))",;  //oBrw:AddColumn
+               //"AddColumn(HColumn():New(cHeader, Fblock, cValType, nLength, nDec, lEdit, nJusHead, nJusLine, cPicture,bValid, bWhen, Items, bClrBlck, bHeadClick ))",;  //oBrw:AddColumn
                m->cHeader := FieldName( i )
                m->fBlock := FieldBlock( FieldName( i ) )
                m->cValType := j[ i, 2 ]  //TYPE("FieldName(i)")
@@ -1067,7 +1067,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
             NEXT
          ENDIF
       ELSE
-         oCtrl:aArray := caArray  //IIF(TYPE("caArray")="C",&(caArray),caArray)
+         oCtrl:aArray := caArray  //IIF(TYPE("caArray")="C",&(caArray), caArray)
          oCtrl:AddColumn( HColumn():New( , { | v, o | IIf( v != NIL, o:aArray[ o:nCurrent ] := v, o:aArray[ o:nCurrent ] ) }, 'C', 100, 0 ) )
       ENDIF
    ENDIF
@@ -1292,7 +1292,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
             ENDIF
          NEXT
       ELSEIF aItems[ i ]:title == "method"
-         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),RdScript(,aItems[i]:aItems[1]:aItems[1],,.T.,cName) })
+         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), RdScript(, aItems[i]:aItems[1]:aItems[1],, .T., cName) })
          IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
             ::aFuncs := ::aMethods[ j, 2 ]
             FOR j := 1 TO Len( ::aFuncs[2] )
@@ -1441,7 +1441,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
 
       IF oItem:cClass == "area"
          oItem:y2 := y2
-         // writelog( "Area: "+cText+" "+Iif(::lNextPage,"T","F") )
+         // writelog( "Area: "+cText+" "+Iif(::lNextPage, "T", "F") )
          IF ( xProperty := aGetSecond(oItem:aProp, "varoffset") ) == NIL ;
               .OR. !xProperty
             ::nTOffset := ::nAOffSet := 0
@@ -1645,7 +1645,7 @@ STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
             ENDIF
          NEXT
       ELSEIF aItems[ i ]:title == "method"
-         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),RdScript(,aItems[i]:aItems[1]:aItems[1],,.T.,cName) })
+         Aadd(aMethods, { cName := Lower(aItems[i]:GetAttribute("name")), RdScript(, aItems[i]:aItems[1]:aItems[1],, .T., cName) })
       ELSEIF aItems[ i ]:title == "part"
          ReadRepItem( aItems[ i ], IIf( oCtrl:cClass == "area", oCtrl, oContainer ) )
       ENDIF

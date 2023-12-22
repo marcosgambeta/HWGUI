@@ -157,7 +157,7 @@ METHOD Init() CLASS HSayBmp
    IF !::lInit
       ::Super:Init()
       IF ::oImage != NIL .AND. !empty( ::oImage:Handle )
-         hwg_Sendmessage( ::handle,STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle )
+         hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle )
       ENDIF
    ENDIF
 

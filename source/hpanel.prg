@@ -47,7 +47,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
          Iif( nHeight == NIL, 0, nHeight ), oParent:oFont, bInit, ;
          bSize, bPaint,,, bcolor )
 
-   ::lBorder  := IIF( Hwg_Bitand(nStyle,WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F. )
+   ::lBorder  := IIF( Hwg_Bitand(nStyle, WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F. )
    ::bPaint   := bPaint
    ::lResizeX := ( ::nWidth == 0 )
    ::lResizeY := ( ::nHeight == 0 )
@@ -158,7 +158,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
             ENDIF
             RETURN 1
          ELSE
-            hwg_Fillrect( wParam, 0,0, ::nWidth, ::nHeight, COLOR_3DFACE + 1 )
+            hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, COLOR_3DFACE + 1 )
             RETURN 1
          ENDIF
          */
@@ -180,7 +180,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
       RETURN 0
    ENDIF
    IF ::bOther != NIL
-      IF Valtype( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) != "N"
+      IF Valtype( nRet := Eval( ::bOther, Self, msg, wParam, lParam ) ) != "N"
          nRet := IIF( VALTYPE( nRet ) = "L" .AND. !nRet, 0, -1 )
       ENDIF
       IF nRet >= 0
@@ -287,7 +287,7 @@ METHOD Hide() CLASS HPanel
    ::nrePaint := 0
    lres := ::ResizeOffSet(3)
    /*
-   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) .AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -316,7 +316,7 @@ METHOD Show() CLASS HPanel
    ::nrePaint := - 1
    lRes := ::ResizeOffSet(2)
    /*
-   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) .AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -349,7 +349,7 @@ METHOD Resize() CLASS HPanel
       RETURN NIL
    ENDIF
    /*
-   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )  //.AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] += ( nHeight  - ::nHeight )
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -383,7 +383,7 @@ METHOD ResizeOffSet( nMode ) CLASS HPanel
    nHinc := IIF( nMode = 1, nHinc, IIF( nMode = 2, ::nHeight, nHeight ) )
    DEFAULT nMode := 0
 
-   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == WND_MDI
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) //.AND. ::oParent:aOffset[2] > 0 //::nWidth = ::oParent:nWidth )
          ::oParent:aOffset[2] += IIF( nMode != 3, nHinc, - nHinc )
          lRes := .T.

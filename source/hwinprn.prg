@@ -52,7 +52,7 @@ CLASS HWinPrn INHERIT HObject
    METHOD SetMode( lElite, lCond, nLineInch, lBold, lItalic, lUnder )
    METHOD StartDoc(lPreview, cMetaName)
    METHOD NextPage()
-   METHOD PrintLine( cLine,lNewLine )
+   METHOD PrintLine( cLine, lNewLine )
    METHOD PrintText( cText )
    METHOD PutCode( cLine )
    METHOD EndDoc()
@@ -67,7 +67,7 @@ ENDCLASS
 
 METHOD New( cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies ) CLASS HWinPrn
 
-   ::oPrinter := HPrinter():New( Iif( cPrinter==Nil,"",cPrinter ),.F., nFormType, nBin, lLandScape, nCopies )
+   ::oPrinter := HPrinter():New( Iif( cPrinter==Nil, "", cPrinter ), .F., nFormType, nBin, lLandScape, nCopies )
    IF ::oPrinter == Nil
       Return Nil
    ENDIF
@@ -126,7 +126,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 #endif
          ::oPrinter:SetFont( oFont )
-         nWidth := ::oPrinter:GetTextWidth( Replicate( 'A',80 ) ) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth( Replicate( 'A', 80 ) ) / ::oPrinter:nHRes
          IF nWidth > nPWidth+2 .OR. nWidth < nPWidth-15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
@@ -202,7 +202,7 @@ METHOD NextPage() CLASS HWinPrn
 
 Return Nil
 
-METHOD PrintLine( cLine,lNewLine ) CLASS HWinPrn
+METHOD PrintLine( cLine, lNewLine ) CLASS HWinPrn
 Local i, i0, j, slen, c
 
    IF !::lDocStart
@@ -224,21 +224,21 @@ Local i, i0, j, slen, c
       i := 1
       i0 := 0
       DO WHILE i <= slen
-         IF ( c := Substr( cLine,i,1 ) ) < " "
+         IF ( c := Substr( cLine, i, 1 ) ) < " "
             IF i0 != 0
-               ::PrintText( Substr(cLine,i0,i-i0 ) )
+               ::PrintText( Substr(cLine, i0, i-i0) )
                i0 := 0
             ENDIF
-            i += ::PutCode( Substr( cLine,i ) )
+            i += ::PutCode( Substr( cLine, i ) )
             LOOP
-         ELSEIF ( j := At( c,cPseudoChar ) ) != 0
+         ELSEIF ( j := At( c, cPseudoChar ) ) != 0
             IF i0 != 0
-               ::PrintText( Substr(cLine,i0,i-i0 ) )
+               ::PrintText( Substr(cLine, i0, i-i0) )
                i0 := 0
             ENDIF
             IF j < 3            // Horisontal line ÄÍ
                i0 := i
-               DO WHILE i <= slen .AND. Substr( cLine,i,1 ) == c
+               DO WHILE i <= slen .AND. Substr( cLine, i, 1 ) == c
                   i ++
                ENDDO
                ::oPrinter:Line( ::x, ::y+(::nLineHeight/2), ::x + (i-i0)*::nCharW, ::y+(::nLineHeight/2) )
@@ -286,7 +286,7 @@ Local i, i0, j, slen, c
          i ++
       ENDDO
       IF i0 != 0
-         ::PrintText( Substr(cLine,i0,i-i0 ) )
+         ::PrintText( Substr(cLine, i0, i-i0) )
       ENDIF
    ENDIF
 
@@ -305,25 +305,25 @@ Return Nil
 
 METHOD PutCode( cLine ) CLASS HWinPrn
 Static aCodes := {   ;
-   { Chr(27)+'@',.F.,.F.,6,.F.,.F.,.F. },  ;     /* Reset */
-   { Chr(27)+'M',.T.,,,,, },  ;     /* Elite */
-   { Chr(15),,.T.,,,, },      ;     /* Cond */
-   { Chr(18),,.F.,,,, },      ;     /* Cancel Cond */
-   { Chr(27)+'0',,,8,,, },    ;     /* 8 lines per inch */
-   { Chr(27)+'2',,,6,,, },    ;     /* 6 lines per inch ( standard ) */
-   { Chr(27)+'-1',,,,,,.T. }, ;     /* underline */
-   { Chr(27)+'-0',,,,,,.F. }, ;     /* cancel underline */
-   { Chr(27)+'4',,,,,.T., },  ;     /* italic */
-   { Chr(27)+'5',,,,,.F., },  ;     /* cancel italic */
-   { Chr(27)+'G',,,,,.T., },  ;     /* bold */
-   { Chr(27)+'H',,,,.F.,, }   ;     /* cancel bold */
+   { Chr(27)+'@', .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
+   { Chr(27)+'M', .T.,,,,, },  ;     /* Elite */
+   { Chr(15),, .T.,,,, },      ;     /* Cond */
+   { Chr(18),, .F.,,,, },      ;     /* Cancel Cond */
+   { Chr(27)+'0',,, 8,,, },    ;     /* 8 lines per inch */
+   { Chr(27)+'2',,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
+   { Chr(27)+'-1',,,,,, .T. }, ;     /* underline */
+   { Chr(27)+'-0',,,,,, .F. }, ;     /* cancel underline */
+   { Chr(27)+'4',,,,, .T., },  ;     /* italic */
+   { Chr(27)+'5',,,,, .F., },  ;     /* cancel italic */
+   { Chr(27)+'G',,,,, .T., },  ;     /* bold */
+   { Chr(27)+'H',,,, .F.,, }   ;     /* cancel bold */
  }
-Local i, sLen := Len( aCodes ), c := Left( cLine,1 )
+Local i, sLen := Len( aCodes ), c := Left( cLine, 1 )
 
    FOR i := 1 TO sLen
-      IF Left(aCodes[i,1],1) == c .AND. At( aCodes[i,1],Left(cLine,3 ) ) == 1
-         ::InitValues( aCodes[i,2], aCodes[i,3], aCodes[i,4], aCodes[i,5], aCodes[i,6], aCodes[i,7]  )
-         Return Len( aCodes[i,1] )
+      IF Left(aCodes[i, 1], 1) == c .AND. At( aCodes[i, 1], Left(cLine, 3) ) == 1
+         ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
+         Return Len( aCodes[i, 1] )
       ENDIF
    NEXT
 
@@ -338,7 +338,7 @@ METHOD EndDoc() CLASS HWinPrn
    IF ::lDocStart
       ::oPrinter:EndDoc()
       ::lDocStart := .F.
-      IF __ObjHasMsg( ::oPrinter,"PREVIEW" ) .AND. ::oPrinter:lPreview
+      IF __ObjHasMsg( ::oPrinter, "PREVIEW" ) .AND. ::oPrinter:lPreview
          ::oPrinter:Preview()
       ENDIF
    ENDIF

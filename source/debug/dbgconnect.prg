@@ -77,10 +77,10 @@
 #define CMD_AREAS              16
 
 #ifdef __XHARBOUR__
-#xtranslate HB_AT([<n,...>]) =>  AT(<n>)
-#xtranslate HB_PROGNAME([<n,...>]) =>  EXENAME(<n>)
-#xtranslate HB_PROCESSOPEN([<n,...>]) =>  HB_OPENPROCESS(<n>)
-#xtranslate HB_DIRTEMP([<n,...>]) =>  ""
+#xtranslate HB_AT([<n, ...>]) =>  AT(<n>)
+#xtranslate HB_PROGNAME([<n, ...>]) =>  EXENAME(<n>)
+#xtranslate HB_PROCESSOPEN([<n, ...>]) =>  HB_OPENPROCESS(<n>)
+#xtranslate HB_DIRTEMP([<n, ...>]) =>  ""
 #endif
 
 Static lDebugRun := .F., handl1, handl2, cBuffer
@@ -95,11 +95,11 @@ Function hwg_dbg_New()
 
    IF File( cDebugger+".info" ) .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
       IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0
-         arr := hb_aTokens( Left( cBuffer,i ), ;
-               Iif( hb_At( Chr(13),cBuffer,1,i ) > 0, Chr(13)+Chr(10), Chr(10) ) )
+         arr := hb_aTokens( Left( cBuffer, i ), ;
+               Iif( hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10) ) )
          FOR i := 1 TO Len( arr )
             IF ( nPos := At( "=", arr[i] ) ) > 0
-               cCmd := Lower( Trim( Left( arr[i],nPos-1 ) ) )
+               cCmd := Lower( Trim( Left( arr[i], nPos-1 ) ) )
                IF cCmd == "dir"
                   cDir := Ltrim( Substr( arr[i], nPos+1 ) )
                ELSEIF cCmd == "debugger"
@@ -117,7 +117,7 @@ Function hwg_dbg_New()
    
       IF ( handl1 := FOpen( cFile + ".d1", FO_READ + FO_SHARED ) ) != -1
          IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
-               Left( cBuffer,4 ) == "init"
+               Left( cBuffer, 4 ) == "init"
             handl2 := FOpen( cFile + ".d2", FO_READWRITE + FO_SHARED )
             IF handl2 != -1
                lDebugRun := .T.
@@ -130,11 +130,11 @@ Function hwg_dbg_New()
    ENDIF
 
    IF !Empty( cDir)
-      cDir += Iif( Right( cDir,1 ) $ "\/", "", hb_OsPathSeparator() )
+      cDir += Iif( Right( cDir, 1 ) $ "\/", "", hb_OsPathSeparator() )
       IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
          IF ( handl1 := FOpen( cDir + cDebugger + ".d1", FO_READ + FO_SHARED ) ) != -1
             IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
-                  Left( cBuffer,4 ) == "init"
+                  Left( cBuffer, 4 ) == "init"
                handl2 := FOpen( cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED )
                IF handl2 != -1
                   lDebugRun := .T.
@@ -191,7 +191,7 @@ Local n, s := "", arr
    DO WHILE ( n := Fread(handl1, @cBuffer, Len(cBuffer)) ) > 0
       s += Left( cBuffer, n )
       IF ( n := At( ",!", s ) ) > 0
-         IF ( arr := hb_aTokens( Left( s,n+1 ), "," ) ) != Nil .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
+         IF ( arr := hb_aTokens( Left( s, n+1 ), "," ) ) != Nil .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
             Return arr
          ELSE
             EXIT
@@ -346,9 +346,9 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
 
    FOR i := 1 TO Len( arr )
       IF Valtype( arr[i] ) == "A"
-         lConvert := ( i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left( arr[i-1],5 ) == "value" )
+         lConvert := ( i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left( arr[i-1], 5 ) == "value" )
          FOR j := 1 TO Len( arr[i] )
-            s += Iif( j>1.AND.lConvert, Str2Hex(arr[i,j]), arr[i,j] ) + ","
+            s += Iif( j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j] ) + ","
          NEXT
       ELSE
          IF arr[i] == "value" .AND. i < Len( arr )
@@ -358,7 +358,7 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
          ENDIF
       ENDIF
    NEXT
-   hwg_dbg_Send("b"+Ltrim(Str(nId1)), Left( s,Len(s)-1 ))
+   hwg_dbg_Send("b"+Ltrim(Str(nId1)), Left( s, Len(s)-1 ))
 
 Return Nil
 
@@ -379,7 +379,7 @@ Return Nil
 
 Function hwg_dbg_Quit()
 Local bCode := &( Iif( Type( "hwg_endwindow()" ) == "UI", "{|s|hwg_endwindow()}", ;
-      Iif( Type( "ReleaseAllWindows()" ) == "UI","{||ReleaseAllWindows()}", "{||__Quit()}" ) )  )
+      Iif( Type( "ReleaseAllWindows()" ) == "UI", "{||ReleaseAllWindows()}", "{||__Quit()}" ) )  )
 
 Eval( bCode )
 Return Nil
@@ -395,7 +395,7 @@ Local i := ASC(stroka), res
       Return 0
    ENDIF
 
-   i := ASC(SubStr( stroka,2,1 ))
+   i := ASC(SubStr( stroka, 2, 1 ))
    IF i > 64 .AND. i < 71
       res += i - 55
    ELSEIF i > 47 .AND. i < 58
@@ -409,13 +409,13 @@ Local n1 := Int( n/16 ), n2 := n % 16
    IF n > 255
       Return "XX"
    ENDIF
-Return Chr( Iif(n1<10,n1+48,n1+55) ) + Chr( Iif(n2<10,n2+48,n2+55) )
+Return Chr( Iif(n1<10, n1+48, n1+55) ) + Chr( Iif(n2<10, n2+48, n2+55) )
 
 Static Function Str2Hex( stroka )
 Local cRes := "", i, nLen := Len( stroka )
 
    FOR i := 1 to nLen
-      cRes += Int2Hex( Asc(Substr(stroka,i,1)) )
+      cRes += Int2Hex( Asc(Substr(stroka, i, 1)) )
    NEXT
 Return cRes
 
@@ -423,7 +423,7 @@ Static Function Hex2Str( stroka )
 Local cRes := "", i := 1, nLen := Len( stroka )
 
    DO WHILE i <= nLen
-      cRes += Chr( Hex2Int( Substr( stroka,i,2 ) ) )
+      cRes += Chr( Hex2Int( Substr( stroka, i, 2 ) ) )
       i += 2
    ENDDO
 Return cRes

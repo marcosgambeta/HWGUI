@@ -18,7 +18,7 @@
 #define  FLAG_CHECK      2
 
 STATIC _aMenuDef, _oWnd, _aAccel, _nLevel, _Id, _oMenu, _oBitmap
-STATIC s_nWidthBmp, s_nHeightBmp,s_nbkColor  
+STATIC s_nWidthBmp, s_nHeightBmp, s_nbkColor  
 
 CLASS HMenu INHERIT HObject
    DATA handle
@@ -70,7 +70,7 @@ FUNCTION Hwg_SetMenu( oWnd, aMenu )
    RETURN .T.
 
 /*
- *  AddMenuItem( aMenu,cItem,nMenuId,lSubMenu,[bItem] [,nPos] ) --> aMenuItem
+ *  AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, [bItem] [, nPos] ) --> aMenuItem
  *
  *  If nPos is omitted, the function adds menu item to the end of menu,
  *  else it inserts menu item in nPos position.

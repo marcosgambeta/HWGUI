@@ -192,7 +192,7 @@ METHOD Move( x1, y1, width, height, nRePaint )  CLASS HCustomWindow
    y1     := IIF( y1     = NIL, ::nTop, y1 )
    width  := IIF( width  = NIL, ::nWidth, width )
    height := IIF( height = NIL, ::nHeight, height )
-   IF  Hwg_BitAnd(::style,WS_CHILD) = 0
+   IF  Hwg_BitAnd(::style, WS_CHILD) = 0
       rect := hwg_Getwindowrect( ::Handle )
       nHx := rect[4] - rect[2]  - hwg_Getclientrect( ::Handle )[4] - ;
                  IIF( Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics( SM_CYHSCROLL ), 0 )
@@ -225,7 +225,7 @@ METHOD Move( x1, y1, width, height, nRePaint )  CLASS HCustomWindow
 METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
    LOCAL i
 
-   // Writelog( "== "+::Classname()+Str(msg)+IIF(wParam!=NIL,Str(wParam),"NIL")+IIF(lParam!=NIL,Str(lParam),"NIL") )
+   // Writelog( "== "+::Classname()+Str(msg)+IIF(wParam!=NIL, Str(wParam), "NIL")+IIF(lParam!=NIL, Str(lParam), "NIL") )
 
    IF msg = WM_GETMINMAXINFO
       IF ::minWidth  > - 1 .OR. ::maxWidth  > - 1 .OR. ;
@@ -338,7 +338,7 @@ METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
    LOCAL nlen, i, x1, y1
 
    IF oCtrl = Nil .OR.;
-       ASCAN( oCtrl:aControls, {| o | __ObjHasMsg( o,"ANCHOR") .AND. o:Anchor > 0 } ) = 0
+       ASCAN( oCtrl:aControls, {| o | __ObjHasMsg( o, "ANCHOR") .AND. o:Anchor > 0 } ) = 0
       RETURN .F.
    ENDIF
 

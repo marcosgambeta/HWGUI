@@ -24,8 +24,8 @@ CLASS HHtml // INHERIT HControl
    DATA handle  INIT 0
 
    METHOD New( oParent )
-   METHOD DisplayPage( cUrl )   INLINE hwgax_DisplayHtmlPage( ::oParent:handle,cUrl )
-   METHOD DisplayText( cText )  INLINE hwgax_DisplayHtmlStr( ::oParent:handle,cText )
+   METHOD DisplayPage( cUrl )   INLINE hwgax_DisplayHtmlPage( ::oParent:handle, cUrl )
+   METHOD DisplayText( cText )  INLINE hwgax_DisplayHtmlStr( ::oParent:handle, cText )
    METHOD Activate()
    METHOD Resize( width, height )
    METHOD GoBack()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOBACK )
@@ -40,7 +40,7 @@ ENDCLASS
 METHOD New( oParent ) CLASS HHtml
 
    IF !hwgax_OleInitialize()
-      hwg_Msgstop( "Can't open OLE!","HHtml():New()" )
+      hwg_Msgstop( "Can't open OLE!", "HHtml():New()" )
       Return Nil
    ENDIF
 
@@ -55,7 +55,7 @@ METHOD Activate CLASS HHtml
    IF ::oParent:handle != 0
      ::oParent:oEmbedded := Self
       IF !hwgax_EmbedBrowserObject( ::oParent:handle )
-         hwg_Msgstop( "Can't embed IE object!","HHtml():New()" )
+         hwg_Msgstop( "Can't embed IE object!", "HHtml():New()" )
       ENDIF
    ENDIF
 Return Nil

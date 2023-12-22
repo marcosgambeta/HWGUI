@@ -28,7 +28,7 @@
 #include "hbclass.ch"
 
 #ifdef __XHARBOUR__
-#xtranslate hb_RAScan([<x,...>])        => RAScan(<x>)
+#xtranslate hb_RAScan([<x, ...>])        => RAScan(<x>)
 #xtranslate hb_tokenGet([<x>,<n>,<c>] ) =>  __StrToken(<x>,<n>,<c>)
 #endif
 
@@ -536,7 +536,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
       ENDIF
       //
       IF ::bOther != NIL
-         IF ValType( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) != "N"
+         IF ValType( nRet := Eval( ::bOther, Self, msg, wParam, lParam ) ) != "N"
             nRet := iif( ValType( nRet ) = "L" .AND. !nRet, 0, - 1 )
          ENDIF
          IF nRet >= 0
@@ -578,7 +578,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ::When()
       ELSEIF msg == WM_KILLFOCUS .AND. !::lSuspendMsgsHandling
          ::Valid()
-         ::internal[1] := 15 //force redraw header,footer and separator
+         ::internal[1] := 15 //force redraw header, footer and separator
       ELSEIF msg == WM_HSCROLL
          ::DoHScroll( wParam )
       ELSEIF msg == WM_VSCROLL
@@ -617,7 +617,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
             iParLow  := hwg_Loword(wParam)           
             IF ( nPos := AScan( ::aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
                IF !::lSuspendMsgsHandling
-                  Eval( ::aEvents[nPos,3], Self, iParLow )
+                  Eval( ::aEvents[nPos, 3], Self, iParLow )
                ENDIF
             ENDIF
          ENDIF
@@ -1604,7 +1604,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
    ENDIF
 
    IF ::lInFocus .AND. ( ( tmp := hwg_Getfocus() ) == ::oParent:handle ;
-         .OR. ::oParent:FindControl(,tmp) != Nil )
+         .OR. ::oParent:FindControl(, tmp) != Nil )
       hwg_Setfocus( ::handle )
    ENDIF
 
@@ -2666,10 +2666,10 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
    aColumns[ Len( aColumns ), 1 ] += xSize
 
    DO WHILE fif <= Len( ::aColumns )
-      IF ( !( fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + aColumns[ fif,1 ] < xm ) )
+      IF ( !( fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + aColumns[ fif, 1 ] < xm ) )
          EXIT
       ENDIF
-      x1 += aColumns[ fif,1 ]
+      x1 += aColumns[ fif, 1 ]
       fif := iif( fif == ::freeze, ::nLeftCol, fif + 1 )
    ENDDO
    IF fif > Len( aColumns )
@@ -2841,10 +2841,10 @@ METHOD ButtonRDown( lParam ) CLASS HBrowse
    x1  := ::x1
    aColumns[ Len( aColumns ), 1] += xSize
    DO WHILE fif <= Len( aColumns )
-      IF ( !( fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + aColumns[ fif,1 ] < xm ) )
+      IF ( !( fif < ( ::nLeftCol + ::nColumns ) .AND. x1 + aColumns[ fif, 1 ] < xm ) )
          EXIT
       ENDIF
-      x1 += aColumns[ fif,1 ]
+      x1 += aColumns[ fif, 1 ]
       fif := iif( fif == ::freeze, ::nLeftCol, fif + 1 )
    ENDDO
    IF fif > Len( aColumns )

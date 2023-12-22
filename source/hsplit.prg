@@ -136,13 +136,13 @@ METHOD Paint() CLASS HSplitter
         IF ::lCaptured
            oBrushFill := HBrush():Add(hwg_Rgb(156, 156, 156))
            hwg_Selectobject( hDC, oBrushFill:handle )
-           hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical,BF_RECT,BF_TOP ) + BF_MIDDLE )
+           hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical, BF_RECT, BF_TOP ) + BF_MIDDLE )
            hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushFill:handle )
         ELSEIF ::BackStyle = OPAQUE
             hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf( ::lVertical, BF_LEFT, BF_TOP ) )
          ENDIF
       ELSEIF !::lMoved .AND. ::BackStyle = OPAQUE
-         hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical,BF_RECT,BF_TOP ) ) //+ BF_MIDDLE )
+         hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical, BF_RECT, BF_TOP ) ) //+ BF_MIDDLE )
       ENDIF
    ENDIF
    hwg_Endpaint( ::handle, pps )
@@ -217,7 +217,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop - ::nHeight - yDiff - 1, ::nLeft + ::nWidth, ::nTop + ::nHeight + yDiff + 1)
    ENDIF
    IF ::bEndDrag != NIL
-      Eval( ::bEndDrag,Self )
+      Eval( ::bEndDrag, Self )
    ENDIF
 
    RETURN NIL

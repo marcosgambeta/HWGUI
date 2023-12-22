@@ -38,7 +38,7 @@ CLASS VAR cPath SHARED
                bInit, bSize, bPaint, bClick, lflat,             ;
                cText, color, oFont, xt, yt, widtht, heightt,       ;
                bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
-               cTooltip, lEnabled, lCheck, bColor,bGfocus, bLfocus, themed )
+               cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed )
 
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -71,7 +71,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
             bInit, bSize, bPaint, bClick, lflat,             ;
             cText, color, oFont, xt, yt, widtht, heightt,       ;
             bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
-            cTooltip, lEnabled, lCheck, bColor,bGfocus, bLfocus, themed ) CLASS HOwnButton
+            cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed ) CLASS HOwnButton
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, cTooltip )
@@ -337,7 +337,7 @@ METHOD Paint() CLASS HOwnButton
          ELSE //IF ::state != OBTN_NORMAL
             hwg_drawthemebackground(::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil)
          //ELSE
-         //   hwg_Drawbutton( hDC,0,0,aCoors[3],aCoors[4],0 )
+         //   hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 0 )
          ENDIF
       ELSE
          IF ::state == OBTN_NORMAL
@@ -453,7 +453,7 @@ METHOD MDown()  CLASS HOwnButton
 METHOD MUp() CLASS HOwnButton
 //   IF ::state == OBTN_PRESSED
       IF !::lPress
-         //::state := OBTN_NORMAL  // IIF( ::lFlat,OBTN_MOUSOVER,OBTN_NORMAL )
+         //::state := OBTN_NORMAL  // IIF( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
          ::state := IIF( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
       ENDIF
       IF ::lCheck
@@ -498,7 +498,7 @@ METHOD onGetFocus()  CLASS HOwnButton
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::title, Self )
       IF res != Nil .AND. EMPTY( res )
-         hwg_WhenSetFocus( Self,nSkip )
+         hwg_WhenSetFocus( Self, nSkip )
       ENDIF
    ENDIF
    ::oparent:lSuspendMsgsHandling := .F.
