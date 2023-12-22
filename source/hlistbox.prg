@@ -37,7 +37,7 @@ CLASS HListBox INHERIT HControl
    METHOD Setitem( nPos )
    METHOD AddItems( p )
    METHOD DeleteItem( nPos )
-   METHOD Valid( oCtrl )
+   METHOD Valid(oCtrl)
    METHOD When( oCtrl )
    METHOD onChange( oCtrl )
    METHOD onDblClick()
@@ -76,13 +76,13 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
          ::lnoValid := .T.
          ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
-      ::bValid := { | o | ::Valid( o ) }
+      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .F., "onLostFocus" )
+      ::bValid := { | o | ::Valid(o) }
    ELSE
       IF bGFocus != Nil
          ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
+      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .F., "onLostFocus" )
    ENDIF
    IF bChange != Nil .OR. bSetGet != Nil
       ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::onChange( o:FindControl( id ) ) },, "onChange" )
@@ -122,7 +122,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bP
 
    IF bSetGet != Nil
       ::bChangeSel := bChange
-      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, "onChange" )
+      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl( id )) }, "onChange" )
    ENDIF
 
    RETURN Self
@@ -239,7 +239,7 @@ METHOD onDblClick() CLASS HListBox
 METHOD AddItems( p ) CLASS HListBox
 
 // Local i
-   AAdd( ::aItems, p )
+   AAdd(::aItems, p)
    hwg_Listboxaddstring( ::handle, p )
 //   hwg_Sendmessage( ::handle, LB_RESETCONTENT, 0, 0)
 //   FOR i := 1 TO Len( ::aItems )
@@ -276,7 +276,7 @@ METHOD onChange( oCtrl ) CLASS HListBox
 
    LOCAL nPos
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
    nPos := hwg_Sendmessage( ::handle, LB_GETCURSEL, 0, 0 ) + 1
    ::SetItem( nPos )
@@ -287,7 +287,7 @@ METHOD When( oCtrl ) CLASS HListBox
 
    LOCAL res := .T., nSkip
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
    IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
@@ -311,12 +311,12 @@ METHOD When( oCtrl ) CLASS HListBox
 
    RETURN res
 
-METHOD Valid( oCtrl ) CLASS HListBox
+METHOD Valid(oCtrl) CLASS HListBox
 
    LOCAL res, oDlg
    //LOCAL ltab :=  hwg_Getkeystate( VK_TAB ) < 0, , nSkip
 
-   HB_SYMBOL_UNUSED( oCtrl )
+   HB_SYMBOL_UNUSED(oCtrl)
 
    IF !hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
       RETURN .T.

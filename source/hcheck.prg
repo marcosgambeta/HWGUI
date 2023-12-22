@@ -66,8 +66,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
       ::lnoValid := .T.
    ENDIF
-   //::oParent:AddEvent( BN_CLICKED, Self, { | o, id | __Valid( o:FindControl( id ), ) },, "onClick" )
-   ::oParent:AddEvent( BN_CLICKED, Self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onClick" )
+   //::oParent:AddEvent( BN_CLICKED, Self, { | o, id | __Valid(o:FindControl( id ),) },, "onClick" )
+   ::oParent:AddEvent( BN_CLICKED, Self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
    ::oParent:AddEvent( BN_KILLFOCUS, Self, { || ::KILLFOCUS() } )
 
    RETURN Self
@@ -95,7 +95,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bC
    IF bGFocus != NIL
       ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
    ENDIF
-   ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onClick" )
+   ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
    ::oParent:AddEvent( BN_KILLFOCUS, Self, { || ::KILLFOCUS() } )
 
    RETURN Self
@@ -215,7 +215,7 @@ METHOD onGotFocus() CLASS HCheckButton
 
 METHOD onClick() CLASS HCheckButton
 
-   RETURN ::Valid( )
+   RETURN ::Valid()
 
 METHOD killFocus() CLASS HCheckButton
    LOCAL ndown := hwg_Getkeystate( VK_RIGHT ) + hwg_Getkeystate( VK_DOWN ) + hwg_Getkeystate( VK_TAB )
@@ -238,7 +238,7 @@ METHOD killFocus() CLASS HCheckButton
    ENDIF
    IF hwg_Getkeystate( VK_RETURN ) < 0 .AND. ::lEnter
       ::SetValue( !::GetValue() )
-      ::VALID( )
+      ::VALID()
    ENDIF
    IF ::bLostFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.

@@ -114,8 +114,8 @@ METHOD EventMap( nMsg, xExec, oSelf ) CLASS HActiveX
    LOCAL nAt
    nAt := AScan( ::aAxEv, nMsg )
    IF nAt == 0
-      AAdd( ::aAxEv, nMsg )
-      AAdd( ::aAxExec, { NIL, NIL } )
+      AAdd(::aAxEv, nMsg)
+      AAdd(::aAxExec, { NIL, NIL })
       nAt := Len( ::aAxEv )
    ENDIF
    ::aAxExec[ nAt ] := { xExec, oSelf }

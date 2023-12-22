@@ -159,7 +159,7 @@ FUNCTION hwg_VColor( cColor )
 
 FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cResIni )
 
-   LOCAL oModDlg, oFont := HFont():Add( "MS Sans Serif", 0, - 13 )
+   LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, - 13)
    LOCAL cRes := IIf( cResIni != Nil, Trim( cResIni ), "" )
    nStyle := IIf( nStyle == Nil, 0, nStyle )
    x := IIf( x == Nil, 210, x )
@@ -224,7 +224,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       nTop := 0
    ENDIF
    IF oFont == Nil
-      oFont := HFont():Add( "MS Sans Serif", 0, - 13 )
+      oFont := HFont():Add("MS Sans Serif", 0, - 13)
       lNewFont := .T.
    ENDIF
    IF cOk != Nil
@@ -277,13 +277,13 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
       IF ValType( arr[1] ) == "A"
-         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED( value ), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
       ELSE
-         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED( value ), o:aArray[ o:nCurrent ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent ] }, "C", nLen ) )
       ENDIF
    ELSE
       @ 0, 0 Browse oBrw DATABASE
-      oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED( value ), ( o:Alias ) ->( FieldGet( nField ) ) }, "C", nLen ) )
+      oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), ( o:Alias ) ->( FieldGet( nField ) ) }, "C", nLen ) )
    ENDIF
 
    oBrw:oFont  := oFont
@@ -443,17 +443,17 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
          DO WHILE !cFile == ""
             nAt := At( Chr(0), cFile )
             IF nAt != 0
-               AAdd( aFiles, cPath + hb_osPathSeparator() + ;
-                             Left( cFile, nAt - 1 ) )
+               AAdd(aFiles, cPath + hb_osPathSeparator() + ;
+                             Left( cFile, nAt - 1 ))
                cFile := SubStr( cFile, nAt + 1 )
             ELSE
-               AAdd( aFiles, cPath + hb_osPathSeparator() + cFile )
+               AAdd(aFiles, cPath + hb_osPathSeparator() + cFile)
                EXIT
             ENDIF
          ENDDO
       ELSE
          /* only single file selected */
-         AAdd( aFiles, cPath )
+         AAdd(aFiles, cPath)
       ENDIF
    ENDIF
    RETURN aFiles
@@ -647,7 +647,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
          RETURN hwg_FindAccelerator( oCtrl:aControls[ i ], lParam)
 	   ENDIF
      IF __ObjHasMsg( oCtrl:aControls[ i ],"TITLE") .AND. VALTYPE( oCtrl:aControls[ i ]:title) = "C" .AND. ;
-         !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled( oCtrl:aControls[ i ]:handle )
+         !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[ i ]:handle)
         IF ( pos := At( "&", oCtrl:aControls[ i ]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr( oCtrl:aControls[ i ]:title, ++ pos, 1 ) )
            RETURN oCtrl:aControls[ i ]
         ENDIF
@@ -677,7 +677,7 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
    ELSEIF oCtrl:bColor != Nil
        bColor := oCtrl:bColor
    ENDIF
-   brush := HBrush():Add( bColor ) 
+   brush := HBrush():Add(bColor) 
    Return brush
 
 Function  hwg_SetFontStyle( oWnd, lBold, lItalic, lUnderline )
@@ -692,8 +692,8 @@ Function  hwg_SetFontStyle( oWnd, lBold, lItalic, lUnderline )
       IF oFont == NIL .AND. lBold == NIL .AND. lItalic == NIL .AND. lUnderline == NIL
          RETURN .T.
       ENDIF
-      oWnd:oFont := IIF( oFont != NIL, HFont():Add( oFont:name, oFont:Width,,,, Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL) ), ;
-            HFont():Add( "", 0,, Iif(lBold!=Nil,Iif(lBold,FW_BOLD,FW_REGULAR),NIL),,Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL)) )
+      oWnd:oFont := IIF( oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL)), ;
+            HFont():Add("", 0,, Iif(lBold!=Nil,Iif(lBold,FW_BOLD,FW_REGULAR),NIL),,Iif(lItalic!=Nil,Iif(lItalic,1,0),NIL),Iif(lUnderline!=Nil,Iif(lUnderline,1,0),NIL)) )
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
       oWnd:oFont := oWnd:oFont:SetFontStyle( lBold,,lItalic,lUnderline )
@@ -735,7 +735,7 @@ FUNCTION HWG_ScrollHV( oForm, msg,wParam,lParam )
 
    nSBCode := hwg_Loword(wParam)
    IF msg == WM_MOUSEWHEEL
-      nSBCode = IIF( hwg_Hiword( wParam ) > 32768, hwg_Hiword( wParam ) - 65535, hwg_Hiword( wParam ) )
+      nSBCode = IIF( hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam) )
       nSBCode = IIF( nSBCode < 0, SB_LINEDOWN, SB_LINEUP )
    ENDIF
    IF ( msg = WM_VSCROLL ) .OR.msg == WM_MOUSEWHEEL
@@ -754,7 +754,7 @@ FUNCTION HWG_ScrollHV( oForm, msg,wParam,lParam )
          Case SB_PAGEDOWN
             nInc := max( 1, oForm:nVertInc / 2 );   EXIT
          Case SB_THUMBTRACK
-            nPos := hwg_Hiword( wParam )
+            nPos := hwg_Hiword(wParam)
             nInc := nPos - oForm:nVscrollPos ; EXIT
       #ifdef __XHARBOUR__
          Default
@@ -785,7 +785,7 @@ FUNCTION HWG_ScrollHV( oForm, msg,wParam,lParam )
          Case SB_PAGEDOWN
             nInc := HORZ_PTS;   EXIT
          Case SB_THUMBTRACK
-            nPos := hwg_Hiword( wParam )
+            nPos := hwg_Hiword(wParam)
             nInc := nPos - oForm:nHscrollPos; EXIT
       #ifdef __XHARBOUR__
          Default

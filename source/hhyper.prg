@@ -67,7 +67,7 @@ CLASS VAR winclass INIT "STATIC"
    METHOD GetLinkUrl()
    METHOD SetVisitedColor( sVisitedColor )
    METHOD SetHoverColor( cHoverColor )
-   METHOD SetFireChild( lFlag )  INLINE ::m_bFireChild := lFlag
+   METHOD SetFireChild(lFlag)  INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
    METHOD OnSetCursor( pWnd, nHitTest, message )
    METHOD SetLinkText( csLinkText )
@@ -104,20 +104,20 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    // Test The Font the underline must be 1
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
-         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
-                                 ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+         ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
+                                 ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add( "Arial", 0, - 12, , , , IIF( ::lAllUnderline, 1, ), )
+         ::oFont := HFONT():Add("Arial", 0, - 12, , , , IIF( ::lAllUnderline, 1, ),)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0 .AND. ::lAllUnderline
          oPrevFont := ::oFont
          ::oFont:Release()
-         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
-                                 oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+         ::oFont := HFONT():Add(oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
+                                 oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut)
       ENDIF
    ENDIF
-   ::oFontUnder := HFONT():Add( ::oFont:Name, 0, ::oFont:Height, , , , 1 )
+   ::oFontUnder := HFONT():Add(::oFont:Name, 0, ::oFont:Height, , , , 1)
    ::nWidthOver := nWidth
    IF lTransp != NIL .AND. lTransp
       //::extStyle += WS_EX_TRANSPARENT
@@ -144,15 +144,15 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 
    IF ::oFont == NIL
       IF ::oParent:oFont != NIL
-         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
-                                 ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+         ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
+                                 ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0
          oPrevFont := ::oFont
          ::oFont:Release()
-         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
-                                 oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+         ::oFont := HFONT():Add(oPrevFont:name, oPrevFont:width, oPrevFont:height, ;
+                                 oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut)
       ENDIF
    ENDIF
 
@@ -181,7 +181,7 @@ METHOD INIT() CLASS HStaticLink
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
-   IF ( msg = WM_SETFOCUS .OR. msg = WM_KILLFOCUS ) .AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   IF ( msg = WM_SETFOCUS .OR. msg = WM_KILLFOCUS ) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT , ::nLeft, ::nTop, ::nWidth, ::nHeight )
       
    ELSEIF msg == WM_PAINT
@@ -295,9 +295,9 @@ METHOD OnClicked() CLASS HStaticLink
 
 METHOD OnSetCursor( pWnd, nHitTest, message ) CLASS HStaticLink
 
-   HB_SYMBOL_UNUSED( pWnd )
-   HB_SYMBOL_UNUSED( nHitTest )
-   HB_SYMBOL_UNUSED( message )
+   HB_SYMBOL_UNUSED(pWnd)
+   HB_SYMBOL_UNUSED(nHitTest)
+   HB_SYMBOL_UNUSED(message)
 
    hwg_SetCursor( ::m_hHyperCursor )
 
@@ -322,11 +322,11 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
    LOCAL yPos
    LOCAL res  := .F.
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
 
    IF ::state != LBL_INIT
-      xPos := hwg_Loword( lParam )
-      yPos := hwg_Hiword( lParam )
+      xPos := hwg_Loword(lParam)
+      yPos := hwg_Hiword(lParam)
       IF (  !hwg_Ptinrect( { 0, 0, ::nWidthOver , ::nHeight }, { xPos, yPos } ) ) .AND. ::state != LBL_MOUSEOVER
           res := .T.
       ELSE
@@ -378,12 +378,12 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    rcClient  := hwg_Copyrect( { drawInfo[4] , drawInfo[5], drawInfo[6], drawInfo[7] } )
    
    // Draw the focus rect
-   IF hwg_Selffocus( ::handle ) .AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   IF hwg_Selffocus( ::handle ) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_Setbkmode( dc, TRANSPARENT )
       hwg_Drawfocusrect( dc, focusRect )
       IF hwg_Isthemedload() .AND. ::WindowsManifest
          hTheme := hwg_openthemedata(::handle, "MENU")
-         hwg_drawthemebackground( hTheme, dc, MENU_POPUPITEM, MPI_HOT, focusRect, Nil )
+         hwg_drawthemebackground(hTheme, dc, MENU_POPUPITEM, MPI_HOT, focusRect, Nil)
          hwg_closethemedata(htheme)
       ENDIF
    ENDIF
@@ -400,7 +400,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
       ENDIF
       rcclient[1] +=  IIF( ::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1 )
       rcclient[2] +=  2
-   ELSEIF Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   ELSEIF Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       rcclient[1] += 3
       rcclient[2] += 1
    ENDIF

@@ -76,8 +76,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, cTooltip )
 
-//   HB_SYMBOL_UNUSED( bGFocus )
-//   HB_SYMBOL_UNUSED( bLFocus )
+//   HB_SYMBOL_UNUSED(bGFocus)
+//   HB_SYMBOL_UNUSED(bLFocus)
 
    IF oFont == Nil
       ::oFont := ::oParent:oFont
@@ -94,7 +94,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    ::tcolor  := IIf( color == Nil, hwg_Getsyscolor( COLOR_BTNTEXT ), color )
    IF bColor != Nil
       ::bcolor  := bcolor
-      ::brush := HBrush():Add( bcolor )
+      ::brush := HBrush():Add(bcolor)
    ENDIF
 
    ::xt      := IIf( xt == Nil, 0, xt )
@@ -308,9 +308,9 @@ METHOD Paint() CLASS HOwnButton
       IF ::Themed
          //hwg_Setbkmode( hdc, TRANSPARENT )
          IF ::handle = hwg_Getfocus() .AND. ::lCheck
-            hwg_drawthemebackground( ::hTheme, hdc, BP_PUSHBUTTON, PBS_PRESSED, aCoors, Nil )
+            hwg_drawthemebackground(::hTheme, hdc, BP_PUSHBUTTON, PBS_PRESSED, aCoors, Nil)
          ELSEIF ::state != OBTN_NORMAL
-             hwg_drawthemebackground( ::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil )
+             hwg_drawthemebackground(::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil)
          ELSE
             // hwg_Setbkmode( hdc, 1 )
             hwg_Drawbutton( hDC, 0, 0, aCoors[3], aCoors[4], 0 )
@@ -333,9 +333,9 @@ METHOD Paint() CLASS HOwnButton
       IF ::Themed
          //hwg_Setbkmode( hdc, TRANSPARENT )
          IF  hwg_Selffocus( ::handle, hwg_Getfocus() ) .AND. ::lCheck
-            hwg_drawthemebackground( ::hTheme, hdc, BP_PUSHBUTTON, PBS_PRESSED, aCoors, Nil )
+            hwg_drawthemebackground(::hTheme, hdc, BP_PUSHBUTTON, PBS_PRESSED, aCoors, Nil)
          ELSE //IF ::state != OBTN_NORMAL
-            hwg_drawthemebackground( ::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil )
+            hwg_drawthemebackground(::hTheme, hdc, BP_PUSHBUTTON, state, aCoors, Nil)
          //ELSE
          //   hwg_Drawbutton( hDC,0,0,aCoors[3],aCoors[4],0 )
          ENDIF
@@ -367,9 +367,9 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
          ::heightb := ::oBitmap:nHeight
       ENDIF
       x1 := IIf( ::xb != Nil .AND. ::xb != 0, ::xb, ;
-                 Round( ( ::nWidth - ::widthb ) / 2, 0 ) )
+                 Round(( ::nWidth - ::widthb ) / 2, 0) )
       y1 := IIf( ::yb != Nil .AND. ::yb != 0, ::yb, ;
-                 Round( ( ::nHeight - ::heightb ) / 2, 0 ) )
+                 Round(( ::nHeight - ::heightb ) / 2, 0) )
       IF ::lEnabled
          IF ::oBitmap:ClassName() == "HICON"
             hwg_Drawicon( hDC, ::oBitmap:handle, x1, y1 )
@@ -411,11 +411,11 @@ METHOD MouseMove( wParam, lParam )  CLASS HOwnButton
    LOCAL xPos, yPos
    LOCAL res := .F.
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF ::state != OBTN_INIT
-      xPos := hwg_Loword( lParam )
-      yPos := hwg_Hiword( lParam )
+      xPos := hwg_Loword(lParam)
+      yPos := hwg_Hiword(lParam)
       IF xPos > ::nWidth .OR. yPos > ::nHeight
          hwg_Releasecapture()
          res := .T.

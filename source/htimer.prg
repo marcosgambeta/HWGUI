@@ -58,7 +58,7 @@ METHOD New( oParent, nId, value, bAction ) CLASS HTimer
    */
    
    ::Init()
-   AAdd( ::aTimers, Self )
+   AAdd(::aTimers, Self)
    ::oParent:AddObject( Self )
 
    RETURN Self
@@ -98,7 +98,7 @@ FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 
    LOCAL i := AScan( HTimer():aTimers, { | o | o:id == idTimer } )
 
-   HB_SYMBOL_UNUSED( hWnd )
+   HB_SYMBOL_UNUSED(hWnd)
 
    IF i != 0 .AND. HTimer():aTimers[ i ]:value > 0 .AND. HTimer():aTimers[ i ]:bAction != Nil .AND.;
       ValType( HTimer():aTimers[ i ]:bAction ) == "B"

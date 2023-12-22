@@ -46,7 +46,7 @@ CLASS HDatePicker INHERIT HControl
          bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime )
    METHOD onChange( nMess )
    METHOD When( )
-   METHOD Valid( )
+   METHOD Valid()
    METHOD Value ( Value ) SETGET
    METHOD Checkvalue ( lValue ) SETGET
 
@@ -60,8 +60,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
          ,, ctooltip, tcolor, bcolor )
 
-   ::lShowTime := Hwg_BitAnd( nStyle, DTS_TIMEFORMAT ) > 0
-   ::dValue    := IIF( vari == NIL .OR. ValType( vari ) != "D", CToD( Space(8) ), vari )
+   ::lShowTime := Hwg_BitAnd(nStyle, DTS_TIMEFORMAT) > 0
+   ::dValue    := IIF( vari == NIL .OR. ValType( vari ) != "D", CToD(Space(8)), vari )
    ::tValue    := IIF( vari == NIL .OR. Valtype( vari ) != "C", SPACE(6), vari )
    ::title     := IIF( !::lShowTime, ::dValue, ::tValue )
 
@@ -75,7 +75,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::bGetFocus := bGfocus
       ::bLostFocus := bLfocus
       ::oParent:AddEvent( NM_SETFOCUS, Self, { | o, id | ::When( o:FindControl( id ) ) }, .T., "onGotFocus" )
-      ::oParent:AddEvent( NM_KILLFOCUS, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .T., "onLostFocus" )
+      ::oParent:AddEvent( NM_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .T., "onLostFocus" )
    ELSE
       IF bGfocus != NIL
          ::lnoValid := .T.
@@ -96,7 +96,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
          bSize,, ctooltip, tcolor, bcolor )
 
    HWG_InitCommonControlsEx()
-   ::dValue   := IIf( vari == NIL .OR. ValType( vari ) != "D", CToD( Space(8) ), vari )
+   ::dValue   := IIf( vari == NIL .OR. ValType( vari ) != "D", CToD(Space(8)), vari )
    ::tValue    := IIF( vari == NIL .OR. Valtype( vari ) != "C", SPACE(6), vari )
    ::bSetGet := bSetGet
    ::bChange := bChange
@@ -108,7 +108,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
    ::oParent:AddEvent( DTN_CLOSEUP, Self, { | | ::onChange(  DTN_CLOSEUP ) }, .T., "onClose" )
    IF bSetGet != NIL
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent( NM_KILLFOCUS, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .T., "onLostFocus" )
+      ::oParent:AddEvent( NM_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .T., "onLostFocus" )
    ELSE
       IF bLfocus != NIL
          ::oParent:AddEvent( NM_KILLFOCUS, Self, bLfocus, .T., "onLostFocus" )
@@ -169,7 +169,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HDatePicker
 
 METHOD CheckValue( lValue )  CLASS HDatePicker
 
-   IF HWG_BITAND( ::Style, DTS_SHOWNONE ) = 0
+   IF HWG_BITAND(::Style, DTS_SHOWNONE) = 0
        RETURN .F.
    ENDIF
    IF lValue != Nil
@@ -278,7 +278,7 @@ METHOD When( ) CLASS HDatePicker
 
    RETURN res
 
-METHOD Valid( ) CLASS HDatePicker
+METHOD Valid() CLASS HDatePicker
    LOCAL  res := .T.
 
    IF !hwg_CheckFocus( Self, .T. ) .OR. ::lnoValid

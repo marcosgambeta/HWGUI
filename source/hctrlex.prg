@@ -60,9 +60,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bColor, lTransp, bClick, bDblClick, bOther ) CLASS HStaticEx
 
    nStyle := iif( nStyle = Nil, 0, nStyle )
-   ::nStyleHS := nStyle - Hwg_BitAND( nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
+   ::nStyleHS := nStyle - Hwg_BitAND(nStyle,  WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
       WS_CLIPCHILDREN + WS_BORDER + WS_DLGFRAME + ;
-      WS_VSCROLL + WS_HSCROLL + WS_THICKFRAME + WS_TABSTOP )
+      WS_VSCROLL + WS_HSCROLL + WS_THICKFRAME + WS_TABSTOP)
    nStyle += SS_NOTIFY + WS_CLIPCHILDREN
 
    ::BackStyle := OPAQUE
@@ -76,7 +76,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       nStyle +=  SS_OWNERDRAW - ::nStyleHS
    ENDIF
 
-   ::hBrushDefault := HBrush():Add( hwg_Getsyscolor( COLOR_BTNFACE ) )
+   ::hBrushDefault := HBrush():Add(hwg_Getsyscolor( COLOR_BTNFACE ))
    ::bOther := bOther
    // ::title := cCaption
 
@@ -288,7 +288,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       tcolor, bColor, bGFocus ) CLASS HButtonX
 
    nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON + BS_NOTIFY )
-   ::lFlat := Hwg_BitAND( nStyle, BS_FLAT ) != 0
+   ::lFlat := Hwg_BitAND(nStyle, BS_FLAT) != 0
 
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint,, cTooltip, ;
@@ -634,8 +634,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       RETURN hwg_Buttonexonsetstyle( wParam, lParam, ::handle, @::m_bIsDefault )
    ELSEIF msg == WM_MOUSEMOVE
       IF wParam = MK_LBUTTON
-         pt[1] := hwg_Loword( lParam )
-         pt[2] := hwg_Hiword( lParam )
+         pt[1] := hwg_Loword(lParam)
+         pt[2] := hwg_Hiword(lParam)
          acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
          rectButton := hwg_Getwindowrect( ::handle )
          IF ( !hwg_Ptinrect( rectButton, acoor ) )
@@ -714,8 +714,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          ::m_bSent := .F.
       ENDIF
       IF ::m_bIsToggle
-         pt[1] := hwg_Loword( lParam )
-         pt[2] := hwg_Hiword( lParam )
+         pt[1] := hwg_Loword(lParam)
+         pt[2] := hwg_Hiword(lParam)
          acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
          rectButton := hwg_Getwindowrect( ::handle )
          IF ( !hwg_Ptinrect( rectButton, acoor ) )
@@ -809,9 +809,9 @@ METHOD SetDefaultColor( tColor, bColor, lPaint ) CLASS HBUTTONEx
    ::m_crColors[ BTNST_COLOR_BK_FOCUS ] := iif( ::bColor = NIL, hwg_Getsyscolor( COLOR_BTNFACE ), ::bColor )
    ::m_crColors[ BTNST_COLOR_FG_FOCUS ] := iif( ::tColor = NIL, hwg_Getsyscolor( COLOR_BTNTEXT ), ::tColor )
    //
-   ::m_crBrush[ BTNST_COLOR_BK_IN ] := HBrush():Add( ::m_crColors[ BTNST_COLOR_BK_IN ] )
-   ::m_crBrush[ BTNST_COLOR_BK_OUT ] := HBrush():Add( ::m_crColors[ BTNST_COLOR_BK_OUT ] )
-   ::m_crBrush[ BTNST_COLOR_BK_FOCUS ] := HBrush():Add( ::m_crColors[ BTNST_COLOR_BK_FOCUS ] )
+   ::m_crBrush[ BTNST_COLOR_BK_IN ] := HBrush():Add(::m_crColors[ BTNST_COLOR_BK_IN ])
+   ::m_crBrush[ BTNST_COLOR_BK_OUT ] := HBrush():Add(::m_crColors[ BTNST_COLOR_BK_OUT ])
+   ::m_crBrush[ BTNST_COLOR_BK_FOCUS ] := HBrush():Add(::m_crColors[ BTNST_COLOR_BK_FOCUS ])
    IF lPaint
       hwg_Invalidaterect( ::handle, .F. )
    ENDIF
@@ -834,10 +834,10 @@ METHOD SetColorEx( nIndex, nColor, lPaint ) CLASS HBUTTONEx
 METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
    LOCAL dc := drawInfo[3]
-   LOCAL bIsPressed     := HWG_BITAND( drawInfo[9], ODS_SELECTED ) != 0
-   LOCAL bIsFocused     := HWG_BITAND( drawInfo[9], ODS_FOCUS ) != 0
-   LOCAL bIsDisabled    := HWG_BITAND( drawInfo[9], ODS_DISABLED ) != 0
-   LOCAL bDrawFocusRect := !HWG_BITAND( drawInfo[9], ODS_NOFOCUSRECT ) != 0
+   LOCAL bIsPressed     := HWG_BITAND(drawInfo[9], ODS_SELECTED) != 0
+   LOCAL bIsFocused     := HWG_BITAND(drawInfo[9], ODS_FOCUS) != 0
+   LOCAL bIsDisabled    := HWG_BITAND(drawInfo[9], ODS_DISABLED) != 0
+   LOCAL bDrawFocusRect := !HWG_BITAND(drawInfo[9], ODS_NOFOCUSRECT) != 0
    LOCAL focusRect
    LOCAL captionRect
    LOCAL centerRect
@@ -894,23 +894,23 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
          ENDIF
       ENDIF
       IF !::lFlat
-         hwg_drawthemebackground( ::hTheme, dc, BP_PUSHBUTTON, state, itemRect, NIL )
+         hwg_drawthemebackground(::hTheme, dc, BP_PUSHBUTTON, state, itemRect, NIL)
       ELSEIF bIsDisabled
          hwg_Fillrect( dc, itemRect[1] + 1, itemRect[2] + 1, itemRect[3] - 1, itemRect[4] - 1, hwg_Getsyscolorbrush( hwg_Getsyscolor( COLOR_BTNFACE ) ) )
       ELSEIF ::bMouseOverButton .OR. bIsFocused
-         hwg_drawthemebackground( ::hTheme, dc, BP_PUSHBUTTON  , state, itemRect, NIL ) // + PBS_DEFAULTED
+         hwg_drawthemebackground(::hTheme, dc, BP_PUSHBUTTON  , state, itemRect, NIL) // + PBS_DEFAULTED
       ENDIF
    ELSE
       IF bIsFocused .OR. ::id = IDOK
-         br := HBRUSH():Add( hwg_Rgb(1, 1, 1) )
+         br := HBRUSH():Add(hwg_Rgb(1, 1, 1))
          hwg_Framerect( dc, itemRect, br:handle )
          hwg_Inflaterect( @itemRect, - 1, - 1 )
       ENDIF
       crColor := hwg_Getsyscolor( COLOR_BTNFACE )
-      brBackground := HBRUSH():Add( crColor )
+      brBackground := HBRUSH():Add(crColor)
       hwg_Fillrect( dc, itemRect, brBackground:handle )
       IF ( bIsPressed )
-         brBtnShadow := HBRUSH():Add( hwg_Getsyscolor( COLOR_BTNSHADOW ) )
+         brBtnShadow := HBRUSH():Add(hwg_Getsyscolor( COLOR_BTNSHADOW ))
          hwg_Framerect( dc, itemRect, brBtnShadow:handle )
       ELSE
          IF !::lFlat .OR. ::bMouseOverButton
@@ -935,17 +935,17 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ENDIF
 
    IF uAlign = DT_VCENTER  //!= DT_CENTER + DT_VCENTER
-      uAlign := iif( HWG_BITAND( ::Style, BS_TOP ) != 0, DT_TOP, DT_VCENTER )
-      uAlign += iif( HWG_BITAND( ::Style, BS_BOTTOM ) != 0, DT_BOTTOM - DT_VCENTER , 0 )
-      uAlign += iif( HWG_BITAND( ::Style, BS_LEFT ) != 0, DT_LEFT, DT_CENTER )
-      uAlign += iif( HWG_BITAND( ::Style, BS_RIGHT ) != 0, DT_RIGHT - DT_CENTER, 0 )
+      uAlign := iif( HWG_BITAND(::Style, BS_TOP) != 0, DT_TOP, DT_VCENTER )
+      uAlign += iif( HWG_BITAND(::Style, BS_BOTTOM) != 0, DT_BOTTOM - DT_VCENTER , 0 )
+      uAlign += iif( HWG_BITAND(::Style, BS_LEFT) != 0, DT_LEFT, DT_CENTER )
+      uAlign += iif( HWG_BITAND(::Style, BS_RIGHT) != 0, DT_RIGHT - DT_CENTER, 0 )
    ELSE
       uAlign := iif( uAlign = 0, DT_CENTER + DT_VCENTER, uAlign )
    ENDIF
 
    uStyleTmp := HWG_GETWINDOWSTYLE( ::handle )
    itemRectOld := AClone( itemRect )
-   IF hb_BitAnd( uStyleTmp, BS_MULTILINE ) != 0 .AND. !Empty( ::caption ) .AND. ;
+   IF hb_BitAnd(uStyleTmp, BS_MULTILINE) != 0 .AND. !Empty( ::caption ) .AND. ;
          Int( aTxtSize[2] ) !=  Int( hwg_Drawtext( dc, ::caption, itemRect[1], itemRect[2],;
          itemRect[3] - iif( ::iStyle = ST_ALIGN_VERT, 0, aBmpSize[1] + 8 ), ;
          itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld ) )
@@ -1014,8 +1014,8 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ELSE
       hwg_Inflaterect( @captionRect, - 3, - 3 )
    ENDIF
-   captionRect[1] += iif( HWG_BITAND( ::Style, BS_LEFT )  != 0, Max( ::PictureMargin, 2 ), 0 )
-   captionRect[3] -= iif( HWG_BITAND( ::Style, BS_RIGHT ) != 0, Max( ::PictureMargin, 3 ), 0 )
+   captionRect[1] += iif( HWG_BITAND(::Style, BS_LEFT)  != 0, Max( ::PictureMargin, 2 ), 0 )
+   captionRect[3] -= iif( HWG_BITAND(::Style, BS_RIGHT) != 0, Max( ::PictureMargin, 3 ), 0 )
 
    itemRect1    := AClone( itemRect )
    captionRect1 := AClone( captionRect )
@@ -1113,7 +1113,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    ENDIF
 
    // Draw the focus rect
-   IF bIsFocused .AND. bDrawFocusRect .AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   IF bIsFocused .AND. bDrawFocusRect .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       focusRect := hwg_Copyrect( itemRect )
       hwg_Inflaterect( @focusRect, - 3, - 3 )
       hwg_Drawfocusrect( dc, focusRect )
@@ -1213,10 +1213,10 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    dwStyle := ::Style //HWG_GETWINDOWSTYLE( ::handle ) //GetStyle();
    rcText := { 0, rc[2] + iUpDist , 0, rc[2] + iUpDist  }
    IF Empty( szText )
-   ELSEIF hb_BitAnd( dwStyle, BS_CENTER ) == BS_RIGHT // right aligned
+   ELSEIF hb_BitAnd(dwStyle, BS_CENTER) == BS_RIGHT // right aligned
       rcText[3] := rc[3] + 2 - OFS_X
       rcText[1] := rcText[3] - aSize[1]
-   ELSEIF hb_BitAnd( dwStyle, BS_CENTER ) == BS_CENTER  // text centered
+   ELSEIF hb_BitAnd(dwStyle, BS_CENTER) == BS_CENTER  // text centered
       rcText[1] := ( rc[3] - rc[1]  - aSize[1]  ) / 2
       rcText[3] := rcText[1] + aSize[1]
    ELSE //((!(dwStyle & BS_CENTER)) || ((dwStyle & BS_CENTER) == BS_LEFT))// left aligned   / default
@@ -1225,10 +1225,10 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    ENDIF
    hwg_Setbkmode( dc, TRANSPARENT )
 
-   IF Hwg_BitAND( dwStyle, BS_FLAT ) != 0  // "flat" frame
+   IF Hwg_BitAND(dwStyle, BS_FLAT) != 0  // "flat" frame
       //pnFrmDark  := hwg_Createpen( PS_SOLID, 1, hwg_Rgb(0, 0, 0) ) )
-      pnFrmDark  := HPen():Add( PS_SOLID, 1,  hwg_Rgb(64, 64, 64) )
-      pnFrmLight := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
+      pnFrmDark  := HPen():Add(PS_SOLID, 1,  hwg_Rgb(64, 64, 64))
+      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:Handle )
       hwg_Moveto( dc, rcText[1] - 2, rcText[2]  )
       hwg_Lineto( dc, rc[1], rcText[2] )
@@ -1244,8 +1244,8 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
       hwg_Lineto( dc, rc[3] - 1, rcText[4] + 1 )
       hwg_Lineto( dc, rcText[3], rcText[4] + 1 )
    ELSE // 3D frame
-      pnFrmDark  := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW ) )
-      pnFrmLight := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
+      pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW ))
+      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:handle )
       hwg_Moveto( dc, rcText[1] - 2, rcText[2] )
       hwg_Lineto( dc, rc[1], rcText[2] )

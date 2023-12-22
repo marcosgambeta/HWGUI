@@ -356,7 +356,7 @@ METHOD PrinterFile( fname ) CLASS PrintDos
 
       DO WHILE .T.
 
-         nRead := FRead( han, @strbuf, PF_BUFFERS )
+         nRead := FRead(han, @strbuf, PF_BUFFERS)
 
          IF nRead = 0
             EXIT
@@ -452,7 +452,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
    LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
    LOCAL oPage := 1, nPage := 1
-   LOCAL oFont := HFont():Add( "Courier New", 0, - 13 )
+   LOCAL oFont := HFont():Add("Courier New", 0, - 13)
    LOCAL oText := { "" }
    LOCAL oDlg, oColor1, oColor2
    LOCAL oEdit
@@ -470,7 +470,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
             oText[ oPage ] += stroka + Chr(13) + Chr(10)
          ENDIF
          IF Left( stroka, 1 ) == Chr(12)
-            AAdd( oText, "" )
+            AAdd(oText, "")
             ++ oPage
          ENDIF
       ENDDO
@@ -665,7 +665,7 @@ HB_FUNC( AFILLTEXT )
 
    while ( file_read ( inFile, string ) )
    {
-      hb_arrayAddForward( pArray, hb_itemPutC(pTemp, string));
+      hb_arrayAddForward(pArray, hb_itemPutC(pTemp, string));
    }
 
    hb_itemRelease( hb_itemReturn( pArray ) );

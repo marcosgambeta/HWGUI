@@ -189,8 +189,8 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
 
    LOCAL otmp
 
-   HB_SYMBOL_UNUSED( wParam )
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(wParam)
+   HB_SYMBOL_UNUSED(lParam)
 
    IF ::lFlat .AND. ::state != OBTN_INIT
       otmp := hwg_SetNiceBtnSelected()
@@ -199,7 +199,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
          otmp:state := OBTN_NORMAL
          hwg_Invalidaterect( otmp:handle, 0 )
          hwg_Postmessage( otmp:handle, WM_PAINT, 0, 0 )
-         hwg_SetNiceBtnSelected( Nil )
+         hwg_SetNiceBtnSelected(Nil)
       ENDIF
 
       IF ::state == OBTN_NORMAL
@@ -208,7 +208,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
          // aBtn[ CTRL_HANDLE ] := hBtn
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
-         hwg_SetNiceBtnSelected( Self )
+         hwg_SetNiceBtnSelected(Self)
       ENDIF
    ENDIF
 
@@ -223,7 +223,7 @@ METHOD MUp( ) CLASS HNICEButton
          hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
       ENDIF
       IF !::lFlat
-         hwg_SetNiceBtnSelected( Nil )
+         hwg_SetNiceBtnSelected(Nil)
       ENDIF
       IF ::bClick != Nil
          Eval( ::bClick, ::oParent, ::id )
@@ -239,7 +239,7 @@ METHOD MDown() CLASS HNICEButton
 
       hwg_Invalidaterect( ::Handle, 0, 0 )
       hwg_Postmessage( ::handle, WM_PAINT, 0, 0 )
-      hwg_SetNiceBtnSelected( Self )
+      hwg_SetNiceBtnSelected(Self)
    ENDIF
 
    RETURN Self
@@ -305,7 +305,7 @@ METHOD RELEASE() CLASS HNiceButton
 
    RETURN Nil
 
-FUNCTION hwg_SetNiceBtnSelected( oBtn )
+FUNCTION hwg_SetNiceBtnSelected(oBtn)
 
 
    LOCAL otmp := HNiceButton() :oSelected

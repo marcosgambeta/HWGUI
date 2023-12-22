@@ -36,7 +36,7 @@ CLASS HPager INHERIT HControl
    METHOD INIT()
 
    METHOD Notify( lParam )
-   METHOD Pagersetchild( b ) INLINE ::hTool := b, hwg_Pagersetchild( ::handle, b )
+   METHOD Pagersetchild(b) INLINE ::hTool := b, hwg_Pagersetchild(::handle, b)
    METHOD Pagerrecalcsize( ) INLINE hwg_Pagerrecalcsize( ::handle )
    METHOD Pagerforwardmouse( b ) INLINE hwg_Pagerforwardmouse( ::handle, b )
    METHOD Pagersetbkcolor(  b ) INLINE hwg_Pagersetbkcolor( ::handle, b )
@@ -55,7 +55,7 @@ ENDCLASS
 METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
             bSize, bPaint, ctooltip, tcolor, bcolor, lvert ) CLASS HPager
 
-   HB_SYMBOL_UNUSED( cCaption )
+   HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lvert  TO .F.
    ::lvert := lvert
@@ -75,7 +75,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
                  bSize, bPaint, ctooltip, tcolor, bcolor, lVert )  CLASS HPager
 
-   HB_SYMBOL_UNUSED( cCaption )
+   HB_SYMBOL_UNUSED(cCaption)
 
    DEFAULT  lVert TO .F.
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;

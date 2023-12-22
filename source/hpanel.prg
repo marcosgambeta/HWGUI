@@ -47,7 +47,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
          Iif( nHeight == NIL, 0, nHeight ), oParent:oFont, bInit, ;
          bSize, bPaint,,, bcolor )
 
-   ::lBorder  := IIF( Hwg_Bitand( nStyle,WS_BORDER ) + Hwg_Bitand( nStyle,WS_DLGFRAME ) > 0, .T., .F. )
+   ::lBorder  := IIF( Hwg_Bitand(nStyle,WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F. )
    ::bPaint   := bPaint
    ::lResizeX := ( ::nWidth == 0 )
    ::lResizeY := ( ::nHeight == 0 )
@@ -65,10 +65,10 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ENDIF
    */
    ::nGetSkip := 1
-   IF Hwg_Bitand( nStyle,WS_HSCROLL ) > 0
+   IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
       ::nScrollBars ++
    ENDIF
-   IF Hwg_Bitand( nStyle,WS_VSCROLL ) > 0
+   IF Hwg_Bitand(nStyle, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
 
@@ -167,7 +167,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
       RETURN hwg_Getstockobject( NULL_BRUSH )
    ELSEIF msg == WM_SIZE
       IF ::oEmbedded != NIL
-         ::oEmbedded:Resize( hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+         ::oEmbedded:Resize( hwg_Loword(lParam), hwg_Hiword(lParam) )
       ENDIF
       ::RedefineScrollbars()
       ::Resize()
@@ -192,7 +192,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), hwg_Getparent( ::Handle ) ) )
       hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus , , IIF( hwg_Selffocus( hwg_GetParentForm(Self):nInitFocus, ::Handle ), 1, 0 ) )
       hwg_GetParentForm(Self):nInitFocus := 0
-   ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. !::lSuspendMsgsHandling  //.AND. Hwg_BitaND( ::sTyle, WS_TABSTOP ) != 0
+   ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. !::lSuspendMsgsHandling  //.AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_GetSkip( ::oParent, ::handle, , ::nGetSkip )
 
    ELSE
@@ -234,8 +234,8 @@ METHOD Paint() CLASS HPanel
    ::nrePaint := -1
    IF ::nScrollBars = - 1
       IF  !::lBorder
-         oPenLight := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
-         oPenGray := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW) )
+         oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+         oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW))
          hwg_Selectobject( hDC, oPenLight:handle )
          hwg_Drawline( hDC, 0, 1, aCoors[3] - 1, 1 )
          hwg_Selectobject( hDC, oPenGray:handle )

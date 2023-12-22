@@ -68,7 +68,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::bOther  := bOther
    ::bChange := bChange
    ::lAllowTabs := IIF( EMPTY( lAllowTabs ), ::lAllowTabs, lAllowTabs )
-   ::lReadOnly := Hwg_BitAnd( nStyle, ES_READONLY ) != 0
+   ::lReadOnly := Hwg_BitAnd(nStyle, ES_READONLY) != 0
 
    hwg_InitRichEdit()
 
@@ -82,7 +82,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF bLfocus != Nil
       //::oParent:AddEvent( EN_KILLFOCUS, Self, bLfocus,, "onLostFocus" )
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o | ::Valid( o ) }, , "onLostFocus" )
+      ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o | ::Valid(o) }, , "onLostFocus" )
    ENDIF
 
    RETURN Self
@@ -174,7 +174,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          RETURN 0
       ENDIF
    ELSEIF msg == WM_MOUSEWHEEL
-      nDelta := hwg_Hiword( wParam )
+      nDelta := hwg_Hiword(wParam)
       IF nDelta > 32768
          nDelta -= 65535
       ENDIF
@@ -209,7 +209,7 @@ METHOD ReadOnly( lreadOnly )
 
 METHOD UpdatePos( ) CLASS HRichEdit
     LOCAL npos := hwg_Sendmessage( ::handle, EM_GETSEL, 0, 0 )
-   LOCAL pos1 := hwg_Loword( npos ) + 1,   pos2 := hwg_Hiword( npos ) + 1
+   LOCAL pos1 := hwg_Loword(npos) + 1,   pos2 := hwg_Hiword(npos) + 1
 
     ::Line := hwg_Sendmessage( ::Handle, EM_LINEFROMCHAR, pos1 - 1, 0 ) + 1
     ::LinesTotal := hwg_Sendmessage( ::handle, EM_GETLINECOUNT, 0, 0 )
@@ -248,7 +248,7 @@ METHOD When( ) CLASS HRichEdit
  RETURN .T.
 
 
-METHOD Valid( ) CLASS HRichEdit
+METHOD Valid() CLASS HRichEdit
 
    IF ::bLostFocus != Nil .AND. !hwg_CheckFocus( Self, .T. )
        RETURN .T.

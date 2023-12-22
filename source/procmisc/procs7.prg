@@ -16,7 +16,7 @@ LOCAL stro := "", rez, oldpoz, poz1
    IF poz = 0
       IF han <> Nil
          stro += Substr( strbuf, oldpoz )
-         rez  := Fread( han, @strbuf, buflen )
+         rez  := Fread(han, @strbuf, buflen)
          IF rez = 0
             RETURN ""
          ELSEIF rez < buflen

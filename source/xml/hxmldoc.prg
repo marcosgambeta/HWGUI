@@ -27,12 +27,12 @@ CLASS HXMLNode
    DATA cargo
 
    METHOD New( cTitle, type, aAttr )
-   METHOD Add( xItem )
+   METHOD Add(xItem)
    METHOD GetAttribute( cName, cType, xDefault )
    METHOD SetAttribute( cName,cValue )
    METHOD DelAttribute( cName )
    METHOD Save( handle,level )
-   METHOD Find( cTitle,nStart )
+   METHOD Find(cTitle,nStart)
 ENDCLASS
 
 METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
@@ -45,13 +45,13 @@ METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
    ENDIF
    ::type := Iif( type != Nil , type, HBXML_TYPE_TAG )
    IF cValue != Nil
-      ::Add( cValue )
+      ::Add(cValue)
    ENDIF
 Return Self
 
-METHOD Add( xItem ) CLASS HXMLNode
+METHOD Add(xItem) CLASS HXMLNode
 
-   Aadd( ::aItems, xItem )
+   Aadd(::aItems, xItem)
 Return xItem
 
 METHOD GetAttribute( cName, cType, xDefault ) CLASS HXMLNode
@@ -72,7 +72,7 @@ METHOD SetAttribute( cName,cValue ) CLASS HXMLNode
 Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
 
    IF i == 0
-      Aadd( ::aAttr,{ cName,cValue } )
+      Aadd(::aAttr,{ cName,cValue })
    ELSE
       ::aAttr[ i,2 ] := cValue
    ENDIF
@@ -177,7 +177,7 @@ Local i, s := Space(level*2)+'<', lNewLine
    ENDIF
 Return ""
 
-METHOD Find( cTitle,nStart,block ) CLASS HXMLNode
+METHOD Find(cTitle,nStart,block) CLASS HXMLNode
 Local i
 
    IF nStart == Nil
@@ -208,8 +208,8 @@ Return Nil
 CLASS HXMLDoc INHERIT HXMLNode
 
    METHOD New( encoding )
-   METHOD Read( fname )
-   METHOD ReadString( buffer )  INLINE ::Read( ,buffer )
+   METHOD Read(fname)
+   METHOD ReadString( buffer )  INLINE ::Read(,buffer)
    METHOD Save( fname,lNoHeader )
    METHOD Save2String()  INLINE ::Save()
 ENDCLASS
@@ -217,13 +217,13 @@ ENDCLASS
 METHOD New( encoding ) CLASS HXMLDoc
 
    IF encoding != Nil
-      Aadd( ::aAttr, { "version","1.0" } )
-      Aadd( ::aAttr, { "encoding",encoding } )
+      Aadd(::aAttr, { "version","1.0" })
+      Aadd(::aAttr, { "encoding",encoding })
    ENDIF
 
 Return Self
 
-METHOD Read( fname,buffer ) CLASS HXMLDoc
+METHOD Read(fname,buffer) CLASS HXMLDoc
 Local han
 
    IF fname != Nil

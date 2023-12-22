@@ -17,8 +17,8 @@
 
 STATIC aSheet := Nil
 STATIC aMessModalDlg := { ;
-      { WM_COMMAND, { |o,w,l| onDlgCommand( o, w, l ) } },       ;
-      { WM_SYSCOMMAND, { |o,w,l| onSysCommand( o, w, l ) } },    ;
+      { WM_COMMAND, { |o,w,l| onDlgCommand(o, w, l) } },       ;
+      { WM_SYSCOMMAND, { |o,w,l| onSysCommand(o, w, l) } },    ;
       { WM_SIZE, { |o,w,l| onSize( o, w, l ) } },                ;
       { WM_INITDIALOG, { |o,w,l| InitModalDlg( o, w, l ) } },    ;
       { WM_ERASEBKGND, { |o,w| onEraseBk( o, w ) } },            ;
@@ -52,7 +52,7 @@ CLASS HDialog INHERIT HWindow
       xResourceID, lExitOnEsc, bcolor, bRefresh, lNoClosable )
    METHOD Activate( lNoModal, bOnActivate, nShow )
    METHOD onEvent( msg, wParam, lParam )
-   METHOD AddItem()      INLINE AAdd( iif( ::lModal, ::aModalDialogs, ::aDialogs ), Self )
+   METHOD AddItem()      INLINE AAdd(iif( ::lModal, ::aModalDialogs, ::aDialogs ), Self)
    METHOD DelItem()
    METHOD FindDialog( hWndTitle, lAll )
    METHOD GetActive()
@@ -94,13 +94,13 @@ METHOD NEW( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
       ::HelpId := nHelpId
    END
    ::Setcolor( , bColor )
-   IF Hwg_Bitand( nStyle, WS_HSCROLL ) > 0
+   IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
       ::nScrollBars ++
    ENDIF
-   IF  Hwg_Bitand( nStyle, WS_VSCROLL ) > 0
+   IF  Hwg_Bitand(nStyle, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
-   ::lContainer := Hwg_Bitand( nStyle, DS_CONTROL ) > 0
+   ::lContainer := Hwg_Bitand(nStyle, DS_CONTROL) > 0
 
    RETURN Self
 
@@ -166,12 +166,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
          RETURN 0
       ENDIF
    ELSEIF msg = WM_MENUCHAR
-      RETURN onSysCommand( Self, SC_KEYMENU, hwg_Loword( wParam ) )
+      RETURN onSysCommand(Self, SC_KEYMENU, hwg_Loword(wParam))
    ELSEIF msg = WM_MOVE
       aCoors := hwg_Getwindowrect( ::handle )
       ::nLeft := aCoors[1]
       ::nTop  := aCoors[2]
-   ELSEIF  msg = WM_UPDATEUISTATE .AND. hwg_Hiword( wParam ) != UISF_HIDEFOCUS
+   ELSEIF  msg = WM_UPDATEUISTATE .AND. hwg_Hiword(wParam) != UISF_HIDEFOCUS
       // prevent the screen flicker
       RETURN 1
    ELSEIF !::lActivated .AND. msg = WM_NCPAINT
@@ -259,8 +259,8 @@ METHOD GetActive() CLASS HDialog
 STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
    LOCAL nReturn := 1 , uis
 
-   HB_SYMBOL_UNUSED( lParam )
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(lParam)
+   HB_SYMBOL_UNUSED(wParam)
 
    IF ValType( oDlg:menu ) == "A"
       hwg__SetMenu( oDlg:handle, oDlg:menu[5] )
@@ -359,7 +359,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
 STATIC FUNCTION onDlgColor( oDlg, wParam, lParam )
 
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(lParam)
 
    hwg_Setbkmode( wParam, 1 ) // Transparent mode
    IF oDlg:bcolor != NIL  .AND. ValType( oDlg:brush ) != "N"
@@ -383,12 +383,12 @@ STATIC FUNCTION onEraseBk( oDlg, hDC )
 
 #define  FLAG_CHECK      2
 
-STATIC FUNCTION onDlgCommand( oDlg, wParam, lParam )
+STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
 
-   LOCAL iParHigh := hwg_Hiword( wParam ), iParLow := hwg_Loword( wParam )
+   LOCAL iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
    LOCAL aMenu, i, hCtrl, oCtrl, nEsc := .F.
 
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(lParam)
 
    IF iParHigh == 0
       IF iParLow == IDOK
@@ -480,7 +480,7 @@ STATIC FUNCTION onDlgCommand( oDlg, wParam, lParam )
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "MENU" ) .AND. ValType( oDlg:menu ) == "A" .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:menu, iParLow, @i ) ) != Nil
-      IF Hwg_BitAnd( aMenu[1, i, 4], FLAG_CHECK ) > 0
+      IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem( , aMenu[1, i, 3], !hwg_Ischeckedmenuitem( , aMenu[1, i, 3] ) )
       ENDIF
       IF aMenu[1, i, 1] != Nil
@@ -502,7 +502,7 @@ FUNCTION hwg_DlgMouseMove()
       oBtn:state := OBTN_NORMAL
       hwg_Invalidaterect( oBtn:handle, 0 )
       // hwg_Postmessage( oBtn:handle, WM_PAINT, 0, 0 )
-      hwg_SetNiceBtnSelected( Nil )
+      hwg_SetNiceBtnSelected(Nil)
    ENDIF
 
    RETURN 0
@@ -512,13 +512,13 @@ STATIC FUNCTION onSize( oDlg, wParam, lParam )
    LOCAL aControls, iCont , nW1, nH1
 
    IF oDlg:oEmbedded != Nil
-      oDlg:oEmbedded:Resize( hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+      oDlg:oEmbedded:Resize( hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
    nW1 := oDlg:nWidth
    nH1 := oDlg:nHeight
    IF wParam != 1  //SIZE_MINIMIZED
-      oDlg:nWidth := hwg_Loword( lParam )
-      oDlg:nHeight := hwg_Hiword( lParam )
+      oDlg:nWidth := hwg_Loword(lParam)
+      oDlg:nHeight := hwg_Hiword(lParam)
    ENDIF
    // SCROLL BARS code here.
    IF oDlg:nScrollBars > - 1 .AND. oDlg:lAutoScroll
@@ -528,7 +528,7 @@ STATIC FUNCTION onSize( oDlg, wParam, lParam )
 
    IF oDlg:bSize != Nil .AND. ;
          ( oDlg:oParent == Nil .OR. !__ObjHasMsg( oDlg:oParent, "ACONTROLS" ) )
-      Eval( oDlg:bSize, oDlg, hwg_Loword( lParam ), hwg_Hiword( lParam ) )
+      Eval( oDlg:bSize, oDlg, hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
    aControls := oDlg:aControls
    IF aControls != Nil .AND. !Empty( oDlg:Rect )
@@ -536,7 +536,7 @@ STATIC FUNCTION onSize( oDlg, wParam, lParam )
       FOR iCont := 1 TO Len( aControls )
          IF aControls[ iCont ]:bSize != Nil
             Eval( aControls[ iCont ]:bSize, ;
-               aControls[ iCont ], hwg_Loword( lParam ), hwg_Hiword( lParam ), nW1, nH1 )
+               aControls[ iCont ], hwg_Loword(lParam), hwg_Hiword(lParam), nW1, nH1 )
          ENDIF
       NEXT
    ENDIF
@@ -544,7 +544,7 @@ STATIC FUNCTION onSize( oDlg, wParam, lParam )
    RETURN 0
 
 STATIC FUNCTION onActivate( oDlg, wParam, lParam )
-   LOCAL iParLow := hwg_Loword( wParam ), iParHigh := hwg_Hiword( wParam )
+   LOCAL iParLow := hwg_Loword(wParam), iParHigh := hwg_Hiword(wParam)
 
    IF ( iParLow = WA_ACTIVE .OR. iParLow = WA_CLICKACTIVE ) .AND. oDlg:lContainer .AND. ;
          !hwg_Selffocus( lParam, oDlg:Handle )
@@ -580,7 +580,7 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
 
    LOCAL oCtrl, nHelpId, oParent, cDir
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF !Empty( hwg_SetHelpFileName() )
       IF "chm" $ Lower( CutPath( hwg_SetHelpFileName() ) )
@@ -613,7 +613,7 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
 STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
    LOCAL nCode := hwg_Getnotifycode( lParam ), res := .T.
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF nCode == PSN_SETACTIVE
       IF oDlg:bGetFocus != Nil
@@ -751,7 +751,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
       ENDIF
    ELSE
       IF i == 0
-         AAdd( aKeys, { nctrl, nkey, block } )
+         AAdd(aKeys, { nctrl, nkey, block })
       ELSE
          aKeys[ i, 3 ] := block
       ENDIF
@@ -759,7 +759,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
 
    RETURN bOldSet
 
-STATIC FUNCTION onSysCommand( oDlg, wParam, lParam )
+STATIC FUNCTION onSysCommand(oDlg, wParam, lParam)
    LOCAL oCtrl
 
    IF wParam == SC_CLOSE

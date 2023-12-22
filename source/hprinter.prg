@@ -169,9 +169,9 @@ METHOD AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset ) CLASS
    IF ::lmm .AND. nHeight != NIL
       nHeight *= ::nVRes
    ENDIF
-   oFont := HFont():Add( fontName,, nHeight,          ;
+   oFont := HFont():Add(fontName,, nHeight,          ;
          IIf( lBold != NIL .AND. lBold, 700, 400 ), nCharset, ;
-         IIf( lItalic != NIL .AND. lItalic, 255, 0 ), IIf( lUnderline != NIL .AND. lUnderline, 1, 0 ) )
+         IIf( lItalic != NIL .AND. lItalic, 255, 0 ), IIf( lUnderline != NIL .AND. lUnderline, 1, 0 ))
 
    RETURN oFont
 
@@ -302,7 +302,7 @@ METHOD StartPage() CLASS HPrinter
 
    IF ::lPreview
       fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str( Len( ::aMeta ) + 1 ) ) + ".emf", NIL )
-      AAdd( ::aMeta, hwg_CreateMetaFile( ::hDCPrn, fname ) )
+      AAdd(::aMeta, hwg_CreateMetaFile( ::hDCPrn, fname ))
       ::hDC := ATail( ::aMeta )
    ELSE
       Hwg_StartPage( ::hDC )
@@ -341,11 +341,11 @@ METHOD ReleaseMeta() CLASS HPrinter
 
 METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len( ::aMeta ), aPage := { }
-   LOCAL oFont := HFont():Add( "Times New Roman", 0, - 13, 700 )
+   LOCAL oFont := HFont():Add("Times New Roman", 0, - 13, 700)
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len( aBitmaps ) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
 
    FOR i := 1 TO nLastPage
-      AAdd( aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ) )
+      AAdd(aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ))
    NEXT
 
    IF cTitle == NIL
@@ -362,8 +362,8 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
          ON INIT { | o | o:Maximize(), ::ResizePreviewDlg( oCanvas, 1 ), SetTimerPrinter( oCanvas, @oTimer ) } ;
          ON EXIT { || oCanvas:brush := NIL, .T. }
 
-   oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED( oWnd ), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
-   oDlg:brush := HBrush():Add( 11316396 )
+   oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+   oDlg:brush := HBrush():Add(11316396)
 
    @ 0, 0 PANEL oToolBar SIZE 88, oDlg:nHeight
 
@@ -373,7 +373,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
       ON SIZE { | o, x, y | o:Move(,, x - oToolBar:nWidth, y ), ::ResizePreviewDlg( o ) } ;
       ON PAINT { || ::PlayMeta(oCanvas) } STYLE WS_VSCROLL + WS_HSCROLL
 
-   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED( oWnd ), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
    // DON'T CHANGE NOR REMOVE THE FOLLOWING LINE !
    // I need it to have the correct side-effect to avoid flickering !!!
    oCanvas:brush := 0
@@ -533,16 +533,16 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
    x := oCanvas:nWidth
    y := oCanvas:nHeight
 
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(lParam)
 
    nPosVert := hwg_Getscrollpos( oCanvas:handle, SB_VERT )
    nPosHorz := hwg_Getscrollpos( oCanvas:handle, SB_HORZ )
 
    IF msg = WM_VSCROLL
       hwg_Setscrollrange( oCanvas:handle, SB_VERT, 1, 20 )
-      wmsg := hwg_Loword( wParam )
+      wmsg := hwg_Loword(wParam)
       IF wmsg = SB_THUMBPOSITION .OR. wmsg = SB_THUMBTRACK
-         nPosVert := hwg_Hiword( wParam )
+         nPosVert := hwg_Hiword(wParam)
       ELSEIF wmsg = SB_LINEUP
          nPosVert := nPosVert - 1
          IF nPosVert < 1
@@ -570,9 +570,9 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    IF msg = WM_HSCROLL
       hwg_Setscrollrange( oCanvas:handle, SB_HORZ, 1, 20 )
-      wmsg := hwg_Loword( wParam )
+      wmsg := hwg_Loword(wParam)
       IF wmsg = SB_THUMBPOSITION .OR. wmsg = SB_THUMBTRACK
-         nPosHorz := hwg_Hiword( wParam )
+         nPosHorz := hwg_Hiword(wParam)
       ELSEIF wmsg = SB_LINEUP
          nPosHorz := nPosHorz - 1
          IF nPosHorz < 1
@@ -600,7 +600,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    IF msg == WM_MOUSEWHEEL
       hwg_Setscrollrange( oCanvas:handle, SB_VERT, 1, 20 )
-      IF hwg_Hiword( wParam ) > 32678
+      IF hwg_Hiword(wParam) > 32678
          IF ++ nPosVert > 20
             nPosVert := 20
          ENDIF
@@ -626,38 +626,38 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    IF ::nWidth > ::nHeight
       nWidth := x - 20
-      nHeight := Round( nWidth * k2, 0 )
+      nHeight := Round(nWidth * k2, 0)
       IF nHeight > y - 20
          nHeight := y - 20
-         nWidth := Round( nHeight * k1, 0 )
+         nWidth := Round(nHeight * k1, 0)
       ENDIF
       ::NeedsRedraw := .T.
    ELSE
       nHeight := y - 10
-      nWidth := Round( nHeight * k1, 0 )
+      nWidth := Round(nHeight * k1, 0)
       IF nWidth > x - 20
          nWidth := x - 20
-         nHeight := Round( nWidth * k2, 0 )
+         nHeight := Round(nWidth * k2, 0)
       ENDIF
       ::NeedsRedraw := .T.
    ENDIF
 
    IF ::nZoom > 0
       FOR i := 1 TO ::nZoom
-         nWidth := Round( nWidth * 1.5, 0 )
-         nHeight := Round( nHeight * 1.5, 0 )
+         nWidth := Round(nWidth * 1.5, 0)
+         nHeight := Round(nHeight * 1.5, 0)
       NEXT
       ::NeedsRedraw := .T.
    ELSEIF ::nZoom == 0
-      nWidth := Round( nWidth * 0.93, 0 )
-      nHeight := Round( nHeight * 0.93, 0 )
+      nWidth := Round(nWidth * 0.93, 0)
+      nHeight := Round(nHeight * 0.93, 0)
    ENDIF
 
    ::xOffset := ::yOffset := 0
    IF nHeight > y
       nPos := nPosVert
       IF nPos > 0
-         ::yOffset := Round( ( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0 )
+         ::yOffset := Round(( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0)
       ENDIF
    ELSE
       hwg_Setscrollpos( oCanvas:handle, SB_VERT, 0 )
@@ -667,15 +667,15 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
       nPos := nPosHorz
       IF nPos > 0
          nPos := ( nPos - 1 ) / 18
-         ::xOffset := Round( nPos * ( nWidth - x + 10 ), 0 )
+         ::xOffset := Round(nPos * ( nWidth - x + 10 ), 0)
       ENDIF
    ELSE
       hwg_Setscrollpos( oCanvas:handle, SB_HORZ, 0 )
    ENDIF
 
-   ::x1 := IIf( nWidth < x, Round( ( x - nWidth ) / 2, 0 ), 10 ) - ::xOffset
+   ::x1 := IIf( nWidth < x, Round(( x - nWidth ) / 2, 0), 10 ) - ::xOffset
    ::x2 := ::x1 + nWidth - 1
-   ::y1 := IIf( nHeight < y, Round( ( y - nHeight ) / 2, 0 ), 10 ) - ::yOffset
+   ::y1 := IIf( nHeight < y, Round(( y - nHeight ) / 2, 0), 10 ) - ::yOffset
    ::y2 := ::y1 + nHeight - 1
 
    IF nZoom != NIL .OR. msg != NIL
@@ -718,13 +718,13 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
             ::memDC:Createcompatibledc(hDC)
             ::memBitmap := hwg_Createcompatiblebitmap( hDC, rect[3] - rect[1], rect[4] - rect[2] )
             ::memDC:Selectobject( ::memBitmap )
-            Brush           := HBrush():Add( hwg_Getsyscolor( COLOR_3DHILIGHT + 1 ) ):handle
-            BrushWhite      := HBrush():Add( hwg_Rgb(255, 255, 255) ):handle
-            BrushBlack      := HBrush():Add( hwg_Rgb(0, 0, 0) ):handle
-            BrushLine       := HBrush():Add( hwg_Rgb(102, 100, 92) ):handle
-            BrushBackground := HBrush():Add( hwg_Rgb(204, 200, 184) ):handle
-            BrushShadow     := HBrush():Add( hwg_Rgb(178, 175, 161) ):handle
-            BrushBorder     := HBrush():Add( hwg_Rgb(129, 126, 115) ):handle
+            Brush           := HBrush():Add(hwg_Getsyscolor( COLOR_3DHILIGHT + 1 )):handle
+            BrushWhite      := HBrush():Add(hwg_Rgb(255, 255, 255)):handle
+            BrushBlack      := HBrush():Add(hwg_Rgb(0, 0, 0)):handle
+            BrushLine       := HBrush():Add(hwg_Rgb(102, 100, 92)):handle
+            BrushBackground := HBrush():Add(hwg_Rgb(204, 200, 184)):handle
+            BrushShadow     := HBrush():Add(hwg_Rgb(178, 175, 161)):handle
+            BrushBorder     := HBrush():Add(hwg_Rgb(129, 126, 115)):handle
          ENDIF
 
          IF ::NeedsRedraw

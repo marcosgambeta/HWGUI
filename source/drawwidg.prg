@@ -22,15 +22,15 @@ CLASS HFont INHERIT HObject
    DATA charset, italic, Underline, StrikeOut
    DATA nCounter   INIT 1
 
-   METHOD Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle )
+   METHOD Add(fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle)
    METHOD SELECT( oFont, nCharSet )
    METHOD RELEASE()
    METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight )
 
 ENDCLASS
 
-METHOD Add( fontName, nWidth, nHeight , fnWeight, ;
-      fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle ) CLASS HFont
+METHOD Add(fontName, nWidth, nHeight , fnWeight, ;
+      fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle) CLASS HFont
 
    LOCAL i, nlen := Len( ::aFonts )
 
@@ -74,7 +74,7 @@ METHOD Add( fontName, nWidth, nHeight , fnWeight, ;
    ::Underline := fdwUnderline
    ::StrikeOut := fdwStrikeOut
 
-   AAdd( ::aFonts, Self )
+   AAdd(::aFonts, Self)
 
    RETURN Self
 
@@ -85,7 +85,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
       RETURN Nil
    ENDIF
 
-   RETURN ::Add( af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1] )
+   RETURN ::Add(af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1])
 
 METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS HFont
    LOCAL  weight, Italic, Underline, StrikeOut
@@ -101,8 +101,8 @@ METHOD SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight ) CLASS 
    nheight   := iif( nheight = Nil, ::height, nheight )
    nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
 
-   RETURN HFont():Add( ::name, ::width, nheight, weight, ;
-      nCharSet, Italic, Underline, StrikeOut )
+   RETURN HFont():Add(::name, ::width, nheight, weight, ;
+      nCharSet, Italic, Underline, StrikeOut)
 
 METHOD RELEASE() CLASS HFont
    LOCAL i, nlen := Len( ::aFonts )
@@ -141,13 +141,13 @@ CLASS HPen INHERIT HObject
    DATA style, width, color
    DATA nCounter   INIT 1
 
-   METHOD Add( nStyle, nWidth, nColor )
+   METHOD Add(nStyle, nWidth, nColor)
    METHOD Get( nStyle, nWidth, nColor )
    METHOD RELEASE()
 
 ENDCLASS
 
-METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
+METHOD Add(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
    nStyle := iif( nStyle == Nil, BS_SOLID, nStyle )
@@ -180,7 +180,7 @@ METHOD Add( nStyle, nWidth, nColor ) CLASS HPen
    ::style  := nStyle
    ::width  := nWidth
    ::color  := nColor
-   AAdd( ::aPens, Self )
+   AAdd(::aPens, Self)
 
    RETURN Self
 
@@ -251,12 +251,12 @@ CLASS HBrush INHERIT HObject
    DATA nHatch   INIT 99
    DATA nCounter INIT 1
 
-   METHOD Add( nColor, nHatch )
+   METHOD Add(nColor, nHatch)
    METHOD RELEASE()
 
 ENDCLASS
 
-METHOD Add( nColor, nHatch ) CLASS HBrush
+METHOD Add(nColor, nHatch) CLASS HBrush
    LOCAL i
 
    IF nHatch == Nil
@@ -287,7 +287,7 @@ METHOD Add( nColor, nHatch ) CLASS HBrush
       ::handle := hwg_Createsolidbrush( nColor )
    ENDIF
    ::color  := nColor
-   AAdd( ::aBrushes, Self )
+   AAdd(::aBrushes, Self)
 
    RETURN Self
 
@@ -332,7 +332,7 @@ CLASS HBitmap INHERIT HObject
    DATA nCounter   INIT 1
 
    METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight )
-   METHOD AddStandard( nId )
+   METHOD AddStandard(nId)
    METHOD AddFile( name, hDC, lTranparent, nWidth, nHeight )
    METHOD AddWindow( oWnd, lFull )
    METHOD Draw( hDC, x1, y1, width, height )  INLINE hwg_Drawbitmap( hDC, ::handle, SRCCOPY, x1, y1, width, height )
@@ -383,11 +383,11 @@ METHOD AddResource( name, nFlags, lOEM, nWidth, nHeight ) CLASS HBitmap
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
    ::nFlags  :=  nFlags
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
-METHOD AddStandard( nId ) CLASS HBitmap
+METHOD AddStandard(nId) CLASS HBitmap
    LOCAL i, aBmpSize, name := "s" + LTrim( Str( nId ) )
 
 #ifdef __XHARBOUR__
@@ -411,7 +411,7 @@ METHOD AddStandard( nId ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -460,7 +460,7 @@ METHOD AddFile( name, hDC, lTranparent, nWidth, nHeight ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -472,7 +472,7 @@ METHOD AddWindow( oWnd, lFull ) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize( ::handle )
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   AAdd( ::aBitmaps, Self )
+   AAdd(::aBitmaps, Self)
 
    RETURN Self
 
@@ -567,7 +567,7 @@ METHOD AddResource( name, nWidth, nHeight, nFlags, lOEM ) CLASS HIcon
    ::nWidth  := aIconSize[1]
    ::nHeight := aIconSize[2]
 
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
    RETURN Self
 
@@ -610,7 +610,7 @@ METHOD AddFile( name, nWidth, nHeight ) CLASS HIcon
    ::nWidth  := aIconSize[1]
    ::nHeight := aIconSize[2]
 
-   AAdd( ::aIcons, Self )
+   AAdd(::aIcons, Self)
 
    RETURN Self
 

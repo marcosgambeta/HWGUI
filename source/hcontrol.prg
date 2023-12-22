@@ -46,8 +46,8 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Hide() INLINE ( ::oParent:lGetSkipLostFocus := .F. , ::Super:Hide() )
    METHOD Disable() INLINE ( iif( hwg_Selffocus( ::Handle ), hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 ) , ), hwg_Enablewindow( ::handle, .F. ) )
    METHOD Enable()
-   METHOD IsEnabled() INLINE hwg_Iswindowenabled( ::Handle )
-   METHOD Enabled( lEnabled ) SETGET
+   METHOD IsEnabled() INLINE hwg_Iswindowenabled(::Handle)
+   METHOD Enabled(lEnabled) SETGET
    METHOD SetFont( oFont )
    METHOD Setfocus( lValid )
    METHOD GetText()     INLINE hwg_Getwindowtext( ::handle )
@@ -154,7 +154,7 @@ METHOD INIT() CLASS HControl
 METHOD Setfocus( lValid ) CLASS HControl
    LOCAL lSuspend := ::oParent:lSuspendMsgsHandling
 
-   IF !hwg_Iswindowenabled( ::Handle )
+   IF !hwg_Iswindowenabled(::Handle)
       ::oParent:lSuspendMsgsHandling  := .T.
       hwg_Sendmessage( hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0 )
       ::oParent:lSuspendMsgsHandling  := lSuspend
@@ -174,10 +174,10 @@ METHOD Setfocus( lValid ) CLASS HControl
    RETURN NIL
 
 METHOD Enable() CLASS HControl
-   LOCAL lEnable := hwg_Iswindowenabled( ::Handle ), nPos, nNext
+   LOCAL lEnable := hwg_Iswindowenabled(::Handle), nPos, nNext
 
    hwg_Enablewindow( ::handle, .T. )
-   IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND( HWG_GETWINDOWSTYLE( ::Handle ), WS_TABSTOP ) > 0
+   IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND(HWG_GETWINDOWSTYLE( ::Handle ), WS_TABSTOP) > 0
       nNext := Ascan( ::oParent:aControls, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( hwg_Getfocus() ) } )
       nPos  := Ascan( ::oParent:acontrols, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( ::handle ) } )
       IF nPos < nNext
@@ -194,7 +194,7 @@ METHOD DisableBackColor( DisableBColor )
       IF ::Disablebrush != NIL
          ::Disablebrush:Release()
       ENDIF
-      ::Disablebrush := HBrush():Add( ::DisableBColor )
+      ::Disablebrush := HBrush():Add(::DisableBColor)
       IF !::IsEnabled() .AND. hwg_Iswindowvisible( ::Handle )
          hwg_Invalidaterect( ::Handle, 0 )
       ENDIF
@@ -224,7 +224,7 @@ METHOD SetToolTip ( cToolTip ) CLASS HControl
 
    RETURN ::tooltip
 
-METHOD Enabled( lEnabled ) CLASS HControl
+METHOD Enabled(lEnabled) CLASS HControl
 
    IF lEnabled != NIL
       IF lEnabled
@@ -276,43 +276,43 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    IF nAnchor >= ANCHOR_VERTFIX
       // *- vertical fixed center
       nAnchor -= ANCHOR_VERTFIX
-      y1 := y9 + Round( ( h - y ) * ( ( y9 + h9 / 2 ) / y ), 2 )
+      y1 := y9 + Round(( h - y ) * ( ( y9 + h9 / 2 ) / y ), 2)
    ENDIF
    IF nAnchor >= ANCHOR_HORFIX
       // *- horizontal fixed center
       nAnchor -= ANCHOR_HORFIX
-      x1 := x9 + Round( ( w - x ) * ( ( x9 + w9 / 2 ) / x ), 2 )
+      x1 := x9 + Round(( w - x ) * ( ( x9 + w9 / 2 ) / x ), 2)
    ENDIF
    IF nAnchor >= ANCHOR_RIGHTREL
       // relative - RIGHT RELATIVE
       nAnchor -= ANCHOR_RIGHTREL
-      x1 := w - Round( ( x - x9 - w9 ) * nXincRelative, 2 ) - w9
+      x1 := w - Round(( x - x9 - w9 ) * nXincRelative, 2) - w9
    ENDIF
    IF nAnchor >= ANCHOR_BOTTOMREL
       // relative - BOTTOM RELATIVE
       nAnchor -= ANCHOR_BOTTOMREL
-      y1 := h - Round( ( y - y9 - h9 ) * nYincRelative, 2 ) - h9
+      y1 := h - Round(( y - y9 - h9 ) * nYincRelative, 2) - h9
    ENDIF
    IF nAnchor >= ANCHOR_LEFTREL
       // relative - LEFT RELATIVE
       nAnchor -= ANCHOR_LEFTREL
       IF x1 != x9
-         w1 := x1 - ( Round( x9 * nXincRelative, 2 ) ) + w9
+         w1 := x1 - ( Round(x9 * nXincRelative, 2) ) + w9
       ENDIF
-      x1 := Round( x9 * nXincRelative, 2 )
+      x1 := Round(x9 * nXincRelative, 2)
    ENDIF
    IF nAnchor >= ANCHOR_TOPREL
       // relative  - TOP RELATIVE
       nAnchor -= ANCHOR_TOPREL
       IF y1 != y9
-         h1 := y1 - ( Round( y9 * nYincRelative, 2 ) ) + h9
+         h1 := y1 - ( Round(y9 * nYincRelative, 2) ) + h9
       ENDIF
-      y1 := Round( y9 * nYincRelative, 2 )
+      y1 := Round(y9 * nYincRelative, 2)
    ENDIF
    IF nAnchor >= ANCHOR_RIGHTABS
       // Absolute - RIGHT ABSOLUTE
       nAnchor -= ANCHOR_RIGHTABS
-      IF HWG_BITAND( ::Anchor, ANCHOR_LEFTREL ) != 0
+      IF HWG_BITAND(::Anchor, ANCHOR_LEFTREL) != 0
          w1 := Int( nxIncAbsolute ) - ( x1 - x9 ) + w9
       ELSE
          IF x1 != x9
@@ -324,7 +324,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    IF nAnchor >= ANCHOR_BOTTOMABS
       // Absolute - BOTTOM ABSOLUTE
       nAnchor -= ANCHOR_BOTTOMABS
-      IF HWG_BITAND( ::Anchor, ANCHOR_TOPREL ) != 0
+      IF HWG_BITAND(::Anchor, ANCHOR_TOPREL) != 0
          h1 := Int( nyIncAbsolute ) - ( y1 - y9 ) + h9
       ELSE
          IF y1 != y9
@@ -351,8 +351,8 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    // REDRAW AND INVALIDATE SCREEN
    IF ( x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9 )
       IF hwg_Iswindowvisible( ::handle )
-         nCxv := iif( HWG_BITAND( ::style, WS_VSCROLL ) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1 , 3 )
-         nCyh := iif( HWG_BITAND( ::style, WS_HSCROLL ) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1 , 3 )
+         nCxv := iif( HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1 , 3 )
+         nCyh := iif( HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1 , 3 )
          IF ( x1 != x9 .OR. y1 != y9 ) .AND. x9 < ::oParent:nWidth
             hwg_Invalidaterect( ::oParent:handle, 1, Max( x9 - 1, 0 ), Max( y9 - 1, 0 ), ;
                x9 + w9 + nCxv, y9 + h9 + nCyh )
@@ -388,7 +388,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
             ENDIF
          ENDIF
          // redefine new position e new size
-         ::Move( x1, y1, w1, h1,  HWG_BITAND( ::Style, WS_CLIPSIBLINGS + WS_CLIPCHILDREN ) = 0 )
+         ::Move( x1, y1, w1, h1,  HWG_BITAND(::Style, WS_CLIPSIBLINGS + WS_CLIPCHILDREN) = 0 )
       ELSE
          ::Move( x1, y1, w1, h1, 0 )
       ENDIF
@@ -462,8 +462,8 @@ METHOD Init() CLASS HStatus
 METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts )  CLASS hStatus
 
-   HB_SYMBOL_UNUSED( cCaption )
-   HB_SYMBOL_UNUSED( lTransp )
+   HB_SYMBOL_UNUSED(cCaption)
+   HB_SYMBOL_UNUSED(lTransp)
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor )
@@ -562,7 +562,7 @@ METHOD Resize( xIncrSize ) CLASS HStatus
 
    IF !Empty( ::aParts )
       FOR i := 1 TO Len( ::aParts )
-         ::aParts[ i ] := Round( ::aParts[ i ] * xIncrSize, 0 )
+         ::aParts[ i ] := Round(::aParts[ i ] * xIncrSize, 0)
       NEXT
       hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
    ENDIF
@@ -803,12 +803,12 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
          ::nWidth  := iif( nLength == NIL, 20, nLength )
          ::nHeight := ::nBorder + 1 //10
       ENDIF
-      ::oPenLight := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
-      ::oPenGray  := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW  ) )
+      ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+      ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW  ))
    ELSE
       ::nWidth  := nLength
       ::nHeight := nHeight
-      ::oPenLight := HPen():Add( BS_SOLID, ::nBorder, tColor )
+      ::oPenLight := HPen():Add(BS_SOLID, ::nBorder, tColor)
    ENDIF
 
    ::Activate()

@@ -80,7 +80,7 @@ METHOD Init() CLASS HSplitter
 
 METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
 
-   HB_SYMBOL_UNUSED( wParam )
+   HB_SYMBOL_UNUSED(wParam)
 
    IF msg == WM_MOUSEMOVE
       IF ::hCursor == NIL
@@ -134,7 +134,7 @@ METHOD Paint() CLASS HSplitter
          Eval( ::bPaint, Self )
       ELSEIF !::lScrolling
         IF ::lCaptured
-           oBrushFill := HBrush():Add( hwg_Rgb(156, 156, 156) )
+           oBrushFill := HBrush():Add(hwg_Rgb(156, 156, 156))
            hwg_Selectobject( hDC, oBrushFill:handle )
            hwg_Drawedge( hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical,BF_RECT,BF_TOP ) + BF_MIDDLE )
            hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushFill:handle )
@@ -150,7 +150,7 @@ METHOD Paint() CLASS HSplitter
    RETURN NIL
 
 METHOD Drag( lParam ) CLASS HSplitter
-   LOCAL xPos := hwg_Loword( lParam ), yPos := hwg_Hiword( lParam )
+   LOCAL xPos := hwg_Loword(lParam), yPos := hwg_Hiword(lParam)
 
    IF ::lVertical
       IF xPos > 32000

@@ -64,7 +64,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
 
    METHOD Activate()
    METHOD Init()
-   METHOD AddColumn( cHeader, nWidth, nJusHead, nBit ) INLINE AAdd( ::aColumns, { cHeader, nWidth, nJusHead, nBit } )
+   METHOD AddColumn( cHeader, nWidth, nJusHead, nBit ) INLINE AAdd(::aColumns, { cHeader, nWidth, nJusHead, nBit })
    METHOD Refresh()
    METHOD RefreshLine()                          INLINE hwg_Listview_update( ::handle, hwg_Listview_getfirstitem( ::handle ) )
    METHOD SetItemCount( nItem )                    INLINE hwg_Listview_setitemcount( ::handle, nItem )
@@ -122,7 +122,7 @@ METHOD Init() CLASS HGrid
    IF !::lInit
       ::Super:Init()
       FOR n := 1 TO Len( ::aBitmaps )
-         AAdd( aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ) )
+         AAdd(aButton, hwg_Loadimage( , ::aBitmaps[ n ] , IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION ))
       NEXT
 
       IF Len( aButton ) > 0
@@ -142,10 +142,10 @@ METHOD Init() CLASS HGrid
             aBmpSize := hwg_Getbitmapsize( aButton[ nPos ] )
 
             IF aBmpSize[3] == 24
-//             hwg_Imagelist_addmasked( ::hIm,aButton[nPos],hwg_Rgb(236,223,216) )
-               hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
+//             hwg_Imagelist_addmasked(::hIm,aButton[nPos],hwg_Rgb(236,223,216))
+               hwg_Imagelist_add(::hIm, aButton[ nPos ])
             ELSE
-               hwg_Imagelist_add( ::hIm, aButton[ nPos ] )
+               hwg_Imagelist_add(::hIm, aButton[ nPos ])
             ENDIF
 
          NEXT

@@ -353,7 +353,7 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_BADD
          IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
-            AAdd( ::aBreakPoints, { p2, p1 } )
+            AAdd(::aBreakPoints, { p2, p1 })
             hwg_dbg_Answer( "line",Ltrim(Str(p2)) )
             __dbgAddBreak( ::pInfo, p1, p2 )
          ELSE
@@ -684,7 +684,7 @@ FUNCTION __dbgValToStr( uVal )
 #define ALTD_DISABLE   0
 #define ALTD_ENABLE    1
 
-function ALTD( nAction )
+function ALTD(nAction)
    if pcount() == 0
       if SET( _SET_DEBUG ) .AND. TYPE( "__DBGALTDENTRY()" ) == "UI"
          &("__DBGALTDENTRY()")

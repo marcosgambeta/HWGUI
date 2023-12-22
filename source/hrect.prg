@@ -87,7 +87,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
       ::nWidth  := IIf( nLength == NIL, 20, nLength )
       ::nHeight := 10
    ENDIF
-   ::oPen := HPen():Add( BS_SOLID, 1, hwg_Getsyscolor( nColor ) )
+   ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( nColor ))
 
    ::Activate()
 
@@ -178,7 +178,7 @@ ENDCLASS
 METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
       lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )  CLASS HDrawShape
 
-   HB_SYMBOL_UNUSED( ncStyle )
+   HB_SYMBOL_UNUSED(ncStyle)
 
    ::bPaint   := { | o, p | o:paint( p ) }
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ,;
@@ -197,9 +197,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
    ::Activate()
 
    IF ::ncStyle == NIL
-      ::oPen := HPen():Add( ::nbStyle, ::nBorder, ::tColor )
+      ::oPen := HPen():Add(::nbStyle, ::nBorder, ::tColor)
    //ELSE  // CONTAINER
-   //    ::oPen := HPen():Add( PS_SOLID, 5, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
+   //    ::oPen := HPen():Add(PS_SOLID, 5, hwg_Getsyscolor( COLOR_3DHILIGHT ))
    ENDIF
 
    RETURN Self
@@ -217,7 +217,7 @@ METHOD Activate() CLASS HDrawShape
 
 METHOD SetColor( tcolor, bColor, lRedraw ) CLASS HDrawShape
 
-   ::brushFill := HBrush():Add( tColor, ::nfstyle )
+   ::brushFill := HBrush():Add(tColor, ::nfstyle)
    ::Super:SetColor( tColor, bColor )
    IF !Empty( lRedraw )
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
@@ -322,7 +322,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
    ::bPaint   := { | o, p | o:paint( p ) }
-   nStyle := SS_OWNERDRAW + IIF( nStyle = WS_TABSTOP, WS_TABSTOP , 0 ) + Hwg_Bitand( nStyle, SS_NOTIFY )
+   nStyle := SS_OWNERDRAW + IIF( nStyle = WS_TABSTOP, WS_TABSTOP , 0 ) + Hwg_Bitand(nStyle, SS_NOTIFY)
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
          bInit, bSize, ::bPaint,, tcolor, bColor )
 
@@ -339,7 +339,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
       // SET ENVIRONMENT
       Eval( ::bLoad,Self )
    ENDIF
-   ::oPen := HPen():Add( PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
+   ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
 
   RETURN Self
 
