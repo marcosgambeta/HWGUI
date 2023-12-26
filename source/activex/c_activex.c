@@ -292,8 +292,8 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * this )
 static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * this,
       UINT * pCount )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( pCount );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(pCount);
    return E_NOTIMPL;
 }
 
@@ -302,10 +302,10 @@ static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * this,
 static ULONG STDMETHODCALLTYPE GetTypeInfo( IEventHandler * this, UINT itinfo,
       LCID lcid, ITypeInfo ** pTypeInfo )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( itinfo );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( pTypeInfo );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(itinfo);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(pTypeInfo);
    return E_NOTIMPL;
 }
 
@@ -315,12 +315,12 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames( IEventHandler * this,
       REFIID riid, LPOLESTR * rgszNames, UINT cNames, LCID lcid,
       DISPID * rgdispid )
 {
-   HB_SYMBOL_UNUSED( this );
-   HB_SYMBOL_UNUSED( riid );
-   HB_SYMBOL_UNUSED( rgszNames );
-   HB_SYMBOL_UNUSED( cNames );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( rgdispid );
+   HB_SYMBOL_UNUSED(this);
+   HB_SYMBOL_UNUSED(riid);
+   HB_SYMBOL_UNUSED(rgszNames);
+   HB_SYMBOL_UNUSED(cNames);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(rgdispid);
    return E_NOTIMPL;
 }
 
@@ -347,11 +347,11 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
    if( !IsEqualIID( riid, &IID_NULL ) )
       return ( DISP_E_UNKNOWNINTERFACE );
 
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( wFlags );
-   HB_SYMBOL_UNUSED( result );
-   HB_SYMBOL_UNUSED( pexcepinfo );
-   HB_SYMBOL_UNUSED( puArgErr );
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(wFlags);
+   HB_SYMBOL_UNUSED(result);
+   HB_SYMBOL_UNUSED(pexcepinfo);
+   HB_SYMBOL_UNUSED(puArgErr);
 
    // delegate work to somewhere else in PRG
    //***************************************

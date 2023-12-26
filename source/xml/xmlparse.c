@@ -328,7 +328,7 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
 
 void hbxml_getdoctype( PHB_ITEM pDoc, unsigned char **pBuffer )
 {
-   HB_SYMBOL_UNUSED( pDoc );
+   HB_SYMBOL_UNUSED(pDoc);
    while( **pBuffer != '>' )
       ( *pBuffer )++;
    ( *pBuffer )++;

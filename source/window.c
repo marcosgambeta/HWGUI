@@ -1256,7 +1256,7 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
    LPCTSTR tmp = TEXT( "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" );
    SIZE sz;
 
-   HB_SYMBOL_UNUSED( f );
+   HB_SYMBOL_UNUSED(f);
 
    //get the hdc to the main window
    hDc = GetDC(h);

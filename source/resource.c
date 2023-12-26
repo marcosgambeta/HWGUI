@@ -43,7 +43,7 @@ HB_FUNC( HWG_LOADRESOURCE )
 
 void hb_resourcemodules( void * cargo )
 {
-   HB_SYMBOL_UNUSED( cargo );
+   HB_SYMBOL_UNUSED(cargo);
 
    hModule = GetModuleHandle( NULL );
 }

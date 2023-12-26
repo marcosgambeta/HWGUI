@@ -725,7 +725,7 @@ HB_FUNC( HWG_EXITPROC )
 }
 static LRESULT CALLBACK s_PSPProcRelease( HWND hwnd, UINT uMsg, LPPROPSHEETPAGE ppsp )
 {
-   HB_SYMBOL_UNUSED( hwnd );
+   HB_SYMBOL_UNUSED(hwnd);
    if( PSPCB_CREATE == uMsg )
    {
       return 1;

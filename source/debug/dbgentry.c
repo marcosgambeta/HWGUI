@@ -1356,7 +1356,7 @@ PHB_ITEM hb_dbgGetSourceFiles( void * handle )
    int i;
 
    /* HB_DEBUGINFO * info = ( HB_DEBUGINFO * ) handle; */
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(handle);
 
    HB_DBGCOMMON_LOCK
    nModules = hb_itemSize( s_common.pStopLines );
@@ -1409,7 +1409,7 @@ HB_BOOL hb_dbgIsValidStopLine( void * handle, const char * szModule, int nLine )
    int i;
 
    /* HB_DEBUGINFO * info = ( HB_DEBUGINFO * ) handle; */
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(handle);
 
    HB_DBGCOMMON_LOCK
    nModules = hb_itemSize( s_common.pStopLines );

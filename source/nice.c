@@ -55,8 +55,8 @@ void Draw_Gradient( HDC hdc, int x, int y, int w, int h, int r, int g, int b )
 {
    TRIVERTEX Vert[2];
    GRADIENT_RECT Rect;
-   HB_SYMBOL_UNUSED( x );
-   HB_SYMBOL_UNUSED( y );
+   HB_SYMBOL_UNUSED(x);
+   HB_SYMBOL_UNUSED(y);
    // ******************************************************
    Vert[0].x = 0;
    Vert[0].y = 0;
@@ -102,8 +102,8 @@ void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int 
    TRIVERTEX Vert[2];
    GRADIENT_RECT Rect;
    int r, g, b, r2, g2, b2 ;
-   HB_SYMBOL_UNUSED( x );
-   HB_SYMBOL_UNUSED( y );
+   HB_SYMBOL_UNUSED(x);
+   HB_SYMBOL_UNUSED(y);
 
    r  = color1 % 256 ;
    g  = color1 / 256  % 256 ;

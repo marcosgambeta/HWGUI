@@ -1279,7 +1279,7 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
 {
    static PHB_DYNS s_pSymTest = NULL;
 
-   HB_SYMBOL_UNUSED( message );
+   HB_SYMBOL_UNUSED(message);
 
    if( s_pSymTest == NULL )
       s_pSymTest = hb_dynsymGetCase( "HWG_TIMERPROC" );

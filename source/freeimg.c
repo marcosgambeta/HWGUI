@@ -841,7 +841,7 @@ unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count,
 {
    BYTE *tmp = ( BYTE * ) buffer;
    unsigned u;
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(handle);
 
    for( u = 0; u < count; u++ )
    {
@@ -855,9 +855,9 @@ unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count,
 unsigned DLL_CALLCONV _WriteProc(void *buffer, unsigned size, unsigned count,
       fi_handle handle)
 {
-   HB_SYMBOL_UNUSED( buffer );
-   HB_SYMBOL_UNUSED( count );
-   HB_SYMBOL_UNUSED( handle );
+   HB_SYMBOL_UNUSED(buffer);
+   HB_SYMBOL_UNUSED(count);
+   HB_SYMBOL_UNUSED(handle);
 
    return size;
 }

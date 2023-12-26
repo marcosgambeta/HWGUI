@@ -477,7 +477,7 @@ static DWORD CALLBACK RichStreamOutCallback( DWORD dwCookie, LPBYTE pbBuff, LONG
 {
    HANDLE pFile = ( HANDLE ) dwCookie;
    DWORD dwW;
-   HB_SYMBOL_UNUSED( pcb );
+   HB_SYMBOL_UNUSED(pcb);
    
    if ( pFile == INVALID_HANDLE_VALUE )
       return 0;
