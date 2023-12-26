@@ -145,12 +145,12 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
       ::bGetFocus := bGfocus
       ::bLostFocus := bLfocus
       ::lnoValid := iif( bGfocus != Nil, .T., .F. )
-      ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When( ) }, , "onGotFocus"  )
+      ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When() }, , "onGotFocus"  )
       ::oParent:AddEvent( EN_KILLFOCUS, Self, { | | ::Valid() }, , "onLostFocus" )
       ::bValid := { | | ::Valid() }
    ELSE
       IF bGfocus != Nil
-         ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When( ) }, , "onGotFocus"  )
+         ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When() }, , "onGotFocus"  )
       ENDIF
       ::oParent:AddEvent( EN_KILLFOCUS, Self, { | | ::Valid() }, , "onLostFocus" )
       ::bValid := { | | ::Valid() }
@@ -183,7 +183,7 @@ METHOD Init()  CLASS HEdit
       hwg_Setwindowobject( ::handle, Self )
       Hwg_InitEditProc(::handle)
       ::Refresh()
-      ::oParent:AddEvent( EN_CHANGE, Self, { | | ::onChange( ) }, , "onChange"  )
+      ::oParent:AddEvent( EN_CHANGE, Self, { | | ::onChange() }, , "onChange"  )
    ENDIF
 
    RETURN Nil
@@ -509,7 +509,7 @@ METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, ;
       ::bGetFocus := bGfocus
       ::bLostFocus := bLfocus
       ::lnoValid := iif( bGfocus != Nil, .T., .F. )
-      ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When( ) }, , "onGotFocus" )
+      ::oParent:AddEvent( EN_SETFOCUS, Self, { | | ::When() }, , "onGotFocus" )
       ::oParent:AddEvent( EN_KILLFOCUS, Self, { | | ::Valid() }, , "onLostFocus" )
       ::bValid := { | | ::Valid() }
    ELSE
@@ -1197,7 +1197,7 @@ METHOD onChange( lForce ) CLASS HEdit
    IF !hwg_Selffocus( ::handle ) .AND. Empty( lForce )
       RETURN Nil
    ENDIF
-   vari := ::Value( )
+   vari := ::Value()
    IF ::bSetGet != Nil
       Eval( ::bSetGet, vari, Self )
    ENDIF
@@ -1302,7 +1302,7 @@ METHOD Untransform( cBuffer ) CLASS HEdit
 
    RETURN xValue
 
-METHOD FirstEditable( ) CLASS HEdit
+METHOD FirstEditable() CLASS HEdit
    LOCAL nFor, nMaxLen := Len( ::cPicMask )
 
    IF ::IsEditable(1)
@@ -1447,7 +1447,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
          hwg_Sendmessage( nexthandle, WM_KILLFOCUS, 0, 0 )
       ELSE
          hwg_Setfocus(0)
-         oCtrl:Setfocus( )
+         oCtrl:Setfocus()
       ENDIF
    ENDIF
 

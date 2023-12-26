@@ -57,7 +57,7 @@ CLASS HDialog INHERIT HWindow
    METHOD FindDialog( hWndTitle, lAll )
    METHOD GetActive()
    METHOD CLOSE()    INLINE hwg_EndDialog( ::handle )
-   METHOD RELEASE()  INLINE ::Close( ), Self := Nil
+   METHOD RELEASE()  INLINE ::Close(), Self := Nil
 
 ENDCLASS
 

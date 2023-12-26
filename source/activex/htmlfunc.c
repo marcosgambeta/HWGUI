@@ -35,7 +35,7 @@ HB_FUNC( HWGAX_OLEUNINITIALIZE )
 {
    if( bOleInitialized )
    {
-      OleUninitialize(  );
+      OleUninitialize();
       bOleInitialized = 0;
    }
 }

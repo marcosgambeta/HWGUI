@@ -65,11 +65,11 @@ HB_FUNC( HWG_DRAWTEXT )
    HB_SIZE nLen;
    LPCTSTR lpText = HB_PARSTR( 2, &hText, &nLen );
    RECT rc;
-   UINT uFormat = ( hb_pcount(  ) == 4 ? hb_parni(4) : hb_parni(7) );
-   // int uiPos = ( hb_pcount(  ) == 4 ? 3 : hb_parni(8) );
+   UINT uFormat = ( hb_pcount() == 4 ? hb_parni(4) : hb_parni(7) );
+   // int uiPos = ( hb_pcount() == 4 ? 3 : hb_parni(8) );
    int heigh ;
 
-   if( hb_pcount(  ) > 4 )
+   if( hb_pcount() > 4 )
    {
 
       rc.left = hb_parni(3);

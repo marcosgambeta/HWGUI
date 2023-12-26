@@ -42,9 +42,9 @@ CLASS HNiceButton INHERIT HControl
 
    METHOD Activate()
    METHOD INIT()
-   METHOD Create( )
-   METHOD Size( )
-   METHOD Moving( )
+   METHOD Create()
+   METHOD Size()
+   METHOD Moving()
    METHOD Paint()
    METHOD MouseMove( wParam, lParam )
    METHOD MDown()
@@ -144,7 +144,7 @@ FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
          ELSEIF msg == WM_MOUSEMOVE
             oBtn:MouseMove( wParam, lParam )
          ELSEIF msg == WM_SIZE
-            oBtn:Size( )
+            oBtn:Size()
 
          ELSEIF msg == WM_DESTROY
             oBtn:END()
@@ -155,7 +155,7 @@ FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
    ENDIF
    RETURN .F.
 
-METHOD Create( ) CLASS HNICEButton
+METHOD Create() CLASS HNICEButton
 
    LOCAL Region
    LOCAL Rct
@@ -171,14 +171,14 @@ METHOD Create( ) CLASS HNICEButton
 
    RETURN Self
 
-METHOD Size( ) CLASS HNICEButton
+METHOD Size() CLASS HNICEButton
 
    ::State := OBTN_NORMAL
    hwg_Invalidaterect( ::Handle, 0, 0 )
 
    RETURN Self
 
-METHOD Moving( ) CLASS HNICEButton
+METHOD Moving() CLASS HNICEButton
 
    ::State := .F.
    hwg_Invalidaterect( ::Handle, 0, 0 )
@@ -214,7 +214,7 @@ METHOD MouseMove( wParam, lParam ) CLASS HNICEButton
 
    RETURN Self
 
-METHOD MUp( ) CLASS HNICEButton
+METHOD MUp() CLASS HNICEButton
 
    IF ::state == OBTN_PRESSED
       IF !::lPress

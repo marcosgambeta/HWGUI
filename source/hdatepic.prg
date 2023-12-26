@@ -45,7 +45,7 @@ CLASS HDatePicker INHERIT HControl
    METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
          bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime )
    METHOD onChange( nMess )
-   METHOD When( )
+   METHOD When()
    METHOD Valid()
    METHOD Value ( Value ) SETGET
    METHOD Checkvalue ( lValue ) SETGET
@@ -255,7 +255,7 @@ METHOD onChange( nMess ) CLASS HDatePicker
 
    RETURN .T.
 
-METHOD When( ) CLASS HDatePicker
+METHOD When() CLASS HDatePicker
    LOCAL res := .T., nSkip
 
    IF !hwg_CheckFocus( Self, .F. )

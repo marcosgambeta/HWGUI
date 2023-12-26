@@ -83,15 +83,15 @@ CLASS HComboBox INHERIT HControl
    METHOD AddItem( cItem, cItemBound, nPos )
    METHOD DeleteItem( xIndex )
    METHOD Valid()
-   METHOD When( )
+   METHOD When()
    METHOD onSelect()
-   METHOD InteractiveChange( )
+   METHOD InteractiveChange()
    METHOD onChange( lForce )
    METHOD Populate() HIDDEN
    METHOD GetValueBound(xItem)
    METHOD RowSource( xSource ) SETGET
    METHOD DisplayValue( cValue ) SETGET
-   METHOD onDropDown( ) INLINE ::ldropshow := .T.
+   METHOD onDropDown() INLINE ::ldropshow := .T.
    METHOD SetCueBanner( cText, lShowFoco )
    METHOD MaxLength( nMaxLength ) SETGET
 
@@ -621,7 +621,7 @@ METHOD SetCueBanner( cText, lShowFoco ) CLASS HComboBox
 
    RETURN lRet
 
-METHOD InteractiveChange( ) CLASS HComboBox
+METHOD InteractiveChange() CLASS HComboBox
 
    LOCAL npos := hwg_Sendmessage( ::handle, CB_GETEDITSEL, 0, 0 )
 
@@ -664,7 +664,7 @@ METHOD onChange( lForce ) CLASS HComboBox
 
    RETURN Nil
 
-METHOD When( ) CLASS HComboBox
+METHOD When() CLASS HComboBox
 
    LOCAL res := .T., oParent, nSkip
 

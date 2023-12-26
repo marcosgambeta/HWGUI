@@ -188,7 +188,7 @@ HB_FUNC( HWG_SELECTFILE )
 
    memset( ( void * ) &ofn, 0, sizeof( OPENFILENAME ) );
    ofn.lStructSize = sizeof( ofn );
-   ofn.hwndOwner = GetActiveWindow(  );
+   ofn.hwndOwner = GetActiveWindow();
    ofn.lpstrFilter = lpFilter;
    ofn.lpstrFile = buffer;
    buffer[0] = 0;
@@ -271,7 +271,7 @@ HB_FUNC( HWG_PRINTSETUP )
    pd.lStructSize = sizeof( PRINTDLG );
    // pd.hDevNames = (HANDLE) NULL; 
    pd.Flags = PD_RETURNDC;
-   pd.hwndOwner = GetActiveWindow(  );
+   pd.hwndOwner = GetActiveWindow();
    // pd.hDC = (HDC) NULL; 
    pd.nFromPage = 1;
    pd.nToPage = 1;
@@ -291,7 +291,7 @@ HB_FUNC( HWG_PRINTSETUP )
    {
       if( pd.hDevNames )
       {
-         if( hb_pcount(  ) > 0 )
+         if( hb_pcount() > 0 )
          {
             LPDEVNAMES lpdn = ( LPDEVNAMES ) GlobalLock( pd.hDevNames );
             HB_STORSTR( ( LPCTSTR ) lpdn + lpdn->wDeviceOffset, 1 );
@@ -315,7 +315,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    memset( ( void * ) &cc, 0, sizeof( CHOOSECOLOR ) );
 
    cc.lStructSize = sizeof( CHOOSECOLOR );
-   cc.hwndOwner = GetActiveWindow(  );
+   cc.hwndOwner = GetActiveWindow();
    cc.lpCustColors = rgb;
    if( HB_ISNUM(1) )
    {
@@ -327,7 +327,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    if( ChooseColor( &cc ) )
       hb_retnl( ( LONG ) cc.rgbResult );
    else
-      hb_ret(  );
+      hb_ret();
 }
 
 
@@ -446,7 +446,7 @@ HB_FUNC( HWG_PRINTSETUPDOS )
 
    s_pd.lStructSize = sizeof( PRINTDLG );
    s_pd.Flags = PD_RETURNDC;
-   s_pd.hwndOwner = GetActiveWindow(  );
+   s_pd.hwndOwner = GetActiveWindow();
    s_pd.nFromPage = 0xFFFF;
    s_pd.nToPage = 0xFFFF;
    s_pd.nMinPage = 1;
@@ -513,7 +513,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
    ofn.hInstance = GetModuleHandle( NULL );
    ofn.lStructSize = sizeof( ofn );
    ofn.hwndOwner =
-         ( HB_ISNIL(1) ? GetActiveWindow(  ) : ( HWND ) HB_PARHANDLE(1) );
+         ( HB_ISNIL(1) ? GetActiveWindow() : ( HWND ) HB_PARHANDLE(1) );
    ofn.lpstrTitle = HB_PARSTR( 3, &hTitle, NULL );
    ofn.lpstrFilter = HB_PARSTR( 4, &hFilter, NULL );
    ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;

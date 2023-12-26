@@ -147,14 +147,14 @@ METHOD Visible( lVisible ) CLASS HColumn
 
    RETURN !::lHide
 
-METHOD Hide( ) CLASS HColumn
+METHOD Hide() CLASS HColumn
 
    ::lHide := .T.
    ::oParent:Refresh()
 
    RETURN ::lHide
 
-METHOD Show( ) CLASS HColumn
+METHOD Show() CLASS HColumn
 
    ::lHide := .F.
    ::oParent:Refresh()
@@ -358,7 +358,7 @@ CLASS HBrowse INHERIT HControl
    METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos )
    METHOD Edit( wParam, lParam )
    METHOD APPEND() INLINE ( ::Bottom( .F. ), ::LineDown() )
-   METHOD onClick( )
+   METHOD onClick()
    METHOD RefreshLine()
    METHOD Refresh( lFull, lLineUp )
    METHOD ShowSizes()
@@ -1260,7 +1260,7 @@ METHOD Rebuild() CLASS HBrowse
 
    RETURN NIL
 
-METHOD AutoFit( ) CLASS HBrowse
+METHOD AutoFit() CLASS HBrowse
    LOCAL nlen, i, aCoors, nXincRelative
 
    IF ::AutoColumnFit = 2
@@ -2965,7 +2965,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS HBrowse
 
    RETURN NIL
 
-METHOD onClick( ) CLASS HBrowse
+METHOD onClick() CLASS HBrowse
    LOCAL lRes := .F.
 
    IF ::bEnter != NIL
@@ -2990,7 +2990,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
    fipos := Min( ::colpos + ::nLeftCol - 1 - ::freeze, Len( ::aColumns ) )
    ::fiPos := fipos
 
-   IF ( !Eval( ::bEof, Self ) .OR. ::lAppMode ) .AND. ( !::onClick( )  )
+   IF ( !Eval( ::bEof, Self ) .OR. ::lAppMode ) .AND. ( !::onClick()  )
       oColumn := ::aColumns[ fipos ]
       IF ::Type == BRW_DATABASE
          ::varbuf := ( ::Alias ) -> ( Eval( oColumn:block,, Self, fipos ) )

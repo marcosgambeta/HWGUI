@@ -176,7 +176,7 @@ static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
 
 HB_FUNC( HWG_FI_INIT )
 {
-   hb_retl( s_freeImgInit(  ) );
+   hb_retl( s_freeImgInit() );
 }
 
 HB_FUNC( HWG_FI_END )
@@ -257,7 +257,7 @@ HB_FUNC( HWG_FI_LOAD )
    {
       const char *name = hb_parc(1);
       hb_retnl( ( ULONG ) pLoad(pGetfiffromfile( name ), name,
-                  ( hb_pcount(  ) > 1 ) ? hb_parni(2) : 0) );
+                  ( hb_pcount() > 1 ) ? hb_parni(2) : 0) );
    }
    else
       hb_retnl(0);
@@ -276,7 +276,7 @@ HB_FUNC( HWG_FI_LOADTYPE )
    {
       const char *name = hb_parc(2);
       hb_retnl( ( ULONG ) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  name, ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0) );
+                  name, ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
    }
    else
       hb_retnl(0);
@@ -296,7 +296,7 @@ HB_FUNC( HWG_FI_SAVE )
       const char *name = hb_parc(2);
       hb_retl( ( BOOL ) pSave( pGetfiffromfile( name ),
                   ( FIBITMAP * ) hb_parnl(1), name,
-                  ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
    }
    else
       hb_retl( FALSE );
@@ -316,7 +316,7 @@ HB_FUNC( HWG_FI_SAVETYPE )
       const char *name = hb_parc(3);
       hb_retl( ( BOOL ) pSave( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
                   ( FIBITMAP * ) hb_parnl(2), name,
-                  ( hb_pcount(  ) > 3 ) ? hb_parni(4) : 0 ) );
+                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0 ) );
    }
    else
       hb_retl( FALSE );
@@ -605,7 +605,7 @@ HB_FUNC( HWG_FI_DRAW )
    // char cres[40];
    // BOOL l;
 
-   if( hb_pcount(  ) > 6 && !HB_ISNIL(7) )
+   if( hb_pcount() > 6 && !HB_ISNIL(7) )
    {
       nDestWidth = hb_parni(7);
       nDestHeight = hb_parni(8);
@@ -917,7 +917,7 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
 
       g_load_address = ( fi_handle ) image;
       hb_retnl( ( LONG ) pLoadFromHandle( fif, &io, ( fi_handle ) image,
-                  ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
    }
    else
       hb_retnl(0);
@@ -962,7 +962,7 @@ HB_FUNC( HWG_FI_SETDOTSPERMETERX )
    if( pSetDotsPerMeterX )
       pSetDotsPerMeterX( ( FIBITMAP * ) hb_parnl(1), hb_parnl(2) );
 
-   hb_ret(  );
+   hb_ret();
 }
 
 HB_FUNC( HWG_FI_SETDOTSPERMETERY )
@@ -974,7 +974,7 @@ HB_FUNC( HWG_FI_SETDOTSPERMETERY )
    if( pSetDotsPerMeterY )
       pSetDotsPerMeterY( ( FIBITMAP * ) hb_parnl(1), hb_parnl(2) );
 
-   hb_ret(  );
+   hb_ret();
 }
 
 

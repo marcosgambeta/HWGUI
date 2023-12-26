@@ -37,16 +37,16 @@ CLASS HPager INHERIT HControl
 
    METHOD Notify( lParam )
    METHOD Pagersetchild(b) INLINE ::hTool := b, hwg_Pagersetchild(::handle, b)
-   METHOD Pagerrecalcsize( ) INLINE hwg_Pagerrecalcsize( ::handle )
+   METHOD Pagerrecalcsize() INLINE hwg_Pagerrecalcsize( ::handle )
    METHOD Pagerforwardmouse( b ) INLINE hwg_Pagerforwardmouse( ::handle, b )
    METHOD Pagersetbkcolor(  b ) INLINE hwg_Pagersetbkcolor( ::handle, b )
-   METHOD Pagergetbkcolor( ) INLINE hwg_Pagergetbkcolor( ::handle )
+   METHOD Pagergetbkcolor() INLINE hwg_Pagergetbkcolor( ::handle )
    METHOD Pagersetborder(  b ) INLINE hwg_Pagersetborder( ::handle, b )
-   METHOD Pagergetborder( ) INLINE hwg_Pagergetborder( ::handle )
+   METHOD Pagergetborder() INLINE hwg_Pagergetborder( ::handle )
    METHOD Pagersetpos(  b ) INLINE hwg_Pagersetpos( ::handle, b )
-   METHOD Pagergetpos(  ) INLINE hwg_Pagergetpos( ::handle )
+   METHOD Pagergetpos() INLINE hwg_Pagergetpos( ::handle )
    METHOD Pagersetbuttonsize(  b ) INLINE hwg_Pagersetbuttonsize( ::handle, b )
-   METHOD Pagergetbuttonsize( ) INLINE hwg_Pagergetbuttonsize( ::handle )
+   METHOD Pagergetbuttonsize() INLINE hwg_Pagergetbuttonsize( ::handle )
    METHOD Pagergetbuttonstate() INLINE hwg_Pagergetbuttonstate( ::handle )
 
 ENDCLASS

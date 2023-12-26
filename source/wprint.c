@@ -43,7 +43,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
    PRINTER_INFO_4 *pinfo4;
    PRINTER_INFO_5 *pinfo5;
 
-   if( GetVersion(  ) & 0x80000000 )    // Windows 98
+   if( GetVersion() & 0x80000000 )    // Windows 98
    {
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, NULL,
             0, &dwNeeded, &dwReturned );
@@ -54,7 +54,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
             dwNeeded, &dwNeeded, &dwReturned );
 
       hDC = CreateDC(NULL, pinfo5->pPrinterName, NULL, NULL);
-      if( hb_pcount(  ) > 0 )
+      if( hb_pcount() > 0 )
          HB_STORSTR( pinfo5->pPrinterName, 1 );
 
       hb_xfree( pinfo5 );
@@ -69,7 +69,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
       EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, ( PBYTE ) pinfo4,
             dwNeeded, &dwNeeded, &dwReturned );
       hDC = CreateDC(NULL, pinfo4->pPrinterName, NULL, NULL);
-      if( hb_pcount(  ) > 0 )
+      if( hb_pcount() > 0 )
          HB_STORSTR( pinfo4->pPrinterName, 1 );
 
       hb_xfree( pinfo4 );
@@ -140,7 +140,7 @@ HB_FUNC( HWG_GETPRINTERS )
    PHB_ITEM aMetr, temp;
 
 
-   if( GetVersion(  ) & 0x80000000 )    // Windows 98
+   if( GetVersion() & 0x80000000 )    // Windows 98
    {
       EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 5, NULL,
             0, &dwNeeded, &dwReturned );
@@ -189,7 +189,7 @@ HB_FUNC( HWG_GETPRINTERS )
       hb_itemRelease( aMetr );
    }
    else
-      hb_ret(  );
+      hb_ret();
 
    if( pBuffer )
       hb_xfree( pBuffer );
@@ -444,7 +444,7 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
    HDC hDC = ( HDC ) HB_PARHANDLE(1);
    RECT rc;
 
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       rc.left = hb_parni(3);
       rc.top = hb_parni(4);

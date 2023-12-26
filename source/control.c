@@ -106,7 +106,7 @@ HB_FUNC( HWG_MOVEWINDOW )
          ( HB_ISNIL(3) ) ? rc.top : hb_parni(3),       // vertical position
          ( HB_ISNIL(4) ) ? rc.right - rc.left : hb_parni(4),   // width
          ( HB_ISNIL(5) ) ? rc.bottom - rc.top : hb_parni(5),   // height
-         ( hb_pcount(  ) < 6 ) ? TRUE : hb_parl(6)    // repaint flag
+         ( hb_pcount() < 6 ) ? TRUE : hb_parl(6)    // repaint flag
           );
 }
 
@@ -121,13 +121,13 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
    int cyVScroll = GetSystemMetrics( SM_CYVSCROLL );
    int x1, y1, nwidth, nheight;
 
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       ulStyle = hb_parnl(3);
       x1 = hb_parni(4);
       y1 = hb_parni(5);
       nwidth = hb_parni(6);
-      nheight = hb_pcount(  ) > 6 && !HB_ISNIL(7) ? hb_parni(7) : cyVScroll ;
+      nheight = hb_pcount() > 6 && !HB_ISNIL(7) ? hb_parni(7) : cyVScroll ;
    }
    else
    {
@@ -363,7 +363,7 @@ HB_FUNC( HWG_CREATESTATUSWINDOW )
    HWND hwndStatus, hwndParent = ( HWND ) HB_PARHANDLE(1);
 
    // Ensure that the common control DLL is loaded.
-   InitCommonControls(  );
+   InitCommonControls();
 
    // Create the status window.
    hwndStatus = CreateWindowEx( 0,      // style
@@ -611,7 +611,7 @@ HB_FUNC( HWG_SETDATEPICKER )
 #endif
 
       hb_dateDecode( hb_itemGetDL( pDate ), &lYear, &lMonth, &lDay );
-      if ( hb_pcount(  ) < 3 )
+      if ( hb_pcount() < 3 )
       {
          GetLocalTime( &st );
          lHour = st.wHour;
@@ -794,7 +794,7 @@ HB_FUNC( HWG_TAB_HITTEST )
    HWND hTab = ( HWND ) HB_PARHANDLE(1);
    int res;
 
-   if( hb_pcount(  ) > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
+   if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
    {
       ht.pt.x = hb_parni(2);
       ht.pt.y = hb_parni(3);
@@ -851,11 +851,11 @@ HB_FUNC( HWG_TREEADDNODE )
    tvi.mask = TVIF_TEXT | TVIF_PARAM;
    tvi.pszText = ( LPTSTR ) HB_PARSTR( 6, &hStr, NULL );
    tvi.lParam = ( LPARAM ) ( hb_itemNew( pObject ) );
-   if( hb_pcount(  ) > 6 && !HB_ISNIL(7) )
+   if( hb_pcount() > 6 && !HB_ISNIL(7) )
    {
       tvi.iImage = hb_parni(7);
       tvi.mask |= TVIF_IMAGE;
-      if( hb_pcount(  ) > 7 && !HB_ISNIL(8) )
+      if( hb_pcount() > 7 && !HB_ISNIL(8) )
       {
          tvi.iSelectedImage = hb_parni(8);
          tvi.mask |= TVIF_SELECTEDIMAGE;
@@ -1040,7 +1040,7 @@ HB_FUNC( HWG_TREEHITTEST )
    TV_HITTESTINFO ht;
    HWND hTree = ( HWND ) HB_PARHANDLE(1);
 
-   if( hb_pcount(  ) > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
+   if( hb_pcount() > 1 && HB_ISNUM(2) && HB_ISNUM(3) )
    {
       ht.pt.x = hb_parni(2);
       ht.pt.y = hb_parni(3);
@@ -1065,11 +1065,11 @@ HB_FUNC( HWG_TREEHITTEST )
       SendMessage( hTree, TVM_GETITEM, 0, ( LPARAM ) ( &TreeItem ) );
       oNode = ( PHB_ITEM ) TreeItem.lParam;
       hb_itemReturn( oNode );
-      if( hb_pcount(  ) > 3 )
+      if( hb_pcount() > 3 )
          hb_storni( ( int ) ht.flags, 4 );
    }
    else
-      hb_ret(  );
+      hb_ret();
 }
 
 HB_FUNC( HWG_TREERELEASENODE )

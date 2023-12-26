@@ -1041,7 +1041,7 @@ BOOL hb_IsThemeActive( void )
    PFNISTHEMEACTIVE pfn =
          ( PFNISTHEMEACTIVE ) GetProc("IsThemeActive",
          ( FARPROC ) IsThemeActiveFail);
-   return ( *pfn ) (  );
+   return ( *pfn ) ();
 }
 
 BOOL hb_IsAppThemed(void)
@@ -1049,7 +1049,7 @@ BOOL hb_IsAppThemed(void)
    PFNISAPPTHEMED pfnIsAppThemed =
          ( PFNISAPPTHEMED ) GetProc("IsAppThemed",
          ( FARPROC ) IsAppThemedFail);
-   return ( *pfnIsAppThemed ) (  );
+   return ( *pfnIsAppThemed ) ();
 }
 
 HTHEME hb_GetWindowTheme( HWND hwnd )
@@ -1082,7 +1082,7 @@ DWORD hb_GetThemeAppProperties( void )
    PFNGETTHEMEAPPPROPERTIES pfn =
          ( PFNGETTHEMEAPPPROPERTIES ) GetProc("GetThemeAppProperties",
          ( FARPROC ) GetThemeAppPropertiesFail);
-   return ( *pfn ) (  );
+   return ( *pfn ) ();
 }
 
 void hb_SetThemeAppProperties( DWORD dwFlags )
@@ -1139,7 +1139,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
    DWORD style = ( DWORD ) GetWindowLong( m_hWnd, GWL_STYLE );
 
    if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed() ||
-         !hb_IsThemeActive(  ) )
+         !hb_IsThemeActive() )
    {
       // not icon or bitmap button, or themes not active - draw normally
       return CDRF_DODEFAULT;
@@ -1989,7 +1989,7 @@ HB_FUNC( HWG_DRAWTHEMEPARENTBACKGROUND )
 
 HB_FUNC( HWG_ISTHEMEACTIVE )
 {
-   hb_retl( hb_IsThemeActive(  ) );
+   hb_retl( hb_IsThemeActive() );
 }
 
 

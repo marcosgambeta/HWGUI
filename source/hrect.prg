@@ -310,7 +310,7 @@ CLASS HContainer INHERIT HControl, HScrollArea
          lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther)  //, bClick, bDblClick)
    METHOD Activate()
    METHOD Init()
-   METHOD Create( ) INLINE ::lCreate := .T.
+   METHOD Create() INLINE ::lCreate := .T.
    METHOD onEvent( msg, wParam, lParam )
    METHOD Paint( lpDis )
    METHOD Visible( lVisibled ) SETGET

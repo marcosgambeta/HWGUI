@@ -340,7 +340,7 @@ PHB_ITEM hbxml_addnode( PHB_ITEM pParent )
    PHB_DYNS pSym = hb_dynsymGet( "HXMLNODE" );
 
    hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );
-   hb_vmPushNil(  );
+   hb_vmPushNil();
    hb_vmDo(0);
 
    hb_objSendMsg( hb_param( -1, HB_IT_ANY ), "NEW", 0 );

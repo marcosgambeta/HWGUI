@@ -24,7 +24,7 @@ CLASS TVideo FROM hControl
          bWhen, bValid, lNoBorder, nid ) CONSTRUCTOR
 
    METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CONSTRUCTOR
-   METHOD Initiate( )
+   METHOD Initiate()
    METHOD Play( nFrom, nTo ) INLINE  ::oMci:Play( nFrom, nTo, ::oparent:handle )
 
 ENDCLASS
@@ -71,9 +71,9 @@ METHOD ReDefine( nId, cFileName, oDlg, bWhen, bValid ) CLASS TVideo
    RETURN Self
 
 //----------------------------------------------------------------------------//
-METHOD Initiate( ) CLASS TVideo
+METHOD Initiate() CLASS TVideo
 
-   ::Super:Init(  )
+   ::Super:Init()
    ::oMci:lOpen()
    ::oMci:SetWindow( Self )
 

@@ -211,7 +211,7 @@ METHOD Enable() CLASS HCheckButton
 
 METHOD onGotFocus() CLASS HCheckButton
 
-   RETURN ::When( )
+   RETURN ::When()
 
 METHOD onClick() CLASS HCheckButton
 
@@ -248,7 +248,7 @@ METHOD killFocus() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD When( ) CLASS HCheckButton
+METHOD When() CLASS HCheckButton
    LOCAL res := .T., nSkip
 
    IF !hwg_CheckFocus( Self, .F. )

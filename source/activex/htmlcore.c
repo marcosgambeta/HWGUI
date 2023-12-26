@@ -2127,7 +2127,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
    // unless we are emptying out certain messages in our thread's
    // message queue. So we need to at least call doEvents() periodically
    // while we are waiting for the ready state to be achieved.
-   dwStart = GetTickCount(  );
+   dwStart = GetTickCount();
    do
    {
       // Empty out messages in the message queue.
@@ -2152,7 +2152,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
 
       // Did we timeout yet?
    }
-   while( !timeout || ( GetTickCount(  ) - dwStart ) <= timeout );
+   while( !timeout || ( GetTickCount() - dwStart ) <= timeout );
 
    // We timed out before the page achieved the desired ready state.
    rs = WORS_TIMEOUT;

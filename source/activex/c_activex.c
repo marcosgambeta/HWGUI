@@ -69,7 +69,7 @@ static void _Ax_Init( void )
       AtlAxCreateControl =
             ( LPAtlAxCreateControl ) GetProcAddress( hAtl,
             "AtlAxCreateControl" );
-      ( AtlAxWinInit ) (  );
+      ( AtlAxWinInit ) ();
    }
 }
 
@@ -77,7 +77,7 @@ HB_FUNC( HWG_CREATEACTIVEX )
 {
    HWND hWndCtrl;
 
-   _Ax_Init(  );
+   _Ax_Init();
    hWndCtrl = CreateWindowEx( ( DWORD ) ISNIL(1) ? 0 : hb_parni(1), // nExStyle
          ( LPCTSTR ) ISNIL(2) ? "A3434_CLASS" : hb_parc(2), // cClsName
          ( LPCTSTR ) ISNIL(3) ? "" : hb_parc(3),    // cProgId
@@ -100,7 +100,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
 {
    IUnknown *pUnk;
    IDispatch *pDisp;
-   _Ax_Init(  );
+   _Ax_Init();
    AtlAxGetControl( ( HWND ) HB_PARHANDLE(1), &pUnk );
    pUnk->lpVtbl->QueryInterface( pUnk, &IID_IDispatch, ( void ** ) &pDisp );
    pUnk->lpVtbl->Release( pUnk );
@@ -388,7 +388,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
       if( pExec )
       {
 
-         hb_vmPushState(  );
+         hb_vmPushState();
 
          switch ( hb_itemType( pExec ) )
          {
@@ -409,7 +409,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
                if( HB_IS_OBJECT( pObject ) )
                   hb_vmPush( pObject );
                else
-                  hb_vmPushNil(  );
+                  hb_vmPushNil();
                break;
 
             }
@@ -418,7 +418,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
             {
                hb_vmPushSymbol( hb_dynsymSymbol( ( ( PHB_SYMB ) pExec )->
                            pDynSym ) );
-               hb_vmPushNil(  );
+               hb_vmPushNil();
                break;
             }
 
@@ -506,7 +506,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
 
          }                      // EOF for( i=iArg; i > 0; i-- )
 
-         hb_vmPopState(  );
+         hb_vmPopState();
 
       }                         // EOF if ( pExec )
 

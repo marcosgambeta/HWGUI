@@ -273,7 +273,7 @@ METHOD Release() CLASS HPanel
    */
    ::nHeight := 0
    ::nWidth := 0
-   ::Super:Release( )
+   ::Super:Release()
    //  ::oParent:DelControl( Self )
 
    RETURN NIL

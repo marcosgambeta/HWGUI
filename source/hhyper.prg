@@ -169,7 +169,7 @@ METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
 METHOD INIT() CLASS HStaticLink
 
    IF !::lInit
-      ::Resize( )
+      ::Resize()
       ::Super:init()
       IF ::Title != NIL
          hwg_Setwindowtext( ::handle, ::title )
@@ -185,7 +185,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
       hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       
    ELSEIF msg == WM_PAINT
-      //::PAint( )
+      //::PAint()
       
    ELSEIF msg == WM_MOUSEMOVE
       hwg_SetCursor( ::m_hHyperCursor )
@@ -289,7 +289,7 @@ METHOD OnClicked() CLASS HStaticLink
       hwg_Invalidaterect( ::handle, 0 )
       hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
    ENDIF
-   ::Setfocus( )
+   ::Setfocus()
 
    RETURN NIL
 

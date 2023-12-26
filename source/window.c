@@ -71,7 +71,7 @@ static void s_ClearKeyboard(void)
  */
 HB_FUNC( HWG_DOEVENTS )
 {
-   s_doEvents(  );
+   s_doEvents();
 }
 
 /*  Creates main application window
@@ -102,11 +102,11 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = ( HINSTANCE ) hInstance;
-      wndclass.hIcon = ( hb_pcount(  ) > 4 &&
+      wndclass.hIcon = ( hb_pcount() > 4 &&
             !HB_ISNIL(5) ) ? ( HICON ) HB_PARHANDLE(5) :
                                LoadIcon( ( HINSTANCE ) hInstance, TEXT( "" ) );
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
-      wndclass.hbrBackground = ( ( ( hb_pcount(  ) > 5 &&
+      wndclass.hbrBackground = ( ( ( hb_pcount() > 5 &&
                         !HB_ISNIL(6) ) ? ( ( hb_parnl(6) ==
                               -1 ) ? ( HBRUSH ) NULL : ( HBRUSH )
                         HB_PARHANDLE(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
@@ -275,11 +275,11 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = ( HINSTANCE ) hInstance;
-      wndclass.hIcon = ( hb_pcount(  ) > 4 &&
+      wndclass.hIcon = ( hb_pcount() > 4 &&
             !HB_ISNIL(5) ) ? ( HICON ) HB_PARHANDLE(5) :
             LoadIcon( ( HINSTANCE ) hInstance, TEXT( "" ) );
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
-      wndclass.hbrBackground = ( ( ( hb_pcount(  ) > 5 && !HB_ISNIL(6) ) ?
+      wndclass.hbrBackground = ( ( ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
                   ( ( hb_parnl(6) ==
                               -1 ) ? ( HBRUSH ) NULL : ( HBRUSH )
                         HB_PARHANDLE(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
@@ -363,7 +363,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = ( HINSTANCE ) hInstance;
-      wndclass.hIcon = ( hb_pcount(  ) > 4 &&
+      wndclass.hIcon = ( hb_pcount() > 4 &&
             !HB_ISNIL(5) ) ? ( HICON ) HB_PARHANDLE(5) :
                             LoadIcon( ( HINSTANCE ) hInstance, TEXT( "" ) );
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
@@ -379,10 +379,10 @@ HB_FUNC( HWG_INITMDIWINDOW )
       {
          // Register client window
          wc.lpfnWndProc = ( WNDPROC ) s_MDIChildWndProc;
-         wc.hIcon = ( hb_pcount(  ) > 4 && !HB_ISNIL(5) ) ?
+         wc.hIcon = ( hb_pcount() > 4 && !HB_ISNIL(5) ) ?
                     ( HICON ) HB_PARHANDLE(5) :
                     LoadIcon( ( HINSTANCE ) hInstance, TEXT( "" ) );
-         wc.hbrBackground = ( hb_pcount(  ) > 5 && !HB_ISNIL(6) ) ?
+         wc.hbrBackground = ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
              ( HBRUSH ) HB_PARHANDLE(6) : ( HBRUSH ) ( COLOR_WINDOW + 1 );
          wc.lpszMenuName = NULL;
          wc.cbWndExtra = 0;
@@ -431,7 +431,7 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
 {
    CLIENTCREATESTRUCT ccs;
    HWND hWnd;
-   int nPos = ( hb_pcount(  ) > 1 && !HB_ISNIL(2) ) ? hb_parni(2) : 0;
+   int nPos = ( hb_pcount() > 1 && !HB_ISNIL(2) ) ? hb_parni(2) : 0;
    int x = hb_parnl(3);
    int y = hb_parnl(4);
    int width = hb_parnl(5);
@@ -552,12 +552,12 @@ HB_FUNC( HWG_SETFOCUS )
 
 HB_FUNC( HWG_GETFOCUS )
 {
-   HB_RETHANDLE( GetFocus(  ) );
+   HB_RETHANDLE( GetFocus() );
 }
 
 HB_FUNC( HWG_SELFFOCUS )
 {
-   HWND  hWnd = HB_ISNIL(2) ? ( HWND ) GetFocus( ) : ( HWND ) HB_PARHANDLE(2)  ;
+   HWND  hWnd = HB_ISNIL(2) ? ( HWND ) GetFocus() : ( HWND ) HB_PARHANDLE(2)  ;
    hb_retl( ( HWND ) HB_PARHANDLE(1) == hWnd ) ;
 }
 
@@ -654,7 +654,7 @@ HB_FUNC( HWG_ISWINDOWVISIBLE )
 
 HB_FUNC( HWG_GETACTIVEWINDOW )
 {
-   HB_RETHANDLE( GetActiveWindow(  ) );
+   HB_RETHANDLE( GetActiveWindow() );
 }
 
 HB_FUNC( HWG_GETINSTANCE )

@@ -45,7 +45,7 @@ CLASS HDC
    DATA m_hDC
    DATA m_hAttribDC
 
-   METHOD NEW( )
+   METHOD NEW()
    METHOD SetAttribDC(hDC)
    METHOD ATTACH( hDc )
    METHOD Moveto( x1, y1 )
@@ -76,7 +76,7 @@ CLASS HDC
    METHOD Deletedc()
 ENDCLASS
 
-METHOD NEW( ) CLASS HDC
+METHOD NEW() CLASS HDC
 
    ::m_hDC       := NIL
    ::m_hAttribDC := NIL

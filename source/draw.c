@@ -107,7 +107,7 @@ HB_FUNC( HWG_INVALIDATERECT )
 {
    RECT rc;
 
-   if( hb_pcount(  ) > 2 )
+   if( hb_pcount() > 2 )
    {
       rc.left = hb_parni(3);
       rc.top = hb_parni(4);
@@ -116,7 +116,7 @@ HB_FUNC( HWG_INVALIDATERECT )
    }
 
    InvalidateRect( ( HWND ) HB_PARHANDLE(1),  // handle of window with changed update region
-         ( hb_pcount(  ) > 2 ) ? &rc : NULL,    // address of rectangle coordinates
+         ( hb_pcount() > 2 ) ? &rc : NULL,    // address of rectangle coordinates
          hb_parni(2)          // erase-background flag
           );
 }
@@ -178,7 +178,7 @@ HB_FUNC( HWG_PIE )
          hb_parni(9)          // y-coord. of second radial's endpoint
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
+   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
 }
 
 HB_FUNC( HWG_ELLIPSE )
@@ -190,7 +190,7 @@ HB_FUNC( HWG_ELLIPSE )
          hb_parni(5)          // y-coord. bounding rectangle's f lower-right corner
           );
 
-   hb_retnl( res ? 0 : ( LONG ) GetLastError(  ) );
+   hb_retnl( res ? 0 : ( LONG ) GetLastError() );
 }
 
 HB_FUNC( HWG_FILLRECT )
@@ -397,8 +397,8 @@ HB_FUNC( HWG_DRAWBITMAP )
    DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : ( DWORD ) hb_parnl(3);
    HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
    BITMAP bitmap;
-   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
-   int nHeightDest = ( hb_pcount(  ) >= 6 &&
+   int nWidthDest = ( hb_pcount() >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
+   int nHeightDest = ( hb_pcount() >= 6 &&
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    SelectObject( hDCmem, hBitmap );
@@ -436,8 +436,8 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    HDC dcImage, dcTrans;
    int x = hb_parni(3);
    int y = hb_parni(4);
-   int nWidthDest = ( hb_pcount(  ) >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
-   int nHeightDest = ( hb_pcount(  ) >= 6 &&
+   int nWidthDest = ( hb_pcount() >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
+   int nHeightDest = ( hb_pcount() >= 6 &&
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    // Create two memory dcs for the image and the mask
@@ -622,7 +622,7 @@ HB_FUNC( HWG_OPENBITMAP )
    LPVOID lpvBits;
    HGLOBAL hmem1, hmem2;
    HBITMAP hbm;
-   HDC hDC = ( hb_pcount(  ) > 1 && !HB_ISNIL(2) ) ?
+   HDC hDC = ( hb_pcount() > 1 && !HB_ISNIL(2) ) ?
              ( HDC ) HB_PARHANDLE(2) : NULL;
    void * hString;
    HANDLE hfbm;
@@ -701,7 +701,7 @@ HB_FUNC( HWG_OPENBITMAP )
    hbm = CreateDIBitmap( hDC, &bmih, CBM_INIT, lpvBits, lpbmi,
          DIB_RGB_COLORS );
 
-   if( hb_pcount(  ) < 2 || HB_ISNIL(2) )
+   if( hb_pcount() < 2 || HB_ISNIL(2) )
       ReleaseDC(0, hDC);
 
    /* Unlock the global memory objects and close the .BMP file. */
@@ -931,7 +931,7 @@ HB_FUNC( HWG_OPENIMAGE )
 
 #if defined(__cplusplus)
    OleLoadPicture( pStream, 0, 0, IID_IPicture, ( void ** ) &pPic );
-   pStream->Release(  );
+   pStream->Release();
 #else
    OleLoadPicture( pStream, 0, 0, &IID_IPicture, ( void ** ) ( void * ) &pPic );
    pStream->lpVtbl->Release( pStream );
@@ -954,7 +954,7 @@ HB_FUNC( HWG_OPENIMAGE )
    HB_RETHANDLE( CopyImage( hBitmap, IMAGE_BITMAP, 0, 0, LR_COPYRETURNORG ) );
 
 #if defined(__cplusplus)
-   pPic->Release(  );
+   pPic->Release();
 #else
    pPic->lpVtbl->Release( pPic );
 #endif
