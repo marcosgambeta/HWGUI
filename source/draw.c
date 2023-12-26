@@ -18,7 +18,7 @@
 #include "hbstack.h"
 #include "missing.h"
 
-#if defined( __BORLANDC__ ) && __BORLANDC__ == 0x0550
+#if defined(__BORLANDC__) && __BORLANDC__ == 0x0550
 #ifdef __cplusplus
 extern "C" { STDAPI OleLoadPicture(LPSTREAM,LONG,BOOL,REFIID,PVOID*); }
 #else
@@ -916,7 +916,7 @@ HB_FUNC( HWG_OPENIMAGE )
          return;
       }
       fseek( fp, 0, SEEK_SET );
-      fread( ( void * ) hG, 1, iFileSize, fp );
+      fread(( void * ) hG, 1, iFileSize, fp);
       fclose( fp );
    }
 

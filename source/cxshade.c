@@ -53,7 +53,7 @@ BOOL cxdib_IsWin30Dib(PCXDIB pdib);
 WORD cxdib_GetPaletteSize( PCXDIB pdib );
 BYTE *cxdib_GetBits( PCXDIB pdib );
 long cxdib_GetSize( PCXDIB pdib );
-BOOL cxdib_IsValid( PCXDIB pdib );
+BOOL cxdib_IsValid(PCXDIB pdib);
 void cxdib_Clone( PCXDIB pdib, PCXDIB src );
 void cxdib_Clear( PCXDIB pdib, BYTE bval );
 HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
@@ -138,7 +138,7 @@ long cxdib_GetSize( PCXDIB pdib )
          cxdib_GetPaletteSize( pdib );
 }
 
-BOOL cxdib_IsValid( PCXDIB pdib )
+BOOL cxdib_IsValid(PCXDIB pdib)
 {
    return ( pdib->hDib != NULL );
 }
@@ -372,7 +372,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
    // Select the correct skin
    if( state & STATE_DISABLED )
    {                            // DISABLED BUTTON
-      if( cxdib_IsValid( &( pshade->m_dDisabled ) ) )   // paint the skin
+      if( cxdib_IsValid(&( pshade->m_dDisabled )) )   // paint the skin
          cxdib_Draw( &( pshade->m_dDisabled ), pDC, 0, 0 );
       // if needed, draw the standard 3D rectangular border
       if( ( pshade->m_Border ) && ( pshade->m_flat == FALSE ) )
@@ -383,7 +383,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
       //---------------------------------------------------------------------------
       if( state & STATE_SELECTED )
       {                         //SELECTED (DOWN) BUTTON
-         if( cxdib_IsValid( &( pshade->m_dDown ) ) )
+         if( cxdib_IsValid(&( pshade->m_dDown )) )
          {
             cxdib_Draw( &( pshade->m_dDown ), pDC, pshade->m_Border,
                   pshade->m_Border );
@@ -402,10 +402,10 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
       else
       {
          //-----------------------------------------------------------------------
-         if( cxdib_IsValid( &( pshade->m_dNormal ) ) )
+         if( cxdib_IsValid(&( pshade->m_dNormal )) )
          {                      // DEFAULT BUTTON
             if( ( state & STATE_OVER ) &&
-                  ( cxdib_IsValid( &( pshade->m_dOver ) ) ) )
+                  ( cxdib_IsValid(&( pshade->m_dOver )) ) )
             {
                cxdib_Draw( &( pshade->m_dOver ), pDC, 0, 0 );
             }
@@ -548,10 +548,10 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
          k = 40;                //stroke granularity
          for( a = 0; a < 200; a++ )
          {
-            x = rand(  ) / ( RAND_MAX / sXSize );       //stroke postion
-            y = rand(  ) / ( RAND_MAX / sYSize );       //stroke position
-            xs = rand(  ) / ( RAND_MAX / min( sXSize, sYSize ) ) / 2;   //stroke lenght
-            d = rand(  ) / ( RAND_MAX / k );    //stroke color
+            x = rand() / ( RAND_MAX / sXSize );       //stroke postion
+            y = rand() / ( RAND_MAX / sYSize );       //stroke position
+            xs = rand() / ( RAND_MAX / min( sXSize, sYSize ) ) / 2;   //stroke lenght
+            d = rand() / ( RAND_MAX / k );    //stroke color
             for( i = 0; i < xs; i++ )
             {
                if( ( ( x - i ) > 0 ) && ( ( y + i ) < sYSize ) )
@@ -572,7 +572,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
                d = posDst[j] + ( ( a * i ) / sYSize + ( a * ( sXSize -
                                  j ) ) / sXSize );
                posDst[j] = ( BYTE ) d;
-               posDst[j] += rand(  ) / grainx2;
+               posDst[j] += rand() / grainx2;
             }
             posDst += bytes;
          }
@@ -588,7 +588,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             for( j = 0; j < sXSize; j++ )
             {
                posDst[j] = ( BYTE ) k;
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -608,7 +608,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
                         (BYTE) idxmin + ( BYTE ) ( ( ( sXSize - j ) * 128 ) / d );
                if( ( x + xs ) < 0 )
                   posDst[j] = (BYTE) idxmax - ( BYTE ) ( ( j * 128 ) / d );
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -629,7 +629,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
                if( k > idxmax )
                   k = idxmax;
                posDst[j] = ( BYTE ) k;
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -644,7 +644,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             for( i = 0; i < sYSize; i++ )
             {
                posDst[j + i * bytes] = ( BYTE ) k;
-               posDst[j + i * bytes] += rand(  ) / grainx2 - granularity;
+               posDst[j + i * bytes] += rand() / grainx2 - granularity;
             }
          }
          break;
@@ -658,7 +658,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             for( j = 0; j < sXSize; j++ )
             {
                posDst[j] = ( BYTE ) k;
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -674,7 +674,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
                aa = idxmin + a * ( i / sYSize );
 //                posDst[j] = (BYTE) ( idxmin + a *( i / sYSize) + a * (sXSize-j) /sXSize );
                posDst[j] = ( BYTE ) ( aa + bb );
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -688,7 +688,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             for( j = 0; j < sXSize; j++ )
             {
                posDst[j] = ( BYTE ) k;
-               posDst[j] += rand(  ) / grainx2 - granularity;
+               posDst[j] += rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }
@@ -702,7 +702,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             for( i = 0; i < sYSize; i++ )
             {
                posDst[j + i * bytes] = ( BYTE ) k;
-               posDst[j + i * bytes] += rand(  ) / grainx2 - granularity;
+               posDst[j + i * bytes] += rand() / grainx2 - granularity;
             }
          }
          break;
@@ -712,7 +712,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
          {
             for( j = 0; j < sXSize; j++ )
             {
-               posDst[j] = 128 + rand(  ) / grainx2 - granularity;
+               posDst[j] = 128 + rand() / grainx2 - granularity;
             }
             posDst += bytes;
          }

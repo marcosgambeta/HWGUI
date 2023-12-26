@@ -169,7 +169,7 @@ static void HB_EXPORT hb_itemPushList( ULONG ulRefMask, ULONG ulPCount,
 DECLARE_INTERFACE_( INTERFACE, IDispatch )
 {
    // IUnknown functions
-   STDMETHOD( QueryInterface ) ( THIS_ REFIID, void ** ) PURE;
+   STDMETHOD(QueryInterface) ( THIS_ REFIID, void ** ) PURE;
    STDMETHOD_( ULONG, AddRef ) ( THIS ) PURE;
    STDMETHOD_( ULONG, Release ) ( THIS ) PURE;
    // IDispatch functions
@@ -233,7 +233,7 @@ static HRESULT STDMETHODCALLTYPE QueryInterface( IEventHandler * this,
    // IDispatch GUID, then we'll return the IExample3, since it can masquerade
    // as an IDispatch too
 
-   if( IsEqualIID( vTableGuid, &IID_IUnknown ) )
+   if( IsEqualIID(vTableGuid, &IID_IUnknown) )
    {
       *ppv = ( IUnknown * ) this;
       // Increment the count of callers who have an outstanding pointer to this object
@@ -241,16 +241,16 @@ static HRESULT STDMETHODCALLTYPE QueryInterface( IEventHandler * this,
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid, &IID_IDispatch ) )
+   if( IsEqualIID(vTableGuid, &IID_IDispatch) )
    {
       *ppv = ( IDispatch * ) this;
       this->lpVtbl->AddRef( this );
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid,
+   if( IsEqualIID(vTableGuid,
                &( ( ( MyRealIEventHandler * ) this )->
-                     device_event_interface_iid ) ) )
+                     device_event_interface_iid )) )
    {
       *ppv = ( IDispatch * ) this;
       this->lpVtbl->AddRef( this );
@@ -344,7 +344,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
    Key = hb_itemNew( NULL );
 
    // We implement only a "default" interface
-   if( !IsEqualIID( riid, &IID_NULL ) )
+   if( !IsEqualIID(riid, &IID_NULL) )
       return ( DISP_E_UNKNOWNINTERFACE );
 
    HB_SYMBOL_UNUSED(lcid);
@@ -467,12 +467,12 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
                   case VT_R4 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
                                              i] ) )->n1.n2.n3.pfltVal ) =
-                           ( float ) hb_itemGetND( pItemArray[i - 1] );
+                           ( float ) hb_itemGetND(pItemArray[i - 1]);
                      break;
                   case VT_R8 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
                                              i] ) )->n1.n2.n3.pdblVal ) =
-                           ( double ) hb_itemGetND( pItemArray[i - 1] );
+                           ( double ) hb_itemGetND(pItemArray[i - 1]);
                      break;
                   case VT_BOOL | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -

@@ -310,7 +310,7 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
             hb_itemRelease( pTemp );
             ( *pBuffer )++;
          }
-         hb_arrayAdd( pArray, pSubArray );
+         hb_arrayAdd(pArray, pSubArray);
          hb_itemRelease( pSubArray );
          HB_SKIPTABSPACES( *pBuffer );
       }
@@ -347,7 +347,7 @@ PHB_ITEM hbxml_addnode( PHB_ITEM pParent )
    hb_itemCopy( pNode, hb_param( -1, HB_IT_ANY ) );
 
    hb_objSendMsg( pParent, "AITEMS", 0 );
-   hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pNode );
+   hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pNode);
 
    return pNode;
 }
@@ -373,7 +373,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+      hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
       hb_itemRelease( pTemp );
 
       ( *pBuffer ) += 3;
@@ -406,7 +406,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+      hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
       hb_itemRelease( pTemp );
 
       ( *pBuffer ) += 3;
@@ -479,7 +479,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
          {
             pTemp = hbxml_pp( ptr, *pBuffer - ptr );
             hb_objSendMsg( pNode, "AITEMS", 0 );
-            hb_arrayAdd( hb_param( -1, HB_IT_ANY ), pTemp );
+            hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
             hb_itemRelease( pTemp );
             if( nParseError )
             {

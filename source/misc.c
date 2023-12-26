@@ -53,7 +53,7 @@ HB_FUNC( HWG_RELEASECAPTURE )
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 {
-   if( OpenClipboard( GetActiveWindow() ) )
+   if( OpenClipboard(GetActiveWindow()) )
    {
       HGLOBAL hglbCopy;
       char *lptstrCopy;
@@ -90,7 +90,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    HWND hWnd = ( HWND ) hb_parnl(1);
    LPTSTR lpText = NULL;
 
-   if( OpenClipboard( hWnd ) )
+   if( OpenClipboard(hWnd) )
    {
 #ifdef UNICODE
       HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT);
@@ -169,12 +169,12 @@ HB_FUNC( HWG_CHECKBIT )
 
 HB_FUNC( HWG_SIN )
 {
-   hb_retnd( sin( hb_parnd(1) ) );
+   hb_retnd(sin( hb_parnd(1) ));
 }
 
 HB_FUNC( HWG_COS )
 {
-   hb_retnd( cos( hb_parnd(1) ) );
+   hb_retnd(cos( hb_parnd(1) ));
 }
 
 HB_FUNC( HWG_CLIENTTOSCREEN )
@@ -654,12 +654,12 @@ HB_FUNC( HWG_GETUSERNAME )
 
 HB_FUNC( HWG_ISDOWNPRESSESED )
 {
-   hb_retl( HIWORD( GetKeyState( VK_DOWN ) ) > 0 );
+   hb_retl( HIWORD(GetKeyState( VK_DOWN )) > 0 );
 }
 
 HB_FUNC( HWG_ISPGDOWNPRESSESED )
 {
-   hb_retl( HIWORD( GetKeyState( VK_NEXT ) ) > 0 );
+   hb_retl( HIWORD(GetKeyState( VK_NEXT )) > 0 );
 }
 
 HB_FUNC( HWG_EDIT1UPDATECTRL )

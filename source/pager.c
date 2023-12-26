@@ -15,7 +15,7 @@ HB_FUNC( HWG_PAGERSETCHILD )
    HWND hWnd = ( HWND ) HB_PARHANDLE(2);
 
 #ifndef __GNUC__
-   Pager_SetChild( m_hWnd, hWnd );
+   Pager_SetChild(m_hWnd, hWnd);
 #else
    SendMessage( m_hWnd, PGM_SETCHILD, 0, ( LPARAM ) hWnd );
 #endif

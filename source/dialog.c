@@ -90,7 +90,7 @@ HB_FUNC( HWG_GETDLGITEM )
 
 HB_FUNC( HWG_GETDLGCTRLID )
 {
-   hb_retni( GetDlgCtrlID( ( HWND ) HB_PARHANDLE(1) ) );
+   hb_retni( GetDlgCtrlID(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_SETDLGITEMTEXT )
@@ -162,7 +162,7 @@ HB_FUNC( HWG_CHECKRADIOBUTTON )
 
 HB_FUNC( HWG_ISDLGBUTTONCHECKED )
 {
-   UINT nRes = IsDlgButtonChecked( ( HWND ) HB_PARHANDLE(1), // handle of dialog box
+   UINT nRes = IsDlgButtonChecked(( HWND ) HB_PARHANDLE(1), // handle of dialog box
                                    hb_parni(2)               // button identifier
                                  );
    hb_retl( nRes == BST_CHECKED );
@@ -211,7 +211,7 @@ static LPWORD s_lpwAlign( LPWORD lpIn )
 
 static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE size )
 {
-#if defined( HB_HAS_STR_FUNC )
+#if defined(HB_HAS_STR_FUNC)
    return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE,
                              ( HB_WCHAR * ) lpWCStr, size ) + 1;
 #else
@@ -222,7 +222,7 @@ static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE si
 
 static int s_nWideStringLen( PHB_ITEM pItem )
 {
-#if defined( HB_HAS_STR_FUNC )
+#if defined(HB_HAS_STR_FUNC)
    return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, NULL, 0 ) + 1;
 #else
    return MultiByteToWideChar( GetACP(), 0, hb_itemGetCPtr( pItem ), -1,
@@ -238,7 +238,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
    PWORD p, pend;
    PHB_ITEM pControls, pControl, temp;
    LONG baseUnit = GetDialogBaseUnits();
-   int baseunitX = LOWORD( baseUnit ), baseunitY = HIWORD( baseUnit );
+   int baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
    long lTemplateSize = 15;
    LONG lExtStyle;
    ULONG ul, ulControls;
@@ -280,8 +280,8 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
    *p++ = 0;                    // HIWORD HelpID
    *p++ = 0;                    // LOWORD (lExtendedStyle)
    *p++ = 0;                    // HIWORD (lExtendedStyle)
-   *p++ = LOWORD( ulStyle );
-   *p++ = HIWORD( ulStyle );
+   *p++ = LOWORD(ulStyle);
+   *p++ = HIWORD(ulStyle);
    *p++ = ( UINT ) ulControls;  // NumberOfItems
    *p++ = x1;                   // x
    *p++ = y1;                   // y
@@ -312,10 +312,10 @@ static LPDLGTEMPLATE s_CreateDlgTemplate( PHB_ITEM pObj, int x1, int y1,
 
       *p++ = 0;                 // LOWORD (lHelpID)
       *p++ = 0;                 // HIWORD (lHelpID)
-      *p++ = LOWORD( lExtStyle );       // LOWORD (lExtendedStyle)
-      *p++ = HIWORD( lExtStyle );       // HIWORD (lExtendedStyle)
-      *p++ = LOWORD( ulStyle );
-      *p++ = HIWORD( ulStyle );
+      *p++ = LOWORD(lExtStyle);       // LOWORD (lExtendedStyle)
+      *p++ = HIWORD(lExtStyle);       // HIWORD (lExtendedStyle)
+      *p++ = LOWORD(ulStyle);
+      *p++ = HIWORD(ulStyle);
       *p++ = x1;                // x
       *p++ = y1;                // y
       *p++ = dwidth;            // cx

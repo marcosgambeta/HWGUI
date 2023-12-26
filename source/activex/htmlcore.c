@@ -465,7 +465,7 @@ PHB_ITEM GetObjectVar( PHB_ITEM pObject, char *varname );
 void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
 extern void writelog( char *s );
 
-void SetEmbedded( HWND handle, IOleObject ** obj )
+void SetEmbedded(HWND handle, IOleObject ** obj)
 {
 
    PHB_ITEM pObject, pEmbed;
@@ -478,7 +478,7 @@ void SetEmbedded( HWND handle, IOleObject ** obj )
    hb_itemRelease( temp );
 }
 
-IOleObject **GetEmbedded( HWND handle )
+IOleObject **GetEmbedded(HWND handle)
 {
    PHB_ITEM pObject, pEmbed;
 
@@ -1825,7 +1825,7 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
       if( !IsWindow( hwnd ) ||
             // Get the browser object stored in the window's USERDATA member
             // !(browserObject = *((IOleObject **)GetWindowLong(hwnd, GWL_USERDATA))) ||
-            ( browserObject = *GetEmbedded( hwnd ) ) == NULL ||
+            ( browserObject = *GetEmbedded(hwnd) ) == NULL ||
             // Get the IWebBrowser2 object embedded within the browser object
             browserObject->lpVtbl->QueryInterface( browserObject,
                   &IID_IWebBrowser2, ( void ** ) &webBrowser2 ) )
@@ -2184,7 +2184,7 @@ void WINAPI UnEmbedBrowserObject( HWND hwnd )
    // window may get a WM_DESTROY which could call this a second time (ie,
    // since we may call UnEmbedBrowserObject in EmbedBrowserObject).
    // if ((browserHandle = (IOleObject **)GetWindowLong(hwnd, GWL_USERDATA)))
-   if( ( browserHandle = GetEmbedded( hwnd ) ) != NULL )
+   if( ( browserHandle = GetEmbedded(hwnd) ) != NULL )
    {
       // Unembed the browser object, and release its resources.
       browserObject = *browserHandle;
@@ -2194,7 +2194,7 @@ void WINAPI UnEmbedBrowserObject( HWND hwnd )
       // Zero out the pointer just in case UnEmbedBrowserObject is called
       // again for this window.
       // SetWindowLong(hwnd, GWL_USERDATA, 0);
-      SetEmbedded( hwnd, 0 );
+      SetEmbedded(hwnd, 0);
    }
 }
 
@@ -2443,7 +2443,7 @@ void WINAPI DoPageAction( HWND hwnd, DWORD action )
          case WEBPAGE_GOFORWARD:
          {
             // Call the IWebBrowser2 object's GoForward function.
-            webBrowser2->lpVtbl->GoForward( webBrowser2 );
+            webBrowser2->lpVtbl->GoForward(webBrowser2);
             break;
          }
 
@@ -2650,7 +2650,7 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
       if( ( *( ( IOleObject ** ) ptr ) = browserObject ) != NULL )
       {
          // SetWindowLong(hwnd, GWL_USERDATA, (LONG)ptr);
-         SetEmbedded( hwnd, ( IOleObject ** ) ptr );
+         SetEmbedded(hwnd, ( IOleObject ** ) ptr);
 
          // Give the browser a pointer to my IOleClientSite object.
          //

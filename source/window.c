@@ -55,7 +55,7 @@ static void s_doEvents( void )
    };
 }
 
-static void s_ClearKeyboard( void )
+static void s_ClearKeyboard(void)
 {
    MSG msg;
 
@@ -644,7 +644,7 @@ HB_FUNC( HWG_ISICONIC )
 
 HB_FUNC( HWG_ISWINDOWENABLED )
 {
-   hb_retl( IsWindowEnabled( ( HWND ) HB_PARHANDLE(1) ) );
+   hb_retl( IsWindowEnabled(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_ISWINDOWVISIBLE )
@@ -845,7 +845,7 @@ void SetObjectVar( PHB_ITEM pObject, const char *varname, PHB_ITEM pValue )
    hb_objSendMsg( pObject, ( char * ) varname, 1, pValue );
 }
 
-#if !defined( HB_HAS_STR_FUNC )
+#if !defined(HB_HAS_STR_FUNC)
 
 /* these are simple wrapper functions for xHarbour and older Harbour
  * versions which do not support automatic UNICODE conversions
@@ -929,7 +929,7 @@ void hwg_strfree( void * hString )
 }
 #endif /* !HB_HAS_STR_FUNC */
 
-#if ! defined( HB_EMULATE_STR_API )
+#if ! defined(HB_EMULATE_STR_API)
 
 static int s_iVM_CP = CP_ACP; /* CP_OEMCP */
 
@@ -1075,9 +1075,9 @@ void hwg_wstrfree( void * hString )
 
 HB_FUNC( HWG_SETUTF8 )
 {
-#if defined( HB_EMULATE_STR_API )
+#if defined(HB_EMULATE_STR_API)
    s_iVM_CP = CP_UTF8;
-#elif ! defined( __XHARBOUR__ )
+#elif ! defined(__XHARBOUR__)
    PHB_CODEPAGE cdp = hb_cdpFindExt( "UTF8" );
 
    if( cdp )
@@ -1300,7 +1300,7 @@ LRESULT CALLBACK KbdHook( int code, WPARAM wp, LPARAM lp )
          nBtnNo = SendMessage( s_hMytoolMenu, TB_BUTTONCOUNT, 0, 0 );
          nId = SendMessage( s_hMytoolMenu, TB_GETHOTITEM, 0, 0 );
 
-         bPressed = ( HIWORD( lp ) & KF_UP ) ? FALSE : TRUE;
+         bPressed = ( HIWORD(lp) & KF_UP ) ? FALSE : TRUE;
 
          if( ( wp == VK_F10 || wp == VK_MENU ) && nId == -1 && bPressed )
          {

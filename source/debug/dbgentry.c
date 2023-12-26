@@ -67,13 +67,13 @@ static HB_BOOL hb_clsSetScope( HB_BOOL fScope ) { return fScope; }
 
 #define HB_DBGINFO_DISABLE    ( ( HB_DEBUGINFO * ) ( HB_PTRDIFF ) 0x01 )
 
-#if defined( HB_OS_UNIX )
+#if defined(HB_OS_UNIX)
 #define FILENAME_EQUAL( s1, s2 ) ( ! strcmp( ( s1 ), ( s2 ) ) )
 #else
 #define FILENAME_EQUAL( s1, s2 ) ( ! hb_stricmp( ( s1 ), ( s2 ) ) )
 #endif
 
-#define ARRAY_ADD( type, array, length ) \
+#define ARRAY_ADD(type, array, length) \
    ( ( ++length == 1 ) ? ( array = ( type * ) hb_xgrab(sizeof( type )) ) : \
       ( ( array = ( type * ) hb_xrealloc(array, sizeof( type ) * length) ) + \
           length - 1 ) )
@@ -203,7 +203,7 @@ static PHB_ITEM hb_dbgEval( HB_DEBUGINFO * info, HB_WATCHPOINT * watch );
 static PHB_ITEM hb_dbgEvalMacro( const char * szExpr, PHB_ITEM pItem );
 static PHB_ITEM hb_dbgEvalMakeBlock( HB_WATCHPOINT * watch );
 static PHB_ITEM hb_dbgEvalResolve( HB_DEBUGINFO * info, HB_WATCHPOINT * watch );
-static HB_BOOL  hb_dbgIsAltD( void );
+static HB_BOOL  hb_dbgIsAltD(void);
 static HB_BOOL  hb_dbgIsBreakPoint( HB_DEBUGINFO * info, const char * szModule, int nLine );
 static HB_BOOL  hb_dbgEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 );
 static void     hb_dbgQuit( HB_DEBUGINFO * info );
@@ -213,7 +213,7 @@ static void     hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue );
 
 static void hb_dbgActivate( HB_DEBUGINFO * info )
 {
-   PHB_DYNS pDynSym = hb_dynsymFind( "__DBGENTRY" );
+   PHB_DYNS pDynSym = hb_dynsymFind("__DBGENTRY");
 
    if( pDynSym && hb_dynsymIsFunction( pDynSym ) )
    {
@@ -576,7 +576,7 @@ void hb_dbgAddBreak( void * handle, const char * szModule, int nLine, const char
    HB_DEBUGINFO * info = ( HB_DEBUGINFO * ) handle;
    HB_BREAKPOINT * pBreak;
 
-   pBreak = ARRAY_ADD( HB_BREAKPOINT, info->aBreak, info->nBreakPoints );
+   pBreak = ARRAY_ADD(HB_BREAKPOINT, info->aBreak, info->nBreakPoints);
    pBreak->szModule = hb_strdup( szModule );
    pBreak->nLine = nLine;
 
@@ -624,7 +624,7 @@ static void hb_dbgAddModule( const char * szName )
    {
       HB_MODULEINFO * pModule;
 
-      pModule = ARRAY_ADD( HB_MODULEINFO, s_common.aModules, s_common.nModules );
+      pModule = ARRAY_ADD(HB_MODULEINFO, s_common.aModules, s_common.nModules);
       pModule->szModule = szModuleName;
       pModule->nStatics = 0;
       pModule->nGlobals = 0;
@@ -648,7 +648,7 @@ static void hb_dbgAddStack( HB_DEBUGINFO * info, const char * szName, int nProcL
    if( szFunction )
       szFunction++;
 
-   top = ARRAY_ADD( HB_CALLSTACKINFO, info->aCallStack, info->nCallStackLen );
+   top = ARRAY_ADD(HB_CALLSTACKINFO, info->aCallStack, info->nCallStackLen);
    if( info->bCodeBlock )
    {
       memcpy( szBuff, "(b)", 3 );
@@ -777,7 +777,7 @@ static void hb_dbgAddStopLines( PHB_ITEM pItem )
          }
 
          if( !bFound )
-            hb_arrayAddForward( s_common.pStopLines, pEntry );
+            hb_arrayAddForward(s_common.pStopLines, pEntry);
       }
    }
    nLinesLen = hb_itemSize( s_common.pStopLines );
@@ -803,7 +803,7 @@ static void hb_dbgAddVar( int * nVars, HB_VARINFO ** aVars, const char * szName,
 {
    HB_VARINFO * var;
 
-   var = ARRAY_ADD( HB_VARINFO, *aVars, *nVars );
+   var = ARRAY_ADD(HB_VARINFO, *aVars, *nVars);
    /* TODO/TOFIX: value should be duplicated here and then released */
    var->szName = ( char * ) szName;
    var->cType = cType;
@@ -820,14 +820,14 @@ void hb_dbgAddWatch( void * handle, const char * szExpr, HB_BOOL bTrace )
    HB_DEBUGINFO * info = ( HB_DEBUGINFO * ) handle;
    HB_WATCHPOINT * pWatch;
 
-   pWatch = ARRAY_ADD( HB_WATCHPOINT, info->aWatch, info->nWatchPoints );
+   pWatch = ARRAY_ADD(HB_WATCHPOINT, info->aWatch, info->nWatchPoints);
    pWatch->szExpr = hb_strdup( szExpr );
    pWatch->pBlock = NULL;
    pWatch->nVars = 0;
 
    if( bTrace )
    {
-     HB_TRACEPOINT * pTrace = ARRAY_ADD( HB_TRACEPOINT, info->aTrace, info->nTracePoints );
+     HB_TRACEPOINT * pTrace = ARRAY_ADD(HB_TRACEPOINT, info->aTrace, info->nTracePoints);
 
      pTrace->nIndex = info->nWatchPoints - 1;
      pTrace->xValue = hb_dbgEval( info, pWatch );
@@ -934,11 +934,11 @@ static HB_BOOL hb_dbgEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
    if( HB_IS_NUMINT( pItem1 ) )
       return ( hb_itemGetNInt( pItem1 ) == hb_itemGetNInt( pItem2 ) );
    if( HB_IS_NUMERIC(pItem1) )
-      return ( hb_itemGetND( pItem1 ) == hb_itemGetND( pItem2 ) );
+      return ( hb_itemGetND(pItem1) == hb_itemGetND(pItem2) );
    if( HB_IS_ARRAY( pItem1 ) )
-      return ( hb_arrayId( pItem1 ) == hb_arrayId( pItem2 ) );
+      return ( hb_arrayId(pItem1) == hb_arrayId(pItem2) );
    if( HB_IS_HASH( pItem1 ) )
-      return ( hb_hashId( pItem1 ) == hb_hashId( pItem2 ) );
+      return ( hb_hashId(pItem1) == hb_hashId(pItem2) );
    return HB_FALSE;
 }
 
@@ -1026,7 +1026,7 @@ static int hb_dbgEvalSubstituteVar( HB_WATCHPOINT * watch, char * szWord, int nS
    }
 
    if( j == watch->nVars )
-      *ARRAY_ADD( char *, watch->aVars, watch->nVars ) = szWord;
+      *ARRAY_ADD(char *, watch->aVars, watch->nVars) = szWord;
    else
       hb_xfree( szWord );
 
@@ -1377,7 +1377,7 @@ PHB_ITEM hb_dbgGetWatchValue( void * handle, int nWatch )
 }
 
 
-static HB_BOOL hb_dbgIsAltD( void )
+static HB_BOOL hb_dbgIsAltD(void)
 {
    char szName[ HB_SYMBOL_NAME_LEN + HB_SYMBOL_NAME_LEN + 5];
 
@@ -1570,7 +1570,7 @@ void hb_dbgSetWatch( void * handle, int nWatch, const char * szExpr, HB_BOOL bTr
    }
    if( bTrace )
    {
-      HB_TRACEPOINT * pTrace = ARRAY_ADD( HB_TRACEPOINT, info->aTrace, info->nTracePoints );
+      HB_TRACEPOINT * pTrace = ARRAY_ADD(HB_TRACEPOINT, info->aTrace, info->nTracePoints);
 
       pTrace->nIndex = nWatch;
       pTrace->xValue = hb_dbgEval( info, pWatch );
@@ -1592,7 +1592,7 @@ static PHB_ITEM hb_dbgVarGet( HB_VARINFO * scope )
       {
          PHB_DYNS pDyn;
 
-         pDyn = hb_dynsymFind( scope->szName );
+         pDyn = hb_dynsymFind(scope->szName);
          if( pDyn != NULL )
          {
             PHB_ITEM pItem = hb_memvarGetValueBySym( pDyn );
@@ -1628,7 +1628,7 @@ static void hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue )
          break;
       case 'M':
       {
-         PHB_DYNS pDynSym = hb_dynsymFind( "__MVPUT" );
+         PHB_DYNS pDynSym = hb_dynsymFind("__MVPUT");
 
          if( pDynSym && hb_dynsymIsFunction( pDynSym ) )
          {
@@ -1770,7 +1770,7 @@ HB_FUNC( __DBGSENDMSG )
                           hb_param( 3, HB_IT_ANY ), 4 );
 }
 
-#if defined( HB_OS_UNIX )
+#if defined(HB_OS_UNIX)
 #include <glib.h>
 HB_FUNC( __DBGPROCESSRUN )
 {

@@ -14,7 +14,7 @@
 
 typedef char *( WINAPI * FREEIMAGE_GETVERSION ) ( void );
 
-#if defined( __cplusplus )
+#if defined(__cplusplus)
 typedef FIBITMAP *( WINAPI *
       FREEIMAGE_LOADFROMHANDLE ) ( FREE_IMAGE_FORMAT fif, FreeImageIO * io,
       fi_handle handle, int flags );
@@ -241,7 +241,7 @@ HB_FUNC( HWG_FI_UNLOAD )
          "_FreeImage_Unload@4" );
 
    if( pUnload )
-      pUnload( ( FIBITMAP * ) hb_parnl(1) );
+      pUnload(( FIBITMAP * ) hb_parnl(1));
 }
 
 HB_FUNC( HWG_FI_LOAD )
@@ -256,8 +256,8 @@ HB_FUNC( HWG_FI_LOAD )
    if( pGetfiffromfile && pLoad )
    {
       const char *name = hb_parc(1);
-      hb_retnl( ( ULONG ) pLoad( pGetfiffromfile( name ), name,
-                  ( hb_pcount(  ) > 1 ) ? hb_parni(2) : 0 ) );
+      hb_retnl( ( ULONG ) pLoad(pGetfiffromfile( name ), name,
+                  ( hb_pcount(  ) > 1 ) ? hb_parni(2) : 0) );
    }
    else
       hb_retnl(0);
@@ -275,8 +275,8 @@ HB_FUNC( HWG_FI_LOADTYPE )
    if( pLoad )
    {
       const char *name = hb_parc(2);
-      hb_retnl( ( ULONG ) pLoad( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  name, ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0 ) );
+      hb_retnl( ( ULONG ) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
+                  name, ( hb_pcount(  ) > 2 ) ? hb_parni(3) : 0) );
    }
    else
       hb_retnl(0);
@@ -375,7 +375,7 @@ HB_FUNC( HWG_FI_2BITMAP )
          ( FREEIMAGE_GETINFOHEADER ) s_getFunction( ( FARPROC ) pGetinfoHead,
          "_FreeImage_GetInfoHeader@4" );
 
-   hb_retnl( ( LONG ) CreateDIBitmap( hDC, pGetinfoHead( dib ),
+   hb_retnl( ( LONG ) CreateDIBitmap( hDC, pGetinfoHead(dib),
                CBM_INIT, pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS ) );
 
    ReleaseDC(0, hDC);
@@ -558,7 +558,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       BITMAPINFOHEADER *bih;
       RGBQUAD *pal;
 
-      dib_size += pGetColorsUsed( _dib ) * sizeof( RGBQUAD );
+      dib_size += pGetColorsUsed(_dib) * sizeof( RGBQUAD );
       dib_size += pGetPitch( _dib ) * pGetheight( _dib );
 
       // Allocate a DIB
@@ -570,7 +570,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       p_dib = ( BYTE * ) dib;
 
       // Copy the BITMAPINFOHEADER
-      bih = pGetinfoHead( _dib );
+      bih = pGetinfoHead(_dib);
       memcpy( p_dib, bih, sizeof( BITMAPINFOHEADER ) );
 
       if( pGetImageType( _dib ) != 1 /*FIT_BITMAP */  )
@@ -582,8 +582,8 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
       // Copy the palette
       pal = pGetPalette( _dib );
-      memcpy( p_dib, pal, pGetColorsUsed( _dib ) * sizeof( RGBQUAD ) );
-      p_dib += pGetColorsUsed( _dib ) * sizeof( RGBQUAD );
+      memcpy( p_dib, pal, pGetColorsUsed(_dib) * sizeof( RGBQUAD ) );
+      p_dib += pGetColorsUsed(_dib) * sizeof( RGBQUAD );
 
       // Copy the bitmap
       bits = pGetbits( _dib );
@@ -824,7 +824,7 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
    {
       hb_retl( pSetChannel( dib, dib8,
                   ( FREE_IMAGE_COLOR_CHANNEL ) hb_parni(2) ) );
-      pUnload( dib8 );
+      pUnload(dib8);
    }
    else
    {
@@ -1072,8 +1072,8 @@ HB_FUNC( HWG_FI_THRESHOLD )
          ( FREEIMAGE_THRESHOLD ) s_getFunction( ( FARPROC ) pThreshold,
          "_FreeImage_Threshold@8" );
 
-   hb_retnl( ( LONG ) pThreshold( ( FIBITMAP * ) hb_parnl(1),
-               ( BYTE ) hb_parnl(2) ) );
+   hb_retnl( ( LONG ) pThreshold(( FIBITMAP * ) hb_parnl(1),
+               ( BYTE ) hb_parnl(2)) );
 }
 
 HB_FUNC( HWG_FI_FLIPVERTICAL )

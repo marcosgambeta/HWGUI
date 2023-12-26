@@ -19,7 +19,7 @@
 #include "hbfast.h"
 #endif
 
-#if !defined( GetDefaultPrinter ) && defined( __DMC__ )
+#if !defined(GetDefaultPrinter) && defined(__DMC__)
    BOOL WINAPI GetDefaultPrinterA(LPSTR,LPDWORD);
    BOOL WINAPI GetDefaultPrinterW(LPWSTR,LPDWORD);
 #  ifdef UNICODE

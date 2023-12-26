@@ -667,7 +667,7 @@ HB_FUNC( HWG_GETDATEPICKER )
    iret = SendMessage( ( HWND ) HB_PARHANDLE(1), DTM_GETSYSTEMTIME,
                 wParam, ( LPARAM ) & st );
    if ( wParam == GDT_VALID )
-     hb_retd( st.wYear, st.wMonth, st.wDay );
+     hb_retd(st.wYear, st.wMonth, st.wDay);
    else
      hb_retni( iret );
 }
@@ -1109,7 +1109,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
    for( ul = 1; ul <= ulLen; ul++ )
    {
       hbmp = ( HBITMAP ) HB_GETPTRHANDLE( pArray, ul );
-      ImageList_Add( himl, hbmp, ( HBITMAP ) NULL );
+      ImageList_Add(himl, hbmp, ( HBITMAP ) NULL);
       DeleteObject( hbmp );
    }
 
@@ -1118,14 +1118,14 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 
 HB_FUNC( HWG_IMAGELIST_ADD )
 {
-   hb_retnl( ImageList_Add( ( HIMAGELIST ) HB_PARHANDLE(1),
-               ( HBITMAP ) HB_PARHANDLE(2), ( HBITMAP ) NULL ) );
+   hb_retnl( ImageList_Add(( HIMAGELIST ) HB_PARHANDLE(1),
+               ( HBITMAP ) HB_PARHANDLE(2), ( HBITMAP ) NULL) );
 }
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
-   hb_retnl( ImageList_AddMasked( ( HIMAGELIST ) HB_PARHANDLE(1),
-               ( HBITMAP ) HB_PARHANDLE(2), ( COLORREF ) hb_parnl(3) ) );
+   hb_retnl( ImageList_AddMasked(( HIMAGELIST ) HB_PARHANDLE(1),
+               ( HBITMAP ) HB_PARHANDLE(2), ( COLORREF ) hb_parnl(3)) );
 }
 
 /*

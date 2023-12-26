@@ -203,7 +203,7 @@ typedef HTHEME( __stdcall * PFNGETWINDOWTHEME ) ( HWND hwnd );
 typedef HRESULT( __stdcall * PFNENABLETHEMEDIALOGTEXTURE ) ( HWND hwnd,
       DWORD dwFlags );
 typedef BOOL( __stdcall * PFNISTHEMEDIALOGTEXTUREENABLED ) ( HWND hwnd );
-typedef DWORD( __stdcall * PFNGETTHEMEAPPPROPERTIES ) ( void );
+typedef DWORD(__stdcall * PFNGETTHEMEAPPPROPERTIES) ( void );
 
 typedef void ( __stdcall * PFNSETTHEMEAPPPROPERTIES ) ( DWORD dwFlags );
 
@@ -718,8 +718,8 @@ HRESULT hb_CloseThemeData(HTHEME hTheme)
    return ( *pfnCloseThemeData ) ( hTheme );
 }
 
-HRESULT hb_DrawThemeBackground( HTHEME hTheme, HDC hdc,
-      int iPartId, int iStateId, const RECT * pRect, const RECT * pClipRect )
+HRESULT hb_DrawThemeBackground(HTHEME hTheme, HDC hdc,
+      int iPartId, int iStateId, const RECT * pRect, const RECT * pClipRect)
 {
    PFNDRAWTHEMEBACKGROUND pfnDrawThemeBackground =
          ( PFNDRAWTHEMEBACKGROUND ) GetProc("DrawThemeBackground",
@@ -801,9 +801,9 @@ HRESULT hb_GetThemeBackgroundRegion( HTHEME hTheme, HDC hdc,
    return ( *pfn ) ( hTheme, hdc, iPartId, iStateId, pRect, pRegion );
 }
 
-HRESULT hb_HitTestThemeBackground( HTHEME hTheme, HDC hdc, int iPartId,
+HRESULT hb_HitTestThemeBackground(HTHEME hTheme, HDC hdc, int iPartId,
       int iStateId, DWORD dwOptions, const RECT * pRect, HRGN hrgn,
-      POINT ptTest, WORD * pwHitTestCode )
+      POINT ptTest, WORD * pwHitTestCode)
 {
    PFNHITTESTTHEMEBACKGROUND pfn =
          ( PFNHITTESTTHEMEBACKGROUND ) GetProc("HitTestThemeBackground",
@@ -832,7 +832,7 @@ HRESULT hb_DrawThemeIcon( HTHEME hTheme, HDC hdc, int iPartId,
          iImageIndex );
 }
 
-BOOL hb_IsThemePartDefined( HTHEME hTheme, int iPartId, int iStateId )
+BOOL hb_IsThemePartDefined(HTHEME hTheme, int iPartId, int iStateId)
 {
    PFNISTHEMEPARTDEFINED pfn =
          ( PFNISTHEMEPARTDEFINED ) GetProc("IsThemePartDefined",
@@ -1044,7 +1044,7 @@ BOOL hb_IsThemeActive( void )
    return ( *pfn ) (  );
 }
 
-BOOL hb_IsAppThemed( void )
+BOOL hb_IsAppThemed(void)
 {
    PFNISAPPTHEMED pfnIsAppThemed =
          ( PFNISAPPTHEMED ) GetProc("IsAppThemed",
@@ -1068,7 +1068,7 @@ HRESULT hb_EnableThemeDialogTexture( HWND hwnd, DWORD dwFlags )
    return ( *pfn ) ( hwnd, dwFlags );
 }
 
-BOOL hb_IsThemeDialogTextureEnabled( HWND hwnd )
+BOOL hb_IsThemeDialogTextureEnabled(HWND hwnd)
 {
    PFNISTHEMEDIALOGTEXTUREENABLED pfn =
          ( PFNISTHEMEDIALOGTEXTUREENABLED )
@@ -1115,7 +1115,7 @@ HRESULT hb_GetThemeDocumentationProperty( LPCWSTR pszThemeName,
          cchMaxValChars );
 }
 
-HRESULT hb_DrawThemeParentBackground( HWND hwnd, HDC hdc, RECT * prc )
+HRESULT hb_DrawThemeParentBackground(HWND hwnd, HDC hdc, RECT * prc)
 {
    PFNDRAWTHEMEPARENTBACKGROUND pfn =
          ( PFNDRAWTHEMEPARENTBACKGROUND )
@@ -1138,7 +1138,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
    HWND m_hWnd = pCustomDraw->hdr.hwndFrom;
    DWORD style = ( DWORD ) GetWindowLong( m_hWnd, GWL_STYLE );
 
-   if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed(  ) ||
+   if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed() ||
          !hb_IsThemeActive(  ) )
    {
       // not icon or bitmap button, or themes not active - draw normally
@@ -1148,8 +1148,8 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
    if( pCustomDraw->dwDrawStage == CDDS_PREERASE )
    {
       // erase background (according to parent window's themed background
-      hb_DrawThemeParentBackground( m_hWnd, pCustomDraw->hdc,
-            &pCustomDraw->rc );
+      hb_DrawThemeParentBackground(m_hWnd, pCustomDraw->hdc,
+            &pCustomDraw->rc);
    }
 
    if( pCustomDraw->dwDrawStage == CDDS_PREERASE ||
@@ -1181,9 +1181,9 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
          state_id = PBS_DEFAULTED;
 
       // draw themed button background appropriate to button state
-      hb_DrawThemeBackground( hTheme,
+      hb_DrawThemeBackground(hTheme,
             pCustomDraw->hdc, BP_PUSHBUTTON,
-            state_id, &pCustomDraw->rc, NULL );
+            state_id, &pCustomDraw->rc, NULL);
 
       // get content rectangle (space inside button for image)
       content_rect = pCustomDraw->rc;
@@ -1802,8 +1802,8 @@ HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
    if( HB_ISARRAY(6) )
       Array2Rect( hb_param( 6, HB_IT_ARRAY ), &pClipRect );
 
-   hb_retnl( hb_DrawThemeBackground( hTheme, hdc,
-               iPartId, iStateId, &pRect, NULL ) );
+   hb_retnl( hb_DrawThemeBackground(hTheme, hdc,
+               iPartId, iStateId, &pRect, NULL) );
 }
 
 HB_FUNC( HWG_DRAWTHEICON )
@@ -1984,7 +1984,7 @@ HB_FUNC( HWG_DRAWTHEMEPARENTBACKGROUND )
    if( HB_ISARRAY(3) )
       Array2Rect( hb_param( 3, HB_IT_ARRAY ), &pRect );
 
-   hb_retnl( hb_DrawThemeParentBackground( hTheme, hdc, &pRect ) );
+   hb_retnl( hb_DrawThemeParentBackground(hTheme, hdc, &pRect) );
 }
 
 HB_FUNC( HWG_ISTHEMEACTIVE )

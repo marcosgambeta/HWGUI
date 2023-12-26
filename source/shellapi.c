@@ -138,7 +138,7 @@ HB_FUNC( HWG_SHELLMODIFYICON )
  */
 HB_FUNC( HWG_SHELLEXECUTE )
 {
-#if defined( HB_OS_WIN_CE )
+#if defined(HB_OS_WIN_CE)
    hb_retni( -1 );
 #else
    void * hOperation;
