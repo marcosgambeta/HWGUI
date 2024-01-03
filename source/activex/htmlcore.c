@@ -109,18 +109,18 @@ static unsigned char _IID_IHTMLWindow3[] =
 
 
 // Our IOleInPlaceFrame functions that the browser may call
-HRESULT STDMETHODCALLTYPE Frame_QueryInterface( IOleInPlaceFrame *, REFIID,
-      LPVOID * );
+HRESULT STDMETHODCALLTYPE Frame_QueryInterface(IOleInPlaceFrame *, REFIID,
+      LPVOID *);
 ULONG STDMETHODCALLTYPE Frame_AddRef( IOleInPlaceFrame * );
-ULONG STDMETHODCALLTYPE Frame_Release( IOleInPlaceFrame * );
+ULONG STDMETHODCALLTYPE Frame_Release(IOleInPlaceFrame *);
 HRESULT STDMETHODCALLTYPE Frame_GetWindow( IOleInPlaceFrame *, HWND * );
 HRESULT STDMETHODCALLTYPE Frame_ContextSensitiveHelp( IOleInPlaceFrame *,
       BOOL );
 HRESULT STDMETHODCALLTYPE Frame_GetBorder( IOleInPlaceFrame *, LPRECT );
-HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace( IOleInPlaceFrame *,
-      LPCBORDERWIDTHS );
-HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace( IOleInPlaceFrame *,
-      LPCBORDERWIDTHS );
+HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace(IOleInPlaceFrame *,
+      LPCBORDERWIDTHS);
+HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame *,
+      LPCBORDERWIDTHS);
 HRESULT STDMETHODCALLTYPE Frame_SetActiveObject( IOleInPlaceFrame *,
       IOleInPlaceActiveObject *, LPCOLESTR );
 HRESULT STDMETHODCALLTYPE Frame_InsertMenus( IOleInPlaceFrame *, HMENU,
@@ -193,10 +193,10 @@ typedef struct
 
 
 // Our IOleClientSite functions that the browser may call
-HRESULT STDMETHODCALLTYPE Site_QueryInterface( IOleClientSite *, REFIID,
-      void ** );
+HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite *, REFIID,
+      void **);
 ULONG STDMETHODCALLTYPE Site_AddRef( IOleClientSite * );
-ULONG STDMETHODCALLTYPE Site_Release( IOleClientSite * );
+ULONG STDMETHODCALLTYPE Site_Release(IOleClientSite *);
 HRESULT STDMETHODCALLTYPE Site_SaveObject( IOleClientSite * );
 HRESULT STDMETHODCALLTYPE Site_GetMoniker( IOleClientSite *, DWORD, DWORD,
       IMoniker ** );
@@ -226,10 +226,10 @@ static IOleClientSiteVtbl MyIOleClientSiteTable = {
 
 
 // Our IDocHostUIHandler functions that the browser may call
-HRESULT STDMETHODCALLTYPE UI_QueryInterface( IDocHostUIHandler *, REFIID,
-      void ** );
+HRESULT STDMETHODCALLTYPE UI_QueryInterface(IDocHostUIHandler *, REFIID,
+      void **);
 ULONG STDMETHODCALLTYPE UI_AddRef( IDocHostUIHandler * );
-ULONG STDMETHODCALLTYPE UI_Release( IDocHostUIHandler * );
+ULONG STDMETHODCALLTYPE UI_Release(IDocHostUIHandler *);
 HRESULT STDMETHODCALLTYPE UI_ShowContextMenu( IDocHostUIHandler *, DWORD,
       POINT *, IUnknown *, IDispatch * );
 HRESULT STDMETHODCALLTYPE UI_GetHostInfo( IDocHostUIHandler *,
@@ -240,9 +240,9 @@ HRESULT STDMETHODCALLTYPE UI_ShowUI( IDocHostUIHandler *, DWORD,
 HRESULT STDMETHODCALLTYPE UI_HideUI( IDocHostUIHandler * );
 HRESULT STDMETHODCALLTYPE UI_UpdateUI( IDocHostUIHandler * );
 HRESULT STDMETHODCALLTYPE UI_EnableModeless( IDocHostUIHandler *, BOOL );
-HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate( IDocHostUIHandler *, BOOL );
-HRESULT STDMETHODCALLTYPE UI_OnFrameWindowActivate( IDocHostUIHandler *,
-      BOOL );
+HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate(IDocHostUIHandler *, BOOL);
+HRESULT STDMETHODCALLTYPE UI_OnFrameWindowActivate(IDocHostUIHandler *,
+      BOOL);
 HRESULT STDMETHODCALLTYPE UI_ResizeBorder( IDocHostUIHandler *, LPCRECT,
       IOleInPlaceUIWindow *, BOOL );
 HRESULT STDMETHODCALLTYPE UI_TranslateAccelerator( IDocHostUIHandler *, LPMSG,
@@ -289,25 +289,25 @@ static IDocHostUIHandlerVtbl MyIDocHostUIHandlerTable = {
 
 
 // Our IOleInPlaceSite functions that the browser may call
-HRESULT STDMETHODCALLTYPE InPlace_QueryInterface( IOleInPlaceSite *, REFIID,
-      void ** );
+HRESULT STDMETHODCALLTYPE InPlace_QueryInterface(IOleInPlaceSite *, REFIID,
+      void **);
 ULONG STDMETHODCALLTYPE InPlace_AddRef( IOleInPlaceSite * );
-ULONG STDMETHODCALLTYPE InPlace_Release( IOleInPlaceSite * );
+ULONG STDMETHODCALLTYPE InPlace_Release(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_GetWindow( IOleInPlaceSite *, HWND * );
 HRESULT STDMETHODCALLTYPE InPlace_ContextSensitiveHelp( IOleInPlaceSite *,
       BOOL );
-HRESULT STDMETHODCALLTYPE InPlace_CanInPlaceActivate( IOleInPlaceSite * );
-HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceActivate( IOleInPlaceSite * );
-HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate( IOleInPlaceSite * );
+HRESULT STDMETHODCALLTYPE InPlace_CanInPlaceActivate(IOleInPlaceSite *);
+HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceActivate(IOleInPlaceSite *);
+HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext( IOleInPlaceSite *,
       LPOLEINPLACEFRAME *, LPOLEINPLACEUIWINDOW *, LPRECT, LPRECT,
       LPOLEINPLACEFRAMEINFO );
 HRESULT STDMETHODCALLTYPE InPlace_Scroll( IOleInPlaceSite *, SIZE );
-HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate( IOleInPlaceSite *, BOOL );
-HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate( IOleInPlaceSite * );
-HRESULT STDMETHODCALLTYPE InPlace_DiscardUndoState( IOleInPlaceSite * );
+HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate(IOleInPlaceSite *, BOOL);
+HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate(IOleInPlaceSite *);
+HRESULT STDMETHODCALLTYPE InPlace_DiscardUndoState(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_DeactivateAndUndo( IOleInPlaceSite * );
-HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange( IOleInPlaceSite *,
+HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange(IOleInPlaceSite *,
       LPCRECT );
 
 // Our IOleInPlaceSite VTable. This is the array of pointers to the above functions in our C
@@ -406,18 +406,18 @@ unsigned char COM_init;
 // requested to be informed of.
 
 // Our IDispatch functions that the browser may call
-HRESULT STDMETHODCALLTYPE Dispatch_QueryInterface( IDispatch *, REFIID riid,
-      void ** );
+HRESULT STDMETHODCALLTYPE Dispatch_QueryInterface(IDispatch *, REFIID riid,
+      void **);
 ULONG STDMETHODCALLTYPE Dispatch_AddRef( IDispatch * );
-ULONG STDMETHODCALLTYPE Dispatch_Release( IDispatch * );
+ULONG STDMETHODCALLTYPE Dispatch_Release(IDispatch *);
 HRESULT STDMETHODCALLTYPE Dispatch_GetTypeInfoCount( IDispatch *,
       unsigned int * );
 HRESULT STDMETHODCALLTYPE Dispatch_GetTypeInfo( IDispatch *, unsigned int,
       LCID, ITypeInfo ** );
 HRESULT STDMETHODCALLTYPE Dispatch_GetIDsOfNames( IDispatch *, REFIID,
       OLECHAR **, unsigned int, LCID, DISPID * );
-HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch *, DISPID, REFIID, LCID,
-      WORD, DISPPARAMS *, VARIANT *, EXCEPINFO *, unsigned int * );
+HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch *, DISPID, REFIID, LCID,
+      WORD, DISPPARAMS *, VARIANT *, EXCEPINFO *, unsigned int *);
 
 // The VTable for our _IDispatchEx object.
 IDispatchVtbl MyIDispatchVtbl = {
@@ -475,7 +475,7 @@ void SetEmbedded(HWND handle, IOleObject ** obj)
    pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
    temp = hb_itemPutNL( NULL, ( LONG ) obj );
    SetObjectVar( pEmbed, "_HANDLE", temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 }
 
 IOleObject **GetEmbedded(HWND handle)
@@ -495,8 +495,8 @@ IOleObject **GetEmbedded(HWND handle)
 // NOTE: You need at least IE 4.0. Previous versions do not ask for, nor
 // utilize, our IDocHostUIHandler functions.
 
-HRESULT STDMETHODCALLTYPE UI_QueryInterface( IDocHostUIHandler * This,
-      REFIID riid, LPVOID * ppvObj )
+HRESULT STDMETHODCALLTYPE UI_QueryInterface(IDocHostUIHandler * This,
+      REFIID riid, LPVOID * ppvObj)
 {
    // The browser assumes that our IDocHostUIHandler object is associated with
    // our IOleClientSite object. So it is possible that the browser may call
@@ -510,9 +510,9 @@ HRESULT STDMETHODCALLTYPE UI_QueryInterface( IDocHostUIHandler * This,
    // that since our _IDocHostUIHandlerEx is embedded right inside our 
    // _IOleClientSiteEx, and comes immediately after the _IOleInPlaceSiteEx, we
    // can employ the following trickery to get the pointer to our _IOleClientSiteEx.
-   return ( Site_QueryInterface( ( IOleClientSite * ) ( ( char * ) This -
+   return ( Site_QueryInterface(( IOleClientSite * ) ( ( char * ) This -
                      sizeof( IOleClientSite ) -
-                     sizeof( _IOleInPlaceSiteEx ) ), riid, ppvObj ) );
+                     sizeof( _IOleInPlaceSiteEx ) ), riid, ppvObj) );
 }
 
 ULONG STDMETHODCALLTYPE UI_AddRef( IDocHostUIHandler * This )
@@ -521,7 +521,7 @@ ULONG STDMETHODCALLTYPE UI_AddRef( IDocHostUIHandler * This )
    return (1);
 }
 
-ULONG STDMETHODCALLTYPE UI_Release( IDocHostUIHandler * This )
+ULONG STDMETHODCALLTYPE UI_Release(IDocHostUIHandler * This)
 {
    ( void ) This;
    return (1);
@@ -618,8 +618,8 @@ HRESULT STDMETHODCALLTYPE UI_EnableModeless( IDocHostUIHandler * This,
 
 // Called from the browser object's IOleInPlaceActiveObject object's OnDocWindowActivate() function.
 // This informs off of when the object is getting/losing the focus.
-HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate( IDocHostUIHandler * This,
-      BOOL fActivate )
+HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate(IDocHostUIHandler * This,
+      BOOL fActivate)
 {
    ( void ) This;
    ( void ) fActivate;
@@ -627,8 +627,8 @@ HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate( IDocHostUIHandler * This,
 }
 
 // Called from the browser object's IOleInPlaceActiveObject object's OnFrameWindowActivate() function.
-HRESULT STDMETHODCALLTYPE UI_OnFrameWindowActivate( IDocHostUIHandler * This,
-      BOOL fActivate )
+HRESULT STDMETHODCALLTYPE UI_OnFrameWindowActivate(IDocHostUIHandler * This,
+      BOOL fActivate)
 {
    ( void ) This;
    ( void ) fActivate;
@@ -831,7 +831,7 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler * This,
          // Post a message to this window using WM_APP, and pass the number converted above.
          // Do not SendMessage()!. Post instead, since the browser does not like us changing
          // the URL within this here callback.
-         PostMessage( hwnd, WM_APP, ( WPARAM ) len, 0 );
+         PostMessage(hwnd, WM_APP, ( WPARAM ) len, 0);
 
          // Tell browser that we returned a URL
          return ( S_OK );
@@ -894,8 +894,8 @@ HRESULT STDMETHODCALLTYPE UI_FilterDataObject( IDocHostUIHandler * This,
  * the requested struct.
  */
 
-HRESULT STDMETHODCALLTYPE Site_QueryInterface( IOleClientSite * This,
-      REFIID riid, void **ppvObject )
+HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite * This,
+      REFIID riid, void **ppvObject)
 {
    // It just so happens that the first arg passed to us is our _IOleClientSiteEx
    // struct we allocated and passed to DoVerb() and OleCreate(). Nevermind that
@@ -982,7 +982,7 @@ ULONG STDMETHODCALLTYPE Site_AddRef( IOleClientSite * This )
    return (1);
 }
 
-ULONG STDMETHODCALLTYPE Site_Release( IOleClientSite * This )
+ULONG STDMETHODCALLTYPE Site_Release(IOleClientSite * This)
 {
    ( void ) This;
    return (1);
@@ -1040,8 +1040,8 @@ HRESULT STDMETHODCALLTYPE Site_RequestNewObjectLayout( IOleClientSite * This )
 // by calling our IOleClientSite's QueryInterface (ie, Site_QueryInterface)
 // and specifying a REFIID of IID_IOleInPlaceSite.
 
-HRESULT STDMETHODCALLTYPE InPlace_QueryInterface( IOleInPlaceSite * This,
-      REFIID riid, LPVOID * ppvObj )
+HRESULT STDMETHODCALLTYPE InPlace_QueryInterface(IOleInPlaceSite * This,
+      REFIID riid, LPVOID * ppvObj)
 {
    // The browser assumes that our IOleInPlaceSite object is associated with
    // our IOleClientSite object. So it is possible that the browser may call
@@ -1055,8 +1055,8 @@ HRESULT STDMETHODCALLTYPE InPlace_QueryInterface( IOleInPlaceSite * This,
    // that since our IOleInPlaceSite is embedded right inside our
    // _IOleClientSiteEx, and comes immediately after the IOleClientSite, we
    // can employ the following trickery to get the pointer to our _IOleClientSiteEx.
-   return ( Site_QueryInterface( ( IOleClientSite * ) ( ( char * ) This -
-                     sizeof( IOleClientSite ) ), riid, ppvObj ) );
+   return ( Site_QueryInterface(( IOleClientSite * ) ( ( char * ) This -
+                     sizeof( IOleClientSite ) ), riid, ppvObj) );
 }
 
 ULONG STDMETHODCALLTYPE InPlace_AddRef( IOleInPlaceSite * This )
@@ -1065,7 +1065,7 @@ ULONG STDMETHODCALLTYPE InPlace_AddRef( IOleInPlaceSite * This )
    return (1);
 }
 
-ULONG STDMETHODCALLTYPE InPlace_Release( IOleInPlaceSite * This )
+ULONG STDMETHODCALLTYPE InPlace_Release(IOleInPlaceSite * This)
 {
    ( void ) This;
    return (1);
@@ -1097,21 +1097,21 @@ HRESULT STDMETHODCALLTYPE InPlace_ContextSensitiveHelp( IOleInPlaceSite *
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_CanInPlaceActivate( IOleInPlaceSite * This )
+HRESULT STDMETHODCALLTYPE InPlace_CanInPlaceActivate(IOleInPlaceSite * This)
 {
    ( void ) This;
    // Tell the browser we can in place activate
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceActivate( IOleInPlaceSite * This )
+HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceActivate(IOleInPlaceSite * This)
 {
    ( void ) This;
    // Tell the browser we did it ok
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate( IOleInPlaceSite * This )
+HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate(IOleInPlaceSite * This)
 {
    ( void ) This;
    return ( S_OK );
@@ -1170,22 +1170,22 @@ HRESULT STDMETHODCALLTYPE InPlace_Scroll( IOleInPlaceSite * This,
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate( IOleInPlaceSite * This,
-      BOOL fUndoable )
+HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate(IOleInPlaceSite * This,
+      BOOL fUndoable)
 {
    ( void ) This;
    ( void ) fUndoable;
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate( IOleInPlaceSite *
-      This )
+HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate(IOleInPlaceSite *
+      This)
 {
    ( void ) This;
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_DiscardUndoState( IOleInPlaceSite * This )
+HRESULT STDMETHODCALLTYPE InPlace_DiscardUndoState(IOleInPlaceSite * This)
 {
    ( void ) This;
    NOTIMPLEMENTED;
@@ -1199,8 +1199,8 @@ HRESULT STDMETHODCALLTYPE InPlace_DeactivateAndUndo( IOleInPlaceSite * This )
 
 // Called when the position of the browser object is changed, such as when we
 // call the IWebBrowser2's put_Width(), put_Height(), put_Left(), or put_Right().
-HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange( IOleInPlaceSite * This,
-      LPCRECT lprcPosRect )
+HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange(IOleInPlaceSite * This,
+      LPCRECT lprcPosRect)
 {
    IOleObject *browserObject;
    IOleInPlaceObject *inplace;
@@ -1210,8 +1210,8 @@ HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange( IOleInPlaceSite * This,
    browserObject =
          *( ( IOleObject ** ) ( ( char * ) This - sizeof( IOleObject * ) -
                sizeof( IOleClientSite ) ) );
-   if( !browserObject->lpVtbl->QueryInterface( browserObject,
-               &IID_IOleInPlaceObject, ( void ** ) &inplace ) )
+   if( !browserObject->lpVtbl->QueryInterface(browserObject,
+               &IID_IOleInPlaceObject, ( void ** ) &inplace) )
    {
       // Give the browser the dimensions of where it can draw.
       inplace->lpVtbl->SetObjectRects( inplace, lprcPosRect, lprcPosRect );
@@ -1224,8 +1224,8 @@ HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange( IOleInPlaceSite * This,
 
 //////////////////// My IOleInPlaceFrame functions  //////////////////
 
-HRESULT STDMETHODCALLTYPE Frame_QueryInterface( IOleInPlaceFrame * This,
-      REFIID riid, LPVOID * ppvObj )
+HRESULT STDMETHODCALLTYPE Frame_QueryInterface(IOleInPlaceFrame * This,
+      REFIID riid, LPVOID * ppvObj)
 {
    ( void ) This;
    ( void ) riid;
@@ -1239,7 +1239,7 @@ ULONG STDMETHODCALLTYPE Frame_AddRef( IOleInPlaceFrame * This )
    return (1);
 }
 
-ULONG STDMETHODCALLTYPE Frame_Release( IOleInPlaceFrame * This )
+ULONG STDMETHODCALLTYPE Frame_Release(IOleInPlaceFrame * This)
 {
    ( void ) This;
    return (1);
@@ -1276,16 +1276,16 @@ HRESULT STDMETHODCALLTYPE Frame_GetBorder( IOleInPlaceFrame * This,
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace( IOleInPlaceFrame * This,
-      LPCBORDERWIDTHS pborderwidths )
+HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace(IOleInPlaceFrame * This,
+      LPCBORDERWIDTHS pborderwidths)
 {
    ( void ) This;
    ( void ) pborderwidths;
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace( IOleInPlaceFrame * This,
-      LPCBORDERWIDTHS pborderwidths )
+HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame * This,
+      LPCBORDERWIDTHS pborderwidths)
 {
    ( void ) This;
    ( void ) pborderwidths;
@@ -1359,8 +1359,8 @@ HRESULT STDMETHODCALLTYPE Frame_TranslateAccelerator( IOleInPlaceFrame * This,
 // The browser uses our IDispatch to give feedback when certain actions occur
 // on the web page.
 
-HRESULT STDMETHODCALLTYPE Dispatch_QueryInterface( IDispatch * This,
-      REFIID riid, void **ppvObject )
+HRESULT STDMETHODCALLTYPE Dispatch_QueryInterface(IDispatch * This,
+      REFIID riid, void **ppvObject)
 {
    *ppvObject = 0;
 
@@ -1386,7 +1386,7 @@ ULONG STDMETHODCALLTYPE Dispatch_AddRef( IDispatch * This )
    return ( InterlockedIncrement( &( ( _IDispatchEx * ) This )->refCount ) );
 }
 
-ULONG STDMETHODCALLTYPE Dispatch_Release( IDispatch * This )
+ULONG STDMETHODCALLTYPE Dispatch_Release(IDispatch * This)
 {
    if( InterlockedDecrement( &( ( _IDispatchEx * ) This )->refCount ) == 0 )
    {
@@ -1397,8 +1397,8 @@ ULONG STDMETHODCALLTYPE Dispatch_Release( IDispatch * This )
        */
       // OutputDebugString("One event handler destroyed");
 
-      GlobalFree( ( ( char * ) This -
-                  ( ( _IDispatchEx * ) This )->extraSize ) );
+      GlobalFree(( ( char * ) This -
+                  ( ( _IDispatchEx * ) This )->extraSize ));
       return (0);
    }
 
@@ -1442,27 +1442,27 @@ static void webDetach( _IDispatchEx * lpDispatchEx )
 
    // Get the IHTMLWindow3 and call its detachEvent() to disconnect our
    // _IDispatchEx from the element on the web page.
-   if( !lpDispatchEx->htmlWindow2->lpVtbl->QueryInterface( lpDispatchEx->
+   if( !lpDispatchEx->htmlWindow2->lpVtbl->QueryInterface(lpDispatchEx->
                htmlWindow2, ( GUID * ) & _IID_IHTMLWindow3[0],
-               ( void ** ) &htmlWindow3 ) && htmlWindow3 )
+               ( void ** ) &htmlWindow3) && htmlWindow3 )
    {
       htmlWindow3->lpVtbl->detachEvent( htmlWindow3, OnBeforeOnLoad,
             ( LPDISPATCH ) lpDispatchEx );
-      htmlWindow3->lpVtbl->Release( htmlWindow3 );
+      htmlWindow3->lpVtbl->Release(htmlWindow3);
    }
 
    // Release any object that was originally passed to CreateEventHandler()
    if( lpDispatchEx->object )
-      lpDispatchEx->object->lpVtbl->Release( lpDispatchEx->object );
+      lpDispatchEx->object->lpVtbl->Release(lpDispatchEx->object);
 
    // We don't need the IHTMLWindow2 any more (that we got in CreateEventHandler)
-   lpDispatchEx->htmlWindow2->lpVtbl->Release( lpDispatchEx->htmlWindow2 );
+   lpDispatchEx->htmlWindow2->lpVtbl->Release(lpDispatchEx->htmlWindow2);
 }
 
-HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
+HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
       DISPID dispIdMember, REFIID riid, LCID lcid, WORD wFlags,
       DISPPARAMS * pDispParams, VARIANT * pVarResult, EXCEPINFO * pExcepInfo,
-      unsigned int *puArgErr )
+      unsigned int *puArgErr)
 {
    WEBPARAMS webParams;
    BSTR strType;
@@ -1481,7 +1481,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
                &webParams.htmlEvent ) && webParams.htmlEvent )
    {
       // Get the event's type (ie, a BSTR) by calling the IHTMLEventObj's get_type().
-      webParams.htmlEvent->lpVtbl->get_type( webParams.htmlEvent, &strType );
+      webParams.htmlEvent->lpVtbl->get_type(webParams.htmlEvent, &strType);
       if( strType )
       {
          // Set the WEBPARAMS.NMHDR struct's hwndFrom to the window hosting the
@@ -1522,21 +1522,21 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
             // is appropriate for the app window.
             if( ( ( _IDispatchEx * ) This )->id < 0 )
                goto user;
-            if( !IsWindowUnicode( webParams.nmhdr.hwndFrom ) )
+            if( !IsWindowUnicode(webParams.nmhdr.hwndFrom) )
             {
                // For ANSI, we need to convert the BSTR to an ANSI string, and
                // then we no longer need the BSTR.
                webParams.nmhdr.idFrom =
-                     WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) strType, -1,
-                     0, 0, 0, 0 );
+                     WideCharToMultiByte(CP_ACP, 0, ( WCHAR * ) strType, -1,
+                     0, 0, 0, 0);
                if( ( webParams.eventStr =
                            GlobalAlloc(GMEM_FIXED,
                                  sizeof( char ) *
                                  webParams.nmhdr.idFrom) ) == NULL )
                   goto bad;
-               WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) strType, -1,
+               WideCharToMultiByte(CP_ACP, 0, ( WCHAR * ) strType, -1,
                      ( char * ) webParams.eventStr, webParams.nmhdr.idFrom, 0,
-                     0 );
+                     0);
              freestr:SysFreeString( strType );
                strType = 0;
             }
@@ -1548,14 +1548,14 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
          // Send a WM_NOTIFY message to the window with the _IDispatchEx as
          // WPARAM, and the WEBPARAMS as LPARAM.
          webParams.nmhdr.idFrom = 0;
-         SendMessage( webParams.nmhdr.hwndFrom, WM_NOTIFY, ( WPARAM ) This,
-               ( LPARAM ) & webParams );
+         SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, ( WPARAM ) This,
+               ( LPARAM ) & webParams);
 
          // Free anything allocated or gotten above
        bad:if( strType )
             SysFreeString( strType );
          else if( webParams.eventStr && ( ( _IDispatchEx * ) This )->id >= 0 )
-            GlobalFree( ( void * ) webParams.eventStr );
+            GlobalFree(( void * ) webParams.eventStr);
 
          // If this was the "beforeunload" event, detach this IDispatch from
          // that event for its web page element. This should also cause the
@@ -1565,7 +1565,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke( IDispatch * This,
       }
 
       // Release the IHTMLEventObj.
-      webParams.htmlEvent->lpVtbl->Release( webParams.htmlEvent );
+      webParams.htmlEvent->lpVtbl->Release(webParams.htmlEvent);
    }
 
    return ( S_OK );
@@ -1664,9 +1664,9 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
          // our IDispatch's Invoke() is called when the browser fires off this event.
          // We need to get the IHTMLWindow3 object (so we can call its
          // attachEvent() and pass it our IDispatch wrapped in a VARIANT).
-         if( !htmlWindow2->lpVtbl->QueryInterface( htmlWindow2,
+         if( !htmlWindow2->lpVtbl->QueryInterface(htmlWindow2,
                      ( GUID * ) & _IID_IHTMLWindow3[0],
-                     ( void ** ) &htmlWindow3 ) && htmlWindow3 )
+                     ( void ** ) &htmlWindow3) && htmlWindow3 )
          {
             varDisp.DEF_VT = VT_DISPATCH;
             varDisp.DEF_PDISPVAL = ( IDispatch * ) lpDispatchEx;
@@ -1697,7 +1697,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
                }
 #endif
                // Release() the IHTMLWindow3 object now that we called its attachEvent().
-               htmlWindow3->lpVtbl->Release( htmlWindow3 );
+               htmlWindow3->lpVtbl->Release(htmlWindow3);
 
                // Return the IDispatch, so the app can use it to attach some
                // other events to the same element on the web page.
@@ -1709,19 +1709,19 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
             }
 
             // An error. Free all stuff above.
-          bad:htmlWindow3->lpVtbl->Release( htmlWindow3 );
+          bad:htmlWindow3->lpVtbl->Release(htmlWindow3);
          }
 
-         GlobalFree( ( ( char * ) lpDispatchEx - lpDispatchEx->extraSize ) );
+         GlobalFree(( ( char * ) lpDispatchEx - lpDispatchEx->extraSize ));
       }
 
-      htmlWindow2->lpVtbl->Release( htmlWindow2 );
+      htmlWindow2->lpVtbl->Release(htmlWindow2);
    }
 
    // Release whatever the app passed, so it doesn't need to do that in case
    // of an error.
    if( obj )
-      obj->lpVtbl->Release( obj );
+      obj->lpVtbl->Release(obj);
 
    // FAILURE.
    return (0);
@@ -1773,7 +1773,7 @@ IHTMLElement *WINAPI GetWebSrcElement( IHTMLEventObj * htmlEvent )
  * to be cancelled.
  */
 
-HRESULT WINAPI SetWebReturnValue( IHTMLEventObj * htmlEvent, BOOL returnVal )
+HRESULT WINAPI SetWebReturnValue(IHTMLEventObj * htmlEvent, BOOL returnVal)
 {
    VARIANT varResult;
 
@@ -1784,7 +1784,7 @@ HRESULT WINAPI SetWebReturnValue( IHTMLEventObj * htmlEvent, BOOL returnVal )
    else
       varResult.DEF_BOOLVAL = ( VARIANT_BOOL ) 0;
 
-   return ( htmlEvent->lpVtbl->put_returnValue( htmlEvent, varResult ) );
+   return ( htmlEvent->lpVtbl->put_returnValue(htmlEvent, varResult) );
 }
 
 
@@ -1827,8 +1827,8 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
             // !(browserObject = *((IOleObject **)GetWindowLong(hwnd, GWL_USERDATA))) ||
             ( browserObject = *GetEmbedded(hwnd) ) == NULL ||
             // Get the IWebBrowser2 object embedded within the browser object
-            browserObject->lpVtbl->QueryInterface( browserObject,
-                  &IID_IWebBrowser2, ( void ** ) &webBrowser2 ) )
+            browserObject->lpVtbl->QueryInterface(browserObject,
+                  &IID_IWebBrowser2, ( void ** ) &webBrowser2) )
       {
          goto fail;
       }
@@ -1849,18 +1849,18 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
          if( lpDispatch )
          {
             // Get the IHTMLDocument2 object embedded within the IDispatch object
-            lpDispatch->lpVtbl->QueryInterface( lpDispatch,
-                  &IID_IHTMLDocument2, ( void ** ) htmlDoc2Result );
+            lpDispatch->lpVtbl->QueryInterface(lpDispatch,
+                  &IID_IHTMLDocument2, ( void ** ) htmlDoc2Result);
 
             // Release the IDispatch object now that we have the IHTMLDocument2
-            lpDispatch->lpVtbl->Release( lpDispatch );
+            lpDispatch->lpVtbl->Release(lpDispatch);
          }
 
          // If we failed to get IHTMLDocument2, then free the IWebBrowser2 and
          // return an error to the caller
          if( !( *htmlDoc2Result ) )
          {
-            webBrowser2->lpVtbl->Release( webBrowser2 );
+            webBrowser2->lpVtbl->Release(webBrowser2);
           fail:return ( E_FAIL );
          }
       }
@@ -1873,7 +1873,7 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
 
       // If he doesn't want it returned, we need to release it here
       else
-         webBrowser2->lpVtbl->Release( webBrowser2 );
+         webBrowser2->lpVtbl->Release(webBrowser2);
    }
 
    return ( S_OK );
@@ -1898,7 +1898,7 @@ BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
 {
    BSTR bstr;
 
-   if( !IsWindowUnicode( hwnd ) )
+   if( !IsWindowUnicode(hwnd) )
    {
       WCHAR *buffer;
       DWORD size;
@@ -1910,7 +1910,7 @@ BSTR WINAPI TStr2BStr( HWND hwnd, const char *string )
          return (0);
       MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, buffer, size );
       bstr = SysAllocString( buffer );
-      GlobalFree( buffer );
+      GlobalFree(buffer);
    }
    else
       bstr = SysAllocString( ( WCHAR * ) string );
@@ -1934,13 +1934,13 @@ void *WINAPI BStr2TStr( HWND hwnd, BSTR strIn )
    DWORD size;
    void *strOut;
 
-   if( !IsWindowUnicode( hwnd ) )
+   if( !IsWindowUnicode(hwnd) )
    {
-      size = WideCharToMultiByte( CP_ACP, 0,
-            ( WCHAR * ) ( ( char * ) strIn + 2 ), -1, 0, 0, 0, 0 );
+      size = WideCharToMultiByte(CP_ACP, 0,
+            ( WCHAR * ) ( ( char * ) strIn + 2 ), -1, 0, 0, 0, 0);
       if( ( strOut = GlobalAlloc(GMEM_FIXED, size) ) != NULL )
-         WideCharToMultiByte( CP_ACP, 0, ( WCHAR * ) ( ( char * ) strIn + 2 ),
-               -1, ( char * ) strOut, size, 0, 0 );
+         WideCharToMultiByte(CP_ACP, 0, ( WCHAR * ) ( ( char * ) strIn + 2 ),
+               -1, ( char * ) strOut, size, 0, 0);
    }
    else
    {
@@ -2026,17 +2026,17 @@ IHTMLElement *WINAPI GetWebElement( HWND hwnd, IHTMLDocument2 * htmlDoc2,
          }
 
          // Release the IHTMLElementCollection now that we're done with it.
-         htmlCollection->lpVtbl->Release( htmlCollection );
+         htmlCollection->lpVtbl->Release(htmlCollection);
 
          // Did we get the IDispatch for that element?
          if( lpDispatch )
          {
             // We can finally get the IHTMLElement object for the desired object
-            lpDispatch->lpVtbl->QueryInterface( lpDispatch, &IID_IHTMLElement,
-                  ( void ** ) &htmlElem );
+            lpDispatch->lpVtbl->QueryInterface(lpDispatch, &IID_IHTMLElement,
+                  ( void ** ) &htmlElem);
 
             // Release the IDispatch now that we got the IHTMLElement.
-            lpDispatch->lpVtbl->Release( lpDispatch );
+            lpDispatch->lpVtbl->Release(lpDispatch);
          }
       }
    }
@@ -2059,10 +2059,10 @@ static void doEvents( HWND hwnd )
 {
    MSG msg;
 
-   while( PeekMessage( &msg, hwnd, 0, 0, PM_REMOVE ) )
+   while( PeekMessage(&msg, hwnd, 0, 0, PM_REMOVE) )
    {
-      TranslateMessage( &msg );
-      DispatchMessage( &msg );
+      TranslateMessage(&msg);
+      DispatchMessage(&msg);
    }
 }
 
@@ -2088,8 +2088,8 @@ static void doEvents( HWND hwnd )
  * object could not be obtained from the window.
  */
 
-HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
-      IWebBrowser2 * webBrowser2 )
+HRESULT WINAPI WaitOnReadyState(HWND hwnd, READYSTATE rs, DWORD timeout,
+      IWebBrowser2 * webBrowser2)
 {
    READYSTATE rsi;
    DWORD dwStart;
@@ -2105,7 +2105,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
    }
 
    // Get the current ready state of the loading page
-   webBrowser2->lpVtbl->get_ReadyState( webBrowser2, &rsi );
+   webBrowser2->lpVtbl->get_ReadyState(webBrowser2, &rsi);
 
    // Is the current ready state at least as high as the caller needs?
    if( rsi >= rs )
@@ -2116,7 +2116,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
 
       // If we got the IWebBrowser2 ourselves above, release it now.
     out:if( releaseOnComplete )
-         webBrowser2->lpVtbl->Release( webBrowser2 );
+         webBrowser2->lpVtbl->Release(webBrowser2);
 
       return ( ( HRESULT ) rs );
    }
@@ -2143,7 +2143,7 @@ HRESULT WINAPI WaitOnReadyState( HWND hwnd, READYSTATE rs, DWORD timeout,
       }
 
       // Is the current ready state at least as high as the caller needs?
-      webBrowser2->lpVtbl->get_ReadyState( webBrowser2, &rsi );
+      webBrowser2->lpVtbl->get_ReadyState(webBrowser2, &rsi);
       if( rsi >= rs )
          goto yes;
 
@@ -2188,8 +2188,8 @@ void WINAPI UnEmbedBrowserObject( HWND hwnd )
    {
       // Unembed the browser object, and release its resources.
       browserObject = *browserHandle;
-      browserObject->lpVtbl->Close( browserObject, OLECLOSE_NOSAVE );
-      browserObject->lpVtbl->Release( browserObject );
+      browserObject->lpVtbl->Close(browserObject, OLECLOSE_NOSAVE);
+      browserObject->lpVtbl->Release(browserObject);
 
       // Zero out the pointer just in case UnEmbedBrowserObject is called
       // again for this window.
@@ -2255,8 +2255,8 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
       webBrowser2->lpVtbl->Navigate2( webBrowser2, &myURL, 0, 0, 0, 0 );
 
       // Wait for blank page to finish loading
-      if( WaitOnReadyState( hwnd, READYSTATE_COMPLETE, 1000,
-                  webBrowser2 ) != WORS_DESTROYED )
+      if( WaitOnReadyState(hwnd, READYSTATE_COMPLETE, 1000,
+                  webBrowser2) != WORS_DESTROYED )
       {
          SysFreeString( myURL.DEF_BSTRVAL );
 
@@ -2269,8 +2269,8 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
             // Our HTML must be in the form of a BSTR. And it must be passed
             // to write() in an array of "VARIENT" structs. So let's create all that.
             if( ( sfArray =
-                        SafeArrayCreate( VT_VARIANT, 1,
-                              ( SAFEARRAYBOUND * ) & ArrayBound ) ) != NULL )
+                        SafeArrayCreate(VT_VARIANT, 1,
+                              ( SAFEARRAYBOUND * ) & ArrayBound) ) != NULL )
             {
                if( !SafeArrayAccessData(sfArray, ( void ** ) &pVar) )
                {
@@ -2283,12 +2283,12 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
                      // Pass the VARIENT with its BSTR to write() in order to
                      // shove our desired HTML string into the body of that
                      // empty page we created above.
-                     htmlDoc2->lpVtbl->write( htmlDoc2, sfArray );
+                     htmlDoc2->lpVtbl->write(htmlDoc2, sfArray);
 
                      // Close the document. If we don't do this, subsequent
                      // calls to DisplayHTMLStr would append to the current
                      // contents of the page
-                     htmlDoc2->lpVtbl->close( htmlDoc2 );
+                     htmlDoc2->lpVtbl->close(htmlDoc2);
 
                      // Success. Just set this to something other than VT_BSTR
                      // to flag success
@@ -2307,14 +2307,14 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
             }
 
             // Release the IHTMLDocument2 object.
-            htmlDoc2->lpVtbl->Release( htmlDoc2 );
+            htmlDoc2->lpVtbl->Release(htmlDoc2);
          }
       }
       else
          SysFreeString( myURL.DEF_BSTRVAL );
 
       // Release the IWebBrowser2 object.
-      webBrowser2->lpVtbl->Release( webBrowser2 );
+      webBrowser2->lpVtbl->Release(webBrowser2);
    }
 
    // No error?
@@ -2341,9 +2341,9 @@ long WINAPI DisplayHTMLStr( HWND hwnd, const char *string )
  */
 
 #ifdef UNICODE
-long WINAPI DisplayHTMLPage( HWND hwnd, const WCHAR * webPageName )
+long WINAPI DisplayHTMLPage(HWND hwnd, const WCHAR * webPageName)
 #else
-long WINAPI DisplayHTMLPage( HWND hwnd, const char *webPageName )
+long WINAPI DisplayHTMLPage(HWND hwnd, const char *webPageName)
 #endif
 {
    IWebBrowser2 *webBrowser2;
@@ -2378,7 +2378,7 @@ long WINAPI DisplayHTMLPage( HWND hwnd, const char *webPageName )
       myURL.DEF_VT = VT_BSTR;
       if( ( myURL.DEF_BSTRVAL = TStr2BStr( hwnd, webPageName ) ) == NULL )
       {
-         webBrowser2->lpVtbl->Release( webBrowser2 );
+         webBrowser2->lpVtbl->Release(webBrowser2);
          return ( -6 );
       }
 
@@ -2391,7 +2391,7 @@ long WINAPI DisplayHTMLPage( HWND hwnd, const char *webPageName )
       // We no longer need the IWebBrowser2 object (ie, we don't plan to call
       // any more functions in it, so we can release our hold on it). Note that
       // we'll still maintain our hold on the browser object.
-      webBrowser2->lpVtbl->Release( webBrowser2 );
+      webBrowser2->lpVtbl->Release(webBrowser2);
 
       // Success
       return (0);
@@ -2450,7 +2450,7 @@ void WINAPI DoPageAction( HWND hwnd, DWORD action )
          case WEBPAGE_GOHOME:
          {
             // Call the IWebBrowser2 object's GoHome function.
-            webBrowser2->lpVtbl->GoHome( webBrowser2 );
+            webBrowser2->lpVtbl->GoHome(webBrowser2);
             break;
          }
 
@@ -2475,7 +2475,7 @@ void WINAPI DoPageAction( HWND hwnd, DWORD action )
       }
 
       // Release the IWebBrowser2 object.
-      webBrowser2->lpVtbl->Release( webBrowser2 );
+      webBrowser2->lpVtbl->Release(webBrowser2);
    }
 }
 
@@ -2511,7 +2511,7 @@ void WINAPI ResizeBrowser( HWND hwnd, DWORD width, DWORD height )
       // We no longer need the IWebBrowser2 object (ie, we don't plan to call
       // any more functions in it, so we can release our hold on it). Note
       // that we'll still maintain our hold on the browser object.
-      webBrowser2->lpVtbl->Release( webBrowser2 );
+      webBrowser2->lpVtbl->Release(webBrowser2);
    }
 }
 
@@ -2631,14 +2631,14 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
    // a pointer to it. That's how you use a VTable.
 
    // Get Internet Explorer's IWebBrowser2 object (ie, IE's main object)
-   if( !CoCreateInstance( &CLSID_WebBrowser, 0, CLSCTX_INPROC,
-               &IID_IWebBrowser2, ( void ** ) &webBrowser2 ) )
+   if( !CoCreateInstance(&CLSID_WebBrowser, 0, CLSCTX_INPROC,
+               &IID_IWebBrowser2, ( void ** ) &webBrowser2) )
    {
       browserObject = 0;
 
       // We need to get a pointer to IWebBrowser2's IOleObject child object
-      webBrowser2->lpVtbl->QueryInterface( webBrowser2, &IID_IOleObject,
-            ( void ** ) &browserObject );
+      webBrowser2->lpVtbl->QueryInterface(webBrowser2, &IID_IOleObject,
+            ( void ** ) &browserObject);
 
       // Ok, we now have the pointer to the IOleObject child object in
       // 'browserObject'. Let's save this in the memory block we allocated
@@ -2658,8 +2658,8 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
          // it's a IOleClientSite. It's ok. A _IOleClientSiteEx struct starts
          // with an embedded IOleClientSite. So the browser won't care, and we
          // want this extended struct passed to our IOleClientSite functions.
-         if( !browserObject->lpVtbl->SetClientSite( browserObject,
-                     ( IOleClientSite * ) _iOleClientSiteEx ) )
+         if( !browserObject->lpVtbl->SetClientSite(browserObject,
+                     ( IOleClientSite * ) _iOleClientSiteEx) )
          {
             // Set the display area of our browser control the same as our
             // window's size and actually put the browser object into our window.
@@ -2684,29 +2684,29 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
                // to call any more functions in it right now, so we can release
                // our hold on it). Note that we'll still maintain our hold on
                // the browser IOleObject until we're done with that object.
-               webBrowser2->lpVtbl->Release( webBrowser2 );
+               webBrowser2->lpVtbl->Release(webBrowser2);
 
                // Success
                return (0);
             }
          }
 
-         webBrowser2->lpVtbl->Release( webBrowser2 );
+         webBrowser2->lpVtbl->Release(webBrowser2);
 
          // Something went wrong setting up the browser!
          UnEmbedBrowserObject( hwnd );
          return ( -4 );
       }
 
-      webBrowser2->lpVtbl->Release( webBrowser2 );
+      webBrowser2->lpVtbl->Release(webBrowser2);
 
-      GlobalFree( ptr );
+      GlobalFree(ptr);
 
       // Can't create an instance of the browser!
       return ( -3 );
    }
 
-   GlobalFree( ptr );
+   GlobalFree(ptr);
 
    // Can't get the web browser's IWebBrowser2!
    return ( -2 );

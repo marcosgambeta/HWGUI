@@ -70,9 +70,9 @@ HB_FUNC( HWG_INITIPADDRESS )
          hb_parni(3),
          hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
          ( HWND ) HB_PARHANDLE(1), ( HMENU ) hb_parni(2),
-         GetModuleHandle( NULL ), NULL );
+         GetModuleHandle(NULL), NULL );
 
-   HB_RETHANDLE( hIpAddress );
+   HB_RETHANDLE(hIpAddress);
 }
 
 HB_FUNC( HWG_SETIPADDRESS )
@@ -84,8 +84,8 @@ HB_FUNC( HWG_SETIPADDRESS )
    v3 = ( BYTE ) hb_parni(4);
    v4 = ( BYTE ) hb_parni(5);
 
-   SendMessage( ( HWND ) HB_PARHANDLE(1), IPM_SETADDRESS, 0,
-         MAKEIPADDRESS( v1, v2, v3, v4 ) );
+   SendMessage(( HWND ) HB_PARHANDLE(1), IPM_SETADDRESS, 0,
+         MAKEIPADDRESS( v1, v2, v3, v4 ));
 }
 
 HB_FUNC( HWG_GETIPADDRESS )
@@ -93,8 +93,8 @@ HB_FUNC( HWG_GETIPADDRESS )
    DWORD pdwAddr;
    BYTE v1, v2, v3, v4;
 
-   SendMessage( ( HWND ) HB_PARHANDLE(1), IPM_GETADDRESS, 0,
-         ( LPARAM ) ( LPDWORD ) & pdwAddr );
+   SendMessage(( HWND ) HB_PARHANDLE(1), IPM_GETADDRESS, 0,
+         ( LPARAM ) ( LPDWORD ) & pdwAddr);
 
    v1 = ( BYTE ) FIRST_IPADDRESS( pdwAddr );
    v2 = ( BYTE ) SECOND_IPADDRESS( pdwAddr );
@@ -110,5 +110,5 @@ HB_FUNC( HWG_GETIPADDRESS )
 
 HB_FUNC( HWG_CLEARIPADDRESS )
 {
-   SendMessage( ( HWND ) HB_PARHANDLE(1), IPM_CLEARADDRESS, 0, 0 );
+   SendMessage(( HWND ) HB_PARHANDLE(1), IPM_CLEARADDRESS, 0, 0);
 }

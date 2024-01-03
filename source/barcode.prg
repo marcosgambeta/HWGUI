@@ -145,7 +145,7 @@ CLASS Barcode
    METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
                nColText, nColPane, lHorz, lTransparent, nPinWidth ) CONSTRUCTOR
    METHOD ShowBarcode()
-   METHOD CreateBarcode( cCode )
+   METHOD CreateBarcode(cCode)
    METHOD InitCode39( lCheck )
    METHOD InitCode128( cMode )
    METHOD InitEAN13()
@@ -244,10 +244,10 @@ METHOD ShowBarcode() CLASS BarCode
       cCode := ::InitCode39( .T. )
    ENDCASE
 
-   ::CreateBarcode( cCode )
+   ::CreateBarcode(cCode)
 
    IF ::nBCodeType = 7 .OR. ::nBCodeType = 9
-      ::CreateBarcode( cCode2 )
+      ::CreateBarcode(cCode2)
    ENDIF
 
    RETURN ( NIL )
@@ -257,7 +257,7 @@ METHOD ShowBarcode() CLASS BarCode
 *         Name: CreateBarcode
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD CreateBarcode( cCode ) CLASS BarCode
+METHOD CreateBarcode(cCode) CLASS BarCode
 
    LOCAL i, hPen, hOldPen, hBrush, hOldBrush
 
@@ -270,9 +270,9 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
    IF ::lTransparent = .F. .AND. ::nColPane <> hwg_Rgb(255, 255, 255)
 
       IF ::lHorizontal = .F.
-         RICH_Rectangle( ::hDC, nX, nY, nX + ::nHeight, nY + Min( Len( cCode ) * ::nPinWidth, ::nWidth ) )
+         RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, nY + Min( Len( cCode ) * ::nPinWidth, ::nWidth ))
       ELSE
-         RICH_Rectangle( ::hDC, nX, nY, nX +  Min( Len( cCode ) * ::nPinWidth, ::nWidth ), nY +  ::nHeight )
+         RICH_Rectangle(::hDC, nX, nY, nX +  Min( Len( cCode ) * ::nPinWidth, ::nWidth ), nY +  ::nHeight)
       ENDIF
 
    ENDIF
@@ -288,11 +288,11 @@ METHOD CreateBarcode( cCode ) CLASS BarCode
 
       IF SubStr( cCode, i, 1 ) = "1"
          IF ::lHorizontal = .F.
-            RICH_Rectangle( ::hDC, nX, nY, nX + ::nHeight, ( nY += ::nPinWidth ) )
-        *RICH_Rectangle( ::hDC, nX, nY, nX + ::nWidth, ( nY += ::nPinWidth ) )
+            RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, ( nY += ::nPinWidth ))
+        *RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, ( nY += ::nPinWidth ))
          ELSE
-           *RICH_Rectangle( ::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nWidth )
-            RICH_Rectangle( ::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nHeight )
+           *RICH_Rectangle(::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nWidth)
+            RICH_Rectangle(::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nHeight)
          ENDIF
       ELSE
          IF ::lHorizontal = .F.
@@ -428,13 +428,13 @@ METHOD InitCode128( cMode ) CLASS BarCode
    LOCAL nCount := 0
 
    // Errors
-   IF ValType( cCode ) <> "C"
+   IF ValType(cCode) <> "C"
       hwg_Msginfo( "Barcode Code 128 requires a character value." )
       RETURN NIL
    ENDIF
 
    IF .NOT. Empty( cMode )
-      IF ValType( cMode ) = "C" .AND. Upper( cMode ) $ "ABC"
+      IF ValType(cMode) = "C" .AND. Upper( cMode ) $ "ABC"
          cMode := Upper( cMode )
       ELSE
          hwg_Msginfo( "Code 128 modes are A,B o C. Character values." )
@@ -519,8 +519,8 @@ METHOD InitCode128( cMode ) CLASS BarCode
    cBarra := ""
 
    FOR n := 1 TO Len( cTemp ) STEP 2
-      cBarra += Replicate( '1', Val( SubStr( cTemp, n, 1 ) ) )
-      cBarra += Replicate( '0', Val( SubStr( cTemp, n + 1, 1 ) ) )
+      cBarra += Replicate('1', Val( SubStr( cTemp, n, 1 ) ))
+      cBarra += Replicate('0', Val( SubStr( cTemp, n + 1, 1 ) ))
    NEXT
 
    RETURN ( cBarra )
@@ -667,7 +667,7 @@ METHOD InitE13BL( nLen ) CLASS BarCode
 
    nLen := Int( nLen / 2 )
 
-   RETURN "101" + Replicate( "0", nLen * 7 ) + "01010" + Replicate( "0", nLen * 7 ) + "101"
+   RETURN "101" + Replicate("0", nLen * 7) + "01010" + Replicate("0", nLen * 7) + "101"
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -895,7 +895,7 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
 
 HB_FUNC_STATIC( RICH_RECTANGLE )
 {
-   hb_retl( Rectangle( (HDC) HB_PARHANDLE(1),
+   hb_retl( Rectangle((HDC) HB_PARHANDLE(1),
                        hb_parni(2)      ,
                        hb_parni(3)      ,
                        hb_parni(4)      ,
@@ -906,23 +906,23 @@ HB_FUNC_STATIC( RICH_RECTANGLE )
 
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE( CreatePen( hb_parni(1),   // pen style
+   HB_RETHANDLE(CreatePen( hb_parni(1),   // pen style
                             hb_parni(2),   // pen width
                             (COLORREF) hb_parnl(3)    // pen color
-                           ) );
+                           ));
 }
 
 
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE( SelectObject( (HDC) HB_PARHANDLE(1), (HGDIOBJ) HB_PARHANDLE(2) ) ) ;
+   HB_RETHANDLE(SelectObject( (HDC) HB_PARHANDLE(1), (HGDIOBJ) HB_PARHANDLE(2) )) ;
 }
 
 
 
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE( CreateSolidBrush( (COLORREF) hb_parnl(1) ) ) ;    // brush color
+   HB_RETHANDLE(CreateSolidBrush( (COLORREF) hb_parnl(1) )) ;    // brush color
 }
 
 #pragma ENDDUMP

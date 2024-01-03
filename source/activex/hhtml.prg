@@ -24,10 +24,10 @@ CLASS HHtml // INHERIT HControl
    DATA handle  INIT 0
 
    METHOD New( oParent )
-   METHOD DisplayPage( cUrl )   INLINE hwgax_DisplayHtmlPage( ::oParent:handle, cUrl )
+   METHOD DisplayPage(cUrl)   INLINE hwgax_DisplayHtmlPage(::oParent:handle, cUrl)
    METHOD DisplayText( cText )  INLINE hwgax_DisplayHtmlStr( ::oParent:handle, cText )
    METHOD Activate()
-   METHOD Resize( width, height )
+   METHOD Resize(width, height)
    METHOD GoBack()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOBACK )
    METHOD GoForward()  INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOFORWARD )
    METHOD GoHome()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOHOME )
@@ -60,7 +60,7 @@ METHOD Activate CLASS HHtml
    ENDIF
 Return Nil
 
-METHOD Resize( width, height ) CLASS HHtml
+METHOD Resize(width, height) CLASS HHtml
 
    // writelog( str(width)+" "+str(height) +" / " + str(::oParent:nwidth)+" "+str(::oParent:nheight) )
    hwgax_ResizeBrowser(::oParent:handle, width, height )

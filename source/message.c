@@ -21,8 +21,8 @@ static int s_msgbox( UINT uType )
                          HB_PARSTR( 1, &hText, NULL ),
                          HB_PARSTRDEF( 2, &hTitle, NULL ),
                          uType );
-   hb_strfree( hText );
-   hb_strfree( hTitle );
+   hb_strfree(hText);
+   hb_strfree(hTitle);
 
    return iResult;
 }

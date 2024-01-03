@@ -18,22 +18,22 @@ CLASS HSplash
    DATA oTimer
    DATA oDlg
 
-   METHOD Create( cFile, oTime, oResource, nWidth, nHeight, nStyle ) CONSTRUCTOR
+   METHOD Create(cFile, oTime, oResource, nWidth, nHeight, nStyle) CONSTRUCTOR
    METHOD CountSeconds( oTime, oDlg )
    METHOD Release() INLINE ::oDlg:Close()
 
 ENDCLASS
 
-METHOD Create( cFile, oTime, oResource, nWidth, nHeight, nStyle ) CLASS HSplash
+METHOD Create(cFile, oTime, oResource, nWidth, nHeight, nStyle) CLASS HSplash
    LOCAL aWidth, aHeigth
    LOCAL bitmap
 
    IIf( Empty( oTime ) .OR. oTime == NIL, oTime := 2000, oTime := oTime )
 
    IF oResource == NIL .OR. !oResource
-      bitmap  := HBitmap():AddFile( cFile,,, nWidth, nHeight )
+      bitmap  := HBitmap():AddFile(cFile,,, nWidth, nHeight)
    ELSE
-      bitmap  := HBitmap():AddResource( cFile,,, nWidth, nHeight )
+      bitmap  := HBitmap():AddResource(cFile,,, nWidth, nHeight)
    ENDIF
 
    aWidth := IIF( nWidth = NIL, bitmap:nWidth, nWidth )
@@ -51,7 +51,7 @@ METHOD Create( cFile, oTime, oResource, nWidth, nHeight, nStyle ) CLASS HSplash
       @ 0, 0 BITMAP Bitmap SHOW cFile STRETCH 0 SIZE nWidth, nHeight STYLE nStyle
    ENDIF
 
-   ::oDlg:Activate( otime < 0 )
+   ::oDlg:Activate(otime < 0)
    ::oTimer:END()
 
    RETURN Self

@@ -49,8 +49,8 @@ CLASS HRichEdit INHERIT HControl
    METHOD onChange()
    METHOD ReadOnly( lreadOnly ) SETGET
    METHOD SetColor( tColor, bColor, lRedraw )
-   METHOD Savefile( cFile )
-   METHOD OpenFile( cFile )
+   METHOD Savefile(cFile)
+   METHOD OpenFile(cFile)
    METHOD Print()
 
 ENDCLASS
@@ -103,7 +103,7 @@ METHOD Init()  CLASS HRichEdit
       ::Super:Init()
       ::SetColor( ::tColor, ::bColor )
       IF ::bChange != Nil
-         hwg_Sendmessage( ::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE )
+         hwg_Sendmessage(::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE)
          ::oParent:AddEvent( EN_CHANGE, ::id, {| | ::onChange()} )
       ENDIF
    ENDIF
@@ -125,7 +125,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ENDIF
    IF msg = WM_SETFOCUS .AND. ::lSetFocus //.AND. hwg_Iswindowvisible(::handle)
       ::lSetFocus := .F.
-      hwg_Postmessage( ::handle, EM_SETSEL, 0, 0 )
+      hwg_Postmessage(::handle, EM_SETSEL, 0, 0)
    ELSEIF msg = WM_SETFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
         ::lctrltab := hwg_GetParentForm( Self ):lDisableCtrlTab
         hwg_GetParentForm( Self ):lDisableCtrlTab := ::lAllowTabs
@@ -146,7 +146,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       ENDIF
    ELSEIF ::bOther != Nil
       nret := Eval( ::bOther, Self, msg, wParam, lParam )
-      IF ValType( nret ) != "N" .OR. nret > - 1
+      IF ValType(nret) != "N" .OR. nret > - 1
          RETURN nret
       ENDIF
    ENDIF
@@ -169,7 +169,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       ENDIF
       IF wParam == VK_ESCAPE .AND. hwg_GetParentForm( Self ):Handle != ::oParent:handle
          IF hwg_Getparent(::oParent:handle) != Nil
-            //hwg_Sendmessage( hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0 )
+            //hwg_Sendmessage(hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0)
          ENDIF
          RETURN 0
       ENDIF
@@ -178,8 +178,8 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       IF nDelta > 32768
          nDelta -= 65535
       ENDIF
-      hwg_Sendmessage( ::handle, EM_SCROLL, IIf( nDelta > 0, SB_LINEUP, SB_LINEDOWN ), 0 )
-//      hwg_Sendmessage( ::handle, EM_SCROLL, Iif(nDelta>0, SB_LINEUP, SB_LINEDOWN), 0 )
+      hwg_Sendmessage(::handle, EM_SCROLL, IIf( nDelta > 0, SB_LINEUP, SB_LINEDOWN ), 0)
+//      hwg_Sendmessage(::handle, EM_SCROLL, Iif(nDelta>0, SB_LINEUP, SB_LINEDOWN), 0)
    ELSEIF msg == WM_DESTROY
       ::END()
    ENDIF
@@ -192,7 +192,7 @@ METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
       hwg_Re_setdefault( ::handle, tColor ) //, ID_FONT,, ) // cor e fonte padrao
    ENDIF
    IF bColor != NIL
-      hwg_Sendmessage( ::Handle, EM_SETBKGNDCOLOR, 0, bColor )  // cor de fundo
+      hwg_Sendmessage(::Handle, EM_SETBKGNDCOLOR, 0, bColor)  // cor de fundo
    ENDIF
    ::super:SetColor( tColor, bColor, lRedraw )
 
@@ -201,22 +201,22 @@ METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
 METHOD ReadOnly( lreadOnly )
 
    IF lreadOnly != Nil
-      IF !EMPTY( hwg_Sendmessage( ::handle, EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0 ) )
+      IF !EMPTY( hwg_Sendmessage(::handle, EM_SETREADONLY, IIF( lReadOnly, 1, 0 ), 0) )
           ::lReadOnly := lReadOnly
       ENDIF
    ENDIF
    RETURN ::lReadOnly
 
 METHOD UpdatePos() CLASS HRichEdit
-    LOCAL npos := hwg_Sendmessage( ::handle, EM_GETSEL, 0, 0 )
+    LOCAL npos := hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)
    LOCAL pos1 := hwg_Loword(npos) + 1, pos2 := hwg_Hiword(npos) + 1
 
-    ::Line := hwg_Sendmessage( ::Handle, EM_LINEFROMCHAR, pos1 - 1, 0 ) + 1
-    ::LinesTotal := hwg_Sendmessage( ::handle, EM_GETLINECOUNT, 0, 0 )
-    ::SelText := hwg_Re_gettextrange( ::handle, pos1, pos2 )
+    ::Line := hwg_Sendmessage(::Handle, EM_LINEFROMCHAR, pos1 - 1, 0) + 1
+    ::LinesTotal := hwg_Sendmessage(::handle, EM_GETLINECOUNT, 0, 0)
+    ::SelText := hwg_Re_gettextrange(::handle, pos1, pos2)
     ::SelStart := pos1
     ::SelLength := pos2 - pos1
-   ::Col := pos1 - hwg_Sendmessage( ::Handle, EM_LINEINDEX, - 1, 0 )
+   ::Col := pos1 - hwg_Sendmessage(::Handle, EM_LINEINDEX, - 1, 0)
 
    RETURN nPos
 
@@ -260,7 +260,7 @@ METHOD Valid() CLASS HRichEdit
 
   RETURN .T.
 
-METHOD Savefile( cFile )  CLASS HRichEdit
+METHOD Savefile(cFile)  CLASS HRichEdit
 
    IF !EMPTY( cFile )
       IF !EMPTY( hwg_Saverichedit( ::Handle, cFile ) )
@@ -269,7 +269,7 @@ METHOD Savefile( cFile )  CLASS HRichEdit
    ENDIF
    RETURN .F.
 
-METHOD OpenFile( cFile )  CLASS HRichEdit
+METHOD OpenFile(cFile)  CLASS HRichEdit
 
    IF !EMPTY( cFile )
       IF !EMPTY( hwg_Loadrichedit( ::Handle, cFile ) )

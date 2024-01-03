@@ -56,7 +56,7 @@
 FUNCTION RDINI( fname, prm1, prm2, prm3, prm4 )
 
 LOCAL han, stroka, strfull, kolstr, poz1, vname, prblo, lTruncAr
-LOCAL lWinIni  := ( VALTYPE( prm1 ) == "A" )
+LOCAL lWinIni  := ( VALTYPE(prm1) == "A" )
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
 
@@ -110,7 +110,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                IF lWinIni
                   AADD(prm1[ LEN( prm1 ), 2 ], { UPPER( vname ), stroka })
                ELSE
-                  IF TYPE( vname ) = "U"
+                  IF TYPE(vname) = "U"
                      IF ASC(stroka) = 123                 // {
                         IF ASC(vname) = 35                // #
                            vname := SUBSTR( vname, 2 )
@@ -128,7 +128,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                      ENDIF
                   ELSE
                      IF lTruncAr .AND. ASC(stroka) = 123 .AND. LEN( &vname ) > 0
-                        ASIZE( &vname, 0 )
+                        ASIZE(&vname, 0)
                      ENDIF
                   ENDIF
                   DO CASE
@@ -146,7 +146,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
             //
          ENDIF
       ENDDO
-      FCLOSE( han )
+      FCLOSE(han)
    ELSE
       RETURN 0
    ENDIF

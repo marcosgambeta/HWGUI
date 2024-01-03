@@ -53,7 +53,7 @@ CLASS PrintDos
 
    METHOD SetCols( nPRow, nPCol )
 
-   METHOD gWrite( oText )
+   METHOD gWrite(oText)
 
    METHOD NewLine()
 
@@ -74,7 +74,7 @@ CLASS PrintDos
 
    METHOD SetPrc(x, y)
 
-   METHOD PrinterFile( fName )
+   METHOD PrinterFile(fName)
 
    METHOD TxttoGraphic(fName, osize, oPreview)
 
@@ -148,7 +148,7 @@ METHOD New( oPorta ) CLASS PrintDos
       ::gText := ""
    ELSE
       // tracelog([          ::gText:=fCreate(::oPorta)])
-      ::gText := FCreate( ::oPorta )
+      ::gText := FCreate(::oPorta)
       //tracelog([depois           ::gText:=fCreate(::oPorta)],::gtext)
       IF ::gText < 0
          ::LastError := FError()
@@ -206,7 +206,7 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
    RETURN Nil
 
 
-METHOD gWrite( oText )  CLASS PrintDos
+METHOD gWrite(oText)  CLASS PrintDos
 
    //tracelog(otext)
    IF ::oAns2Oem
@@ -223,14 +223,14 @@ METHOD gWrite( oText )  CLASS PrintDos
 METHOD Eject()   CLASS PrintDos
 //tracelog( ::gText, ::oText )
 
-   FWrite( ::gText, ::oText )
+   FWrite(::gText, ::oText)
 
    IF ::oAns2Oem
-      FWrite( ::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) ) )
-      FWrite( ::gText, HB_ANSITOOEM( Chr(13) + Chr(10) ) )
+      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) ))
+      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) ))
    ELSE
-      FWrite( ::gText, Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) )
-      FWrite( ::gText, Chr(13) + Chr(10) )
+      FWrite(::gText, Chr(13) + Chr(10) + Chr( Val( ::cEject ) ))
+      FWrite(::gText, Chr(13) + Chr(10))
    ENDIF
 
    ::oText := ""
@@ -284,7 +284,7 @@ METHOD NewLine() CLASS PrintDos
 
 METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
-   IF ValType( oTexto ) == "N"
+   IF ValType(oTexto) == "N"
 
       IF !Empty( oPicture ) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
@@ -292,7 +292,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
          oTexto := Str( oTexto )
       ENDIF
 
-   ELSEIF ValType( oTexto ) == "D"
+   ELSEIF ValType(oTexto) == "D"
       oTexto := DToC(oTexto)
    ELSE
       IF !Empty( oPicture ) .OR. oPicture # Nil
@@ -302,7 +302,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    //tracelog([antes     ::SetCols(oProw, oPcol)])
    ::SetCols( oProw, oPcol )
    //tracelog([depois de ::SetCols(oProw, oPcol) e  antes         ::gWrite(oTexto))])
-   ::gWrite( oTexto )
+   ::gWrite(oTexto)
 
    RETURN Nil
 
@@ -324,7 +324,7 @@ METHOD SetCols( nProw, nPcol ) CLASS PrintDos
    ENDIF
 
    IF nPcol > ::nPcol
-      ::gWrite( Space( nPcol - ::nPcol ) )
+      ::gWrite(Space(nPcol - ::nPcol))
    ENDIF
 
    RETURN Nil
@@ -336,16 +336,16 @@ METHOD SetPrc(x, y) CLASS PrintDos
 
 METHOD END() CLASS PrintDos
 
-   FWrite( ::gText, ::oText )
-   FClose( ::gText )
+   FWrite(::gText, ::oText)
+   FClose(::gText)
 
    RETURN Nil
 
-METHOD PrinterFile( fname ) CLASS PrintDos
-   LOCAL strbuf := Space( PF_BUFFERS )
+METHOD PrinterFile(fname) CLASS PrintDos
+   LOCAL strbuf := Space(PF_BUFFERS)
    LOCAL han, nRead
 
-   IF !File( fname )
+   IF !File(fname)
       hwg_Msgstop( "Error open file " + fname, "Error" )
       RETURN .F.
    ENDIF
@@ -362,9 +362,9 @@ METHOD PrinterFile( fname ) CLASS PrintDos
             EXIT
          ENDIF
 
-         IF FWrite( ::gText, Left( strbuf, nRead ) ) < nRead
+         IF FWrite(::gText, Left( strbuf, nRead )) < nRead
             ::ErrosAnt := FError()
-            FClose( han )
+            FClose(han)
             RETURN .F.
          ENDIF
 
@@ -373,7 +373,7 @@ METHOD PrinterFile( fname ) CLASS PrintDos
    ELSE
 
       hwg_Msgstop( "Can't Open port" )
-      FClose( han )
+      FClose(han)
 
    ENDIF
 
@@ -394,7 +394,7 @@ FUNCTION hwg_wSetPrc(x, y, oPrinter)
 
 METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
-   LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
+   LOCAL strbuf := Space(2052), poz := 2052, stroka
    LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
    LOCAL oCol := 0 //Added by  Por Fernando Athayde
    LOCAL oPrinter
@@ -434,7 +434,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
          ENDIF
 
       ENDDO
-      FClose( han )
+      FClose(han)
    ELSE
       hwg_Msgstop( "Can't open " + fName )
       RETURN .F.
@@ -449,7 +449,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
 METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL oedit1
-   LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
+   LOCAL strbuf := Space(2052), poz := 2052, stroka
    LOCAL han := FOpen( fName, FO_READ + FO_SHARED )
    LOCAL oPage := 1, nPage := 1
    LOCAL oFont := HFont():Add("Courier New", 0, - 13)
@@ -474,7 +474,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
             ++ oPage
          ENDIF
       ENDDO
-      FClose( han )
+      FClose(han)
    ELSE
       hwg_Msgstop( "Can't open " + fName )
       RETURN .F.
@@ -493,7 +493,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    IIf( cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle )
 
    INIT DIALOG oDlg TITLE cTitle ;
-        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage( oedit1:handle, WM_VSCROLL, SB_TOP, 0 ) }
+        At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage(oedit1:handle, WM_VSCROLL, SB_TOP, 0) }
 
 
 
@@ -522,11 +522,11 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 
 STATIC FUNCTION PrintDosPrint( oText, oPrt )
    LOCAL i
-   LOCAL nText := FCreate( oPrt )
+   LOCAL nText := FCreate(oPrt)
    FOR i := 1 TO Len( oText )
-      FWrite( nText, oText[ i ] )
+      FWrite(nText, oText[ i ])
    NEXT
-   FClose( nText )
+   FClose(nText)
    RETURN Nil
 
 
@@ -552,7 +552,7 @@ STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
    hwg_Setdlgitemtext( oDlg, 1001, oText[ nPage ] )
    RETURN nPage
 
-FUNCTION hwg_regenfile( o, new )
+FUNCTION hwg_regenfile(o, new)
 
    LOCAL aText := AFillText( o )
    LOCAL stroka
@@ -585,7 +585,7 @@ FUNCTION hwg_regenfile( o, new )
 /*
    txtfile.c
    AFILLTEXT( cFile ) -> aArray
-   NTXTLINE( cFile )  -> nLines
+   NTXTLINE(cFile)  -> nLines
 */
 
 #include "guilib.h"
@@ -668,10 +668,10 @@ HB_FUNC( AFILLTEXT )
       hb_arrayAddForward(pArray, hb_itemPutC(pTemp, string));
    }
 
-   hb_itemRelease( hb_itemReturn( pArray ) );
-   hb_itemRelease( pTemp );
-   hb_xfree( string );
-   fclose( inFile );
+   hb_itemRelease(hb_itemReturn( pArray ));
+   hb_itemRelease(pTemp);
+   hb_xfree(string);
+   fclose(inFile);
 }
 
 #PRAGMA ENDDUMP

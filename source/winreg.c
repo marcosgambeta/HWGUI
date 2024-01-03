@@ -96,7 +96,7 @@ HB_FUNC( HWG_REGOPENKEYEX )
       hb_stornl( PtrToLong( phwHandle ), 5 );
       hb_retni(0);
    }
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 HB_FUNC( HWG_REGQUERYVALUEEX )
@@ -125,9 +125,9 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
          hb_retni(0);
       }
 
-      hb_xfree( lpData );
+      hb_xfree(lpData);
    }
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 
@@ -162,7 +162,7 @@ HB_FUNC( HWG_REGSETVALUEEX )
                             HB_PARSTRDEF( 2, &hValue, NULL ), 0,
                             hb_parnl(4), ( const BYTE * ) hb_parcx(5),
                             hb_parclen(5) + 1 ) );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 HB_FUNC( HWG_REGCREATEKEY )
@@ -178,7 +178,7 @@ HB_FUNC( HWG_REGCREATEKEY )
       hb_stornl( PtrToLong( hKey ), 3 );
    }
    hb_retnl( nErr );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 //-------------------------------------------------------
@@ -223,8 +223,8 @@ HB_FUNC( HWG_REGCREATEKEYEX )
       hb_stornl( ( LONG ) dwDisposition, 9 );
    }
    hb_retnl( nErr );
-   hb_strfree( hValue );
-   hb_strfree( hClass );
+   hb_strfree(hValue);
+   hb_strfree(hClass);
 }
 
 
@@ -234,7 +234,7 @@ HB_FUNC( HWG_REGDELETEKEY )
 
    hb_retni( RegDeleteKey( ( HKEY ) hb_parnl(1),
                HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1 );
-   hb_strfree( hValue );
+   hb_strfree(hValue);
 }
 
 //  For strange reasons this function is not working properly
@@ -244,7 +244,7 @@ HB_FUNC( HWG_REGDELETEVALUE )
 {
    void * hValue;
 
-   hb_retni( RegDeleteValue( ( HKEY ) hb_parnl(1),
-               HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1 );
-   hb_strfree( hValue );
+   hb_retni( RegDeleteValue(( HKEY ) hb_parnl(1),
+               HB_PARSTRDEF( 2, &hValue, NULL )) == ERROR_SUCCESS ? 0 : -1 );
+   hb_strfree(hValue);
 }

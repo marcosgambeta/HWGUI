@@ -56,14 +56,14 @@ HB_FUNC( HWG_CREATERICHEDIT )
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          ( HWND ) HB_PARHANDLE(1),    /* parent window    */
          ( HMENU ) hb_parni(2),       /* control ID  */
-         GetModuleHandle( NULL ), NULL );
+         GetModuleHandle(NULL), NULL );
 
    lpText = HB_PARSTR( 8, &hText, NULL );
    if( lpText )
-      SendMessage( hCtrl, WM_SETTEXT, 0, ( LPARAM ) lpText );
-   hb_strfree( hText );
+      SendMessage(hCtrl, WM_SETTEXT, 0, ( LPARAM ) lpText);
+   hb_strfree(hText);
 
-   HB_RETHANDLE( hCtrl );
+   HB_RETHANDLE(hCtrl);
 }
 
 /*
@@ -77,8 +77,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
 
-   SendMessage( hCtrl, EM_EXGETSEL, 0, ( LPARAM ) & chrOld );
-   SendMessage( hCtrl, EM_HIDESELECTION, 1, 0 );
+   SendMessage(hCtrl, EM_EXGETSEL, 0, ( LPARAM ) & chrOld);
+   SendMessage(hCtrl, EM_HIDESELECTION, 1, 0);
 
    if( HB_ISARRAY(2) )
    {
@@ -92,17 +92,17 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          ulLen1 = hb_arrayLen( pArr1 );
          chrNew.cpMin = hb_arrayGetNL( pArr1, 1 ) - 1;
          chrNew.cpMax = hb_arrayGetNL( pArr1, 2 ) - 1;
-         SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew );
+         SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
 
          memset( &cf, 0, sizeof( CHARFORMAT2 ) );
          cf.cbSize = sizeof( CHARFORMAT2 );
-         if( hb_itemType( hb_arrayGetItemPtr( pArr1, 3 ) ) != HB_IT_NIL )
+         if( hb_itemType(hb_arrayGetItemPtr( pArr1, 3 )) != HB_IT_NIL )
          {
             cf.crTextColor = ( COLORREF ) hb_arrayGetNL( pArr1, 3 );
             cf.dwMask |= CFM_COLOR;
          }
          if( ulLen1 > 3 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 4 ) ) != HB_IT_NIL )
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 4 )) != HB_IT_NIL )
          {
             HB_ITEMCOPYSTR( hb_arrayGetItemPtr( pArr1, 4 ),
                             cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
@@ -110,37 +110,37 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
             cf.dwMask |= CFM_FACE;
          }
          if( ulLen1 > 4 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 5 ) ) != HB_IT_NIL )
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 5 )) != HB_IT_NIL )
          {
             cf.yHeight = hb_arrayGetNL( pArr1, 5 );
             cf.dwMask |= CFM_SIZE;
          }
          if( ulLen1 > 5 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 6 ) ) != HB_IT_NIL &&
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 6 )) != HB_IT_NIL &&
                hb_arrayGetL( pArr1, 6 ) )
          {
             cf.dwEffects |= CFE_BOLD;
          }
          if( ulLen1 > 6 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 7 ) ) != HB_IT_NIL &&
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 7 )) != HB_IT_NIL &&
                hb_arrayGetL( pArr1, 7 ) )
          {
             cf.dwEffects |= CFE_ITALIC;
          }
          if( ulLen1 > 7 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 8 ) ) != HB_IT_NIL &&
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 8 )) != HB_IT_NIL &&
                hb_arrayGetL( pArr1, 8 ) )
          {
             cf.dwEffects |= CFE_UNDERLINE;
          }
          if( ulLen1 > 8 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 9 ) ) != HB_IT_NIL )
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 9 )) != HB_IT_NIL )
          {
             cf.bCharSet = ( BYTE ) hb_arrayGetNL( pArr1, 9 );
             cf.dwMask |= CFM_CHARSET;
          }
          if( ulLen1 > 9 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 10 ) ) != HB_IT_NIL )
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 10 )) != HB_IT_NIL )
          {
             if( hb_arrayGetL( pArr1, 10 ) )
                cf.dwEffects |= CFE_SUPERSCRIPT;
@@ -149,15 +149,15 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
             cf.dwMask |= CFM_SUPERSCRIPT;
          }
          if( ulLen1 > 10 &&
-               hb_itemType( hb_arrayGetItemPtr( pArr1, 11 ) ) != HB_IT_NIL &&
+               hb_itemType(hb_arrayGetItemPtr( pArr1, 11 )) != HB_IT_NIL &&
                hb_arrayGetL( pArr1, 11 ) )
          {
             cf.dwEffects |= CFE_PROTECTED;
          }
          cf.dwMask |=
                ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_PROTECTED );
-         SendMessage( hCtrl, EM_SETCHARFORMAT, SCF_SELECTION,
-               ( LPARAM ) & cf );
+         SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION,
+               ( LPARAM ) & cf);
       }
    }
    else
@@ -165,7 +165,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       /*   Set new selection   */
       chrNew.cpMin = hb_parnl(2) - 1;
       chrNew.cpMax = hb_parnl(3) - 1;
-      SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew );
+      SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
 
       memset( &cf, 0, sizeof( CHARFORMAT2 ) );
       cf.cbSize = sizeof( CHARFORMAT2 );
@@ -221,12 +221,12 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.dwMask |= CFM_PROTECTED;
       }
 
-      SendMessage( hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) & cf );
+      SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) & cf);
    }
 
    /*   Restore selection   */
-   SendMessage( hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrOld );
-   SendMessage( hCtrl, EM_HIDESELECTION, 0, 0 );
+   SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrOld);
+   SendMessage(hCtrl, EM_HIDESELECTION, 0, 0);
 
 }
 
@@ -280,7 +280,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    }
 
    cf.dwMask |= ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE );
-   SendMessage( hCtrl, EM_SETCHARFORMAT, SCF_ALL, ( LPARAM ) & cf );
+   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, ( LPARAM ) & cf);
 
 
 }
@@ -298,12 +298,12 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
 
    pp.x = x;
    pp.y = y;
-   ul = SendMessage( hCtrl, EM_CHARFROMPOS, 0, ( LPARAM ) & pp );
+   ul = SendMessage(hCtrl, EM_CHARFROMPOS, 0, ( LPARAM ) & pp);
    hb_retnl( ul );
 }
 
 /*
- * re_GetTextRange( hEdit, n1, n2 )
+ * re_GetTextRange(hEdit, n1, n2)
  */
 HB_FUNC( HWG_RE_GETTEXTRANGE )
 {
@@ -316,35 +316,35 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
                                        sizeof( TCHAR ));
-   ul = SendMessage( hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr );
+   ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr);
    HB_RETSTRLEN( tr.lpstrText, ul );
-   hb_xfree( tr.lpstrText );
+   hb_xfree(tr.lpstrText);
 
 }
 
 /*
- * re_GetLine( hEdit, nLine )
+ * re_GetLine(hEdit, nLine)
  */
 HB_FUNC( HWG_RE_GETLINE )
 {
    HWND hCtrl = ( HWND ) HB_PARHANDLE(1);
    int nLine = hb_parni(2);
-   ULONG uLineIndex = SendMessage( hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0 );
-   ULONG ul = SendMessage( hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0 );
+   ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0);
+   ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0);
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab(( ul + 4 ) * sizeof( TCHAR ));
 
    *( ( ULONG * ) lpBuf ) = ul;
-   ul = SendMessage( hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf );
+   ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);
    HB_RETSTRLEN( lpBuf, ul );
-   hb_xfree( lpBuf );
+   hb_xfree(lpBuf);
 }
 
 HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void * hString;
-   SendMessage( ( HWND ) HB_PARHANDLE(1), EM_REPLACESEL, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hString, NULL ) );
-   hb_strfree( hString );
+   SendMessage(( HWND ) HB_PARHANDLE(1), EM_REPLACESEL, 0,
+                ( LPARAM ) HB_PARSTR( 2, &hString, NULL ));
+   hb_strfree(hString);
 }
 
 /*
@@ -364,9 +364,9 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR( 2, &hString, NULL );
 
-   lPos = ( LONG ) SendMessage( hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag,
-                                ( LPARAM ) & ft );
-   hb_strfree( hString );
+   lPos = ( LONG ) SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag,
+                                ( LPARAM ) & ft);
+   hb_strfree(hString);
    hb_retnl( lPos );
 }
 
@@ -432,9 +432,9 @@ HB_FUNC( HWG_PRINTRTF )
         fr.chrg.cpMin = cpMin;
         fSuccess = EndPage(hdc) > 0;
     }
-    SendMessage( hwnd, EM_FORMATRANGE, FALSE, 0);
-    SendMessage( hwnd, EM_EXSETSEL, 0, ( LPARAM ) &fr.chrg );
-    SendMessage( hwnd, EM_HIDESELECTION, 0, 0 );
+    SendMessage(hwnd, EM_FORMATRANGE, FALSE, 0);
+    SendMessage(hwnd, EM_EXSETSEL, 0, ( LPARAM ) &fr.chrg);
+    SendMessage(hwnd, EM_HIDESELECTION, 0, 0);
     hb_retnl( (BOOL) fSuccess);
 }
 
@@ -451,7 +451,7 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
    PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
 
    if( !pSym_onEvent )
-      pSym_onEvent = hb_dynsymFindName( "ONEVENT" );
+      pSym_onEvent = hb_dynsymFindName("ONEVENT");
 
    if( pSym_onEvent && pObject )
    {
@@ -482,7 +482,7 @@ static DWORD CALLBACK RichStreamOutCallback( DWORD dwCookie, LPBYTE pbBuff, LONG
    if ( pFile == INVALID_HANDLE_VALUE )
       return 0;
       
-   WriteFile( pFile, pbBuff, cb, &dwW,NULL );   
+   WriteFile(pFile, pbBuff, cb, &dwW, NULL);
    return 0;
 }
 
@@ -503,7 +503,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
    HB_SIZE nSize ;
    
    lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
-   hFile = CreateFile( lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL ) ;
+   hFile = CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
    if ( hFile == INVALID_HANDLE_VALUE )
    {
       hb_retni(0);
@@ -512,9 +512,9 @@ HB_FUNC( HWG_SAVERICHEDIT )
    es.dwCookie = ( DWORD ) hFile;
    es.pfnCallback = RichStreamOutCallback; 
 
-   SendMessage( hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, ( LPARAM )&es) ;
-   CloseHandle( hFile );
-   HB_RETHANDLE( hFile );
+   SendMessage(hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
+   CloseHandle(hFile);
+   HB_RETHANDLE(hFile);
   
 }
 
@@ -529,7 +529,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
    HB_SIZE nSize ;
    
    lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
-   hFile = CreateFile( lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+   hFile = CreateFile(lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
    if ( hFile == INVALID_HANDLE_VALUE )
    {
       hb_retni(0);
@@ -537,8 +537,8 @@ HB_FUNC( HWG_LOADRICHEDIT )
    }
    es.dwCookie = ( DWORD ) hFile;
    es.pfnCallback = EditStreamCallback; 
-   SendMessage( hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, ( LPARAM )&es) ;
-   CloseHandle( hFile );
-   HB_RETHANDLE( hFile );  
+   SendMessage(hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
+   CloseHandle(hFile);
+   HB_RETHANDLE(hFile);
 }
 

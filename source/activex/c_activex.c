@@ -91,7 +91,7 @@ HB_FUNC( HWG_CREATEACTIVEX )
          // GetModuleHandle(0),
          0, 0, NULL );
 
-   HB_RETHANDLE( hWndCtrl );
+   HB_RETHANDLE(hWndCtrl);
 
 }
 
@@ -102,9 +102,9 @@ HB_FUNC( HWG_ATLAXGETDISP )
    IDispatch *pDisp;
    _Ax_Init();
    AtlAxGetControl( ( HWND ) HB_PARHANDLE(1), &pUnk );
-   pUnk->lpVtbl->QueryInterface( pUnk, &IID_IDispatch, ( void ** ) &pDisp );
-   pUnk->lpVtbl->Release( pUnk );
-   HB_RETHANDLE( pDisp );
+   pUnk->lpVtbl->QueryInterface(pUnk, &IID_IDispatch, ( void ** ) &pDisp);
+   pUnk->lpVtbl->Release(pUnk);
+   HB_RETHANDLE(pDisp);
 }
 
 /*
@@ -152,7 +152,7 @@ static void HB_EXPORT hb_itemPushList( ULONG ulRefMask, ULONG ulPCount,
          }
       }
 
-      hb_itemRelease( itmRef );
+      hb_itemRelease(itmRef);
    }
 }
 
@@ -222,8 +222,8 @@ typedef struct
    // AddRef(), and Release().
 
    // IEventHandler's QueryInterface()
-static HRESULT STDMETHODCALLTYPE QueryInterface( IEventHandler * this,
-      REFIID vTableGuid, void **ppv )
+static HRESULT STDMETHODCALLTYPE QueryInterface(IEventHandler * this,
+      REFIID vTableGuid, void **ppv)
 {
    // Check if the GUID matches IEvenetHandler VTable's GUID. We gave the C variable name
    // IID_IEventHandler to our VTable GUID. We can use an OLE function called
@@ -277,11 +277,11 @@ static ULONG STDMETHODCALLTYPE AddRef( IEventHandler * this )
 
    //------------------------------------------------------------------------------
    // IEventHandler's Release()
-static ULONG STDMETHODCALLTYPE Release( IEventHandler * this )
+static ULONG STDMETHODCALLTYPE Release(IEventHandler * this)
 {
    if( --( ( MyRealIEventHandler * ) this )->count == 0 )
    {
-      GlobalFree( this );
+      GlobalFree(this);
       return (0);
    }
    return ( ( ( MyRealIEventHandler * ) this )->count );
@@ -329,9 +329,9 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames( IEventHandler * this,
    // this is where the action happens
    // this function receives events (by their ID number) and distributes the processing
    // or them or ignores them
-static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
+static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
       REFIID riid, LCID lcid, WORD wFlags, DISPPARAMS * params,
-      VARIANT * result, EXCEPINFO * pexcepinfo, UINT * puArgErr )
+      VARIANT * result, EXCEPINFO * pexcepinfo, UINT * puArgErr)
 {
    PHB_ITEM pItem;
    int iArg, i;
@@ -390,7 +390,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
 
          hb_vmPushState();
 
-         switch ( hb_itemType( pExec ) )
+         switch ( hb_itemType(pExec) )
          {
 
             case HB_IT_BLOCK:
@@ -512,7 +512,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * this, DISPID dispid,
 
    }                            // EOF If Scan
 
-   hb_itemRelease( Key );
+   hb_itemRelease(Key);
 
    return S_OK;
 
@@ -584,15 +584,15 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 
       // Query this object itself for its IUnknown pointer which will be used
       // later to connect to the Connection Point of the device_interface object.
-      hr = thisobj->lpVtbl->QueryInterface( thisobj, &IID_IUnknown,
-            ( void ** ) &pIUnknown );
+      hr = thisobj->lpVtbl->QueryInterface(thisobj, &IID_IUnknown,
+            ( void ** ) &pIUnknown);
       if( hr == S_OK && pIUnknown )
       {
 
          // Query the pdevice_interface for its connection point.
-         hr = pdevice_interface->lpVtbl->QueryInterface( pdevice_interface,
+         hr = pdevice_interface->lpVtbl->QueryInterface(pdevice_interface,
                &IID_IConnectionPointContainer,
-               ( void ** ) &pIConnectionPointContainerTemp );
+               ( void ** ) &pIConnectionPointContainerTemp);
 
          if( hr == S_OK && pIConnectionPointContainerTemp )
          {
@@ -611,8 +611,8 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
                   if( hr == S_OK )
                   {
                      if( m_pIConnectionPoint->lpVtbl->
-                           GetConnectionInterface( m_pIConnectionPoint,
-                                 &rriid ) == S_OK )
+                           GetConnectionInterface(m_pIConnectionPoint,
+                                 &rriid) == S_OK )
                      {
                         break;
                      }
@@ -621,13 +621,13 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
                }
                while( hr == S_OK );
                m_pIEnumConnectionPoints->lpVtbl->
-                     Release( m_pIEnumConnectionPoints );
+                     Release(m_pIEnumConnectionPoints);
             }
             // end uncomment
 
             //hr = pIConnectionPointContainerTemp ->lpVtbl->FindConnectionPoint(pIConnectionPointContainerTemp ,  &IID_IDispatch, &m_pIConnectionPoint);
             pIConnectionPointContainerTemp->lpVtbl->
-                  Release( pIConnectionPointContainerTemp );
+                  Release(pIConnectionPointContainerTemp);
             pIConnectionPointContainerTemp = NULL;
          }
 
@@ -647,15 +647,15 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
                OutputDebugString( "error getting iid" );
 
             //OutputDebugString("calling advise");
-            hr = m_pIConnectionPoint->lpVtbl->Advise( m_pIConnectionPoint,
-                  pIUnknown, &dwCookie );
+            hr = m_pIConnectionPoint->lpVtbl->Advise(m_pIConnectionPoint,
+                  pIUnknown, &dwCookie);
             ( ( MyRealIEventHandler * ) thisobj )->pIConnectionPoint =
                   m_pIConnectionPoint;
             ( ( MyRealIEventHandler * ) thisobj )->dwEventCookie = dwCookie;
 
          }
 
-         pIUnknown->lpVtbl->Release( pIUnknown );
+         pIUnknown->lpVtbl->Release(pIUnknown);
          pIUnknown = NULL;
 
       }
@@ -684,10 +684,10 @@ HB_FUNC( HWG_SHUTDOWNCONNECTIONPOINT )
    MyRealIEventHandler *this = ( MyRealIEventHandler * ) HB_PARHANDLE(1);
    if( this->pIConnectionPoint )
    {
-      this->pIConnectionPoint->lpVtbl->Unadvise( this->pIConnectionPoint,
-            this->dwEventCookie );
+      this->pIConnectionPoint->lpVtbl->Unadvise(this->pIConnectionPoint,
+            this->dwEventCookie);
       this->dwEventCookie = 0;
-      this->pIConnectionPoint->lpVtbl->Release( this->pIConnectionPoint );
+      this->pIConnectionPoint->lpVtbl->Release(this->pIConnectionPoint);
       this->pIConnectionPoint = NULL;
    }
 }
@@ -697,6 +697,6 @@ HB_FUNC( HWG_RELEASEDISPATCH )
 {
    IDispatch *pObj;
    pObj = ( IDispatch * ) HB_PARHANDLE(1);
-   pObj->lpVtbl->Release( pObj );
+   pObj->lpVtbl->Release(pObj);
 }
 

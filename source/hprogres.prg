@@ -111,7 +111,7 @@ METHOD Init()  CLASS HProgressBar
    IF !::lInit
       ::Super:Init()
        IF ::nAnimation != NIL .AND. ::nAnimation > 0
-          hwg_Sendmessage( ::handle, PBM_SETMARQUEE, 1, ::nAnimation )
+          hwg_Sendmessage(::handle, PBM_SETMARQUEE, 1, ::nAnimation)
        ENDIF
    ENDIF
 
@@ -147,7 +147,7 @@ METHOD SET( cTitle, nPos ) CLASS HProgressBar
 METHOD SetLabel( cCaption ) CLASS HProgressBar
 
    IF cCaption != NIL .AND. ::lNewBox
-      ::LabelBox:SetValue( cCaption )
+      ::LabelBox:SetValue(cCaption)
    ENDIF
 
    RETURN NIL
@@ -156,14 +156,14 @@ METHOD SetAnimation( nAnimation ) CLASS HProgressBar
 
    IF nAnimation != NIL
        IF nAnimation <= 0
-          hwg_Sendmessage( ::handle, PBM_SETMARQUEE, 0, NIL )
-          hwg_Modifystyle( ::Handle, PBS_MARQUEE, 0 )
-          hwg_Sendmessage( ::handle, PBM_SETPOS, 0, 0)
+          hwg_Sendmessage(::handle, PBM_SETMARQUEE, 0, NIL)
+          hwg_Modifystyle(::Handle, PBS_MARQUEE, 0)
+          hwg_Sendmessage(::handle, PBM_SETPOS, 0, 0)
        ELSE
          IF Hwg_BitAND(::Style, PBS_MARQUEE) = 0
-            hwg_Modifystyle( ::Handle, PBS_MARQUEE, PBS_MARQUEE )
+            hwg_Modifystyle(::Handle, PBS_MARQUEE, PBS_MARQUEE)
          ENDIF
-         hwg_Sendmessage( ::handle, PBM_SETMARQUEE, 1, nAnimation)
+         hwg_Sendmessage(::handle, PBM_SETMARQUEE, 1, nAnimation)
        ENDIF
        ::nAnimation := nAnimation
    ENDIF

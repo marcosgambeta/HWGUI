@@ -224,7 +224,7 @@ CLASS HBDebugger
    METHOD Activate()
 
    METHOD CodeblockTrace()
-   METHOD GetExprValue( xExpr, lValid )
+   METHOD GetExprValue(xExpr, lValid)
    METHOD GetSourceFiles()
 
    METHOD Go()
@@ -232,11 +232,11 @@ CLASS HBDebugger
    METHOD LoadCallStack()
 
    METHOD Quit()
-   METHOD ShowCodeLine( nProc )
+   METHOD ShowCodeLine(nProc)
 
    METHOD VarGetInfo( aVar )
-   METHOD VarGetValue( aVar )
-   METHOD VarSetValue( aVar, uValue )
+   METHOD VarGetValue(aVar)
+   METHOD VarSetValue(aVar, uValue)
 
 ENDCLASS
 
@@ -269,12 +269,12 @@ METHOD Activate() CLASS HBDebugger
 
 METHOD CodeblockTrace()
 
-   __dbgSetCBTrace( ::pInfo, ::lCBTrace )
+   __dbgSetCBTrace(::pInfo, ::lCBTrace)
 
    RETURN NIL
 
 
-METHOD GetExprValue( xExpr, lValid ) CLASS HBDebugger
+METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
 
    LOCAL xResult
    LOCAL bOldError, oErr
@@ -283,7 +283,7 @@ METHOD GetExprValue( xExpr, lValid ) CLASS HBDebugger
 
    bOldError := Errorblock( {|oErr|Break(oErr)} ) 
    BEGIN SEQUENCE
-      xResult := __dbgGetExprValue( ::pInfo, xExpr, @lValid )
+      xResult := __dbgGetExprValue(::pInfo, xExpr, @lValid)
       IF !lValid
          xResult := "Syntax error"
       ENDIF
@@ -336,23 +336,23 @@ METHOD HandleEvent() CLASS HBDebugger
          RETURN NIL
 
       CASE nKey == CMD_TRACE
-         __dbgSetTrace( ::pInfo )
+         __dbgSetTrace(::pInfo)
          RETURN NIL
 
       CASE nKey == CMD_NEXTR
-         __dbgSetNextRoutine( ::pInfo )
+         __dbgSetNextRoutine(::pInfo)
          RETURN NIL
 
       CASE nKey == CMD_TOCURS
-         IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
+         IF __dbgIsValidStopLine(::pInfo, p1, p2)
             __dbgSetToCursor( ::pInfo, p1, p2 )
             RETURN NIL
          ELSE
-            hwg_dbg_SetActiveLine( ".", 0 )
+            hwg_dbg_SetActiveLine(".", 0)
          ENDIF
 
       CASE nKey == CMD_BADD
-         IF __dbgIsValidStopLine( ::pInfo, p1, p2 )
+         IF __dbgIsValidStopLine(::pInfo, p1, p2)
             AAdd(::aBreakPoints, { p2, p1 })
             hwg_dbg_Answer( "line", Ltrim(Str(p2)) )
             __dbgAddBreak( ::pInfo, p1, p2 )
@@ -365,7 +365,7 @@ METHOD HandleEvent() CLASS HBDebugger
             hwg_dbg_Answer( "err" )
          ELSE
             ADel( ::aBreakPoints, nAt )
-            ASize( ::aBreakPoints, Len( ::aBreakPoints ) - 1 )
+            ASize(::aBreakPoints, Len( ::aBreakPoints ) - 1)
             hwg_dbg_Answer( "ok", Ltrim(Str(p2)) )
             __dbgDelBreak( ::pInfo, nAt-1 )
          ENDIF
@@ -421,7 +421,7 @@ METHOD HandleEvent() CLASS HBDebugger
          IF Left( p1, 1 ) == "?"
             p1 := Ltrim( Substr( p1, Iif( Left(p1, 2) == "??", 3, 2 ) ) )
          ENDIF
-         hwg_dbg_Answer( "value", __dbgValToStr( ::GetExprValue( p1 ) ) )
+         hwg_dbg_Answer( "value", __dbgValToStr( ::GetExprValue(p1) ) )
 
       ENDCASE
    ENDDO
@@ -448,7 +448,7 @@ METHOD LoadCallStack() CLASS HBDebugger
          // a procedure with debug info
          ::aProcStack[ i - nDebugLevel + 1 ] := ::aCallStack[ nPos ]
       ELSE
-         ::aProcStack[ i - nDebugLevel + 1 ] := {, ProcName( i ) + "(" + hb_ntos( ProcLine( i ) ) + ")", , nLevel, , }
+         ::aProcStack[ i - nDebugLevel + 1 ] := {, ProcName(i) + "(" + hb_ntos( ProcLine(i) ) + ")", , nLevel, , }
       ENDIF
    NEXT
 
@@ -464,7 +464,7 @@ METHOD Quit() CLASS HBDebugger
    RETURN NIL
 
 
-METHOD ShowCodeLine( nProc ) CLASS HBDebugger
+METHOD ShowCodeLine(nProc) CLASS HBDebugger
 
    LOCAL nLine
    LOCAL cPrgName
@@ -481,10 +481,10 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
       ENDIF
 
       IF !Empty( cPrgName )
-         hwg_dbg_SetActiveLine( cPrgName, nLine, ;
+         hwg_dbg_SetActiveLine(cPrgName, nLine, ;
                Iif( ::lViewStack, SendStack(), Nil ),  ;
                Iif( ::lShowLocals, SendLocal(), Nil ), ;
-               Iif( ::lShowWatch .AND. (::nWatches > 0), SendWatch(), Nil ) )
+               Iif( ::lShowWatch .AND. (::nWatches > 0), SendWatch(), Nil ))
       ENDIF
    ENDIF
 
@@ -494,13 +494,13 @@ METHOD ShowCodeLine( nProc ) CLASS HBDebugger
 METHOD VarGetInfo( aVar ) CLASS HBDebugger
 
    LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
-   LOCAL uValue := ::VarGetValue( aVar )
+   LOCAL uValue := ::VarGetValue(aVar)
 
    DO CASE
-   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
-   OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType( uValue ) + ">: " + __dbgValToStr( uValue )
+   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
+   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
+   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
+   OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
    ENDCASE
 
    // ; Never reached
@@ -508,7 +508,7 @@ METHOD VarGetInfo( aVar ) CLASS HBDebugger
    RETURN ""
 
 
-METHOD VarGetValue( aVar ) CLASS HBDebugger
+METHOD VarGetValue(aVar) CLASS HBDebugger
 
    LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
 
@@ -524,7 +524,7 @@ METHOD VarGetValue( aVar ) CLASS HBDebugger
    RETURN NIL
 
 
-METHOD VarSetValue( aVar, uValue ) CLASS HBDebugger
+METHOD VarSetValue(aVar, uValue) CLASS HBDebugger
 
    LOCAL nProcLevel
    LOCAL cType := Left( aVar[ VAR_TYPE ], 1 )
@@ -574,7 +574,7 @@ Local arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
    FOR i := 1 TO Len( aVars )
       arr[++j] := aVars[ i, VAR_NAME ]
       xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS] )
-      arr[++j] := Valtype( xVal )
+      arr[++j] := Valtype(xVal)
       arr[++j] := __dbgValToStr( xVal )
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
@@ -589,7 +589,7 @@ Local arr := Array( t_oDebugger:nWatches + 1 ), i
    arr[1] := Ltrim( Str( t_oDebugger:nWatches ) )
 
    FOR i := 1 TO t_oDebugger:nWatches
-      arr[i+1] := __dbgValToStr( t_oDebugger:GetExprValue( i ) )
+      arr[i+1] := __dbgValToStr( t_oDebugger:GetExprValue(i) )
    NEXT
 
    RETURN arr
@@ -651,7 +651,7 @@ STATIC FUNCTION strip_path( cFileName )
 
 FUNCTION __dbgValToStr( uVal )
 
-   LOCAL cType := ValType( uVal ), i, s, nLen
+   LOCAL cType := ValType(uVal), i, s, nLen
 
    DO CASE
    CASE uVal == NIL  ; RETURN "NIL"
@@ -686,10 +686,10 @@ FUNCTION __dbgValToStr( uVal )
 
 function ALTD(nAction)
    if pcount() == 0
-      if SET( _SET_DEBUG ) .AND. TYPE( "__DBGALTDENTRY()" ) == "UI"
+      if SET( _SET_DEBUG ) .AND. TYPE("__DBGALTDENTRY()") == "UI"
          &("__DBGALTDENTRY()")
       endif
-   elseif valtype( nAction ) == "N"
+   elseif valtype(nAction) == "N"
       if nAction == ALTD_DISABLE
          SET( _SET_DEBUG, .F. )
       elseif nAction == ALTD_ENABLE

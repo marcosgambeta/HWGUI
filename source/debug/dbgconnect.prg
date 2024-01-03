@@ -91,9 +91,9 @@ Function hwg_dbg_New()
    Local cDebugger := "hwgdebug", cExe
    Local hProcess, lRun
 
-   cBuffer := Space( 1024 )
+   cBuffer := Space(1024)
 
-   IF File( cDebugger+".info" ) .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
+   IF File(cDebugger+".info") .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
       IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0
          arr := hb_aTokens( Left( cBuffer, i ), ;
                Iif( hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10) ) )
@@ -110,10 +110,10 @@ Function hwg_dbg_New()
             ENDIF
          NEXT
       ENDIF
-      FClose( handl1 )
+      FClose(handl1)
    ENDIF
 
-   IF File( cFile + ".d1" ) .AND. File( cFile + ".d2" )
+   IF File(cFile + ".d1") .AND. File(cFile + ".d2")
    
       IF ( handl1 := FOpen( cFile + ".d1", FO_READ + FO_SHARED ) ) != -1
          IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
@@ -124,14 +124,14 @@ Function hwg_dbg_New()
                Return Nil
             ENDIF
          ENDIF      
-         FClose( handl1 )
+         FClose(handl1)
       ENDIF
     
    ENDIF
 
    IF !Empty( cDir)
       cDir += Iif( Right( cDir, 1 ) $ "\/", "", hb_OsPathSeparator() )
-      IF File( cDir + cDebugger + ".d1" ) .AND. File( cDir + cDebugger + ".d2" )
+      IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
          IF ( handl1 := FOpen( cDir + cDebugger + ".d1", FO_READ + FO_SHARED ) ) != -1
             IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
                   Left( cBuffer, 4 ) == "init"
@@ -141,7 +141,7 @@ Function hwg_dbg_New()
                   Return Nil
                ENDIF
             ENDIF
-            FClose( handl1 )
+            FClose(handl1)
          ENDIF
       ENDIF
    ENDIF
@@ -151,13 +151,13 @@ Function hwg_dbg_New()
          Iif( ( i := Rat( '/', cFile ) ) = 0, cFile, Substr( cFile, i + 1 ) ), ;
          Substr( cFile, i + 1 ) )
 
-   Ferase( cFile + ".d1" )
-   Ferase( cFile + ".d2" )
+   Ferase(cFile + ".d1")
+   Ferase(cFile + ".d2")
 
-   handl1 := FCreate( cFile + ".d1" )
-   FClose( handl1 )
-   handl2 := FCreate( cFile + ".d2" )
-   FClose( handl2 )
+   handl1 := FCreate(cFile + ".d1")
+   FClose(handl1)
+   handl2 := FCreate(cFile + ".d2")
+   FClose(handl2)
 
 #if defined(__PLATFORM__UNIX)
    IF Empty( cExe )
@@ -208,17 +208,17 @@ Local arr := hb_aParams(), i, s := ""
       s += arr[i] + ","
    NEXT
    IF Len( s ) > 800
-      FWrite( handl2, "!," + Space( Len(arr[1])-1 ) + s + arr[1] + ",!" )
+      FWrite(handl2, "!," + Space(Len(arr[1])-1) + s + arr[1] + ",!")
       FSeek( handl2, 0, 0 )
-      FWrite( handl2, arr[1] + "," )
+      FWrite(handl2, arr[1] + ",")
    ELSE
-      FWrite( handl2, arr[1] + "," + s + arr[1] + ",!" )
+      FWrite(handl2, arr[1] + "," + s + arr[1] + ",!")
    ENDIF
 
 Return Nil
 
 
-Function hwg_dbg_SetActiveLine( cPrgName, nLine, aStack, aLocals, aWatch )
+Function hwg_dbg_SetActiveLine(cPrgName, nLine, aStack, aLocals, aWatch)
 Local i, s := cPrgName + "," + Ltrim(Str(nLine)), nLen
 
    IF !lDebugRun
@@ -345,7 +345,7 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
    ENDIF
 
    FOR i := 1 TO Len( arr )
-      IF Valtype( arr[i] ) == "A"
+      IF Valtype(arr[i]) == "A"
          lConvert := ( i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left( arr[i-1], 5 ) == "value" )
          FOR j := 1 TO Len( arr[i] )
             s += Iif( j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j] ) + ","
@@ -371,15 +371,15 @@ Function hwg_dbg_Msg( cMessage )
 Return Nil
 
 Function hwg_dbg_Alert( cMessage )
-Local bCode := &( Iif( Type( "hwg_msginfo()" ) == "UI", "{|s|hwg_msginfo(s)}", ;
-       Iif( Type( "msginfo()" ) == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}" ) ) )
+Local bCode := &( Iif( Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
+       Iif( Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}" ) ) )
 
 Eval( bCode, cMessage )
 Return Nil
 
 Function hwg_dbg_Quit()
-Local bCode := &( Iif( Type( "hwg_endwindow()" ) == "UI", "{|s|hwg_endwindow()}", ;
-      Iif( Type( "ReleaseAllWindows()" ) == "UI", "{||ReleaseAllWindows()}", "{||__Quit()}" ) )  )
+Local bCode := &( Iif( Type("hwg_endwindow()") == "UI", "{|s|hwg_endwindow()}", ;
+      Iif( Type("ReleaseAllWindows()") == "UI", "{||ReleaseAllWindows()}", "{||__Quit()}" ) )  )
 
 Eval( bCode )
 Return Nil
@@ -431,8 +431,8 @@ Return cRes
 EXIT PROCEDURE hwg_dbg_exit
 
    hwg_dbg_Send("quit")
-   FClose( handl1 )
-   FClose( handl2 )
+   FClose(handl1)
+   FClose(handl2)
 Return
 
 

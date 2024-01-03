@@ -36,7 +36,7 @@ HB_FUNC( HWG_PLAYSOUND )
       fdwSound |= SND_PURGE;
 
    hb_retl( PlaySound(lpSound, hmod, fdwSound) != 0 );
-   hb_strfree( hSound );
+   hb_strfree(hSound);
 }
 
 HB_FUNC( HWG_MCISENDSTRING )
@@ -50,7 +50,7 @@ HB_FUNC( HWG_MCISENDSTRING )
                                      ( HWND ) HB_PARHANDLE(3) ) );
    if( !HB_ISNIL(2) )
       HB_STORSTR( cBuffer, 2 );
-   hb_strfree( hCommand );
+   hb_strfree(hCommand);
 }
 
 
@@ -96,8 +96,8 @@ HB_FUNC( HWG_NMCIOPEN )
                              ( DWORD ) ( LPMCI_OPEN_PARMS ) &mciOpenParms) );
 
    hb_storni( mciOpenParms.wDeviceID, 3 );
-   hb_strfree( hDevice );
-   hb_strfree( hName );
+   hb_strfree(hDevice);
+   hb_strfree(hName);
 }
 
 //----------------------------------------------------------------------------//

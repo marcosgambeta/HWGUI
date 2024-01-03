@@ -34,7 +34,7 @@ STATIC aCustomEvents := { ;
          { | o, w, l | onCtlColor( o, w, l ) }                               , ;
          { | o, w, l | onCommand(o, w, l) }                                , ;
          { | o, w, l | onDrawItem( o, w, l ) }                               , ;
-         { | o, w, l | onSize( o, w, l ) }                                   , ;
+         { | o, w, l | onSize(o, w, l) }                                   , ;
          { | o |     onDestroy( o ) }                                          ;
        } ;
      }
@@ -53,10 +53,10 @@ METHOD DelObject( oCtrl ) CLASS HObject
    LOCAL h := oCtrl:handle
    LOCAL i := Ascan( ::aObjects, {|o| o:handle == h } )
 
-   hwg_Sendmessage( h, WM_CLOSE, 0, 0 )
+   hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
       Adel( ::aObjects, i )
-      Asize( ::aObjects, Len( ::aObjects ) - 1 )
+      Asize(::aObjects, Len( ::aObjects ) - 1)
    ENDIF
    RETURN NIL
 
@@ -64,7 +64,7 @@ METHOD DelObject( oCtrl ) CLASS HObject
 CLASS HCustomWindow INHERIT HObject
 
 CLASS VAR oDefaultParent SHARED
-CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource( , 1, RT_MANIFEST ) ) SHARED
+CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST) ) SHARED
 
    DATA handle        INIT 0
    DATA oParent
@@ -108,14 +108,14 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource( , 1, RT_MANIFEST ) ) SHA
    METHOD FindControl( nId, nHandle )
    METHOD Hide()              INLINE ( ::lHide := .T., hwg_Hidewindow( ::handle ) )
    METHOD Show( nShow )       INLINE ( ::lHide := .F., hwg_Showwindow( ::handle, nShow )  )
-   METHOD Move( x1, y1, width, height, nRePaint )
+   METHOD Move(x1, y1, width, height, nRePaint)
    METHOD onEvent( msg, wParam, lParam )
    METHOD END()
    METHOD SetColor( tcolor, bColor, lRepaint )
    METHOD Refresh( lAll, oCtrl )
    METHOD Anchor( oCtrl, x, y, w, h )
    METHOD SetTextClass ( x ) HIDDEN
-   METHOD Closable( lClosable ) SETGET
+   METHOD Closable(lClosable) SETGET
    METHOD Release()        INLINE ::DelControl( Self )
 
 ENDCLASS
@@ -123,10 +123,10 @@ ENDCLASS
 METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindow
 
    AAdd(IIf( lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify ), ;
-         { nEvent, IIf( ValType( oCtrl ) == "N", oCtrl, oCtrl:id ), bAction })
-   IF bAction != Nil .AND. ValType( oCtrl ) == "O"  //.AND. ValType(oCtrl) != "N"
+         { nEvent, IIf( ValType(oCtrl) == "N", oCtrl, oCtrl:id ), bAction })
+   IF bAction != Nil .AND. ValType(oCtrl) == "O"  //.AND. ValType(oCtrl) != "N"
       IF cMethName != Nil //.AND. !__objHasMethod(oCtrl, cMethName)
-         __objAddInline( oCtrl, cMethName, bAction )
+         __objAddInline(oCtrl, cMethName, bAction)
       ENDIF
    ENDIF
    RETURN nil
@@ -153,10 +153,10 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
    LOCAL i := AScan( ::aControls, { | o | o:handle == h } )
 
-   hwg_Sendmessage( h, WM_CLOSE, 0, 0 )
+   hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
       ADel( ::aControls, i )
-      ASize( ::aControls, Len( ::aControls ) - 1 )
+      ASize(::aControls, Len( ::aControls ) - 1)
    ENDIF
 
    h := 0
@@ -168,7 +168,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    NEXT
 
    IF h > 0
-      ASize( ::aEvents, Len( ::aEvents ) - h )
+      ASize(::aEvents, Len( ::aEvents ) - h)
    ENDIF
 
    h := 0
@@ -180,12 +180,12 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    NEXT
 
    IF h > 0
-      ASize( ::aNotify, Len( ::aNotify ) - h )
+      ASize(::aNotify, Len( ::aNotify ) - h)
    ENDIF
 
    RETURN NIL
 
-METHOD Move( x1, y1, width, height, nRePaint )  CLASS HCustomWindow
+METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
    LOCAL rect, nHx := 0, nWx := 0
    
    x1     := IIF( x1     = NIL, ::nLeft, x1 )
@@ -274,7 +274,7 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
 	 lAll  := IIF( lAll  == Nil, .F., lAll )
 	 nLen  := LEN( oCtrl:aControls )
 
-   IF hwg_Iswindowvisible( ::Handle ) .OR. nLen > 0
+   IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
          oCtrlTmp :=  oCtrl:aControls[ i ]
          lRefresh :=  !Empty( __ObjHasMethod(oCtrlTmp, "REFRESH") )
@@ -308,7 +308,7 @@ METHOD SetTextClass( x ) CLASS HCustomWindow
       ::SetText( x )
    ELSE
       ::title := x
-      hwg_Sendmessage( ::handle, WM_SETTEXT, 0, ::Title )
+      hwg_Sendmessage(::handle, WM_SETTEXT, 0, ::Title)
    ENDIF
    RETURN NIL
 
@@ -355,7 +355,7 @@ METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
    NEXT
    RETURN .T.
 
-METHOD Closable( lClosable ) CLASS HCustomWindow
+METHOD Closable(lClosable) CLASS HCustomWindow
    Local hMenu
 
    IF lClosable != Nil
@@ -383,12 +383,12 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
       NEXT
    ENDIF
 
-   IF oCtrl != NIL  .AND. VALTYPE( oCtrl ) != "N"
+   IF oCtrl != NIL  .AND. VALTYPE(oCtrl) != "N"
 
       IF __ObjHasMsg( oCtrl, "NOTIFY" )
          RETURN oCtrl:Notify( lParam )
       ELSE
-         nCode := hwg_Getnotifycode( lParam )
+         nCode := hwg_Getnotifycode(lParam)
          IF nCode == EN_PROTECTED
             RETURN 1
          ELSEIF oWnd:aNotify != NIL .AND. !oWnd:lSuspendMsgsHandling .AND. ;
@@ -425,13 +425,13 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
    LOCAL oCtrl
    oCtrl := oWnd:FindControl( , lParam )
 
-   IF  oCtrl != Nil .AND. VALTYPE( oCtrl ) != "N"
+   IF  oCtrl != Nil .AND. VALTYPE(oCtrl) != "N"
       IF oCtrl:tcolor != NIL
          hwg_Settextcolor( wParam, oCtrl:tcolor )
       ENDIF
-      hwg_Setbkmode( wParam, oCtrl:backstyle )
+      hwg_Setbkmode(wParam, oCtrl:backstyle)
       IF !oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
-         hwg_Setbkmode( wParam, TRANSPARENT ) 
+         hwg_Setbkmode(wParam, TRANSPARENT)
          hwg_Setbkcolor( wParam, oCtrl:DisablebColor )
          RETURN oCtrl:disablebrush:handle
       ELSEIF oCtrl:bcolor != NIL  .AND. oCtrl:BackStyle = OPAQUE
@@ -456,7 +456,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
 STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
    LOCAL oCtrl
    IF !EMPTY( wParam ) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
-                 VALTYPE( oCtrl ) != "N"  .AND. oCtrl:bPaint != NIL
+                 VALTYPE(oCtrl) != "N"  .AND. oCtrl:bPaint != NIL
       Eval( oCtrl:bPaint, oCtrl, lParam )
       RETURN 1
 
@@ -484,7 +484,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    RETURN 1
 
-STATIC FUNCTION onSize( oWnd, wParam, lParam )
+STATIC FUNCTION onSize(oWnd, wParam, lParam)
    LOCAL aControls := oWnd:aControls
    LOCAL oItem, nw1, nh1, aCoors, nWindowState
    
@@ -505,7 +505,7 @@ STATIC FUNCTION onSize( oWnd, wParam, lParam )
       ENDIF
    ENDIF
    IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. !EMPTY( oWnd:Type )
-      hwg_onMove( oWnd )
+      hwg_onMove(oWnd)
       oWnd:ResetScrollbars()
       oWnd:SetupScrollbars()
    ENDIF

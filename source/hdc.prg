@@ -54,7 +54,7 @@ CLASS HDC
    METHOD Fillrect( lpRect, clr )
    METHOD Selectcliprgn( pRgn )
    METHOD Settextcolor( xColor )
-   METHOD Setbkmode( xMode )
+   METHOD Setbkmode(xMode)
    METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor( ::m_hDC, clr )
    METHOD Selectobject( xMode )
    METHOD Drawtext( strText, Rect, dwFlags )
@@ -62,7 +62,7 @@ CLASS HDC
    METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt( ::m_hDc, a, s, d, f, g )
    METHOD Savedc()
    METHOD Restoredc(nSavedDC)
-   METHOD Setmapmode( nMapMode )
+   METHOD Setmapmode(nMapMode)
    METHOD SetWindowOrg( x, y )
    METHOD SetWindowExt( x, y )
    METHOD SetViewportOrg( x, y )
@@ -72,7 +72,7 @@ CLASS HDC
    METHOD Setrop2( nDrawMode )
    METHOD Bitblt( x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop ) INLINE    hwg_Bitblt( ::m_hDc, x, y, nWidth, nHeight, pSrcDC, xSrc, ySrc, dwRop )
 
-   METHOD Pie( arect, apt1, apt2 )
+   METHOD Pie(arect, apt1, apt2)
    METHOD Deletedc()
 ENDCLASS
 
@@ -143,9 +143,9 @@ METHOD Settextcolor( xColor ) CLASS HDC
 
    RETURN hwg_Settextcolor( ::m_hDc, xColor )
 
-METHOD Setbkmode( xMode ) CLASS HDC
+METHOD Setbkmode(xMode) CLASS HDC
 
-   RETURN hwg_Setbkmode( ::m_hDc, xMode )
+   RETURN hwg_Setbkmode(::m_hDc, xMode)
 
 METHOD Selectobject( xMode ) CLASS HDC
 
@@ -193,15 +193,15 @@ METHOD Restoredc(nSavedDC) CLASS HDC
 
    RETURN bRetVal
 
-METHOD Setmapmode( nMapMode ) CLASS HDC
+METHOD Setmapmode(nMapMode) CLASS HDC
 
    LOCAL nRetVal := 0
 
    IF ( ::m_hDC != ::m_hAttribDC )
-      nRetVal := ::Setmapmode( ::m_hDC, nMapMode )
+      nRetVal := ::Setmapmode(::m_hDC, nMapMode)
    ENDIF
    IF !Empty( ::m_hAttribDC )
-      nRetVal := hwg_Setmapmode( ::m_hAttribDC, nMapMode )
+      nRetVal := hwg_Setmapmode(::m_hAttribDC, nMapMode)
    ENDIF
 
    RETURN nRetVal
@@ -267,9 +267,9 @@ METHOD Setarcdirection( nArcDirection )
    RETURN nResult
 
 
-METHOD Pie( arect, apt1, apt2 )
+METHOD Pie(arect, apt1, apt2)
 
-   RETURN hwg_Pie( ::m_hdc, arect[1], arect[2], arect[3], arect[4], apt1[1], apt1[2], apt2[1], apt2[2] )
+   RETURN hwg_Pie(::m_hdc, arect[1], arect[2], arect[3], arect[4], apt1[1], apt1[2], apt2[1], apt2[2])
 
 METHOD Setrop2( nDrawMode )
    LOCAL nRetVal := 0

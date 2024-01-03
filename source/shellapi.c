@@ -38,7 +38,7 @@ static int ( CALLBACK BrowseCallbackProc ) (  HWND hwnd,  UINT uMsg,  LPARAM lPa
 		{
 			if ( lpData  != (LPARAM)NULL )
 			{
-				SendMessage( hwnd, BFFM_SETSELECTION, lParam, lpData );
+				SendMessage(hwnd, BFFM_SETSELECTION, lParam, lpData);
 			}
 		}
 	}
@@ -75,11 +75,11 @@ HB_FUNC( HWG_SELECTFOLDER )
    {
       if( SHGetPathFromIDList( pidlBrowse, lpBuffer ) )
          lpResult = lpBuffer;
-      CoTaskMemFree( pidlBrowse );
+      CoTaskMemFree(pidlBrowse);
    }
    HB_RETSTR( lpResult );
-   hb_strfree( hTitle );
-   hb_strfree( hFolderName );
+   hb_strfree(hTitle);
+   hb_strfree(hFolderName);
 }
 
 /*
@@ -134,7 +134,7 @@ HB_FUNC( HWG_SHELLMODIFYICON )
 }
 
 /*
- * ShellExecute( cFile, cOperation, cParams, cDir, nFlag )
+ * ShellExecute(cFile, cOperation, cParams, cDir, nFlag)
  */
 HB_FUNC( HWG_SHELLEXECUTE )
 {
@@ -151,17 +151,17 @@ HB_FUNC( HWG_SHELLEXECUTE )
    if( lpDirectory == NULL )
       lpDirectory = TEXT( "C:\\" );
 
-   hb_retnl( ( LONG ) ShellExecute( GetActiveWindow(),
+   hb_retnl( ( LONG ) ShellExecute(GetActiveWindow(),
                   HB_PARSTRDEF( 2, &hOperation, NULL ),
                   HB_PARSTR( 1, &hFile, NULL ),
                   HB_PARSTR( 3, &hParameters, NULL ),
                   lpDirectory,
-                  HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL ) );
+                  HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL) );
 
-   hb_strfree( hOperation );
-   hb_strfree( hFile );
-   hb_strfree( hParameters );
-   hb_strfree( hDirectory );
+   hb_strfree(hOperation);
+   hb_strfree(hFile);
+   hb_strfree(hParameters);
+   hb_strfree(hDirectory);
 #endif
 }
 

@@ -29,7 +29,7 @@ CLASS VAR winclass   INIT "SysIPAddress32"
                oFont, bGetFocus, bKillFocus )
    METHOD Activate()
    METHOD Init()
-   METHOD SetValue( aValue )
+   METHOD SetValue(aValue)
    METHOD GetValue()
    METHOD Clear()
    METHOD END()
@@ -83,13 +83,13 @@ METHOD Init() CLASS HIPedit
 
    IF !::lInit
       ::Super:Init()
-      ::SetValue( ::aValue )
+      ::SetValue(::aValue)
       ::lInit := .T.
    ENDIF
 
    RETURN Nil
 
-METHOD SetValue( aValue ) CLASS HIPedit
+METHOD SetValue(aValue) CLASS HIPedit
    hwg_SetIpAddress( ::handle, aValue[1], aValue[2], aValue[3], aValue[4] )
    ::aValue := aValue
    RETURN Nil
@@ -120,7 +120,7 @@ STATIC FUNCTION __GetFocus( oCtrl )
       RETURN .T.
    ENDIF
 
-   IF ValType( oCtrl:bGetFocus ) == "B"
+   IF ValType(oCtrl:bGetFocus) == "B"
       oCtrl:oparent:lSuspendMsgsHandling := .T.
       oCtrl:lnoValid := .T.
       xRet := Eval( oCtrl:bGetFocus, oCtrl )
@@ -138,7 +138,7 @@ STATIC FUNCTION __KillFocus( oCtrl )
       RETURN .T.
    ENDIF
 
-   IF ValType( oCtrl:bKillFocus ) == "B"
+   IF ValType(oCtrl:bKillFocus) == "B"
       oCtrl:oparent:lSuspendMsgsHandling := .T.
       xRet := Eval( oCtrl:bKillFocus, oCtrl )
       oCtrl:oparent:lSuspendMsgsHandling := .F.

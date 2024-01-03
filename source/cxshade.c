@@ -48,21 +48,21 @@ typedef struct CXDIB_STRU
 } CXDIB, *PCXDIB;
 
 PCXDIB cxdib_New( void );
-void cxdib_Release( PCXDIB pdib );
+void cxdib_Release(PCXDIB pdib);
 BOOL cxdib_IsWin30Dib(PCXDIB pdib);
-WORD cxdib_GetPaletteSize( PCXDIB pdib );
+WORD cxdib_GetPaletteSize(PCXDIB pdib);
 BYTE *cxdib_GetBits( PCXDIB pdib );
-long cxdib_GetSize( PCXDIB pdib );
+long cxdib_GetSize(PCXDIB pdib);
 BOOL cxdib_IsValid(PCXDIB pdib);
-void cxdib_Clone( PCXDIB pdib, PCXDIB src );
+void cxdib_Clone(PCXDIB pdib, PCXDIB src);
 void cxdib_Clear( PCXDIB pdib, BYTE bval );
-HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
-      WORD wBitCount );
+HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
+      WORD wBitCount);
 long cxdib_Draw( PCXDIB pdib, HDC pDC, long xoffset, long yoffset );
 long cxdib_Stretch( PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
       long xsize, long ysize );
 void cxdib_SetPaletteIndex( PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b );
-void cxdib_BlendPalette( PCXDIB pdib, COLORREF cr, long perc );
+void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc);
 void cxdib_SetPixelIndex( PCXDIB pdib, long x, long y, BYTE i );
 
 typedef struct CXSHADE_STRU
@@ -76,11 +76,11 @@ typedef struct CXSHADE_STRU
 } CXSHADE, *PCXSHADE;
 
 PCXSHADE cxshade_New( RECT * prect, BOOL lFlat );
-void cxshade_Release( PCXSHADE pshade );
+void cxshade_Release(PCXSHADE pshade);
 void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state );
-void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
+void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
       BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color,
-      RECT * prect );
+      RECT * prect);
 void cxshade_SetFlat( PCXSHADE pshade, BOOL bFlag );
 COLORREF cxshade_SetTextColor( PCXSHADE pshade, COLORREF new_color );
 
@@ -113,13 +113,13 @@ void Draw3dRect( HDC hDC, RECT * lprect, COLORREF clrTopLeft,
 
 }
 
-void cxdib_Release( PCXDIB pdib )
+void cxdib_Release(PCXDIB pdib)
 {
    if( pdib->hDib )
-      hb_xfree( pdib->hDib );
+      hb_xfree(pdib->hDib);
 }
 
-WORD cxdib_GetPaletteSize( PCXDIB pdib )
+WORD cxdib_GetPaletteSize(PCXDIB pdib)
 {
    return ( pdib->m_nColors * sizeof( RGBQUAD ) );
 }
@@ -128,14 +128,14 @@ BYTE *cxdib_GetBits( PCXDIB pdib )
 {
    if( pdib->hDib )
       return ( ( BYTE * ) pdib->hDib + *( LPDWORD ) pdib->hDib +
-            cxdib_GetPaletteSize( pdib ) );
+            cxdib_GetPaletteSize(pdib) );
    return NULL;
 }
 
-long cxdib_GetSize( PCXDIB pdib )
+long cxdib_GetSize(PCXDIB pdib)
 {
    return pdib->m_bi.biSize + pdib->m_bi.biSizeImage +
-         cxdib_GetPaletteSize( pdib );
+         cxdib_GetPaletteSize(pdib);
 }
 
 BOOL cxdib_IsValid(PCXDIB pdib)
@@ -143,12 +143,12 @@ BOOL cxdib_IsValid(PCXDIB pdib)
    return ( pdib->hDib != NULL );
 }
 
-void cxdib_Clone( PCXDIB pdib, PCXDIB src )
+void cxdib_Clone(PCXDIB pdib, PCXDIB src)
 {
-   cxdib_Create( pdib, src->m_bi.biWidth, src->m_bi.biHeight,
-         src->m_bi.biBitCount );
+   cxdib_Create(pdib, src->m_bi.biWidth, src->m_bi.biHeight,
+         src->m_bi.biBitCount);
    if( pdib->hDib )
-      memcpy( pdib->hDib, src->hDib, cxdib_GetSize( pdib ) );
+      memcpy( pdib->hDib, src->hDib, cxdib_GetSize(pdib) );
 }
 
 void cxdib_Clear( PCXDIB pdib, BYTE bval )
@@ -157,14 +157,14 @@ void cxdib_Clear( PCXDIB pdib, BYTE bval )
       memset( cxdib_GetBits( pdib ), bval, pdib->m_bi.biSizeImage );
 }
 
-HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
-      WORD wBitCount )
+HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
+      WORD wBitCount)
 {
    LPBITMAPINFOHEADER lpbi;     // pointer to BITMAPINFOHEADER
    DWORD dwLen;                 // size of memory block
 
    if( pdib->hDib )
-      hb_xfree( pdib->hDib );
+      hb_xfree(pdib->hDib);
    pdib->hDib = NULL;
 
    // Make sure bits per pixel is valid
@@ -210,7 +210,7 @@ HDIB cxdib_Create( PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
    // calculate size of memory block required to store the DIB.  This
    // block should be big enough to hold the BITMAPINFOHEADER, the color
    // table, and the bits
-   dwLen = cxdib_GetSize( pdib );
+   dwLen = cxdib_GetSize(pdib);
 
    pdib->hDib = hb_xgrab(dwLen);        // alloc memory block to store our bitmap
    // hDib = new (HDIB[dwLen]); //fixes allocation problem under Win2k
@@ -231,11 +231,11 @@ long cxdib_Draw( PCXDIB pdib, HDC pDC, long xoffset, long yoffset )
    {
       //palette must be correctly filled
       BITMAPINFO * lpDIB = ( BITMAPINFO * ) pdib->hDib;      //set image to hdc...
-      SetStretchBltMode( pDC, COLORONCOLOR );
-      SetDIBitsToDevice( pDC, xoffset, yoffset,
+      SetStretchBltMode(pDC, COLORONCOLOR);
+      SetDIBitsToDevice(pDC, xoffset, yoffset,
             pdib->m_bi.biWidth, pdib->m_bi.biHeight, 0, 0, 0,
             pdib->m_bi.biHeight, cxdib_GetBits( pdib ),
-            lpDIB, DIB_RGB_COLORS );
+            lpDIB, DIB_RGB_COLORS);
       return 1;
    }
    return 0;
@@ -248,7 +248,7 @@ long cxdib_Stretch( PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
    {
       //palette must be correctly filled
       BITMAPINFO * lpDIB = ( BITMAPINFO * ) pdib->hDib;      //set image to hdc...
-      SetStretchBltMode( pDC, COLORONCOLOR );
+      SetStretchBltMode(pDC, COLORONCOLOR);
       StretchDIBits( pDC, xoffset, yoffset,
             xsize, ysize, 0, 0, pdib->m_bi.biWidth, pdib->m_bi.biHeight,
             cxdib_GetBits( pdib ), lpDIB, DIB_RGB_COLORS,
@@ -274,7 +274,7 @@ void cxdib_SetPaletteIndex( PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b )
    }
 }
 
-void cxdib_BlendPalette( PCXDIB pdib, COLORREF cr, long perc )
+void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
 {
    if( ( pdib->hDib == NULL ) || ( pdib->m_nColors == 0 ) )
       return;
@@ -284,9 +284,9 @@ void cxdib_BlendPalette( PCXDIB pdib, COLORREF cr, long perc )
       long i, r, g, b;
       RGBQUAD *pPal = ( RGBQUAD * ) iDst;
 
-      r = GetRValue( cr );
-      g = GetGValue( cr );
-      b = GetBValue( cr );
+      r = GetRValue(cr);
+      g = GetGValue(cr);
+      b = GetBValue(cr);
       if( perc > 100 )
          perc = 100;
       for( i = 0; i < pdib->m_nColors; i++ )
@@ -334,17 +334,17 @@ PCXSHADE cxshade_New( RECT * prect, BOOL lFlat )
    return pshade;
 }
 
-void cxshade_Release( PCXSHADE pshade )
+void cxshade_Release(PCXSHADE pshade)
 {
-   cxdib_Release( &( pshade->m_dNormal ) );
-   cxdib_Release( &( pshade->m_dDown ) );
+   cxdib_Release(&( pshade->m_dNormal ));
+   cxdib_Release(&( pshade->m_dDown ));
    /*
-   cxdib_Release( &( pshade->m_dDisabled ) );
-   cxdib_Release( &( pshade->m_dOver ) );
-   cxdib_Release( &( pshade->m_dh ) );
-   cxdib_Release( &( pshade->m_dv ) );
+   cxdib_Release(&( pshade->m_dDisabled ));
+   cxdib_Release(&( pshade->m_dOver ));
+   cxdib_Release(&( pshade->m_dh ));
+   cxdib_Release(&( pshade->m_dv ));
    */
-   hb_xfree( pshade );
+   hb_xfree(pshade);
 }
 
 void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
@@ -367,7 +367,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
    hBitmap = CreateCompatibleBitmap( pRealDC, cx, cy );
    holdBitmap = ( HBITMAP ) SelectObject( hdcMem, hBitmap );    //select the destination for MemDC
 
-   SetBkMode( pDC, TRANSPARENT );
+   SetBkMode(pDC, TRANSPARENT);
 
    // Select the correct skin
    if( state & STATE_DISABLED )
@@ -376,7 +376,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
          cxdib_Draw( &( pshade->m_dDisabled ), pDC, 0, 0 );
       // if needed, draw the standard 3D rectangular border
       if( ( pshade->m_Border ) && ( pshade->m_flat == FALSE ) )
-         DrawEdge( pDC, &r, EDGE_RAISED, BF_RECT );
+         DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
    }
    else
    {
@@ -395,7 +395,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
                Draw3dRect( pDC, &r, GetSysColor( COLOR_BTNSHADOW ),
                      GetSysColor( COLOR_BTNHILIGHT ) );
             else
-               DrawEdge( pDC, &r, EDGE_SUNKEN, BF_RECT );
+               DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
          }
 
       }
@@ -420,9 +420,9 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
          {
             if( !( pshade->m_flat ) )   // ( state & STATE_DEFAULT )
             {
-               DrawEdge( pDC, &r, EDGE_SUNKEN, BF_RECT );
+               DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
                InflateRect( &r, -1, -1 );
-               DrawEdge( pDC, &r, EDGE_RAISED, BF_RECT );
+               DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
             }
             else
             {
@@ -430,7 +430,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
                   Draw3dRect( pDC, &r, GetSysColor( COLOR_BTNHILIGHT ),
                         GetSysColor( COLOR_BTNSHADOW ) );
                else
-                  DrawEdge( pDC, &r, EDGE_RAISED, BF_RECT );
+                  DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
             }
          }
       }
@@ -458,9 +458,9 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
 }
 
 // #include "stdio.h"
-void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
+void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
       BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color,
-      RECT * prect )
+      RECT * prect)
 {
    long sXSize, sYSize, bytes, j, i, k, h;
    BYTE *iDst, *posDst;
@@ -480,19 +480,19 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
    sXSize = pshade->m_rect.right - pshade->m_rect.left;
 
    //create the horizontal focus bitmap
-   cxdib_Create( &( pshade->m_dh ), max( 1,
-               sXSize - 2 * pshade->m_FocusRectMargin - 1 ), 1, 8 );
+   cxdib_Create(&( pshade->m_dh ), max( 1,
+               sXSize - 2 * pshade->m_FocusRectMargin - 1 ), 1, 8);
    //create the vertical focus bitmap
-   cxdib_Create( &( pshade->m_dv ), 1, max( 1,
-               sYSize - 2 * pshade->m_FocusRectMargin ), 8 );
+   cxdib_Create(&( pshade->m_dv ), 1, max( 1,
+               sYSize - 2 * pshade->m_FocusRectMargin ), 8);
    //create the default bitmap
-   cxdib_Create( &( pshade->m_dNormal ), sXSize, sYSize, 8 );
+   cxdib_Create(&( pshade->m_dNormal ), sXSize, sYSize, 8);
 
    for( i = 0; i < 129; i++ )
    {
-      r = ( ( 128 - i ) * GetRValue( locr ) + i * GetRValue( midcr ) ) / 128;
-      g = ( ( 128 - i ) * GetGValue( locr ) + i * GetGValue( midcr ) ) / 128;
-      b = ( ( 128 - i ) * GetBValue( locr ) + i * GetBValue( midcr ) ) / 128;
+      r = ( ( 128 - i ) * GetRValue(locr) + i * GetRValue(midcr) ) / 128;
+      g = ( ( 128 - i ) * GetGValue(locr) + i * GetGValue(midcr) ) / 128;
+      b = ( ( 128 - i ) * GetBValue(locr) + i * GetBValue(midcr) ) / 128;
       cxdib_SetPaletteIndex( &( pshade->m_dNormal ), ( BYTE ) i, ( BYTE ) r,
             ( BYTE ) g, ( BYTE ) b );
       cxdib_SetPaletteIndex( &( pshade->m_dh ), ( BYTE ) i, ( BYTE ) r,
@@ -502,9 +502,9 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
    }
    for( i = 1; i < 129; i++ )
    {
-      r = ( ( 128 - i ) * GetRValue( midcr ) + i * GetRValue( hicr ) ) / 128;
-      g = ( ( 128 - i ) * GetGValue( midcr ) + i * GetGValue( hicr ) ) / 128;
-      b = ( ( 128 - i ) * GetBValue( midcr ) + i * GetBValue( hicr ) ) / 128;
+      r = ( ( 128 - i ) * GetRValue(midcr) + i * GetRValue(hicr) ) / 128;
+      g = ( ( 128 - i ) * GetGValue(midcr) + i * GetGValue(hicr) ) / 128;
+      b = ( ( 128 - i ) * GetBValue(midcr) + i * GetBValue(hicr) ) / 128;
       cxdib_SetPaletteIndex( &( pshade->m_dNormal ), ( BYTE ) ( i + 127 ),
             ( BYTE ) r, ( BYTE ) g, ( BYTE ) b );
       cxdib_SetPaletteIndex( &( pshade->m_dh ), ( BYTE ) ( i + 127 ),
@@ -513,7 +513,7 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
             ( BYTE ) r, ( BYTE ) g, ( BYTE ) b );
    }
 
-   cxdib_BlendPalette( &( pshade->m_dNormal ), color, coloring );       //color the palette
+   cxdib_BlendPalette(&( pshade->m_dNormal ), color, coloring);       //color the palette
 
    iDst = cxdib_GetBits( &( pshade->m_dh ) );   //build the horiz. dotted focus bitmap
    j = ( long ) pshade->m_dh.m_bi.biWidth;
@@ -718,10 +718,10 @@ void cxshade_SetShade( PCXSHADE pshade, UINT shadeID, BYTE palette,
          }
    }
 
-   cxdib_Clone( &( pshade->m_dDisabled ), &( pshade->m_dNormal ) );
-   cxdib_Clone( &( pshade->m_dOver ), &( pshade->m_dNormal ) );
-   cxdib_BlendPalette( &( pshade->m_dOver ), hicr, highlight );
-   cxdib_Clone( &( pshade->m_dDown ), &( pshade->m_dOver ) );
+   cxdib_Clone(&( pshade->m_dDisabled ), &( pshade->m_dNormal ));
+   cxdib_Clone(&( pshade->m_dOver ), &( pshade->m_dNormal ));
+   cxdib_BlendPalette(&( pshade->m_dOver ), hicr, highlight);
+   cxdib_Clone(&( pshade->m_dDown ), &( pshade->m_dOver ));
 }
 
 /* --------------------------------------------------------------- */
@@ -737,15 +737,15 @@ HB_FUNC( HWG_SHADE_NEW )
    SetRect( &rect, hb_parni(1), hb_parni(2), hb_parni(3),
          hb_parni(4) );
    pshade = cxshade_New( &rect, ( HB_ISNIL(5) ) ? 0 : hb_parl(5) );
-   HB_RETHANDLE( pshade );
+   HB_RETHANDLE(pshade);
 }
 
 /*
- * shade_Release( pshade )
+ * shade_Release(pshade)
  */
 HB_FUNC( HWG_SHADE_RELEASE )
 {
-   cxshade_Release( ( PCXSHADE ) HB_PARHANDLE(1) );
+   cxshade_Release(( PCXSHADE ) HB_PARHANDLE(1));
 }
 
 /*
@@ -766,8 +766,8 @@ HB_FUNC( HWG_SHADE_SET )
       SetRect( &rect, hb_parni(7), hb_parni(8), hb_parni(9),
             hb_parni(10) );
 
-   cxshade_SetShade( pshade, shadeID, palette, granularity, highlight,
-         coloring, color, ( HB_ISNIL(8) ) ? NULL : &rect );
+   cxshade_SetShade(pshade, shadeID, palette, granularity, highlight,
+         coloring, color, ( HB_ISNIL(8) ) ? NULL : &rect);
 }
 
 /*

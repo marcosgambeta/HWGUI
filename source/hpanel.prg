@@ -28,7 +28,7 @@ CLASS HPanel INHERIT HControl, HScrollArea
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor )
+   METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
    METHOD Paint()
    METHOD BackColor( bcolor ) INLINE ::SetColor(, bcolor, .T. )
    METHOD Hide()
@@ -77,7 +77,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor ) CLASS HPanel
+METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) CLASS HPanel
    LOCAL oParent := Iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
 
    ::Super:New( oWndParent, nId, 0, 0, 0, Iif( nWidth == NIL, 0, nWidth ), ;
@@ -123,10 +123,10 @@ METHOD Init() CLASS HPanel
 
    IF !::lInit
       IF ::bSize == NIL .AND. Empty( ::Anchor )
-         ::bSize := { | o, x, y | o:Move( Iif( ::nLeft > 0, x - ::nLeft, 0 ), ;
+         ::bSize := { | o, x, y | o:Move(Iif( ::nLeft > 0, x - ::nLeft, 0 ), ;
                Iif( ::nTop > 0, y - ::nHeight, 0 ), ;
                Iif( ::nWidth == 0 .OR. ::lResizeX, x, ::nWidth ), ;
-               Iif( ::nHeight == 0 .OR. ::lResizeY, y, ::nHeight ) ) }
+               Iif( ::nHeight == 0 .OR. ::lResizeY, y, ::nHeight )) }
       ENDIF
 
       ::Super:Init()
@@ -153,7 +153,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          RETURN ::nrePaint
          /*
          IF ::brush != NIL
-            IF Valtype( ::brush ) != "N"
+            IF Valtype(::brush) != "N"
                hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
             ENDIF
             RETURN 1
@@ -163,11 +163,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          ENDIF
          */
       ENDIF
-      hwg_Settransparentmode( wParam, .T. )
+      hwg_Settransparentmode(wParam, .T.)
       RETURN hwg_Getstockobject( NULL_BRUSH )
    ELSEIF msg == WM_SIZE
       IF ::oEmbedded != NIL
-         ::oEmbedded:Resize( hwg_Loword(lParam), hwg_Hiword(lParam) )
+         ::oEmbedded:Resize(hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
       ::RedefineScrollbars()
       ::Resize()
@@ -180,8 +180,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
       RETURN 0
    ENDIF
    IF ::bOther != NIL
-      IF Valtype( nRet := Eval( ::bOther, Self, msg, wParam, lParam ) ) != "N"
-         nRet := IIF( VALTYPE( nRet ) = "L" .AND. !nRet, 0, -1 )
+      IF Valtype(nRet := Eval( ::bOther, Self, msg, wParam, lParam )) != "N"
+         nRet := IIF( VALTYPE(nRet) = "L" .AND. !nRet, 0, -1 )
       ENDIF
       IF nRet >= 0
          RETURN -1
@@ -220,11 +220,11 @@ METHOD Paint() CLASS HPanel
    pps    := hwg_Definepaintstru()
    hDC    := hwg_Beginpaint( ::handle, pps )
    aCoors := hwg_Getclientrect( ::handle )
-   hwg_Setbkmode( hDC, ::backStyle )
+   hwg_Setbkmode(hDC, ::backStyle)
    IF ::backstyle = OPAQUE .AND. ::nrePaint = -1
       aCoors := hwg_Getclientrect( ::handle )
       IF ::brush != NIL
-         IF Valtype( ::brush ) != "N"
+         IF Valtype(::brush) != "N"
             hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::brush:handle )
          ENDIF
       ELSE
@@ -237,9 +237,9 @@ METHOD Paint() CLASS HPanel
          oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
          oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW))
          hwg_Selectobject( hDC, oPenLight:handle )
-         hwg_Drawline( hDC, 0, 1, aCoors[3] - 1, 1 )
+         hwg_Drawline(hDC, 0, 1, aCoors[3] - 1, 1)
          hwg_Selectobject( hDC, oPenGray:handle )
-         hwg_Drawline( hDC, 0, 0, aCoors[3] - 1, 0 )
+         hwg_Drawline(hDC, 0, 0, aCoors[3] - 1, 0)
          oPenGray:Release()
          oPenLight:Release()
       ENDIF
@@ -266,7 +266,7 @@ METHOD Release() CLASS HPanel
       ::oParent:aOffset[1] := MAX( ::oParent:aOffset[1], 0 )
       ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2], 0 )
       ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3], 0 )
-      hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
+      hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
       ::nHeight := 0
       ::nWidth := 0
    ENDIF
@@ -301,7 +301,7 @@ METHOD Hide() CLASS HPanel
    */
    ::Super:Hide()
    IF ::oParent:type == WND_MDI .AND. lRes
-      //hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
+      //hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
       hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop + 1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
    ENDIF
 
@@ -316,7 +316,7 @@ METHOD Show() CLASS HPanel
    ::nrePaint := - 1
    lRes := ::ResizeOffSet(2)
    /*
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible(::handle)
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 ) .AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] += ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -330,7 +330,7 @@ METHOD Show() CLASS HPanel
    */
    ::Super:Show()
    IF ::oParent:type == WND_MDI .AND. lRes
-       //hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
+       //hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
        hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop+1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
    ENDIF
 
@@ -341,7 +341,7 @@ METHOD Resize() CLASS HPanel
    Local nHeight := aCoors[4] - aCoors[2]
    Local nWidth  := aCoors[3] - aCoors[1]
 
-   IF !hwg_Iswindowvisible( ::handle ) .OR.  ( ::nHeight = nHeight .AND. ::nWidth = nWidth )
+   IF !hwg_Iswindowvisible(::handle) .OR.  ( ::nHeight = nHeight .AND. ::nWidth = nWidth )
       Return NIL
    ENDIF
 
@@ -349,7 +349,7 @@ METHOD Resize() CLASS HPanel
       RETURN NIL
    ENDIF
    /*
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible( ::handle )
+   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI   //hwg_Iswindowvisible(::handle)
       IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )  //.AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] += ( nHeight  - ::nHeight )
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
@@ -359,7 +359,7 @@ METHOD Resize() CLASS HPanel
             ::oParent:aOffset[3] += ( nWidth - ::nWidth )
          ENDIF
       ENDIF
-      hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
+      hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
    ELSE
       RETURN NIL
    ENDIF
@@ -399,7 +399,7 @@ METHOD ResizeOffSet( nMode ) CLASS HPanel
       ::oParent:aOffset[2] := MAX( ::oParent:aOffset[2], 0 )
       ::oParent:aOffset[3] := MAX( ::oParent:aOffset[3], 0 )
       IF lRes
-         hwg_Sendmessage( ::oParent:Handle, WM_SIZE, 0, hwg_Makelparam( ::oParent:nWidth, ::oParent:nHeight ) )
+         hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
       ENDIF
    ENDIF
 

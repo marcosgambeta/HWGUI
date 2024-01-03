@@ -57,8 +57,8 @@ CLASS VAR winclass INIT "STATIC"
 
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor, hbitmap, bClick )
-   METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-                    bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )
+   METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
+                   bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD INIT()
    METHOD onEvent( msg, wParam, lParam )
    METHOD GoToLinkUrl( csLink )
@@ -73,8 +73,8 @@ CLASS VAR winclass INIT "STATIC"
    METHOD SetLinkText( csLinkText )
    METHOD SetLinkColor( sLinkColor )
    METHOD PAint( lpDis ) 
-   METHOD OnMouseMove( nFlags, lParam )
-   METHOD Resize( x, y )
+   METHOD OnMouseMove(nFlags, lParam)
+   METHOD Resize(x, y)
 
 ENDCLASS
 
@@ -126,8 +126,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, cCaption, oFont, bInit, ;
-                 bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor )  CLASS HStaticLink
+METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
+                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)  CLASS HStaticLink
    LOCAL oPrevFont
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
@@ -189,7 +189,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
       
    ELSEIF msg == WM_MOUSEMOVE
       hwg_SetCursor( ::m_hHyperCursor )
-     ::OnMouseMove( wParam, lParam )
+     ::OnMouseMove(wParam, lParam)
    ELSEIF ( msg = WM_MOUSELEAVE .OR. msg = WM_NCMOUSELEAVE )
      ::state := LBL_NORMAL
      hwg_Invalidaterect( ::handle, 0 )
@@ -207,7 +207,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ELSEIF msg = WM_KEYDOWN
 
       IF ( ( wParam == VK_SPACE ) .OR. ( wParam == VK_RETURN ) )
-         hwg_Sendmessage( ::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam( 1, 1 ) )
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ELSEIF wParam = VK_DOWN
          hwg_GetSkip( ::oparent, ::handle,, 1 )
@@ -220,7 +220,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ELSEIF msg == WM_KEYUP
       /*
       IF ( wParam == VK_SPACE .OR. wParam == VK_RETURN  )
-       *  hwg_Sendmessage( ::handle, WM_LBUTTONUP, 0, hwg_Makelparam( 1, 1 ) )
+       *  hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
        *  hwg_Msginfo('k')
          RETURN 0
       ENDIF
@@ -233,7 +233,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
 
 METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
 
-   LOCAL hInstance := hwg_Shellexecute( csLink, "open", NIL, NIL, 2 )
+   LOCAL hInstance := hwg_Shellexecute(csLink, "open", NIL, NIL, 2)
    //hwg_Shellexecute(NULL              , _T("open")                             , csLink.operator LPCTSTR(), NULL                                 , NULL                                   , 2);
 
    IF hInstance < 33
@@ -280,7 +280,7 @@ METHOD OnClicked() CLASS HStaticLink
    ELSEIF !EMPTY( ::m_csUrl)
       IF ( ::m_bFireChild )
          nCtrlID := ::id
-         ::Sendmessage( ::oparent:Handle, _HYPERLINK_EVENT, nCtrlID, 0 )
+         ::Sendmessage(::oparent:Handle, _HYPERLINK_EVENT, nCtrlID, 0)
       ELSE
          ::GoToLinkUrl( ::m_csUrl )
       ENDIF
@@ -316,7 +316,7 @@ METHOD SetLinkColor( sLinkColor ) CLASS HStaticLink
 
    RETURN NIL
 
-METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
+METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 
    LOCAL xPos
    LOCAL yPos
@@ -348,7 +348,7 @@ METHOD OnMouseMove( nFlags, lParam ) CLASS HStaticLink
          ::state := LBL_MOUSEOVER
          hwg_Invalidaterect( ::handle, 0 )
     	    hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
-         //hwg_Setcapture( ::handle )
+         //hwg_Setcapture(::handle)
       ENDIF
    ENDIF
    hwg_Trackmousevent( ::handle, TME_LEAVE )
@@ -366,7 +366,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 //   LOCAL POLDFONT
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
-   LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ),{0, 0} )
+   LOCAL aBmpSize    := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize(::hbitmap),{0, 0} )
    LOCAL itemRect    := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
    LOCAL captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
@@ -379,7 +379,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    
    // Draw the focus rect
    IF hwg_Selffocus( ::handle ) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
-      hwg_Setbkmode( dc, TRANSPARENT )
+      hwg_Setbkmode(dc, TRANSPARENT)
       hwg_Drawfocusrect( dc, focusRect )
       IF hwg_Isthemedload() .AND. ::WindowsManifest
          hTheme := hwg_openthemedata(::handle, "MENU")
@@ -388,8 +388,8 @@ METHOD PAint( lpDis ) CLASS HStaticLink
       ENDIF
    ENDIF
 
-   IF  ValType( ::hbitmap ) == "N"
-      bHasTitle := ValType( strtext ) == "C" .AND. !Empty( strtext )
+   IF  ValType(::hbitmap) == "N"
+      bHasTitle := ValType(strtext) == "C" .AND. !Empty( strtext )
       itemRect[4] := aBmpSize[2] + 1
       bmpRect := hwg_Prepareimagerect( ::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle )
       itemRect[4] := drawInfo[7]
@@ -404,7 +404,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
       rcclient[1] += 3
       rcclient[2] += 1
    ENDIF
-   hwg_Setbkmode( DC, ::backstyle )
+   hwg_Setbkmode(DC, ::backstyle)
    IF ::backstyle != TRANSPARENT
       hwg_Setbkcolor( DC, IIF( ::bColor = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::bcolor ) )
       hwg_Fillrect( dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4] ) //, ::brush:handle )
@@ -442,7 +442,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
   RETURN NIL
 
 
-METHOD Resize( x, y ) CLASS HStaticLink
+METHOD Resize(x, y) CLASS HStaticLink
    //LOCAL aCoors := hwg_Getclientrect( ::handle )
    LOCAL aBmpSize, aTxtSize
    LOCAL nHeight := ::nHeight
@@ -452,9 +452,9 @@ METHOD Resize( x, y ) CLASS HStaticLink
    ENDIF
 
    x := iif( x == Nil, 0, x - ::nWidth + 1 )
-   aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize( ::hbitmap ), {0, 0} )
+   aBmpSize := IIF( !EMPTY( ::hbitmap ), hwg_Getbitmapsize(::hbitmap), {0, 0} )
    aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
-   ::Move( , , ::nWidth + x, , 0 )
+   ::Move(, , ::nWidth + x, , 0)
    aTxtSize := hwg_TxtRect( ::Title, Self )
    aTxtSize[2] += IIF( ::lAllUnderline, 0, 3 )
    IF aTxtSize[1] + 1  <  ::nWidth - aBmpSize[1] //tava 20
@@ -467,7 +467,7 @@ METHOD Resize( x, y ) CLASS HStaticLink
    ::nHeight := MAX( ::nHeight, aBmpSize[2] + 4 )
 
    IF nHeight != ::nHeight
-      ::Move( , , , ::nHeight, 0 )
+      ::Move(, , , ::nHeight, 0)
       hwg_Invalidaterect( ::Handle, 0 )
    ENDIF
 

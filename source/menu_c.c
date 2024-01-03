@@ -26,13 +26,13 @@
 HB_FUNC( HWG__CREATEMENU )
 {
    HMENU hMenu = CreateMenu();
-   HB_RETHANDLE( hMenu );
+   HB_RETHANDLE(hMenu);
 }
 
 HB_FUNC( HWG__CREATEPOPUPMENU )
 {
    HMENU hMenu = CreatePopupMenu();
-   HB_RETHANDLE( hMenu );
+   HB_RETHANDLE(hMenu);
 }
 
 /*
@@ -82,7 +82,7 @@ HB_FUNC( HWG__ADDMENUITEM )
                   ( UINT ) hSubMenu,  // menu item identifier or handle of drop-down menu or submenu
                   lpNewItem           // menu item content
                 );
-      HB_RETHANDLE( hSubMenu );
+      HB_RETHANDLE(hSubMenu);
 
       // Code to set the ID of submenus, the API seems to assume that you wouldn't really want to,
       // but if you are used to getting help via IDs for popups in 16bit, then this will help you.
@@ -104,7 +104,7 @@ HB_FUNC( HWG__ADDMENUITEM )
                 );
       hb_retnl(0);
    }
-   hb_strfree( hNewItem );
+   hb_strfree(hNewItem);
 }
 
 /*
@@ -131,7 +131,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    hb_retl( InsertMenuItem( ( HMENU ) HB_PARHANDLE(1),
                             hb_parni(3), fByPosition, &mii
                           ) );
-   hb_strfree( hData );
+   hb_strfree(hData);
 }
 */
 
@@ -150,9 +150,9 @@ HB_FUNC( HWG__CREATESUBMENU )
 
    if( SetMenuItemInfo( ( HMENU ) HB_PARHANDLE(1), hb_parni(2), 0,
                &mii ) )
-      HB_RETHANDLE( hSubMenu );
+      HB_RETHANDLE(hSubMenu);
    else
-      HB_RETHANDLE( NULL );
+      HB_RETHANDLE(NULL);
 }
 
 /*
@@ -168,7 +168,7 @@ HB_FUNC( HWG_GETMENUHANDLE )
 {
    HWND handle = ( hb_pcount() > 0 &&
          !HB_ISNIL(1) ) ? ( HWND ) HB_PARHANDLE(1) : aWindows[0];
-   HB_RETHANDLE( GetMenu( handle ) );
+   HB_RETHANDLE(GetMenu(handle));
 }
 
 HB_FUNC( HWG_CHECKMENUITEM )
@@ -180,7 +180,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -211,7 +211,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -226,7 +226,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
       hb_retl(0);
    else
    {
-      uCheck = GetMenuState( hMenu,     // handle to menu
+      uCheck = GetMenuState(hMenu,     // handle to menu
             hb_parni(2),      // menu item to check or uncheck
             MF_BYCOMMAND        // menu item flags
              );
@@ -245,7 +245,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -260,14 +260,14 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    {
       MessageBox( GetActiveWindow(), TEXT( "" ), TEXT( "No Menu!" ),
                   MB_OK | MB_ICONINFORMATION );
-      HB_RETHANDLE( NULL );
+      HB_RETHANDLE(NULL);
    }
    else
    {
-      HB_RETHANDLE( EnableMenuItem( hMenu,      // handle to menu
+      HB_RETHANDLE(EnableMenuItem(hMenu,      // handle to menu
                   hb_parni(2),        // menu item to check or uncheck
                   uFlag | uEnable       // menu item flags
-             ) );
+             ));
    }
 }
 
@@ -281,7 +281,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -296,7 +296,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
       hb_retl(0);
    else
    {
-      uCheck = GetMenuState( hMenu,     // handle to menu
+      uCheck = GetMenuState(hMenu,     // handle to menu
             hb_parni(2),      // menu item to check or uncheck
             uFlag               // menu item flags
              );
@@ -330,7 +330,7 @@ HB_FUNC( HWG_TRACKMENU )
                0,               // reserved, must be zero
                hWnd,            // handle of owner window
                NULL ) );
-   PostMessage( hWnd, 0, 0, 0 );
+   PostMessage(hWnd, 0, 0, 0);
 
 }
 
@@ -340,7 +340,7 @@ HB_FUNC( HWG_DESTROYMENU )
 }
 
 /*
- * CreateAcceleratorTable( _aAccel )
+ * CreateAcceleratorTable(_aAccel)
  */
 HB_FUNC( HWG_CREATEACCELERATORTABLE )
 {
@@ -359,18 +359,18 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
       lpaccl[ul - 1].key = ( WORD ) hb_arrayGetNL( pSubArr, 2 );
       lpaccl[ul - 1].cmd = ( WORD ) hb_arrayGetNL( pSubArr, 3 );
    }
-   h = CreateAcceleratorTable( lpaccl, ( int ) ulEntries );
+   h = CreateAcceleratorTable(lpaccl, ( int ) ulEntries);
 
-   hb_xfree( lpaccl );
-   HB_RETHANDLE( h );
+   hb_xfree(lpaccl);
+   HB_RETHANDLE(h);
 }
 
 /*
- * DestroyAcceleratorTable( hAccel )
+ * DestroyAcceleratorTable(hAccel)
  */
 HB_FUNC( HWG_DESTROYACCELERATORTABLE )
 {
-   hb_retl( DestroyAcceleratorTable( ( HACCEL ) hb_parnl(1) ) );
+   hb_retl( DestroyAcceleratorTable(( HACCEL ) hb_parnl(1)) );
 }
 
 HB_FUNC( HWG_DRAWMENUBAR )
@@ -389,7 +389,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -424,7 +424,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
          HB_RETSTR( mii.dwTypeData );
       else
          hb_retc("Error");
-      hb_xfree( lpBuffer );
+      hb_xfree(lpBuffer);
    }
 }
 
@@ -438,7 +438,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -468,7 +468,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
          hb_retl(1);
       else
          hb_retl(0);
-      hb_strfree( hData );
+      hb_strfree(hData);
    }
 }
 
@@ -537,7 +537,7 @@ HB_FUNC( HWG_CHANGEMENU )
    hb_retl( ChangeMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
                         HB_PARSTR( 3, &hStr, NULL ), ( UINT ) hb_parni(4),
                         ( UINT ) hb_parni(5) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_MODIFYMENU )
@@ -546,7 +546,7 @@ HB_FUNC( HWG_MODIFYMENU )
    hb_retl( ModifyMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
                         ( UINT ) hb_parni(3), ( UINT ) hb_parni(4),
                         HB_PARSTR( 5, &hStr, NULL ) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 
@@ -559,15 +559,15 @@ HB_FUNC( HWG_ENABLEMENUSYSTEMITEM )
    hMenu = ( HMENU ) GetSystemMenu( ( HWND ) HB_PARHANDLE(1), 0 ) ;
    if( !hMenu )
    {
-      HB_RETHANDLE( NULL );
+      HB_RETHANDLE(NULL);
    }
    else
    {
-      HB_RETHANDLE( EnableMenuItem(
+      HB_RETHANDLE(EnableMenuItem(
                                     hMenu,            // handle to menu
                                     hb_parni(2),    // menu item to check or uncheck
                                     uFlag | uEnable   // menu item flags
-                                  ) );
+                                  ));
    }
 }
 
@@ -582,7 +582,7 @@ HB_FUNC( HWG_SETMENUINFO )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
-      hMenu = ( HMENU ) HB_GETHANDLE( GetObjectVar( pObject, "HANDLE" ) );
+      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {

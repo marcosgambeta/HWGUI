@@ -52,8 +52,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HAnimation
    IF !Empty( ::oParent:handle )
-      ::handle := hwg_Animate_Create( ::oParent:handle, ::id, ::style, ;
-                                  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Animate_Create(::oParent:handle, ::id, ::style, ;
+                                  ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil
@@ -93,7 +93,7 @@ METHOD Stop() CLASS HAnimation
    RETURN Self
 
 METHOD Close() CLASS HAnimation
-   hwg_Animate_Close( ::handle )
+   hwg_Animate_Close(::handle)
    RETURN Nil
 
 METHOD Destroy() CLASS HAnimation

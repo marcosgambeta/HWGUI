@@ -25,14 +25,14 @@ CLASS HCheckButton INHERIT HControl
    METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, ;
                bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter, lTransp, bLFocus )
    METHOD Activate()
-   METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter )
+   METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter)
    METHOD Init()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Refresh()
    // METHOD Disable()
    // METHOD Enable()
-   METHOD SetValue( lValue )
-   METHOD GetValue() INLINE ( hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 ) == 1 )
+   METHOD SetValue(lValue)
+   METHOD GetValue() INLINE ( hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1 )
    METHOD onGotFocus()
    METHOD onClick()
    METHOD KillFocus()
@@ -50,13 +50,13 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
          bSize, bPaint, ctooltip, tcolor, bcolor )
 
    ::title   := cCaption
-   ::lValue   := IIf( vari == NIL .OR. ValType( vari ) != "L", .F., vari )
+   ::lValue   := IIf( vari == NIL .OR. ValType(vari) != "L", .F., vari )
    ::bSetGet := bSetGet
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
 
    ::Activate()
 
-   ::lEnter     := IIf( lEnter == NIL .OR. ValType( lEnter ) != "L", .F., lEnter )
+   ::lEnter     := IIf( lEnter == NIL .OR. ValType(lEnter) != "L", .F., lEnter )
    ::bClick     := bClick
    ::bLostFocus := bLFocus
    ::bGetFocus  := bGFocus
@@ -81,14 +81,14 @@ METHOD Activate() CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter ) CLASS HCheckButton
+METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter) CLASS HCheckButton
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
          bSize, bPaint, ctooltip, tcolor, bcolor )
 
-   ::lValue   := IIf( vari == NIL .OR. ValType( vari ) != "L", .F., vari )
+   ::lValue   := IIf( vari == NIL .OR. ValType(vari) != "L", .F., vari )
    ::bSetGet := bSetGet
-   ::lEnter     := IIf( lEnter == NIL .OR. ValType( vari ) != "L", .F., lEnter )
+   ::lEnter     := IIf( lEnter == NIL .OR. ValType(vari) != "L", .F., lEnter )
    ::bClick     := bClick
    ::bLostFocus := bClick
    ::bGetFocus  := bGFocus
@@ -107,7 +107,7 @@ METHOD Init() CLASS HCheckButton
       HWG_INITBUTTONPROC(::handle)
       ::Super:Init()
       IF ::lValue
-         hwg_Sendmessage( ::handle, BM_SETCHECK, 1, 0 )
+         hwg_Sendmessage(::handle, BM_SETCHECK, 1, 0)
       ENDIF
    ENDIF
 
@@ -134,7 +134,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
          RETURN 0
       ELSEIF  ( wParam == VK_RETURN ) //  .OR. wParam == VK_SPACE )
          IF ::lEnter
-            ::SetValue( !::GetValue() )
+            ::SetValue(!::GetValue())
             ::VALID()
             RETURN 0 //-1
          ELSE
@@ -150,9 +150,9 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
       ELSEIF wParam = VK_ESCAPE  .AND. ;
             ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != NIL .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
-      ELSEIF hwg_Getdlgmessage( lParam ) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
-      ELSEIF hwg_Getdlgmessage( lParam ) = WM_CHAR .OR. wParam = VK_ESCAPE .OR.;
-         hwg_Getdlgmessage( lParam ) = WM_SYSCHAR
+      ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
+      ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE .OR.;
+         hwg_Getdlgmessage(lParam) = WM_SYSCHAR
          RETURN -1
       ENDIF
       RETURN DLGC_WANTMESSAGE //+ DLGC_WANTCHARS
@@ -160,10 +160,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
 
    RETURN -1
 
-METHOD SetValue( lValue ) CLASS HCheckButton
+METHOD SetValue(lValue) CLASS HCheckButton
 
-   hwg_Sendmessage( ::handle, BM_SETCHECK, IIF( EMPTY( lValue), 0, 1 ), 0 )
-   ::lValue := IIF( lValue = NIL .OR. Valtype( lValue ) != "L", .F., lValue )
+   hwg_Sendmessage(::handle, BM_SETCHECK, IIF( EMPTY( lValue), 0, 1 ), 0)
+   ::lValue := IIF( lValue = NIL .OR. Valtype(lValue) != "L", .F., lValue )
    IF ::bSetGet != NIL
        Eval( ::bSetGet, lValue, Self )
    ENDIF
@@ -171,25 +171,25 @@ METHOD SetValue( lValue ) CLASS HCheckButton
 
    RETURN NIL
 
-METHOD Value( lValue ) CLASS HCheckButton
+METHOD Value(lValue) CLASS HCheckButton
 
    IF lValue != NIL
-      ::SetValue( lValue )
+      ::SetValue(lValue)
    ENDIF
 
-   RETURN hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 ) == 1
+   RETURN hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1
 
 METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != NIL
       var :=  Eval( ::bSetGet,, Self )
-      IF var = NIL .OR. Valtype( var ) != "L"
-         var := hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 ) == 1
+      IF var = NIL .OR. Valtype(var) != "L"
+         var := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1
       ENDIF
       ::lValue := Iif( var==NIL .OR. Valtype(var) != "L", .F., var )
    ENDIF
-   hwg_Sendmessage( ::handle, BM_SETCHECK, IIf( ::lValue, 1, 0 ), 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, IIf( ::lValue, 1, 0 ), 0)
 
    RETURN NIL
 
@@ -197,14 +197,14 @@ METHOD Refresh() CLASS HCheckButton
 METHOD Disable() CLASS HCheckButton
 
    ::Super:Disable()
-   hwg_Sendmessage( ::handle, BM_SETCHECK, BST_INDETERMINATE, 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, BST_INDETERMINATE, 0)
 
    RETURN NIL
 
 METHOD Enable() CLASS HCheckButton
 
    ::Super:Enable()
-   hwg_Sendmessage( ::handle, BM_SETCHECK, IIf( ::lValue, 1, 0 ), 0 )
+   hwg_Sendmessage(::handle, BM_SETCHECK, IIf( ::lValue, 1, 0 ), 0)
 
    RETURN NIL
 */
@@ -218,7 +218,7 @@ METHOD onClick() CLASS HCheckButton
    RETURN ::Valid()
 
 METHOD killFocus() CLASS HCheckButton
-   LOCAL ndown := hwg_Getkeystate( VK_RIGHT ) + hwg_Getkeystate( VK_DOWN ) + hwg_Getkeystate( VK_TAB )
+   LOCAL ndown := hwg_Getkeystate(VK_RIGHT) + hwg_Getkeystate(VK_DOWN) + hwg_Getkeystate(VK_TAB)
    LOCAL nSkip := 0
 
    IF !hwg_CheckFocus( Self, .T. )
@@ -226,8 +226,8 @@ METHOD killFocus() CLASS HCheckButton
    ENDIF
 
    IF ::oParent:classname = "HTAB"
-      IF hwg_Getkeystate( VK_LEFT ) + hwg_Getkeystate( VK_UP ) < 0 .OR. ;
-            ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 )
+      IF hwg_Getkeystate(VK_LEFT) + hwg_Getkeystate(VK_UP) < 0 .OR. ;
+            ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 )
          nSkip := - 1
       ELSEIF ndown < 0
          nSkip := 1
@@ -236,8 +236,8 @@ METHOD killFocus() CLASS HCheckButton
          hwg_GetSkip( ::oparent, ::handle, , nSkip )
       ENDIF
    ENDIF
-   IF hwg_Getkeystate( VK_RETURN ) < 0 .AND. ::lEnter
-      ::SetValue( !::GetValue() )
+   IF hwg_Getkeystate(VK_RETURN) < 0 .AND. ::lEnter
+      ::SetValue(!::GetValue())
       ::VALID()
    ENDIF
    IF ::bLostFocus != NIL
@@ -254,7 +254,7 @@ METHOD When() CLASS HCheckButton
    IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
-   nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
+   nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
    IF ::bGetFocus != NIL
       ::lnoValid := .T.
       ::oParent:lSuspendMsgsHandling := .T.
@@ -273,14 +273,14 @@ METHOD When() CLASS HCheckButton
    RETURN res
 
 METHOD Valid() CLASS HCheckButton
-   LOCAL l := hwg_Sendmessage( ::handle, BM_GETCHECK, 0, 0 )
+   LOCAL l := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0)
 
    IF !hwg_CheckFocus( Self, .T. )  .OR. ::lnoValid
       RETURN .T.
    ENDIF
    IF l == BST_INDETERMINATE
       hwg_Checkdlgbutton( ::oParent:handle, ::id, .F. )
-      hwg_Sendmessage( ::handle, BM_SETCHECK, 0, 0 )
+      hwg_Sendmessage(::handle, BM_SETCHECK, 0, 0)
       ::lValue := .F.
    ELSE
       ::lValue := ( l == 1 )

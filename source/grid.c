@@ -65,9 +65,9 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
    handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL,
          style,
          hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-         hwnd, ( HMENU ) hb_parni(2), GetModuleHandle( NULL ), NULL );
+         hwnd, ( HMENU ) hb_parni(2), GetModuleHandle(NULL), NULL );
 
-   HB_RETHANDLE( handle );
+   HB_RETHANDLE(handle);
 }
 
 HB_FUNC( HWG_LISTVIEW_INIT )
@@ -79,10 +79,10 @@ HB_FUNC( HWG_LISTVIEW_INIT )
       style = style | LVS_EX_GRIDLINES;
    }
 
-   SendMessage( ( HWND ) HB_PARHANDLE(1),
+   SendMessage(( HWND ) HB_PARHANDLE(1),
                 LVM_SETEXTENDEDLISTVIEWSTYLE, 0,
                 LVS_EX_FULLROWSELECT |
-                LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style );
+                LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style);
 
    ListView_SetItemCount( ( HWND ) HB_PARHANDLE(1), hb_parnl(2) );
 }
@@ -116,7 +116,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMN )
    RedrawWindow( ( HWND ) HB_PARHANDLE(1), NULL, NULL,
                  RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW |
                  RDW_UPDATENOW );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEW_DELETECOLUMN )
@@ -201,12 +201,12 @@ HB_FUNC( HWG_LISTVIEW_REDRAWITEMS )
 
 HB_FUNC( HWG_LISTVIEW_GETCOUNTPERPAGE )
 {
-   hb_retnl( ListView_GetCountPerPage( ( HWND ) HB_PARHANDLE(1) ) );
+   hb_retnl( ListView_GetCountPerPage(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_LISTVIEW_UPDATE )
 {
-   ListView_Update( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1 );
+   ListView_Update(( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1);
 
 }
 
@@ -249,10 +249,10 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 // #ifdef __BORLANDC__
 #if 1
-   SendMessage( hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_NORMAL );
-   SendMessage( hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_SMALL );
+   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p,
+         ( LPARAM ) LVSIL_NORMAL);
+   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p,
+         ( LPARAM ) LVSIL_SMALL);
 #else
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_NORMAL );
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_SMALL );
@@ -298,8 +298,8 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-   if( SendMessage( ( HWND ) hwndListView, ( UINT ) LVM_INSERTCOLUMN,
-               ( WPARAM ) ( int ) lCol, ( LPARAM ) & lvcolumn ) == -1 )
+   if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_INSERTCOLUMN,
+               ( WPARAM ) ( int ) lCol, ( LPARAM ) & lvcolumn) == -1 )
       iResult = 0;
    else
       iResult = 1;
@@ -309,7 +309,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
                  RDW_UPDATENOW );
 
    hb_retnl( iResult );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
@@ -343,16 +343,16 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    switch ( iSubItemYesNo )
    {
       case 0:
-         if( SendMessage( ( HWND ) hwndListView, ( UINT ) LVM_INSERTITEM,
-                          ( WPARAM ) 0, ( LPARAM ) & lvi ) == -1 )
+         if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_INSERTITEM,
+                          ( WPARAM ) 0, ( LPARAM ) & lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
          break;
 
       case 1:
-         if( SendMessage( ( HWND ) hwndListView, ( UINT ) LVM_SETITEM,
-                          ( WPARAM ) 0, ( LPARAM ) & lvi ) == FALSE )
+         if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_SETITEM,
+                          ( WPARAM ) 0, ( LPARAM ) & lvi) == FALSE )
             iResult = 0;
          else
             iResult = 1;
@@ -362,16 +362,16 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 // RedrawWindow( hwndListView, NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW ) ;
    InvalidateRect( hwndListView, &rect, TRUE );
    hb_retni( iResult );
-   hb_strfree( hText );
+   hb_strfree(hText);
 }
 
 HB_FUNC( HWG_LISTVIEWSELECTALL )
 {
    HWND hList = ( HWND ) HB_PARHANDLE(1);
 
-   ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
-   SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) - 1, FALSE );
-   ListView_SetItemState( hList, -1, LVIS_SELECTED, LVIS_SELECTED );
+   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
+   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) - 1, FALSE);
+   ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
    hb_retl(1);
 }
 
@@ -380,12 +380,12 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    HWND hList = ( HWND ) HB_PARHANDLE(1);
    int items;
 
-   items = SendMessage( hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0 );
+   items = SendMessage(hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0);
    items--;
-   ListView_SetItemState( hList, -1, 0, LVIS_SELECTED );
-   SendMessage( hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE );
-   ListView_SetItemState( hList, items, LVIS_SELECTED, LVIS_SELECTED );
-   ListView_SetItemState( hList, items, LVIS_FOCUSED, LVIS_FOCUSED );
+   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
+   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE);
+   ListView_SetItemState(hList, items, LVIS_SELECTED, LVIS_SELECTED);
+   ListView_SetItemState(hList, items, LVIS_FOCUSED, LVIS_FOCUSED);
    hb_retl(1);
 }
 
@@ -503,7 +503,7 @@ HB_FUNC( HWG_LISTVIEWSORTINFOFREE )
    PSORTINFO p = ( PSORTINFO ) hb_parptr(3);
 
    if( p )
-      hb_xfree( p );
+      hb_xfree(p);
 }
 
 HB_FUNC( HWG_LISTVIEWSORT )

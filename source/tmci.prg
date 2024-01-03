@@ -43,7 +43,7 @@ METHOD New( cDevice, cFileName ) CLASS TMci
    ::nId       = 0
    ::cType     = cDevice
    ::cFileName = cFileName
-   ::cBuffer   = Space( BUF_SIZE )
+   ::cBuffer   = Space(BUF_SIZE)
 
    RETURN Self
 

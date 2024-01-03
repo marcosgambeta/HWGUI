@@ -163,7 +163,7 @@ HB_FUNC( HWG_CREATEROUNDRECTRGN )
 {
    HRGN Res = CreateRoundRectRgn( hb_parni(1), hb_parni(2), hb_parni(3),
          hb_parni(4), hb_parni(5), hb_parni(6) );
-   HB_RETHANDLE( Res );
+   HB_RETHANDLE(Res);
 }
 
 
@@ -218,10 +218,10 @@ HB_FUNC( HWG_CREATENICEBTN )
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          ( HWND ) HB_PARHANDLE(1),    /* parent window    */
          ( HMENU ) hb_parni(2),       /* control ID  */
-         GetModuleHandle( NULL ), NULL );
-   hb_strfree( hTitle );
+         GetModuleHandle(NULL), NULL );
+   hb_strfree(hTitle);
 
-   HB_RETHANDLE( hWndPanel );
+   HB_RETHANDLE(hWndPanel);
 }
 
 HB_FUNC( HWG_ISMOUSEOVER )
@@ -275,6 +275,6 @@ HB_FUNC( HWG_GETWINDOWLONG )
 
 HB_FUNC( HWG_SETBKMODE )
 {
-   hb_retni( SetBkMode( ( HDC ) HB_PARHANDLE(1), hb_parni(2) ) );
+   hb_retni( SetBkMode(( HDC ) HB_PARHANDLE(1), hb_parni(2)) );
 }
 

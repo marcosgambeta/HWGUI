@@ -25,7 +25,7 @@ CLASS HSayImage INHERIT HControl
 
    METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
          bSize, ctooltip, bClick, bDblClick )
-   METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
    METHOD END()  INLINE ( ::Super:END(), IIf( ::oImage <> NIL, ::oImage:Release(), ::oImage := NIL ), ::oImage := NIL )
    METHOD onClick()
@@ -49,7 +49,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, bInit, bSize, ctooltip ) CLASS HSayImage
+METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
 
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize,, ctooltip )
 
@@ -94,11 +94,11 @@ CLASS HSayBmp INHERIT HSayImage
 
    METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
          bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle )
-   METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp )
+   METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp)
    METHOD Init()
    METHOD Paint( lpdis )
    METHOD ReplaceBitmap( Image, lRes )
-   //METHOD REFRESH() INLINE ::HIDE(), hwg_Sendmessage( ::handle, WM_PAINT, 0, 0 ), ::SHOW()
+   //METHOD REFRESH() INLINE ::HIDE(), hwg_Sendmessage(::handle, WM_PAINT, 0, 0), ::SHOW()
    METHOD Refresh() INLINE hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_UPDATENOW )
 
 ENDCLASS
@@ -120,10 +120,10 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := IIf( lRes .OR. ValType( Image ) == "N",     ;
-            HBitmap():AddResource( Image ), ;
-            IIf( ValType( Image ) == "C",     ;
-            HBitmap():AddFile( Image ), Image ) )
+      ::oImage := IIf( lRes .OR. ValType(Image) == "N",     ;
+            HBitmap():AddResource(Image), ;
+            IIf( ValType(Image) == "C",     ;
+            HBitmap():AddFile(Image), Image ) )
       IF nWidth == NIL .OR. nHeight == NIL
          ::nWidth  := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
@@ -134,9 +134,9 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp ) CLASS HSayBmp
+METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) CLASS HSayBmp
 
-   ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    ::bPaint := { | o, lpdis | o:Paint( lpdis ) }
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
@@ -145,10 +145,10 @@ METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp 
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf( lRes .OR. ValType( xImage ) == "N",     ;
-         HBitmap():AddResource( xImage ), ;
-         IIf( ValType( xImage ) == "C",     ;
-         HBitmap():AddFile( xImage ), xImage ) )
+   ::oImage := IIf( lRes .OR. ValType(xImage) == "N",     ;
+         HBitmap():AddResource(xImage), ;
+         IIf( ValType(xImage) == "C",     ;
+         HBitmap():AddFile(xImage), xImage ) )
 
    RETURN Self
 
@@ -157,7 +157,7 @@ METHOD Init() CLASS HSayBmp
    IF !::lInit
       ::Super:Init()
       IF ::oImage != NIL .AND. !empty( ::oImage:Handle )
-         hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle )
+         hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle)
       ENDIF
    ENDIF
 
@@ -207,10 +207,10 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf( lRes .OR. ValType( Image ) == "N",     ;
-         HBitmap():AddResource( Image ), ;
-         IIf( ValType( Image ) == "C",     ;
-         HBitmap():AddFile( Image ), Image ) )
+   ::oImage := IIf( lRes .OR. ValType(Image) == "N",     ;
+         HBitmap():AddResource(Image), ;
+         IIf( ValType(Image) == "C",     ;
+         HBitmap():AddFile(Image), Image ) )
 
    RETURN NIL
 
@@ -219,9 +219,9 @@ CLASS HSayIcon INHERIT HSayImage
 
    METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
          bSize, ctooltip, lOEM, bClick, bDblClick )
-   METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip )
+   METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
    METHOD Init()
-   METHOD REFRESH() INLINE hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle )
+   METHOD REFRESH() INLINE hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
 
 ENDCLASS
 
@@ -237,27 +237,27 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       lOEM := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf( lRes .OR. ValType( Image ) == "N",  ;
-            HIcon():AddResource( Image,,,, lOEM ),  ;
-            IIf( ValType( Image ) == "C",    ;
-            HIcon():AddFile( Image ), Image ) )
+      ::oImage := IIf( lRes .OR. ValType(Image) == "N",  ;
+            HIcon():AddResource(Image,,,, lOEM),  ;
+            IIf( ValType(Image) == "C",    ;
+            HIcon():AddFile(Image), Image ) )
    ENDIF
    ::Activate()
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip ) CLASS HSayIcon
+METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSayIcon
 
-   ::Super:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+   ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
    IF lRes == NIL
       lRes := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf( lRes .OR. ValType( xImage ) == "N",   ;
-            HIcon():AddResource( xImage ), ;
-            IIf( ValType( xImage ) == "C",   ;
-            HIcon():AddFile( xImage ), xImage ) )
+      ::oImage := IIf( lRes .OR. ValType(xImage) == "N",   ;
+            HIcon():AddResource(xImage), ;
+            IIf( ValType(xImage) == "C",   ;
+            HIcon():AddFile(xImage), xImage ) )
    ENDIF
 
    RETURN Self
@@ -266,7 +266,7 @@ METHOD Init() CLASS HSayIcon
 
    IF !::lInit
       ::Super:Init()
-      hwg_Sendmessage( ::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle )
+      hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
    ENDIF
 
    RETURN NIL

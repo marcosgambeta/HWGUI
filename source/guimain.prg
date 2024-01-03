@@ -62,7 +62,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
          ELSEIF  !lNoActivate
             pArray[ i ]:lInit := .T.
          ENDIF
-         IF IIF( ValType( pArray[ i ]:handle ) == "P", hwg_Ptrtoulong( pArray[ i ]:handle ), pArray[ i ]:handle ) <= 0
+         IF IIF( ValType(pArray[ i ]:handle) == "P", hwg_Ptrtoulong( pArray[ i ]:handle ), pArray[ i ]:handle ) <= 0
             pArray[ i ]:handle := hwg_Getdlgitem( oWnd:handle, pArray[ i ]:id )
 
             // writelog( "InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname )
@@ -109,7 +109,7 @@ FUNCTION hwg_FindSelf( hCtrl )
    IF oParent == Nil
       oParent := hwg_Getancestor( hCtrl, GA_PARENT )
    ENDIF
-   IF oParent != Nil  .AND. VALTYPE( oParent ) != "N"
+   IF oParent != Nil  .AND. VALTYPE(oParent) != "N"
       RETURN oParent:FindControl( , hCtrl )
    ENDIF
    RETURN Nil
@@ -131,9 +131,9 @@ FUNCTION hwg_ReadStatus( oWnd, nPart )
    LOCAL aControls, i, ntxtLen, cText := ""
    aControls := oWnd:aControls
    IF ( i := AScan( aControls, { | o | o:ClassName() == "HSTATUS" } ) ) > 0
-      ntxtLen := hwg_Sendmessage( aControls[ i ]:handle, SB_GETTEXTLENGTH, nPart - 1, 0 )
-      cText := Replicate( Chr(0), ntxtLen )
-      hwg_Sendmessage( aControls[ i ]:handle, SB_GETTEXT, nPart - 1, @cText )
+      ntxtLen := hwg_Sendmessage(aControls[ i ]:handle, SB_GETTEXTLENGTH, nPart - 1, 0)
+      cText := Replicate(Chr(0), ntxtLen)
+      hwg_Sendmessage(aControls[ i ]:handle, SB_GETTEXT, nPart - 1, @cText)
    ENDIF
    RETURN cText
 
@@ -196,15 +196,15 @@ Local hIn, hOut, nRet, hProc
 
    // "Reading output"
    // "Waiting for process termination"
-   nRet := HB_ProcessValue( hProc )
+   nRet := HB_ProcessValue(hProc)
 
-   FClose( hProc )
-   FClose( hIn )
-   FClose( hOut )
+   FClose(hProc)
+   FClose(hIn)
+   FClose(hOut)
 
    Return nRet
 
-FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )
+FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel)
 
    LOCAL oDlg, oBrw, nChoice := 0, lArray := .T., nField, lNewFont := .F.
    LOCAL i, aLen, nLen := 0, addX := 20, addY := 20, minWidth := 0, x1
@@ -235,7 +235,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       addY += 30
    ENDIF
 
-   IF ValType( arr ) == "C"
+   IF ValType(arr) == "C"
       lArray := .F.
       aLen := RecCount()
       IF ( nField := FieldPos( arr ) ) == 0
@@ -244,7 +244,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
       nLen := dbFieldInfo( 3, nField )
    ELSE
       aLen := Len( arr )
-      IF ValType( arr[1] ) == "A"
+      IF ValType(arr[1]) == "A"
          FOR i := 1 TO aLen
             nLen := Max( nLen, Len( arr[ i, 1 ] ) )
          NEXT
@@ -276,7 +276,7 @@ FUNCTION hwg_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrB
    IF lArray
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
-      IF ValType( arr[1] ) == "A"
+      IF ValType(arr[1]) == "A"
          oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
       ELSE
          oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent ] }, "C", nLen ) )
@@ -370,7 +370,7 @@ FUNCTION hwg_ShowProgress( nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, h
 FUNCTION hwg_EndWindow()
 
    IF HWindow():GetMain() != Nil
-      hwg_Sendmessage( HWindow():aWindows[1]:handle, WM_SYSCOMMAND, SC_CLOSE, 0 )
+      hwg_Sendmessage(HWindow():aWindows[1]:handle, WM_SYSCOMMAND, SC_CLOSE, 0)
    ENDIF
    RETURN Nil
 
@@ -430,7 +430,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
    cFile := repl( chr(0), 32000 )
    aFiles := {}
 
-   cPath := hwg_GetOpenFileName( hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex )
+   cPath := hwg_GetOpenFileName(hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex)
 
    nAt := At( Chr(0) + Chr(0), cFile )
    IF nAt != 0
@@ -483,7 +483,7 @@ FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
    IF oFont != Nil
       hFont := hwg_Selectobject( hDC, oFont:handle )
    ENDIF
-   ASize     := hwg_Gettextsize( hDC, cTxt )
+   ASize     := hwg_Gettextsize(hDC, cTxt)
    IF oFont != Nil
       hwg_Selectobject( hDC, hFont )
    ENDIF
@@ -508,7 +508,7 @@ FUNCTION hwg_CheckFocus( oCtrl, lInside )
    LOCAL oParent := hwg_GetParentForm( oCtrl )
    LOCAL hGetFocus := hwg_Ptrtoulong( hwg_Getfocus() ), lModal
 
-   IF ( !EMPTY( oParent ) .AND. !hwg_Iswindowvisible( oParent:handle ) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
+   IF ( !EMPTY( oParent ) .AND. !hwg_Iswindowvisible(oParent:handle) ) .OR. Empty( hwg_Getactivewindow() ) // == 0
       IF !lInside .AND. Empty( oParent:nInitFocus ) // = 0
          oParent:Show()
          hwg_Setfocus( oParent:handle )
@@ -595,11 +595,11 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
   	     oWin:lResult := .T.
   	     IF lForce
 	       ELSEIF ISBLOCK( oCtrl:bClick ) .AND. !lForce
-	          hwg_Sendmessage( oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle )
+	          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
 	       ELSEIF oWin:lExitOnEnter
             oWin:close()
          ELSE
-            hwg_Sendmessage( oWin:handle, WM_COMMAND, hwg_Makewparam( IDOK, 0 ), oCtrlFocu:handle )      
+            hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam( IDOK, 0 ), oCtrlFocu:handle)
          ENDIF
          RETURN .T.
       ENDIF
@@ -607,7 +607,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
       IF ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. oCtrl:IsEnabled() 
          oCtrl:Setfocus()
          oWin:lResult := .F.
-         hwg_Sendmessage( oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle )
+         hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
       ELSEIF oWin:lGetSkiponEsc
          oCtrl := oCtrlFocu
          IF oCtrl  != Nil .AND.  __ObjHasMsg( oCtrl, "OGROUP" )  .AND. oCtrl:oGroup:oHGroup != Nil
@@ -622,7 +622,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
           oWin:close()
       ELSEIF !oWin:lExitOnEsc
          oWin:nLastKey := 0
-         hwg_Sendmessage( oWin:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), oCtrlFocu:handle )
+         hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), oCtrlFocu:handle)
          RETURN .F.
       ENDIF
       RETURN .T.
@@ -646,7 +646,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
      IF LEN(oCtrl:aControls[ i ]:aControls ) > 0
          RETURN hwg_FindAccelerator( oCtrl:aControls[ i ], lParam)
 	   ENDIF
-     IF __ObjHasMsg( oCtrl:aControls[ i ], "TITLE") .AND. VALTYPE( oCtrl:aControls[ i ]:title) = "C" .AND. ;
+     IF __ObjHasMsg( oCtrl:aControls[ i ], "TITLE") .AND. VALTYPE(oCtrl:aControls[ i ]:title) = "C" .AND. ;
          !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[ i ]:handle)
         IF ( pos := At( "&", oCtrl:aControls[ i ]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr( oCtrl:aControls[ i ]:title, ++ pos, 1 ) )
            RETURN oCtrl:aControls[ i ]
@@ -680,7 +680,7 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
    brush := HBrush():Add(bColor) 
    Return brush
 
-Function  hwg_SetFontStyle( oWnd, lBold, lItalic, lUnderline )
+Function  hwg_SetFontStyle(oWnd, lBold, lItalic, lUnderline)
    LOCAL oFont
 
    IF oWnd:oFont == NIL
@@ -696,8 +696,8 @@ Function  hwg_SetFontStyle( oWnd, lBold, lItalic, lUnderline )
             HFont():Add("", 0,, Iif(lBold!=Nil, Iif(lBold, FW_BOLD, FW_REGULAR), NIL),, Iif(lItalic!=Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline!=Nil, Iif(lUnderline, 1, 0), NIL)) )
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
-      oWnd:oFont := oWnd:oFont:SetFontStyle( lBold,, lItalic, lUnderline )
-      hwg_Sendmessage( oWnd:handle, WM_SETFONT, oWnd:oFont:handle, hwg_Makelparam( 0, 1 ) )
+      oWnd:oFont := oWnd:oFont:SetFontStyle(lBold,, lItalic, lUnderline)
+      hwg_Sendmessage(oWnd:handle, WM_SETFONT, oWnd:oFont:handle, hwg_Makelparam( 0, 1 ))
       hwg_Redrawwindow( oWnd:handle, RDW_NOERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT )
    ENDIF
 
@@ -712,13 +712,13 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    Local nLen, i
 
    aControls := IIF( EMPTY( aControls ), oWnd:aControls, aControls )
-   nLen := IIF( VALTYPE( aControls ) = "C", Len( oWnd:&aControls ), LEN( aControls ) )
+   nLen := IIF( VALTYPE(aControls) = "C", Len( oWnd:&aControls ), LEN( aControls ) )
    FOR i = 1 TO nLen
-      IF VALTYPE( aControls ) = "C"
+      IF VALTYPE(aControls) = "C"
          oWnd:&aControls[ i ]:&cProperty := Value
       ELSEIF cClass == Nil .OR. UPPER( cClass ) == aControls[ i ]:ClassName
          IF Value = Nil
-            __mvPrivate( "oCtrl" )
+            __mvPrivate("oCtrl")
             &( "oCtrl" ) := aControls[ i ]
             &( "oCtrl:" + cProperty )
          ELSE

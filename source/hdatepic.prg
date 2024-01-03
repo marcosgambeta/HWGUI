@@ -41,10 +41,10 @@ CLASS HDatePicker INHERIT HControl
    METHOD OnEvent( msg, wParam, lParam )
    METHOD Refresh()
    METHOD GetValue()
-   METHOD SetValue( xValue )
-   METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
-         bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime )
-   METHOD onChange( nMess )
+   METHOD SetValue(xValue)
+   METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
+         bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime)
+   METHOD onChange(nMess)
    METHOD When()
    METHOD Valid()
    METHOD Value ( Value ) SETGET
@@ -61,8 +61,8 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
          ,, ctooltip, tcolor, bcolor )
 
    ::lShowTime := Hwg_BitAnd(nStyle, DTS_TIMEFORMAT) > 0
-   ::dValue    := IIF( vari == NIL .OR. ValType( vari ) != "D", CToD(Space(8)), vari )
-   ::tValue    := IIF( vari == NIL .OR. Valtype( vari ) != "C", SPACE(6), vari )
+   ::dValue    := IIF( vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari )
+   ::tValue    := IIF( vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari )
    ::title     := IIF( !::lShowTime, ::dValue, ::tValue )
 
    ::bSetGet := bSetGet
@@ -85,27 +85,27 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
          ::oParent:AddEvent( NM_KILLFOCUS, Self, bLfocus, .T., "onLostFocus" )
       ENDIF
    ENDIF
-   ::oParent:AddEvent( DTN_DATETIMECHANGE, Self, { | | ::onChange( DTN_DATETIMECHANGE ) }, .T., "onChange" )
-   ::oParent:AddEvent( DTN_CLOSEUP, Self, { | | ::onChange( DTN_CLOSEUP ) }, .T., "onClose" )
+   ::oParent:AddEvent( DTN_DATETIMECHANGE, Self, { | | ::onChange(DTN_DATETIMECHANGE) }, .T., "onChange" )
+   ::oParent:AddEvent( DTN_CLOSEUP, Self, { | | ::onChange(DTN_CLOSEUP) }, .T., "onClose" )
 
    RETURN Self
 
-METHOD Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
-      bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime ) CLASS  HDatePicker
+METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
+      bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime) CLASS  HDatePicker
    ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
          bSize,, ctooltip, tcolor, bcolor )
 
    HWG_InitCommonControlsEx()
-   ::dValue   := IIf( vari == NIL .OR. ValType( vari ) != "D", CToD(Space(8)), vari )
-   ::tValue    := IIF( vari == NIL .OR. Valtype( vari ) != "C", SPACE(6), vari )
+   ::dValue   := IIf( vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari )
+   ::tValue    := IIF( vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari )
    ::bSetGet := bSetGet
    ::bChange := bChange
    ::lShowTime := lShowTime
    IF bGfocus != NIL
       ::oParent:AddEvent( NM_SETFOCUS, Self, bGfocus, .T., "onGotFocus" )
    ENDIF
-   ::oParent:AddEvent( DTN_DATETIMECHANGE, Self, { | | ::onChange( DTN_DATETIMECHANGE ) }, .T., "onChange" )
-   ::oParent:AddEvent( DTN_CLOSEUP, Self, { | | ::onChange(  DTN_CLOSEUP ) }, .T., "onClose" )
+   ::oParent:AddEvent( DTN_DATETIMECHANGE, Self, { | | ::onChange(DTN_DATETIMECHANGE) }, .T., "onChange" )
+   ::oParent:AddEvent( DTN_CLOSEUP, Self, { | | ::onChange(DTN_CLOSEUP) }, .T., "onClose" )
    IF bSetGet != NIL
       ::bLostFocus := bLfocus
       ::oParent:AddEvent( NM_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .T., "onLostFocus" )
@@ -167,7 +167,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HDatePicker
 
    RETURN -1
 
-METHOD CheckValue( lValue )  CLASS HDatePicker
+METHOD CheckValue(lValue)  CLASS HDatePicker
 
    IF HWG_BITAND(::Style, DTS_SHOWNONE) = 0
        RETURN .F.
@@ -175,7 +175,7 @@ METHOD CheckValue( lValue )  CLASS HDatePicker
    IF lValue != Nil
       IF IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE, .F., .T. ) != lValue
          IF !lValue
-            hwg_Sendmessage( ::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0 )
+            hwg_Sendmessage(::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0)
          ELSE
             hwg_Setdatepicker( ::handle, ::dValue, STRTRAN( ::tValue, ":", "" ) )
          ENDIF
@@ -183,10 +183,10 @@ METHOD CheckValue( lValue )  CLASS HDatePicker
    ENDIF
    RETURN IIF( hwg_Getdatepicker( ::handle, GDT_NONE ) = GDT_NONE, .F., .T. )
 
-METHOD Value( Value )  CLASS HDatePicker
+METHOD Value(Value)  CLASS HDatePicker
 
    IF Value != NIL
-      ::SetValue( Value  )
+      ::SetValue(Value)
    ENDIF
 
    RETURN IIF( ::lShowTime, ::tValue, ::dValue )
@@ -195,7 +195,7 @@ METHOD GetValue() CLASS HDatePicker
 
    RETURN IIF( !::lShowTime, hwg_Getdatepicker( ::handle ), hwg_Gettimepicker( ::handle ) )
 
-METHOD SetValue( xValue ) CLASS HDatePicker
+METHOD SetValue(xValue) CLASS HDatePicker
 
    IF Empty( xValue )
       hwg_Setdatepickernull( ::handle )
@@ -226,19 +226,19 @@ METHOD Refresh() CLASS HDatePicker
       //hwg_Setdatepickernull( ::handle )
       hwg_Setdatepicker( ::handle, date(), STRTRAN( Time(), ":", "" ) )
    ELSE
-      ::SetValue( IIF( !::lShowTime, ::dValue, ::tValue ) )
+      ::SetValue(IIF( !::lShowTime, ::dValue, ::tValue ))
    ENDIF
 
    RETURN NIL
 
 
-METHOD onChange( nMess ) CLASS HDatePicker
+METHOD onChange(nMess) CLASS HDatePicker
 
    IF ( nMess == DTN_DATETIMECHANGE .AND. ;
-         hwg_Sendmessage( ::handle, DTM_GETMONTHCAL, 0, 0 ) == 0 ) .OR. ;
+         hwg_Sendmessage(::handle, DTM_GETMONTHCAL, 0, 0) == 0 ) .OR. ;
       nMess == DTN_CLOSEUP
       IF nMess = DTN_CLOSEUP
-         hwg_Postmessage( ::handle, WM_KEYDOWN, VK_RIGHT, 0 )
+         hwg_Postmessage(::handle, WM_KEYDOWN, VK_RIGHT, 0)
          ::Setfocus()
       ENDIF
       ::dValue := hwg_Getdatepicker( ::handle )
@@ -262,7 +262,7 @@ METHOD When() CLASS HDatePicker
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := IIf( hwg_Getkeystate( VK_UP ) < 0 .OR. ( hwg_Getkeystate( VK_TAB ) < 0 .AND. hwg_Getkeystate( VK_SHIFT ) < 0 ), - 1, 1 )
+      nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
       res :=  Eval( ::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
@@ -270,7 +270,7 @@ METHOD When() CLASS HDatePicker
       ::oParent:lSuspendMsgsHandling := .F.
       IF VALTYPE(res) = "L" .AND. !res
          hwg_WhenSetFocus( Self, nSkip )
-         hwg_Sendmessage( ::handle, DTM_CLOSEMONTHCAL, 0, 0 )
+         hwg_Sendmessage(::handle, DTM_CLOSEMONTHCAL, 0, 0)
       ELSE
          ::Setfocus()
       ENDIF
@@ -291,10 +291,10 @@ METHOD Valid() CLASS HDatePicker
    IF ::bLostFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bLostFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
-      res := IIF( ValType( res ) == "L", res, .T. )
+      res := IIF( ValType(res) == "L", res, .T. )
       ::oparent:lSuspendMsgsHandling := .F.
       IF !res
-         hwg_Postmessage( ::handle, WM_KEYDOWN, VK_RIGHT, 0 )
+         hwg_Postmessage(::handle, WM_KEYDOWN, VK_RIGHT, 0)
          ::Setfocus( .T. )
       ENDIF
    ENDIF

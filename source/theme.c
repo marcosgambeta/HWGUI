@@ -88,7 +88,7 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd );
 static int image_top( int cy, const RECT * Rect, DWORD style );
 static int image_left( int cx, const RECT * Rect, DWORD style );
 
-typedef HTHEME( __stdcall * PFNOPENTHEMEDATA ) ( HWND hwnd,
+typedef HTHEME ( __stdcall * PFNOPENTHEMEDATA ) ( HWND hwnd,
       LPCWSTR pszClassList );
 
 typedef HRESULT( __stdcall * PFNCLOSETHEMEDATA ) ( HTHEME hTheme );
@@ -199,7 +199,7 @@ typedef HRESULT( __stdcall * PFNGETTHEMESYSINT ) ( HTHEME hTheme, int iIntId,
 typedef BOOL( __stdcall * PFNISTHEMEACTIVE ) ( void );
 
 typedef BOOL( __stdcall * PFNISAPPTHEMED ) ( void );
-typedef HTHEME( __stdcall * PFNGETWINDOWTHEME ) ( HWND hwnd );
+typedef HTHEME ( __stdcall * PFNGETWINDOWTHEME ) ( HWND hwnd );
 typedef HRESULT( __stdcall * PFNENABLETHEMEDIALOGTEXTURE ) ( HWND hwnd,
       DWORD dwFlags );
 typedef BOOL( __stdcall * PFNISTHEMEDIALOGTEXTUREENABLED ) ( HWND hwnd );
@@ -762,8 +762,8 @@ HRESULT hb_GetThemeBackgroundExtent( HTHEME hTheme, HDC hdc,
          pExtentRect );
 }
 
-HRESULT hb_GetThemePartSize( HTHEME hTheme, HDC hdc,
-      int iPartId, int iStateId, RECT * pRect, int eSize, SIZE * psz )
+HRESULT hb_GetThemePartSize(HTHEME hTheme, HDC hdc,
+      int iPartId, int iStateId, RECT * pRect, int eSize, SIZE * psz)
 {
    PFNGETTHEMEPARTSIZE pfnGetThemePartSize =
          ( PFNGETTHEMEPARTSIZE ) GetProc("GetThemePartSize",
@@ -812,8 +812,8 @@ HRESULT hb_HitTestThemeBackground(HTHEME hTheme, HDC hdc, int iPartId,
          ptTest, pwHitTestCode );
 }
 
-HRESULT hb_DrawThemeEdge( HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
-      const RECT * pDestRect, UINT uEdge, UINT uFlags, RECT * pContentRect )
+HRESULT hb_DrawThemeEdge(HTHEME hTheme, HDC hdc, int iPartId, int iStateId,
+      const RECT * pDestRect, UINT uEdge, UINT uFlags, RECT * pContentRect)
 {
    PFNDRAWTHEMEEDGE pfn =
          ( PFNDRAWTHEMEEDGE ) GetProc("DrawThemeEdge",
@@ -896,8 +896,8 @@ HRESULT hb_GetThemeInt( HTHEME hTheme, int iPartId,
    return ( *pfn ) ( hTheme, iPartId, iStateId, iPropId, piVal );
 }
 
-HRESULT hb_GetThemeEnumValue( HTHEME hTheme, int iPartId,
-      int iStateId, int iPropId, int *piVal )
+HRESULT hb_GetThemeEnumValue(HTHEME hTheme, int iPartId,
+      int iStateId, int iPropId, int *piVal)
 {
    PFNGETTHEMEENUMVALUE pfn =
          ( PFNGETTHEMEENUMVALUE ) GetProc("GetThemeEnumValue",
@@ -959,8 +959,8 @@ HRESULT hb_GetThemePropertyOrigin( HTHEME hTheme, int iPartId,
    return ( *pfn ) ( hTheme, iPartId, iStateId, iPropId, pOrigin );
 }
 
-HRESULT hb_SetWindowTheme( HWND hwnd, LPCWSTR pszSubAppName,
-      LPCWSTR pszSubIdList )
+HRESULT hb_SetWindowTheme(HWND hwnd, LPCWSTR pszSubAppName,
+      LPCWSTR pszSubIdList)
 {
    PFNSETWINDOWTHEME pfn =
          ( PFNSETWINDOWTHEME ) GetProc("SetWindowTheme",
@@ -968,9 +968,9 @@ HRESULT hb_SetWindowTheme( HWND hwnd, LPCWSTR pszSubAppName,
    return ( *pfn ) ( hwnd, pszSubAppName, pszSubIdList );
 }
 
-HRESULT hb_GetThemeFilename( HTHEME hTheme, int iPartId,
+HRESULT hb_GetThemeFilename(HTHEME hTheme, int iPartId,
       int iStateId, int iPropId, LPWSTR pszThemeFileName,
-      int cchMaxBuffChars )
+      int cchMaxBuffChars)
 {
    PFNGETTHEMEFILENAME pfn =
          ( PFNGETTHEMEFILENAME ) GetProc("GetThemeFilename",
@@ -1003,7 +1003,7 @@ BOOL hb_GetThemeSysBool( HTHEME hTheme, int iBoolId )
    return ( *pfn ) ( hTheme, iBoolId );
 }
 
-int hb_GetThemeSysSize( HTHEME hTheme, int iSizeId )
+int hb_GetThemeSysSize(HTHEME hTheme, int iSizeId)
 {
    PFNGETTHEMESYSSIZE pfn =
          ( PFNGETTHEMESYSSIZE ) GetProc("GetThemeSysSize",
@@ -1036,7 +1036,7 @@ HRESULT hb_GetThemeSysInt( HTHEME hTheme, int iIntId, int *piValue )
    return ( *pfn ) ( hTheme, iIntId, piValue );
 }
 
-BOOL hb_IsThemeActive( void )
+BOOL hb_IsThemeActive(void)
 {
    PFNISTHEMEACTIVE pfn =
          ( PFNISTHEMEACTIVE ) GetProc("IsThemeActive",
@@ -1052,7 +1052,7 @@ BOOL hb_IsAppThemed(void)
    return ( *pfnIsAppThemed ) ();
 }
 
-HTHEME hb_GetWindowTheme( HWND hwnd )
+HTHEME hb_GetWindowTheme(HWND hwnd)
 {
    PFNGETWINDOWTHEME pfn =
          ( PFNGETWINDOWTHEME ) GetProc("GetWindowTheme",
@@ -1060,7 +1060,7 @@ HTHEME hb_GetWindowTheme( HWND hwnd )
    return ( *pfn ) ( hwnd );
 }
 
-HRESULT hb_EnableThemeDialogTexture( HWND hwnd, DWORD dwFlags )
+HRESULT hb_EnableThemeDialogTexture(HWND hwnd, DWORD dwFlags)
 {
    PFNENABLETHEMEDIALOGTEXTURE pfn =
          ( PFNENABLETHEMEDIALOGTEXTURE ) GetProc("EnableThemeDialogTexture",
@@ -1093,9 +1093,9 @@ void hb_SetThemeAppProperties( DWORD dwFlags )
    ( *pfn ) ( dwFlags );
 }
 
-HRESULT hb_GetCurrentThemeName( LPWSTR pszThemeFileName, int cchMaxNameChars,
+HRESULT hb_GetCurrentThemeName(LPWSTR pszThemeFileName, int cchMaxNameChars,
       LPWSTR pszColorBuff, int cchMaxColorChars,
-      LPWSTR pszSizeBuff, int cchMaxSizeChars )
+      LPWSTR pszSizeBuff, int cchMaxSizeChars)
 {
    PFNGETCURRENTTHEMENAME pfn =
          ( PFNGETCURRENTTHEMENAME ) GetProc("GetCurrentThemeName",
@@ -1224,7 +1224,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
 void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 {
    HBITMAP hBitmap =
-         ( HBITMAP ) SendMessage( m_hWnd, BM_GETIMAGE, IMAGE_BITMAP, 0L );
+         ( HBITMAP ) SendMessage(m_hWnd, BM_GETIMAGE, IMAGE_BITMAP, 0L);
    int x, y;
    BITMAPINFO bmi;
 
@@ -1242,16 +1242,16 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    y = image_top( bmi.bmiHeader.biHeight, Rect, style );
 
    // Draw the bitmap
-   DrawState( hDC, NULL, NULL, ( LPARAM ) hBitmap, 0, x, y,
+   DrawState(hDC, NULL, NULL, ( LPARAM ) hBitmap, 0, x, y,
          bmi.bmiHeader.biWidth, bmi.bmiHeader.biHeight,
          ( style & WS_DISABLED ) !=
-         0 ? ( DST_BITMAP | DSS_DISABLED ) : ( DST_BITMAP | DSS_NORMAL ) );
+         0 ? ( DST_BITMAP | DSS_DISABLED ) : ( DST_BITMAP | DSS_NORMAL ));
 }
 
 // draw_icon () - Draw an icon
 void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 {
-   HICON hIcon = ( HICON ) SendMessage( m_hWnd, BM_GETIMAGE, IMAGE_ICON, 0L );
+   HICON hIcon = ( HICON ) SendMessage(m_hWnd, BM_GETIMAGE, IMAGE_ICON, 0L);
    ICONINFO ii;
    BITMAPINFO bmi;
    int cx;
@@ -1286,9 +1286,9 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    x = image_left( cx, Rect, style );
    y = image_top( cy, Rect, style );
    // Draw the icon
-   DrawState( hDC, NULL, NULL, ( LPARAM ) hIcon, 0, x, y, cx, cy,
+   DrawState(hDC, NULL, NULL, ( LPARAM ) hIcon, 0, x, y, cx, cy,
          ( style & WS_DISABLED ) !=
-         0 ? ( DST_ICON | DSS_DISABLED ) : ( DST_ICON | DSS_NORMAL ) );
+         0 ? ( DST_ICON | DSS_DISABLED ) : ( DST_ICON | DSS_NORMAL ));
 }
 
 // calcultate the left position of the image so it is drawn on left, right or centred (the default)
@@ -1742,7 +1742,7 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
          cy, &rImage, iStyle );
 
    if( hIco )
-      DrawState( dc,
+      DrawState(dc,
             NULL,
             NULL,
             ( LPARAM ) hIco,
@@ -1751,10 +1751,10 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
             rImage.top,
             ( rImage.right - rImage.left ),
             ( rImage.bottom - rImage.top ),
-            ( bIsDisabled ? DSS_DISABLED : DSS_NORMAL ) | DST_ICON );
+            ( bIsDisabled ? DSS_DISABLED : DSS_NORMAL ) | DST_ICON);
 
    if( hBitmap )
-      DrawState( dc,
+      DrawState(dc,
             NULL,
             NULL,
             ( LPARAM ) hBitmap,
@@ -1763,7 +1763,7 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
             rImage.top,
             ( rImage.right - rImage.left ),
             ( rImage.bottom - rImage.top ),
-            ( bIsDisabled ? DSS_DISABLED : DSS_NORMAL ) | DST_BITMAP );
+            ( bIsDisabled ? DSS_DISABLED : DSS_NORMAL ) | DST_BITMAP);
 
 }                               // End of DrawTheIcon
 
@@ -1777,7 +1777,7 @@ HB_FUNC( HWG_OPENTHEMEDATA )
 
    MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, output, mlen );
    p = hb_OpenThemeData(hwnd, output);
-   hb_xfree( output );
+   hb_xfree(output);
    if( p )
       Themed = TRUE;
    hb_retptr( ( void * ) p );
@@ -1885,7 +1885,7 @@ HB_FUNC( HWG_PREPAREIMAGERECT )
    hb_storvni( rpTitle.right  , 5 , 3);
    hb_storvni( rpTitle.bottom , 5 , 4);
 
-   hb_itemRelease( hb_itemReturn( Rect2Array( &rImage ) ) ); 
+   hb_itemRelease(hb_itemReturn( Rect2Array( &rImage ) ));
 
 }
 
@@ -1908,7 +1908,7 @@ HB_FUNC( HWG_DRAWTHEMETEXT )
    hb_DrawThemeText( hTheme, hdc, iPartId,
                      iStateId, output, mlen - 1, dwTextFlags,
                      dwTextFlags2, &pRect );
-   hb_xfree( output );
+   hb_xfree(output);
 }
 
 HB_FUNC( HWG_CLOSETHEMEDATA )
@@ -1998,7 +1998,7 @@ HB_FUNC( HWG_GETTHEMESYSCOLOR )
    HWND hTheme = ( HWND ) HB_PARHANDLE(1);
    int iColor = ( int ) hb_parnl(2);
 
-   HB_RETHANDLE( hb_GetThemeSysColor( hTheme, iColor ) );
+   HB_RETHANDLE(hb_GetThemeSysColor( hTheme, iColor ));
 }
 
 
@@ -2021,9 +2021,9 @@ HB_FUNC( HWG_SETWINDOWTHEME)
       {
       //Windows XP detected
       if ( ienable == 0 )
-         hb_SetWindowTheme( hwnd, L" ", L" " ) ; // pszSubAppName,L pszSubIdList) ;
+         hb_SetWindowTheme(hwnd, L" ", L" ") ; // pszSubAppName,L pszSubIdList) ;
       else 
-         hb_SetWindowTheme( hwnd, NULL, NULL) ;
+         hb_SetWindowTheme(hwnd, NULL, NULL) ;
       }   
 }
 
@@ -2039,7 +2039,7 @@ HB_FUNC( HWG_GETWINDOWTHEME )
    {
      //Windows XP detected
       HTHEME hTheme; // = (HTHEME) hb_parptr(1) ;
-      hTheme = hb_GetWindowTheme( (HWND) HB_PARHANDLE(1) );
+      hTheme = hb_GetWindowTheme((HWND) HB_PARHANDLE(1));
       HB_RETHANDLE ( hTheme );
    }
    else

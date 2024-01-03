@@ -24,16 +24,16 @@ void writelog( char *s )
 {
    HB_FHANDLE handle;
 
-   if( hb_fsFile( "ac.log" ) )
+   if( hb_fsFile("ac.log") )
       handle = hb_fsOpen( "ac.log", FO_WRITE );
    else
-      handle = hb_fsCreate( "ac.log", 0 );
+      handle = hb_fsCreate("ac.log", 0);
 
    hb_fsSeek( handle, 0, SEEK_END );
-   hb_fsWrite( handle, ( const char * ) s, (USHORT) strlen( s ) );
-   hb_fsWrite( handle, "\n\r", 2 );
+   hb_fsWrite(handle, ( const char * ) s, (USHORT) strlen( s ));
+   hb_fsWrite(handle, "\n\r", 2);
 
-   hb_fsClose( handle );
+   hb_fsClose(handle);
 }
 
 HB_FUNC( HWG_SETDLGRESULT )
@@ -43,7 +43,7 @@ HB_FUNC( HWG_SETDLGRESULT )
 
 HB_FUNC( HWG_SETCAPTURE )
 {
-   hb_retnl( ( LONG ) SetCapture( ( HWND ) HB_PARHANDLE(1) ) );
+   hb_retnl( ( LONG ) SetCapture(( HWND ) HB_PARHANDLE(1)) );
 }
 
 HB_FUNC( HWG_RELEASECAPTURE )
@@ -72,7 +72,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
          memcpy( lptstrCopy, lpStr, nLen * sizeof( TCHAR ) );
          lptstrCopy[ nLen ] = 0;       // null character
          GlobalUnlock( hglbCopy );
-         hb_strfree( hStr );
+         hb_strfree(hStr);
 
          // Place the handle on the clipboard.
 #ifdef UNICODE
@@ -102,7 +102,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
          LPVOID lpMem = GlobalLock( hglb );
          if( lpMem )
          {
-            HB_SIZE nSize = ( HB_SIZE ) GlobalSize( hglb );
+            HB_SIZE nSize = ( HB_SIZE ) GlobalSize(hglb);
             if( nSize )
             {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
@@ -116,12 +116,12 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
    }
    HB_RETSTR( lpText );
    if( lpText )
-      hb_xfree( lpText );
+      hb_xfree(lpText);
 }
 
 HB_FUNC( HWG_GETSTOCKOBJECT )
 {
-   HB_RETHANDLE( GetStockObject( hb_parni(1) ) );
+   HB_RETHANDLE(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( HWG_LOWORD )
@@ -189,14 +189,14 @@ HB_FUNC( HWG_CLIENTTOSCREEN )
 
    temp = hb_itemPutNL( NULL, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    temp = hb_itemPutNL( NULL, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    hb_itemReturn( aPoint );
-   hb_itemRelease( aPoint );
+   hb_itemRelease(aPoint);
 }
 
 HB_FUNC( HWG_SCREENTOCLIENT )
@@ -218,20 +218,20 @@ HB_FUNC( HWG_SCREENTOCLIENT )
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &R );
       ScreenToClient( ( HWND ) HB_PARHANDLE(1), ( LPPOINT ) ( void * ) &R );
       ScreenToClient( ( HWND ) HB_PARHANDLE(1), ( ( LPPOINT ) ( void * ) &R ) + 1 );
-      hb_itemRelease( hb_itemReturn( Rect2Array( &R ) ) );
+      hb_itemRelease(hb_itemReturn( Rect2Array( &R ) ));
       return;
    }
 
    temp = hb_itemPutNL( NULL, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    temp = hb_itemPutNL( NULL, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    hb_itemReturn( aPoint );
-   hb_itemRelease( aPoint );
+   hb_itemRelease(aPoint);
 
 }
 
@@ -244,14 +244,14 @@ HB_FUNC( HWG_GETCURSORPOS )
    GetCursorPos( &pt );
    temp = hb_itemPutNL( NULL, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    temp = hb_itemPutNL( NULL, pt.y );
    hb_itemArrayPut( aPoint, 2, temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    hb_itemReturn( aPoint );
-   hb_itemRelease( aPoint );
+   hb_itemRelease(aPoint);
 
 }
 
@@ -281,14 +281,14 @@ HB_FUNC( HWG_WINEXEC )
 HB_FUNC( HWG_GETKEYBOARDSTATE )
 {
    BYTE lpbKeyState[256];
-   GetKeyboardState( lpbKeyState );
+   GetKeyboardState(lpbKeyState);
    lpbKeyState[255] = '\0';
    hb_retclen( ( char * ) lpbKeyState, 255 );
 }
 
 HB_FUNC( HWG_GETKEYSTATE )
 {
-   hb_retni( GetKeyState( hb_parni(1) ) );
+   hb_retni( GetKeyState(hb_parni(1)) );
 }
 
 HB_FUNC( HWG_GETKEYNAMETEXT )
@@ -310,7 +310,7 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 
    do
    {
-      GetKeyboardLayoutName( sBuff );
+      GetKeyboardLayoutName(sBuff);
       if( !lstrcmp( sBuff, lpLayout ) )
          break;
       ActivateKeyboardLayout( 0, 0 );
@@ -321,7 +321,7 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
    if( i >= num )
       ActivateKeyboardLayout( curr, 0 );
 
-   hb_strfree( hLayout );
+   hb_strfree(hLayout);
 }
 
 /*
@@ -376,7 +376,7 @@ HB_FUNC( HWG_GETTEMPDIR )
 
 HB_FUNC( HWG_POSTQUITMESSAGE )
 {
-   PostQuitMessage( hb_parni(1) );
+   PostQuitMessage(hb_parni(1));
 }
 
 /*
@@ -391,8 +391,8 @@ HB_FUNC( HWG_SHELLABOUT )
                          HB_PARSTRDEF( 1, &hStr1, NULL ),
                          HB_PARSTRDEF( 2, &hStr2, NULL ),
                          ( HB_ISNIL(3) ? NULL : ( HICON ) HB_PARHANDLE(3) ) ) );
-   hb_strfree( hStr1 );
-   hb_strfree( hStr2 );
+   hb_strfree(hStr1);
+   hb_strfree(hStr2);
 }
 
 
@@ -440,13 +440,13 @@ HB_FUNC( HWG_WINHELP )
    }
 
    hb_retni( WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR( 2, &hStr, NULL ), style, context ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
 {
-   HB_RETHANDLE( GetNextDlgTabItem( ( HWND ) HB_PARHANDLE(1),
-               ( HWND ) HB_PARHANDLE(2), hb_parl(3) ) );
+   HB_RETHANDLE(GetNextDlgTabItem( ( HWND ) HB_PARHANDLE(1),
+               ( HWND ) HB_PARHANDLE(2), hb_parl(3) ));
 }
 
 HB_FUNC( HWG_SLEEP )
@@ -520,7 +520,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 {
    int MinPos, MaxPos;
 
-   GetScrollRange( ( HWND ) HB_PARHANDLE(1),  // handle of window with scroll bar
+   GetScrollRange(( HWND ) HB_PARHANDLE(1),  // handle of window with scroll bar
          hb_parni(2),         // scroll bar flags
          &MinPos,               // address of variable that receives minimum position
          &MaxPos                // address of variable that receives maximum position
@@ -535,8 +535,8 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 
 HB_FUNC( HWG_SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange( ( HWND ) HB_PARHANDLE(1), hb_parni(2),
-               hb_parni(3), hb_parni(4), hb_parl(5) ) );
+   hb_retl( SetScrollRange(( HWND ) HB_PARHANDLE(1), hb_parni(2),
+               hb_parni(3), hb_parni(4), hb_parl(5)) );
 }
 
 
@@ -571,17 +571,17 @@ HB_FUNC( HWG_SCROLLWINDOW )
 
 HB_FUNC( HWG_ISCAPSLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_CAPITAL ) );
+   hb_retl( GetKeyState(VK_CAPITAL) );
 }
 
 HB_FUNC( HWG_ISNUMLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_NUMLOCK ) );
+   hb_retl( GetKeyState(VK_NUMLOCK) );
 }
 
 HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 {
-   hb_retl( GetKeyState( VK_SCROLL ) );
+   hb_retl( GetKeyState(VK_SCROLL) );
 }
 
 /* Added By Sandro Freire sandrorrfreire_nospam_yahoo.com.br*/
@@ -590,35 +590,35 @@ HB_FUNC( HWG_CREATEDIRECTORY )
 {
    void * hStr;
    CreateDirectory( HB_PARSTR( 1, &hStr, NULL ), NULL );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
    void * hStr;
    hb_retl( RemoveDirectory( HB_PARSTR( 1, &hStr, NULL ) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
    void * hStr;
    SetCurrentDirectory( HB_PARSTR( 1, &hStr, NULL ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETEFILE )
 {
    void * hStr;
-   hb_retl( DeleteFile( HB_PARSTR( 1, &hStr, NULL ) ) );
-   hb_strfree( hStr );
+   hb_retl( DeleteFile(HB_PARSTR( 1, &hStr, NULL )) );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void * hStr;
    hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR( 1, &hStr, NULL ) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETFILEATTRIBUTES )
@@ -626,27 +626,27 @@ HB_FUNC( HWG_SETFILEATTRIBUTES )
    void * hStr;
    hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, NULL ),
                                ( DWORD ) hb_parnl(2) ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 /* Add by Richard Roesnadi (based on What32) */
-// GETCOMPUTERNAME( [@nLengthChar] ) -> cComputerName
+// GETCOMPUTERNAME([@nLengthChar]) -> cComputerName
 HB_FUNC( HWG_GETCOMPUTERNAME )
 {
    TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
-   GetComputerName( cText, &nSize );
+   GetComputerName(cText, &nSize);
    HB_RETSTR( cText );
    hb_stornl( nSize, 1 );
 }
 
 
-// GETUSERNAME( [@nLengthChar] ) -> cUserName
+// GETUSERNAME([@nLengthChar]) -> cUserName
 HB_FUNC( HWG_GETUSERNAME )
 {
    TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
-   GetUserName( cText, &nSize );
+   GetUserName(cText, &nSize);
    HB_RETSTR( cText );
    hb_stornl( nSize, 1 );
 }
@@ -654,12 +654,12 @@ HB_FUNC( HWG_GETUSERNAME )
 
 HB_FUNC( HWG_ISDOWNPRESSESED )
 {
-   hb_retl( HIWORD(GetKeyState( VK_DOWN )) > 0 );
+   hb_retl( HIWORD(GetKeyState(VK_DOWN)) > 0 );
 }
 
 HB_FUNC( HWG_ISPGDOWNPRESSESED )
 {
-   hb_retl( HIWORD(GetKeyState( VK_NEXT )) > 0 );
+   hb_retl( HIWORD(GetKeyState(VK_NEXT)) > 0 );
 }
 
 HB_FUNC( HWG_EDIT1UPDATECTRL )
@@ -685,7 +685,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
    GetWindowRect( hChild, rect );
    ScreenToClient( hParent, ( LPPOINT ) rect );
    ScreenToClient( hParent, ( ( LPPOINT ) rect ) + 1 );
-   hb_itemRelease( hb_itemReturn( Rect2Array( rect ) ) );
+   hb_itemRelease(hb_itemReturn( Rect2Array( rect ) ));
 }
 
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
@@ -701,14 +701,14 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    if( !pObject )
    {
       hb_retnl( ( LONG ) GetStockObject( HOLLOW_BRUSH ) );
-      SetBkMode( hdc, TRANSPARENT );
+      SetBkMode(hdc, TRANSPARENT);
       return;
    }
 
    p = GetObjectVar( pObject, "M_BRUSH" );
    p2 = GetObjectVar( pObject, "M_TEXTCOLOR" );
    cColor = ( COLORREF ) hb_itemGetNL( p2 );
-   hBrush = ( HBRUSH ) HB_GETHANDLE( p );
+   hBrush = ( HBRUSH ) HB_GETHANDLE(p);
 
    DeleteObject( hBrush );
 
@@ -717,7 +717,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    if( i == -1 )
    {
       hBrush = ( HBRUSH ) GetStockObject( HOLLOW_BRUSH );
-      SetBkMode( hdc, TRANSPARENT );
+      SetBkMode(hdc, TRANSPARENT);
    }
    else
    {
@@ -725,12 +725,12 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       SetBkColor( hdc, ( COLORREF ) i );
    }
 
-   temp = HB_PUTHANDLE( NULL, hBrush );
+   temp = HB_PUTHANDLE(NULL, hBrush);
    SetObjectVar( pObject, "_M_BRUSH", temp );
-   hb_itemRelease( temp );
+   hb_itemRelease(temp);
 
    SetTextColor( hdc, cColor );
-   HB_RETHANDLE( hBrush );
+   HB_RETHANDLE(hBrush);
 }
 
 HB_FUNC( HWG_GETKEYBOARDCOUNT )
@@ -742,8 +742,8 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 {
-   HB_RETHANDLE( GetNextDlgGroupItem( ( HWND ) HB_PARHANDLE(1),
-                 ( HWND ) HB_PARHANDLE(2), hb_parl(3) ) );
+   HB_RETHANDLE(GetNextDlgGroupItem( ( HWND ) HB_PARHANDLE(1),
+                 ( HWND ) HB_PARHANDLE(2), hb_parl(3) ));
 }
 
 HB_FUNC( HWG_PTRTOULONG )
@@ -756,7 +756,7 @@ HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
    void * hStr;
    OutputDebugString( HB_PARSTRDEF( 1, &hStr, NULL ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETSYSTEMMETRICS )
@@ -770,7 +770,7 @@ HB_FUNC( HWG_LASTKEY )
    BYTE kbBuffer[256];
    int i ;
 
-   GetKeyboardState( kbBuffer );
+   GetKeyboardState(kbBuffer);
 
    for( i = 0; i < 256; i ++ )  
       if( kbBuffer[ i ] & 0x80 )
@@ -811,7 +811,7 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    sa.lpSecurityDescriptor = NULL; 
 
    // Create a pipe for the child process's STDOUT. 
-   if( ! CreatePipe( &g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0 ) )
+   if( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) )
    {
       hb_retl(0);
       return;
@@ -846,28 +846,28 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    }
 
    WaitForSingleObject( pi.hProcess, INFINITE );
-   CloseHandle( pi.hProcess );
-   CloseHandle( pi.hThread );
-   CloseHandle( g_hChildStd_OUT_Wr );
+   CloseHandle(pi.hProcess);
+   CloseHandle(pi.hThread);
+   CloseHandle(g_hChildStd_OUT_Wr);
 
    if( !HB_ISNIL(2) )
-      hOut = CreateFile( hb_parc(2), GENERIC_WRITE, 0, 0,
-             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0 );
+      hOut = CreateFile(hb_parc(2), GENERIC_WRITE, 0, 0,
+             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
    while( 1 )
    { 
-      bSuccess = ReadFile( g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL );
+      bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL);
       if( ! bSuccess || dwRead == 0 ) break; 
 
       if( !HB_ISNIL(2) )
       {
-         bSuccess = WriteFile( hOut, chBuf, dwRead, &dwWritten, NULL );
+         bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, NULL);
          if( ! bSuccess ) break; 
       }
    } 
 
    if( !HB_ISNIL(2) )
-      CloseHandle( hOut );
-   CloseHandle( g_hChildStd_OUT_Rd );
+      CloseHandle(hOut);
+   CloseHandle(g_hChildStd_OUT_Rd);
 
    hb_retl(1);
 }

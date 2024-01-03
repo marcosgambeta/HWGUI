@@ -75,19 +75,19 @@ LOCAL aFormCode, aFormName
             Aadd(aFormName, SUBSTR( stroka, i+1 ))
          ELSEIF rejim == -1 .AND. LEFT( stroka, 9 ) == "#ENDBLOCK"
 #ifdef __WINDOWS__
-            i := hwg_WChoice( aFormName )
+            i := hwg_WChoice(aFormName)
 #else
-            i := FCHOICE( aFormName )
+            i := FCHOICE(aFormName)
 #endif
             IF i == 0
-               FCLOSE( han )
+               FCLOSE(han)
                RETURN Nil
             ENDIF
             rejim  := 0
             scrkod := aFormCode[ i ]
          ENDIF
       ENDDO
-      FCLOSE( han )
+      FCLOSE(han)
    ELSE
 #ifdef __WINDOWS__
       hwg_Msgstop( fname + " can't be opened " )
@@ -116,8 +116,8 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
    IF scrSource == Nil
       han := Nil
       poz := 1
-   ELSEIF Valtype( scrSource ) == "C"
-      strbuf := Space( STR_BUFLEN )
+   ELSEIF Valtype(scrSource) == "C"
+      strbuf := Space(STR_BUFLEN)
       poz := STR_BUFLEN + 1
       IF DEF_CH_SEP $ scrSource
          scrSource := StrTran( scrSource, DEF_CH_SEP, DEF_SEP )
@@ -130,7 +130,7 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
       IF !lppNoInit
          ppScript( , .T. )
       ENDIF
-      IF Valtype( scrSource ) == "C"
+      IF Valtype(scrSource) == "C"
          WndOut( "Compiling ..." )
          WndOut( "" )
       ENDIF
@@ -138,9 +138,9 @@ LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
       IF !CompileScr( han, @strbuf, @poz, rezArray, scrSource )
          rezArray := Nil
       ENDIF
-      IF scrSource != Nil .AND. Valtype( scrSource ) == "C"
+      IF scrSource != Nil .AND. Valtype(scrSource) == "C"
          WndOut()
-         Fclose( han )
+         Fclose(han)
       ENDIF
       IF !lppNoInit
          ppScript( , .F. )
@@ -223,7 +223,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
          scom := UPPER( SUBSTR( stroka, 1, IIF( poz1 <> 0, poz1 - 1, 999 ) ) )
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN( rezArray[2] ) == 0 .OR. ( i := VALTYPE( ATAIL( rezArray[2] ) ) ) == "C" ;
+            IF LEN( rezArray[2] ) == 0 .OR. ( i := VALTYPE(ATAIL( rezArray[2] )) ) == "C" ;
                     .OR. i == "A"
                IF Left( scom, 2 ) == "LO"
                   AADD(rezArray[2], " "+ALLTRIM( SUBSTR( stroka, 7 ) ))
@@ -279,9 +279,9 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             BEGIN SEQUENCE
                AADD(rezArray[2], &( "{||EndScript("+Ltrim( Substr( stroka, 7 ) )+")}" ))
             RECOVER
-               IF scrSource != Nil .AND. VALTYPE( scrSource ) == "C"
+               IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
                   WndOut()
-                  FCLOSE( han )
+                  FCLOSE(han)
                ENDIF
                ERRORBLOCK( bOldError )
                RETURN .F.
@@ -304,9 +304,9 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             BEGIN SEQUENCE
                AADD(rezArray[2], &( "{||" + ALLTRIM( stroka ) + "}" ))
             RECOVER
-               IF scrSource != Nil .AND. VALTYPE( scrSource ) == "C"
+               IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
                   WndOut()
-                  FCLOSE( han )
+                  FCLOSE(han)
                ENDIF
                ERRORBLOCK( bOldError )
                RETURN .F.
@@ -335,8 +335,8 @@ Local n, cTitle
       cTitle := "Script variables error"
    ELSEIF nm == 3
       n := 2
-      DO WHILE !Empty( ProcName( n ) )
-        stroka += Chr(13)+Chr(10) + "Called from " + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n++ ) ) ) + ")"
+      DO WHILE !Empty( ProcName(n) )
+        stroka += Chr(13)+Chr(10) + "Called from " + ProcName(n) + "(" + AllTrim( Str( ProcLine(n++) ) ) + ")"
       ENDDO
       stroka := hwg_ErrMsg( e )+ Chr(10)+Chr(13) + stroka
       cTitle := "Script execution error"
@@ -354,8 +354,8 @@ Local n, cTitle
    ELSEIF nm == 3
       stroka += ";" + hwg_ErrMsg( e )
       n := 2
-      DO WHILE !Empty( ProcName( n ) )
-        stroka += ";Called from " + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n++ ) ) ) + ")"
+      DO WHILE !Empty( ProcName(n) )
+        stroka += ";Called from " + ProcName(n) + "(" + AllTrim( Str( ProcLine(n++) ) ) + ")"
       ENDDO
       Alert( "Script execution error:;"+stroka )
    ENDIF
@@ -441,15 +441,15 @@ LOCAL arlen, stroka, varName, varValue, lDebug, lParam, j, lSetDebugger := .F.
 MEMVAR iscr, bOldError, aScriptt, doscr_RetValue
 PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
 
-   IF Type( "aScriptt" ) != "A"
+   IF Type("aScriptt") != "A"
       PRIVATE aScriptt := aScript
    ENDIF
    IF aScript == Nil .OR. ( arlen := Len( aScript[2] ) ) == 0
       RETURN .T.
    ENDIF
    lDebug := ( Len( aScript ) >= 3 )
-   DO WHILE Valtype( aScript[2, iscr] ) != "B"
-      IF Valtype( aScript[2, iscr] ) == "C"
+   DO WHILE Valtype(aScript[2, iscr]) != "B"
+      IF Valtype(aScript[2, iscr]) == "C"
          IF Left( aScript[2, iscr], 1 ) == "#"
             IF !lDebugger
                lSetDebugger := .T.
@@ -536,7 +536,7 @@ LOCAL i := 1, RetValue := Nil
       aScript := m->aScriptt
    ENDIF
    cProc := Upper( cProc )
-   DO WHILE i <= Len( aScript[2] ) .AND. Valtype( aScript[2, i] ) == "A"
+   DO WHILE i <= Len( aScript[2] ) .AND. Valtype(aScript[2, i]) == "A"
       IF aScript[2, i, 1] == cProc
          RetValue := DoScript( aScript[2, i], aParams )
          EXIT

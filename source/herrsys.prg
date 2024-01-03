@@ -58,8 +58,8 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    n := 2
-   DO WHILE !Empty( ProcName( n ) )
-      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+   DO WHILE !Empty( ProcName(n) )
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile(n) + "->" + ProcName(n) + "(" + AllTrim( Str( ProcLine(n ++) ) ) + ")"
    ENDDO
 
    //included aditional informations
@@ -125,14 +125,14 @@ FUNCTION hwg_WriteLog( cText, fname )
    LOCAL nHand
 
    fname := LogInitialPath + IIf( fname == Nil, "a.log", fname )
-   IF !File( fname )
-      nHand := FCreate( fname )
+   IF !File(fname)
+      nHand := FCreate(fname)
    ELSE
       nHand := FOpen( fname, 1 )
    ENDIF
    FSeek( nHand, 0, 2 )
-   FWrite( nHand, cText + Chr(10) )
-   FClose( nHand )
+   FWrite(nHand, cText + Chr(10))
+   FClose(nHand)
 
    RETURN nil
 
@@ -144,7 +144,7 @@ STATIC FUNCTION ErrorPreview( cMess )
 
    @ 10, 10 EDITBOX oEdit CAPTION cMess SIZE 480, 440 STYLE WS_VSCROLL + WS_HSCROLL + ES_MULTILINE + ES_READONLY ;
       COLOR 16777088 BACKCOLOR 0 ;
-      ON GETFOCUS { || hwg_Sendmessage( oEdit:handle, EM_SETSEL, 0, 0 ) }
+      ON GETFOCUS { || hwg_Sendmessage(oEdit:handle, EM_SETSEL, 0, 0) }
 
    @ 200, 460 BUTTON "Close" ON CLICK { || hwg_EndDialog() } SIZE 100, 32
 

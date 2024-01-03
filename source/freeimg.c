@@ -256,7 +256,7 @@ HB_FUNC( HWG_FI_LOAD )
    if( pGetfiffromfile && pLoad )
    {
       const char *name = hb_parc(1);
-      hb_retnl( ( ULONG ) pLoad(pGetfiffromfile( name ), name,
+      hb_retnl( ( ULONG ) pLoad(pGetfiffromfile(name), name,
                   ( hb_pcount() > 1 ) ? hb_parni(2) : 0) );
    }
    else
@@ -294,9 +294,9 @@ HB_FUNC( HWG_FI_SAVE )
    if( pGetfiffromfile && pSave )
    {
       const char *name = hb_parc(2);
-      hb_retl( ( BOOL ) pSave( pGetfiffromfile( name ),
+      hb_retl( ( BOOL ) pSave(pGetfiffromfile(name),
                   ( FIBITMAP * ) hb_parnl(1), name,
-                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
    }
    else
       hb_retl( FALSE );
@@ -314,9 +314,9 @@ HB_FUNC( HWG_FI_SAVETYPE )
    if( pSave )
    {
       const char *name = hb_parc(3);
-      hb_retl( ( BOOL ) pSave( ( enum FREE_IMAGE_FORMAT ) hb_parni(1),
+      hb_retl( ( BOOL ) pSave(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
                   ( FIBITMAP * ) hb_parnl(2), name,
-                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0 ) );
+                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0) );
    }
    else
       hb_retl( FALSE );
@@ -356,7 +356,7 @@ HB_FUNC( HWG_FI_GETIMAGETYPE )
          ( FREEIMAGE_GETIMAGETYPE ) s_getFunction( ( FARPROC ) pGetImageType,
          "_FreeImage_GetImageType@4" );
 
-   hb_retnl( ( pGetImageType ) ? pGetImageType( ( FIBITMAP * ) hb_parnl(1) )
+   hb_retnl( ( pGetImageType ) ? pGetImageType(( FIBITMAP * ) hb_parnl(1))
          : 0 );
 }
 
@@ -510,7 +510,7 @@ static void SET_FREEIMAGE_MARKER( BITMAPINFOHEADER * bmih, FIBITMAP * dib )
 
    // Windows constants goes from 0L to 5L
    // Add 0xFF to avoid conflicts
-   bmih->biCompression = 0xFF + pGetImageType( dib );
+   bmih->biCompression = 0xFF + pGetImageType(dib);
 }
 
 HB_FUNC( HWG_FI_FI2DIBEX )
@@ -573,7 +573,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       bih = pGetinfoHead(_dib);
       memcpy( p_dib, bih, sizeof( BITMAPINFOHEADER ) );
 
-      if( pGetImageType( _dib ) != 1 /*FIT_BITMAP */  )
+      if( pGetImageType(_dib) != 1 /*FIT_BITMAP */  )
       {
          // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
          SET_FREEIMAGE_MARKER( ( BITMAPINFOHEADER * ) p_dib, _dib );
@@ -581,7 +581,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       p_dib += sizeof( BITMAPINFOHEADER );
 
       // Copy the palette
-      pal = pGetPalette( _dib );
+      pal = pGetPalette(_dib);
       memcpy( p_dib, pal, pGetColorsUsed(_dib) * sizeof( RGBQUAD ) );
       p_dib += pGetColorsUsed(_dib) * sizeof( RGBQUAD );
 
@@ -635,7 +635,7 @@ HB_FUNC( HWG_FI_DRAW )
 
    if( pGetbits && pGetinfo )
    {
-      SetStretchBltMode( hDC, COLORONCOLOR );
+      SetStretchBltMode(hDC, COLORONCOLOR);
       StretchDIBits( hDC, pp[0].x, pp[0].y, pp[1].x - pp[0].x,
             pp[1].y - pp[0].y, 0, 0, nWidth, nHeight, pGetbits( dib ),
             pGetinfo( dib ), DIB_RGB_COLORS, SRCCOPY );
@@ -669,7 +669,7 @@ HB_FUNC( HWG_FI_BMP2FI )
          HDC hDC = GetDC(NULL);
 
          GetObject( hbmp, sizeof( BITMAP ), ( LPVOID ) &bm );
-         dib = pAllocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
+         dib = pAllocate(bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0);
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
          ReleaseDC(NULL, hDC);
@@ -759,7 +759,7 @@ HB_FUNC( HWG_FI_DIB2FI )
          if( pGetBPP( dib ) <= 8 )
          {
             // Convert palette entries
-            RGBQUAD *pal = pGetPalette( dib );
+            RGBQUAD *pal = pGetPalette(dib);
             RGBQUAD *dibpal =
                   ( RGBQUAD * ) ( ( ( LPBYTE ) lpbi ) + lpbi->biSize );
 
@@ -791,9 +791,9 @@ HB_FUNC( HWG_FI_RESCALE )
          ( FREEIMAGE_RESCALE ) s_getFunction( ( FARPROC ) pRescale,
          "_FreeImage_Rescale@16" );
 
-   hb_retnl( ( pRescale ) ? ( LONG ) pRescale( ( FIBITMAP * ) hb_parnl(1),
+   hb_retnl( ( pRescale ) ? ( LONG ) pRescale(( FIBITMAP * ) hb_parnl(1),
                hb_parnl(2), hb_parnl(3),
-               ( FREE_IMAGE_FILTER ) hb_parni(4) ) : 0 );
+               ( FREE_IMAGE_FILTER ) hb_parni(4)) : 0 );
 }
 
 /* Channel is an enumerated type from freeimage.h passed as second parameter */
@@ -818,7 +818,7 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
          ( FREEIMAGE_UNLOAD ) s_getFunction( ( FARPROC ) pUnload,
          "_FreeImage_Unload@4" );
 
-   dib8 = pAllocate( pGetwidth( dib ), pGetheight( dib ), 8, 0, 0, 0 );
+   dib8 = pAllocate(pGetwidth( dib ), pGetheight( dib ), 8, 0, 0, 0);
 
    if( dib8 )
    {
@@ -916,8 +916,8 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
          fif = FIF_UNKNOWN;
 
       g_load_address = ( fi_handle ) image;
-      hb_retnl( ( LONG ) pLoadFromHandle( fif, &io, ( fi_handle ) image,
-                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0 ) );
+      hb_retnl( ( LONG ) pLoadFromHandle(fif, &io, ( fi_handle ) image,
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
    }
    else
       hb_retnl(0);
@@ -986,8 +986,8 @@ HB_FUNC( HWG_FI_ALLOCATE )
          "_FreeImage_Allocate@24" );
 
    // X, Y, DEPTH
-   hb_retnl( ( ULONG ) pAllocate( hb_parnl(1), hb_parnl(2), hb_parnl(3),
-               0, 0, 0 ) );
+   hb_retnl( ( ULONG ) pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3),
+               0, 0, 0) );
 }
 
 
@@ -998,11 +998,11 @@ HB_FUNC( HWG_FI_PASTE )
          ( FREEIMAGE_PASTE ) s_getFunction( ( FARPROC ) pPaste,
          "_FreeImage_Paste@20" );
 
-   hb_retl( pPaste( ( FIBITMAP * ) hb_parnl(1),       // dest
+   hb_retl( pPaste(( FIBITMAP * ) hb_parnl(1),       // dest
                ( FIBITMAP * ) hb_parnl(2),    // src
                hb_parnl(3),   // top
                hb_parnl(4),   // left
-               hb_parnl(5) ) );       // alpha
+               hb_parnl(5)) );       // alpha
 }
 
 HB_FUNC( HWG_FI_COPY )
@@ -1063,7 +1063,7 @@ HB_FUNC( HWG_FI_CONVERTTOGREYSCALE )
          ( FREEIMAGE_CONVERTTOGREYSCALE ) s_getFunction( ( FARPROC )
          pConvertToGreyscale, "_FreeImage_ConvertToGreyscale@4" );
 
-   hb_retnl( ( LONG ) pConvertToGreyscale( ( FIBITMAP * ) hb_parnl(1) ) );
+   hb_retnl( ( LONG ) pConvertToGreyscale(( FIBITMAP * ) hb_parnl(1)) );
 }
 
 HB_FUNC( HWG_FI_THRESHOLD )

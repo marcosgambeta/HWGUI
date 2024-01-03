@@ -15,18 +15,18 @@ HB_FUNC( HWG_ANIMATE_CREATE )
 {
    HWND hwnd;
 
-   hwnd = Animate_Create( ( HWND ) HB_PARHANDLE(1), ( LONG ) hb_parnl(2),
-         ( LONG ) hb_parnl(3), GetModuleHandle( NULL ) );
+   hwnd = Animate_Create(( HWND ) HB_PARHANDLE(1), ( LONG ) hb_parnl(2),
+         ( LONG ) hb_parnl(3), GetModuleHandle(NULL));
    MoveWindow( hwnd, hb_parnl(4), hb_parnl(5), hb_parnl(6),
          hb_parnl(7), TRUE );
-   HB_RETHANDLE( hwnd );
+   HB_RETHANDLE(hwnd);
 }
 
 HB_FUNC( HWG_ANIMATE_OPEN )
 {
    void * hStr;
    Animate_Open( ( HWND ) HB_PARHANDLE(1), HB_PARSTR( 2, &hStr, NULL ) );
-   hb_strfree( hStr );
+   hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_ANIMATE_PLAY )
@@ -47,7 +47,7 @@ HB_FUNC( HWG_ANIMATE_STOP )
 
 HB_FUNC( HWG_ANIMATE_CLOSE )
 {
-   Animate_Close( ( HWND ) HB_PARHANDLE(1) );
+   Animate_Close(( HWND ) HB_PARHANDLE(1));
 }
 
 HB_FUNC( HWG_ANIMATE_DESTROY )
@@ -64,11 +64,11 @@ HB_FUNC( HWG_ANIMATE_OPENEX )
    LPCTSTR lpResource = HB_PARSTR( 3, &hResource, NULL );
 
    if( !lpResource && HB_ISNUM(3) )
-      lpResource = MAKEINTRESOURCE( hb_parni(3) );
+      lpResource = MAKEINTRESOURCE(hb_parni(3));
 
    Animate_OpenEx( ( HWND ) HB_PARHANDLE(1),
                    ( HINSTANCE ) hb_parnl(2),
                    lpResource );
 
-   hb_strfree( hResource );
+   hb_strfree(hResource);
 }

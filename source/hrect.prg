@@ -112,9 +112,9 @@ METHOD Paint( lpdis ) CLASS HRect_Line
    hwg_Selectobject( hDC, ::oPen:handle )
 
    IF ::lVert
-      hwg_Drawline( hDC, x1, y1, x1, y2 )
+      hwg_Drawline(hDC, x1, y1, x1, y2)
    ELSE
-      hwg_Drawline( hDC, x1, y1, x2, y1 )
+      hwg_Drawline(hDC, x1, y1, x2, y1)
    ENDIF
 
    RETURN NIL
@@ -170,8 +170,8 @@ CLASS HDrawShape INHERIT HControl
    METHOD Activate()
    METHOD Paint( lpDis )
    METHOD SetColor( tcolor, bcolor, lRedraw )
-   METHOD Curvature( nCurvature )
-   //METHOD Refresh() INLINE hwg_Sendmessage( ::handle, WM_PAINT, 0, 0 ), hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
+   METHOD Curvature(nCurvature)
+   //METHOD Refresh() INLINE hwg_Sendmessage(::handle, WM_PAINT, 0, 0), hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
 
 ENDCLASS
 
@@ -225,7 +225,7 @@ METHOD SetColor( tcolor, bColor, lRedraw ) CLASS HDrawShape
 
    RETURN NIL
 
-METHOD Curvature( nCurvature ) CLASS HDrawShape
+METHOD Curvature(nCurvature) CLASS HDrawShape
 
    IF nCurvature != NIL
       ::nCurvature := nCurvature
@@ -242,25 +242,25 @@ METHOD Paint( lpdis ) CLASS HDrawShape
    LOCAL x1 := drawInfo[4], y1 := drawInfo[5]
    LOCAL x2 := drawInfo[6], y2 := drawInfo[7]
 
-   oldbkMode := hwg_Setbkmode( hdc, ::backStyle )
+   oldbkMode := hwg_Setbkmode(hdc, ::backStyle)
    hwg_Selectobject( hDC, ::oPen:handle )
    IF ::ncStyle != NIL
       /*
       IF ::lnoBorder = .F.
          IF ::ncStyle == 0      // RAISED
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM )  // raised  forte      8
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM)  // raised  forte      8
          ELSEIF ::ncStyle == 1  // sunken
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKEN, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM ) // sunken mais forte
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_SUNKEN, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM) // sunken mais forte
          ELSEIF ::ncStyle == 2  // FRAME
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED + BDR_RAISEDOUTER, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM ) // FRAME
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED + BDR_RAISEDOUTER, BF_LEFT + BF_TOP + BF_RIGHT + BF_BOTTOM) // FRAME
          ELSE                   // FLAT
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKENINNER, BF_TOP )
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISEDOUTER, BF_BOTTOM )
-            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_SUNKENINNER, BF_LEFT )
-            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_RAISEDOUTER, BF_RIGHT )
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_SUNKENINNER, BF_TOP)
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISEDOUTER, BF_BOTTOM)
+            hwg_Drawedge(hDC, x1, y2, x2, y1, BDR_SUNKENINNER, BF_LEFT)
+            hwg_Drawedge(hDC, x1, y2, x2, y1, BDR_RAISEDOUTER, BF_RIGHT)
          ENDIF
       ELSE
-         hwg_Drawedge( hDC, x1, y1, x2, y2, 0, 0 )
+         hwg_Drawedge(hDC, x1, y1, x2, y2, 0, 0)
       ENDIF
       */
    ELSE
@@ -277,7 +277,7 @@ METHOD Paint( lpdis ) CLASS HDrawShape
       ENDIF
       hwg_Roundrect( hDC, x1 + 1, y1 + 1, x2, y2, ::nCurvature, ::nCurvature)
    ENDIF
-   hwg_Setbkmode( hDC, oldbkMode )
+   hwg_Setbkmode(hDC, oldbkMode)
 
    RETURN NIL
 
@@ -313,7 +313,7 @@ CLASS HContainer INHERIT HControl, HScrollArea
    METHOD Create() INLINE ::lCreate := .T.
    METHOD onEvent( msg, wParam, lParam )
    METHOD Paint( lpDis )
-   METHOD Visible( lVisibled ) SETGET
+   METHOD Visible(lVisibled) SETGET
 
 ENDCLASS
 
@@ -413,7 +413,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HContainer
 
    RETURN ::Super:onEvent( msg, wParam, lParam )
 
-METHOD Visible( lVisibled ) CLASS HContainer
+METHOD Visible(lVisibled) CLASS HContainer
 
    IF lVisibled != NIL
       IF lVisibled
@@ -441,22 +441,22 @@ METHOD Paint( lpdis ) CLASS HContainer
    hwg_Selectobject( hDC, ::oPen:handle )
 
    IF ::ncStyle != NIL
-      hwg_Setbkmode( hDC, ::backStyle )
+      hwg_Setbkmode(hDC, ::backStyle)
       IF !::lnoBorder
          IF ::ncStyle == 0      // RAISED
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM)  // raised  forte      8
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM)  // raised  forte      8
          ELSEIF ::ncStyle == 1  // sunken
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKEN, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM ) // sunken mais forte
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_SUNKEN, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM) // sunken mais forte
          ELSEIF ::ncStyle == 2  // FRAME
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISED+BDR_RAISEDOUTER, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM) // FRAME
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISED+BDR_RAISEDOUTER, BF_LEFT+BF_TOP+BF_RIGHT+BF_BOTTOM) // FRAME
          ELSE                   // FLAT
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_SUNKENINNER, BF_TOP)
-            hwg_Drawedge( hDC, x1, y1, x2, y2, BDR_RAISEDOUTER, BF_BOTTOM)
-            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_SUNKENINNER, BF_LEFT)
-            hwg_Drawedge( hDC, x1, y2, x2, y1, BDR_RAISEDOUTER, BF_RIGHT)
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_SUNKENINNER, BF_TOP)
+            hwg_Drawedge(hDC, x1, y1, x2, y2, BDR_RAISEDOUTER, BF_BOTTOM)
+            hwg_Drawedge(hDC, x1, y2, x2, y1, BDR_SUNKENINNER, BF_LEFT)
+            hwg_Drawedge(hDC, x1, y2, x2, y1, BDR_RAISEDOUTER, BF_RIGHT)
          ENDIF
       ELSE
-         hwg_Drawedge( hDC, x1, y1, x2, y2, 0, 0)
+         hwg_Drawedge(hDC, x1, y1, x2, y2, 0, 0)
       ENDIF
       IF ::backStyle != TRANSPARENT
          IF ::Brush != NIL
@@ -465,7 +465,7 @@ METHOD Paint( lpdis ) CLASS HContainer
       ELSE
          hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2, hwg_Getstockobject(5) )
       ENDIF
-      //hwg_Setbkmode( hDC, 0 )
+      //hwg_Setbkmode(hDC, 0)
    ENDIF
 
    RETURN 1

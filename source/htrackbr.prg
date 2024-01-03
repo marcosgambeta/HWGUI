@@ -36,9 +36,9 @@ CLASS HTrackBar INHERIT HControl
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
-   METHOD SetValue( nValue )
+   METHOD SetValue(nValue)
    METHOD GetValue()
-   METHOD GetNumTics()  INLINE hwg_Sendmessage( ::handle, TBM_GETNUMTICS, 0, 0 )
+   METHOD GetNumTics()  INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
 
 ENDCLASS
 
@@ -63,7 +63,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, ;
          bInit, bSize, bPaint, cTooltip )
 
-   ::value      := IIf( ValType( vari ) == "N", vari, 0 )
+   ::value      := IIf( ValType(vari) == "N", vari, 0 )
    ::bChange    := bChange
    ::bThumbDrag := bDrag
    ::nLow       := IIf( nLow == NIL, 0, nLow )
@@ -124,8 +124,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
 METHOD Init() CLASS HTrackBar
    IF !::lInit
       ::Super:Init()
-      hwg_TrackbarSetrange( ::handle, ::nLow, ::nHigh )
-      hwg_Sendmessage( ::handle, TBM_SETPOS, 1, ::value )
+      hwg_TrackbarSetrange(::handle, ::nLow, ::nHigh)
+      hwg_Sendmessage(::handle, TBM_SETPOS, 1, ::value)
       IF ::bPaint != NIL
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
@@ -135,16 +135,16 @@ METHOD Init() CLASS HTrackBar
 
    RETURN NIL
 
-METHOD SetValue( nValue ) CLASS HTrackBar
-   IF ValType( nValue ) == "N"
-      hwg_Sendmessage( ::handle, TBM_SETPOS, 1, nValue )
+METHOD SetValue(nValue) CLASS HTrackBar
+   IF ValType(nValue) == "N"
+      hwg_Sendmessage(::handle, TBM_SETPOS, 1, nValue)
       ::value := nValue
    ENDIF
 
    RETURN NIL
 
 METHOD GetValue() CLASS HTrackBar
-   ::value := hwg_Sendmessage( ::handle, TBM_GETPOS, 0, 0 )
+   ::value := hwg_Sendmessage(::handle, TBM_GETPOS, 0, 0)
 
    RETURN ( ::value )
 
@@ -166,16 +166,16 @@ HB_FUNC ( HWG_INITTRACKBAR )
                                        hb_parni(7),
                              ( HWND )  HB_PARHANDLE(1),
                              ( HMENU ) hb_parni(2),
-                             GetModuleHandle( NULL ),
+                             GetModuleHandle(NULL),
                              NULL ) ;
 
-    HB_RETHANDLE(  hTrackBar );
+    HB_RETHANDLE(hTrackBar);
 }
 
 HB_FUNC ( HWG_TRACKBARSETRANGE )
 {
-    SendMessage( (HWND) HB_PARHANDLE(1), TBM_SETRANGE, TRUE,
-                  MAKELONG( hb_parni(2), hb_parni(3) ) );
+    SendMessage((HWND) HB_PARHANDLE(1), TBM_SETRANGE, TRUE,
+                  MAKELONG( hb_parni(2), hb_parni(3) ));
 }
 
 #pragma ENDDUMP
