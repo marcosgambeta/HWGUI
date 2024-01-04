@@ -98,7 +98,7 @@ HB_FUNC( HWG_DRAWTEXT )
       hb_storvni( rc.right, 8, 3 );
       hb_storvni( rc.bottom, 8, 4 );
    }
-   hb_retni( heigh ) ;
+   hb_retni( heigh );
 
 }
 

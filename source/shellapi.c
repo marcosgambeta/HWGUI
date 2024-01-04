@@ -59,7 +59,7 @@ HB_FUNC( HWG_SELECTFOLDER )
    void * hFolderName;
    LPCTSTR lpFolderName;
 
-   lpFolderName = HB_PARSTR( 2, &hFolderName, NULL ) ;
+   lpFolderName = HB_PARSTR( 2, &hFolderName, NULL );
    bi.hwndOwner = GetActiveWindow();
    bi.pidlRoot = NULL ;
    bi.pszDisplayName = lpBuffer;

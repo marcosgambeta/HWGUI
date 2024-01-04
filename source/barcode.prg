@@ -900,7 +900,7 @@ HB_FUNC_STATIC( RICH_RECTANGLE )
                        hb_parni(3)      ,
                        hb_parni(4)      ,
                        hb_parni(5)
-                       ) ) ;
+                       ) );
 }
 
 
@@ -915,14 +915,14 @@ HB_FUNC_STATIC( RICH_CREATEPEN )
 
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject( (HDC) HB_PARHANDLE(1), (HGDIOBJ) HB_PARHANDLE(2) )) ;
+   HB_RETHANDLE(SelectObject( (HDC) HB_PARHANDLE(1), (HGDIOBJ) HB_PARHANDLE(2) ));
 }
 
 
 
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush( (COLORREF) hb_parnl(1) )) ;    // brush color
+   HB_RETHANDLE(CreateSolidBrush( (COLORREF) hb_parnl(1) ));    // brush color
 }
 
 #pragma ENDDUMP

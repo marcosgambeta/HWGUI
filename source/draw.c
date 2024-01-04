@@ -91,15 +91,15 @@ HB_FUNC( HWG_GETPPSRECT )
 HB_FUNC( HWG_GETPPSERASE )
 {
    PAINTSTRUCT *pps = ( PAINTSTRUCT * ) HB_PARHANDLE(1);
-   BOOL fErase = (BOOL)(&pps->fErase) ;
+   BOOL fErase = (BOOL)(&pps->fErase);
    hb_retni( fErase );
 }
 
 HB_FUNC( HWG_GETUPDATERECT )
 {
-   HWND hWnd = ( HWND ) HB_PARHANDLE(1) ;
+   HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    BOOL fErase ;
-   fErase =  GetUpdateRect( hWnd, NULL, 0 ) ;
+   fErase =  GetUpdateRect( hWnd, NULL, 0 );
    hb_retni( fErase );
 }
 
@@ -727,7 +727,7 @@ HB_FUNC( HWG_GETSYSCOLOR )
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
 {
-   HB_RETHANDLE(GetSysColorBrush(  hb_parni(1) )) ;
+   HB_RETHANDLE(GetSysColorBrush(  hb_parni(1) ));
 }
 
 HB_FUNC( HWG_CREATEPEN )
@@ -1200,7 +1200,7 @@ HB_FUNC( HWG_MODIFYSTYLE )
 /*
 HB_FUNC( HWG_PTRRECT2ARRAY )
 {
-   RECT *rect =   (RECT *) HB_PARHANDLE(1) ;
+   RECT *rect =   (RECT *) HB_PARHANDLE(1);
    hb_itemRelease(hb_itemReturn(Rect2Array(&rect)));
 } 
 */

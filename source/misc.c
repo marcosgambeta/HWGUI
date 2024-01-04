@@ -259,8 +259,8 @@ HB_FUNC( HWG_SETCURSORPOS )
 {
    int x,y ;
    
-   x = hb_parni(1) ;
-   y = hb_parni(2) ;
+   x = hb_parni(1);
+   y = hb_parni(2);
 
    SetCursorPos( x, y );
 }   
@@ -691,7 +691,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
    HDC hdc = ( HDC ) HB_PARHANDLE(1);
-   //UINT h = hb_parni(2) ;
+   //UINT h = hb_parni(2);
    PHB_ITEM pObject = hb_param( 3, HB_IT_OBJECT );
    PHB_ITEM p, p1, p2, temp;
    LONG i;
@@ -775,10 +775,10 @@ HB_FUNC( HWG_LASTKEY )
    for( i = 0; i < 256; i ++ )  
       if( kbBuffer[ i ] & 0x80 )
       {
-         hb_retni( i ) ;
+         hb_retni( i );
          return ;
       }   
-    hb_retni(0) ;
+    hb_retni(0);
 }
 
 HB_FUNC( HWG_ISWIN7 )
@@ -788,7 +788,7 @@ HB_FUNC( HWG_ISWIN7 )
    ovi.dwMajorVersion = 0;
    ovi.dwMinorVersion = 0;
    GetVersionEx(&ovi);
-   hb_retl (ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion==1) ;
+   hb_retl (ovi.dwMajorVersion >= 6 && ovi.dwMinorVersion==1);
 }
 
 #define BUFSIZE  1024

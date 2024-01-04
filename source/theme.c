@@ -1348,7 +1348,7 @@ HB_FUNC( HWG_ENDTHEMELIB )
 
 HB_FUNC( HWG_ONNOTIFYCUSTOMDRAW )
 {
-   // HWND hWnd = ( HWND ) hb_parnl(1) ;
+   // HWND hWnd = ( HWND ) hb_parnl(1);
    LPARAM lParam = ( LPARAM ) hb_parnl(1);
    // PHB_ITEM pColor = hb_param( 3, HB_IT_ARRAY );
    hb_retnl( ( LONG ) OnNotifyCustomDraw( lParam ) );
@@ -1846,8 +1846,8 @@ HB_FUNC( HWG_DRAWTHEICON )
 HB_FUNC( HWG_PREPAREIMAGERECT )
 {
 
-   HWND hButtonWnd = (HWND) HB_PARHANDLE(1) ;
-   HDC dc = (HDC) HB_PARHANDLE(2) ;
+   HWND hButtonWnd = (HWND) HB_PARHANDLE(1);
+   HDC dc = (HDC) HB_PARHANDLE(2);
    BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
    RECT rpTitle;
@@ -2006,7 +2006,7 @@ HB_FUNC( HWG_GETTHEMESYSCOLOR )
                                                             
 HB_FUNC( HWG_SETWINDOWTHEME)
 {
-   HWND hwnd = (HWND) HB_PARHANDLE(1) ;
+   HWND hwnd = (HWND) HB_PARHANDLE(1);
    //LPCWSTR pszSubAppName = hb_parc(2);
    //LPCWSTR pszSubIdList = hb_parc(3);
    int ienable = hb_parni(2);
@@ -2021,9 +2021,9 @@ HB_FUNC( HWG_SETWINDOWTHEME)
       {
       //Windows XP detected
       if ( ienable == 0 )
-         hb_SetWindowTheme(hwnd, L" ", L" ") ; // pszSubAppName,L pszSubIdList) ;
+         hb_SetWindowTheme(hwnd, L" ", L" "); // pszSubAppName,L pszSubIdList);
       else 
-         hb_SetWindowTheme(hwnd, NULL, NULL) ;
+         hb_SetWindowTheme(hwnd, NULL, NULL);
       }   
 }
 
@@ -2038,7 +2038,7 @@ HB_FUNC( HWG_GETWINDOWTHEME )
    if (ovi.dwMajorVersion >= 5 && ovi.dwMinorVersion==1 )
    {
      //Windows XP detected
-      HTHEME hTheme; // = (HTHEME) hb_parptr(1) ;
+      HTHEME hTheme; // = (HTHEME) hb_parptr(1);
       hTheme = hb_GetWindowTheme((HWND) HB_PARHANDLE(1));
       HB_RETHANDLE ( hTheme );
    }

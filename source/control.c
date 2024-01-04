@@ -49,7 +49,7 @@ HB_EXTERN_END
 #define snprintf _snprintf
 #endif
 
-// LRESULT CALLBACK OwnBtnProc (HWND, UINT, WPARAM, LPARAM) ;
+// LRESULT CALLBACK OwnBtnProc (HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK WinCtrlProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT APIENTRY SplitterProc(HWND hwnd, UINT uMsg, WPARAM wParam,
       LPARAM lParam);
@@ -564,7 +564,7 @@ HB_FUNC( HWG_SETRANGEUPDOWN )
 
 HB_FUNC( HWG_GETNOTIFYDELTAPOS )
 {
-   int iItem = hb_parnl(2) ;
+   int iItem = hb_parnl(2);
    if ( iItem < 2 )
       hb_retni( (LONG) (((NMUPDOWN *) HB_PARHANDLE(1) )->iPos ) );
    else
@@ -634,7 +634,7 @@ HB_FUNC( HWG_SETDATEPICKER )
          #ifdef __XHARBOUR__
             hb_timeDecode(lSeconds, &lHour, &lMinute, &lSecond);
          #else
-            hb_timeDecode(lSeconds, &lHour, &lMinute, &lSecond, &lMilliseconds) ;
+            hb_timeDecode(lSeconds, &lHour, &lMinute, &lSecond, &lMilliseconds);
          #endif
       }
 
@@ -686,7 +686,7 @@ HB_FUNC( HWG_GETTIMEPICKER )
    #else
       snprintf( szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond );
    #endif
-   hb_retc(szTime) ;
+   hb_retc(szTime);
 }
 
 HB_FUNC( HWG_CREATETABCONTROL )
@@ -975,7 +975,7 @@ HB_FUNC( HWG_TREESETITEM )
    {
       TreeItem.mask |= TVIF_STATE;
       TreeItem.stateMask = TVIS_STATEIMAGEMASK;
-      TreeItem.state =  hb_parni(4) ;
+      TreeItem.state =  hb_parni(4);
       TreeItem.state = TreeItem.state << 12;
    }
 
@@ -1263,7 +1263,7 @@ HB_FUNC( HWG_REGBROWSE )
       wndclass.cbClsExtra = 0;
       wndclass.cbWndExtra = 0;
       wndclass.hInstance = GetModuleHandle(NULL);
-      // wndclass.hIcon         = LoadIcon (NULL, IDI_APPLICATION) ;
+      // wndclass.hIcon         = LoadIcon (NULL, IDI_APPLICATION);
       wndclass.hIcon = NULL;
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
       wndclass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
@@ -1769,7 +1769,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
 {
 
    HWND hWndCtrl = ( HWND ) HB_PARHANDLE(1);
-   /* HWND hToolTip = ( HWND ) HB_PARHANDLE(4) ; */
+   /* HWND hToolTip = ( HWND ) HB_PARHANDLE(4); */
    PHB_ITEM pArray = hb_param( 2, HB_IT_ARRAY );
    int iButtons = hb_parni(3);
    TBBUTTON *tb =

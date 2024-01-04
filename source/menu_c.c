@@ -556,7 +556,7 @@ HB_FUNC( HWG_ENABLEMENUSYSTEMITEM )
    UINT  uEnable = ( hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3) )? MF_ENABLED:MF_GRAYED;
    UINT  uFlag = ( hb_pcount() < 4 || !HB_ISLOG(4) || hb_parl(4) )? MF_BYCOMMAND:MF_BYPOSITION;
 
-   hMenu = ( HMENU ) GetSystemMenu( ( HWND ) HB_PARHANDLE(1), 0 ) ;
+   hMenu = ( HMENU ) GetSystemMenu( ( HWND ) HB_PARHANDLE(1), 0 );
    if( !hMenu )
    {
       HB_RETHANDLE(NULL);

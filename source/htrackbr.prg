@@ -167,7 +167,7 @@ HB_FUNC ( HWG_INITTRACKBAR )
                              ( HWND )  HB_PARHANDLE(1),
                              ( HMENU ) hb_parni(2),
                              GetModuleHandle(NULL),
-                             NULL ) ;
+                             NULL );
 
     HB_RETHANDLE(hTrackBar);
 }

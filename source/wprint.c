@@ -474,11 +474,11 @@ HB_FUNC( HWG_PRINTENHMETAFILE )
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 {
   BOOL bW9X, Result = FALSE ;
-  HDC hDC = (HDC) HB_PARHANDLE(1) ;
+  HDC hDC = (HDC) HB_PARHANDLE(1);
   OSVERSIONINFO osvi;
   osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
   GetVersionEx ( &osvi );
-  bW9X = ( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) ;
+  bW9X = ( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS );
   if (hDC)
   {
     HANDLE hPrinter ;
@@ -493,23 +493,23 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 
       if (lSize > 0 )
       {
-        pDevMode= (PDEVMODE) hb_xgrab(lSize) ;
+        pDevMode= (PDEVMODE) hb_xgrab(lSize);
 
         if (pDevMode && DocumentProperties(0,hPrinter,( LPTSTR ) lpPrinterName, pDevMode,pDevMode,DM_OUT_BUFFER) == IDOK )  // Get the current settings
         {
           BOOL  bAskUser = HB_ISBYREF(3) || HB_ISBYREF(4) || HB_ISBYREF(5) ||
                            HB_ISBYREF(6) || HB_ISBYREF(7) || HB_ISBYREF(8) ||
-                           HB_ISBYREF(9) || HB_ISBYREF(10) ; //x 20070421
+                           HB_ISBYREF(9) || HB_ISBYREF(10); //x 20070421
           DWORD dInit = 0; //x 20070421
           DWORD fMode ;
-          BOOL bCustomFormSize  = ( HB_ISNUM(9) && hb_parnl(9) > 0 ) && ( HB_ISNUM(10) && hb_parnl(10) > 0 ) ;  // Must set both Length & Width
+          BOOL bCustomFormSize  = ( HB_ISNUM(9) && hb_parnl(9) > 0 ) && ( HB_ISNUM(10) && hb_parnl(10) > 0 );  // Must set both Length & Width
 
           if ( bCustomFormSize )
           {
-              pDevMode->dmPaperLength = ( short ) hb_parnl(9) ;
+              pDevMode->dmPaperLength = ( short ) hb_parnl(9);
               dInit|= DM_PAPERLENGTH ;
 
-              pDevMode->dmPaperWidth = ( short ) hb_parnl(10) ;
+              pDevMode->dmPaperWidth = ( short ) hb_parnl(10);
               dInit|= DM_PAPERWIDTH ;
 
               pDevMode->dmPaperSize     = DMPAPER_USER ;
@@ -535,38 +535,38 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
             }
             else if ( HB_ISNUM(3) && hb_parnl(3) ) // 22/02/2007 don't change if 0
             {
-              pDevMode->dmPaperSize     = ( short ) hb_parnl(3) ;
+              pDevMode->dmPaperSize     = ( short ) hb_parnl(3);
               dInit |= DM_PAPERSIZE;
             }
           }
 
           if (HB_ISLOG(4))
           {
-            pDevMode->dmOrientation   = ( short ) (hb_parl(4) ? 2 : 1) ;
+            pDevMode->dmOrientation   = ( short ) (hb_parl(4) ? 2 : 1);
             dInit |= DM_ORIENTATION;
           }
 
           if (HB_ISNUM(5) && hb_parnl(5) > 0)
           {
-            pDevMode->dmCopies        = ( short ) hb_parnl(5) ;
+            pDevMode->dmCopies        = ( short ) hb_parnl(5);
             dInit |= DM_COPIES;
           }
 
           if ( HB_ISNUM(6) && hb_parnl(6) ) // 22/02/2007 don't change if 0
           {
-            pDevMode->dmDefaultSource = ( short ) hb_parnl(6) ;
+            pDevMode->dmDefaultSource = ( short ) hb_parnl(6);
             dInit |= DM_DEFAULTSOURCE;
           }
 
           if (HB_ISNUM(7)  && hb_parnl(7) ) // 22/02/2007 don't change if 0
           {
-            pDevMode->dmDuplex = ( short ) hb_parnl(7) ;
+            pDevMode->dmDuplex = ( short ) hb_parnl(7);
             dInit |= DM_DUPLEX;
           }
 
           if (HB_ISNUM(8) && hb_parnl(8) ) // 22/02/2007 don't change if 0
           {
-            pDevMode->dmPrintQuality = ( short ) hb_parnl(8) ;
+            pDevMode->dmPrintQuality = ( short ) hb_parnl(8);
             dInit |= DM_PRINTQUALITY;
           }
 
@@ -622,23 +622,23 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
             }
             if (HB_ISBYREF(9))
             {
-               hb_stornl( (LONG) pDevMode->dmPaperLength, 9 ) ;
+               hb_stornl( (LONG) pDevMode->dmPaperLength, 9 );
             }
             if (HB_ISBYREF(10))
             {
-               hb_stornl( (LONG) pDevMode->dmPaperWidth, 10 ) ;
+               hb_stornl( (LONG) pDevMode->dmPaperWidth, 10 );
             }
 
-            Result= (BOOL) ResetDC(hDC, pDevMode) ;
+            Result= (BOOL) ResetDC(hDC, pDevMode);
           }
 
-          hb_xfree(pDevMode) ;
+          hb_xfree(pDevMode);
         }
       }
-      ClosePrinter(hPrinter) ;
+      ClosePrinter(hPrinter);
     }
     hb_strfree(hPrinterName);
   }
-  hb_retl( Result ) ;
+  hb_retl( Result );
 }
 

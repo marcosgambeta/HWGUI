@@ -636,7 +636,7 @@ static HB_BOOL file_read ( FILE *stream, char *string )
 HB_FUNC( AFILLTEXT )
 {
    FILE *inFile ;
-   const char *pSrc = hb_parc(1) ;
+   const char *pSrc = hb_parc(1);
    PHB_ITEM pArray = hb_itemNew(NULL);
    PHB_ITEM pTemp = hb_itemNew(NULL);
    char *string ;

@@ -60,9 +60,9 @@ static void s_ClearKeyboard(void)
    MSG msg;
 
    // For keyboard 
-   while( PeekMessage(&msg, ( HWND ) NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) ) ;
+   while( PeekMessage(&msg, ( HWND ) NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) );
    // For Mouse
-   while( PeekMessage(&msg, ( HWND ) NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) ) ;
+   while( PeekMessage(&msg, ( HWND ) NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) );
 }
 
 
@@ -558,7 +558,7 @@ HB_FUNC( HWG_GETFOCUS )
 HB_FUNC( HWG_SELFFOCUS )
 {
    HWND  hWnd = HB_ISNIL(2) ? ( HWND ) GetFocus() : ( HWND ) HB_PARHANDLE(2)  ;
-   hb_retl( ( HWND ) HB_PARHANDLE(1) == hWnd ) ;
+   hb_retl( ( HWND ) HB_PARHANDLE(1) == hWnd );
 }
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
@@ -629,7 +629,7 @@ HB_FUNC( HWG_HIDEWINDOW )
 
 HB_FUNC( HWG_SHOWWINDOW )
 {
-   ShowWindow( ( HWND ) HB_PARHANDLE(1), ( HB_ISNIL(2) ) ? SW_SHOW : hb_parni(2) ) ;
+   ShowWindow( ( HWND ) HB_PARHANDLE(1), ( HB_ISNIL(2) ) ? SW_SHOW : hb_parni(2) );
 }
 
 HB_FUNC( HWG_RESTOREWINDOW )
@@ -1434,7 +1434,7 @@ HB_FUNC( HWG_FLASHWINDOW )
 {
    HWND hWnd = ( HWND ) HB_PARHANDLE(1);
    int itrue = hb_parni(2);
-   FlashWindow(  hWnd, itrue ) ;
+   FlashWindow(  hWnd, itrue );
 } 
 
 HB_FUNC( HWG_ANSITOUNICODE )
@@ -1462,7 +1462,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
       for( i = 0; i < 256; i ++ )
          if( kbBuffer[ i ] & 0x80 )
          {
-            s_ClearKeyboard() ;
+            s_ClearKeyboard();
             lClear = TRUE ;
          }
    }

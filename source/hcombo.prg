@@ -23,12 +23,12 @@
 #include "hwingui.h"
 HB_FUNC( COPYDATA )
 {
-   LPARAM lParam = ( LPARAM ) hb_parnl(1) ;
+   LPARAM lParam = ( LPARAM ) hb_parnl(1);
    void * hText;
    LPCTSTR m_strText = HB_PARSTR( 2, &hText, NULL );
-   WPARAM wParam = ( WPARAM ) hb_parnl(3) ;
+   WPARAM wParam = ( WPARAM ) hb_parnl(3);
 
-   lstrcpyn( ( LPTSTR ) lParam, m_strText, ( INT ) wParam ) ;
+   lstrcpyn( ( LPTSTR ) lParam, m_strText, ( INT ) wParam );
    hb_strfree(hText);
 }
 #pragma enddump
