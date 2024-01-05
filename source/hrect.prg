@@ -96,7 +96,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HRect_Line
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -207,7 +207,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HDrawShape
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -219,7 +219,7 @@ METHOD SetColor( tcolor, bColor, lRedraw ) CLASS HDrawShape
 
    ::brushFill := HBrush():Add(tColor, ::nfstyle)
    ::Super:SetColor( tColor, bColor )
-   IF !Empty( lRedraw )
+   IF !Empty(lRedraw)
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
    ENDIF
 
@@ -346,7 +346,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
 //---------------------------------------------------------------------------
 METHOD Activate() CLASS HContainer
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight)
       IF !::lInit
@@ -355,7 +355,7 @@ METHOD Activate() CLASS HContainer
          hwg_Setwindowobject( ::handle, Self )
          Hwg_InitStaticProc(::handle)
          ::linit := .T.
-         IF Empty( ::oParent:oParent ) .AND. ::oParent:Type >= WND_DLG_RESOURCE
+         IF Empty(::oParent:oParent) .AND. ::oParent:Type >= WND_DLG_RESOURCE
             ::Create()
             ::lCreate := .T.
          ENDIF

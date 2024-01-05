@@ -118,7 +118,7 @@ Local i, s := Space(level*2)+'<', lNewLine
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_TAG
       s += '>'
-      IF Empty( ::aItems ) .OR. ( Len(::aItems) == 1 .AND. ;
+      IF Empty(::aItems) .OR. ( Len(::aItems) == 1 .AND. ;
             Valtype(::aItems[1]) == "C" .AND. Len(::aItems[1]) + Len(s) < 80 )
          lNewLine := m->hxml_newline := .F.
       ELSE

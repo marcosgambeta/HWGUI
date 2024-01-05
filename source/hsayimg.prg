@@ -57,7 +57,7 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
 
 METHOD Activate() CLASS HSayImage
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle)
       ::Init()
@@ -116,7 +116,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       ::extStyle +=  WS_EX_TRANSPARENT
    ENDIF
 
-   IF Image != NIL .AND. !Empty( Image )
+   IF Image != NIL .AND. !Empty(Image)
       IF lRes == NIL
          lRes := .F.
       ENDIF
@@ -156,7 +156,7 @@ METHOD Init() CLASS HSayBmp
 
    IF !::lInit
       ::Super:Init()
-      IF ::oImage != NIL .AND. !empty( ::oImage:Handle )
+      IF ::oImage != NIL .AND. !empty(::oImage:Handle)
          hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_BITMAP, ::oImage:handle)
       ENDIF
    ENDIF
@@ -166,7 +166,7 @@ METHOD Init() CLASS HSayBmp
 METHOD Paint( lpdis ) CLASS HSayBmp
    LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
 
-   IF ::oImage != NIL .AND. !empty( ::oImage:Handle )
+   IF ::oImage != NIL .AND. !empty(::oImage:Handle)
       IF ::nZoom == NIL
          IF ::BackStyle = TRANSPARENT
             IF ::nStretch = 1  // isometric

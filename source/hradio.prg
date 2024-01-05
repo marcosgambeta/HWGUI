@@ -106,12 +106,12 @@ METHOD EndGroup( nSelected )  CLASS HRadioGroup
          ELSE
             ::oGroupCurrent:aButtons[ nLen ]:bInit :=                     ;
                   &( "{|o|hwg_Checkradiobutton(o:oParent:handle," +           ;
-                  LTrim( Str( ::oGroupCurrent:aButtons[1]:id ) ) + "," +    ;
-                  LTrim( Str( ::oGroupCurrent:aButtons[ nLen ]:id ) ) + "," + ;
-                  LTrim( Str( ::oGroupCurrent:aButtons[ nSelected ]:id ) ) + ")}" )
+                  LTrim( Str(::oGroupCurrent:aButtons[1]:id) ) + "," +    ;
+                  LTrim( Str(::oGroupCurrent:aButtons[ nLen ]:id) ) + "," + ;
+                  LTrim( Str(::oGroupCurrent:aButtons[ nSelected ]:id) ) + ")}" )
          ENDIF
       ENDIF
-      IF EMPTY( ::oParent )
+      IF EMPTY(::oParent)
          ::oParent := ::oGroupCurrent:aButtons[ nLen ]:oParent //GetParentForm()
       ENDIF
       //::Init()
@@ -226,7 +226,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::Enabled := !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
    ::style   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), BS_RADIOBUTTON + ; // BS_AUTORADIOBUTTON+;
          BS_NOTIFY + ;  // WS_CHILD + WS_VISIBLE
-         IIf( ::oGroup != NIL .AND. Empty( ::oGroup:aButtons ), WS_GROUP, 0 ) )
+         IIf( ::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0 ) )
    ::Super:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, ;
          oFont, bInit, bSize, bPaint, ctooltip, tcolor, bColor )
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
@@ -264,7 +264,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
 
 METHOD Activate() CLASS HRadioButton
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
       ::Init()
@@ -340,7 +340,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
          RETURN 0
       ENDIF
    ENDIF
-   IF msg = WM_GETDLGCODE //.AND.  !EMPTY( wParam )
+   IF msg = WM_GETDLGCODE //.AND.  !EMPTY(wParam)
       IF wParam = VK_RETURN .AND. hwg_ProcOkCancel( Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE )
          RETURN 0
       ELSEIF wParam = VK_ESCAPE  .AND. ;

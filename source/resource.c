@@ -37,7 +37,7 @@ HB_FUNC( HWG_LOADSTRING )
 HB_FUNC( HWG_LOADRESOURCE )
 {
    void * hString;
-   hModule = GetModuleHandle(HB_PARSTR( 1, &hString, NULL ));
+   hModule = GetModuleHandle(HB_PARSTR(1, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -73,7 +73,7 @@ HB_FUNC( HWG_FINDRESOURCE )
    int iType = hb_parni(3); // RT_MANIFEST = 24
    void * hString;
 
-   hModule = GetModuleHandle(HB_PARSTR( 1, &hString, NULL ));
+   hModule = GetModuleHandle(HB_PARSTR(1, &hString, NULL));
    hb_strfree(hString);
 
    if( IS_INTRESOURCE(iName) )

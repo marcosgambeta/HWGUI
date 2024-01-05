@@ -48,7 +48,7 @@ HB_FUNC( HWG_TEXTOUT )
 {
    void * hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 4, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(4, &hText, &nLen);
 
    TextOut( ( HDC ) HB_PARHANDLE(1),  // handle of device context
             hb_parni(2),         // x-coordinate of starting position
@@ -63,7 +63,7 @@ HB_FUNC( HWG_DRAWTEXT )
 {
    void * hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 2, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    RECT rc;
    UINT uFormat = ( hb_pcount() == 4 ? hb_parni(4) : hb_parni(7) );
    // int uiPos = ( hb_pcount() == 4 ? 3 : hb_parni(8) );
@@ -153,7 +153,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
 
    void * hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 2, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
    SIZE sz;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;
@@ -298,7 +298,7 @@ HB_FUNC( HWG_GETTEXTSIZE )
    PHB_ITEM temp;
    void * hString;
 
-   GetTextExtentPoint32( hdc, HB_PARSTR( 2, &hString, NULL ),
+   GetTextExtentPoint32( hdc, HB_PARSTR(2, &hString, NULL),
       lpString,         // address of text string
       strlen(cbString), // number of characters in string
       &size            // address of structure for string size
@@ -325,7 +325,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
    RECT rc;
    void * hText;
    HB_SIZE nLen;
-   LPCTSTR lpText = HB_PARSTR( 8, &hText, &nLen );
+   LPCTSTR lpText = HB_PARSTR(8, &hText, &nLen);
 
    rc.left = hb_parni(4);
    rc.top = hb_parni(5);
@@ -348,7 +348,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void * hString;
    SendMessage(( HWND ) HB_PARHANDLE(1), SB_SETTEXT, hb_parni(2),
-                ( LPARAM ) HB_PARSTR( 3, &hString, NULL ));
+                ( LPARAM ) HB_PARSTR(3, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -383,7 +383,7 @@ HB_FUNC( HWG_CREATEFONT )
          0,                     // clipping precision
          0,                     // output quality
          0,                     // pitch and family
-         HB_PARSTR( 1, &hString, NULL )   // pointer to typeface name string
+         HB_PARSTR(1, &hString, NULL)   // pointer to typeface name string
           );
    hb_strfree(hString);
    HB_RETHANDLE(hFont);
@@ -455,7 +455,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);
-   HB_ITEMCOPYSTR( hb_param( 1, HB_IT_ANY ), lf.lfFaceName, HB_SIZEOFARRAY( lf.lfFaceName ) );
+   HB_ITEMCOPYSTR(hb_param( 1, HB_IT_ANY ), lf.lfFaceName, HB_SIZEOFARRAY( lf.lfFaceName ));
    lf.lfFaceName[ HB_SIZEOFARRAY( lf.lfFaceName ) - 1 ] = '\0';
 
    f = CreateFontIndirect( &lf );

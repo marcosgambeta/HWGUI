@@ -105,7 +105,7 @@ METHOD New( oPorta ) CLASS PrintDos
    ::oLeftMar := 0
    ::oText    := ""
 
-   IF Empty( oPorta ) //
+   IF Empty(oPorta) //
       ::oPorta       := "LPT1"
    ELSE
       IF oPorta == "DEFAULT"
@@ -133,7 +133,7 @@ METHOD New( oPorta ) CLASS PrintDos
                ::oPorta := "Error.txt"
             ELSE
                oPtrName := AllTrim( oPtrName )
-               IF SubStr( oPtrName, 1, 3 ) == "LPT"
+               IF SubStr(oPtrName, 1, 3) == "LPT"
                   oPtrName := Left( oPtrName, Len( oPtrName ) - 1 )
                ENDIF
                ::oPorta := oPtrName
@@ -286,16 +286,16 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
    IF ValType(oTexto) == "N"
 
-      IF !Empty( oPicture ) .OR. oPicture # Nil
+      IF !Empty(oPicture) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
       ELSE
-         oTexto := Str( oTexto )
+         oTexto := Str(oTexto)
       ENDIF
 
    ELSEIF ValType(oTexto) == "D"
       oTexto := DToC(oTexto)
    ELSE
-      IF !Empty( oPicture ) .OR. oPicture # Nil
+      IF !Empty(oPicture) .OR. oPicture # Nil
          oTexto := Transform( oTexto, oPicture )
       ENDIF
    ENDIF
@@ -415,7 +415,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
 
    IF han <> - 1
       DO WHILE .T.
-         stroka := RDSTR( han, @strbuf, @poz, 2052 )
+         stroka := RDSTR(han, @strbuf, @poz, 2052)
          IF Len( stroka ) = 0
             EXIT
          ENDIF
@@ -456,11 +456,11 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL oText := { "" }
    LOCAL oDlg, oColor1, oColor2
    LOCAL oEdit
-   LOCAL oPrt := IIf( Empty( ::oPorta ) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
+   LOCAL oPrt := IIf( Empty(::oPorta) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
 
    IF han <> - 1
       DO WHILE .T.
-         stroka := RDSTR( han, @strbuf, @poz, 2052 )
+         stroka := RDSTR(han, @strbuf, @poz, 2052)
          IF Len( stroka ) = 0
             EXIT
          ENDIF
@@ -482,7 +482,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 
    oEdit := SUBS( oText[ nPage ], 2 )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
 
-   IF !Empty( ::colorpreview )
+   IF !Empty(::colorpreview)
       oColor1 := ::colorpreview[1]
       oColor2 := ::colorpreview[2]
    ELSE
@@ -567,7 +567,7 @@ FUNCTION hwg_regenfile(o, new)
       nChr12 := At( Chr(12), stroka )
 
       IF nChr12 > 0
-         stroka := SubStr( stroka, 1, nChr12 - 1 )
+         stroka := SubStr(stroka, 1, nChr12 - 1)
       ENDIF
       o1:say( nLine, 0, stroka )
       nLine ++

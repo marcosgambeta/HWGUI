@@ -58,7 +58,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
          ( HMENU ) hb_parni(2),       /* control ID  */
          GetModuleHandle(NULL), NULL );
 
-   lpText = HB_PARSTR( 8, &hText, NULL );
+   lpText = HB_PARSTR(8, &hText, NULL);
    if( lpText )
       SendMessage(hCtrl, WM_SETTEXT, 0, ( LPARAM ) lpText);
    hb_strfree(hText);
@@ -104,8 +104,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          if( ulLen1 > 3 &&
                hb_itemType(hb_arrayGetItemPtr( pArr1, 4 )) != HB_IT_NIL )
          {
-            HB_ITEMCOPYSTR( hb_arrayGetItemPtr( pArr1, 4 ),
-                            cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
+            HB_ITEMCOPYSTR(hb_arrayGetItemPtr( pArr1, 4 ),
+                            cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
             cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
             cf.dwMask |= CFM_FACE;
          }
@@ -177,8 +177,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(5) )
       {
-         HB_ITEMCOPYSTR( hb_param( 5, HB_IT_ANY ),
-                         cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
+         HB_ITEMCOPYSTR(hb_param( 5, HB_IT_ANY ),
+                         cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
          cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
          cf.dwMask |= CFM_FACE;
       }
@@ -248,8 +248,8 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    }
    if( HB_ISCHAR(3) )
    {
-      HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ),
-                      cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ) );
+      HB_ITEMCOPYSTR(hb_param( 3, HB_IT_ANY ),
+                      cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
       cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
       cf.dwMask |= CFM_FACE;
    }
@@ -343,7 +343,7 @@ HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void * hString;
    SendMessage(( HWND ) HB_PARHANDLE(1), EM_REPLACESEL, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hString, NULL ));
+                ( LPARAM ) HB_PARSTR(2, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -362,7 +362,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
 
    ft.chrg.cpMin = ( HB_ISNIL(3) ) ? 0 : hb_parnl(3);
    ft.chrg.cpMax = -1;
-   ft.lpstrText = ( LPTSTR ) HB_PARSTR( 2, &hString, NULL );
+   ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, NULL);
 
    lPos = ( LONG ) SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag,
                                 ( LPARAM ) & ft);
@@ -502,7 +502,7 @@ HB_FUNC( HWG_SAVERICHEDIT )
    LPCTSTR lpFileName;
    HB_SIZE nSize ;
    
-   lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
+   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile = CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
    if ( hFile == INVALID_HANDLE_VALUE )
    {
@@ -528,7 +528,7 @@ HB_FUNC( HWG_LOADRICHEDIT )
    LPCTSTR lpFileName;
    HB_SIZE nSize ;
    
-   lpFileName = HB_PARSTR( 2, &hFileName, &nSize );
+   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
    hFile = CreateFile(lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
    if ( hFile == INVALID_HANDLE_VALUE )
    {

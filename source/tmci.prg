@@ -30,7 +30,7 @@ CLASS TMci
    METHOD SetWindow( oWnd ) INLINE ;
          ::oWnd := oWnd, ;
          ::nError := hwg_Nmciwindow( ::nId, oWnd:handle )
-   METHOD SendStr( cMciStr )
+   METHOD SendStr(cMciStr)
 
 ENDCLASS
 
@@ -48,7 +48,7 @@ METHOD New( cDevice, cFileName ) CLASS TMci
    RETURN Self
 
 //----------------------------------------------------------------------------//
-METHOD SendStr( cMciStr ) CLASS TMci
+METHOD SendStr(cMciStr) CLASS TMci
 
    LOCAL cBuffer := ::cBuffer
 

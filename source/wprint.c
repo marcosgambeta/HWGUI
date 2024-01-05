@@ -32,7 +32,7 @@
 HB_FUNC( HWG_OPENPRINTER )
 {
    void * hText;
-   HB_RETHANDLE(CreateDC(NULL, HB_PARSTR( 1, &hText, NULL ), NULL, NULL));
+   HB_RETHANDLE(CreateDC(NULL, HB_PARSTR(1, &hText, NULL), NULL, NULL));
    hb_strfree(hText);
 }
 
@@ -55,7 +55,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
 
       hDC = CreateDC(NULL, pinfo5->pPrinterName, NULL, NULL);
       if( hb_pcount() > 0 )
-         HB_STORSTR( pinfo5->pPrinterName, 1 );
+         HB_STORSTR(pinfo5->pPrinterName, 1);
 
       hb_xfree(pinfo5);
    }
@@ -70,7 +70,7 @@ HB_FUNC( HWG_OPENDEFAULTPRINTER )
             dwNeeded, &dwNeeded, &dwReturned );
       hDC = CreateDC(NULL, pinfo4->pPrinterName, NULL, NULL);
       if( hb_pcount() > 0 )
-         HB_STORSTR( pinfo4->pPrinterName, 1 );
+         HB_STORSTR(pinfo4->pPrinterName, 1);
 
       hb_xfree(pinfo4);
    }
@@ -100,7 +100,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) pinfo5,
             dwNeeded, &dwNeeded, &dwReturned );
 
-      HB_RETSTR( pinfo5->pPrinterName );
+      HB_RETSTR(pinfo5->pPrinterName);
       hb_xfree(pinfo5);
    }
    else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
@@ -112,7 +112,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
 
          GetDefaultPrinter( PrinterDefault, &BuffSize );
          PrinterDefault[ HB_SIZEOFARRAY( PrinterDefault ) - 1 ] = 0;
-         HB_RETSTR( PrinterDefault );
+         HB_RETSTR(PrinterDefault);
       }
       else                      // Windows NT
       {
@@ -124,7 +124,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
          EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 4, ( PBYTE ) pinfo4,
                dwNeeded, &dwNeeded, &dwReturned );
 
-         HB_RETSTR( pinfo4->pPrinterName );
+         HB_RETSTR(pinfo4->pPrinterName);
          hb_xfree(pinfo4);
       }
    }
@@ -174,12 +174,12 @@ HB_FUNC( HWG_GETPRINTERS )
       {
          if( pinfo4 )
          {
-            temp = HB_ITEMPUTSTR( NULL, pinfo4->pPrinterName );
+            temp = HB_ITEMPUTSTR(NULL, pinfo4->pPrinterName);
             pinfo4++;
          }
          else
          {
-            temp = HB_ITEMPUTSTR( NULL, pinfo5->pPrinterName );
+            temp = HB_ITEMPUTSTR(NULL, pinfo5->pPrinterName);
             pinfo5++;
          }
          hb_itemArrayPut( aMetr, i + 1, temp );
@@ -199,7 +199,7 @@ HB_FUNC( HWG_GETPRINTERS )
 HB_FUNC( HWG_SETPRINTERMODE )
 {
    void * hPrinterName;
-   LPCTSTR lpPrinterName = HB_PARSTR( 1, &hPrinterName, NULL );
+   LPCTSTR lpPrinterName = HB_PARSTR(1, &hPrinterName, NULL);
    HANDLE hPrinter =
          ( HB_ISNIL(2) ) ? ( HANDLE ) NULL : ( HANDLE ) HB_PARHANDLE(2);
    long int nSize;
@@ -249,7 +249,7 @@ HB_FUNC( HWG_STARTDOC )
    DOCINFO di;
 
    di.cbSize = sizeof( DOCINFO );
-   di.lpszDocName = HB_PARSTR( 2, &hText, NULL );
+   di.lpszDocName = HB_PARSTR(2, &hText, NULL);
    di.lpszOutput = NULL;
    di.lpszDatatype = NULL;
    di.fwType = 0;
@@ -385,7 +385,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
    rc.right = ( rc.right * iWidthMM * 100 ) / iWidthPels;
    rc.bottom = ( rc.bottom * iHeightMM * 100 ) / iHeightPels;
 
-   hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR( 2, &hFileName, NULL ),
+   hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, NULL),
                                 &rc, NULL);
    ReleaseDC(hWnd, hDCref);
    HB_RETHANDLE(hDCmeta);
@@ -422,7 +422,7 @@ HB_FUNC( HWG_CREATEMETAFILE )
    rc.right = iWidthMM * 100;
    rc.bottom = iHeightMM * 100;
 
-   hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR( 2, &hFileName, NULL ),
+   hDCmeta = CreateEnhMetaFile(hDCref, HB_PARSTR(2, &hFileName, NULL),
                                 &rc, NULL);
    HB_RETHANDLE(hDCmeta);
    hb_strfree(hFileName);
@@ -483,7 +483,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
   {
     HANDLE hPrinter ;
     void * hPrinterName;
-    LPCTSTR lpPrinterName = HB_PARSTR( 2, &hPrinterName, NULL );
+    LPCTSTR lpPrinterName = HB_PARSTR(2, &hPrinterName, NULL);
 
     if (OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, NULL))
     {
@@ -523,7 +523,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
               {
                 void * hFormName;
                 HB_SIZE len;
-                LPCTSTR lpFormName = HB_PARSTR( 3, &hFormName, &len );
+                LPCTSTR lpFormName = HB_PARSTR(3, &hFormName, &len);
 
                 if( lpFormName && len && len < CCHFORMNAME )
                 {
@@ -592,7 +592,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
               {
                 if ( !bW9X )
                 {
-                  HB_STORSTR( ( LPCTSTR ) pDevMode->dmFormName, 3 );
+                  HB_STORSTR(( LPCTSTR ) pDevMode->dmFormName, 3);
                 }
               }
               else

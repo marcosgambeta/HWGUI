@@ -105,7 +105,7 @@ METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, 
       IF cPrinter == NIL
          ::hDCPrn := hwg_PrintSetup( @cPrinterName )
          ::cPrinterName := cPrinterName
-     ELSEIF Empty( cPrinter )
+     ELSEIF Empty(cPrinter)
          cPrinterName := HWG_GETDEFAULTPRINTER()
          ::hDCPrn := Hwg_OpenPrinter( cPrinterName )
          ::cPrinterName := cPrinterName
@@ -114,7 +114,7 @@ METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, 
          ::cPrinterName := cPrinter
       ENDIF
    ENDIF
-   IF empty( ::hDCPrn )
+   IF empty(::hDCPrn)
       RETURN NIL
    ELSE
       IF lProprierties
@@ -177,11 +177,11 @@ METHOD AddFont( fontName, nHeight, lBold, lItalic, lUnderline, nCharset ) CLASS 
 
 METHOD END() CLASS HPrinter
 
-   IF !empty( ::hDCPrn )
+   IF !empty(::hDCPrn)
       hwg_Deletedc(::hDCPrn)
       ::hDCPrn := NIL
    ENDIF
-   IF !empty( ::hPrinter )
+   IF !empty(::hPrinter)
       hwg_ClosePrinter( ::hPrinter )
    ENDIF
    ::ReleaseMeta()
@@ -301,7 +301,7 @@ METHOD StartPage() CLASS HPrinter
    LOCAL fname
 
    IF ::lPreview
-      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str( Len( ::aMeta ) + 1 ) ) + ".emf", NIL )
+      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str(Len( ::aMeta ) + 1) ) + ".emf", NIL )
       AAdd(::aMeta, hwg_CreateMetaFile(::hDCPrn, fname))
       ::hDC := ATail( ::aMeta )
    ELSE
@@ -327,7 +327,7 @@ METHOD EndPage() CLASS HPrinter
 METHOD ReleaseMeta() CLASS HPrinter
    LOCAL i, nLen
 
-   IF ::aMeta == NIL .OR. Empty( ::aMeta )
+   IF ::aMeta == NIL .OR. Empty(::aMeta)
       RETURN NIL
    ENDIF
 
@@ -345,7 +345,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    LOCAL lTransp := ( aBitmaps != NIL .AND. Len( aBitmaps ) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
 
    FOR i := 1 TO nLastPage
-      AAdd(aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ))
+      AAdd(aPage, Str(i, 4) + ":" + Str(nLastPage, 4))
    NEXT
 
    IF cTitle == NIL

@@ -86,9 +86,9 @@ HB_FUNC( HWG_INITMAINWINDOW )
    DWORD ExStyle = 0;
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
    void * hAppName, * hTitle, * hMenu;
-   LPCTSTR lpAppName = HB_PARSTR( 2, &hAppName, NULL );
-   LPCTSTR lpTitle = HB_PARSTR( 3, &hTitle, NULL );
-   LPCTSTR lpMenu = HB_PARSTR( 4, &hMenu, NULL );
+   LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, NULL);
+   LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, NULL);
+   LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, NULL);
    LONG nStyle = hb_parnl(7);
    int x = hb_parnl(8);
    int y = hb_parnl(9);
@@ -257,9 +257,9 @@ HB_FUNC( HWG_INITCHILDWINDOW )
    HMODULE /*HANDLE*/ hInstance = GetModuleHandle(NULL);
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
    void * hAppName, * hTitle, * hMenu;
-   LPCTSTR lpAppName = HB_PARSTR( 2, &hAppName, NULL );
-   LPCTSTR lpTitle = HB_PARSTR( 3, &hTitle, NULL );
-   LPCTSTR lpMenu = HB_PARSTR( 4, &hMenu, NULL );
+   LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, NULL);
+   LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, NULL);
+   LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, NULL);
    LONG nStyle = hb_parnl(7);
    int x = hb_parnl(8);
    int y = hb_parnl(9);
@@ -343,9 +343,9 @@ HB_FUNC( HWG_INITMDIWINDOW )
    HANDLE hInstance = GetModuleHandle(NULL);
    PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT ), temp;
    void * hAppName, * hTitle, * hMenu;
-   LPCTSTR lpAppName = HB_PARSTR( 2, &hAppName, NULL );
-   LPCTSTR lpTitle = HB_PARSTR( 3, &hTitle, NULL );
-   LPCTSTR lpMenu = HB_PARSTR( 4, &hMenu, NULL );
+   LPCTSTR lpAppName = HB_PARSTR(2, &hAppName, NULL);
+   LPCTSTR lpTitle = HB_PARSTR(3, &hTitle, NULL);
+   LPCTSTR lpMenu = HB_PARSTR(4, &hMenu, NULL);
    int x = hb_parnl(8);
    int y = hb_parnl(9);
    int width = hb_parnl(10);
@@ -487,7 +487,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
    int width = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NWIDTH" ) );
    int height = ( int ) hb_itemGetNL( GetObjectVar( pObj, "NHEIGHT" ) );
    void * hTitle;
-   LPCTSTR lpTitle = HB_ITEMGETSTR( GetObjectVar( pObj, "TITLE" ), &hTitle, NULL );
+   LPCTSTR lpTitle = HB_ITEMGETSTR(GetObjectVar( pObj, "TITLE" ), &hTitle, NULL);
 
    //if( !style )
    //   style = WS_VISIBLE | WS_OVERLAPPEDWINDOW | WS_MAXIMIZE;
@@ -524,7 +524,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 HB_FUNC( HWG_SENDMESSAGE )
 {
    void * hText;
-   LPCTSTR lpText = HB_PARSTR( 4, &hText, NULL );
+   LPCTSTR lpText = HB_PARSTR(4, &hText, NULL);
 
    hb_retnl( ( LONG ) SendMessage(( HWND ) HB_PARHANDLE(1),  // handle of destination window
                   ( UINT ) hb_parni(2),  // message to send
@@ -582,7 +582,7 @@ HB_FUNC( HWG_SETWINDOWTEXT )
 {
    void * hText;
 
-   SetWindowText( ( HWND ) HB_PARHANDLE(1), HB_PARSTR( 2, &hText, NULL ) );
+   SetWindowText( ( HWND ) HB_PARHANDLE(1), HB_PARSTR(2, &hText, NULL) );
    hb_strfree(hText);
 }
 
@@ -688,8 +688,8 @@ HB_FUNC( HWG_FINDWINDOW )
 {
    void * hClassName, * hWindowName;
 
-   HB_RETHANDLE(FindWindow( HB_PARSTR( 1, &hClassName, NULL ),
-                             HB_PARSTR( 2, &hWindowName, NULL ) ));
+   HB_RETHANDLE(FindWindow( HB_PARSTR(1, &hClassName, NULL),
+                             HB_PARSTR(2, &hWindowName, NULL) ));
    hb_strfree(hClassName);
    hb_strfree(hWindowName);
 }

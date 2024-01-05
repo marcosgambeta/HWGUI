@@ -319,7 +319,7 @@ HB_FUNC( HWG_LOADICON )
    else
    {
       void * hString;
-      HB_RETHANDLE(LoadIcon( GetModuleHandle(NULL), HB_PARSTR( 1, &hString, NULL ) ));
+      HB_RETHANDLE(LoadIcon( GetModuleHandle(NULL), HB_PARSTR(1, &hString, NULL) ));
       hb_strfree(hString);
    }
 }
@@ -329,7 +329,7 @@ HB_FUNC( HWG_LOADIMAGE )
    void * hString = NULL;
 
    HB_RETHANDLE(LoadImage(HB_ISNIL(1) ? GetModuleHandle(NULL) : ( HINSTANCE ) hb_parnl(1), // handle of the instance that contains the image
-               HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR( 2, &hString, NULL ),  // name or identifier of image
+               HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR(2, &hString, NULL),  // name or identifier of image
                ( UINT ) hb_parni(3),  // type of image
                hb_parni(4),   // desired width
                hb_parni(5),   // desired height
@@ -351,7 +351,7 @@ HB_FUNC( HWG_LOADBITMAP )
    else
    {
       void * hString;
-      HB_RETHANDLE(LoadBitmap( GetModuleHandle(NULL), HB_PARSTR( 1, &hString, NULL ) ));
+      HB_RETHANDLE(LoadBitmap( GetModuleHandle(NULL), HB_PARSTR(1, &hString, NULL) ));
       hb_strfree(hString);
    }
 }
@@ -627,7 +627,7 @@ HB_FUNC( HWG_OPENBITMAP )
    void * hString;
    HANDLE hfbm;
 
-   hfbm = CreateFile(HB_PARSTR( 1, &hString, NULL ), GENERIC_READ, FILE_SHARE_READ,
+   hfbm = CreateFile(HB_PARSTR(1, &hString, NULL), GENERIC_READ, FILE_SHARE_READ,
                       ( LPSECURITY_ATTRIBUTES ) NULL, OPEN_EXISTING,
                       FILE_ATTRIBUTE_READONLY, ( HANDLE ) NULL);
    hb_strfree(hString);

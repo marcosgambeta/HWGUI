@@ -73,7 +73,7 @@ METHOD Redefine(oWndParent, nId, aValues, oFont, ;
    RETURN Self
 
 METHOD Activate() CLASS HGraph
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ;
                                 ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -94,7 +94,7 @@ METHOD CalcMinMax() CLASS HGraph
       RETURN Nil
    ENDIF
    ::xmax := ::xmin := ::ymax := ::ymin := 0
-   IF !Empty( ::ymaxSet )
+   IF !Empty(::ymaxSet)
       ::ymax := ::ymaxSet
    ENDIF
    FOR i := 1 TO ::nGraphs
@@ -199,7 +199,7 @@ METHOD Paint( lpdis ) CLASS HGraph
    ENDIF
 
    hwg_Selectobject( hDC, ::oPenCoor:handle )
-   IF !Empty( ::aSignY )
+   IF !Empty(::aSignY)
       IF ::oFont != Nil
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
@@ -218,7 +218,7 @@ METHOD Paint( lpdis ) CLASS HGraph
          ENDIF
       NEXT
    ENDIF
-   IF !Empty( ::aSignX )
+   IF !Empty(::aSignX)
       nWidth := Round(( x2 - x1 ) / Len(::aValues[1]), 0)
       IF ::oFont != Nil
          hwg_Selectobject( hDC, ::oFont:handle )

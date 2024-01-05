@@ -101,11 +101,11 @@ Function hwg_dbg_New()
             IF ( nPos := At( "=", arr[i] ) ) > 0
                cCmd := Lower( Trim( Left( arr[i], nPos-1 ) ) )
                IF cCmd == "dir"
-                  cDir := Ltrim( Substr( arr[i], nPos+1 ) )
+                  cDir := Ltrim( Substr(arr[i], nPos+1) )
                ELSEIF cCmd == "debugger"
-                  cExe := Ltrim( Substr( arr[i], nPos+1 ) )
+                  cExe := Ltrim( Substr(arr[i], nPos+1) )
                ELSEIF cCmd == "runatstart"
-                  __Dbg():lRunAtStartup := ( Ltrim( Substr( arr[i], nPos+1 ) ) == "on" )
+                  __Dbg():lRunAtStartup := ( Ltrim( Substr(arr[i], nPos+1) ) == "on" )
                ENDIF
             ENDIF
          NEXT
@@ -129,7 +129,7 @@ Function hwg_dbg_New()
     
    ENDIF
 
-   IF !Empty( cDir)
+   IF !Empty(cDir)
       cDir += Iif( Right( cDir, 1 ) $ "\/", "", hb_OsPathSeparator() )
       IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
          IF ( handl1 := FOpen( cDir + cDebugger + ".d1", FO_READ + FO_SHARED ) ) != -1
@@ -146,10 +146,10 @@ Function hwg_dbg_New()
       ENDIF
    ENDIF
 
-   cFile := Iif( !Empty( cDir), cDir, hb_dirTemp() ) + ;
+   cFile := Iif( !Empty(cDir), cDir, hb_dirTemp() ) + ;
          Iif( ( i := Rat( '\', cFile ) ) = 0, ;
-         Iif( ( i := Rat( '/', cFile ) ) = 0, cFile, Substr( cFile, i + 1 ) ), ;
-         Substr( cFile, i + 1 ) )
+         Iif( ( i := Rat( '/', cFile ) ) = 0, cFile, Substr(cFile, i + 1) ), ;
+         Substr(cFile, i + 1) )
 
    Ferase(cFile + ".d1")
    Ferase(cFile + ".d2")
@@ -160,12 +160,12 @@ Function hwg_dbg_New()
    FClose(handl2)
 
 #if defined(__PLATFORM__UNIX)
-   IF Empty( cExe )
+   IF Empty(cExe)
       cExe := Iif( File(cDebugger), "./", "" ) + cDebugger
    ENDIF
    lRun := __dbgProcessRun( cExe, "-c" + cFile )
 #else
-   IF Empty( cExe )
+   IF Empty(cExe)
       cExe := cDebugger
    ENDIF
    lRun := ( ( hProcess := hb_processOpen( cExe + ' -c"' + cFile + '"' ) ) > 0 )
@@ -271,7 +271,7 @@ Local n, cmd, arr
 
    DO WHILE .T.
 
-      IF !Empty( arr := hwg_dbg_Read() )
+      IF !Empty(arr := hwg_dbg_Read())
          IF ( n := Val( arr[1] ) ) > nId1 .AND. arr[Len(arr)] == "!"
             nId1 := n
             IF arr[2] == "cmd"
@@ -305,14 +305,14 @@ Local n, cmd, arr
                ENDIF
             ELSEIF arr[2] == "watch"
                IF arr[3] == "add"
-                  p1 := Hex2Str( arr[4] )
+                  p1 := Hex2Str(arr[4])
                   Return CMD_WADD
                ELSEIF arr[3] == "del"
                   p1 := Val( arr[4] )
                   Return CMD_WDEL
                ENDIF
             ELSEIF arr[2] == "exp"
-               p1 := Hex2Str( arr[3] )
+               p1 := Hex2Str(arr[3])
                Return CMD_CALC
             ELSEIF arr[2] == "view"
                IF arr[3] == "stack"
@@ -395,7 +395,7 @@ Local i := ASC(stroka), res
       Return 0
    ENDIF
 
-   i := ASC(SubStr( stroka, 2, 1 ))
+   i := ASC(SubStr(stroka, 2, 1))
    IF i > 64 .AND. i < 71
       res += i - 55
    ELSEIF i > 47 .AND. i < 58
@@ -419,11 +419,11 @@ Local cRes := "", i, nLen := Len( stroka )
    NEXT
 Return cRes
 
-Static Function Hex2Str( stroka )
+Static Function Hex2Str(stroka)
 Local cRes := "", i := 1, nLen := Len( stroka )
 
    DO WHILE i <= nLen
-      cRes += Chr( Hex2Int( Substr( stroka, i, 2 ) ) )
+      cRes += Chr( Hex2Int( Substr(stroka, i, 2) ) )
       i += 2
    ENDDO
 Return cRes

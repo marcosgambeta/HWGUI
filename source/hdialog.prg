@@ -112,7 +112,7 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
    hwg_CreateGetList( Self )
    hParent := iif( ::oParent != Nil .AND. ;
       __ObjHasMsg( ::oParent, "HANDLE" ) .AND. ::oParent:handle != Nil ;
-      .AND. !Empty( ::oParent:handle ), ::oParent:handle, ;
+      .AND. !Empty(::oParent:handle), ::oParent:handle, ;
       iif( ( oWnd := HWindow():GetMain() ) != Nil,    ;
       oWnd:handle, hwg_Getactivewindow() ) )
 
@@ -299,7 +299,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
    oDlg:lSuspendMsgsHandling := .F.
 
    oDlg:nInitFocus := iif( ValType(oDlg:nInitFocus) = "O", oDlg:nInitFocus:Handle, oDlg:nInitFocus )
-   IF  !Empty( oDlg:nInitFocus )
+   IF  !Empty(oDlg:nInitFocus)
       IF  hwg_Ptrtoulong( oDlg:FindControl( , oDlg:nInitFocus ):oParent:Handle ) == hwg_Ptrtoulong( oDlg:Handle )
          hwg_Setfocus( oDlg:nInitFocus )
       ENDIF
@@ -422,7 +422,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
       ELSEIF iParLow == IDCANCEL
          IF ( oCtrl := oDlg:FindControl( IDCANCEL ) ) != Nil .AND. !oCtrl:IsEnabled() .AND. oDlg:lExitOnEsc
             oDlg:nLastKey := 27
-            IF Empty( hwg_EndDialog( oDlg:handle ) )
+            IF Empty(hwg_EndDialog(oDlg:handle))
                RETURN 1
             ENDIF
             oDlg:bDestroy := Nil
@@ -451,7 +451,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
 
    //IF oDlg:nInitFocus > 0 //.AND. !hwg_Iswindowvisible(oDlg:handle)
    // comentado, vc não pode testar um ponteiro como se fosse numerico
-   IF __ObjHasMsg( oDlg, "NINITFOCUS" ) .AND. !Empty( oDlg:nInitFocus )
+   IF __ObjHasMsg( oDlg, "NINITFOCUS" ) .AND. !Empty(oDlg:nInitFocus)
       hwg_Postmessage(oDlg:Handle, WM_NEXTDLGCTL, oDlg:nInitFocus, 1)
       oDlg:nInitFocus := 0
    ENDIF
@@ -531,7 +531,7 @@ STATIC FUNCTION onSize(oDlg, wParam, lParam)
       Eval( oDlg:bSize, oDlg, hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
    aControls := oDlg:aControls
-   IF aControls != Nil .AND. !Empty( oDlg:Rect )
+   IF aControls != Nil .AND. !Empty(oDlg:Rect)
       oDlg:Anchor( oDlg, nW1, nH1, oDlg:nWidth, oDlg:nHeight )
       FOR iCont := 1 TO Len( aControls )
          IF aControls[ iCont ]:bSize != Nil
@@ -582,29 +582,29 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF !Empty( hwg_SetHelpFileName() )
+   IF !Empty(hwg_SetHelpFileName())
       IF "chm" $ Lower( CutPath( hwg_SetHelpFileName() ) )
-         cDir := iif( Empty( FilePath( hwg_SetHelpFileName() ) ), CurDir(), FilePath( hwg_SetHelpFileName() ) )
+         cDir := iif( Empty(FilePath(hwg_SetHelpFileName())), CurDir(), FilePath( hwg_SetHelpFileName() ) )
       ENDIF
-      IF !Empty( lParam )
+      IF !Empty(lParam)
          oCtrl := oDlg:FindControl( Nil, hwg_Gethelpdata(lParam) )
       ENDIF
       IF oCtrl != nil
          nHelpId := oCtrl:HelpId
-         IF Empty( nHelpId )
+         IF Empty(nHelpId)
             oParent := oCtrl:oParent
-            nHelpId := iif( Empty( oParent:HelpId ), oDlg:HelpId, oParent:HelpId )
+            nHelpId := iif( Empty(oParent:HelpId), oDlg:HelpId, oParent:HelpId )
          ENDIF
          IF "chm" $ Lower( CutPath( hwg_SetHelpFileName() ) )
-            nHelpId := iif( ValType(nHelpId) = "N", LTrim( Str( nHelpId ) ), nHelpId )
+            nHelpId := iif( ValType(nHelpId) = "N", LTrim( Str(nHelpId) ), nHelpId )
             hwg_Shellexecute("hh.exe", "open", CutPath( hwg_SetHelpFileName() ) + "::" + nHelpId + ".html", cDir)
          ELSE
-            hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty( nHelpId ), 3, 1 ), nHelpId )
+            hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty(nHelpId), 3, 1 ), nHelpId )
          ENDIF
       ELSEIF cDir != Nil
          hwg_Shellexecute("hh.exe", "open", CutPath( hwg_SetHelpFileName() ) , cDir)
       ELSE
-         hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty( oDlg:HelpId ), 3, 1 ), oDlg:HelpId )
+         hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty(oDlg:HelpId), 3, 1 ), oDlg:HelpId )
       ENDIF
    ENDIF
 
@@ -710,7 +710,7 @@ FUNCTION hwg_EndDialog( handle )
       ENDIF
    ENDIF
    // force control triggered killfocus
-   IF !Empty( hFocus ) .AND. ( oCtrl := oDlg:FindControl( , hFocus ) ) != Nil .AND. ;
+   IF !Empty(hFocus) .AND. ( oCtrl := oDlg:FindControl( , hFocus ) ) != Nil .AND. ;
          oCtrl:bLostFocus != Nil .AND. oDlg:lModal
       hwg_Sendmessage(hFocus, WM_KILLFOCUS, 0, 0)
    ENDIF

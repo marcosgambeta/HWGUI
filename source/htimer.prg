@@ -26,7 +26,7 @@ CLASS HTimer INHERIT HObject
 
    DATA   xName          HIDDEN
    ACCESS Name           INLINE ::xName
-   ASSIGN Name(cName)  INLINE IIF( !EMPTY( cName ) .AND. VALTYPE(cName) == "C" .AND. !":" $ cName .AND. !"[" $ cName,;
+   ASSIGN Name(cName)  INLINE IIF( !EMPTY(cName) .AND. VALTYPE(cName) == "C" .AND. !":" $ cName .AND. !"[" $ cName,;
          ( ::xName := cName, __objAddData(::oParent, cName), ::oParent: & ( cName ) := Self), Nil)
    ACCESS Interval       INLINE ::value
    ASSIGN Interval( x )  INLINE ::value := x, hwg_Settimer( ::oParent:handle, ::id, ::value )
@@ -65,7 +65,7 @@ METHOD New( oParent, nId, value, bAction ) CLASS HTimer
 
 METHOD Init() CLASS HTimer
 
-   IF !::lInit .AND. !EMPTY( ::oParent:handle )
+   IF !::lInit .AND. !EMPTY(::oParent:handle)
       IF ::value > 0
          hwg_Settimer( ::oParent:handle, ::id, ::value )
       ENDIF

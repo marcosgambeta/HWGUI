@@ -145,9 +145,9 @@ HB_FUNC( HWG_REGENUMKEYEX )
 
    if( nErr == ERROR_SUCCESS )
    {
-      HB_STORSTR( Buffer, 3 );
+      HB_STORSTR(Buffer, 3);
       hb_stornl( ( long ) dwBuffSize, 4 );
-      HB_STORSTR( Class, 6 );
+      HB_STORSTR(Class, 6);
       hb_stornl( ( long ) dwClass, 7 );
    }
    hb_retnl( nErr );

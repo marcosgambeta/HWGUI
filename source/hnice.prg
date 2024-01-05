@@ -110,7 +110,7 @@ METHOD Redefine(oWndParent, nId, nStyleEx, ;
 
 METHOD Activate() CLASS HNiceButton
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createnicebtn( ::oParent:handle, ::id, ;
                                  ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text )
       ::Init()

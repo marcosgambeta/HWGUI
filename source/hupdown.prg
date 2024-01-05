@@ -87,7 +87,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    ::nValue := Vari
-   ::title := Str( vari )
+   ::title := Str(vari)
    ::bSetGet := bSetGet
    ::bColorOld := bColor
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
@@ -132,7 +132,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
 METHOD Activate() CLASS HUpDown
 
-   IF !empty( ::oParent:handle )
+   IF !empty(::oParent:handle)
       ::lCreate := .T.
       ::oEditUpDown := HEditUpDown():New( ::oParent, ::id, val(::title), ::bSetGet, ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
            ::oFont, ::bInit, ::bSize, ::bPaint, ::bGetfocus, ::bLostfocus, ::tooltip, ::tcolor, ::bcolor, ::cPicture,;
@@ -158,7 +158,7 @@ METHOD Init()  CLASS HUpDown
 
 METHOD CREATEUPDOWN() CLASS Hupdown
 
-   ///IF Empty( ::handle )
+   ///IF Empty(::handle)
    //   RETURN Nil
     //ENDIF
    ::nHolder := 0
@@ -169,7 +169,7 @@ METHOD CREATEUPDOWN() CLASS Hupdown
       ::oEditUpDown:DisableBrush := ::DisableBrush
       hwg_Setwindowpos( ::oEditUpDown:handle, ::Handle, 0, 0, 0, 0, SWP_NOSIZE +  SWP_NOMOVE )
       hwg_Destroywindow( ::Handle )
-   ELSEIF hwg_getParentForm(Self):Type < WND_DLG_RESOURCE .AND. ::oParent:ClassName = "HTAB" //!EMPTY( ::oParent:oParent )
+   ELSEIF hwg_getParentForm(Self):Type < WND_DLG_RESOURCE .AND. ::oParent:ClassName = "HTAB" //!EMPTY(::oParent:oParent)
       ::nHolder := 1
       hwg_Setwindowobject( ::oEditUpDown:handle, ::oEditUpDown )
       Hwg_InitEditProc(::oEditUpDown:handle)
@@ -222,7 +222,7 @@ METHOD SetValue(nValue)  CLASS HUpDown
        nValue := ::nValue
    ENDIF
    ::nValue := nValue
-   ::title := Str( ::nValue )
+   ::title := Str(::nValue)
    hwg_Setupdown( ::hwndUpDown, ::nValue )
    IF ::bSetGet != Nil
       Eval( ::bSetGet, ::nValue, Self )
@@ -235,7 +235,7 @@ METHOD Refresh()  CLASS HUpDown
    IF ::bSetGet != Nil //.AND. ::nValue != Nil
       ::nValue := Eval( ::bSetGet, , Self )
       IF Str(::nValue) != ::title
-         //::title := Str( ::nValue )
+         //::title := Str(::nValue)
          //hwg_Setupdown( ::hwndUpDown, ::nValue )
          ::SetValue(::nValue)
       ENDIF
@@ -319,7 +319,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
    vari :=  vari + ( ::oUpDown:Increment * idelta )
    ::oUpDown:SetValue(vari)
    /*
-   ::Title := Transform( vari, ::cPicFunc + IIf( Empty( ::cPicFunc ), "", " " ) + ::cPicMask )
+   ::Title := Transform( vari, ::cPicFunc + IIf( Empty(::cPicFunc), "", " " ) + ::cPicMask )
    hwg_Setdlgitemtext( ::oParent:handle, ::id, ::title )
    ::oUpDown:Title := ::Title
    ::oUpDown:SetValue(vari)
@@ -350,7 +350,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
 
    vari := IIF( ::oUpDown != Nil, ::oUpDown:nValue, ::Value )
    IF  ::bSetGet != Nil  .AND. ::title != Nil
-      ::Title := Transform( vari, ::cPicFunc + IIf( Empty( ::cPicFunc ), "", " " ) + ::cPicMask )
+      ::Title := Transform( vari, ::cPicFunc + IIf( Empty(::cPicFunc), "", " " ) + ::cPicMask )
    ENDIF
    hwg_Setwindowtext( ::Handle, ::Title )
 

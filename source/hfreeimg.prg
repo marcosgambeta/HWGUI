@@ -52,7 +52,7 @@ METHOD AddFile(name) CLASS HFreeImage
          ENDIF
       NEXT
    #endif
-   IF Empty( ::handle := hwg_Fi_load(name) )
+   IF Empty(::handle := hwg_Fi_load(name))
       RETURN Nil
    ENDIF
    ::name := name
@@ -64,10 +64,10 @@ METHOD AddFile(name) CLASS HFreeImage
 
 METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
 
-   IF Empty( ::handle := hwg_Fi_loadfrommem( cImage, cType ) )
+   IF Empty(::handle := hwg_Fi_loadfrommem( cImage, cType ))
       RETURN Nil
    ENDIF
-   ::name := LTrim( Str( ::handle ) )
+   ::name := LTrim( Str(::handle) )
    ::nWidth  := hwg_Fi_getwidth( ::handle )
    ::nHeight := hwg_Fi_getheight( ::handle )
    AAdd(::aImages, Self)
@@ -77,7 +77,7 @@ METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
 METHOD FromBitmap( oBitmap ) CLASS HFreeImage
 
    ::handle := hwg_Fi_bmp2fi( oBitmap:handle )
-   ::name := LTrim( Str( oBitmap:handle ) )
+   ::name := LTrim( Str(oBitmap:handle) )
    ::nWidth  := hwg_Fi_getwidth( ::handle )
    ::nHeight := hwg_Fi_getheight( ::handle )
    AAdd(::aImages, Self)

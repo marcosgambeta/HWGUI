@@ -53,7 +53,7 @@ HB_FUNC( HWG__ADDMENUITEM )
       uFlags |= MFS_DISABLED;
    }
 
-   lpNewItem = HB_PARSTR( 2, &hNewItem, NULL );
+   lpNewItem = HB_PARSTR(2, &hNewItem, NULL);
    if( lpNewItem )
    {
       BOOL lString = 0;
@@ -121,7 +121,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    mii.wID = hb_parni(5);
    if( HB_ISCHAR(2) )
    {
-      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 2, &hData, NULL );
+      mii.dwTypeData = ( LPTSTR ) HB_PARSTR(2, &hData, NULL);
       mii.cch = strlen( mii.dwTypeData );
       mii.fType = MFT_STRING;
    }
@@ -421,7 +421,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
       lpBuffer[0] = '\0';
       mii.dwTypeData = lpBuffer;
       if( GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
-         HB_RETSTR( mii.dwTypeData );
+         HB_RETSTR(mii.dwTypeData);
       else
          hb_retc("Error");
       hb_xfree(lpBuffer);
@@ -462,7 +462,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
       mii.cbSize = sizeof( MENUITEMINFO );
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
-      mii.dwTypeData = ( LPTSTR ) HB_PARSTR( 3, &hData, NULL );
+      mii.dwTypeData = ( LPTSTR ) HB_PARSTR(3, &hData, NULL);
 
       if( SetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
          hb_retl(1);
@@ -535,7 +535,7 @@ HB_FUNC( HWG_CHANGEMENU )
 {
    void * hStr;
    hb_retl( ChangeMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
-                        HB_PARSTR( 3, &hStr, NULL ), ( UINT ) hb_parni(4),
+                        HB_PARSTR(3, &hStr, NULL), ( UINT ) hb_parni(4),
                         ( UINT ) hb_parni(5) ) );
    hb_strfree(hStr);
 }
@@ -545,7 +545,7 @@ HB_FUNC( HWG_MODIFYMENU )
    void * hStr;
    hb_retl( ModifyMenu( ( HMENU ) HB_PARHANDLE(1), ( UINT ) hb_parni(2),
                         ( UINT ) hb_parni(3), ( UINT ) hb_parni(4),
-                        HB_PARSTR( 5, &hStr, NULL ) ) );
+                        HB_PARSTR(5, &hStr, NULL) ) );
    hb_strfree(hStr);
 }
 

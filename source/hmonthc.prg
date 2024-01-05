@@ -56,7 +56,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               ,, cTooltip )
 
-   ::value   := IIf( ValType(vari) == "D" .And. !Empty( vari ), vari, Date() )
+   ::value   := IIf( ValType(vari) == "D" .And. !Empty(vari), vari, Date() )
 
    ::bChange := bChange
    ::bSelect := bSelect
@@ -77,7 +77,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HMonthCalendar
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_InitMonthCalendar ( ::oParent:handle, ::id, ::style, ;
                                       ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -91,7 +91,7 @@ METHOD Init() CLASS HMonthCalendar
 
    IF !::lInit
       ::Super:Init()
-      IF !Empty( ::value )
+      IF !Empty(::value)
          hwg_SetMonthCalendardate(::handle, ::value)
       ENDIF
       ::oParent:AddEvent( MCN_SELECT, Self, { || ::onSelect() }, .T., "onSelect" )
@@ -105,7 +105,7 @@ METHOD Init() CLASS HMonthCalendar
 
 METHOD SetValue(dValue) CLASS HMonthCalendar
 
-   IF ValType(dValue) == "D" .And. !Empty( dValue )
+   IF ValType(dValue) == "D" .And. !Empty(dValue)
       hwg_SetMonthCalendardate(::handle, dValue)
       ::value := dValue
    ENDIF

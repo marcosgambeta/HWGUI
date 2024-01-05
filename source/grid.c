@@ -169,8 +169,8 @@ HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
 
    if( pDispInfo->item.mask & LVIF_TEXT )
    {
-      HB_ITEMCOPYSTR( hb_param( 2, HB_IT_ANY ), pDispInfo->item.pszText,
-                      pDispInfo->item.cchTextMax );
+      HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->item.pszText,
+                     pDispInfo->item.cchTextMax);
       pDispInfo->item.pszText[ pDispInfo->item.cchTextMax - 1 ] = 0;
    }
    // it seems these lines below are not strictly necessary for text cells
@@ -292,7 +292,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    else
       lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_WIDTH;
 
-   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR( 3, &hText, NULL );
+   lvcolumn.pszText = ( LPTSTR ) HB_PARSTR(3, &hText, NULL);
    lvcolumn.iSubItem = lCol;
    lvcolumn.cx = hb_parni(4);
    lvcolumn.fmt = hb_parni(5);
@@ -336,7 +336,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    lvi.iImage = iBitMap >= 0 ? lCol : -1;
    lvi.state = 0;
    lvi.stateMask = 0;
-   lvi.pszText = ( LPTSTR ) HB_PARSTR( 4, &hText, NULL );
+   lvi.pszText = ( LPTSTR ) HB_PARSTR(4, &hText, NULL);
    lvi.iItem = lLin;
    lvi.iSubItem = lCol;
 
@@ -450,7 +450,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    Item.cchTextMax = HB_SIZEOFARRAY( Buffer );
 
    if( ListView_GetItem( hList, &Item ) )
-      HB_RETSTR( Buffer );
+      HB_RETSTR(Buffer);
    else
       hb_retc(NULL);
 }

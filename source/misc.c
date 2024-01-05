@@ -114,7 +114,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
       }
       CloseClipboard();
    }
-   HB_RETSTR( lpText );
+   HB_RETSTR(lpText);
    if( lpText )
       hb_xfree(lpText);
 }
@@ -270,7 +270,7 @@ HB_FUNC( HWG_GETCURRENTDIR )
    TCHAR buffer[ HB_PATH_MAX ];
 
    GetCurrentDirectory( HB_PATH_MAX, buffer );
-   HB_RETSTR( buffer );
+   HB_RETSTR(buffer);
 }
 
 HB_FUNC( HWG_WINEXEC )
@@ -303,7 +303,7 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 {
    void * hLayout;
-   LPCTSTR lpLayout = HB_PARSTR( 1, &hLayout, NULL );
+   LPCTSTR lpLayout = HB_PARSTR(1, &hLayout, NULL);
    HKL curr = GetKeyboardLayout(0);
    TCHAR sBuff[KL_NAMELENGTH];
    UINT num = GetKeyboardLayoutList( 0, NULL ), i = 0;
@@ -355,7 +355,7 @@ HB_FUNC( HWG_GETWINDOWSDIR )
    TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
 
    GetWindowsDirectory( szBuffer, MAX_PATH );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 }
 
 HB_FUNC( HWG_GETSYSTEMDIR )
@@ -363,7 +363,7 @@ HB_FUNC( HWG_GETSYSTEMDIR )
    TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
 
    GetSystemDirectory( szBuffer, MAX_PATH );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 }
 
 HB_FUNC( HWG_GETTEMPDIR )
@@ -371,7 +371,7 @@ HB_FUNC( HWG_GETTEMPDIR )
    TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
 
    GetTempPath( MAX_PATH, szBuffer );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 }
 
 HB_FUNC( HWG_POSTQUITMESSAGE )
@@ -439,7 +439,7 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni( WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR( 2, &hStr, NULL ), style, context ) );
+   hb_retni( WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context ) );
    hb_strfree(hStr);
 }
 
@@ -589,42 +589,42 @@ HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 HB_FUNC( HWG_CREATEDIRECTORY )
 {
    void * hStr;
-   CreateDirectory( HB_PARSTR( 1, &hStr, NULL ), NULL );
+   CreateDirectory( HB_PARSTR(1, &hStr, NULL ), NULL);
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
    void * hStr;
-   hb_retl( RemoveDirectory( HB_PARSTR( 1, &hStr, NULL ) ) );
+   hb_retl( RemoveDirectory( HB_PARSTR(1, &hStr, NULL) ) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETCURRENTDIRECTORY )
 {
    void * hStr;
-   SetCurrentDirectory( HB_PARSTR( 1, &hStr, NULL ) );
+   SetCurrentDirectory( HB_PARSTR(1, &hStr, NULL) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETEFILE )
 {
    void * hStr;
-   hb_retl( DeleteFile(HB_PARSTR( 1, &hStr, NULL )) );
+   hb_retl( DeleteFile(HB_PARSTR(1, &hStr, NULL)) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void * hStr;
-   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR( 1, &hStr, NULL ) ) );
+   hb_retnl( ( LONG ) GetFileAttributes( HB_PARSTR(1, &hStr, NULL) ) );
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void * hStr;
-   hb_retl( SetFileAttributes( HB_PARSTR( 1, &hStr, NULL ),
+   hb_retl( SetFileAttributes( HB_PARSTR(1, &hStr, NULL),
                                ( DWORD ) hb_parnl(2) ) );
    hb_strfree(hStr);
 }
@@ -636,7 +636,7 @@ HB_FUNC( HWG_GETCOMPUTERNAME )
    TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
    GetComputerName(cText, &nSize);
-   HB_RETSTR( cText );
+   HB_RETSTR(cText);
    hb_stornl( nSize, 1 );
 }
 
@@ -647,7 +647,7 @@ HB_FUNC( HWG_GETUSERNAME )
    TCHAR cText[64] = { 0 };
    DWORD nSize = HB_SIZEOFARRAY( cText );
    GetUserName(cText, &nSize);
-   HB_RETSTR( cText );
+   HB_RETSTR(cText);
    hb_stornl( nSize, 1 );
 }
 

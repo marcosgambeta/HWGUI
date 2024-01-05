@@ -30,7 +30,7 @@ Local nFirst, i
    ELSEIF Len( aScript ) == 3
       Aadd(aScript, Nil)
    ENDIF
-   IF Empty( aScript[4] )
+   IF Empty(aScript[4])
       nScriptSch ++
       aScript[4] := nScriptSch
    ENDIF
@@ -107,7 +107,7 @@ Local nFirst, i
    ENDIF
 
    IF aScriptCurr[4] != aScript[4]
-      IF !Empty( aBreakPoints )
+      IF !Empty(aBreakPoints)
          IF ( i := Ascan( aBreaks, {|a|a[1]==aBreakPoints[1]} ) ) == 0
             Aadd(aBreaks, aBreakPoints)
          ENDIF
@@ -133,7 +133,7 @@ Local nFirst, i
          FOR i := 1 TO Len( aWatches )
             CalcWatch( i )
          NEXT
-         IF !Empty( aWatches )
+         IF !Empty(aWatches)
             oBrwData:Refresh()
          ENDIF
          nFirst := oBrwScript:nCurrent - oBrwScript:rowPos + 1
@@ -202,9 +202,9 @@ Static Function AddWatch()
 Local xRes, bCodeblock, bOldError, lRes := .T.
 
 #ifdef __GTK__
-   IF !Empty( xRes := oEditExpr:GetText() )
+   IF !Empty(xRes := oEditExpr:GetText())
 #else
-   IF !Empty( xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ) )
+   IF !Empty(xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ))
 #endif
       bOldError := ERRORBLOCK( { | e | MacroError(e) } )
       BEGIN SEQUENCE
@@ -267,9 +267,9 @@ Static Function Calculate()
 Local xRes, bOldError, lRes := .T., cType
 
 #ifdef __GTK__
-   IF !Empty( xRes := oEditExpr:GetText() )
+   IF !Empty(xRes := oEditExpr:GetText())
 #else
-   IF !Empty( xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ) )
+   IF !Empty(xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ))
 #endif
       bOldError := ERRORBLOCK( { | e | MacroError(e) } )
       BEGIN SEQUENCE

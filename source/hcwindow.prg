@@ -277,12 +277,12 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
          oCtrlTmp :=  oCtrl:aControls[ i ]
-         lRefresh :=  !Empty( __ObjHasMethod(oCtrlTmp, "REFRESH") )
+         lRefresh :=  !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
          IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN( oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
             ( !oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
   	        IF LEN( oCtrlTmp:aControls) > 0
   	            ::Refresh( lAll, oCtrlTmp )
-		        ELSEIF  !Empty( lRefresh ) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
+		        ELSEIF  !Empty(lRefresh) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
                oCtrlTmp:Refresh()
                IF oCtrlTmp:bRefresh != Nil  
                   EVAL( oCtrlTmp:bRefresh, oCtrlTmp )
@@ -364,7 +364,7 @@ METHOD Closable(lClosable) CLASS HCustomWindow
       ELSE
          hMenu := hwg_Enablemenusystemitem( ::Handle, SC_CLOSE, .T. )
       ENDIF
-      IF !EMPTY( hMenu )
+      IF !EMPTY(hMenu)
          ::lClosable := lClosable
       ENDIF
    ENDIF
@@ -455,7 +455,7 @@ STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
 
 STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
    LOCAL oCtrl
-   IF !EMPTY( wParam ) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
+   IF !EMPTY(wParam) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
                  VALTYPE(oCtrl) != "N"  .AND. oCtrl:bPaint != NIL
       Eval( oCtrl:bPaint, oCtrl, lParam )
       RETURN 1
@@ -472,12 +472,12 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    IF oWnd:aEvents != NIL .AND. !oForm:lSuspendMsgsHandling .AND. !oWnd:lSuspendMsgsHandling .AND. ;
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh .AND. ;
                                         a[2] == iParLow } ) ) > 0
-      IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty( oForm:nFocus )
+      IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
          oForm:nFocus := IIF( hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus )
       ENDIF
       Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl( , hwg_Getfocus() ) = Nil .AND. ;
-         !Empty( oForm:nFocus ) .AND. !hwg_Selffocus( hwg_Getactivewindow() )
+         !Empty(oForm:nFocus) .AND. !hwg_Selffocus( hwg_Getactivewindow() )
          hwg_Setfocus( oForm:nFocus )
       ENDIF
    ENDIF
@@ -491,7 +491,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    nw1 := oWnd:nWidth
    nh1 := oWnd:nHeight
    aCoors := hwg_Getwindowrect( oWnd:handle )
-   IF EMPTY( oWnd:Type )
+   IF EMPTY(oWnd:Type)
       oWnd:nWidth  := aCoors[3] - aCoors[1]
       oWnd:nHeight := aCoors[4] - aCoors[2]
    ELSE
@@ -504,16 +504,16 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
          ENDIF 
       ENDIF
    ENDIF
-   IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. !EMPTY( oWnd:Type )
+   IF oWnd:nScrollBars > - 1 .AND. oWnd:lAutoScroll .AND. !EMPTY(oWnd:Type)
       hwg_onMove(oWnd)
       oWnd:ResetScrollbars()
       oWnd:SetupScrollbars()
    ENDIF
    IF  wParam != 1 .AND. nWindowState != 2
-      IF !EMPTY( oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. !EMPTY( oWnd:Screen )
+      IF !EMPTY(oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. !EMPTY(oWnd:Screen)
          oWnd:Anchor( oWnd:Screen, nw1, nh1, oWnd:nWidth, oWnd:nHeight )
       ENDIF
-      IF !EMPTY( oWnd:Type)
+      IF !EMPTY(oWnd:Type)
          oWnd:Anchor( oWnd, nw1, nh1, oWnd:nWidth, oWnd:nHeight)
       ENDIF
    ENDIF

@@ -85,7 +85,7 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
       RETURN Nil
    ENDIF
 
-   RETURN ::Add(af[2], af[3], af[4], af[5], iif( Empty( nCharSet ), af[6], nCharSet ), af[7], af[8], af[9], af[1])
+   RETURN ::Add(af[2], af[3], af[4], af[5], iif( Empty(nCharSet), af[6], nCharSet ), af[7], af[8], af[9], af[1])
 
 METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HFont
    LOCAL weight, Italic, Underline, StrikeOut
@@ -350,7 +350,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       lOEM := .F.
    ENDIF
    IF ValType(name) == "N"
-      name := LTrim( Str( name ) )
+      name := LTrim( Str(name) )
       lPreDefined := .T.
    ENDIF
 #ifdef __XHARBOUR__
@@ -388,7 +388,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    RETURN Self
 
 METHOD AddStandard(nId) CLASS HBitmap
-   LOCAL i, aBmpSize, name := "s" + LTrim( Str( nId ) )
+   LOCAL i, aBmpSize, name := "s" + LTrim( Str(nId) )
 
 #ifdef __XHARBOUR__
 
@@ -453,7 +453,7 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
          ::handle := hwg_Loadimage(nil, name, IMAGE_BITMAP, nWidth, nHeight, LR_LOADFROMFILE)
       ENDIF
    ENDIF
-   IF Empty( ::handle )
+   IF Empty(::handle)
       RETURN Nil
    ENDIF
    ::name := cname
@@ -468,7 +468,7 @@ METHOD AddWindow( oWnd, lFull ) CLASS HBitmap
    LOCAL aBmpSize
 
    ::handle := hwg_Window2bitmap( oWnd:handle, lFull )
-   ::name := LTrim( hb_valToStr( oWnd:handle ) )
+   ::name := LTrim( hb_valToStr(oWnd:handle) )
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
@@ -538,7 +538,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
       lOEM := .F.
    ENDIF
    IF ValType(name) == "N"
-      name := LTrim( Str( name ) )
+      name := LTrim( Str(name) )
       lPreDefined := .T.
    ENDIF
 #ifdef __XHARBOUR__

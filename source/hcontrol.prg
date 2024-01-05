@@ -107,9 +107,9 @@ METHOD NewId() CLASS HControl
 METHOD AddName(cName) CLASS HControl
    LOCAL nPos
 
-   IF !Empty( cName ) .AND. ValType(cName) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
+   IF !Empty(cName) .AND. ValType(cName) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
       IF ( nPos :=  RAt( ":", cName ) ) > 0 .OR. ( nPos :=  RAt( ">", cName ) ) > 0
-         cName := SubStr( cName, nPos + 1 )
+         cName := SubStr(cName, nPos + 1)
       ENDIF
       ::xName := cName
       __objAddData(::oParent, cName)
@@ -159,7 +159,7 @@ METHOD Setfocus( lValid ) CLASS HControl
       hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0)
       ::oParent:lSuspendMsgsHandling  := lSuspend
    ELSE
-      ::oParent:lSuspendMsgsHandling  := !Empty( lValid )
+      ::oParent:lSuspendMsgsHandling  := !Empty(lValid)
       IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
          hwg_Setfocus( ::handle )
       ELSE
@@ -239,10 +239,10 @@ METHOD Enabled(lEnabled) CLASS HControl
 METHOD ControlSource(cControlSource) CLASS HControl
    LOCAL temp
 
-   IF cControlSource != NIL .AND. !Empty( cControlSource ) .AND. __objHasData(Self, "BSETGETFIELD")
+   IF cControlSource != NIL .AND. !Empty(cControlSource) .AND. __objHasData(Self, "BSETGETFIELD")
       ::xControlSource := cControlSource
-      temp := SubStr( cControlSource, At( "->", cControlSource ) + 2 )
-      ::bSetGetField := iif( "->" $ cControlSource, FieldWBlock( temp, Select( SubStr( cControlSource, 1, At( "->", cControlSource ) - 1 ) ) ), FieldBlock( cControlSource ) )
+      temp := SubStr(cControlSource, At( "->", cControlSource ) + 2)
+      ::bSetGetField := iif( "->" $ cControlSource, FieldWBlock( temp, Select( SubStr(cControlSource, 1, At("->", cControlSource) - 1) ) ), FieldBlock( cControlSource ) )
    ENDIF
 
    RETURN ::xControlSource
@@ -368,7 +368,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
          ENDIF
          IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
-               ( ::Title != NIL .AND. !Empty( ::Title ) ) ) .OR. __ObjHasMsg( Self, "oImage" )
+               ( ::Title != NIL .AND. !Empty(::Title) ) ) .OR. __ObjHasMsg( Self, "oImage" )
             IF __ObjHasMsg( Self, "oImage" ) .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
                hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1, y1 + h1 + 1 )
             ELSE
@@ -440,7 +440,7 @@ METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClic
 
 METHOD Activate() CLASS HStatus
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatuswindow( ::oParent:handle, ::id )
       ::StatusHeight( ::nStatusHeight )
       ::Init()
@@ -451,7 +451,7 @@ METHOD Activate() CLASS HStatus
 METHOD Init() CLASS HStatus
 
    IF !::lInit
-      IF !Empty( ::aParts )
+      IF !Empty(::aParts)
          hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
       ENDIF
       ::Super:Init()
@@ -547,11 +547,11 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
    IF HB_IsNumeric(cIcon) .OR. At( ".", cIcon ) = 0
       //oIcon := HIcon():addResource(cIcon, nWidth, nHeight)
       oIcon := HIcon():addResource(cIcon, nWidth, nHeight, LR_LOADMAP3DCOLORS + ;
-         iif( Empty( HWG_GETWINDOWTHEME(::handle) ), LR_LOADTRANSPARENT, 0 ))
+         iif( Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0 ))
    ELSE
       oIcon := HIcon():addFile(cIcon, nWidth, nHeight)
    ENDIF
-   IF !Empty( oIcon )
+   IF !Empty(oIcon)
       hwg_Sendmessage(::handle, SB_SETICON, nPart - 1, oIcon:handle)
    ENDIF
 
@@ -560,7 +560,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
 METHOD Resize(xIncrSize) CLASS HStatus
    LOCAL i
 
-   IF !Empty( ::aParts )
+   IF !Empty(::aParts)
       FOR i := 1 TO Len( ::aParts )
          ::aParts[ i ] := Round(::aParts[ i ] * xIncrSize, 0)
       NEXT
@@ -643,7 +643,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
 
 METHOD Activate() CLASS HStatic
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
          ::extStyle)
@@ -705,7 +705,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 RETURN Self
 
 METHOD Activate() CLASS HButton
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ::style, ;
                                 ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
                                 ::title )
@@ -760,7 +760,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
 
 METHOD Activate() CLASS HGroup
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createbutton( ::oParent:handle, ::id, ::style, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
          ::title )
@@ -792,10 +792,10 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
 
    ::title := ""
    ::lVert := iif( lVert == NIL, .F., lVert )
-   ::LineSlant := iif( Empty( cSlant ) .OR. !cSlant $ "/\", "", cSlant )
-   ::nBorder := iif( Empty( nBorder ), 1, nBorder )
+   ::LineSlant := iif( Empty(cSlant) .OR. !cSlant $ "/\", "", cSlant )
+   ::nBorder := iif( Empty(nBorder), 1, nBorder )
 
-   IF Empty( ::LineSlant )
+   IF Empty(::LineSlant)
       IF ::lVert
          ::nWidth  := ::nBorder + 1 //10
          ::nHeight := iif( nLength == NIL, 20, nLength )
@@ -817,7 +817,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
 
 METHOD Activate() CLASS HLine
 
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createstatic(::oParent:handle, ::id, ::style, ;
          ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
@@ -833,7 +833,7 @@ METHOD Paint( lpdis ) CLASS HLine
 
    hwg_Selectobject( hDC, ::oPenLight:handle )
 
-   IF Empty( ::LineSlant )
+   IF Empty(::LineSlant)
       IF ::lVert
          hwg_Drawline(hDC, x1 + 1, y1, x1 + 1, y2)
       ELSE

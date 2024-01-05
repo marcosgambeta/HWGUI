@@ -40,7 +40,7 @@ HB_FUNC( HWG_DIALOGBOX )
    PHB_ITEM pObject = hb_param( 2, HB_IT_OBJECT );
    PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
    void * hResource;
-   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
+   LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, NULL);
 
    if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI( pData ));
@@ -61,7 +61,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    HWND hDlg;
    PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
    void * hResource;
-   LPCTSTR lpResource = HB_ITEMGETSTR( pData, &hResource, NULL );
+   LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, NULL);
 
    if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI( pData ));
@@ -99,7 +99,7 @@ HB_FUNC( HWG_SETDLGITEMTEXT )
 
    SetDlgItemText( ( HWND ) HB_PARHANDLE(1),  // handle of dialog box
                    hb_parni(2),               // identifier of control
-                   HB_PARSTR( 3, &hText, NULL ) // text to set
+                   HB_PARSTR(3, &hText, NULL) // text to set
                  );
    hb_strfree(hText);
 }
@@ -122,7 +122,7 @@ HB_FUNC( HWG_GETDLGITEMTEXT )
                    lpText,                      // address of buffer for text
                    uiLen                        // maximum size of string
                  );
-   HB_RETSTR( lpText );
+   HB_RETSTR(lpText);
    hb_xfree(lpText);
 }
 
@@ -139,7 +139,7 @@ HB_FUNC( HWG_GETEDITTEXT )
                    lpText,    // address of buffer for text
                    uiLen + 1  // maximum size of string
                  );
-   HB_RETSTR( lpText );
+   HB_RETSTR(lpText);
    hb_xfree(lpText);
 }
 
@@ -173,7 +173,7 @@ HB_FUNC( HWG_COMBOADDSTRING )
    void * hText;
 
    SendMessage(( HWND ) HB_PARHANDLE(1), CB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR( 2, &hText, NULL ));
+                ( LPARAM ) HB_PARSTR(2, &hText, NULL));
    hb_strfree(hText);
 }
 
@@ -182,7 +182,7 @@ HB_FUNC( HWG_COMBOINSERTSTRING )
    void * hText;
 
    SendMessage(( HWND ) HB_PARHANDLE(1), CB_INSERTSTRING, ( WPARAM ) hb_parni(2),
-                ( LPARAM ) HB_PARSTR( 3, &hText, NULL ));
+                ( LPARAM ) HB_PARSTR(3, &hText, NULL));
    hb_strfree(hText);
 }
 
@@ -393,7 +393,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 
       temp = GetObjectVar( pObj, "XRESOURCEID" );
       if( HB_IS_STRING( temp ) )
-         lpTitle = HB_ITEMGETSTR( temp, &hTitle, NULL );
+         lpTitle = HB_ITEMGETSTR(temp, &hTitle, NULL);
       else if( HB_IS_NUMERIC(temp) )
          lpTitle = MAKEINTRESOURCE(hb_itemGetNL( temp ));
       else
@@ -453,7 +453,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
 #else
    psh.DUMMYUNIONNAME.pszIcon = NULL;
 #endif
-   psh.pszCaption = HB_PARSTR( 4, &hCaption, NULL );
+   psh.pszCaption = HB_PARSTR(4, &hCaption, NULL);
    psh.nPages = nPages;
 #if !defined(__BORLANDC__)||  (__BORLANDC__ > 1424)
    psh.nStartPage = 0;

@@ -103,8 +103,8 @@ METHOD __Error( ... ) CLASS HActiveX
 Local cMessage, uRet 
 cMessage := __GetMessage() 
 
-   IF SubStr( cMessage, 1, 1 ) == "_"
-      cMessage := SubStr( cMessage, 2 )
+   IF SubStr(cMessage, 1, 1) == "_"
+      cMessage := SubStr(cMessage, 2)
    ENDIF
 
    RETURN HB_ExecFromArray( ::oOle, cMessage, HB_aParams() )

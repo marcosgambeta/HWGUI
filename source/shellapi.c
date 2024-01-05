@@ -59,7 +59,7 @@ HB_FUNC( HWG_SELECTFOLDER )
    void * hFolderName;
    LPCTSTR lpFolderName;
 
-   lpFolderName = HB_PARSTR( 2, &hFolderName, NULL );
+   lpFolderName = HB_PARSTR(2, &hFolderName, NULL);
    bi.hwndOwner = GetActiveWindow();
    bi.pidlRoot = NULL ;
    bi.pszDisplayName = lpBuffer;
@@ -77,7 +77,7 @@ HB_FUNC( HWG_SELECTFOLDER )
          lpResult = lpBuffer;
       CoTaskMemFree(pidlBrowse);
    }
-   HB_RETSTR( lpResult );
+   HB_RETSTR(lpResult);
    hb_strfree(hTitle);
    hb_strfree(hFolderName);
 }
@@ -98,7 +98,7 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
    tnid.uCallbackMessage = WM_NOTIFYICON;
    tnid.hIcon = ( HICON ) HB_PARHANDLE(3);
-   HB_ITEMCOPYSTR( hb_param( 4, HB_IT_ANY ), tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) );
+   HB_ITEMCOPYSTR(hb_param( 4, HB_IT_ANY ), tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ));
 
    if( ( BOOL ) hb_parl(1) )
       Shell_NotifyIcon( NIM_ADD, &tnid );
@@ -124,8 +124,8 @@ HB_FUNC( HWG_SHELLMODIFYICON )
       tnid.uFlags |= NIF_ICON;
       tnid.hIcon = ( HICON ) HB_PARHANDLE(2);
    }
-   if( HB_ITEMCOPYSTR( hb_param( 3, HB_IT_ANY ),
-                       tnid.szTip, HB_SIZEOFARRAY( tnid.szTip ) ) > 0 )
+   if( HB_ITEMCOPYSTR(hb_param( 3, HB_IT_ANY ),
+                       tnid.szTip, HB_SIZEOFARRAY( tnid.szTip )) > 0 )
    {
       tnid.uFlags |= NIF_TIP;
    }
@@ -147,14 +147,14 @@ HB_FUNC( HWG_SHELLEXECUTE )
    void * hDirectory;
    LPCTSTR lpDirectory;
 
-   lpDirectory = HB_PARSTR( 4, &hDirectory , NULL );
+   lpDirectory = HB_PARSTR(4, &hDirectory , NULL);
    if( lpDirectory == NULL )
       lpDirectory = TEXT( "C:\\" );
 
    hb_retnl( ( LONG ) ShellExecute(GetActiveWindow(),
                   HB_PARSTRDEF( 2, &hOperation, NULL ),
-                  HB_PARSTR( 1, &hFile, NULL ),
-                  HB_PARSTR( 3, &hParameters, NULL ),
+                  HB_PARSTR(1, &hFile, NULL),
+                  HB_PARSTR(3, &hParameters, NULL),
                   lpDirectory,
                   HB_ISNUM(5) ? hb_parni(5) : SW_SHOWNORMAL) );
 

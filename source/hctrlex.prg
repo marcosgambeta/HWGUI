@@ -158,7 +158,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
       ENDIF
       RETURN 0
    ELSEIF msg == WM_SYSKEYUP
-      IF ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr( ::title, ++ pos, 1 ) ))
+      IF ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr(::title, ++ pos, 1) ))
          hwg_GetSkip( ::oparent, ::handle, , 1 )
          RETURN  0
       ENDIF
@@ -204,7 +204,7 @@ METHOD Paint( lpDis ) CLASS HStaticEx
    // Set transparent background
    hwg_Setbkmode(dc, ::backstyle)
    IF ::BackStyle = OPAQUE
-      brBackground := iif( !Empty( ::brush ), ::brush, ::hBrushDefault )
+      brBackground := iif( !Empty(::brush), ::brush, ::hBrushDefault )
       hwg_Fillrect( dc, client_rect[1], client_rect[2], client_rect[3], client_rect[4], brBackground:handle )
    ENDIF
 
@@ -377,7 +377,7 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
          hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam( 1, 1 ))
          RETURN 0
       ENDIF
-   ELSEIF  msg = WM_GETDLGCODE .AND. !Empty( lParam )
+   ELSEIF  msg = WM_GETDLGCODE .AND. !Empty(lParam)
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
       ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE
@@ -419,7 +419,7 @@ METHOD onGetFocus()  CLASS HButtonX
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::title, Self )
       ::oParent:lSuspendMsgsHandling := .F.
-      IF res != NIL .AND.  Empty( res )
+      IF res != NIL .AND.  Empty(res)
          hwg_WhenSetFocus( Self, nSkip )
          IF ::lflat
             hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  )
@@ -512,8 +512,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    cCaption := iif( cCaption = NIL, "", cCaption )
    ::Caption := cCaption
    ::iStyle              := iStyle
-   ::hBitmap             := iif( Empty( hBitmap ), NIL, hBitmap )
-   ::hicon               := iif( Empty( hicon ), NIL, hIcon )
+   ::hBitmap             := iif( Empty(hBitmap), NIL, hBitmap )
+   ::hicon               := iif( Empty(hicon), NIL, hIcon )
    ::m_bDrawTransparent  := Transp
    ::PictureMargin       := nPictureMargin
    ::lnoThemes           := lnoThemes
@@ -686,12 +686,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       IF hwg_Checkbit( lParam, 23 ) .AND. ( wParam > 95 .AND. wParam < 106 )
          wParam -= 48
       ENDIF
-      IF !Empty( ::title ) .AND. ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr( ::title, ++ pos, 1 ) ))
+      IF !Empty(::title) .AND. ( pos := At( "&", ::title ) ) > 0 .AND. wParam == Asc(Upper( SubStr(::title, ++ pos, 1) ))
          IF ValType(::bClick) == "B" .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::id, BN_CLICKED ), ::handle)
          ENDIF
       ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif( ValType(o:title) = "C", ( pos := At( "&", o:title ) ) > 0 .AND. ;
-            wParam == Asc(Upper( SubStr( o:title, ++ pos, 1 ) )), ) } ) ) > 0
+            wParam == Asc(Upper( SubStr(o:title, ++ pos, 1) )), ) } ) ) > 0
          IF __ObjHasMsg( ::oParent:aControls[ nID ], "BCLICK" ) .AND. ;
                ValType(::oParent:aControls[ nID ]:bClick) == "B" .OR. ::oParent:aControls[ nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::oParent:aControls[ nID ]:id, BN_CLICKED ), ::oParent:aControls[ nID ]:handle)
@@ -796,10 +796,10 @@ METHOD SetDefaultColor( tColor, bColor, lPaint ) CLASS HBUTTONEx
 
    DEFAULT lPaint TO .F.
 
-   IF !Empty( tColor )
+   IF !Empty(tColor)
       ::tColor := tColor
    ENDIF
-   IF !Empty( bColor )
+   IF !Empty(bColor)
       ::bColor := bColor
    ENDIF
    ::m_crColors[ BTNST_COLOR_BK_IN ]    := iif( ::bColor = NIL, hwg_Getsyscolor( COLOR_BTNFACE ), ::bColor )
@@ -853,8 +853,8 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL centerRectHeight
 
    LOCAL uAlign, uStyleTmp
-   LOCAL aTxtSize := iif( !Empty( ::caption ), hwg_TxtRect( ::caption, Self ), { 0, 0 } )
-   LOCAL aBmpSize := iif( !Empty( ::hbitmap ), hwg_Getbitmapsize(::hbitmap), { 0, 0 } )
+   LOCAL aTxtSize := iif( !Empty(::caption), hwg_TxtRect( ::caption, Self ), { 0, 0 } )
+   LOCAL aBmpSize := iif( !Empty(::hbitmap), hwg_Getbitmapsize(::hbitmap), { 0, 0 } )
    LOCAL itemRectOld, saveCaptionRect, bmpRect, itemRect1, captionRect1, fillRect
    LOCAL lMultiLine, nHeight := 0
 
@@ -870,7 +870,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
          ENDIF
       ENDIF
    ENDIF
-   IF !Empty( ::hTheme ) .AND. !::lnoThemes
+   IF !Empty(::hTheme) .AND. !::lnoThemes
       ::Themed := .T.
    ENDIF
    hwg_Setbkmode(dc, TRANSPARENT)
@@ -945,7 +945,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
    uStyleTmp := HWG_GETWINDOWSTYLE(::handle)
    itemRectOld := AClone(itemRect)
-   IF hb_BitAnd(uStyleTmp, BS_MULTILINE) != 0 .AND. !Empty( ::caption ) .AND. ;
+   IF hb_BitAnd(uStyleTmp, BS_MULTILINE) != 0 .AND. !Empty(::caption) .AND. ;
          Int( aTxtSize[2] ) !=  Int( hwg_Drawtext( dc, ::caption, itemRect[1], itemRect[2],;
          itemRect[3] - iif( ::iStyle = ST_ALIGN_VERT, 0, aBmpSize[1] + 8 ), ;
          itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld ) )
@@ -976,7 +976,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
    itemRectOld := AClone(itemRect)
 
-   IF !Empty( ::caption ) .AND. !Empty( ::hbitmap )  //.AND.!EMPTY( ::hicon )
+   IF !Empty(::caption) .AND. !Empty(::hbitmap)  //.AND.!EMPTY(::hicon)
       nHeight :=  aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK  ), aTxtSize[2] )
       IF ::iStyle = ST_ALIGN_HORIZ
          itemRect[1] := iif( ::PictureMargin = 0, ( ( ( ::nWidth - aTxtSize[1] - aBmpSize[1] / 2 ) / 2 ) ) / 2, ::PictureMargin )
@@ -988,11 +988,11 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
          itemRect[1] := ( ::nWidth - aBmpSize[1] ) /  2
          itemRect[2] := iif( ::PictureMargin = 0, ( ( ( ::nHeight - ( nHeight + aBmpSize[2] + 1 ) ) / 2 ) ), ::PictureMargin )
       ENDIF
-   ELSEIF !Empty( ::caption )
+   ELSEIF !Empty(::caption)
       nHeight := aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK ), aTxtSize[2] )
    ENDIF
 
-   bHasTitle := ValType(::caption) == "C" .AND. !Empty( ::Caption )
+   bHasTitle := ValType(::caption) == "C" .AND. !Empty(::Caption)
 
    //   hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
    IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent .AND. ( !bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT )
@@ -1031,7 +1031,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       IF ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N"
          IF !lmultiline  .AND. ::iStyle != ST_ALIGN_OVERLAP
             // hwg_Drawtext( dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign + DT_CALCRECT, @captionRect )
-         ELSEIF !Empty( ::caption )
+         ELSEIF !Empty(::caption)
             // figura no topo texto em baixo
             IF ::iStyle = ST_ALIGN_OVERLAP //ST_ALIGN_VERT
                captionRect[2] :=  itemRect1[2] + aBmpSize[2] //+ 1
@@ -1207,12 +1207,12 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
 
    // determine text length
    szText := ::Title
-   aSize := hwg_TxtRect( iif( Empty( szText ), "A", szText ), Self )
+   aSize := hwg_TxtRect( iif( Empty(szText), "A", szText ), Self )
    // distance from window top to group rect
    iUpDist := ( aSize[2] / 2 )
    dwStyle := ::Style //HWG_GETWINDOWSTYLE(::handle) //GetStyle();
    rcText := { 0, rc[2] + iUpDist, 0, rc[2] + iUpDist  }
-   IF Empty( szText )
+   IF Empty(szText)
    ELSEIF hb_BitAnd(dwStyle, BS_CENTER) == BS_RIGHT // right aligned
       rcText[3] := rc[3] + 2 - OFS_X
       rcText[1] := rcText[3] - aSize[1]
@@ -1264,7 +1264,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
       hwg_Lineto( dc, rcText[3], rcText[4] + 1 )
    ENDIF
    // draw text (if any)
-   IF !Empty( szText ) // !(dwExStyle & (BS_ICON|BS_BITMAP)))
+   IF !Empty(szText) // !(dwExStyle & (BS_ICON|BS_BITMAP)))
       hwg_Setbkmode(dc, TRANSPARENT)
       IF ::oBrush != NIL
          hwg_Fillrect( DC, rc[1] + 2, rc[2] + iUpDist + 2, rc[3] - 2, rc[4] - 2, ::brush:handle )

@@ -18,7 +18,7 @@ STATIC LogInitialPath := ""
 PROCEDURE hwg_ErrSys
 
    ErrorBlock( { | oError | DefError( oError ) } )
-   LogInitialPath := "\" + CurDir() + IIf( Empty( CurDir() ), "", "\" )
+   LogInitialPath := "\" + CurDir() + IIf( Empty(CurDir()), "", "\" )
 
    RETURN
 
@@ -49,17 +49,17 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    cMessage := hwg_ErrMsg( oError )
-   IF !Empty( oError:osCode )
-      cDOSError := "(DOS Error " + LTrim( Str( oError:osCode ) ) + ")"
+   IF !Empty(oError:osCode)
+      cDOSError := "(DOS Error " + LTrim( Str(oError:osCode) ) + ")"
    ENDIF
 
-   IF !Empty( oError:osCode )
+   IF !Empty(oError:osCode)
       cMessage += " " + cDOSError
    ENDIF
 
    n := 2
-   DO WHILE !Empty( ProcName(n) )
-      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile(n) + "->" + ProcName(n) + "(" + AllTrim( Str( ProcLine(n ++) ) ) + ")"
+   DO WHILE !Empty(ProcName(n))
+      cMessage += Chr(13) + Chr(10) + "Called from " + ProcFile(n) + "->" + ProcName(n) + "(" + AllTrim( Str(ProcLine(n++)) ) + ")"
    ENDDO
 
    //included aditional informations
@@ -95,7 +95,7 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add subsystem's error code if available
    IF ISNUMBER( oError:subCode )
-      cMessage += "/" + LTrim( Str( oError:subCode ) )
+      cMessage += "/" + LTrim( Str(oError:subCode) )
    ELSE
       cMessage += "/???"
    ENDIF
@@ -107,14 +107,14 @@ FUNCTION hwg_ErrMsg( oError )
 
    // add either filename or operation
    DO CASE
-   CASE !Empty( oError:filename )
+   CASE !Empty(oError:filename)
       cMessage += ": " + oError:filename
-   CASE !Empty( oError:operation )
+   CASE !Empty(oError:operation)
       cMessage += ": " + oError:operation
    ENDCASE
 
    /*
-   IF !Empty( oError:Args )
+   IF !Empty(oError:Args)
       cMessage += "Arguments: " + ValToPrgExp( oError:Args )
    ENDIF
    */

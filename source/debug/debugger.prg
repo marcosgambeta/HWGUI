@@ -291,7 +291,7 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
       xResult := oErr:operation + ": " + oErr:description
       IF HB_ISARRAY( oErr:args )
          xResult += "; arguments:"
-         AEval( oErr:args, {| x | xResult += " " + AllTrim( __dbgValToStr( x ) ) } )
+         AEval( oErr:args, {| x | xResult += " " + AllTrim( __dbgValToStr(x) ) } )
       ENDIF
       lValid := .F.
    END SEQUENCE
@@ -419,9 +419,9 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_CALC
          IF Left( p1, 1 ) == "?"
-            p1 := Ltrim( Substr( p1, Iif( Left(p1, 2) == "??", 3, 2 ) ) )
+            p1 := Ltrim( Substr(p1, Iif( Left(p1, 2) == "??", 3, 2 )) )
          ENDIF
-         hwg_dbg_Answer( "value", __dbgValToStr( ::GetExprValue(p1) ) )
+         hwg_dbg_Answer( "value", __dbgValToStr(::GetExprValue(p1)) )
 
       ENDCASE
    ENDDO
@@ -480,7 +480,7 @@ METHOD ShowCodeLine(nProc) CLASS HBDebugger
          RETURN NIL
       ENDIF
 
-      IF !Empty( cPrgName )
+      IF !Empty(cPrgName)
          hwg_dbg_SetActiveLine(cPrgName, nLine, ;
                Iif( ::lViewStack, SendStack(), Nil ),  ;
                Iif( ::lShowLocals, SendLocal(), Nil ), ;
@@ -497,10 +497,10 @@ METHOD VarGetInfo( aVar ) CLASS HBDebugger
    LOCAL uValue := ::VarGetValue(aVar)
 
    DO CASE
-   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
-   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
-   OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType(uValue) + ">: " + __dbgValToStr( uValue )
+   CASE cType == "G" ; RETURN aVar[ VAR_NAME ] + " <Global, " + ValType(uValue) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "L" ; RETURN aVar[ VAR_NAME ] + " <Local, " + ValType(uValue) + ">: " + __dbgValToStr(uValue)
+   CASE cType == "S" ; RETURN aVar[ VAR_NAME ] + " <Static, " + ValType(uValue) + ">: " + __dbgValToStr(uValue)
+   OTHERWISE         ; RETURN aVar[ VAR_NAME ] + " <" + aVar[ VAR_TYPE ] + ", " + ValType(uValue) + ">: " + __dbgValToStr(uValue)
    ENDCASE
 
    // ; Never reached
@@ -557,11 +557,11 @@ STATIC FUNCTION SendStack()
 Local aStack := t_oDebugger:aProcStack
 Local arr := Array( Len( aStack ) * 3 + 1 ), i, j := 2
 
-   arr[1] := Ltrim( Str( Len( aStack ) ) )
+   arr[1] := Ltrim( Str(Len( aStack )) )
    FOR i := 1 TO Len( aStack )
       arr[j++] := Iif( Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE] )
       arr[j++] := Iif( Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION] )
-      arr[j++] := Iif( Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str( aStack[i, CSTACK_LINE] )) )
+      arr[j++] := Iif( Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str(aStack[i, CSTACK_LINE])) )
    NEXT
 
    RETURN arr
@@ -570,12 +570,12 @@ STATIC FUNCTION SendLocal()
 Local aVars := t_oDebugger:aProcStack[1, CSTACK_LOCALS]
 Local arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
 
-   arr[1] := Ltrim( Str( Len( aVars ) ) )
+   arr[1] := Ltrim( Str(Len( aVars )) )
    FOR i := 1 TO Len( aVars )
       arr[++j] := aVars[ i, VAR_NAME ]
       xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS] )
       arr[++j] := Valtype(xVal)
-      arr[++j] := __dbgValToStr( xVal )
+      arr[++j] := __dbgValToStr(xVal)
       IF Len( arr[j] ) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
@@ -586,10 +586,10 @@ Local arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
 STATIC FUNCTION SendWatch()
 Local arr := Array( t_oDebugger:nWatches + 1 ), i
 
-   arr[1] := Ltrim( Str( t_oDebugger:nWatches ) )
+   arr[1] := Ltrim( Str(t_oDebugger:nWatches) )
 
    FOR i := 1 TO t_oDebugger:nWatches
-      arr[i+1] := __dbgValToStr( t_oDebugger:GetExprValue(i) )
+      arr[i+1] := __dbgValToStr(t_oDebugger:GetExprValue(i))
    NEXT
 
    RETURN arr
@@ -649,7 +649,7 @@ STATIC FUNCTION strip_path( cFileName )
 
    RETURN cName + cExt
 
-FUNCTION __dbgValToStr( uVal )
+FUNCTION __dbgValToStr(uVal)
 
    LOCAL cType := ValType(uVal), i, s, nLen
 
@@ -672,7 +672,7 @@ FUNCTION __dbgValToStr( uVal )
 #ifndef __XHARBOUR__
    CASE cType == "T" ; RETURN hb_TToC(uVal)
 #endif
-   CASE cType == "N" ; RETURN Str( uVal )
+   CASE cType == "N" ; RETURN Str(uVal)
    CASE cType == "O" ; RETURN "Class " + uVal:ClassName() + " object"
    CASE cType == "H" ; RETURN "Hash(" + hb_ntos( Len( uVal ) ) + ")"
    CASE cType == "P" ; RETURN "Pointer"

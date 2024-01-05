@@ -212,7 +212,7 @@ HB_FUNC( HWG_CREATENICEBTN )
    void * hTitle;
 
    hWndPanel = CreateWindowEx( hb_parni(8), TEXT( "NICEBUTT" ), /* predefined class  */
-         HB_PARSTR( 9, &hTitle, NULL ),   /* no window title   */
+         HB_PARSTR(9, &hTitle, NULL),   /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle, /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */

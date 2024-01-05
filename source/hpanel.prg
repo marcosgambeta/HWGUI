@@ -94,7 +94,7 @@ METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) 
 METHOD Activate() CLASS HPanel
    LOCAL handle := ::oParent:handle
 
-   IF !Empty( handle )
+   IF !Empty(handle)
       ::handle := hwg_Createpanel( handle, ::id, ;
             ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::ResizeOffSet(0)
@@ -122,7 +122,7 @@ METHOD Activate() CLASS HPanel
 METHOD Init() CLASS HPanel
 
    IF !::lInit
-      IF ::bSize == NIL .AND. Empty( ::Anchor )
+      IF ::bSize == NIL .AND. Empty(::Anchor)
          ::bSize := { | o, x, y | o:Move(Iif( ::nLeft > 0, x - ::nLeft, 0 ), ;
                Iif( ::nTop > 0, y - ::nHeight, 0 ), ;
                Iif( ::nWidth == 0 .OR. ::lResizeX, x, ::nWidth ), ;
@@ -187,7 +187,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          RETURN -1
       ENDIF
    ENDIF
-   IF msg = WM_NCPAINT .AND. !Empty( hwg_GetParentForm(Self):nInitFocus ) .AND. ;
+   IF msg = WM_NCPAINT .AND. !Empty(hwg_GetParentForm(Self):nInitFocus) .AND. ;
          ( hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), ::Handle  ) .OR. ;
          hwg_Selffocus( hwg_Getparent( hwg_GetParentForm(Self):nInitFocus ), hwg_Getparent( ::Handle ) ) )
       hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus, , IIF( hwg_Selffocus( hwg_GetParentForm(Self):nInitFocus, ::Handle ), 1, 0 ) )

@@ -234,7 +234,7 @@ HB_FUNC( HWG_CREATESTATIC )
       if( hb_pcount() > 7 )
       {
          void * hStr;
-         LPCTSTR lpText = HB_PARSTR( 8, &hStr, NULL );
+         LPCTSTR lpText = HB_PARSTR(8, &hStr, NULL);
          if( lpText )
             SendMessage(hWndEdit, WM_SETTEXT, 0, ( LPARAM ) lpText);
          hb_strfree(hStr);
@@ -255,7 +255,7 @@ HB_FUNC( HWG_CREATEBUTTON )
 {
    void * hStr;
    HWND hBtn = CreateWindow( TEXT( "BUTTON" ),  /* predefined class  */
-         HB_PARSTR( 8, &hStr, NULL ),           /* button text   */
+         HB_PARSTR(8, &hStr, NULL),           /* button text   */
          WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
@@ -293,7 +293,7 @@ HB_FUNC( HWG_CREATEEDIT )
    if( hb_pcount() > 7 )
    {
       void * hStr;
-      LPCTSTR lpText = HB_PARSTR( 8, &hStr, NULL );
+      LPCTSTR lpText = HB_PARSTR(8, &hStr, NULL);
       if( lpText )
          SendMessage(hWndEdit, WM_SETTEXT, 0, ( LPARAM ) lpText);
       hb_strfree(hStr);
@@ -336,7 +336,7 @@ HB_FUNC( HWG_CREATEBROWSE )
 
    hWndBrw = CreateWindowEx( ( dwStyle & WS_BORDER ) ? WS_EX_CLIENTEDGE : 0,    /* extended style */
          TEXT( "BROWSE" ),              /* predefined class */
-         HB_PARSTR( 8, &hStr, NULL ),           /* button text   */
+         HB_PARSTR(8, &hStr, NULL),           /* button text   */
          WS_CHILD | WS_VISIBLE | dwStyle,       /* style */
          hb_parni(4), hb_parni(5),  /* x, y  */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
@@ -461,7 +461,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    ti.uId = ( UINT ) hb_parnl(2);
    // ti.uId = (UINT) GetDlgItem( hWnd, hb_parni(2) );
    ti.hinst = GetModuleHandle(NULL);
-   ti.lpszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+   ti.lpszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
    hb_retl( SendMessage(hWndTT, TTM_ADDTOOL, 0,
                ( LPARAM ) ( LPTOOLINFO ) & ti) );
@@ -499,7 +499,7 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
       ti.hwnd = hWnd;
       ti.uId = ( UINT ) hb_parnl(2);
       ti.hinst = GetModuleHandle(NULL);
-      ti.lpszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+      ti.lpszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
       hb_retl( SendMessage(hWndTT, TTM_SETTOOLINFO, 0,
                             ( LPARAM ) ( LPTOOLINFO ) & ti) );
@@ -717,7 +717,7 @@ HB_FUNC( HWG_INITTABCONTROL )
    {
       void * hStr;
 
-      tie.pszText = ( LPTSTR ) HB_ARRAYGETSTR( pArr, ul, &hStr, NULL );
+      tie.pszText = ( LPTSTR ) HB_ARRAYGETSTR(pArr, ul, &hStr, NULL);
       if( tie.pszText == NULL )
          tie.pszText = ( LPTSTR ) TEXT( "" );
 
@@ -740,7 +740,7 @@ HB_FUNC( HWG_ADDTAB )
 
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = -1;
-   tie.pszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+   tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
    TabCtrl_InsertItem( ( HWND ) HB_PARHANDLE(1), hb_parni(2), &tie );
    hb_strfree(hStr);
 }
@@ -754,7 +754,7 @@ HB_FUNC( HWG_ADDTABDIALOG )
    tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
    tie.lParam = ( LPARAM ) pWnd;
    tie.iImage = -1;
-   tie.pszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+   tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
    TabCtrl_InsertItem( ( HWND ) HB_PARHANDLE(1), hb_parni(2), &tie );
    hb_strfree(hStr);
 }
@@ -782,7 +782,7 @@ HB_FUNC( HWG_SETTABNAME )
    void * hStr;
 
    tie.mask = TCIF_TEXT;
-   tie.pszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+   tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
    TabCtrl_SetItem( ( HWND ) HB_PARHANDLE(1), hb_parni(2), &tie );
    hb_strfree(hStr);
@@ -849,7 +849,7 @@ HB_FUNC( HWG_TREEADDNODE )
    tvi.iSelectedImage = 0;
 
    tvi.mask = TVIF_TEXT | TVIF_PARAM;
-   tvi.pszText = ( LPTSTR ) HB_PARSTR( 6, &hStr, NULL );
+   tvi.pszText = ( LPTSTR ) HB_PARSTR(6, &hStr, NULL);
    tvi.lParam = ( LPARAM ) ( hb_itemNew( pObject ) );
    if( hb_pcount() > 6 && !HB_ISNIL(7) )
    {
@@ -950,7 +950,7 @@ HB_FUNC( HWG_TREEGETNODETEXT )
 
    SendMessage(( HWND ) HB_PARHANDLE(1), TVM_GETITEM, 0,
                 ( LPARAM ) ( &TreeItem ));
-   HB_RETSTR( TreeItem.pszText );
+   HB_RETSTR(TreeItem.pszText);
 }
 
 #define TREE_SETITEM_TEXT       1
@@ -969,7 +969,7 @@ HB_FUNC( HWG_TREESETITEM )
    if( iType == TREE_SETITEM_TEXT )
    {
       TreeItem.mask |= TVIF_TEXT;
-      TreeItem.pszText = ( LPTSTR ) HB_PARSTR( 4, &hStr, NULL );
+      TreeItem.pszText = ( LPTSTR ) HB_PARSTR(4, &hStr, NULL);
    }
    if( iType == TREE_SETITEM_CHECK )
    {
@@ -1028,7 +1028,7 @@ HB_FUNC( HWG_TREEGETNOTIFY )
       TV_DISPINFO *tv;
       tv = ( TV_DISPINFO * ) HB_PARHANDLE(1);
 
-      HB_RETSTR( ( tv->item.pszText ) ? tv->item.pszText : TEXT( "" ) );
+      HB_RETSTR(( tv->item.pszText ) ? tv->item.pszText : TEXT( "" ));
    }
 }
 
@@ -1166,7 +1166,7 @@ HB_FUNC( HWG_GETANCESTOR )
 HB_FUNC( HWG_LOADCURSOR )
 {
    void * hStr;
-   LPCTSTR lpStr = HB_PARSTR( 1, &hStr, NULL );
+   LPCTSTR lpStr = HB_PARSTR(1, &hStr, NULL);
 
    if( lpStr )
       HB_RETHANDLE(LoadCursor( GetModuleHandle(NULL), lpStr ));
@@ -1823,7 +1823,7 @@ HB_FUNC( HWG_TOOLBAR_SETBUTTONINFO )
 
    tb.cbSize = sizeof( tb );
    tb.dwMask = TBIF_TEXT;
-   tb.pszText = ( LPTSTR ) HB_PARSTR( 3, &hStr, NULL );
+   tb.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
    //tb.cchText = 1000  ;
    
    SendMessage(hWndCtrl, TB_SETBUTTONINFO, iIDB, ( LPARAM ) & tb);
@@ -1869,8 +1869,8 @@ HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
 
    if( pDispInfo )
    {
-      HB_ITEMCOPYSTR( hb_param( 2, HB_IT_ANY ), pDispInfo->szText,
-                      HB_SIZEOFARRAY( pDispInfo->szText ) );
+      HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->szText,
+                     HB_SIZEOFARRAY( pDispInfo->szText ));
       pDispInfo->szText[ HB_SIZEOFARRAY( pDispInfo->szText ) - 1 ] = 0;
 #if 0
       /* is it necessary? */
@@ -1893,8 +1893,8 @@ HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
    LPNMTBGETINFOTIP pDispInfo = ( LPNMTBGETINFOTIP ) HB_PARHANDLE(1);
    if( pDispInfo && pDispInfo->cchTextMax > 0 )
    {
-      HB_ITEMCOPYSTR( hb_param( 2, HB_IT_ANY ), pDispInfo->pszText,
-                      pDispInfo->cchTextMax );
+      HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->pszText,
+                     pDispInfo->cchTextMax);
       pDispInfo->pszText[ pDispInfo->cchTextMax - 1 ] = 0;
    }
 }
@@ -2112,7 +2112,7 @@ HB_FUNC( HWG_ADDBARBITMAP )
    HWND pParent = ( HWND ) HB_PARHANDLE(1);
    HWND pBar = ( HWND ) HB_PARHANDLE(2);
    void * hStr;
-   LPCTSTR pszText = HB_PARSTR( 3, &hStr, NULL );
+   LPCTSTR pszText = HB_PARSTR(3, &hStr, NULL);
    HBITMAP pbmp = ( HBITMAP ) HB_PARHANDLE(4);
    DWORD dwStyle = hb_parnl(5);
    hb_retl( AddBar( pParent, pBar, pszText, pbmp, dwStyle ) );
@@ -2126,7 +2126,7 @@ HB_FUNC( HWG_ADDBARCOLORS )
    COLORREF clrFore = ( COLORREF ) hb_parnl(3);
    COLORREF clrBack = ( COLORREF ) hb_parnl(4);
    void * hStr;
-   LPCTSTR pszText = HB_PARSTR( 5, &hStr, NULL );
+   LPCTSTR pszText = HB_PARSTR(5, &hStr, NULL);
    DWORD dwStyle = hb_parnl(6);
 
    hb_retl( AddBar1( pParent, pBar, clrFore, clrBack, pszText, dwStyle ) );
@@ -2174,7 +2174,7 @@ HB_FUNC( HWG_GETLOCALEINFO )
    TCHAR szBuffer[10] = { 0 };
    GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SLIST, szBuffer,
                   HB_SIZEOFARRAY( szBuffer ) );
-   HB_RETSTR( szBuffer );
+   HB_RETSTR(szBuffer);
 }
 
 
@@ -2185,7 +2185,7 @@ HB_FUNC( HWG_COMBOBOXGETLBTEXT )
    TCHAR lpszText[255] = { 0 };
    hb_retni( SendMessage(hWnd, CB_GETLBTEXT, nIndex,
                           ( LPARAM ) lpszText) );
-   HB_STORSTR( lpszText, 3 );
+   HB_STORSTR(lpszText, 3);
 }
 
 HB_FUNC( HWG_DEFWINDOWPROC )
@@ -2277,6 +2277,6 @@ HB_FUNC( HWG_GETTABNAME )
    tie.pszText = d;
    TabCtrl_GetItem( ( HWND ) HB_PARHANDLE(1), hb_parni(2) - 1,
                     ( LPTCITEM ) &tie );
-   HB_RETSTR( tie.pszText );
+   HB_RETSTR(tie.pszText);
 }
 

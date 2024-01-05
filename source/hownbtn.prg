@@ -133,7 +133,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    RETURN Self
 
 METHOD Activate() CLASS HOwnButton
-   IF !Empty( ::oParent:handle )
+   IF !Empty(::oParent:handle)
       ::handle := hwg_Createownbtn( ::oParent:handle, ::id, ;
                                 ::nLeft, ::nTop, ::nWidth, ::nHeight )
       ::Init()
@@ -176,14 +176,14 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
       ::END()
    ELSEIF msg == WM_SETFOCUS
       /*
-      IF !Empty( ::bGetfocus )
+      IF !Empty(::bGetfocus)
          Eval( ::bGetfocus, Self, msg, wParam, lParam )
       ENDIF
       */
       ::onGetFocus()
    ELSEIF msg == WM_KILLFOCUS
       /*
-      IF !Empty( ::bLostfocus )
+      IF !Empty(::bLostfocus)
          Eval( ::bLostfocus, Self, msg, wParam, lParam )
       ENDIF
       */
@@ -198,7 +198,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
          ::Release()
       ENDIF
    ELSE
-      IF !Empty( ::bOther )
+      IF !Empty(::bOther)
          Eval( ::bOther, Self, msg, wParam, lParam )
       ENDIF
    ENDIF
@@ -287,9 +287,9 @@ METHOD Paint() CLASS HOwnButton
          IF ::WindowsManifest
             ::hTheme := hwg_openthemedata(::handle, "BUTTON")
          ENDIF
-         ::hTheme := IIF( EMPTY( ::hTheme  ), Nil, ::hTheme )
+         ::hTheme := IIF( EMPTY(::hTheme), Nil, ::hTheme )
       ENDIF
-      IF  Empty( ::hTheme )
+      IF  Empty(::hTheme)
          ::Themed := .F.
       ENDIF
    ENDIF
@@ -357,7 +357,7 @@ METHOD DrawItems( hDC ) CLASS HOwnButton
    LOCAL x1, y1, x2, y2, aCoors
 
    aCoors := hwg_Getclientrect( ::handle )
-   IF !EMPTY( ::brush )
+   IF !EMPTY(::brush)
       hwg_Fillrect( hDC, aCoors[1] + 2, aCoors[2] + 2, aCoors[3] - 2, aCoors[4] - 2, ::Brush:handle )
    ENDIF
 
@@ -497,7 +497,7 @@ METHOD onGetFocus()  CLASS HOwnButton
    IF ::bGetFocus != Nil
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval( ::bGetFocus, ::title, Self )
-      IF res != Nil .AND. EMPTY( res )
+      IF res != Nil .AND. EMPTY(res)
          hwg_WhenSetFocus( Self, nSkip )
       ENDIF
    ENDIF
