@@ -108,8 +108,8 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
       wndclass.hbrBackground = ( ( ( hb_pcount() > 5 &&
                         !HB_ISNIL(6) ) ? ( ( hb_parnl(6) ==
-                              -1 ) ? ( HBRUSH ) NULL : ( HBRUSH )
-                        HB_PARHANDLE(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
+                              -1 ) ? ( HBRUSH ) NULL :
+                        hwg_par_HBRUSH(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
                         1 ) ) );
       wndclass.lpszMenuName = lpMenu;
       wndclass.lpszClassName = lpAppName;
@@ -281,8 +281,8 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
       wndclass.hbrBackground = ( ( ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
                   ( ( hb_parnl(6) ==
-                              -1 ) ? ( HBRUSH ) NULL : ( HBRUSH )
-                        HB_PARHANDLE(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
+                              -1 ) ? ( HBRUSH ) NULL :
+                        hwg_par_HBRUSH(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
                         1 ) ) );
       /*
          wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
