@@ -134,3 +134,4 @@ HB_EXTERN_END
 
 // macros for parameters
 #define hwg_par_HWND(n) (HWND) HB_PARHANDLE(n)
+#define hwg_par_HDC(n)  (HDC) HB_PARHANDLE(n)
