@@ -1119,13 +1119,13 @@ HB_FUNC( HWG_CREATEIMAGELIST )
 HB_FUNC( HWG_IMAGELIST_ADD )
 {
    hb_retnl( ImageList_Add(( HIMAGELIST ) HB_PARHANDLE(1),
-               ( HBITMAP ) HB_PARHANDLE(2), ( HBITMAP ) NULL) );
+               hwg_par_HBITMAP(2), ( HBITMAP ) NULL) );
 }
 
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
    hb_retnl( ImageList_AddMasked(( HIMAGELIST ) HB_PARHANDLE(1),
-               ( HBITMAP ) HB_PARHANDLE(2), ( COLORREF ) hb_parnl(3)) );
+               hwg_par_HBITMAP(2), ( COLORREF ) hb_parnl(3)) );
 }
 
 /*
@@ -2113,7 +2113,7 @@ HB_FUNC( HWG_ADDBARBITMAP )
    HWND pBar = hwg_par_HWND(2);
    void * hStr;
    LPCTSTR pszText = HB_PARSTR(3, &hStr, NULL);
-   HBITMAP pbmp = ( HBITMAP ) HB_PARHANDLE(4);
+   HBITMAP pbmp = hwg_par_HBITMAP(4);
    DWORD dwStyle = hb_parnl(5);
    hb_retl( AddBar( pParent, pBar, pszText, pbmp, dwStyle ) );
    hb_strfree(hStr);

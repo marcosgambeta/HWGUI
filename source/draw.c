@@ -395,7 +395,7 @@ HB_FUNC( HWG_DRAWBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : ( DWORD ) hb_parnl(3);
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    int nWidthDest = ( hb_pcount() >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
    int nHeightDest = ( hb_pcount() >= 6 &&
@@ -425,7 +425,7 @@ HB_FUNC( HWG_DRAWBITMAP )
 HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    COLORREF trColor =
          ( HB_ISNIL(5) ) ? 0x00FFFFFF : ( COLORREF ) hb_parnl(5);
    COLORREF crOldBack = SetBkColor( hDC, 0x00FFFFFF );
@@ -504,7 +504,7 @@ HB_FUNC( HWG_SPREADBITMAP )
          HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
+   HBITMAP hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;
 
@@ -536,7 +536,7 @@ HB_FUNC( HWG_CENTERBITMAP )
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(3);
+   HBITMAP hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;
    HBRUSH hBrush =
@@ -563,7 +563,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject( ( HBITMAP ) HB_PARHANDLE(1), sizeof( BITMAP ),
+   nret = GetObject( hwg_par_HBITMAP(1), sizeof( BITMAP ),
          ( LPVOID ) & bitmap );
 
    temp = hb_itemPutNL( NULL, bitmap.bmWidth );
@@ -827,7 +827,7 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
 HB_FUNC( HWG_DRAWGRAYBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
-   HBITMAP hBitmap = ( HBITMAP ) HB_PARHANDLE(2);
+   HBITMAP hBitmap = hwg_par_HBITMAP(2);
    HBITMAP bitmapgray;
    HBITMAP pOldBitmapImage, pOldbitmapgray;
    BITMAP bitmap;
