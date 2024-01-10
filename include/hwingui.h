@@ -131,3 +131,6 @@ extern HMODULE hModule;
 extern PHB_DYNS pSym_onEvent;
 
 HB_EXTERN_END
+
+// macros for parameters
+#define hwg_par_HWND(n) (HWND) HB_PARHANDLE(n)
