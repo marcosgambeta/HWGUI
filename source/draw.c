@@ -594,7 +594,7 @@ HB_FUNC( HWG_GETICONSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetIconInfo( ( HICON ) HB_PARHANDLE(1), &iinfo );
+   nret = GetIconInfo( hwg_par_HICON(1), &iinfo );
 
    temp = hb_itemPutNL( NULL, iinfo.xHotspot * 2 );
    hb_itemArrayPut( aMetr, 1, temp );
@@ -717,7 +717,7 @@ HB_FUNC( HWG_OPENBITMAP )
 HB_FUNC( HWG_DRAWICON )
 {
    DrawIcon( hwg_par_HDC(1), hb_parni(3), hb_parni(4),
-         ( HICON ) HB_PARHANDLE(2) );
+         hwg_par_HICON(2) );
 }
 
 HB_FUNC( HWG_GETSYSCOLOR )

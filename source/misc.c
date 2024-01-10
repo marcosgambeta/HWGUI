@@ -390,7 +390,7 @@ HB_FUNC( HWG_SHELLABOUT )
    hb_retni( ShellAbout( 0,
                          HB_PARSTRDEF( 1, &hStr1, NULL ),
                          HB_PARSTRDEF( 2, &hStr2, NULL ),
-                         ( HB_ISNIL(3) ? NULL : ( HICON ) HB_PARHANDLE(3) ) ) );
+                         ( HB_ISNIL(3) ? NULL : hwg_par_HICON(3) ) ) );
    hb_strfree(hStr1);
    hb_strfree(hStr2);
 }
