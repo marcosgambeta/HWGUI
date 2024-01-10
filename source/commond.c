@@ -29,7 +29,7 @@ HB_FUNC( HWG_SELECTFONT )
       memset( &lf, 0, sizeof( LOGFONT ) );
       temp1 = GetObjectVar( pObj, "NAME" );
       HB_ITEMCOPYSTR(temp1, lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
-      lf.lfFaceName[ HB_SIZEOFARRAY( lf.lfFaceName ) - 1 ] = '\0';
+      lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
       temp1 = GetObjectVar( pObj, "WIDTH" );
       lf.lfWidth = hb_itemGetNI( temp1 );
       temp1 = GetObjectVar( pObj, "HEIGHT" );
@@ -155,26 +155,26 @@ HB_FUNC( HWG_SELECTFILE )
       nSize = 4;
       for( n = 0; n < nArrLen; n++ )
       {
-         pArrStr[ n ].lpStr1 = HB_ARRAYGETSTR(pArr1, n + 1,
-                                              &pArrStr[ n ].hStr1,
-                                              &pArrStr[ n ].nLen1);
-         pArrStr[ n ].lpStr2 = HB_ARRAYGETSTR(pArr2, n + 1,
-                                              &pArrStr[ n ].hStr2,
-                                              &pArrStr[ n ].nLen2);
-         nSize += pArrStr[ n ].nLen1 + pArrStr[ n ].nLen2 + 2;
+         pArrStr[n].lpStr1 = HB_ARRAYGETSTR(pArr1, n + 1,
+                                              &pArrStr[n].hStr1,
+                                              &pArrStr[n].nLen1);
+         pArrStr[n].lpStr2 = HB_ARRAYGETSTR(pArr2, n + 1,
+                                              &pArrStr[n].hStr2,
+                                              &pArrStr[n].nLen2);
+         nSize += pArrStr[n].nLen1 + pArrStr[n].nLen2 + 2;
       }
       lpFilter = ( LPTSTR ) hb_xgrab(nSize * sizeof( TCHAR ));
       ptr = lpFilter;
       for( n = 0; n < nArrLen; n++ )
       {
-         memcpy( ptr, pArrStr[ n ].lpStr1, pArrStr[ n ].nLen1 * sizeof( TCHAR ) );
-         ptr += pArrStr[ n ].nLen1;
+         memcpy( ptr, pArrStr[n].lpStr1, pArrStr[n].nLen1 * sizeof( TCHAR ) );
+         ptr += pArrStr[n].nLen1;
          *ptr++ = 0;
-         memcpy( ptr, pArrStr[ n ].lpStr2, pArrStr[ n ].nLen2 * sizeof( TCHAR ) );
-         ptr += pArrStr[ n ].nLen2;
+         memcpy( ptr, pArrStr[n].lpStr2, pArrStr[n].nLen2 * sizeof( TCHAR ) );
+         ptr += pArrStr[n].nLen2;
          *ptr++ = 0;
-         hb_strfree(pArrStr[ n ].hStr1);
-         hb_strfree(pArrStr[ n ].hStr2);
+         hb_strfree(pArrStr[n].hStr1);
+         hb_strfree(pArrStr[n].hStr2);
       }
       *ptr++ = 0;
       *ptr = 0;
@@ -220,7 +220,7 @@ HB_FUNC( HWG_SAVEFILE )
    if( nSize < 1024 )
    {
       memcpy( buffer, lpFileName, nSize * sizeof( TCHAR ) );
-      memset( &buffer[ nSize ], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
+      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
       lpFileBuff = buffer;
       nSize = 1024;
    }
@@ -502,7 +502,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
    if( nSize < 1024 )
    {
       memcpy( buffer, lpFileName, nSize * sizeof( TCHAR ) );
-      memset( &buffer[ nSize ], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
+      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
       lpFileBuff = buffer;
       nSize = 1024;
    }

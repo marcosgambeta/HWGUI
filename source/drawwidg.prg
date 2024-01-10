@@ -42,20 +42,20 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, ;
    fdwStrikeOut := iif( fdwStrikeOut == Nil, 0, fdwStrikeOut )
 
    FOR i := 1 TO nlen
-      IF ::aFonts[ i ]:name == fontName .AND.          ;
-            ::aFonts[ i ]:width == nWidth .AND.           ;
-            ::aFonts[ i ]:height == nHeight .AND.         ;
-            ::aFonts[ i ]:weight == fnWeight .AND.        ;
-            ::aFonts[ i ]:CharSet == fdwCharSet .AND.     ;
-            ::aFonts[ i ]:Italic == fdwItalic .AND.       ;
-            ::aFonts[ i ]:Underline == fdwUnderline .AND. ;
-            ::aFonts[ i ]:StrikeOut == fdwStrikeOut
+      IF ::aFonts[i]:name == fontName .AND.          ;
+            ::aFonts[i]:width == nWidth .AND.           ;
+            ::aFonts[i]:height == nHeight .AND.         ;
+            ::aFonts[i]:weight == fnWeight .AND.        ;
+            ::aFonts[i]:CharSet == fdwCharSet .AND.     ;
+            ::aFonts[i]:Italic == fdwItalic .AND.       ;
+            ::aFonts[i]:Underline == fdwUnderline .AND. ;
+            ::aFonts[i]:StrikeOut == fdwStrikeOut
 
-         ::aFonts[ i ]:nCounter ++
+         ::aFonts[i]:nCounter ++
          IF nHandle != Nil
             hwg_Deleteobject( nHandle )
          ENDIF
-         RETURN ::aFonts[ i ]
+         RETURN ::aFonts[i]
       ENDIF
    NEXT
 
@@ -120,7 +120,7 @@ METHOD RELEASE() CLASS HFont
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aFonts[ i ]:handle == ::handle
+         IF ::aFonts[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aFonts, i )
             ASize(::aFonts, nlen - 1)
@@ -166,12 +166,12 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
    NEXT
 #else
    FOR i := 1 TO Len(::aPens)
-      IF ::aPens[ i ]:style == nStyle .AND. ;
-            ::aPens[ i ]:width == nWidth .AND. ;
-            ::aPens[ i ]:color == nColor
+      IF ::aPens[i]:style == nStyle .AND. ;
+            ::aPens[i]:width == nWidth .AND. ;
+            ::aPens[i]:color == nColor
 
-         ::aPens[ i ]:nCounter ++
-         RETURN ::aPens[ i ]
+         ::aPens[i]:nCounter ++
+         RETURN ::aPens[i]
       ENDIF
    NEXT
 #endif
@@ -202,11 +202,11 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
    NEXT
 #else
    FOR i := 1 TO Len(::aPens)
-      IF ::aPens[ i ]:style == nStyle .AND. ;
-            ::aPens[ i ]:width == nWidth .AND. ;
-            ::aPens[ i ]:color == nColor
+      IF ::aPens[i]:style == nStyle .AND. ;
+            ::aPens[i]:width == nWidth .AND. ;
+            ::aPens[i]:color == nColor
 
-         RETURN ::aPens[ i ]
+         RETURN ::aPens[i]
       ENDIF
    NEXT
 #endif
@@ -229,7 +229,7 @@ METHOD RELEASE() CLASS HPen
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aPens[ i ]:handle == ::handle
+         IF ::aPens[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aPens, i )
             ASize(::aPens, nlen - 1)
@@ -275,9 +275,9 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    NEXT
 #else
    FOR i := 1 TO Len(::aBrushes)
-      IF ::aBrushes[ i ]:color == nColor .AND. ::aBrushes[ i ]:nHatch == nHatch
-         ::aBrushes[ i ]:nCounter ++
-         RETURN ::aBrushes[ i ]
+      IF ::aBrushes[i]:color == nColor .AND. ::aBrushes[i]:nHatch == nHatch
+         ::aBrushes[i]:nCounter ++
+         RETURN ::aBrushes[i]
       ENDIF
    NEXT
 #endif
@@ -307,7 +307,7 @@ METHOD RELEASE() CLASS HBrush
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aBrushes[ i ]:handle == ::handle
+         IF ::aBrushes[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aBrushes, i )
             ASize(::aBrushes, nlen - 1)
@@ -364,11 +364,11 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    NEXT
 #else
    FOR i := 1 TO Len(::aBitmaps)
-      IF ::aBitmaps[ i ]:name == name .AND. ::aBitmaps[ i ]:nFlags == nFlags .AND. ;
+      IF ::aBitmaps[i]:name == name .AND. ::aBitmaps[i]:nFlags == nFlags .AND. ;
             ( ( nWidth == nil .OR. nHeight == nil ) .OR. ;
-            ( ::aBitmaps[ i ]:nWidth == nWidth .AND. ::aBitmaps[ i ]:nHeight == nHeight ) )
-         ::aBitmaps[ i ]:nCounter ++
-         RETURN ::aBitmaps[ i ]
+            ( ::aBitmaps[i]:nWidth == nWidth .AND. ::aBitmaps[i]:nHeight == nHeight ) )
+         ::aBitmaps[i]:nCounter ++
+         RETURN ::aBitmaps[i]
       ENDIF
    NEXT
 #endif
@@ -400,9 +400,9 @@ METHOD AddStandard(nId) CLASS HBitmap
    NEXT
 #else
    FOR i := 1 TO Len(::aBitmaps)
-      IF ::aBitmaps[ i ]:name == name
-         ::aBitmaps[ i ]:nCounter ++
-         RETURN ::aBitmaps[ i ]
+      IF ::aBitmaps[i]:name == name
+         ::aBitmaps[i]:nCounter ++
+         RETURN ::aBitmaps[i]
       ENDIF
    NEXT
 #endif
@@ -427,9 +427,9 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
    NEXT
 #else
    FOR i := 1 TO Len(::aBitmaps)
-      IF ::aBitmaps[ i ]:name == cname .AND. ( nWidth == nil .OR. nHeight == nil )
-         ::aBitmaps[ i ]:nCounter ++
-         RETURN ::aBitmaps[ i ]
+      IF ::aBitmaps[i]:name == cname .AND. ( nWidth == nil .OR. nHeight == nil )
+         ::aBitmaps[i]:nCounter ++
+         RETURN ::aBitmaps[i]
       ENDIF
    NEXT
 #endif
@@ -492,7 +492,7 @@ METHOD RELEASE() CLASS HBitmap
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aBitmaps[ i ]:handle == ::handle
+         IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aBitmaps, i )
             ASize(::aBitmaps, nlen - 1)
@@ -550,9 +550,9 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
    NEXT
 #else
    FOR i := 1 TO Len(::aIcons)
-      IF ::aIcons[ i ]:name == name
-         ::aIcons[ i ]:nCounter ++
-         RETURN ::aIcons[ i ]
+      IF ::aIcons[i]:name == name
+         ::aIcons[i]:nCounter ++
+         RETURN ::aIcons[i]
       ENDIF
    NEXT
 #endif
@@ -589,9 +589,9 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    NEXT
 #else
    FOR i := 1 TO Len(::aIcons)
-      IF ::aIcons[ i ]:name == cname
-         ::aIcons[ i ]:nCounter ++
-         RETURN ::aIcons[ i ]
+      IF ::aIcons[i]:name == cname
+         ::aIcons[i]:nCounter ++
+         RETURN ::aIcons[i]
       ENDIF
    NEXT
 #endif
@@ -630,7 +630,7 @@ METHOD RELEASE() CLASS HIcon
       NEXT
 #else
       FOR i := 1 TO nlen
-         IF ::aIcons[ i ]:handle == ::handle
+         IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
             ADel( ::aIcons, i )
             ASize(::aIcons, nlen - 1)
@@ -646,19 +646,19 @@ EXIT PROCEDURE CleanDrawWidg
    LOCAL i
 
    FOR i := 1 TO Len(HPen():aPens)
-      hwg_Deleteobject( HPen():aPens[ i ]:handle )
+      hwg_Deleteobject( HPen():aPens[i]:handle )
    NEXT
    FOR i := 1 TO Len(HBrush():aBrushes)
-      hwg_Deleteobject( HBrush():aBrushes[ i ]:handle )
+      hwg_Deleteobject( HBrush():aBrushes[i]:handle )
    NEXT
    FOR i := 1 TO Len(HFont():aFonts)
-      hwg_Deleteobject( HFont():aFonts[ i ]:handle )
+      hwg_Deleteobject( HFont():aFonts[i]:handle )
    NEXT
    FOR i := 1 TO Len(HBitmap():aBitmaps)
-      hwg_Deleteobject( HBitmap():aBitmaps[ i ]:handle )
+      hwg_Deleteobject( HBitmap():aBitmaps[i]:handle )
    NEXT
    FOR i := 1 TO Len(HIcon():aIcons)
-      hwg_Deleteobject( HIcon():aIcons[ i ]:handle )
+      hwg_Deleteobject( HIcon():aIcons[i]:handle )
    NEXT
 
    RETURN

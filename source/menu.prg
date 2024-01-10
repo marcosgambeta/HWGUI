@@ -306,8 +306,8 @@ FUNCTION Hwg_SearchPosBitmap( nPos_Id )
    IF _oBitmap != Nil
       DO WHILE nPos <= Len(_oBitmap)
 
-         IF _oBitmap[ nPos ][4] == nPos_Id
-            lBmp := { _oBitmap[ nPos ][1], _oBitmap[ nPos ][2], _oBitmap[ nPos ][3] }
+         IF _oBitmap[nPos][4] == nPos_Id
+            lBmp := { _oBitmap[nPos][1], _oBitmap[nPos][2], _oBitmap[nPos][3] }
          ENDIF
 
          nPos ++

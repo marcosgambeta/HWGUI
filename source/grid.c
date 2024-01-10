@@ -171,7 +171,7 @@ HB_FUNC( HWG_LISTVIEW_SETDISPINFO )
    {
       HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->item.pszText,
                      pDispInfo->item.cchTextMax);
-      pDispInfo->item.pszText[ pDispInfo->item.cchTextMax - 1 ] = 0;
+      pDispInfo->item.pszText[pDispInfo->item.cchTextMax - 1] = 0;
    }
    // it seems these lines below are not strictly necessary for text cells
    // since we don't get a LVIF_STATE message !

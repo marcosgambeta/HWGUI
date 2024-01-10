@@ -383,13 +383,13 @@ METHOD InitCode39( lCheck ) CLASS BarCode
       cCar := SubStr(cCode, n, 1)
       m    := At( cCar, cCars )
       IF n > 0
-         cBarra := cBarra + aBarras[ m ]
+         cBarra := cBarra + aBarras[m]
          nCheck += ( m - 1 )
       END
    NEXT
 
    IF lCheck = .T.
-      cBarra += aBarras[ nCheck % 43 + 1 ]
+      cBarra += aBarras[nCheck % 43 + 1]
    END
 
    RETURN ( cBarra )
@@ -510,12 +510,12 @@ METHOD InitCode128( cMode ) CLASS BarCode
       ENDIF
 
       nSum += ( nCar - 1 ) * nCount
-      cTemp := cTemp + aCode[ nCar ]
+      cTemp := cTemp + aCode[nCar]
 
    NEXT
 
    nSum  := nSum % 103 + 1
-   cTemp := cTemp + aCode[ nSum ] + aCode[107]
+   cTemp := cTemp + aCode[nSum] + aCode[107]
    cBarra := ""
 
    FOR n := 1 TO Len(cTemp) STEP 2
@@ -692,7 +692,7 @@ METHOD InitCodabar() CLASS BarCode
 
    FOR n := 1 TO Len(cCode)
       IF ( nCar := At( SubStr(cCode, n, 1), cChar ) ) > 0
-         cBarra += abar[ nCar ]
+         cBarra += abar[nCar]
       ENDIF
    NEXT
 
@@ -764,7 +764,7 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
    cBar := cInStart
 
    FOR n := 1 TO Len(cCode)
-      cBar += aBar[ Val( SubStr(cCode, n, 1) ) + 1 ] + "0"
+      cBar += aBar[Val( SubStr(cCode, n, 1) ) + 1] + "0"
    NEXT
 
    cBar += cInStop
@@ -817,8 +817,8 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
 
    // preencoding .. interlaving
    FOR n := 1 TO nLen STEP 2
-      cIz  := aBar[ Val( SubStr(cCode, n, 1) ) + 1 ]
-      cDer := aBar[ Val( SubStr(cCode, n + 1, 1) ) + 1 ]
+      cIz  := aBar[Val( SubStr(cCode, n, 1) ) + 1]
+      cDer := aBar[Val( SubStr(cCode, n + 1, 1) ) + 1]
       FOR m := 1 TO 5
          cBarra += SubStr(cIz, m, 1) + SubStr(cDer, m, 1)
       NEXT
@@ -869,7 +869,7 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
    cBar := cMtSt
 
    FOR n := 1 TO Len(cCode)
-      cBar += aBar[ Val( SubStr(cCode, n, 1) ) + 1 ] + "0"
+      cBar += aBar[Val( SubStr(cCode, n, 1) ) + 1] + "0"
    NEXT
 
    cBar += cMtSt

@@ -131,11 +131,11 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bC
       ENDIF
    ELSE
       FOR i := 1 TO Len(aImages)
-         cImage := Upper( aImages[ i ] )
+         cImage := Upper( aImages[i] )
          IF ( h := AScan( oTree:aImages, cImage ) ) == 0
             AAdd(oTree:aImages, cImage)
-            aImages[ i ] := IIf( oTree:Type, hwg_Loadbitmap( aImages[ i ] ), hwg_Openbitmap( aImages[ i ] ) )
-            hwg_Imagelist_add(oTree:himl, aImages[ i ])
+            aImages[i] := IIf( oTree:Type, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ) )
+            hwg_Imagelist_add(oTree:himl, aImages[i])
             h := Len(oTree:aImages)
          ENDIF
          h --
@@ -154,12 +154,12 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bC
    IF oPrev == Nil .AND. oNext != Nil
       op := IIf( oNext:oParent == Nil, oNext:oTree, oNext:oParent )
       FOR i := 1 TO Len(op:aItems)
-         IF op:aItems[ i ]:handle == oNext:handle
+         IF op:aItems[i]:handle == oNext:handle
             EXIT
          ENDIF
       NEXT
       IF i > 1
-         oPrev := op:aItems[ i - 1 ]
+         oPrev := op:aItems[i - 1]
          nPos := 0
       ELSE
          nPos := 1
@@ -180,10 +180,10 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bC
       AAdd(aItems, Nil)
       h := oPrev:handle
       IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
-         aItems[ Len(aItems) ] := Self
+         aItems[Len(aItems)] := Self
       ELSE
          AIns( aItems, i + 1 )
-         aItems[ i + 1 ] := Self
+         aItems[i + 1] := Self
       ENDIF
    ENDIF
    ::image1 := im1
@@ -203,8 +203,8 @@ METHOD Delete(lInternal) CLASS HTreeNode
    IF !Empty(::aItems)
       alen := Len(::aItems)
       FOR j := 1 TO alen
-         ::aItems[ j ]:Delete(.T.)
-         ::aItems[ j ] := Nil
+         ::aItems[j]:Delete(.T.)
+         ::aItems[j] := Nil
       NEXT
    ENDIF
    hwg_Treereleasenode(::oTree:handle, ::handle)
@@ -222,10 +222,10 @@ METHOD Delete(lInternal) CLASS HTreeNode
 METHOD FindChild(h) CLASS HTreeNode
    LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
    FOR i := 1 TO alen
-      IF aItems[ i ]:handle == h
-         RETURN aItems[ i ]
-      ELSEIF !Empty(aItems[ i ]:aItems)
-         IF ( oNode := aItems[ i ]:FindChild(h) ) != Nil
+      IF aItems[i]:handle == h
+         RETURN aItems[i]
+      ELSEIF !Empty(aItems[i]:aItems)
+         IF ( oNode := aItems[i]:FindChild(h) ) != Nil
             RETURN oNode
          ENDIF
       ENDIF
@@ -292,7 +292,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD SearchString( cText, iNivel, oNode, inodo )
    METHOD Selecteds( oItem, aSels )
    METHOD Top()    INLINE IIF( !Empty(::aItems), ( ::Select( ::aItems[1] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_TOP ), Nil) ), )
-   METHOD Bottom() INLINE IIF( !Empty(::aItems), ( ::Select( ::aItems[ LEN(::aItems) ] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_BOTTOM ), Nil) ),)
+   METHOD Bottom() INLINE IIF( !Empty(::aItems), ( ::Select( ::aItems[LEN(::aItems)] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_BOTTOM ), Nil) ),)
 
 ENDCLASS
 
@@ -332,8 +332,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,
    IF aImages != Nil .AND. !Empty(aImages)
       ::aImages := { }
       FOR i := 1 TO Len(aImages)
-         AAdd(::aImages, Upper( aImages[ i ] ))
-         aImages[ i ] := IIf( lResour <> NIL.AND.lResour, hwg_Loadbitmap( aImages[ i ] ), hwg_Openbitmap( aImages[ i ] ) )
+         AAdd(::aImages, Upper( aImages[i] ))
+         aImages[i] := IIf( lResour <> NIL.AND.lResour, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ) )
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
       ::himl := hwg_Createimagelist( aImages, aBmpSize[1], aBmpSize[2], 12, nBC )
@@ -488,10 +488,10 @@ METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick) CLASS HTr
 METHOD FindChild(h) CLASS HTree
    LOCAL aItems := ::aItems, i, alen := Len(aItems), oNode
    FOR i := 1 TO alen
-      IF aItems[ i ]:handle == h
-         RETURN aItems[ i ]
-      ELSEIF !Empty(aItems[ i ]:aItems)
-         IF ( oNode := aItems[ i ]:FindChild(h) ) != Nil
+      IF aItems[i]:handle == h
+         RETURN aItems[i]
+      ELSEIF !Empty(aItems[i]:aItems)
+         IF ( oNode := aItems[i]:FindChild(h) ) != Nil
             RETURN oNode
          ENDIF
       ENDIF
@@ -503,10 +503,10 @@ METHOD FindChildPos( oNode, h ) CLASS HTree
    LOCAL i, alen := Len(aItems)
 
    FOR i := 1 TO alen
-      IF aItems[ i ]:handle == h
+      IF aItems[i]:handle == h
          RETURN i
-      ELSEIF .F. //!Empty(aItems[ i ]:aItems)
-         RETURN ::FindChildPos( aItems[ i ], h )
+      ELSEIF .F. //!Empty(aItems[i]:aItems)
+         RETURN ::FindChildPos( aItems[i], h )
       ENDIF
    NEXT
    RETURN 0
@@ -518,13 +518,13 @@ METHOD SearchString( cText, iNivel, oNode, inodo ) CLASS HTree
    
    iNodo := IIF( inodo = Nil, 0, iNodo )
    FOR i := 1 TO aLen
-      IF !Empty(aItems[ i ]:aItems) .AND. ;
-         ( oNodeRet := ::SearchString( cText, iNivel, aItems[ i ], iNodo ) ) != Nil 
+      IF !Empty(aItems[i]:aItems) .AND. ;
+         ( oNodeRet := ::SearchString( cText, iNivel, aItems[i], iNodo ) ) != Nil 
          RETURN oNodeRet
       ENDIF
-      IF  aItems[ i ]:Title = cText .AND. ( iNivel == Nil .OR. aItems[ i ]:GetLevel() = iNivel )
+      IF  aItems[i]:Title = cText .AND. ( iNivel == Nil .OR. aItems[i]:GetLevel() = iNivel )
          iNodo ++ 
-         RETURN aItems[ i ]
+         RETURN aItems[i]
       ELSE
          iNodo ++   
       ENDIF
@@ -683,10 +683,10 @@ METHOD Selecteds( oItem, aSels )  CLASS HTree
    iLen :=  Len(oItem:aitems)
    
    FOR i := 1 TO iLen
-      IF oItem:aItems[ i ]:checked
-         AADD(aSelecteds, oItem:aItems[ i ])
+      IF oItem:aItems[i]:checked
+         AADD(aSelecteds, oItem:aItems[i])
       ENDIF   
-      ::Selecteds( oItem:aItems[ i ], aSelecteds )
+      ::Selecteds( oItem:aItems[i], aSelecteds )
    NEXT
    RETURN aSelecteds
 
@@ -696,7 +696,7 @@ METHOD Expand(oNode, lAllNode)  CLASS HTree
    hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, oNode:handle)
    FOR i := 1 TO iLen
       IF !EMPTY(lAllNode) .AND. Len(oNode:aitems) > 0
-         ::Expand(oNode:aItems[ i ], lAllNode)
+         ::Expand(oNode:aItems[i], lAllNode)
       ENDIF
    NEXT
    hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE  )
@@ -706,8 +706,8 @@ STATIC PROCEDURE ReleaseTree(aItems)
    LOCAL i, iLen := Len(aItems)
 
    FOR i := 1 TO iLen
-      hwg_Treereleasenode(aItems[ i ]:oTree:handle, aItems[ i ]:handle)
-      ReleaseTree(aItems[ i ]:aItems)
+      hwg_Treereleasenode(aItems[i]:oTree:handle, aItems[i]:handle)
+      ReleaseTree(aItems[i]:aItems)
       // hwg_DecreaseHolders( aItems[i]:handle )
    NEXT
 
@@ -717,8 +717,8 @@ STATIC PROCEDURE MarkCheckTree(oItem, state)
    LOCAL i, iLen := Len(oItem:aitems), oParent
 
    FOR i := 1 TO iLen
-      hwg_Treesetitem( oItem:oTree:handle, oItem:aitems[ i ]:handle, TREE_SETITEM_CHECK, state )
-      MarkCheckTree(oItem:aItems[ i ], state)
+      hwg_Treesetitem( oItem:oTree:handle, oItem:aitems[i]:handle, TREE_SETITEM_CHECK, state )
+      MarkCheckTree(oItem:aItems[i], state)
    NEXT
    IF state = 1
       oParent = oItem:oParent
@@ -734,14 +734,14 @@ STATIC PROCEDURE DragDropTree(oDrag, oItem, oDrop)
    LOCAL i, iLen := Len(oDrag:aitems), hitemNew
 
    FOR i := 1 TO iLen
-      hitemNew := oItem:AddNode(oDrag:aItems[ i ]:GetText(), ,, oDrag:aItems[ i ]:bAction,, oDrag:aItems[ i ]:lchecked, oDrag:aItems[ i ]:bClick) //, ::hitemDrop:aImages)
-      hitemNew:oTree  := oDrag:aItems[ i ]:oTree
-      hitemNew:cargo := oDrag:aItems[ i ]:cargo
-      hitemNew:image1 := oDrag:aItems[ i ]:image1
-      hitemNew:image2 := oDrag:aItems[ i ]:image2
-      IF Len(oDrag:aitems[ i ]:aitems) > 0
-         DragDropTree(oDrag:aItems[ i ], hitemNew, oDrop)
+      hitemNew := oItem:AddNode(oDrag:aItems[i]:GetText(), ,, oDrag:aItems[i]:bAction,, oDrag:aItems[i]:lchecked, oDrag:aItems[i]:bClick) //, ::hitemDrop:aImages)
+      hitemNew:oTree  := oDrag:aItems[i]:oTree
+      hitemNew:cargo := oDrag:aItems[i]:cargo
+      hitemNew:image1 := oDrag:aItems[i]:image1
+      hitemNew:image2 := oDrag:aItems[i]:image2
+      IF Len(oDrag:aitems[i]:aitems) > 0
+         DragDropTree(oDrag:aItems[i], hitemNew, oDrop)
       ENDIF
-      //oDrag:aItems[ i ]:delete()
+      //oDrag:aItems[i]:delete()
    NEXT
    RETURN

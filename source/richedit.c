@@ -106,7 +106,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          {
             HB_ITEMCOPYSTR(hb_arrayGetItemPtr( pArr1, 4 ),
                             cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
-            cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
+            cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
             cf.dwMask |= CFM_FACE;
          }
          if( ulLen1 > 4 &&
@@ -179,7 +179,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       {
          HB_ITEMCOPYSTR(hb_param( 5, HB_IT_ANY ),
                          cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
-         cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
+         cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
          cf.dwMask |= CFM_FACE;
       }
       if( !HB_ISNIL(6) )
@@ -250,7 +250,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    {
       HB_ITEMCOPYSTR(hb_param( 3, HB_IT_ANY ),
                       cf.szFaceName, HB_SIZEOFARRAY( cf.szFaceName ));
-      cf.szFaceName[ HB_SIZEOFARRAY( cf.szFaceName ) - 1 ] = '\0';
+      cf.szFaceName[HB_SIZEOFARRAY( cf.szFaceName ) - 1] = '\0';
       cf.dwMask |= CFM_FACE;
    }
 

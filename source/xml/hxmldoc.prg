@@ -59,11 +59,11 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
 
    IF i != 0
       IF cType == Nil .OR. cType == "C"
-         Return ::aAttr[ i, 2 ]
+         Return ::aAttr[i, 2]
       ELSEIF cType == "N"
-         Return Val( ::aAttr[ i, 2 ] )
+         Return Val( ::aAttr[i, 2] )
       ELSEIF cType == "L"
-         Return ( Lower( ::aAttr[ i, 2 ] ) $ ".t.;on.yes" )
+         Return ( Lower( ::aAttr[i, 2] ) $ ".t.;on.yes" )
       ENDIF
    ENDIF
 Return xDefault
@@ -74,7 +74,7 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
    IF i == 0
       Aadd(::aAttr,{ cName, cValue })
    ELSE
-      ::aAttr[ i, 2 ] := cValue
+      ::aAttr[i, 2] := cValue
    ENDIF
 
 Return .T.

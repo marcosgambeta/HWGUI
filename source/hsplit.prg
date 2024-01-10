@@ -179,7 +179,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
    lScroll := IIF(  Len(::aLeft) = 0 .OR. Len(::aRight) = 0, .F., lScroll )
 
    FOR i := 1 TO Len(::aRight)
-      oCtrl := ::aRight[ i ]
+      oCtrl := ::aRight[i]
       IF ::lVertical
          xDiff := ::nLeft + ::nWidth - oCtrl:nLeft
          //oCtrl:nLeft += nDiff
@@ -195,7 +195,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       ENDIF
    NEXT
    FOR i := 1 TO Len(::aLeft)
-      oCtrl := ::aLeft[ i ]
+      oCtrl := ::aLeft[i]
       IF ::lVertical
          xDiff := ::nLeft - ( oCtrl:nLeft + oCtrl:nWidth )
          //oCtrl:nWidth += nDiff

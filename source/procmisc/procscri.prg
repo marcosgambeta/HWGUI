@@ -84,7 +84,7 @@ LOCAL aFormCode, aFormName
                RETURN Nil
             ENDIF
             rejim  := 0
-            scrkod := aFormCode[ i ]
+            scrkod := aFormCode[i]
          ENDIF
       ENDDO
       FCLOSE(han)
@@ -376,21 +376,21 @@ LOCAL i, j, bOldError
    ENDIF
    j := LEN(rezArray[2])
    FOR i := j TO 1 STEP - 1
-      IF UPPER( LEFT( tmpArray[ i ], 2 ) ) == "IF"
-         bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[ i ]) } )
+      IF UPPER( LEFT( tmpArray[i], 2 ) ) == "IF"
+         bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[i]) } )
          BEGIN SEQUENCE
-            rezArray[2, i] := &( "{||IIF(" + ALLTRIM( SUBSTR(tmpArray[ i ], 4) ) + ;
+            rezArray[2, i] := &( "{||IIF(" + ALLTRIM( SUBSTR(tmpArray[i], 4) ) + ;
                  ",.T.,iscr:=" + LTRIM( STR(j, 5) ) + ")}" )
          RECOVER
             ERRORBLOCK( bOldError )
             RETURN .F.
          END SEQUENCE
          ERRORBLOCK( bOldError )
-         tmpArray[ i ] := ""
+         tmpArray[i] := ""
          i --
-         IF i > 0 .AND. tmpArray[ i ] == "JUMP"
+         IF i > 0 .AND. tmpArray[i] == "JUMP"
             rezArray[2, i] := &( "{||iscr:=" + LTRIM( STR(IIF( prju, j - 1, j ), 5) ) + "}" )
-            tmpArray[ i ] := ""
+            tmpArray[i] := ""
          ENDIF
          RETURN .T.
       ENDIF
@@ -403,32 +403,32 @@ LOCAL i, j, iloop := 0, iPos, bOldError
 
    j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
-      IF !EMPTY(tmpArray[ i ]) .AND. LEFT( tmpArray[ i ], 4 ) == "EXIT"
-         rezArray[ i ] = &( "{||iscr:=" + LTRIM( STR(j + 1, 5) ) + "}" )
-         tmpArray[ i ] = ""
+      IF !EMPTY(tmpArray[i]) .AND. LEFT( tmpArray[i], 4 ) == "EXIT"
+         rezArray[i] = &( "{||iscr:=" + LTRIM( STR(j + 1, 5) ) + "}" )
+         tmpArray[i] = ""
       ENDIF
-      IF !EMPTY(tmpArray[ i ]) .AND. LEFT( tmpArray[ i ], 4 ) == "LOOP"
+      IF !EMPTY(tmpArray[i]) .AND. LEFT( tmpArray[i], 4 ) == "LOOP"
          iloop := i
       ENDIF
-      IF !EMPTY(tmpArray[ i ]) .AND. ;
-            ( UPPER( LEFT( tmpArray[ i ], 8 ) ) = "DO WHILE" .OR. ;
-              UPPER( LEFT( tmpArray[ i ], 5 ) ) = "WHILE" )
-         bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[ i ] ) } )
+      IF !EMPTY(tmpArray[i]) .AND. ;
+            ( UPPER( LEFT( tmpArray[i], 8 ) ) = "DO WHILE" .OR. ;
+              UPPER( LEFT( tmpArray[i], 5 ) ) = "WHILE" )
+         bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[i] ) } )
          BEGIN SEQUENCE
-            rezArray[ i ] = &( "{||IIF(" + ALLTRIM( SUBSTR(tmpArray[ i ], ;
-                 IIF( UPPER( LEFT( tmpArray[ i ], 1 ) ) == "D", 10, 7 )) ) + ;
+            rezArray[i] = &( "{||IIF(" + ALLTRIM( SUBSTR(tmpArray[i], ;
+                 IIF( UPPER( LEFT( tmpArray[i], 1 ) ) == "D", 10, 7 )) ) + ;
                  ",.T.,iscr:=" + LTRIM( STR(j + 1, 5) ) + ")}" )
          RECOVER
             ERRORBLOCK( bOldError )
             RETURN .F.
          END SEQUENCE
          ERRORBLOCK( bOldError )
-         tmpArray[ i ] = ""
+         tmpArray[i] = ""
          AADD(rezArray, &( "{||iscr:=" + LTRIM( STR(i - 1, 5) ) + "}" ))
          AADD(tmpArray, "")
          IF iloop > 0
-            rezArray[ iloop ] = &( "{||iscr:=" + LTRIM( STR(i - 1, 5) ) + "}" )
-            tmpArray[ iloop ] = ""
+            rezArray[iloop] = &( "{||iscr:=" + LTRIM( STR(i - 1, 5) ) + "}" )
+            tmpArray[iloop] = ""
          ENDIF
          RETURN .T.
       ENDIF
@@ -467,7 +467,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
                      &varName := &varValue
                   ENDIF
                   IF lParam .AND. aParams != Nil .AND. Len(aParams) >= j
-                     &varname := aParams[ j ]
+                     &varname := aParams[j]
                   ENDIF
                   j ++
                ENDDO

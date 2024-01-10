@@ -892,7 +892,7 @@ HB_SIZE hwg_strcopy( PHB_ITEM pItem, char * pStr, HB_SIZE nLen )
          if( size )
             memcpy( pStr, hb_itemGetCPtr( pItem ), size );
          if( size < nLen )
-            pStr[ size ] = '\0';
+            pStr[size] = '\0';
       }
       else if( nLen && size > nLen )
          size = nLen;
@@ -913,7 +913,7 @@ char * hwg_strunshare(void ** phStr, const char * pStr, HB_SIZE nLen)
    {
       char * pszDest = ( char * ) hb_xgrab(( nLen + 1 ) * sizeof( char ));
       memcpy( pszDest, pStr, nLen * sizeof( char ) );
-      pszDest[ nLen ] = 0;
+      pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
       return pszDest;
@@ -961,7 +961,7 @@ const wchar_t * hwg_wstrget( PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen )
       {
          wchar_t * pResult = ( wchar_t * ) hb_xgrab(( nDest + 1 ) * sizeof( wchar_t ));
 
-         pResult[ nDest ] = 0;
+         pResult[nDest] = 0;
          nDest = MultiByteToWideChar( s_iVM_CP, 0, pszText, nLen, pResult, nDest );
          *phStr = ( void * ) pResult;
          pStr = pResult;
@@ -1031,7 +1031,7 @@ HB_SIZE hwg_wstrcopy( PHB_ITEM pItem, wchar_t * pStr, HB_SIZE nLen )
       {
          size = MultiByteToWideChar( s_iVM_CP, 0, text, size, pStr, nLen );
          if( size < nLen )
-            pStr[ size ] = '\0';
+            pStr[size] = '\0';
       }
       else
       {
@@ -1056,7 +1056,7 @@ wchar_t * hwg_wstrunshare(void ** phStr, const wchar_t * pStr, HB_SIZE nLen)
    {
       wchar_t * pszDest = ( wchar_t * ) hb_xgrab(( nLen + 1 ) * sizeof( wchar_t ));
       memcpy( pszDest, pStr, nLen * sizeof( wchar_t ) );
-      pszDest[ nLen ] = 0;
+      pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
       return pszDest;
@@ -1445,7 +1445,7 @@ HB_FUNC( HWG_ANSITOUNICODE )
 #else
     hwg_wstrget( hb_param( 1, HB_IT_ANY ), &hText, NULL );
 #endif
-   HB_RETSTRLEN(hText, 1024);   
+   HB_RETSTRLEN(hText, 1024);
    hb_strfree(hText);
 }
 
@@ -1460,7 +1460,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
       GetKeyboardState(kbBuffer);
       lClear = FALSE;
       for( i = 0; i < 256; i ++ )
-         if( kbBuffer[ i ] & 0x80 )
+         if( kbBuffer[i] & 0x80 )
          {
             s_ClearKeyboard();
             lClear = TRUE ;

@@ -70,7 +70,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock( hglbCopy );
          memcpy( lptstrCopy, lpStr, nLen * sizeof( TCHAR ) );
-         lptstrCopy[ nLen ] = 0;       // null character
+         lptstrCopy[nLen] = 0;       // null character
          GlobalUnlock( hglbCopy );
          hb_strfree(hStr);
 
@@ -107,7 +107,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
             {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
                memcpy( lpText, lpMem, nSize );
-               lpText[ nSize ] = 0;
+               lpText[nSize] = 0;
             }
             ( void ) GlobalUnlock( hglb );
          }
@@ -267,7 +267,7 @@ HB_FUNC( HWG_SETCURSORPOS )
 
 HB_FUNC( HWG_GETCURRENTDIR )
 {
-   TCHAR buffer[ HB_PATH_MAX ];
+   TCHAR buffer[HB_PATH_MAX];
 
    GetCurrentDirectory( HB_PATH_MAX, buffer );
    HB_RETSTR(buffer);
@@ -293,7 +293,7 @@ HB_FUNC( HWG_GETKEYSTATE )
 
 HB_FUNC( HWG_GETKEYNAMETEXT )
 {
-   TCHAR cText[ MAX_PATH ];
+   TCHAR cText[MAX_PATH];
    int iRet = GetKeyNameText( hb_parnl(1), cText, MAX_PATH );
 
    if( iRet )
@@ -352,7 +352,7 @@ HB_FUNC( HWG_PTS2PIX )
 
 HB_FUNC( HWG_GETWINDOWSDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
    GetWindowsDirectory( szBuffer, MAX_PATH );
    HB_RETSTR(szBuffer);
@@ -360,7 +360,7 @@ HB_FUNC( HWG_GETWINDOWSDIR )
 
 HB_FUNC( HWG_GETSYSTEMDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
    GetSystemDirectory( szBuffer, MAX_PATH );
    HB_RETSTR(szBuffer);
@@ -368,7 +368,7 @@ HB_FUNC( HWG_GETSYSTEMDIR )
 
 HB_FUNC( HWG_GETTEMPDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
    GetTempPath( MAX_PATH, szBuffer );
    HB_RETSTR(szBuffer);
@@ -773,7 +773,7 @@ HB_FUNC( HWG_LASTKEY )
    GetKeyboardState(kbBuffer);
 
    for( i = 0; i < 256; i ++ )  
-      if( kbBuffer[ i ] & 0x80 )
+      if( kbBuffer[i] & 0x80 )
       {
          hb_retni( i );
          return ;

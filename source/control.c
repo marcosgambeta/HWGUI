@@ -1871,7 +1871,7 @@ HB_FUNC( HWG_TOOLBAR_SETDISPINFO )
    {
       HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->szText,
                      HB_SIZEOFARRAY( pDispInfo->szText ));
-      pDispInfo->szText[ HB_SIZEOFARRAY( pDispInfo->szText ) - 1 ] = 0;
+      pDispInfo->szText[HB_SIZEOFARRAY( pDispInfo->szText ) - 1] = 0;
 #if 0
       /* is it necessary? */
       if( !pDispInfo->hinst )
@@ -1895,7 +1895,7 @@ HB_FUNC( HWG_TOOLBAR_GETINFOTIP )
    {
       HB_ITEMCOPYSTR(hb_param( 2, HB_IT_ANY ), pDispInfo->pszText,
                      pDispInfo->cchTextMax);
-      pDispInfo->pszText[ pDispInfo->cchTextMax - 1 ] = 0;
+      pDispInfo->pszText[pDispInfo->cchTextMax - 1] = 0;
    }
 }
 

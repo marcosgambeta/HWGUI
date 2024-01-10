@@ -212,7 +212,7 @@ METHOD FindWindow( hWndTitle ) CLASS HWindow
    ELSE
       i := AScan( ::aWindows, { | o | VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle } )
    ENDIF
-   RETURN IIf( i == 0, Nil, ::aWindows[ i ] )
+   RETURN IIf( i == 0, Nil, ::aWindows[i] )
 
 METHOD GetMain() CLASS HWindow
    RETURN IIf( Len(::aWindows) > 0,              ;
@@ -838,16 +838,16 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       ENDIF
    ELSEIF wParam > FIRST_MDICHILD_ID .AND. wParam < FIRST_MDICHILD_ID + MAX_MDICHILD_WINDOWS
       IF oWnd:bMdiMenu != Nil
-         Eval( oWnd:bMdiMenu, HWindow():aWindows[ wParam - FIRST_MDICHILD_ID + 2 ], wParam  )
+         Eval( oWnd:bMdiMenu, HWindow():aWindows[wParam - FIRST_MDICHILD_ID + 2], wParam  )
       ENDIF
-      nHandle := HWindow():aWindows[ wParam - FIRST_MDICHILD_ID + 2 ]:handle
+      nHandle := HWindow():aWindows[wParam - FIRST_MDICHILD_ID + 2]:handle
       hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIACTIVATE, nHandle, 0)
    ENDIF
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
-      Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ELSEIF ValType(oWnd:menu) == "A" .AND. ;
       ( aMenu := Hwg_FindMenuItem( oWnd:menu, iParLow, @iCont ) ) != Nil
       IF Hwg_BitAnd(aMenu[1, iCont, 4], FLAG_CHECK) > 0
@@ -1086,7 +1086,7 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
       IF hwg_Ptrtoulong( hwg_Getparent( hwg_Getfocus() ) ) = hwg_Ptrtoulong( oWnd:Handle )
          oWnd:nFocus := hwg_Getfocus()
       ENDIF
-      Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
    ELSEIF __ObjHasMsg( oWnd, "OPOPUP") .AND. oWnd:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu, wParam, @iItem ) ) != Nil ;
          .AND. aMenu[1, iItem, 1] != Nil
@@ -1245,13 +1245,13 @@ STATIC FUNCTION FindInitFocus( aControls )
    LOCAL i := 1, nObjs := Len(aControls)
 
    DO WHILE i <= nObjs
-      IF Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_TABSTOP) != 0 .AND. ;
-			        Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_DISABLED) = 0 .AND. !aControls[ i ]:lHide
-         RETURN aControls[ i ]:Handle
+      IF Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[i]:handle), WS_TABSTOP) != 0 .AND. ;
+			        Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[i]:handle), WS_DISABLED) = 0 .AND. !aControls[i]:lHide
+         RETURN aControls[i]:Handle
       ENDIF
-      IF Len(aControls[ i ]:aControls) > 0 .AND. !aControls[ i ]:lHide .AND.  ;
-         Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_DISABLED) = 0
-         RETURN FindInitFocus( aControls[ i ]:aControls )
+      IF Len(aControls[i]:aControls) > 0 .AND. !aControls[i]:lHide .AND.  ;
+         Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[i]:handle), WS_DISABLED) = 0
+         RETURN FindInitFocus( aControls[i]:aControls )
       ENDIF
       i ++
    ENDDO

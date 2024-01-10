@@ -425,7 +425,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
 
 /*
  * _PropertySheet( hWndParent, aPageHandles, nPageHandles, cTitle, 
- *                [ lModeless ], [ lNoApply ], [ lWizard ] ) --> hPropertySheet
+ *                [lModeless], [lNoApply], [lWizard] ) --> hPropertySheet
  */
 HB_FUNC( HWG__PROPERTYSHEET )
 {

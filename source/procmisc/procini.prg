@@ -108,7 +108,7 @@ LOCAL iniDbf := ( Upper( FilExten( fname ) ) == "DBF" )
                vname    := RTRIM( SUBSTR(stroka, 1, IIF( lTruncAr, poz1 - 1, poz1 - 2 )) )
                stroka   := ALLTRIM( SUBSTR(stroka, poz1 + 1) )
                IF lWinIni
-                  AADD(prm1[ LEN(prm1), 2 ], { UPPER( vname ), stroka })
+                  AADD(prm1[LEN(prm1), 2], { UPPER( vname ), stroka })
                ELSE
                   IF TYPE(vname) = "U"
                      IF ASC(stroka) = 123                 // {

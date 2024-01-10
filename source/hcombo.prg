@@ -509,10 +509,10 @@ METHOD GetValue() CLASS HComboBox
          ::Value := hwg_Getwindowtext( ::handle )
          nPos := hwg_Sendmessage(::handle, CB_FINDSTRINGEXACT, - 1, ::value) + 1
       ELSEIF nPos > 0
-         ::value := ::aItems[ nPos ]
+         ::value := ::aItems[nPos]
       ENDIF
       ::cDisplayValue := ::Value
-      ::value := iif( nPos > 0, ::aItems[ nPos ], iif( ::lEdit, "", ::value ) )
+      ::value := iif( nPos > 0, ::aItems[nPos], iif( ::lEdit, "", ::value ) )
    ELSE
       ::value := nPos
    ENDIF
@@ -540,10 +540,10 @@ METHOD GetValueBound(xItem) CLASS HComboBox
    ELSE
       nPos := AScan( ::aItemsBound, xItem, , , .T. )
       ::setItem( nPos )
-      RETURN iif( nPos > 0, ::aItems[ nPos ], xItem )
+      RETURN iif( nPos > 0, ::aItems[nPos], xItem )
    ENDIF
    IF nPos > 0 .AND. nPos <=  Len(::aItemsBound)
-      ::ValueBound := ::aItemsBound[ nPos ]
+      ::ValueBound := ::aItemsBound[nPos]
    ENDIF
 
    RETURN ::ValueBound
@@ -802,7 +802,7 @@ METHOD Populate() CLASS HComboBox
          IF !Empty(cvaluebound)
             AAdd(::AitemsBound, ( cAlias ) -> ( &( cValueBound ) ))
          ENDIF
-         hwg_Comboaddstring( ::handle, ::aItems[ i ] )
+         hwg_Comboaddstring( ::handle, ::aItems[i] )
          numofchars := hwg_Sendmessage(::handle, CB_GETLBTEXTLEN, i - 1, 0)
          IF  numofchars > LongComboWidth
             LongComboWidth := numofchars
@@ -816,15 +816,15 @@ METHOD Populate() CLASS HComboBox
    ELSE
       FOR i := 1 TO Len(::aItems)
          IF ::columnBound > 1
-            IF ValType(::aItems[ i ]) = "A" .AND. Len(::aItems[ i ]) > 1
+            IF ValType(::aItems[i]) = "A" .AND. Len(::aItems[i]) > 1
                AAdd(::AitemsBound, ::aItems[i, 2 ])
             ELSE
                AAdd(::AitemsBound, Nil)
             ENDIF
-            ::aItems[ i ] := ::aItems[ i, 1 ]
-            hwg_Comboaddstring( ::handle, ::aItems[ i ] )
+            ::aItems[i] := ::aItems[i, 1]
+            hwg_Comboaddstring( ::handle, ::aItems[i] )
          ELSE
-            hwg_Comboaddstring( ::handle, ::aItems[ i ] )
+            hwg_Comboaddstring( ::handle, ::aItems[i] )
          ENDIF
          numofchars := hwg_Sendmessage(::handle, CB_GETLBTEXTLEN, i - 1, 0)
          IF  numofchars > LongComboWidth
@@ -934,13 +934,13 @@ METHOD INIT() CLASS hCheckComboBox
          nSize := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, - 1, 0) - 5
          FOR i := 1 TO Len(::aImages)
             hImage := 0
-            IF ( ValType(::aImages[ i ]) == "C" .OR. ::aImages[ i ] > 1 ) .AND. !Empty(::aImages[ i ])
-               IF ValType(::aImages[ i ]) == "C" .AND. At( ".", ::aImages[ i ] ) != 0
-                  IF File(::aImages[ i ])
-                     hImage := HBITMAP():AddfILE(::aImages[ i ], , .T., 16, nSize):handle
+            IF ( ValType(::aImages[i]) == "C" .OR. ::aImages[i] > 1 ) .AND. !Empty(::aImages[i])
+               IF ValType(::aImages[i]) == "C" .AND. At( ".", ::aImages[i] ) != 0
+                  IF File(::aImages[i])
+                     hImage := HBITMAP():AddfILE(::aImages[i], , .T., 16, nSize):handle
                   ENDIF
                ELSE
-                  hImage := HBitmap():AddResource(::aImages[ i ], , , 16, nSize):handle
+                  hImage := HBitmap():AddResource(::aImages[i], , , 16, nSize):handle
                ENDIF
             ENDIF
             AAdd(::aHImages, hImage)
@@ -1208,10 +1208,10 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
          ::nWidthCheck := rcBitmap[3]
 
       ELSEIF ::aHImages != Nil .AND. DrawInfo[1] + 1 <= Len(::aHImages) .AND. ;
-            !Empty(::aHImages[ DrawInfo[1] + 1 ])
+            !Empty(::aHImages[DrawInfo[1] + 1])
          nIndent := iif( !lDroped, 1, ( Len(strText) - Len(LTrim( strText )) ) * hwg_TxtRect( "a", Self, ::oFont )[1] )
          strtext := LTrim( strtext )
-         hbitmap := ::aHImages[ DrawInfo[1] + 1 ]
+         hbitmap := ::aHImages[DrawInfo[1] + 1]
          rcBitmap[1] := nIndent
          bmpRect := hwg_Prepareimagerect( ::handle, dc, .T., @rcBitmap, @rcText, , , hbitmap, iStyle )
          rcText[1] :=  iif( iStyle = ST_ALIGN_HORIZ, nIndent + hwg_Getbitmapsize(hbitmap)[1] + iif( lDroped, 3, 4 ), 1 )
@@ -1350,20 +1350,20 @@ METHOD EnabledItem( nItem, lEnabled ) CLASS hCheckComboBox
 
    IF lEnabled != Nil
       IF nItem != Nil .AND. nItem > 0
-         IF lEnabled .AND. Left( ::aItems[ nItem ], 2 ) == "\]"
-            cItem := SubStr(::aItems[ nItem ], 3)
-         ELSEIF !lEnabled .AND. Left( ::aItems[ nItem ], 2 ) != "\]" .AND. Left( ::aItems[ nItem ], 2 ) != "\-"
-            cItem := "\]" + ::aItems[ nItem ]
+         IF lEnabled .AND. Left( ::aItems[nItem], 2 ) == "\]"
+            cItem := SubStr(::aItems[nItem], 3)
+         ELSEIF !lEnabled .AND. Left( ::aItems[nItem], 2 ) != "\]" .AND. Left( ::aItems[nItem], 2 ) != "\-"
+            cItem := "\]" + ::aItems[nItem]
          ENDIF
          IF !Empty(cItem)
-            ::aItems[ nItem ] := cItem
+            ::aItems[nItem] := cItem
             hwg_Sendmessage(::Handle, CB_DELETESTRING, nItem - 1, 0)
             hwg_Comboinsertstring( ::handle, nItem - 1, cItem )
          ENDIF
       ENDIF
    ENDIF
 
-   RETURN  !Left( ::aItems[ nItem ], 2 ) == "\]"
+   RETURN  !Left( ::aItems[nItem], 2 ) == "\]"
 
 METHOD SkipItems( nNav ) CLASS hCheckComboBox
    LOCAL nPos

@@ -111,7 +111,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
          DWORD BuffSize = 256;
 
          GetDefaultPrinter( PrinterDefault, &BuffSize );
-         PrinterDefault[ HB_SIZEOFARRAY( PrinterDefault ) - 1 ] = 0;
+         PrinterDefault[HB_SIZEOFARRAY( PrinterDefault ) - 1] = 0;
          HB_RETSTR(PrinterDefault);
       }
       else                      // Windows NT

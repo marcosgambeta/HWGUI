@@ -138,12 +138,12 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
    LOCAL oCtrl
 
    DO WHILE i > 0
-      IF Len(::aControls[ i ]:aControls) > 0 .AND. ;
-         ( oCtrl := ::aControls[ i ]:FindControl( nId, nHandle ) ) != nil
+      IF Len(::aControls[i]:aControls) > 0 .AND. ;
+         ( oCtrl := ::aControls[i]:FindControl( nId, nHandle ) ) != nil
          RETURN oCtrl
       ENDIF
-      IF Eval( bSearch, ::aControls[ i ] )
-         RETURN ::aControls[ i ]
+      IF Eval( bSearch, ::aControls[i] )
+         RETURN ::aControls[i]
       ENDIF
       i --
    ENDDO
@@ -161,7 +161,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    h := 0
    FOR i := Len(::aEvents) TO 1 STEP - 1
-      IF ::aEvents[ i, 2 ] == id
+      IF ::aEvents[i, 2] == id
          ADel( ::aEvents, i )
          h ++
       ENDIF
@@ -173,7 +173,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 
    h := 0
    FOR i := Len(::aNotify) TO 1 STEP - 1
-      IF ::aNotify[ i, 2 ] == id
+      IF ::aNotify[i, 2] == id
          ADel( ::aNotify, i )
          h ++
       ENDIF
@@ -239,8 +239,8 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
       ENDIF
    ENDIF
 
-   IF ( i := AScan( aCustomEvents[ EVENTS_MESSAGES ], msg ) ) != 0
-      RETURN Eval( aCustomEvents[ EVENTS_ACTIONS, i ], Self, wParam, lParam )
+   IF ( i := AScan( aCustomEvents[EVENTS_MESSAGES], msg ) ) != 0
+      RETURN Eval( aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam )
 
    ELSEIF ::bOther != NIL
 
@@ -260,7 +260,7 @@ LOCAL aControls, i, nLen
       aControls := ::aControls
       nLen := Len(aControls)
       FOR i := 1 TO nLen
-          aControls[ i ]:End()
+          aControls[i]:End()
       NEXT
    ENDIF
 
@@ -276,7 +276,7 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
-         oCtrlTmp :=  oCtrl:aControls[ i ]
+         oCtrlTmp :=  oCtrl:aControls[i]
          lRefresh :=  !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
          IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN(oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
             ( !oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
@@ -344,12 +344,12 @@ METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
 
    nlen := Len(oCtrl:aControls)
    FOR i = nLen TO 1 STEP -1
-      IF __ObjHasMsg( oCtrl:aControls[ i ], "ANCHOR" ) .AND. oCtrl:aControls[ i ]:anchor > 0
-         x1 := oCtrl:aControls[ i ]:nWidth
-         y1 := oCtrl:aControls[ i ]:nHeight
-         oCtrl:aControls[ i ]:onAnchor( x, y, w, h )
-         IF Len(oCtrl:aControls[ i ]:aControls) > 0
-            ::Anchor( oCtrl:aControls[ i ], x1, y1, oCtrl:aControls[ i ]:nWidth, oCtrl:aControls[ i ]:nHeight )
+      IF __ObjHasMsg( oCtrl:aControls[i], "ANCHOR" ) .AND. oCtrl:aControls[i]:anchor > 0
+         x1 := oCtrl:aControls[i]:nWidth
+         y1 := oCtrl:aControls[i]:nHeight
+         oCtrl:aControls[i]:onAnchor( x, y, w, h )
+         IF Len(oCtrl:aControls[i]:aControls) > 0
+            ::Anchor( oCtrl:aControls[i], x1, y1, oCtrl:aControls[i]:nWidth, oCtrl:aControls[i]:nHeight )
          ENDIF
       ENDIF
    NEXT
@@ -376,7 +376,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
    IF oCtrl == NIL
       FOR n := 1 TO Len(oWnd:aControls)
-         oCtrl := oWnd:aControls[ n ]:FindControl( wParam )
+         oCtrl := oWnd:aControls[n]:FindControl( wParam )
          IF oCtrl != NIL
             EXIT
          ENDIF
@@ -394,7 +394,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          ELSEIF oWnd:aNotify != NIL .AND. !oWnd:lSuspendMsgsHandling .AND. ;
             ( iItem := AScan( oWnd:aNotify, { | a | a[1] == nCode .AND. ;
                                               a[2] == wParam } ) ) > 0
-            IF ( res := Eval( oWnd:aNotify[ iItem, 3 ], oWnd, wParam ) ) != NIL
+            IF ( res := Eval( oWnd:aNotify[iItem, 3], oWnd, wParam ) ) != NIL
                RETURN res
             ENDIF
          ENDIF
@@ -408,12 +408,12 @@ STATIC FUNCTION onDestroy( oWnd )
    LOCAL i, nLen   := Len(aControls)
 
    FOR i := 1 TO nLen
-      aControls[ i ]:END()
+      aControls[i]:END()
    NEXT
    nLen := Len(oWnd:aObjects)
    FOR i := 1 TO nLen
-      IF hwg_Selffocus( oWnd:Handle, oWnd:aObjects[ i ]:oParent:Handle )
-         oWnd:aObjects[ i ]:END()
+      IF hwg_Selffocus( oWnd:Handle, oWnd:aObjects[i]:oParent:Handle )
+         oWnd:aObjects[i]:END()
       ENDIF
    NEXT
    oWnd:END()
@@ -475,7 +475,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
          oForm:nFocus := IIF( hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus )
       ENDIF
-      Eval( oWnd:aEvents[ iItem, 3 ], oWnd, iParLow )
+      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl( , hwg_Getfocus() ) = Nil .AND. ;
          !Empty(oForm:nFocus) .AND. !hwg_Selffocus( hwg_Getactivewindow() )
          hwg_Setfocus( oForm:nFocus )

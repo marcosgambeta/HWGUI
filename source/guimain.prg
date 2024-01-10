@@ -27,18 +27,18 @@ FUNCTION hwg_InitObjects( oWnd )
    IF !EMPTY(LoadArray)
       FOR i := 1 TO Len(LoadArray)
          IF !EMPTY(oWnd:Handle)
-            IF __ObjHasMsg( LoadArray[ i ], "INIT")
-               LoadArray[ i ]:Init( oWnd )
-               LoadArray[ i ]:lInit := .T.
+            IF __ObjHasMsg( LoadArray[i], "INIT")
+               LoadArray[i]:Init( oWnd )
+               LoadArray[i]:lInit := .T.
             ENDIF
          ENDIF
       NEXT
    ENDIF
    IF pArray != Nil
       FOR i := 1 TO Len(pArray)
-         IF __ObjHasMsg( pArray[ i ], "INIT" ) .AND. hwg_Selffocus( oWnd:Handle, pArray[ i ]:oParent:Handle )
-            pArray[ i ]:Init( oWnd )
-            pArray[ i ]:lInit := .T.
+         IF __ObjHasMsg( pArray[i], "INIT" ) .AND. hwg_Selffocus( oWnd:Handle, pArray[i]:oParent:Handle )
+            pArray[i]:Init( oWnd )
+            pArray[i]:lInit := .T.
          ENDIF
       NEXT
    ENDIF
@@ -54,23 +54,23 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
    IF pArray != Nil
       FOR i := 1 TO Len(pArray)
          // writelog( "InitControl1"+str(pArray[i]:handle)+"/"+pArray[i]:classname+" "+str(pArray[i]:nWidth)+"/"+str(pArray[i]:nHeight) )
-         IF Empty(pArray[ i ]:handle) .AND. !lNoActivate
-            lInit := pArray[ i ]:lInit
-            pArray[ i ]:lInit := .T.
-            pArray[ i ]:Activate()
-            pArray[ i ]:lInit := lInit
+         IF Empty(pArray[i]:handle) .AND. !lNoActivate
+            lInit := pArray[i]:lInit
+            pArray[i]:lInit := .T.
+            pArray[i]:Activate()
+            pArray[i]:lInit := lInit
          ELSEIF  !lNoActivate
-            pArray[ i ]:lInit := .T.
+            pArray[i]:lInit := .T.
          ENDIF
-         IF IIF( ValType(pArray[ i ]:handle) == "P", hwg_Ptrtoulong( pArray[ i ]:handle ), pArray[ i ]:handle ) <= 0
-            pArray[ i ]:handle := hwg_Getdlgitem( oWnd:handle, pArray[ i ]:id )
+         IF IIF( ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong( pArray[i]:handle ), pArray[i]:handle ) <= 0
+            pArray[i]:handle := hwg_Getdlgitem( oWnd:handle, pArray[i]:id )
 
             // writelog( "InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname )
          ENDIF
-         IF !Empty(pArray[ i ]:aControls)
-            hwg_InitControls( pArray[ i ] )
+         IF !Empty(pArray[i]:aControls)
+            hwg_InitControls( pArray[i] )
          ENDIF
-         pArray[ i ]:Init()
+         pArray[i]:Init()
           // nando required to classes that inherit the class of patterns hwgui
          IF !pArray[i]:lInit
             pArray[i]:Super:Init()
@@ -85,7 +85,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    LOCAL i, oParent, hParent := hwg_Getparent( hCtrl )
    IF hParent > 0
       IF ( i := AScan( HDialog():aModalDialogs, { | o | o:handle == hParent } ) ) != 0
-         RETURN HDialog():aModalDialogs[ i ]
+         RETURN HDialog():aModalDialogs[i]
       ELSEIF ( oParent := HDialog():FindDialog( hParent ) ) != Nil
          RETURN oParent
       ELSEIF ( oParent := HWindow():FindWindow( hParent ) ) != Nil
@@ -119,9 +119,9 @@ FUNCTION hwg_WriteStatus( oWnd, nPart, cText, lRedraw )
    LOCAL aControls, i
    aControls := oWnd:aControls
    IF ( i := AScan( aControls, { | o | o:ClassName() == "HSTATUS" } ) ) > 0
-      hwg_Writestatuswindow( aControls[ i ]:handle, nPart - 1, cText )
+      hwg_Writestatuswindow( aControls[i]:handle, nPart - 1, cText )
       IF lRedraw != Nil .AND. lRedraw
-         hwg_Redrawwindow( aControls[ i ]:handle, RDW_ERASE + RDW_INVALIDATE )
+         hwg_Redrawwindow( aControls[i]:handle, RDW_ERASE + RDW_INVALIDATE )
       ENDIF
    ENDIF
    RETURN Nil
@@ -131,9 +131,9 @@ FUNCTION hwg_ReadStatus( oWnd, nPart )
    LOCAL aControls, i, ntxtLen, cText := ""
    aControls := oWnd:aControls
    IF ( i := AScan( aControls, { | o | o:ClassName() == "HSTATUS" } ) ) > 0
-      ntxtLen := hwg_Sendmessage(aControls[ i ]:handle, SB_GETTEXTLENGTH, nPart - 1, 0)
+      ntxtLen := hwg_Sendmessage(aControls[i]:handle, SB_GETTEXTLENGTH, nPart - 1, 0)
       cText := Replicate(Chr(0), ntxtLen)
-      hwg_Sendmessage(aControls[ i ]:handle, SB_GETTEXT, nPart - 1, @cText)
+      hwg_Sendmessage(aControls[i]:handle, SB_GETTEXT, nPart - 1, @cText)
    ENDIF
    RETURN cText
 
@@ -246,11 +246,11 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       aLen := Len(arr)
       IF ValType(arr[1]) == "A"
          FOR i := 1 TO aLen
-            nLen := Max( nLen, Len(arr[ i, 1 ]) )
+            nLen := Max( nLen, Len(arr[i, 1]) )
          NEXT
       ELSE
          FOR i := 1 TO aLen
-            nLen := Max( nLen, Len(arr[ i ]) )
+            nLen := Max( nLen, Len(arr[i]) )
          NEXT
       ENDIF
    ENDIF
@@ -277,9 +277,9 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
       IF ValType(arr[1]) == "A"
-         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent, 1 ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1] }, "C", nLen ) )
       ELSE
-         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[ o:nCurrent ] }, "C", nLen ) )
+         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent] }, "C", nLen ) )
       ENDIF
    ELSE
       @ 0, 0 Browse oBrw DATABASE
@@ -568,7 +568,7 @@ LOCAL oParent, nCtrl, nPos
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
          nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
          IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
-            Eval( oParent:KeyList[ nPos, 3 ], oCtrl )
+            Eval( oParent:KeyList[nPos, 3], oCtrl )
             RETURN .T.
          ENDIF
       ENDIF
@@ -636,20 +636,20 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
 
   nlen := LEN(oCtrl:aControls)
   FOR i = 1 to nLen
-     IF oCtrl:aControls[ i ]:classname = "HTAB"
-        IF ( pos := hwg_FindTabAccelerator( oCtrl:aControls[ i ], lParam ) ) > 0 .AND. ;
-  	  oCtrl:aControls[ i ]:Pages[ pos ]:Enabled
-            oCtrl:aControls[ i ]:SetTab(pos)
-            RETURN oCtrl:aControls[ i ]
+     IF oCtrl:aControls[i]:classname = "HTAB"
+        IF ( pos := hwg_FindTabAccelerator( oCtrl:aControls[i], lParam ) ) > 0 .AND. ;
+  	  oCtrl:aControls[i]:Pages[pos]:Enabled
+            oCtrl:aControls[i]:SetTab(pos)
+            RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
-     IF LEN(oCtrl:aControls[ i ]:aControls ) > 0
-         RETURN hwg_FindAccelerator( oCtrl:aControls[ i ], lParam)
+     IF LEN(oCtrl:aControls[i]:aControls ) > 0
+         RETURN hwg_FindAccelerator( oCtrl:aControls[i], lParam)
 	   ENDIF
-     IF __ObjHasMsg( oCtrl:aControls[ i ], "TITLE") .AND. VALTYPE(oCtrl:aControls[ i ]:title) = "C" .AND. ;
-         !oCtrl:aControls[ i ]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[ i ]:handle)
-        IF ( pos := At( "&", oCtrl:aControls[ i ]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr(oCtrl:aControls[ i ]:title, ++ pos, 1) )
-           RETURN oCtrl:aControls[ i ]
+     IF __ObjHasMsg( oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
+         !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
+        IF ( pos := At( "&", oCtrl:aControls[i]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr(oCtrl:aControls[i]:title, ++ pos, 1) )
+           RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
    NEXT
@@ -665,8 +665,8 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
       oCtrl := oCtrl:oParent
    ENDIF
    IF  oCtrl != Nil .AND. oCtrl:Classname = "HTAB"
-       IF Len(oCtrl:aPages) > 0 .AND. oCtrl:Pages[ oCtrl:GETACTIVEPAGE() ]:bColor != Nil
-          bColor := oCtrl:Pages[ oCtrl:GetActivePage() ]:bColor
+       IF Len(oCtrl:aPages) > 0 .AND. oCtrl:Pages[oCtrl:GETACTIVEPAGE()]:bColor != Nil
+          bColor := oCtrl:Pages[oCtrl:GetActivePage()]:bColor
        ELSEIF hwg_Isthemeactive() .AND. oCtrl:WindowsManifest
           hTheme := hwg_openthemedata(oCtrl:handle, "TAB")
           IF !EMPTY(hTheme)
@@ -715,14 +715,14 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    nLen := IIF( VALTYPE(aControls) = "C", Len(oWnd:&aControls), LEN(aControls) )
    FOR i = 1 TO nLen
       IF VALTYPE(aControls) = "C"
-         oWnd:&aControls[ i ]:&cProperty := Value
-      ELSEIF cClass == Nil .OR. UPPER( cClass ) == aControls[ i ]:ClassName
+         oWnd:&aControls[i]:&cProperty := Value
+      ELSEIF cClass == Nil .OR. UPPER( cClass ) == aControls[i]:ClassName
          IF Value = Nil
             __mvPrivate("oCtrl")
-            &( "oCtrl" ) := aControls[ i ]
+            &( "oCtrl" ) := aControls[i]
             &( "oCtrl:" + cProperty )
          ELSE
-            aControls[ i ]:&cProperty := Value
+            aControls[i]:&cProperty := Value
          ENDIF
       ENDIF
    NEXT

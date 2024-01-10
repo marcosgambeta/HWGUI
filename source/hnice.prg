@@ -205,7 +205,7 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
       IF ::state == OBTN_NORMAL
          ::state := OBTN_MOUSOVER
 
-         // aBtn[ CTRL_HANDLE ] := hBtn
+         // aBtn[CTRL_HANDLE] := hBtn
          hwg_Invalidaterect( ::handle, 0 )
          hwg_Postmessage(::handle, WM_PAINT, 0, 0)
          hwg_SetNiceBtnSelected(Self)

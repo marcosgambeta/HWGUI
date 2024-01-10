@@ -100,9 +100,9 @@ FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 
    HB_SYMBOL_UNUSED(hWnd)
 
-   IF i != 0 .AND. HTimer():aTimers[ i ]:value > 0 .AND. HTimer():aTimers[ i ]:bAction != Nil .AND.;
-      ValType(HTimer():aTimers[ i ]:bAction) == "B"
-      Eval( HTimer():aTimers[ i ]:bAction, HTimer():aTimers[i], time )
+   IF i != 0 .AND. HTimer():aTimers[i]:value > 0 .AND. HTimer():aTimers[i]:bAction != Nil .AND.;
+      ValType(HTimer():aTimers[i]:bAction) == "B"
+      Eval( HTimer():aTimers[i]:bAction, HTimer():aTimers[i], time )
    ENDIF
 
    RETURN NIL
@@ -111,7 +111,7 @@ EXIT PROCEDURE CleanTimers
    LOCAL oTimer, i
 
    FOR i := 1 TO Len(HTimer():aTimers)
-      oTimer := HTimer():aTimers[ i ]
+      oTimer := HTimer():aTimers[i]
       hwg_Killtimer( oTimer:oParent:handle, oTimer:id )
    NEXT
 

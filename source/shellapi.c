@@ -52,7 +52,7 @@ static int ( CALLBACK BrowseCallbackProc ) (  HWND hwnd,  UINT uMsg,  LPARAM lPa
 HB_FUNC( HWG_SELECTFOLDER )
 {
    BROWSEINFO bi;
-   TCHAR lpBuffer[ MAX_PATH ];
+   TCHAR lpBuffer[MAX_PATH];
    LPCTSTR lpResult = NULL;
    LPITEMIDLIST pidlBrowse;     // PIDL selected by user 
    void * hTitle;
