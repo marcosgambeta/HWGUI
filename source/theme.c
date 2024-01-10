@@ -1846,7 +1846,7 @@ HB_FUNC( HWG_DRAWTHEICON )
 HB_FUNC( HWG_PREPAREIMAGERECT )
 {
 
-   HWND hButtonWnd = (HWND) HB_PARHANDLE(1);
+   HWND hButtonWnd = hwg_par_HWND(1);
    HDC dc = (HDC) HB_PARHANDLE(2);
    BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
@@ -2006,7 +2006,7 @@ HB_FUNC( HWG_GETTHEMESYSCOLOR )
                                                             
 HB_FUNC( HWG_SETWINDOWTHEME)
 {
-   HWND hwnd = (HWND) HB_PARHANDLE(1);
+   HWND hwnd = hwg_par_HWND(1);
    //LPCWSTR pszSubAppName = hb_parc(2);
    //LPCWSTR pszSubIdList = hb_parc(3);
    int ienable = hb_parni(2);
@@ -2039,7 +2039,7 @@ HB_FUNC( HWG_GETWINDOWTHEME )
    {
      //Windows XP detected
       HTHEME hTheme; // = (HTHEME) hb_parptr(1);
-      hTheme = hb_GetWindowTheme((HWND) HB_PARHANDLE(1));
+      hTheme = hb_GetWindowTheme(hwg_par_HWND(1));
       HB_RETHANDLE ( hTheme );
    }
    else

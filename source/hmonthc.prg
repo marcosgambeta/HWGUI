@@ -164,7 +164,7 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
                          (LONG) hb_parnl(3), /* 0, 0, 0, 0, */
                          hb_parni(4), hb_parni(5),      /* x, y       */
                          hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
-                         (HWND) HB_PARHANDLE(1),
+                         hwg_par_HWND(1),
                          (HMENU) hb_parni(2),
                          GetModuleHandle(NULL),
                          NULL );
@@ -200,7 +200,7 @@ HB_FUNC ( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of 
       sysTime.wSecond = 0;
       sysTime.wMilliseconds = 0;
 
-      MonthCal_SetCurSel( (HWND) HB_PARHANDLE (1), &sysTime);
+      MonthCal_SetCurSel( hwg_par_HWND(1), &sysTime);
 
    }
 }
@@ -210,7 +210,7 @@ HB_FUNC ( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of 
    SYSTEMTIME st;
    char szDate[9];
 
-   SendMessage((HWND) HB_PARHANDLE(1), MCM_GETCURSEL, 0, (LPARAM) &st);
+   SendMessage(hwg_par_HWND(1), MCM_GETCURSEL, 0, (LPARAM) &st);
 
    hb_dateStrPut( szDate, st.wYear, st.wMonth, st.wDay );
    szDate[8] = 0;

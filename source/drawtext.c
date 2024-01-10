@@ -292,7 +292,7 @@ HB_FUNC( HWG_GETBKCOLOR )
 HB_FUNC( HWG_GETTEXTSIZE )
 {
 
-   HDC hdc = GetDC((HWND)HB_PARHANDLE(1));
+   HDC hdc = GetDC(hwg_par_HWND(1));
    SIZE size;
    PHB_ITEM aMetr = hb_itemArrayNew(2);
    PHB_ITEM temp;

@@ -271,7 +271,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    {
       SetWindowLongPtr( hWndListView,
             GWL_STYLE, ( dwStyle & ~LVS_TYPEMASK ) | dwView );
-      //  RedrawWindow( (HWND) HB_PARHANDLE(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW );
+      //  RedrawWindow( hwg_par_HWND(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW );
    }
 }
 

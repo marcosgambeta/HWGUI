@@ -515,7 +515,7 @@ HB_FUNC( HWG_SHOWTOOLTIP )
    msg.lParam = hb_parnl(3);
    msg.wParam = hb_parnl(2);
    msg.message = WM_MOUSEMOVE;
-   msg.hwnd = (HWND) HB_PARHANDLE(1);
+   msg.hwnd = hwg_par_HWND(1);
    hb_retnl( SendMessage(hWndTT, TTM_RELAYEVENT, 0, (LPARAM) (LPMSG) &msg) );
 }
 */
@@ -893,13 +893,13 @@ HB_FUNC( HWG_TREEADDNODE )
 HB_FUNC( HWG_TREEDELNODE )
 {
 
-   hb_parl( TreeView_DeleteItem( (HWND)HB_PARHANDLE(1), (HTREEITEM)HB_PARHANDLE(2) ) );
+   hb_parl( TreeView_DeleteItem( hwg_par_HWND(1), (HTREEITEM)HB_PARHANDLE(2) ) );
 }
 
 HB_FUNC( HWG_TREEDELALLNODES )
 {
 
-   TreeView_DeleteAllItems( (HWND)HB_PARHANDLE(1) );
+   TreeView_DeleteAllItems( hwg_par_HWND(1) );
 }
 */
 
@@ -931,7 +931,7 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
    TreeItem.mask = TVIF_HANDLE | TVIF_CHILDREN;
    TreeItem.hItem = (HTREEITEM) HB_PARHANDLE(2);
 
-   SendMessage((HWND)HB_PARHANDLE(1), TVM_GETITEM, 0, (LPARAM)(&TreeItem));
+   SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM)(&TreeItem));
    hb_retni( TreeItem.cChildren );
 }
 
@@ -1458,7 +1458,7 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
 HB_FUNC( HWG_INITBUTTONPROC )
 {
-//   wpOrigButtonProc = (WNDPROC) SetWindowLong( (HWND) HB_PARHANDLE(1),
+//   wpOrigButtonProc = (WNDPROC) SetWindowLong( hwg_par_HWND(1),
 //                                 GWL_WNDPROC, (LONG) ButtonSubclassProc );
    wpOrigButtonProc =
          ( LONG_PTR ) SetWindowLongPtr( hwg_par_HWND(1),

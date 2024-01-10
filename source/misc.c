@@ -87,7 +87,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
-   HWND hWnd = ( HWND ) hb_parnl(1);
+   HWND hWnd = ( HWND ) hb_parnl(1); // TODO: pointer
    LPTSTR lpText = NULL;
 
    if( OpenClipboard(hWnd) )
@@ -439,7 +439,7 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni( WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context ) );
+   hb_retni( WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context ) ); // TODO: pointer
    hb_strfree(hStr);
 }
 

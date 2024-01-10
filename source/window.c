@@ -327,7 +327,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
 
 HB_FUNC( HWG_ACTIVATECHILDWINDOW )
 {
-   // ShowWindow( (HWND) HB_PARHANDLE(2), hb_parl(1) ? SW_SHOWNORMAL : SW_HIDE );
+   // ShowWindow( hwg_par_HWND(2), hb_parl(1) ? SW_SHOWNORMAL : SW_HIDE );
    ShowWindow( hwg_par_HWND(2), ( HB_ISLOG(3) &&
                hb_parl(3) ) ? SW_SHOWMAXIMIZED : ( ( HB_ISLOG(4) &&
                      hb_parl(4) ) ? SW_SHOWMINIMIZED : SW_SHOWNORMAL ) );
@@ -706,7 +706,7 @@ HB_FUNC( HWG_BRINGWINDOWTOTOP )
 
 //HB_FUNC( HWG_SETACTIVEWINDOW )
 //{
-//   hb_retnl( SetActiveWindow( (HWND) HB_PARHANDLE(1) ) );
+//   hb_retnl( SetActiveWindow( hwg_par_HWND(1) ) );
 //}
 
 HB_FUNC( HWG_RESETWINDOWPOS )
@@ -1413,7 +1413,7 @@ HB_FUNC( HWG_MINMAXWINDOW )
    lpMMI->ptMaxTrackSize.x = m_fxMax;
    lpMMI->ptMaxTrackSize.y = m_fyMax;
 
-//   SendMessage((HWND) HB_PARHANDLE(1),           // handle of window
+//   SendMessage(hwg_par_HWND(1),           // handle of window
 //               WM_GETMINMAXINFO, 0, (LPARAM) lpMMI)  ;
 }
 
