@@ -383,7 +383,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
                     hwg_par_HICON(5) :
                     LoadIcon( ( HINSTANCE ) hInstance, TEXT( "" ) );
          wc.hbrBackground = ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
-             ( HBRUSH ) HB_PARHANDLE(6) : ( HBRUSH ) ( COLOR_WINDOW + 1 );
+             hwg_par_HBRUSH(6) : ( HBRUSH ) ( COLOR_WINDOW + 1 );
          wc.lpszMenuName = NULL;
          wc.cbWndExtra = 0;
          wc.lpszClassName = s_szChild;
@@ -1475,7 +1475,7 @@ HB_FUNC( HWG_PAINTWINDOW )
    BOOL fErase = pps->fErase ;
    RECT rc = pps->rcPaint ;
    HBRUSH hBrush =   ( HB_ISNIL(2) ) ? ( HBRUSH )
-                     ( COLOR_3DFACE +  1 ) : ( HBRUSH ) HB_PARHANDLE(2);
+                     ( COLOR_3DFACE +  1 ) : hwg_par_HBRUSH(2);
    if ( fErase == 1 )
      FillRect( hDC, &rc, hBrush );
 

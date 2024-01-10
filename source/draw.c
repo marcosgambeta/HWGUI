@@ -204,7 +204,7 @@ HB_FUNC( HWG_FILLRECT )
 
    FillRect( HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1),        // handle to device context
          &rc,                   // pointer to structure with rectangle
-         ( HBRUSH ) HB_PARHANDLE(6)   // handle to brush
+         hwg_par_HBRUSH(6)   // handle to brush
           );
 }
 
@@ -541,7 +541,7 @@ HB_FUNC( HWG_CENTERBITMAP )
    RECT rc;
    HBRUSH hBrush =
          ( HB_ISNIL(5) ) ? ( HBRUSH ) ( COLOR_WINDOW +
-         1 ) : ( HBRUSH ) HB_PARHANDLE(5);
+         1 ) : hwg_par_HBRUSH(5);
 
    SelectObject( hDCmem, hBitmap );
    GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
@@ -1075,7 +1075,7 @@ HB_FUNC( HWG_INFLATERECT )
 HB_FUNC( HWG_FRAMERECT )
 {
    HDC hdc = hwg_par_HDC(1);
-   HBRUSH hbr = ( HBRUSH ) HB_PARHANDLE(3);
+   HBRUSH hbr = hwg_par_HBRUSH(3);
    RECT pRect;
 
    if( HB_ISARRAY(2) )
