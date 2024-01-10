@@ -136,3 +136,4 @@ HB_EXTERN_END
 #define hwg_par_HWND(n)       (HWND) HB_PARHANDLE(n)
 #define hwg_par_HDC(n)        (HDC) HB_PARHANDLE(n)
 #define hwg_par_HMENU(n)      (HMENU) HB_PARHANDLE(n)
+#define hwg_par_HBITMAP(n)    (HBITMAP) HB_PARHANDLE(n)
