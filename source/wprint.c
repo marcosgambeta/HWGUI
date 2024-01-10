@@ -474,7 +474,7 @@ HB_FUNC( HWG_PRINTENHMETAFILE )
 HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 {
   BOOL bW9X, Result = FALSE ;
-  HDC hDC = (HDC) HB_PARHANDLE(1);
+  HDC hDC = hwg_par_HDC(1);
   OSVERSIONINFO osvi;
   osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
   GetVersionEx ( &osvi );

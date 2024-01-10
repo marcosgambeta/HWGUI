@@ -1847,7 +1847,7 @@ HB_FUNC( HWG_PREPAREIMAGERECT )
 {
 
    HWND hButtonWnd = hwg_par_HWND(1);
-   HDC dc = (HDC) HB_PARHANDLE(2);
+   HDC dc = hwg_par_HDC(2);
    BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
    RECT rpTitle;

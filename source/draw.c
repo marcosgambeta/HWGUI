@@ -202,7 +202,7 @@ HB_FUNC( HWG_FILLRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   FillRect( HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1),        // handle to device context
+   FillRect( HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1) /* TODO: pointer */,        // handle to device context
          &rc,                   // pointer to structure with rectangle
          hwg_par_HBRUSH(6)   // handle to brush
           );
@@ -501,7 +501,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 HB_FUNC( HWG_SPREADBITMAP )
 {
    HDC hDC =
-         HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1);
+         HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1); // TODO: pointer
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
    HBITMAP hBitmap = hwg_par_HBITMAP(3);
