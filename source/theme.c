@@ -1791,7 +1791,7 @@ HB_FUNC( HWG_ISTHEMEDLOAD )
 HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
 {
    HTHEME hTheme = ( HTHEME ) hb_parptr(1);
-   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   HDC hdc = hwg_par_HDC(2);
    int iPartId = hb_parni(3);
    int iStateId = hb_parni(4);
    RECT pRect;
@@ -1809,7 +1809,7 @@ HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
 HB_FUNC( HWG_DRAWTHEICON )
 {
    HWND hButtonWnd = hwg_par_HWND(1);
-   HDC dc = ( HDC ) HB_PARHANDLE(2);
+   HDC dc = hwg_par_HDC(2);
    BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
    RECT rpTitle;
@@ -1892,7 +1892,7 @@ HB_FUNC( HWG_PREPAREIMAGERECT )
 HB_FUNC( HWG_DRAWTHEMETEXT )
 {
    HTHEME hTheme = ( HTHEME ) hb_parptr(1);
-   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   HDC hdc = hwg_par_HDC(2);
    int iPartId = hb_parni(3);
    int iStateId = hb_parni(4);
    LPCSTR pText = hb_parc(5);
@@ -1978,7 +1978,7 @@ HB_FUNC( HWG_MODSTYLE )
 HB_FUNC( HWG_DRAWTHEMEPARENTBACKGROUND )
 {
    HWND hTheme = hwg_par_HWND(1);
-   HDC hdc = ( HDC ) HB_PARHANDLE(2);
+   HDC hdc = hwg_par_HDC(2);
    RECT pRect;
 
    if( HB_ISARRAY(3) )

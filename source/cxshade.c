@@ -775,7 +775,7 @@ HB_FUNC( HWG_SHADE_SET )
  */
 HB_FUNC( HWG_SHADE_DRAW )
 {
-   cxshade_Draw( ( PCXSHADE ) HB_PARHANDLE(1), ( HDC ) HB_PARHANDLE(2),
+   cxshade_Draw( ( PCXSHADE ) HB_PARHANDLE(1), hwg_par_HDC(2),
          (short) hb_parni(3) );
 }
 

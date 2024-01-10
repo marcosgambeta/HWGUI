@@ -337,7 +337,7 @@ HB_FUNC( HWG_PTS2PIX )
 
    if( hb_pcount() > 1 && !HB_ISNIL(1) )
    {
-      hDC = ( HDC ) HB_PARHANDLE(2);
+      hDC = hwg_par_HDC(2);
       lDC = 0;
    }
    else
@@ -690,7 +690,7 @@ HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 
 HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 {
-   HDC hdc = ( HDC ) HB_PARHANDLE(1);
+   HDC hdc = hwg_par_HDC(1);
    //UINT h = hb_parni(2);
    PHB_ITEM pObject = hb_param( 3, HB_IT_OBJECT );
    PHB_ITEM p, p1, p2, temp;

@@ -254,28 +254,28 @@ HB_FUNC( HWG_STARTDOC )
    di.lpszDatatype = NULL;
    di.fwType = 0;
 
-   hb_retnl( ( LONG ) StartDoc(( HDC ) HB_PARHANDLE(1), &di) );
+   hb_retnl( ( LONG ) StartDoc(hwg_par_HDC(1), &di) );
    hb_strfree(hText);
 }
 
 HB_FUNC( HWG_ENDDOC )
 {
-   EndDoc(( HDC ) HB_PARHANDLE(1));
+   EndDoc(hwg_par_HDC(1));
 }
 
 HB_FUNC( HWG_ABORTDOC )
 {
-   AbortDoc(( HDC ) HB_PARHANDLE(1));
+   AbortDoc(hwg_par_HDC(1));
 }
 
 HB_FUNC( HWG_STARTPAGE )
 {
-   hb_retnl( ( LONG ) StartPage(( HDC ) HB_PARHANDLE(1)) );
+   hb_retnl( ( LONG ) StartPage(hwg_par_HDC(1)) );
 }
 
 HB_FUNC( HWG_ENDPAGE )
 {
-   hb_retnl( ( LONG ) EndPage(( HDC ) HB_PARHANDLE(1)) );
+   hb_retnl( ( LONG ) EndPage(hwg_par_HDC(1)) );
 }
 
 /*
@@ -289,7 +289,7 @@ HB_FUNC( HWG_ENDPAGE )
  */
 HB_FUNC( HWG_GETDEVICEAREA )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = hwg_par_HDC(1);
    PHB_ITEM temp;
    PHB_ITEM aMetr = hb_itemArrayNew(11 );
 
@@ -394,7 +394,7 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
 
 HB_FUNC( HWG_CREATEMETAFILE )
 {
-   HDC hDCref = ( HDC ) HB_PARHANDLE(1), hDCmeta;
+   HDC hDCref = hwg_par_HDC(1), hDCmeta;
    void * hFileName;
    int iWidthMM, iHeightMM;
    RECT rc;
@@ -430,7 +430,7 @@ HB_FUNC( HWG_CREATEMETAFILE )
 
 HB_FUNC( HWG_CLOSEENHMETAFILE )
 {
-   HB_RETHANDLE(CloseEnhMetaFile(( HDC ) HB_PARHANDLE(1)));
+   HB_RETHANDLE(CloseEnhMetaFile(hwg_par_HDC(1)));
 }
 
 HB_FUNC( HWG_DELETEENHMETAFILE )
@@ -441,7 +441,7 @@ HB_FUNC( HWG_DELETEENHMETAFILE )
 
 HB_FUNC( HWG_PLAYENHMETAFILE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = hwg_par_HDC(1);
    RECT rc;
 
    if( hb_pcount() > 2 )
@@ -459,7 +459,7 @@ HB_FUNC( HWG_PLAYENHMETAFILE )
 
 HB_FUNC( HWG_PRINTENHMETAFILE )
 {
-   HDC hDC = ( HDC ) HB_PARHANDLE(1);
+   HDC hDC = hwg_par_HDC(1);
    RECT rc;
 
    SetRect( &rc, 0, 0, GetDeviceCaps( hDC, HORZRES ), GetDeviceCaps( hDC,

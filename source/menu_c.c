@@ -507,12 +507,12 @@ HB_FUNC( HWG_GETMENUCHECKMARKHEIGHT )
 
 HB_FUNC( HWG_STRETCHBLT )
 {
-   hb_retl( StretchBlt( ( HDC ) HB_PARHANDLE(1),
+   hb_retl( StretchBlt( hwg_par_HDC(1),
                hb_parni(2),
                hb_parni(3),
                hb_parni(4),
                hb_parni(5),
-               ( HDC ) HB_PARHANDLE(6),
+               hwg_par_HDC(6),
                hb_parni(7),
                hb_parni(8),
                hb_parni(9), hb_parni(10), ( DWORD ) hb_parnl(11) ) );
