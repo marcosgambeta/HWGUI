@@ -121,11 +121,11 @@ METHOD Init() CLASS HGrid
 
    IF !::lInit
       ::Super:Init()
-      FOR n := 1 TO Len( ::aBitmaps )
+      FOR n := 1 TO Len(::aBitmaps)
          AAdd(aButton, hwg_Loadimage(, ::aBitmaps[ n ], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION))
       NEXT
 
-      IF Len( aButton ) > 0
+      IF Len(aButton) > 0
 
          aBmpSize := hwg_Getbitmapsize(aButton[1])
 
@@ -137,7 +137,7 @@ METHOD Init() CLASS HGrid
             ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
-         FOR nPos := 1 TO Len( aButton )
+         FOR nPos := 1 TO Len(aButton)
 
             aBmpSize := hwg_Getbitmapsize(aButton[ nPos ])
 
@@ -156,7 +156,7 @@ METHOD Init() CLASS HGrid
 
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
-      FOR i := 1 TO Len( ::aColumns )
+      FOR i := 1 TO Len(::aColumns)
          hwg_Listview_addcolumn( ::handle, i, ::aColumns[ i, 2 ], ::aColumns[ i, 1 ], ::aColumns[ i, 3 ], IIF( ::aColumns[ i, 4 ] != nil, ::aColumns[ i, 4 ], 0 ) )
       NEXT
 

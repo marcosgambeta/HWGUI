@@ -79,13 +79,13 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos )
    LOCAL hSubMenu
 
    IF nPos == Nil
-      nPos := Len( aMenu[1] ) + 1
+      nPos := Len(aMenu[1]) + 1
    ENDIF
 
    hSubMenu := aMenu[5]
    hSubMenu := hwg__AddMenuItem( hSubMenu, cItem, nPos - 1, .T., nMenuId,, lSubMenu )
 
-   IF nPos > Len( aMenu[1] )
+   IF nPos > Len(aMenu[1])
       IF lSubMenu
          AAdd(aMenu[1], { { }, cItem, nMenuId, 0, hSubMenu })
       ELSE
@@ -108,10 +108,10 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos )
 FUNCTION Hwg_FindMenuItem( aMenu, nId, nPos )
    LOCAL nPos1, aSubMenu
    nPos := 1
-   DO WHILE nPos <= Len( aMenu[1] )
+   DO WHILE nPos <= Len(aMenu[1])
       IF aMenu[1, nPos, 3] == nId
          RETURN aMenu
-      ELSEIF Len( aMenu[1, nPos] ) > 4
+      ELSEIF Len(aMenu[1, nPos]) > 4
          IF ( aSubMenu := Hwg_FindMenuItem( aMenu[1, nPos], nId, @nPos1 ) ) != Nil
             nPos := nPos1
             RETURN aSubMenu
@@ -139,12 +139,12 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
       aMenu := { aMenuInit,,,, hMenu }
    ELSE
       hMenu := aMenuInit[5]
-      nPos := Len( aMenuInit[1] )
+      nPos := Len(aMenuInit[1])
       aMenu := aMenuInit[1, nPosParent]
       /* This code just for sure menu runtime hfrmtmpl.prg is enable */
       IIf( ValType(aMenu[4]) == "L", aMenu[4] := .F., )
       hMenu := hwg__AddMenuItem( hMenu, aMenu[2], nPos + 1, .T., aMenu[3], aMenu[4], .T. )
-      IF Len( aMenu ) < 5
+      IF Len(aMenu) < 5
          AAdd(aMenu, hMenu)
       ELSE
          aMenu[5] := hMenu
@@ -152,7 +152,7 @@ FUNCTION hwg_BuildMenu( aMenuInit, hWnd, oWnd, nPosParent, lPopup )
    ENDIF
 
    nPos := 1
-   DO WHILE nPos <= Len( aMenu[1] )
+   DO WHILE nPos <= Len(aMenu[1])
       IF ValType(aMenu[1, nPos, 1]) == "A"
          hwg_BuildMenu( aMenu,,, nPos )
       ELSE
@@ -304,7 +304,7 @@ FUNCTION Hwg_SearchPosBitmap( nPos_Id )
    LOCAL nPos := 1, lBmp := { .F., "" }
 
    IF _oBitmap != Nil
-      DO WHILE nPos <= Len( _oBitmap )
+      DO WHILE nPos <= Len(_oBitmap)
 
          IF _oBitmap[ nPos ][4] == nPos_Id
             lBmp := { _oBitmap[ nPos ][1], _oBitmap[ nPos ][2], _oBitmap[ nPos ][3] }
@@ -323,7 +323,7 @@ FUNCTION hwg_DeleteMenuItem( oWnd, nId )
 
    IF ( aSubMenu := Hwg_FindMenuItem( oWnd:menu, nId, @nPos ) ) != Nil
       ADel( aSubMenu[1], nPos )
-      ASize(aSubMenu[1], Len( aSubMenu[1] ) - 1)
+      ASize(aSubMenu[1], Len(aSubMenu[1]) - 1)
 
       hwg_DeleteMenu( hwg_Getmenuhandle(oWnd:handle), nId )
    ENDIF

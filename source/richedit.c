@@ -85,11 +85,11 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       ULONG ul, ulLen, ulLen1;
       PHB_ITEM pArr1;
       pArr = hb_param( 2, HB_IT_ARRAY );
-      ulLen = hb_arrayLen( pArr );
+      ulLen = hb_arrayLen(pArr);
       for( ul = 1; ul <= ulLen; ul++ )
       {
          pArr1 = hb_arrayGetItemPtr( pArr, ul );
-         ulLen1 = hb_arrayLen( pArr1 );
+         ulLen1 = hb_arrayLen(pArr1);
          chrNew.cpMin = hb_arrayGetNL( pArr1, 1 ) - 1;
          chrNew.cpMax = hb_arrayGetNL( pArr1, 2 ) - 1;
          SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
@@ -317,7 +317,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
                                        sizeof( TCHAR ));
    ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr);
-   HB_RETSTRLEN( tr.lpstrText, ul );
+   HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);
 
 }
@@ -335,7 +335,7 @@ HB_FUNC( HWG_RE_GETLINE )
 
    *( ( ULONG * ) lpBuf ) = ul;
    ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);
-   HB_RETSTRLEN( lpBuf, ul );
+   HB_RETSTRLEN(lpBuf, ul);
    hb_xfree(lpBuf);
 }
 

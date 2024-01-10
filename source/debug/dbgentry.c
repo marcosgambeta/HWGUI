@@ -382,7 +382,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
       case HB_DBG_MODULENAME:
          HB_TRACE(HB_TR_DEBUG, ( "MODULENAME %s", szName ));
 
-         if( szName[ strlen( szName ) - 1 ] == ':' )
+         if( szName[ strlen(szName) - 1 ] == ':' )
             return;
 
          hb_procinfo( 0, szProcName, NULL, NULL );
@@ -616,7 +616,7 @@ static void hb_dbgAddModule(const char * szName)
 
    szName = hb_dbgStripModuleName(szName);
    szFuncName = strrchr( szName, ':' );
-   iLen = szFuncName ? ( int ) ( szFuncName - szName ) : ( int ) strlen( szName );
+   iLen = szFuncName ? ( int ) ( szFuncName - szName ) : ( int ) strlen(szName);
    szModuleName = hb_strndup( szName, iLen );
 
    HB_DBGCOMMON_LOCK
@@ -747,8 +747,8 @@ static void hb_dbgAddStopLines( PHB_ITEM pItem )
                /* Merge stopline info */
                int nOrigMin = hb_arrayGetNL( pLines, 2 );
                int nNewMin = hb_arrayGetNL( pEntry, 2 );
-               int nOrigLen = hb_arrayGetCLen( pLines, 3 );
-               int nNewLen = hb_arrayGetCLen( pEntry, 3 );
+               int nOrigLen = hb_arrayGetCLen(pLines, 3);
+               int nNewLen = hb_arrayGetCLen(pEntry, 3);
                int nMin = HB_MIN( nNewMin, nOrigMin );
                int nMax = HB_MAX( nNewMin + ( nNewLen << 3 ) - 1,
                                   nOrigMin + ( nOrigLen << 3 ) - 1 );
@@ -791,7 +791,7 @@ static void hb_dbgAddStopLines( PHB_ITEM pItem )
          const char * szName = hb_dbgStripModuleName(szModule);
 
          if( szName != szModule )
-            hb_arraySetCLPtr( pEntry, 1, hb_strdup( szName ), ( HB_SIZE ) strlen( szName ) );
+            hb_arraySetCLPtr( pEntry, 1, hb_strdup( szName ), ( HB_SIZE ) strlen(szName) );
       }
    }
 
@@ -1002,7 +1002,7 @@ static PHB_ITEM hb_dbgEvalMacro( const char * szExpr, PHB_ITEM pItem )
    if( ( !strcmp( type, "U" ) || !strcmp( type, "UE" ) ) )
       return NULL;
 
-   hb_vmPushString( szExpr, ( HB_SIZE ) strlen( szExpr ) );
+   hb_vmPushString( szExpr, ( HB_SIZE ) strlen(szExpr) );
    hb_macroGetValue(hb_stackItemFromTop( -1 ), 0, HB_SM_RT_MACRO);
    hb_itemMove(pItem, hb_stackItemFromTop( -1 ));
    hb_stackPop();
@@ -1030,13 +1030,13 @@ static int hb_dbgEvalSubstituteVar( HB_WATCHPOINT * watch, char * szWord, int nS
    else
       hb_xfree(szWord);
 
-   t = ( char * ) hb_xgrab(( HB_SIZE ) strlen( watch->szExpr ) - nLen + 9 + 1);
+   t = ( char * ) hb_xgrab(( HB_SIZE ) strlen(watch->szExpr) - nLen + 9 + 1);
    memmove(t, watch->szExpr, nStart);
    memmove(t + nStart, "__dbg[", 6);
    t[ nStart + 6 ] = '0' + ( char ) ( ( j + 1 ) / 10 );
    t[ nStart + 7 ] = '0' + ( char ) ( ( j + 1 ) % 10 );
    t[ nStart + 8 ] = ']';
-   hb_strncpy( t + nStart + 9, watch->szExpr + nStart + nLen, ( HB_SIZE ) strlen( watch->szExpr ) - nLen - nStart );
+   hb_strncpy( t + nStart + 9, watch->szExpr + nStart + nLen, ( HB_SIZE ) strlen(watch->szExpr) - nLen - nStart );
    hb_xfree(watch->szExpr);
    watch->szExpr = t;
    return nStart + 9;
@@ -1182,7 +1182,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock( HB_WATCHPOINT * watch )
       i++;
    }
 
-   buffsize = 8 + strlen( watch->szExpr ) + 1;
+   buffsize = 8 + strlen(watch->szExpr) + 1;
 
    s = ( char * ) hb_xgrab(buffsize + 1);
    hb_strncpy( s, "{|__dbg|", buffsize );
@@ -1422,7 +1422,7 @@ HB_BOOL hb_dbgIsValidStopLine(void * handle, const char * szModule, int nLine)
          int nMin = hb_arrayGetNL( pEntry, 2 );
          int nOfs = nLine - nMin;
 
-         if( nOfs >= 0 && ( HB_SIZE ) ( nOfs >> 3 ) < hb_arrayGetCLen( pEntry, 3 ) )
+         if( nOfs >= 0 && ( HB_SIZE ) ( nOfs >> 3 ) < hb_arrayGetCLen(pEntry, 3) )
             fResult = ( hb_arrayGetCPtr( pEntry, 3 )[ nOfs >> 3 ] & ( 1 << ( nOfs & 0x07 ) ) ) != 0;
 
          break;
@@ -1634,7 +1634,7 @@ static void hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue )
          {
             hb_vmPushDynSym( pDynSym );
             hb_vmPushNil();
-            hb_vmPushString( scope->szName, ( HB_SIZE ) strlen( scope->szName ) );
+            hb_vmPushString( scope->szName, ( HB_SIZE ) strlen(scope->szName) );
             hb_vmPush( xNewValue );
             hb_vmDo(2);
          }

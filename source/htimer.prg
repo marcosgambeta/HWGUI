@@ -82,7 +82,7 @@ METHOD END() CLASS HTimer
          hwg_Killtimer( ::oParent:handle, ::id )
       ENDIF
       ADel( ::aTimers, i )
-      ASize(::aTimers, Len( ::aTimers ) - 1)
+      ASize(::aTimers, Len(::aTimers) - 1)
    ENDIF
 
    RETURN NIL
@@ -110,7 +110,7 @@ FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 EXIT PROCEDURE CleanTimers
    LOCAL oTimer, i
 
-   FOR i := 1 TO Len( HTimer():aTimers )
+   FOR i := 1 TO Len(HTimer():aTimers)
       oTimer := HTimer():aTimers[ i ]
       hwg_Killtimer( oTimer:oParent:handle, oTimer:id )
    NEXT

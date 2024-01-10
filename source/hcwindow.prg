@@ -56,7 +56,7 @@ METHOD DelObject( oCtrl ) CLASS HObject
    hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
       Adel( ::aObjects, i )
-      Asize(::aObjects, Len( ::aObjects ) - 1)
+      Asize(::aObjects, Len(::aObjects) - 1)
    ENDIF
    RETURN NIL
 
@@ -134,11 +134,11 @@ METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindo
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
 
    LOCAL bSearch := IIf( nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) } )
-   LOCAL i := Len( ::aControls )
+   LOCAL i := Len(::aControls)
    LOCAL oCtrl
 
    DO WHILE i > 0
-      IF Len( ::aControls[ i ]:aControls ) > 0 .AND. ;
+      IF Len(::aControls[ i ]:aControls) > 0 .AND. ;
          ( oCtrl := ::aControls[ i ]:FindControl( nId, nHandle ) ) != nil
          RETURN oCtrl
       ENDIF
@@ -156,11 +156,11 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
       ADel( ::aControls, i )
-      ASize(::aControls, Len( ::aControls ) - 1)
+      ASize(::aControls, Len(::aControls) - 1)
    ENDIF
 
    h := 0
-   FOR i := Len( ::aEvents ) TO 1 STEP - 1
+   FOR i := Len(::aEvents) TO 1 STEP - 1
       IF ::aEvents[ i, 2 ] == id
          ADel( ::aEvents, i )
          h ++
@@ -168,11 +168,11 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    NEXT
 
    IF h > 0
-      ASize(::aEvents, Len( ::aEvents ) - h)
+      ASize(::aEvents, Len(::aEvents) - h)
    ENDIF
 
    h := 0
-   FOR i := Len( ::aNotify ) TO 1 STEP - 1
+   FOR i := Len(::aNotify) TO 1 STEP - 1
       IF ::aNotify[ i, 2 ] == id
          ADel( ::aNotify, i )
          h ++
@@ -180,7 +180,7 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
    NEXT
 
    IF h > 0
-      ASize(::aNotify, Len( ::aNotify ) - h)
+      ASize(::aNotify, Len(::aNotify) - h)
    ENDIF
 
    RETURN NIL
@@ -258,7 +258,7 @@ LOCAL aControls, i, nLen
       ::nHolder := 0
       hwg_DecreaseHolders( ::handle ) // Self )
       aControls := ::aControls
-      nLen := Len( aControls )
+      nLen := Len(aControls)
       FOR i := 1 TO nLen
           aControls[ i ]:End()
       NEXT
@@ -272,15 +272,15 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
    
 	 oCtrl := IIF( oCtrl == Nil, Self, oCtrl )
 	 lAll  := IIF( lAll  == Nil, .F., lAll )
-	 nLen  := LEN( oCtrl:aControls )
+	 nLen  := LEN(oCtrl:aControls)
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
          oCtrlTmp :=  oCtrl:aControls[ i ]
          lRefresh :=  !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
-         IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN( oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
+         IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN(oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
             ( !oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
-  	        IF LEN( oCtrlTmp:aControls) > 0
+  	        IF LEN(oCtrlTmp:aControls) > 0
   	            ::Refresh( lAll, oCtrlTmp )
 		        ELSEIF  !Empty(lRefresh) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
                oCtrlTmp:Refresh()
@@ -342,13 +342,13 @@ METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
       RETURN .F.
    ENDIF
 
-   nlen := Len( oCtrl:aControls )
+   nlen := Len(oCtrl:aControls)
    FOR i = nLen TO 1 STEP -1
       IF __ObjHasMsg( oCtrl:aControls[ i ], "ANCHOR" ) .AND. oCtrl:aControls[ i ]:anchor > 0
          x1 := oCtrl:aControls[ i ]:nWidth
          y1 := oCtrl:aControls[ i ]:nHeight
          oCtrl:aControls[ i ]:onAnchor( x, y, w, h )
-         IF Len( oCtrl:aControls[ i ]:aControls ) > 0
+         IF Len(oCtrl:aControls[ i ]:aControls) > 0
             ::Anchor( oCtrl:aControls[ i ], x1, y1, oCtrl:aControls[ i ]:nWidth, oCtrl:aControls[ i ]:nHeight )
          ENDIF
       ENDIF
@@ -375,7 +375,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
    LOCAL n
 
    IF oCtrl == NIL
-      FOR n := 1 TO Len( oWnd:aControls )
+      FOR n := 1 TO Len(oWnd:aControls)
          oCtrl := oWnd:aControls[ n ]:FindControl( wParam )
          IF oCtrl != NIL
             EXIT
@@ -405,12 +405,12 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
 STATIC FUNCTION onDestroy( oWnd )
    LOCAL aControls := oWnd:aControls
-   LOCAL i, nLen   := Len( aControls )
+   LOCAL i, nLen   := Len(aControls)
 
    FOR i := 1 TO nLen
       aControls[ i ]:END()
    NEXT
-   nLen := Len( oWnd:aObjects )
+   nLen := Len(oWnd:aObjects)
    FOR i := 1 TO nLen
       IF hwg_Selffocus( oWnd:Handle, oWnd:aObjects[ i ]:oParent:Handle )
          oWnd:aObjects[ i ]:END()

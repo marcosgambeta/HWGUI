@@ -98,7 +98,7 @@ METHOD CalcMinMax() CLASS HGraph
       ::ymax := ::ymaxSet
    ENDIF
    FOR i := 1 TO ::nGraphs
-      nLen := Len( ::aValues[ i ] )
+      nLen := Len(::aValues[ i ])
       IF ::nType == 1
          FOR j := 1 TO nLen
             ::xmax := Max( ::xmax, ::aValues[ i, j, 1 ] )
@@ -162,7 +162,7 @@ METHOD Paint( lpdis ) CLASS HGraph
    IF ::ymax != ::ymin .OR. ::ymax != 0
       hwg_Selectobject( hDC, ::oPen:handle )
       FOR i := 1 TO ::nGraphs
-         nLen := Len( ::aValues[ i ] )
+         nLen := Len(::aValues[ i ])
          IF ::nType == 1
             FOR j := 2 TO nLen
                px1 := Round(x1 + ( ::aValues[ i, j-1, 1 ] - ::xmin ) / ::scaleX, 0)
@@ -204,7 +204,7 @@ METHOD Paint( lpdis ) CLASS HGraph
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
-      FOR i := 1 TO Len( ::aSignY )
+      FOR i := 1 TO Len(::aSignY)
          py1 := Round(y2 - 2 - ( ::aSignY[ i, 1 ] - ::ymin ) / ::scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0-4, py1, x0+1, py1)
@@ -224,7 +224,7 @@ METHOD Paint( lpdis ) CLASS HGraph
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
       hwg_Settextcolor( hDC, ::colorCoor )
-      FOR i := 1 TO Len( ::aSignX )
+      FOR i := 1 TO Len(::aSignX)
          px1 := Round(x0 + nWidth * ::aSignX[ i, 1 ] + Iif( ::lGridXMid, nWidth/2, 0 ), 0)
          hwg_Drawline(hDC, px1, y0+4, px1, y0-1)
          IF ::aSignX[ i, 2 ] != Nil

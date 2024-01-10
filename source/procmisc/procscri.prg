@@ -52,7 +52,7 @@ LOCAL aFormCode, aFormName
    IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
-         IF LEN( stroka ) = 0
+         IF LEN(stroka) = 0
             EXIT
          ELSEIF rejim == 0 .AND. Left( stroka, 1 ) == "#"
             IF Upper( LEFT( stroka, 7 ) ) == "#SCRIPT"
@@ -170,11 +170,11 @@ RETURN __pp_process( s_pp, stroka )
 STATIC FUNCTION COMPILESCR( han, strbuf, poz, rezArray, scrSource )
 
 LOCAL scom, poz1, stroka, strfull := "", bOldError, i, tmpArray := {}
-Local cLine, lDebug := ( Len( rezArray ) >= 3 )
+Local cLine, lDebug := ( Len(rezArray) >= 3 )
 
    DO WHILE .T.
       cLine := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
-      IF LEN( cLine ) = 0
+      IF LEN(cLine) = 0
          EXIT
       ENDIF
       numlin ++
@@ -189,7 +189,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
       ENDIF
       stroka := RTRIM( LTRIM( cLine ) )
       IF RIGHT( stroka, 1 ) == CHR( 26 )
-         stroka := LEFT( stroka, LEN( stroka ) - 1 )
+         stroka := LEFT( stroka, LEN(stroka) - 1 )
       ENDIF
       IF !EMPTY(stroka) .AND. LEFT( stroka, 2 ) != "//"
 
@@ -197,7 +197,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             IF UPPER( Left( stroka, 7 ) ) == "#ENDSCR"
                Return .T.
             ELSEIF UPPER( Left( stroka, 6 ) ) == "#DEBUG"
-               IF !lDebug .AND. Len( rezArray[2] ) == 0
+               IF !lDebug .AND. Len(rezArray[2]) == 0
                   lDebug := .T.
                   Aadd(rezArray, {})
                   IF SUBSTR(stroka, 7, 3) == "GER"
@@ -223,7 +223,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
          scom := UPPER( SUBSTR(stroka, 1, IIF( poz1 <> 0, poz1 - 1, 999 )) )
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN( rezArray[2] ) == 0 .OR. ( i := VALTYPE(ATAIL( rezArray[2] )) ) == "C" ;
+            IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE(ATAIL( rezArray[2] )) ) == "C" ;
                     .OR. i == "A"
                IF Left( scom, 2 ) == "LO"
                   AADD(rezArray[2], " "+ALLTRIM( SUBSTR(stroka, 7) ))
@@ -314,7 +314,7 @@ Local cLine, lDebug := ( Len( rezArray ) >= 3 )
             ERRORBLOCK( bOldError )
             AADD(tmpArray, "")
          ENDCASE
-         IF lDebug .AND. Len( rezArray[3] ) < Len( rezArray[2] )
+         IF lDebug .AND. Len(rezArray[3]) < Len(rezArray[2])
             Aadd(rezArray[3], Str(numlin, 4) + ":" + cLine)
          ENDIF
       ENDIF
@@ -370,11 +370,11 @@ LOCAL i, j, bOldError
    IF prju
       AADD(tmpArray, "JUMP")
       AADD(rezArray[2], .F.)
-      IF Len( rezArray ) >= 3
+      IF Len(rezArray) >= 3
          Aadd(rezArray[3], Str(numlin, 4) + ":JUMP")
       ENDIF
    ENDIF
-   j := LEN( rezArray[2] )
+   j := LEN(rezArray[2])
    FOR i := j TO 1 STEP - 1
       IF UPPER( LEFT( tmpArray[ i ], 2 ) ) == "IF"
          bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[ i ]) } )
@@ -401,7 +401,7 @@ STATIC FUNCTION Fou_Do( rezArray, tmpArray )
 
 LOCAL i, j, iloop := 0, iPos, bOldError
 
-   j := LEN( rezArray )
+   j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
       IF !EMPTY(tmpArray[ i ]) .AND. LEFT( tmpArray[ i ], 4 ) == "EXIT"
          rezArray[ i ] = &( "{||iscr:=" + LTRIM( STR(j + 1, 5) ) + "}" )
@@ -444,10 +444,10 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
    IF Type("aScriptt") != "A"
       PRIVATE aScriptt := aScript
    ENDIF
-   IF aScript == Nil .OR. ( arlen := Len( aScript[2] ) ) == 0
+   IF aScript == Nil .OR. ( arlen := Len(aScript[2]) ) == 0
       RETURN .T.
    ENDIF
-   lDebug := ( Len( aScript ) >= 3 )
+   lDebug := ( Len(aScript) >= 3 )
    DO WHILE Valtype(aScript[2, iscr]) != "B"
       IF Valtype(aScript[2, iscr]) == "C"
          IF Left( aScript[2, iscr], 1 ) == "#"
@@ -466,7 +466,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
                   IF varvalue != Nil
                      &varName := &varValue
                   ENDIF
-                  IF lParam .AND. aParams != Nil .AND. Len( aParams ) >= j
+                  IF lParam .AND. aParams != Nil .AND. Len(aParams) >= j
                      &varname := aParams[ j ]
                   ENDIF
                   j ++
@@ -536,7 +536,7 @@ LOCAL i := 1, RetValue := Nil
       aScript := m->aScriptt
    ENDIF
    cProc := Upper( cProc )
-   DO WHILE i <= Len( aScript[2] ) .AND. Valtype(aScript[2, i]) == "A"
+   DO WHILE i <= Len(aScript[2]) .AND. Valtype(aScript[2, i]) == "A"
       IF aScript[2, i, 1] == cProc
          RetValue := DoScript( aScript[2, i], aParams )
          EXIT
@@ -635,10 +635,10 @@ LOCAL GetList := {}
    y2   := y1 + y__size
    x2   := x1 + x__size
    oldc := SETCOLOR( "N/W" )
-   IF LEN( sout ) + IIF( spict = "@D", 8, LEN( spict ) ) > x__size - 3
+   IF LEN(sout) + IIF( spict = "@D", 8, LEN(spict) ) > x__size - 3
       SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
    ELSE
-      x1 += LEN( sout ) + 1
+      x1 += LEN(sout) + 1
    ENDIF
    @ y2 - 1, x1 + 2 GET varget PICTURE spict        
    READ

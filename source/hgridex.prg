@@ -97,7 +97,7 @@ METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint,
               bSize, bPaint )
    DEFAULT aBit TO { }
    ::aItems := aItems
-   ::ItemCount := Len( aItems )
+   ::ItemCount := Len(aItems)
    ::aBitMaps := aBit
    ::bGfocus := bGfocus
    ::bLfocus := bLfocus
@@ -143,15 +143,15 @@ METHOD Init() CLASS HGridEx
       ::Super:Init()
       ::nHolder := 1
 
-      FOR n := 1 TO Len( ::aBitmaps )
+      FOR n := 1 TO Len(::aBitmaps)
          AAdd(aButton, hwg_Loadimage(, ::aBitmaps[ n ], IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE + LR_CREATEDIBSECTION))
       NEXT
 
-      IF Len( aButton ) > 0
+      IF Len(aButton) > 0
 
          aBmpSize := hwg_Getbitmapsize(aButton[1])
          nmax := aBmpSize[3]
-         FOR n := 2 TO Len( aButton )
+         FOR n := 2 TO Len(aButton)
             aBmpSize := hwg_Getbitmapsize(aButton[ n ])
             nmax := Max( nmax, aBmpSize[3] )
          NEXT
@@ -165,7 +165,7 @@ METHOD Init() CLASS HGridEx
             ::hIm := hwg_Createimagelist( { }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
          ENDIF
 
-         FOR nPos := 1 TO Len( aButton )
+         FOR nPos := 1 TO Len(aButton)
 
             aBmpSize := hwg_Getbitmapsize(aButton[ nPos ])
 
@@ -183,15 +183,15 @@ METHOD Init() CLASS HGridEx
 
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
-      FOR i := 1 TO Len( ::aColumns )
+      FOR i := 1 TO Len(::aColumns)
          hwg_Listview_addcolumnex( ::handle, i, ::aColumns[ i, 1 ], ::aColumns[ i, 2 ], ::aColumns[ i, 3 ], IIF( ::aColumns[ i, 4 ] != NIL, ::aColumns[ i, 4 ], - 1 ) )
 
       NEXT
-      IF Len( ::aRow ) > 0
-         FOR n := 1 TO Len( ::aRow )
+      IF Len(::aRow) > 0
+         FOR n := 1 TO Len(::aRow)
             aTemp := ::aRow[ n ]
             aTemp1 := ::aRowBitMap[ n ]
-            FOR n1 := 1 TO Len( aTemp )
+            FOR n1 := 1 TO Len(aTemp)
                hwg_Listview_insertitemex( ::handle, n, n1, aTemp[ n1 ], aTemp1[ n1 ] )
             NEXT
          NEXT
@@ -221,7 +221,7 @@ METHOD Refresh() CLASS HGridEx
 
 
 METHOD AddRow( a, bupdate ) CLASS HGRIDEX
-   LOCAL nLen := Len( a )
+   LOCAL nLen := Len(a)
    LOCAL n
    LOCAL aTmp := { }
    LOCAL aTmp1 := { }
@@ -311,13 +311,13 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    RETURN Self
 
 METHOD UpdateData() CLASS hGridex
-   LOCAL n := Len( ::aRow ), n1
+   LOCAL n := Len(::aRow), n1
    LOCAL aTemp, atemp1
 
    aTemp := ::aRow[ n ]
    atemp1 := ::aRowBitMap[ n ]
 
-   FOR n1 := 1 TO Len( aTemp )
+   FOR n1 := 1 TO Len(aTemp)
 
       hwg_Listview_insertitemex( ::handle, n, n1, aTemp[ n1 ], atemp1[ n1 ] )
    NEXT

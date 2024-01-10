@@ -220,7 +220,7 @@ Local i, i0, j, slen, c
    ENDIF
 
    IF cLine != Nil .AND. !Empty(cLine)
-      slen := Len( cLine )
+      slen := Len(cLine)
       i := 1
       i0 := 0
       DO WHILE i <= slen
@@ -299,7 +299,7 @@ METHOD PrintText( cText ) CLASS HWinPrn
    ENDIF
    ::oPrinter:Say( Iif( ::cpFrom!=::cpTo, hb_Translate(cText, ::cpFrom, ::cpTo), cText ), ;
             ::x, ::y, ::oPrinter:nWidth, ::y+::nLineHeight+::nLined )
-   ::x += ( ::nCharW * Len( cText ) )
+   ::x += ( ::nCharW * Len(cText) )
 
 Return Nil
 
@@ -318,12 +318,12 @@ Static aCodes := {   ;
    { Chr(27)+'G',,,,, .T., },  ;     /* bold */
    { Chr(27)+'H',,,, .F.,, }   ;     /* cancel bold */
  }
-Local i, sLen := Len( aCodes ), c := Left( cLine, 1 )
+Local i, sLen := Len(aCodes), c := Left( cLine, 1 )
 
    FOR i := 1 TO sLen
       IF Left(aCodes[i, 1], 1) == c .AND. At( aCodes[i, 1], Left(cLine, 3) ) == 1
          ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
-         Return Len( aCodes[i, 1] )
+         Return Len(aCodes[i, 1])
       ENDIF
    NEXT
 

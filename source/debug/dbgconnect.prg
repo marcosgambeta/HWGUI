@@ -94,10 +94,10 @@ Function hwg_dbg_New()
    cBuffer := Space(1024)
 
    IF File(cDebugger+".info") .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
-      IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0
+      IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0
          arr := hb_aTokens( Left( cBuffer, i ), ;
                Iif( hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10) ) )
-         FOR i := 1 TO Len( arr )
+         FOR i := 1 TO Len(arr)
             IF ( nPos := At( "=", arr[i] ) ) > 0
                cCmd := Lower( Trim( Left( arr[i], nPos-1 ) ) )
                IF cCmd == "dir"
@@ -116,7 +116,7 @@ Function hwg_dbg_New()
    IF File(cFile + ".d1") .AND. File(cFile + ".d2")
    
       IF ( handl1 := FOpen( cFile + ".d1", FO_READ + FO_SHARED ) ) != -1
-         IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
+         IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0 .AND. ;
                Left( cBuffer, 4 ) == "init"
             handl2 := FOpen( cFile + ".d2", FO_READWRITE + FO_SHARED )
             IF handl2 != -1
@@ -133,7 +133,7 @@ Function hwg_dbg_New()
       cDir += Iif( Right( cDir, 1 ) $ "\/", "", hb_OsPathSeparator() )
       IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
          IF ( handl1 := FOpen( cDir + cDebugger + ".d1", FO_READ + FO_SHARED ) ) != -1
-            IF ( i := FRead(handl1, @cBuffer, Len( cBuffer )) ) > 0 .AND. ;
+            IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0 .AND. ;
                   Left( cBuffer, 4 ) == "init"
                handl2 := FOpen( cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED )
                IF handl2 != -1
@@ -191,7 +191,7 @@ Local n, s := "", arr
    DO WHILE ( n := Fread(handl1, @cBuffer, Len(cBuffer)) ) > 0
       s += Left( cBuffer, n )
       IF ( n := At( ",!", s ) ) > 0
-         IF ( arr := hb_aTokens( Left( s, n+1 ), "," ) ) != Nil .AND. Len( arr ) > 2 .AND. arr[1] == arr[Len(arr)-1]
+         IF ( arr := hb_aTokens( Left( s, n+1 ), "," ) ) != Nil .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr)-1]
             Return arr
          ELSE
             EXIT
@@ -204,10 +204,10 @@ Static Function hwg_dbg_Send(...)
 Local arr := hb_aParams(), i, s := ""
 
    FSeek( handl2, 0, 0 )
-   FOR i := 2 TO Len( arr )
+   FOR i := 2 TO Len(arr)
       s += arr[i] + ","
    NEXT
-   IF Len( s ) > 800
+   IF Len(s) > 800
       FWrite(handl2, "!," + Space(Len(arr[1])-1) + s + arr[1] + ",!")
       FSeek( handl2, 0, 0 )
       FWrite(handl2, arr[1] + ",")
@@ -230,21 +230,21 @@ Local i, s := cPrgName + "," + Ltrim(Str(nLine)), nLen
    ENDIF
    IF aStack != Nil
       s += ",stack"
-      nLen := Len( aStack )
+      nLen := Len(aStack)
       FOR i := 1 TO nLen
          s += "," + aStack[i]
       NEXT
    ENDIF
    IF aLocals != Nil
       s += ",valuelocal," + aLocals[1]
-      nLen := Len( aLocals )
+      nLen := Len(aLocals)
       FOR i := 2 TO nLen
          s += "," + Str2Hex(aLocals[i])
       NEXT
    ENDIF
    IF aWatch != Nil
       s += ",valuewatch," + aWatch[1]
-      nLen := Len( aWatch )
+      nLen := Len(aWatch)
       FOR i := 2 TO nLen
          s += "," + Str2Hex(aWatch[i])
       NEXT
@@ -344,14 +344,14 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
       Return Nil
    ENDIF
 
-   FOR i := 1 TO Len( arr )
+   FOR i := 1 TO Len(arr)
       IF Valtype(arr[i]) == "A"
          lConvert := ( i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left( arr[i-1], 5 ) == "value" )
-         FOR j := 1 TO Len( arr[i] )
+         FOR j := 1 TO Len(arr[i])
             s += Iif( j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j] ) + ","
          NEXT
       ELSE
-         IF arr[i] == "value" .AND. i < Len( arr )
+         IF arr[i] == "value" .AND. i < Len(arr)
             s += arr[i] + "," + Str2Hex( arr[++i] ) + ","
          ELSE
             s += arr[i] + ","
@@ -412,7 +412,7 @@ Local n1 := Int( n/16 ), n2 := n % 16
 Return Chr( Iif(n1<10, n1+48, n1+55) ) + Chr( Iif(n2<10, n2+48, n2+55) )
 
 Static Function Str2Hex( stroka )
-Local cRes := "", i, nLen := Len( stroka )
+Local cRes := "", i, nLen := Len(stroka)
 
    FOR i := 1 to nLen
       cRes += Int2Hex( Asc(Substr(stroka, i, 1)) )
@@ -420,7 +420,7 @@ Local cRes := "", i, nLen := Len( stroka )
 Return cRes
 
 Static Function Hex2Str(stroka)
-Local cRes := "", i := 1, nLen := Len( stroka )
+Local cRes := "", i := 1, nLen := Len(stroka)
 
    DO WHILE i <= nLen
       cRes += Chr( Hex2Int( Substr(stroka, i, 2) ) )

@@ -421,7 +421,7 @@ METHOD Requery( aItems, xValue ) CLASS HComboBox
    ::Populate()
    IF xValue != Nil
       ::SetValue(xValue)
-   ELSEIF  Empty(::Value) .AND. Len( ::aItems ) > 0 .AND. ::bSetGet = Nil  .AND. !::lEdit
+   ELSEIF  Empty(::Value) .AND. Len(::aItems) > 0 .AND. ::bSetGet = Nil  .AND. !::lEdit
       ::SetItem(1)
    ENDIF
 
@@ -542,7 +542,7 @@ METHOD GetValueBound(xItem) CLASS HComboBox
       ::setItem( nPos )
       RETURN iif( nPos > 0, ::aItems[ nPos ], xItem )
    ENDIF
-   IF nPos > 0 .AND. nPos <=  Len( ::aItemsBound )
+   IF nPos > 0 .AND. nPos <=  Len(::aItemsBound)
       ::ValueBound := ::aItemsBound[ nPos ]
    ENDIF
 
@@ -569,10 +569,10 @@ METHOD DeleteItem( xIndex ) CLASS HComboBox
    ENDIF
    IF hwg_Sendmessage(::handle, CB_DELETESTRING, nIndex - 1, 0) > 0               //<= LEN(ocombo:aitems)
       ADel( ::Aitems, nIndex )
-      ASize(::Aitems, Len( ::aitems ) - 1)
-      IF Len( ::AitemsBound ) > 0
+      ASize(::Aitems, Len(::aitems) - 1)
+      IF Len(::AitemsBound) > 0
          ADel( ::AitemsBound, nIndex )
-         ASize(::AitemsBound, Len( ::aitemsBound ) - 1)
+         ASize(::AitemsBound, Len(::aitemsBound) - 1)
       ENDIF
       RETURN .T.
    ENDIF
@@ -584,7 +584,7 @@ METHOD AddItem( cItem, cItemBound, nPos ) CLASS HComboBox
    LOCAL nCount
 
    nCount := hwg_Sendmessage(::handle, CB_GETCOUNT, 0, 0) + 1
-   IF Len( ::Aitems ) == Len( ::AitemsBound ) .AND. cItemBound != NIL
+   IF Len(::Aitems) == Len(::AitemsBound) .AND. cItemBound != NIL
       IF nCount = 1
          ::RowSource({ { cItem, cItemBound } })
          ::Aitems := { }
@@ -749,8 +749,8 @@ METHOD RowSource(xSource) CLASS HComboBox
 
    IF xSource != Nil
       IF ValType(xSource) = "A"
-         IF Len( xSource ) > 0 .AND. !hb_IsArray( xSource[1] ) .AND. Len( xSource ) <= 2 .AND. "->" $ xSource[1] // COLUMNS MAX = 2
-            ::xrowsource := { xSource[1] , iif( Len( xSource ) > 1, xSource[2], Nil ) }
+         IF Len(xSource) > 0 .AND. !hb_IsArray( xSource[1] ) .AND. Len(xSource) <= 2 .AND. "->" $ xSource[1] // COLUMNS MAX = 2
+            ::xrowsource := { xSource[1] , iif( Len(xSource) > 1, xSource[2], Nil ) }
          ENDIF
       ELSE
          ::xrowsource := { xSource, Nil }
@@ -778,7 +778,7 @@ METHOD Populate() CLASS HComboBox
       cAlias := iif( ValType(xRowSource) == "U", Nil, cAlias )
       cValueBound := iif( ::xrowsource[2]  != Nil  .AND. cAlias != Nil, StrTran( ::xrowsource[2] , calias + "->" ), Nil )
    ELSE
-      cValueBound := iif( ValType(::aItems[1]) == "A" .AND. Len(  ::aItems[1] ) > 1, ::aItems[1, 2], NIL )
+      cValueBound := iif( ValType(::aItems[1]) == "A" .AND. Len(::aItems[1]) > 1, ::aItems[1, 2], NIL )
    ENDIF
    ::columnBound := iif( cValueBound = Nil, 1 , 2 )
    IF ::value == Nil
@@ -814,9 +814,9 @@ METHOD Populate() CLASS HComboBox
          ( cAlias ) -> ( dbGoto( nRecno ) )
       ENDIF
    ELSE
-      FOR i := 1 TO Len( ::aItems )
+      FOR i := 1 TO Len(::aItems)
          IF ::columnBound > 1
-            IF ValType(::aItems[ i ]) = "A" .AND. Len(  ::aItems[ i ] ) > 1
+            IF ValType(::aItems[ i ]) = "A" .AND. Len(::aItems[ i ]) > 1
                AAdd(::AitemsBound, ::aItems[i, 2 ])
             ELSE
                AAdd(::AitemsBound, Nil)
@@ -919,20 +919,20 @@ METHOD INIT() CLASS hCheckComboBox
 
    IF !::lInit
       ::Super:Init()
-      IF Len( ::acheck ) > 0
+      IF Len(::acheck) > 0
          AEval( ::aCheck, { | a | ::Setcheck( a, .T. ) } )
       ENDIF
       IF !Empty(::aItems) .AND. !Empty(::nhItem)
-         FOR i := 1 TO Len( ::aItems )
+         FOR i := 1 TO Len(::aItems)
             hwg_Sendmessage(::handle, CB_SETITEMHEIGHT, i - 1, ::nhItem)
          NEXT
       ENDIF
       ::nCurPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0)
       // LOAD IMAGES COMBO
-      IF ::aImages != Nil .AND. Len( ::aImages ) > 0
+      IF ::aImages != Nil .AND. Len(::aImages) > 0
          ::aHImages := {}
          nSize := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, - 1, 0) - 5
-         FOR i := 1 TO Len( ::aImages )
+         FOR i := 1 TO Len(::aImages)
             hImage := 0
             IF ( ValType(::aImages[ i ]) == "C" .OR. ::aImages[ i ] > 1 ) .AND. !Empty(::aImages[ i ])
                IF ValType(::aImages[ i ]) == "C" .AND. At( ".", ::aImages[ i ] ) != 0
@@ -1069,11 +1069,11 @@ METHOD Requery() CLASS hCheckComboBox
    LOCAL i
 
    ::Super:Requery()
-   IF Len( ::acheck ) > 0
+   IF Len(::acheck) > 0
       AEval( ::aCheck, { | a | ::Setcheck( a, .T. ) } )
    ENDIF
    IF !Empty(::aItems) .AND. !Empty(::nhItem)
-      FOR i := 1 TO Len( ::aItems )
+      FOR i := 1 TO Len(::aItems)
          hwg_Sendmessage(::handle, CB_SETITEMHEIGHT, i - 1, ::nhItem)
       NEXT
    ENDIF
@@ -1139,7 +1139,7 @@ METHOD RecalcText() CLASS hCheckComboBox
       strSeparator := hwg_Getlocaleinfo()
 
       // If none found, the the ''
-      IF Len( strSeparator ) == 0
+      IF Len(strSeparator) == 0
          strSeparator := ''
       ENDIF
 
@@ -1207,9 +1207,9 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
          rcText[1]   := rcBitmap[3]
          ::nWidthCheck := rcBitmap[3]
 
-      ELSEIF ::aHImages != Nil .AND. DrawInfo[1] + 1 <= Len( ::aHImages ) .AND. ;
+      ELSEIF ::aHImages != Nil .AND. DrawInfo[1] + 1 <= Len(::aHImages) .AND. ;
             !Empty(::aHImages[ DrawInfo[1] + 1 ])
-         nIndent := iif( !lDroped, 1, ( Len( strText ) - Len( LTrim( strText ) ) ) * hwg_TxtRect( "a", Self, ::oFont )[1] )
+         nIndent := iif( !lDroped, 1, ( Len(strText) - Len(LTrim( strText )) ) * hwg_TxtRect( "a", Self, ::oFont )[1] )
          strtext := LTrim( strtext )
          hbitmap := ::aHImages[ DrawInfo[1] + 1 ]
          rcBitmap[1] := nIndent
@@ -1322,7 +1322,7 @@ METHOD OnGetText( wParam, lParam ) CLASS hCheckComboBox
    // Copy the 'fake' window text
    copydata(lParam, ::m_strText, wParam)
 
-   RETURN iif( Empty(::m_strText), 0, Len( ::m_strText ) )
+   RETURN iif( Empty(::m_strText), 0, Len(::m_strText) )
 
 METHOD OnGetTextLength( WPARAM, LPARAM ) CLASS hCheckComboBox
 
@@ -1331,13 +1331,13 @@ METHOD OnGetTextLength( WPARAM, LPARAM ) CLASS hCheckComboBox
 
    ::RecalcText()
 
-   RETURN iif( Empty(::m_strText), 0, Len( ::m_strText ) )
+   RETURN iif( Empty(::m_strText), 0, Len(::m_strText) )
 
 METHOD GetAllCheck() CLASS hCheckComboBox
    LOCAL aCheck := { }
    LOCAL n
 
-   FOR n := 1 TO Len( ::aItems )
+   FOR n := 1 TO Len(::aItems)
       IF ::GetCheck( n )
          AAdd(aCheck, n)
       ENDIF

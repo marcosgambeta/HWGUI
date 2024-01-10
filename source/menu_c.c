@@ -122,7 +122,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    if( HB_ISCHAR(2) )
    {
       mii.dwTypeData = ( LPTSTR ) HB_PARSTR(2, &hData, NULL);
-      mii.cch = strlen( mii.dwTypeData );
+      mii.cch = strlen(mii.dwTypeData);
       mii.fType = MFT_STRING;
    }
    else
@@ -346,7 +346,7 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
 {
    PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY ), pSubArr;
    LPACCEL lpaccl;
-   ULONG ul, ulEntries = hb_arrayLen( pArray );
+   ULONG ul, ulEntries = hb_arrayLen(pArray);
    HACCEL h;
 
    lpaccl = ( LPACCEL ) hb_xgrab(sizeof( ACCEL ) * ulEntries);

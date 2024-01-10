@@ -220,7 +220,7 @@ static HB_SIZE s_nCopyAnsiToWideChar( LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE si
 #endif
 }
 
-static int s_nWideStringLen( PHB_ITEM pItem )
+static int s_nWideStringLen(PHB_ITEM pItem)
 {
 #if defined(HB_HAS_STR_FUNC)
    return hb_itemCopyStrU16( pItem, HB_CDP_ENDIAN_NATIVE, NULL, 0 ) + 1;
@@ -252,17 +252,17 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
    ulStyle &= ~( DS_SETFONT | DS_SHELLFONT );
 
    pControls = hb_itemNew( GetObjectVar( pObj, "ACONTROLS" ) );
-   ulControls = hb_arrayLen( pControls );
+   ulControls = hb_arrayLen(pControls);
 
-   lTemplateSize += s_nWideStringLen( GetObjectVar( pObj, "TITLE" ) );
+   lTemplateSize += s_nWideStringLen(GetObjectVar( pObj, "TITLE" ));
    lTemplateSize += lTemplateSize & 1;
 
    for( ul = 1; ul <= ulControls; ul++ )
    {
       pControl = hb_arrayGetItemPtr( pControls, ul );
       lTemplateSize += 13;
-      lTemplateSize += s_nWideStringLen( GetObjectVar( pControl, "WINCLASS" ) );
-      lTemplateSize += s_nWideStringLen( GetObjectVar( pControl, "TITLE" ) );
+      lTemplateSize += s_nWideStringLen(GetObjectVar( pControl, "WINCLASS" ));
+      lTemplateSize += s_nWideStringLen(GetObjectVar( pControl, "TITLE" ));
       lTemplateSize += lTemplateSize & 1;
    }
    lTemplateSize += 2;  /* 2 to keep DWORD boundary block size */

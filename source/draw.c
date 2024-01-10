@@ -50,7 +50,7 @@ void TransparentBmp( HDC hDC, int x, int  y, int nWidthDest, int nHeightDest, HD
 
 BOOL Array2Rect( PHB_ITEM aRect, RECT * rc )
 {
-   if( HB_IS_ARRAY( aRect ) && hb_arrayLen( aRect ) == 4 )
+   if( HB_IS_ARRAY( aRect ) && hb_arrayLen(aRect) == 4 )
    {
       rc->left = hb_arrayGetNL( aRect, 1 );
       rc->top = hb_arrayGetNL( aRect, 2 );
@@ -1124,7 +1124,7 @@ HB_FUNC( HWG_DRAWFOCUSRECT )
 
 BOOL Array2Point( PHB_ITEM aPoint, POINT * pt )
 {
-   if( HB_IS_ARRAY( aPoint ) && hb_arrayLen( aPoint ) == 2 )
+   if( HB_IS_ARRAY( aPoint ) && hb_arrayLen(aPoint) == 2 )
    {
       pt->x = hb_arrayGetNL( aPoint, 1 );
       pt->y = hb_arrayGetNL( aPoint, 2 );

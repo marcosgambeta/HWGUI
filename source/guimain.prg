@@ -25,7 +25,7 @@ FUNCTION hwg_InitObjects( oWnd )
    LOCAL LoadArray := HObject():aObjects
 
    IF !EMPTY(LoadArray)
-      FOR i := 1 TO Len( LoadArray )
+      FOR i := 1 TO Len(LoadArray)
          IF !EMPTY(oWnd:Handle)
             IF __ObjHasMsg( LoadArray[ i ], "INIT")
                LoadArray[ i ]:Init( oWnd )
@@ -35,7 +35,7 @@ FUNCTION hwg_InitObjects( oWnd )
       NEXT
    ENDIF
    IF pArray != Nil
-      FOR i := 1 TO Len( pArray )
+      FOR i := 1 TO Len(pArray)
          IF __ObjHasMsg( pArray[ i ], "INIT" ) .AND. hwg_Selffocus( oWnd:Handle, pArray[ i ]:oParent:Handle )
             pArray[ i ]:Init( oWnd )
             pArray[ i ]:lInit := .T.
@@ -52,7 +52,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
    lNoActivate := IIf( lNoActivate == Nil, .F., lNoActivate )
 
    IF pArray != Nil
-      FOR i := 1 TO Len( pArray )
+      FOR i := 1 TO Len(pArray)
          // writelog( "InitControl1"+str(pArray[i]:handle)+"/"+pArray[i]:classname+" "+str(pArray[i]:nWidth)+"/"+str(pArray[i]:nHeight) )
          IF Empty(pArray[ i ]:handle) .AND. !lNoActivate
             lInit := pArray[ i ]:lInit
@@ -141,8 +141,8 @@ FUNCTION hwg_VColor( cColor )
 
    LOCAL i, res := 0, n := 1, iValue
    cColor := Trim( cColor )
-   FOR i := 1 TO Len( cColor )
-      iValue := Asc(SubStr(cColor, Len( cColor ) - i + 1, 1))
+   FOR i := 1 TO Len(cColor)
+      iValue := Asc(SubStr(cColor, Len(cColor) - i + 1, 1))
       IF iValue < 58 .AND. iValue > 47
          iValue -= 48
       ELSEIF iValue >= 65 .AND. iValue <= 70
@@ -243,14 +243,14 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       ENDIF
       nLen := dbFieldInfo( 3, nField )
    ELSE
-      aLen := Len( arr )
+      aLen := Len(arr)
       IF ValType(arr[1]) == "A"
          FOR i := 1 TO aLen
-            nLen := Max( nLen, Len( arr[ i, 1 ] ) )
+            nLen := Max( nLen, Len(arr[ i, 1 ]) )
          NEXT
       ELSE
          FOR i := 1 TO aLen
-            nLen := Max( nLen, Len( arr[ i ] ) )
+            nLen := Max( nLen, Len(arr[ i ]) )
          NEXT
       ENDIF
    ENDIF
@@ -634,7 +634,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
 
   Local nlen, i, pos
 
-  nlen := LEN( oCtrl:aControls )
+  nlen := LEN(oCtrl:aControls)
   FOR i = 1 to nLen
      IF oCtrl:aControls[ i ]:classname = "HTAB"
         IF ( pos := hwg_FindTabAccelerator( oCtrl:aControls[ i ], lParam ) ) > 0 .AND. ;
@@ -665,7 +665,7 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
       oCtrl := oCtrl:oParent
    ENDIF
    IF  oCtrl != Nil .AND. oCtrl:Classname = "HTAB"
-       IF Len( oCtrl:aPages ) > 0 .AND. oCtrl:Pages[ oCtrl:GETACTIVEPAGE() ]:bColor != Nil
+       IF Len(oCtrl:aPages) > 0 .AND. oCtrl:Pages[ oCtrl:GETACTIVEPAGE() ]:bColor != Nil
           bColor := oCtrl:Pages[ oCtrl:GetActivePage() ]:bColor
        ELSEIF hwg_Isthemeactive() .AND. oCtrl:WindowsManifest
           hTheme := hwg_openthemedata(oCtrl:handle, "TAB")
@@ -712,7 +712,7 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    Local nLen, i
 
    aControls := IIF( EMPTY(aControls), oWnd:aControls, aControls )
-   nLen := IIF( VALTYPE(aControls) = "C", Len( oWnd:&aControls ), LEN( aControls ) )
+   nLen := IIF( VALTYPE(aControls) = "C", Len(oWnd:&aControls), LEN(aControls) )
    FOR i = 1 TO nLen
       IF VALTYPE(aControls) = "C"
          oWnd:&aControls[ i ]:&cProperty := Value

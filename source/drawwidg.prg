@@ -32,7 +32,7 @@ ENDCLASS
 METHOD Add(fontName, nWidth, nHeight, fnWeight, ;
       fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle) CLASS HFont
 
-   LOCAL i, nlen := Len( ::aFonts )
+   LOCAL i, nlen := Len(::aFonts)
 
    nHeight  := iif( nHeight == Nil, - 13, nHeight )
    fnWeight := iif( fnWeight == Nil, 0, fnWeight )
@@ -105,7 +105,7 @@ METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HF
       nCharSet, Italic, Underline, StrikeOut)
 
 METHOD RELEASE() CLASS HFont
-   LOCAL i, nlen := Len( ::aFonts )
+   LOCAL i, nlen := Len(::aFonts)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -165,7 +165,7 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aPens )
+   FOR i := 1 TO Len(::aPens)
       IF ::aPens[ i ]:style == nStyle .AND. ;
             ::aPens[ i ]:width == nWidth .AND. ;
             ::aPens[ i ]:color == nColor
@@ -201,7 +201,7 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aPens )
+   FOR i := 1 TO Len(::aPens)
       IF ::aPens[ i ]:style == nStyle .AND. ;
             ::aPens[ i ]:width == nWidth .AND. ;
             ::aPens[ i ]:color == nColor
@@ -214,7 +214,7 @@ METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
    RETURN Nil
 
 METHOD RELEASE() CLASS HPen
-   LOCAL i, nlen := Len( ::aPens )
+   LOCAL i, nlen := Len(::aPens)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -274,7 +274,7 @@ METHOD Add(nColor, nHatch) CLASS HBrush
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aBrushes )
+   FOR i := 1 TO Len(::aBrushes)
       IF ::aBrushes[ i ]:color == nColor .AND. ::aBrushes[ i ]:nHatch == nHatch
          ::aBrushes[ i ]:nCounter ++
          RETURN ::aBrushes[ i ]
@@ -292,7 +292,7 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    RETURN Self
 
 METHOD RELEASE() CLASS HBrush
-   LOCAL i, nlen := Len( ::aBrushes )
+   LOCAL i, nlen := Len(::aBrushes)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -363,7 +363,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aBitmaps )
+   FOR i := 1 TO Len(::aBitmaps)
       IF ::aBitmaps[ i ]:name == name .AND. ::aBitmaps[ i ]:nFlags == nFlags .AND. ;
             ( ( nWidth == nil .OR. nHeight == nil ) .OR. ;
             ( ::aBitmaps[ i ]:nWidth == nWidth .AND. ::aBitmaps[ i ]:nHeight == nHeight ) )
@@ -399,7 +399,7 @@ METHOD AddStandard(nId) CLASS HBitmap
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aBitmaps )
+   FOR i := 1 TO Len(::aBitmaps)
       IF ::aBitmaps[ i ]:name == name
          ::aBitmaps[ i ]:nCounter ++
          RETURN ::aBitmaps[ i ]
@@ -426,7 +426,7 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aBitmaps )
+   FOR i := 1 TO Len(::aBitmaps)
       IF ::aBitmaps[ i ]:name == cname .AND. ( nWidth == nil .OR. nHeight == nil )
          ::aBitmaps[ i ]:nCounter ++
          RETURN ::aBitmaps[ i ]
@@ -477,7 +477,7 @@ METHOD AddWindow( oWnd, lFull ) CLASS HBitmap
    RETURN Self
 
 METHOD RELEASE() CLASS HBitmap
-   LOCAL i, nlen := Len( ::aBitmaps )
+   LOCAL i, nlen := Len(::aBitmaps)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -549,7 +549,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aIcons )
+   FOR i := 1 TO Len(::aIcons)
       IF ::aIcons[ i ]:name == name
          ::aIcons[ i ]:nCounter ++
          RETURN ::aIcons[ i ]
@@ -588,7 +588,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
       ENDIF
    NEXT
 #else
-   FOR i := 1 TO Len( ::aIcons )
+   FOR i := 1 TO Len(::aIcons)
       IF ::aIcons[ i ]:name == cname
          ::aIcons[ i ]:nCounter ++
          RETURN ::aIcons[ i ]
@@ -615,7 +615,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    RETURN Self
 
 METHOD RELEASE() CLASS HIcon
-   LOCAL i, nlen := Len( ::aIcons )
+   LOCAL i, nlen := Len(::aIcons)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -645,19 +645,19 @@ METHOD RELEASE() CLASS HIcon
 EXIT PROCEDURE CleanDrawWidg
    LOCAL i
 
-   FOR i := 1 TO Len( HPen():aPens )
+   FOR i := 1 TO Len(HPen():aPens)
       hwg_Deleteobject( HPen():aPens[ i ]:handle )
    NEXT
-   FOR i := 1 TO Len( HBrush():aBrushes )
+   FOR i := 1 TO Len(HBrush():aBrushes)
       hwg_Deleteobject( HBrush():aBrushes[ i ]:handle )
    NEXT
-   FOR i := 1 TO Len( HFont():aFonts )
+   FOR i := 1 TO Len(HFont():aFonts)
       hwg_Deleteobject( HFont():aFonts[ i ]:handle )
    NEXT
-   FOR i := 1 TO Len( HBitmap():aBitmaps )
+   FOR i := 1 TO Len(HBitmap():aBitmaps)
       hwg_Deleteobject( HBitmap():aBitmaps[ i ]:handle )
    NEXT
-   FOR i := 1 TO Len( HIcon():aIcons )
+   FOR i := 1 TO Len(HIcon():aIcons)
       hwg_Deleteobject( HIcon():aIcons[ i ]:handle )
    NEXT
 

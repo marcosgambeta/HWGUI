@@ -45,7 +45,7 @@ METHOD AddFile(name) CLASS HFreeImage
          ENDIF
       NEXT
    #else
-      FOR i := 1 TO Len( ::aImages )
+      FOR i := 1 TO Len(::aImages)
          IF ::aImages[ i ]:name == name
             ::aImages[ i ]:nCounter ++
             RETURN ::aImages[ i ]
@@ -91,7 +91,7 @@ METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight ) CLASS HFreeImage
    RETURN Nil
 
 METHOD Release() CLASS HFreeImage
-   LOCAL i, nlen := Len( ::aImages )
+   LOCAL i, nlen := Len(::aImages)
 
    ::nCounter --
    IF ::nCounter == 0
@@ -197,7 +197,7 @@ METHOD Paint( lpdis ) CLASS HSayFImage
    EXIT PROCEDURE CleanImages
    LOCAL i
 
-   FOR i := 1 TO Len( HFreeImage():aImages )
+   FOR i := 1 TO Len(HFreeImage():aImages)
       hwg_Fi_unload(HFreeImage():aImages[ i ]:handle)
       IF HFreeImage():aImages[ i ]:hBitmap != Nil
          hwg_Deleteobject( HFreeImage():aImages[ i ]:hBitmap )

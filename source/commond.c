@@ -147,7 +147,7 @@ HB_FUNC( HWG_SELECTFILE )
       } * pArrStr;
       PHB_ITEM pArr1 = hb_param( 1, HB_IT_ARRAY );
       PHB_ITEM pArr2 = hb_param( 2, HB_IT_ARRAY );
-      HB_SIZE n, nArrLen = hb_arrayLen( pArr1 ), nSize;
+      HB_SIZE n, nArrLen = hb_arrayLen(pArr1), nSize;
       LPTSTR ptr;
 
       pArrStr = ( struct _hb_arrStr * )
@@ -367,7 +367,7 @@ HB_FUNC( HWG_GETPRIVATEPROFILESTRING )
                                     lpDefault, buffer, HB_SIZEOFARRAY( buffer ),
                                     HB_PARSTR(4, &hFileName, NULL) );
    if( dwLen )
-      HB_RETSTRLEN( buffer, dwLen );
+      HB_RETSTRLEN(buffer, dwLen);
    else
       HB_RETSTR(lpDefault);
 
@@ -526,7 +526,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
    if( GetOpenFileName(&ofn) )
    {
       hb_stornl( ofn.nFilterIndex, 8 );
-      HB_STORSTRLEN( lpFileBuff, nSize, 2 );
+      HB_STORSTRLEN(lpFileBuff, nSize, 2);
       HB_RETSTR(ofn.lpstrFile);
    }
    else

@@ -595,7 +595,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
    ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) ( ulLen + 1 ),
                                   ( LPARAM ) cText);
 
-   HB_RETSTRLEN( cText, ulLen );
+   HB_RETSTRLEN(cText, ulLen);
    hb_xfree(cText);
 }
 
@@ -867,7 +867,7 @@ const char * hwg_strget( PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen )
       *phStr = ( void * ) s_szConstStr;
       pStr = hb_itemGetCPtr( pItem );
       if( pnLen )
-         *pnLen = hb_itemGetCLen( pItem );
+         *pnLen = hb_itemGetCLen(pItem);
    }
    else
    {
@@ -883,7 +883,7 @@ HB_SIZE hwg_strcopy( PHB_ITEM pItem, char * pStr, HB_SIZE nLen )
 {
    if( pItem && HB_IS_STRING( pItem ) )
    {
-      HB_SIZE size = hb_itemGetCLen( pItem );
+      HB_SIZE size = hb_itemGetCLen(pItem);
 
       if( pStr )
       {
@@ -946,7 +946,7 @@ const wchar_t * hwg_wstrget( PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen )
 
    if( pItem && HB_IS_STRING( pItem ) )
    {
-      HB_SIZE nLen = hb_itemGetCLen( pItem ), nDest = 0;
+      HB_SIZE nLen = hb_itemGetCLen(pItem), nDest = 0;
       const char * pszText = hb_itemGetCPtr( pItem );
 
       if( nLen )
@@ -1012,12 +1012,12 @@ PHB_ITEM hwg_wstrlenput( PHB_ITEM pItem, const wchar_t * pStr, HB_SIZE nLen )
 
 PHB_ITEM hwg_wstrput( PHB_ITEM pItem, const wchar_t * pStr )
 {
-   return hwg_wstrlenput( pItem, pStr, pStr ? wcslen( pStr ) : 0 );
+   return hwg_wstrlenput( pItem, pStr, pStr ? wcslen(pStr) : 0 );
 }
 
 void hwg_wstrset( PHB_ITEM pItem, const wchar_t * pStr )
 {
-   hwg_wstrlenset( pItem, pStr, pStr ? wcslen( pStr ) : 0 );
+   hwg_wstrlenset( pItem, pStr, pStr ? wcslen(pStr) : 0 );
 }
 
 HB_SIZE hwg_wstrcopy( PHB_ITEM pItem, wchar_t * pStr, HB_SIZE nLen )
@@ -1025,7 +1025,7 @@ HB_SIZE hwg_wstrcopy( PHB_ITEM pItem, wchar_t * pStr, HB_SIZE nLen )
    if( pItem && HB_IS_STRING( pItem ) )
    {
       const char * text = hb_itemGetCPtr( pItem );
-      HB_SIZE size = hb_itemGetCLen( pItem );
+      HB_SIZE size = hb_itemGetCLen(pItem);
 
       if( pStr )
       {
@@ -1445,7 +1445,7 @@ HB_FUNC( HWG_ANSITOUNICODE )
 #else
     hwg_wstrget( hb_param( 1, HB_IT_ANY ), &hText, NULL );
 #endif
-   HB_RETSTRLEN( hText, 1024 );   
+   HB_RETSTRLEN(hText, 1024);   
    hb_strfree(hText);
 }
 

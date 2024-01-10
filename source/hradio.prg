@@ -93,7 +93,7 @@ METHOD NewRg( oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeig
 METHOD EndGroup( nSelected )  CLASS HRadioGroup
    LOCAL nLen
 
-   IF ::oGroupCurrent != NIL .AND. ( nLen := Len( ::oGroupCurrent:aButtons ) ) > 0
+   IF ::oGroupCurrent != NIL .AND. ( nLen := Len(::oGroupCurrent:aButtons) ) > 0
 
       nSelected := IIf( nSelected != NIL .AND. nSelected <= nLen .AND. nSelected > 0, ;
             nSelected, ::oGroupCurrent:nValue )
@@ -137,7 +137,7 @@ METHOD Init() CLASS HRadioGroup
 METHOD SetValue(nValue)  CLASS HRadioGroup
    LOCAL nLen
 
-   IF ( nLen := Len( ::aButtons ) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
+   IF ( nLen := Len(::aButtons) ) > 0 .AND. nValue > 0 .AND. nValue <= nLen
       hwg_Checkradiobutton( ::aButtons[ nLen ]:oParent:handle, ;
             ::aButtons[1]:id,    ;
             ::aButtons[ nLen ]:id, ;
@@ -177,7 +177,7 @@ METHOD Refresh()  CLASS HRadioGroup
    RETURN NIL
 
 METHOD Enable() CLASS HRadioGroup
-   LOCAL i, nLen := Len( ::aButtons )
+   LOCAL i, nLen := Len(::aButtons)
 
    FOR i = 1 TO nLen
        ::aButtons[ i ]:Enable()
@@ -186,7 +186,7 @@ METHOD Enable() CLASS HRadioGroup
    RETURN NIL
 
 METHOD Disable() CLASS HRadioGroup
-   LOCAL i, nLen := Len( ::aButtons )
+   LOCAL i, nLen := Len(::aButtons)
 
    FOR i = 1 TO nLen
        ::aButtons[ i ]:Disable()
@@ -476,7 +476,7 @@ METHOD Valid(nKey) CLASS HRadioButton
       Eval( ::oGroup:bSetGet, ::oGroup:nValue )
    ENDIF
    hCtrl := hwg_Getfocus()
-   IF ::bLostFocus != NIL .AND. ( nEnter = 0 .OR. iValue = Len( ::oGroup:aButtons ) )
+   IF ::bLostFocus != NIL .AND. ( nEnter = 0 .OR. iValue = Len(::oGroup:aButtons) )
       Eval( ::bLostFocus, Self, ::oGroup:nValue )
    ENDIF
    IF nEnter = VK_RETURN .AND. hwg_Selffocus( hctrl )

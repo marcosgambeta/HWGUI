@@ -144,7 +144,7 @@ METHOD Init() CLASS HListBox
             hwg_Sendmessage(::handle, LB_SETITEMHEIGHT, 0, ::nItemHeight)
          ENDIF
          hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
-         FOR i := 1 TO Len( ::aItems )
+         FOR i := 1 TO Len(::aItems)
             hwg_Listboxaddstring( ::handle, ::aItems[ i ] )
          NEXT
          hwg_Listboxsetstring( ::handle, ::value )
@@ -190,7 +190,7 @@ METHOD Requery() CLASS HListBox
    LOCAL i
 
    hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
-   FOR i := 1 TO Len( ::aItems )
+   FOR i := 1 TO Len(::aItems)
       hwg_Listboxaddstring( ::handle, ::aItems[i] )
    NEXT
    hwg_Listboxsetstring( ::handle, ::value )
@@ -242,7 +242,7 @@ METHOD AddItems( p ) CLASS HListBox
    AAdd(::aItems, p)
    hwg_Listboxaddstring( ::handle, p )
 //   hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
-//   FOR i := 1 TO Len( ::aItems )
+//   FOR i := 1 TO Len(::aItems)
 //      hwg_Listboxaddstring( ::handle, ::aItems[i] )
 //   NEXT
    hwg_Listboxsetstring( ::handle, ::value )
@@ -254,7 +254,7 @@ METHOD DeleteItem( nPos ) CLASS HListBox
    IF hwg_Sendmessage(::handle, LB_DELETESTRING, nPos - 1, 0) >= 0 //<= LEN(ocombo:aitems)
       ADel( ::Aitems, nPos )
       ASize(::Aitems, Len(::aitems) - 1)
-      ::value := Min( Len( ::aitems ), ::value )
+      ::value := Min( Len(::aitems), ::value )
       IF ::bSetGet != Nil
          Eval( ::bSetGet, ::value, Self )
       ENDIF

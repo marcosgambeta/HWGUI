@@ -92,7 +92,7 @@ HB_FUNC( HBXML_SETENTITY )
    else
    {
       pArray = hb_param( 1, HB_IT_ARRAY );
-      ulLen = ( HB_ULONG ) hb_arrayLen( pArray );
+      ulLen = ( HB_ULONG ) hb_arrayLen(pArray);
 
       nPredefsKol = (int) ulLen;
       pEntity1 = (unsigned char **) hb_xgrab(ulLen * sizeof(unsigned char *));
@@ -102,7 +102,7 @@ HB_FUNC( HBXML_SETENTITY )
       for( ul = 1; ul <= ulLen; ul++ )
       {
          pArr = (PHB_ITEM) hb_arrayGetItemPtr( pArray, ul );
-         ulItemLen = hb_arrayGetCLen( pArr, 1 );
+         ulItemLen = hb_arrayGetCLen(pArr, 1);
          pEntity1[ul-1] = (unsigned char *) hb_xgrab(ulItemLen+1);
          // hwg_writelog( NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen );
          memcpy( pEntity1[ul-1], hb_arrayGetCPtr( pArr, 1 ), ulItemLen );
@@ -133,7 +133,7 @@ HB_FUNC( HBXML_TRANSFORM )
          for( ptrs = pEntity2; *ptrs; ptrs++ )
             if( *ptrs == c )
             {
-               iLenAdd += strlen( ( char * ) pEntity1[ptrs - pEntity2] );
+               iLenAdd += strlen(( char * ) pEntity1[ptrs - pEntity2]);
                break;
             }
       ptr++;
@@ -150,7 +150,7 @@ HB_FUNC( HBXML_TRANSFORM )
             for( ptrs = pEntity2; *ptrs; ptrs++ )
                if( *ptrs == c )
                {
-                  iLen = strlen( ( char * ) pEntity1[ptrs - pEntity2] );
+                  iLen = strlen(( char * ) pEntity1[ptrs - pEntity2]);
                   *ptr1++ = '&';
                   memcpy( ptr1, pEntity1[ptrs - pEntity2], iLen );
                   ptr1 += iLen - 1;
@@ -199,7 +199,7 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, HB_ULONG ulLen )
          {
             for( i = 0; i < nPredefsKol; i++ )
             {
-               nlen = strlen( ( char * ) pEntity1[i] );
+               nlen = strlen(( char * ) pEntity1[i]);
                if( !memcmp( ptr + 1, pEntity1[i], nlen ) )
                {
                   *ptr = pEntity2[i];

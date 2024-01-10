@@ -623,7 +623,7 @@ HB_FUNC( HWG_SETDATEPICKER )
          const char * szTime =  hb_parc(3);
          if( szTime )
          {
-            ulLen = strlen( szTime );
+            ulLen = strlen(szTime);
             if( ulLen >= 4 )
             {
                lSeconds = (LONG) hb_strVal( szTime, 2 ) * 3600 * 1000 +
@@ -708,7 +708,7 @@ HB_FUNC( HWG_INITTABCONTROL )
    PHB_ITEM pArr = hb_param( 2, HB_IT_ARRAY );
    int iItems = hb_parnl(3);
    TC_ITEM tie;
-   ULONG ul, ulTabs = hb_arrayLen( pArr );
+   ULONG ul, ulTabs = hb_arrayLen(pArr);
 
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = iItems == 0 ? -1 : 0;
@@ -1100,7 +1100,7 @@ HB_FUNC( HWG_CREATEIMAGELIST )
    PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );
    UINT flags = ( HB_ISNIL(5) ) ? ILC_COLOR : hb_parni(5);
    HIMAGELIST himl;
-   ULONG ul, ulLen = hb_arrayLen( pArray );
+   ULONG ul, ulLen = hb_arrayLen(pArray);
    HBITMAP hbmp;
 
    himl = ImageList_Create(hb_parni(2), hb_parni(3), flags,
@@ -1787,7 +1787,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
 
    SendMessage(hWndCtrl, TB_BUTTONSTRUCTSIZE, sizeof( TBBUTTON ), 0L);
 
-   for( ulCount = 0; ( ulCount < hb_arrayLen( pArray ) ); ulCount++ )
+   for( ulCount = 0; ( ulCount < hb_arrayLen(pArray) ); ulCount++ )
    {
 
       pTemp = hb_arrayGetItemPtr( pArray, ulCount + 1 );
@@ -1801,7 +1801,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
       tb[ulCount].fsStyle = hb_arrayGetNI( pTemp, 4 );
       tb[ulCount].dwData = hb_arrayGetNI( pTemp, 5 );
       tb[ulCount].iString =
-            hb_arrayGetCLen( pTemp, 6 ) > 0 ? ( int ) hb_arrayGetCPtr( pTemp,
+            hb_arrayGetCLen(pTemp, 6) > 0 ? ( int ) hb_arrayGetCPtr( pTemp,
             6 ) : 0;
 
    }

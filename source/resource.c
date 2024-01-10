@@ -31,7 +31,7 @@ HB_FUNC( HWG_LOADSTRING )
    TCHAR buffer[2048];
    int iBuffRet = LoadString( ( HINSTANCE ) hModule, ( UINT ) hb_parnl(2),
                               buffer, 2048 );
-   HB_RETSTRLEN( buffer, iBuffRet );
+   HB_RETSTRLEN(buffer, iBuffRet);
 }
 
 HB_FUNC( HWG_LOADRESOURCE )

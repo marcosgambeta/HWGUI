@@ -280,7 +280,7 @@ METHOD CREATETOOL() CLASS hToolBar
 			      //ENDIF
 		    ENDIF
    ELSE
-      FOR n = 1 TO Len( ::aitem )
+      FOR n = 1 TO Len(::aitem)
          ::AddButton(::aitem[ n, 1 ],::aitem[ n, 2 ],::aitem[ n, 3 ],::aitem[ n, 4 ],::aitem[ n, 6 ], ::aitem[ n, 7 ], ::aitem[ n, 8 ], ::aitem[ n, 9 ], , n )
          //::aItem[n, 11] := oButton
       NEXT
@@ -302,7 +302,7 @@ METHOD CREATETOOL() CLASS hToolBar
 	     hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong( ::nwSize, ::nhSize ))
 	  ENDIF
 
-   FOR n := 1 TO Len( ::aItem )
+   FOR n := 1 TO Len(::aItem)
       IF ValType(::aItem[ n, 7 ]) == "B"
           //::oParent:AddEvent( BN_CLICKED, ::aItem[ n, 2 ], ::aItem[ n, 7 ] )
       ENDIF
@@ -311,7 +311,7 @@ METHOD CREATETOOL() CLASS hToolBar
          ::aItem[ n, 11 ]:hMenu := ::aItem[ n, 10 ]
          aTemp := ::aItem[ n, 9 ]
 
-         FOR n1 := 1 TO Len( aTemp )
+         FOR n1 := 1 TO Len(aTemp)
             aTemp[ n1, 1 ] := IIF( aTemp[ n1, 1 ] = "-", NIL, aTemp[ n1, 1 ] )
             hwg__AddMenuItem( ::aItem[ n, 10 ], aTemp[ n1, 1 ], - 1, .F., aTemp[ n1, 2 ], , .F. )
             ::oParent:AddEvent( BN_CLICKED, aTemp[ n1, 2 ], aTemp[ n1, 3 ] )
@@ -340,7 +340,7 @@ METHOD CREATETOOL() CLASS hToolBar
          ENDIF
          IF ( img := Ascan( aButton, hImage )) = 0
             AAdd(aButton, hImage)
-            img := Len( aButton )
+            img := Len(aButton)
          ENDIF
          ::aItem[ n, 1 ] := img + nlistimg //n
          IF !::lResource
@@ -356,12 +356,12 @@ METHOD CREATETOOL() CLASS hToolBar
            //  hImage := HBitmap():AddResource(::aitem[ n, 1 ], LR_LOADTRANSPARENT + LR_LOADMAP3DCOLORS + LR_SHARED,,::nSize,::nSize):handle
       ENDIF
    NEXT
-   IF Len( aButton ) > 0 .AND. ::lResource
+   IF Len(aButton) > 0 .AND. ::lResource
       aBmpSize := hwg_Getbitmapsize(aButton[1])
          /*
          nmax := aBmpSize[3]
 
-         FOR n := 2 TO Len( aButton )
+         FOR n := 2 TO Len(aButton)
             aBmpSize := hwg_Getbitmapsize(aButton[ n ])
             nmax := Max( nmax, aBmpSize[3] )
          NEXT
@@ -378,7 +378,7 @@ METHOD CREATETOOL() CLASS hToolBar
          ENDIF
          */
       hIm := hwg_Createimagelist( {}, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK )
-      FOR nPos := 1 TO Len( aButton )
+      FOR nPos := 1 TO Len(aButton)
 
 //            aBmpSize := hwg_Getbitmapsize(aButton[ nPos ])
             /*
@@ -401,8 +401,8 @@ METHOD CREATETOOL() CLASS hToolBar
       hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, 0, hwg_Makelparam( ::BtnWidth -1, ::BtnWidth + 1  ))
          //hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam( ::BtnWidth, ::BtnWidth ))
    ENDIF
-   IF Len( ::aItem ) > 0
-      hwg_Toolbaraddbuttons( ::handle, ::aItem, Len( ::aItem ) )
+   IF Len(::aItem) > 0
+      hwg_Toolbaraddbuttons( ::handle, ::aItem, Len(::aItem) )
       hwg_Sendmessage(::handle, TB_SETEXTENDEDSTYLE, 0, TBSTYLE_EX_DRAWDDARROWS)
    ENDIF
    IF ::BtnWidth != Nil
@@ -481,16 +481,16 @@ METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, n
    IF nId = Nil .OR. EMPTY(nId)
       //IDTOOLBAR
       nId := VAL( RIGHT( STR(::id, 6), 1 ) ) * IDMAXBUTTONTOOLBAR
-      nId := nId + ::id + IDTOOLBAR + LEN( ::aButtons ) + LEN( ::aSeparators ) + 1
+      nId := nId + ::id + IDTOOLBAR + LEN(::aButtons) + LEN(::aSeparators) + 1
    ENDIF
 
    IF bStyle != BTNS_SEP  //1
-      DEFAULT cName to "oToolButton" + LTRIM( STR(LEN( ::aButtons ) + 1) )
+      DEFAULT cName to "oToolButton" + LTRIM( STR(LEN(::aButtons) + 1) )
       AAdd(::aButtons,{ Alltrim( cName ), nid })
    ELSE
-      bstate :=  IIF( !( ::lVertical .AND. LEN( ::aButtons) = 0 ), bState, 8 )//TBSTATE_HIDE
+      bstate :=  IIF( !( ::lVertical .AND. LEN(::aButtons) = 0 ), bState, 8 )//TBSTATE_HIDE
       DEFAULT nBitIp to 0
-      DEFAULT cName to "oSeparator"+LTRIM( STR(LEN( ::aSeparators ) + 1) )
+      DEFAULT cName to "oSeparator"+LTRIM( STR(LEN(::aSeparators) + 1) )
       AAdd(::aSeparators,{ cName, nid })
       //bStyle := TBSTYLE_SEP //TBSTYLE_FLAT
    ENDIF

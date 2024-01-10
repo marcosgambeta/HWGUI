@@ -365,7 +365,7 @@ METHOD HandleEvent() CLASS HBDebugger
             hwg_dbg_Answer( "err" )
          ELSE
             ADel( ::aBreakPoints, nAt )
-            ASize(::aBreakPoints, Len( ::aBreakPoints ) - 1)
+            ASize(::aBreakPoints, Len(::aBreakPoints) - 1)
             hwg_dbg_Answer( "ok", Ltrim(Str(p2)) )
             __dbgDelBreak( ::pInfo, nAt-1 )
          ENDIF
@@ -555,10 +555,10 @@ FUNCTION __Dbg()
 
 STATIC FUNCTION SendStack()
 Local aStack := t_oDebugger:aProcStack
-Local arr := Array( Len( aStack ) * 3 + 1 ), i, j := 2
+Local arr := Array( Len(aStack) * 3 + 1 ), i, j := 2
 
-   arr[1] := Ltrim( Str(Len( aStack )) )
-   FOR i := 1 TO Len( aStack )
+   arr[1] := Ltrim( Str(Len(aStack)) )
+   FOR i := 1 TO Len(aStack)
       arr[j++] := Iif( Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE] )
       arr[j++] := Iif( Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION] )
       arr[j++] := Iif( Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str(aStack[i, CSTACK_LINE])) )
@@ -568,15 +568,15 @@ Local arr := Array( Len( aStack ) * 3 + 1 ), i, j := 2
 
 STATIC FUNCTION SendLocal()
 Local aVars := t_oDebugger:aProcStack[1, CSTACK_LOCALS]
-Local arr := Array( Len( aVars ) * 3 + 1 ), i, j := 1, xVal
+Local arr := Array( Len(aVars) * 3 + 1 ), i, j := 1, xVal
 
-   arr[1] := Ltrim( Str(Len( aVars )) )
-   FOR i := 1 TO Len( aVars )
+   arr[1] := Ltrim( Str(Len(aVars)) )
+   FOR i := 1 TO Len(aVars)
       arr[++j] := aVars[ i, VAR_NAME ]
       xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS] )
       arr[++j] := Valtype(xVal)
       arr[++j] := __dbgValToStr(xVal)
-      IF Len( arr[j] ) > VAR_MAX_LEN
+      IF Len(arr[j]) > VAR_MAX_LEN
          arr[j] := Left( arr[j], VAR_MAX_LEN )
       ENDIF
    NEXT
@@ -632,7 +632,7 @@ Local arr, arr1[512], n, i, nAreas := 0, nAlias
 
 /* Check if a string starts with another string */
 STATIC FUNCTION starts( cLine, cStart )
-   RETURN cStart == Left( cLine, Len( cStart ) )
+   RETURN cStart == Left( cLine, Len(cStart) )
 
 
 /* Strip path from filename */
@@ -658,14 +658,14 @@ FUNCTION __dbgValToStr(uVal)
    CASE cType == "B" ; RETURN "{|| ... }"
    CASE cType == "A" 
       s := ""
-      nLen := Min( 8, Len( uVal ) )
+      nLen := Min( 8, Len(uVal) )
       FOR i := 1 TO nLen
          s += '"' + Valtype( uVal[i] ) + '"' + Iif( i==nLen, "", ", " )
       NEXT
-      IF nLen < Len( uVal )
+      IF nLen < Len(uVal)
          s += ", ..."
       ENDIF
-      RETURN "Array(" + hb_ntos( Len( uVal ) ) + "): { " + s + " }"
+      RETURN "Array(" + hb_ntos( Len(uVal) ) + "): { " + s + " }"
    CASE cType $ "CM" ; RETURN '"' + uVal + '"'
    CASE cType == "L" ; RETURN Iif( uVal, ".T.", ".F." )
    CASE cType == "D" ; RETURN DToC(uVal)
@@ -674,7 +674,7 @@ FUNCTION __dbgValToStr(uVal)
 #endif
    CASE cType == "N" ; RETURN Str(uVal)
    CASE cType == "O" ; RETURN "Class " + uVal:ClassName() + " object"
-   CASE cType == "H" ; RETURN "Hash(" + hb_ntos( Len( uVal ) ) + ")"
+   CASE cType == "H" ; RETURN "Hash(" + hb_ntos( Len(uVal) ) + ")"
    CASE cType == "P" ; RETURN "Pointer"
    ENDCASE
 

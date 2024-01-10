@@ -30,7 +30,7 @@ void writelog( char *s )
       handle = hb_fsCreate("ac.log", 0);
 
    hb_fsSeek( handle, 0, SEEK_END );
-   hb_fsWrite(handle, ( const char * ) s, (USHORT) strlen( s ));
+   hb_fsWrite(handle, ( const char * ) s, (USHORT) strlen(s));
    hb_fsWrite(handle, "\n\r", 2);
 
    hb_fsClose(handle);
@@ -283,7 +283,7 @@ HB_FUNC( HWG_GETKEYBOARDSTATE )
    BYTE lpbKeyState[256];
    GetKeyboardState(lpbKeyState);
    lpbKeyState[255] = '\0';
-   hb_retclen( ( char * ) lpbKeyState, 255 );
+   hb_retclen(( char * ) lpbKeyState, 255);
 }
 
 HB_FUNC( HWG_GETKEYSTATE )
@@ -297,7 +297,7 @@ HB_FUNC( HWG_GETKEYNAMETEXT )
    int iRet = GetKeyNameText( hb_parnl(1), cText, MAX_PATH );
 
    if( iRet )
-      HB_RETSTRLEN( cText, iRet );
+      HB_RETSTRLEN(cText, iRet);
 }
 
 HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )

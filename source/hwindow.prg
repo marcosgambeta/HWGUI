@@ -32,7 +32,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    IF ISBLOCK( oWnd:bSize )
       Eval( oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam) )
    ENDIF
-   IF oWnd:Type == WND_MDI .AND. Len( HWindow():aWindows ) > 1
+   IF oWnd:Type == WND_MDI .AND. Len(HWindow():aWindows) > 1
       aCoors := hwg_Getclientrect( oWnd:handle )
       hwg_Setwindowpos( HWindow():aWindows[2]:handle, Nil, oWnd:aOffset[1], oWnd:aOffset[2], aCoors[3] - oWnd:aOffset[1] - oWnd:aOffset[3], aCoors[4] - oWnd:aOffset[2] - oWnd:aOffset[4], SWP_NOZORDER + SWP_NOACTIVATE + SWP_NOSENDCHANGING )
       aCoors := hwg_Getwindowrect( HWindow():aWindows[2]:handle )
@@ -200,7 +200,7 @@ METHOD DelItem( oWnd ) CLASS HWindow
    LOCAL i, h := oWnd:handle
    IF ( i := AScan( ::aWindows, { | o | o:handle == h } ) ) > 0
       ADel( ::aWindows, i )
-      ASize(::aWindows, Len( ::aWindows ) - 1)
+      ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
    RETURN Nil
 
@@ -215,10 +215,10 @@ METHOD FindWindow( hWndTitle ) CLASS HWindow
    RETURN IIf( i == 0, Nil, ::aWindows[ i ] )
 
 METHOD GetMain() CLASS HWindow
-   RETURN IIf( Len( ::aWindows ) > 0,              ;
+   RETURN IIf( Len(::aWindows) > 0,              ;
                IIf( ::aWindows[1]:Type == WND_MAIN, ;
                     ::aWindows[1],                  ;
-                    IIf( Len( ::aWindows ) > 1, ::aWindows[2], Nil ) ), Nil )
+                    IIf( Len(::aWindows) > 1, ::aWindows[2], Nil ) ), Nil )
 
 METHOD Paint() CLASS  HWindow
 
@@ -810,7 +810,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       *-wParam += IIF( hwg_Iswindowenabled(oWnd:Screen:handle), 0, 1 )
    ENDIF
    IF wParam == SC_CLOSE
-      IF Len( HWindow():aWindows ) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
+      IF Len(HWindow():aWindows) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
          // CLOSE ONLY MDICHILD HERE
          oChild := oWnd:FindWindow( nHandle )
          IF oChild != Nil
@@ -829,11 +829,11 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
          hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIDESTROY, nHandle, 0)
       ENDIF
    ELSEIF wParam == SC_RESTORE
-      IF Len( HWindow():aWindows ) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
+      IF Len(HWindow():aWindows) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
          hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIRESTORE, nHandle, 0)
       ENDIF
    ELSEIF wParam == SC_MAXIMIZE
-      IF Len( HWindow():aWindows ) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
+      IF Len(HWindow():aWindows) > 2 .AND. ( nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0) ) > 0
          hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIMAXIMIZE, nHandle, 0)
       ENDIF
    ELSEIF wParam > FIRST_MDICHILD_ID .AND. wParam < FIRST_MDICHILD_ID + MAX_MDICHILD_WINDOWS
@@ -984,7 +984,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam, lParam)
       ENDIF
    ELSEIF wParam = SC_KEYMENU
       // accelerator MDICHILD
-      IF Len( HWindow():aWindows) > 2 .AND. ( ( oChild:=oWnd ):Type = WND_MDICHILD .OR. !EMPTY(oChild := oWnd:GetMdiActive()) )
+      IF Len(HWindow():aWindows) > 2 .AND. ( ( oChild:=oWnd ):Type = WND_MDICHILD .OR. !EMPTY(oChild := oWnd:GetMdiActive()) )
          IF ( oCtrl := hwg_FindAccelerator( oChild, lParam ) ) != Nil
             oCtrl:Setfocus()
             hwg_Sendmessage(oCtrl:handle, WM_SYSKEYUP, lParam, 0)
@@ -1242,14 +1242,14 @@ STATIC FUNCTION onActivate(oWin, wParam, lParam)
    RETURN 1
 
 STATIC FUNCTION FindInitFocus( aControls )
-   LOCAL i := 1, nObjs := Len( aControls )
+   LOCAL i := 1, nObjs := Len(aControls)
 
    DO WHILE i <= nObjs
       IF Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_TABSTOP) != 0 .AND. ;
 			        Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_DISABLED) = 0 .AND. !aControls[ i ]:lHide
          RETURN aControls[ i ]:Handle
       ENDIF
-      IF Len( aControls[ i ]:aControls ) > 0 .AND. !aControls[ i ]:lHide .AND.  ;
+      IF Len(aControls[ i ]:aControls) > 0 .AND. !aControls[ i ]:lHide .AND.  ;
          Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[ i ]:handle), WS_DISABLED) = 0
          RETURN FindInitFocus( aControls[ i ]:aControls )
       ENDIF

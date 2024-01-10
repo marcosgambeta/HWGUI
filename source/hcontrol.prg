@@ -90,7 +90,7 @@ METHOD NewId() CLASS HControl
    LOCAL oParent := ::oParent, i := 0, nId
 
    DO WHILE oParent != NIL
-      nId := CONTROL_FIRST_ID + 1000 * i + Len( ::oParent:aControls )
+      nId := CONTROL_FIRST_ID + 1000 * i + Len(::oParent:aControls)
       oParent := oParent:oParent
       i ++
    ENDDO
@@ -123,7 +123,7 @@ METHOD INIT() CLASS HControl
 
    IF !::lInit
       ::oparent:lSuspendMsgsHandling := .T.
-      IF Len( ::aControls ) = 0 .AND. ::winclass != "SysTabControl32" .AND. ValType(oForm) != "N"
+      IF Len(::aControls) = 0 .AND. ::winclass != "SysTabControl32" .AND. ValType(oForm) != "N"
          hwg_Addtooltip( oForm:handle, ::handle, ::tooltip )
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
@@ -375,7 +375,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
                hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
             ENDIF
          ELSE
-            IF Len( ::aControls ) = 0 .AND. ::Title != NIL
+            IF Len(::aControls) = 0 .AND. ::Title != NIL
                hwg_Invalidaterect( ::handle, 0 )
             ENDIF
             IF w1 > w9
@@ -452,7 +452,7 @@ METHOD Init() CLASS HStatus
 
    IF !::lInit
       IF !Empty(::aParts)
-         hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
+         hwg_InitStatus( ::oParent:handle, ::handle, Len(::aParts), ::aParts )
       ENDIF
       ::Super:Init()
    ENDIF
@@ -561,10 +561,10 @@ METHOD Resize(xIncrSize) CLASS HStatus
    LOCAL i
 
    IF !Empty(::aParts)
-      FOR i := 1 TO Len( ::aParts )
+      FOR i := 1 TO Len(::aParts)
          ::aParts[ i ] := Round(::aParts[ i ] * xIncrSize, 0)
       NEXT
-      hwg_InitStatus( ::oParent:handle, ::handle, Len( ::aParts ), ::aParts )
+      hwg_InitStatus( ::oParent:handle, ::handle, Len(::aParts), ::aParts )
    ENDIF
 
    RETURN NIL

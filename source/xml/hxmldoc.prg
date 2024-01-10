@@ -84,7 +84,7 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
 
    IF i != 0
       Adel( ::aAttr, i )
-      Asize(::aAttr, Len( ::aAttr ) - 1)
+      Asize(::aAttr, Len(::aAttr) - 1)
    ENDIF
 Return .T.
 
@@ -106,7 +106,7 @@ Local i, s := Space(level*2)+'<', lNewLine
       s += ::title
    ENDIF
    IF ::type == HBXML_TYPE_TAG .OR. ::type == HBXML_TYPE_SINGLE
-      FOR i := 1 TO Len( ::aAttr )
+      FOR i := 1 TO Len(::aAttr)
          s += ' ' + ::aAttr[i, 1] + '="' + HBXML_Transform(::aAttr[i,2]) + '"'
       NEXT
    ENDIF
@@ -130,7 +130,7 @@ Local i, s := Space(level*2)+'<', lNewLine
       FWrite(handle, s)
    ENDIF
 
-   FOR i := 1 TO Len( ::aItems )
+   FOR i := 1 TO Len(::aItems)
       IF Valtype(::aItems[i]) == "C"
         IF handle >= 0
            IF ::type == HBXML_TYPE_CDATA .OR. ::type == HBXML_TYPE_COMMENT
@@ -259,7 +259,7 @@ Local cEncod, i, s
       ELSE
          s := ""
       ENDIF
-      FOR i := 1 TO Len( ::aItems )
+      FOR i := 1 TO Len(::aItems)
          s += ::aItems[i]:Save(handle, 0)
       NEXT
       IF fname != Nil

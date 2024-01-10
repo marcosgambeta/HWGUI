@@ -25,9 +25,9 @@ STATIC nScriptSch := 0
 Function hwg_scrDebug( aScript, iscr )
 Local nFirst, i
 
-   IF Len( aScript ) < 3
+   IF Len(aScript) < 3
       Return .F.
-   ELSEIF Len( aScript ) == 3
+   ELSEIF Len(aScript) == 3
       Aadd(aScript, Nil)
    ENDIF
    IF Empty(aScript[4])
@@ -130,7 +130,7 @@ Local nFirst, i
          nDebugMode := 0
       ENDIF
       IF nDebugMode < 2
-         FOR i := 1 TO Len( aWatches )
+         FOR i := 1 TO Len(aWatches)
             CalcWatch( i )
          NEXT
          IF !Empty(aWatches)

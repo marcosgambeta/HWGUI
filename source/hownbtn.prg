@@ -88,7 +88,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    ::bLostFocus := bLfocus
 
    ::state   := OBTN_INIT
-   ::nOrder  := IIf( oWndParent == nil, 0, Len( oWndParent:aControls ) )
+   ::nOrder  := IIf( oWndParent == nil, 0, Len(oWndParent:aControls) )
 
    ::title   := cText
    ::tcolor  := IIf( color == Nil, hwg_Getsyscolor( COLOR_BTNTEXT ), color )

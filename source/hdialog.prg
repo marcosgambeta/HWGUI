@@ -186,7 +186,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
          nPos := AScan( ::aControls, { | x | x:className() == "HTAB" } )
          IF nPos > 0
             oTab := ::aControls[ nPos ]
-            IF Len( oTab:aPages ) > 0
+            IF Len(oTab:aPages) > 0
                Eval( aMessModalDlg[ i, 2 ], oTab:aPages[ oTab:GetActivePage(), 1 ], wParam, lParam )
             ENDIF
          ENDIF
@@ -217,12 +217,12 @@ METHOD DelItem() CLASS HDialog
    IF ::lModal
       IF ( i := AScan( ::aModalDialogs, { | o | o == Self } ) ) > 0
          ADel( ::aModalDialogs, i )
-         ASize(::aModalDialogs, Len( ::aModalDialogs ) - 1)
+         ASize(::aModalDialogs, Len(::aModalDialogs) - 1)
       ENDIF
    ELSE
       IF ( i := AScan( ::aDialogs, { | o | o == Self } ) ) > 0
          ADel( ::aDialogs, i )
-         ASize(::aDialogs, Len( ::aDialogs ) - 1)
+         ASize(::aDialogs, Len(::aDialogs) - 1)
       ENDIF
    ENDIF
 
@@ -533,7 +533,7 @@ STATIC FUNCTION onSize(oDlg, wParam, lParam)
    aControls := oDlg:aControls
    IF aControls != Nil .AND. !Empty(oDlg:Rect)
       oDlg:Anchor( oDlg, nW1, nH1, oDlg:nWidth, oDlg:nHeight )
-      FOR iCont := 1 TO Len( aControls )
+      FOR iCont := 1 TO Len(aControls)
          IF aControls[ iCont ]:bSize != Nil
             Eval( aControls[ iCont ]:bSize, ;
                aControls[ iCont ], hwg_Loword(lParam), hwg_Hiword(lParam), nW1, nH1 )
@@ -658,10 +658,10 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
 FUNCTION hwg_PropertySheet( hParentWindow, aPages, cTitle, x1, y1, width, height, ;
       lModeless, lNoApply, lWizard )
 
-   LOCAL hSheet, i, aHandles := Array( Len( aPages ) ), aTemplates := Array( Len( aPages ) )
+   LOCAL hSheet, i, aHandles := Array( Len(aPages) ), aTemplates := Array( Len(aPages) )
 
-   aSheet := Array( Len( aPages ) )
-   FOR i := 1 TO Len( aPages )
+   aSheet := Array( Len(aPages) )
+   FOR i := 1 TO Len(aPages)
       IF aPages[ i ]:Type == WND_DLG_RESOURCE
          aHandles[ i ] := hwg__createpropertysheetpage(aPages[ i ])
       ELSE
@@ -671,9 +671,9 @@ FUNCTION hwg_PropertySheet( hParentWindow, aPages, cTitle, x1, y1, width, height
       aSheet[ i ] := { aHandles[ i ], aPages[ i ] }
       // Writelog( "h: "+str(aHandles[i]) )
    NEXT
-   hSheet := hwg__propertysheet( hParentWindow, aHandles, Len( aHandles ), cTitle, ;
+   hSheet := hwg__propertysheet( hParentWindow, aHandles, Len(aHandles), cTitle, ;
       lModeless, lNoApply, lWizard )
-   FOR i := 1 TO Len( aPages )
+   FOR i := 1 TO Len(aPages)
       IF aPages[ i ]:Type != WND_DLG_RESOURCE
          hwg_Releasedlgtemplate(aTemplates[ i ])
       ENDIF
@@ -683,13 +683,13 @@ FUNCTION hwg_PropertySheet( hParentWindow, aPages, cTitle, x1, y1, width, height
 
 FUNCTION hwg_GetModalDlg
 
-   LOCAL i := Len( HDialog():aModalDialogs )
+   LOCAL i := Len(HDialog():aModalDialogs)
 
    RETURN iif( i > 0, HDialog():aModalDialogs[ i ], 0 )
 
 FUNCTION hwg_GetModalHandle
 
-   LOCAL i := Len( HDialog():aModalDialogs )
+   LOCAL i := Len(HDialog():aModalDialogs)
 
    RETURN iif( i > 0, HDialog():aModalDialogs[ i ]:handle, 0 )
 
@@ -747,7 +747,7 @@ FUNCTION hwg_SetDlgKey( oDlg, nctrl, nkey, block )
    IF block == Nil
       IF i > 0
          ADel( oDlg:KeyList, i )
-         ASize(oDlg:KeyList, Len( oDlg:KeyList ) - 1)
+         ASize(oDlg:KeyList, Len(oDlg:KeyList) - 1)
       ENDIF
    ELSE
       IF i == 0

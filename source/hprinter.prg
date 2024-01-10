@@ -301,7 +301,7 @@ METHOD StartPage() CLASS HPrinter
    LOCAL fname
 
    IF ::lPreview
-      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str(Len( ::aMeta ) + 1) ) + ".emf", NIL )
+      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str(Len(::aMeta) + 1) ) + ".emf", NIL )
       AAdd(::aMeta, hwg_CreateMetaFile(::hDCPrn, fname))
       ::hDC := ATail( ::aMeta )
    ELSE
@@ -315,7 +315,7 @@ METHOD EndPage() CLASS HPrinter
    LOCAL nLen
 
    IF ::lPreview
-      nLen := Len( ::aMeta )
+      nLen := Len(::aMeta)
       ::aMeta[ nLen ] := hwg_CloseEnhMetaFile(::aMeta[ nLen ])
       ::hDC := 0
    ELSE
@@ -331,7 +331,7 @@ METHOD ReleaseMeta() CLASS HPrinter
       RETURN NIL
    ENDIF
 
-   nLen := Len( ::aMeta )
+   nLen := Len(::aMeta)
    FOR i := 1 TO nLen
       hwg_DeleteEnhMetaFile(::aMeta[ i ])
    NEXT
@@ -340,9 +340,9 @@ METHOD ReleaseMeta() CLASS HPrinter
    RETURN NIL
 
 METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
-   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len( ::aMeta ), aPage := { }
+   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len(::aMeta), aPage := { }
    LOCAL oFont := HFont():Add("Times New Roman", 0, - 13, 700)
-   LOCAL lTransp := ( aBitmaps != NIL .AND. Len( aBitmaps ) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
+   LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
 
    FOR i := 1 TO nLastPage
       AAdd(aPage, Str(i, 4) + ":" + Str(nLastPage, 4))
@@ -381,7 +381,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 2 OWNERBUTTON oBtn OF oToolBar ON CLICK { || hwg_EndDialog() } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "Exit" FONT oFont        ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[1], "Exit Preview" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 1 .AND. aBitmaps[2] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[2]), HBitmap():AddFile(aBitmaps[2]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -392,7 +392,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 36 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::PrintMeta() } ;   // removed ::nCurrPage by Giuseppe Mastrangelo
          SIZE oToolBar:nWidth - 6, 24 TEXT "Print" FONT oFont         ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[2], "Print file" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 2 .AND. aBitmaps[3] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 2 .AND. aBitmaps[3] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[3]), HBitmap():AddFile(aBitmaps[3]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -405,7 +405,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 86 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oSayPage, 0) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "|<<" FONT oFont                 ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[3], "First page" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 3 .AND. aBitmaps[4] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 3 .AND. aBitmaps[4] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[4]), HBitmap():AddFile(aBitmaps[4]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -414,7 +414,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 110 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oSayPage, 1) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT ">>" FONT oFont                  ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[4], "Next page" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 4 .AND. aBitmaps[5] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 4 .AND. aBitmaps[5] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[5]), HBitmap():AddFile(aBitmaps[5]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -423,7 +423,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 134 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oSayPage, -1) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "<<" FONT oFont    ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[5], "Previous page" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 5 .AND. aBitmaps[6] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 5 .AND. aBitmaps[6] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[6]), HBitmap():AddFile(aBitmaps[6]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -432,7 +432,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 158 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ChangePage(oSayPage, 2) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT ">>|" FONT oFont   ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[6], "Last page" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 6 .AND. aBitmaps[7] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 6 .AND. aBitmaps[7] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[7]), HBitmap():AddFile(aBitmaps[7]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -443,7 +443,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 192 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg( oCanvas, - 1 ) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "(-)" FONT oFont   ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[7], "Zoom out" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 7 .AND. aBitmaps[8] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[8]), HBitmap():AddFile(aBitmaps[8]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -452,7 +452,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    @ 3, 216 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg( oCanvas, 1 ) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "(+)" FONT oFont   ;
          TOOLTIP IIf( aTooltips != NIL, aTooltips[8], "Zoom in" )
-   IF aBitmaps != NIL .AND. Len( aBitmaps ) > 8 .AND. aBitmaps[9] != NIL
+   IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
       oBtn:oBitmap := IIf( aBitmaps[1], HBitmap():AddResource(aBitmaps[9]), HBitmap():AddFile(aBitmaps[9]) )
       oBtn:title   := NIL
       oBtn:lTransp := lTransp
@@ -466,7 +466,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
 
       @ 3, 316 OWNERBUTTON oBtn OF oToolBar  ;
             SIZE oToolBar:nWidth - 6, 24        ;
-            TEXT IIf( Len( aBootUser ) == 4, aBootUser[4], "User Button" ) ;
+            TEXT IIf( Len(aBootUser) == 4, aBootUser[4], "User Button" ) ;
             FONT oFont                   ;
             TOOLTIP IIf( aBootUser[3] != NIL, aBootUser[3], "User Button" )
 
@@ -510,8 +510,8 @@ METHOD ChangePage(oSayPage, n, nPage) CLASS hPrinter
       IF n == 0
          ::nCurrPage := 1
       ELSEIF n == 2
-         ::nCurrPage := Len( ::aMeta )
-      ELSEIF n == 1 .AND. ::nCurrPage < Len( ::aMeta )
+         ::nCurrPage := Len(::aMeta)
+      ELSEIF n == 1 .AND. ::nCurrPage < Len(::aMeta)
          ::nCurrPage ++
       ELSEIF n == - 1 .AND. ::nCurrPage > 1
          ::nCurrPage --
@@ -778,7 +778,7 @@ METHOD PrintMeta(nPage) CLASS HPrinter
 
       ::StartDoc()
       IF nPage == NIL
-         FOR nPage := 1 TO Len( ::aMeta )
+         FOR nPage := 1 TO Len(::aMeta)
             hwg_PrintEnhMetafile(::hDCPrn, ::aMeta[ nPage ])
          NEXT
       ELSE
