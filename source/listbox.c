@@ -22,14 +22,14 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
 {
    void * hString;
 
-   SendMessage(( HWND ) HB_PARHANDLE(1), LB_ADDSTRING, 0,
+   SendMessage(hwg_par_HWND(1), LB_ADDSTRING, 0,
                 ( LPARAM ) HB_PARSTR(2, &hString, NULL));
    hb_strfree(hString);
 }
 
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
-   SendMessage(( HWND ) HB_PARHANDLE(1), LB_SETCURSEL,
+   SendMessage(hwg_par_HWND(1), LB_SETCURSEL,
          ( WPARAM ) hb_parni(2) - 1, 0);
 }
 
@@ -43,7 +43,7 @@ HB_FUNC( HWG_CREATELISTBOX )
          WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
-         ( HWND ) HB_PARHANDLE(1),    /* parent window    */
+         hwg_par_HWND(1),    /* parent window    */
          ( HMENU ) hb_parni(2),       /* listbox ID      */
          GetModuleHandle(NULL),
          NULL );
@@ -53,6 +53,6 @@ HB_FUNC( HWG_CREATELISTBOX )
 
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage(( HWND ) HB_PARHANDLE(1), LB_DELETESTRING, 0, ( LPARAM ) 0);
+   SendMessage(hwg_par_HWND(1), LB_DELETESTRING, 0, ( LPARAM ) 0);
 }
 

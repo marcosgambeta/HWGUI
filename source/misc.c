@@ -38,12 +38,12 @@ void writelog( char *s )
 
 HB_FUNC( HWG_SETDLGRESULT )
 {
-   SetWindowLongPtr( ( HWND ) HB_PARHANDLE(1), DWLP_MSGRESULT, hb_parni(2) );
+   SetWindowLongPtr( hwg_par_HWND(1), DWLP_MSGRESULT, hb_parni(2) );
 }
 
 HB_FUNC( HWG_SETCAPTURE )
 {
-   hb_retnl( ( LONG ) SetCapture(( HWND ) HB_PARHANDLE(1)) );
+   hb_retnl( ( LONG ) SetCapture(hwg_par_HWND(1)) );
 }
 
 HB_FUNC( HWG_RELEASECAPTURE )
@@ -185,7 +185,7 @@ HB_FUNC( HWG_CLIENTTOSCREEN )
 
    pt.x = hb_parnl(2);
    pt.y = hb_parnl(3);
-   ClientToScreen( ( HWND ) HB_PARHANDLE(1), &pt );
+   ClientToScreen( hwg_par_HWND(1), &pt );
 
    temp = hb_itemPutNL( NULL, pt.x );
    hb_itemArrayPut( aPoint, 1, temp );
@@ -211,13 +211,13 @@ HB_FUNC( HWG_SCREENTOCLIENT )
       pt.x = hb_parnl(2);
       pt.y = hb_parnl(3);
 
-      ScreenToClient( ( HWND ) HB_PARHANDLE(1), &pt );
+      ScreenToClient( hwg_par_HWND(1), &pt );
    }
    else
    {
       Array2Rect( hb_param( 2, HB_IT_ARRAY ), &R );
-      ScreenToClient( ( HWND ) HB_PARHANDLE(1), ( LPPOINT ) ( void * ) &R );
-      ScreenToClient( ( HWND ) HB_PARHANDLE(1), ( ( LPPOINT ) ( void * ) &R ) + 1 );
+      ScreenToClient( hwg_par_HWND(1), ( LPPOINT ) ( void * ) &R );
+      ScreenToClient( hwg_par_HWND(1), ( ( LPPOINT ) ( void * ) &R ) + 1 );
       hb_itemRelease(hb_itemReturn( Rect2Array( &R ) ));
       return;
    }
@@ -445,8 +445,8 @@ HB_FUNC( HWG_WINHELP )
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
 {
-   HB_RETHANDLE(GetNextDlgTabItem( ( HWND ) HB_PARHANDLE(1),
-               ( HWND ) HB_PARHANDLE(2), hb_parl(3) ));
+   HB_RETHANDLE(GetNextDlgTabItem( hwg_par_HWND(1),
+               hwg_par_HWND(2), hb_parl(3) ));
 }
 
 HB_FUNC( HWG_SLEEP )
@@ -510,7 +510,7 @@ HB_FUNC( HWG_SETSCROLLINFO )
    si.cbSize = sizeof( SCROLLINFO );
    si.fMask = fMask;
 
-   SetScrollInfo( ( HWND ) HB_PARHANDLE(1),   // handle of window with scroll bar
+   SetScrollInfo( hwg_par_HWND(1),   // handle of window with scroll bar
          hb_parni(2),         // scroll bar flags
          &si, hb_parni(3)     // redraw flag
           );
@@ -520,7 +520,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 {
    int MinPos, MaxPos;
 
-   GetScrollRange(( HWND ) HB_PARHANDLE(1),  // handle of window with scroll bar
+   GetScrollRange(hwg_par_HWND(1),  // handle of window with scroll bar
          hb_parni(2),         // scroll bar flags
          &MinPos,               // address of variable that receives minimum position
          &MaxPos                // address of variable that receives maximum position
@@ -535,28 +535,28 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 
 HB_FUNC( HWG_SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange(( HWND ) HB_PARHANDLE(1), hb_parni(2),
+   hb_retl( SetScrollRange(hwg_par_HWND(1), hb_parni(2),
                hb_parni(3), hb_parni(4), hb_parl(5)) );
 }
 
 
 HB_FUNC( HWG_GETSCROLLPOS )
 {
-   hb_retni( GetScrollPos( ( HWND ) HB_PARHANDLE(1),  // handle of window with scroll bar
+   hb_retni( GetScrollPos( hwg_par_HWND(1),  // handle of window with scroll bar
                hb_parni(2)    // scroll bar flags
           ) );
 }
 
 HB_FUNC( HWG_SETSCROLLPOS )
 {
-   SetScrollPos( ( HWND ) HB_PARHANDLE(1),    // handle of window with scroll bar
+   SetScrollPos( hwg_par_HWND(1),    // handle of window with scroll bar
          hb_parni(2),         // scroll bar flags
          hb_parni(3), TRUE );
 }
 
 HB_FUNC( HWG_SHOWSCROLLBAR )
 {
-   ShowScrollBar( ( HWND ) HB_PARHANDLE(1),   // handle of window with scroll bar
+   ShowScrollBar( hwg_par_HWND(1),   // handle of window with scroll bar
          hb_parni(2),         // scroll bar flags
          hb_parl(3)           // scroll bar visibility
           );
@@ -564,7 +564,7 @@ HB_FUNC( HWG_SHOWSCROLLBAR )
 
 HB_FUNC( HWG_SCROLLWINDOW )
 {
-   ScrollWindow( ( HWND ) HB_PARHANDLE(1), hb_parni(2), hb_parni(3),
+   ScrollWindow( hwg_par_HWND(1), hb_parni(2), hb_parni(3),
          NULL, NULL );
 }
 
@@ -664,8 +664,8 @@ HB_FUNC( HWG_ISPGDOWNPRESSESED )
 
 HB_FUNC( HWG_EDIT1UPDATECTRL )
 {
-   HWND hChild = ( HWND ) HB_PARHANDLE(1);
-   HWND hParent = ( HWND ) HB_PARHANDLE(2);
+   HWND hChild = hwg_par_HWND(1);
+   HWND hParent = hwg_par_HWND(2);
    RECT *rect = NULL;
 
    GetWindowRect( hChild, rect );
@@ -678,8 +678,8 @@ HB_FUNC( HWG_EDIT1UPDATECTRL )
 
 HB_FUNC( HWG_BUTTON1GETSCREENCLIENT )
 {
-   HWND hChild = ( HWND ) HB_PARHANDLE(1);
-   HWND hParent = ( HWND ) HB_PARHANDLE(2);
+   HWND hChild = hwg_par_HWND(1);
+   HWND hParent = hwg_par_HWND(2);
    RECT *rect = NULL;
 
    GetWindowRect( hChild, rect );
@@ -742,8 +742,8 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 {
-   HB_RETHANDLE(GetNextDlgGroupItem( ( HWND ) HB_PARHANDLE(1),
-                 ( HWND ) HB_PARHANDLE(2), hb_parl(3) ));
+   HB_RETHANDLE(GetNextDlgGroupItem( hwg_par_HWND(1),
+                 hwg_par_HWND(2), hb_parl(3) ));
 }
 
 HB_FUNC( HWG_PTRTOULONG )

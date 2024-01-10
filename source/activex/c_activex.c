@@ -101,7 +101,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
    IUnknown *pUnk;
    IDispatch *pDisp;
    _Ax_Init();
-   AtlAxGetControl( ( HWND ) HB_PARHANDLE(1), &pUnk );
+   AtlAxGetControl( hwg_par_HWND(1), &pUnk );
    pUnk->lpVtbl->QueryInterface(pUnk, &IID_IDispatch, ( void ** ) &pDisp);
    pUnk->lpVtbl->Release(pUnk);
    HB_RETHANDLE(pDisp);

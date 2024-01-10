@@ -1769,7 +1769,7 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
 
 HB_FUNC( HWG_OPENTHEMEDATA )
 {
-   HWND hwnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hwnd = hwg_par_HWND(1);
    LPCSTR pText = hb_parc(2);
    HTHEME p;
    int mlen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, NULL, 0 );
@@ -1808,7 +1808,7 @@ HB_FUNC( HWG_DRAWTHEMEBACKGROUND )
 
 HB_FUNC( HWG_DRAWTHEICON )
 {
-   HWND hButtonWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND hButtonWnd = hwg_par_HWND(1);
    HDC dc = ( HDC ) HB_PARHANDLE(2);
    BOOL bHasTitle = hb_parl(3);
    RECT rpItem;
@@ -1919,7 +1919,7 @@ HB_FUNC( HWG_CLOSETHEMEDATA )
 
 HB_FUNC( HWG_TRACKMOUSEVENT )
 {
-   HWND m_hWnd = ( HWND ) HB_PARHANDLE(1);
+   HWND m_hWnd = hwg_par_HWND(1);
    DWORD dwFlags = ( DWORD ) hb_parnl(2);
    DWORD dwHoverTime = ( DWORD ) hb_parnl(3);
    TRACKMOUSEEVENT csTME;
@@ -1935,7 +1935,7 @@ HB_FUNC( HWG_BUTTONEXONSETSTYLE )
 {
    WPARAM wParam = ( WPARAM ) hb_parnl(1);
    LPARAM lParam = ( LPARAM ) hb_parnl(2);
-   HWND h = ( HWND ) HB_PARHANDLE(3);
+   HWND h = hwg_par_HWND(3);
 
    UINT nNewType = ( wParam & BS_TYPEMASK );
 
@@ -1977,7 +1977,7 @@ HB_FUNC( HWG_MODSTYLE )
 
 HB_FUNC( HWG_DRAWTHEMEPARENTBACKGROUND )
 {
-   HWND hTheme = ( HWND ) HB_PARHANDLE(1);
+   HWND hTheme = hwg_par_HWND(1);
    HDC hdc = ( HDC ) HB_PARHANDLE(2);
    RECT pRect;
 
@@ -1995,7 +1995,7 @@ HB_FUNC( HWG_ISTHEMEACTIVE )
 
 HB_FUNC( HWG_GETTHEMESYSCOLOR )
 {
-   HWND hTheme = ( HWND ) HB_PARHANDLE(1);
+   HWND hTheme = hwg_par_HWND(1);
    int iColor = ( int ) hb_parnl(2);
 
    HB_RETHANDLE(hb_GetThemeSysColor( hTheme, iColor ));
