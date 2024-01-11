@@ -172,7 +172,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
 
       if( !HB_ISNIL(4) )
       {
-         cf.crTextColor = ( COLORREF ) hb_parnl(4);
+         cf.crTextColor = hwg_par_COLORREF(4);
          cf.dwMask |= CFM_COLOR;
       }
       if( !HB_ISNIL(5) )
@@ -243,7 +243,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 
    if( HB_ISNUM(2) )
    {
-      cf.crTextColor = ( COLORREF ) hb_parnl(2);
+      cf.crTextColor = hwg_par_COLORREF(2);
       cf.dwMask |= CFM_COLOR;
    }
    if( HB_ISCHAR(3) )

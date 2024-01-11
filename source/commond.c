@@ -319,7 +319,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    cc.lpCustColors = rgb;
    if( HB_ISNUM(1) )
    {
-      cc.rgbResult = ( COLORREF ) hb_parnl(1);
+      cc.rgbResult = hwg_par_COLORREF(1);
       nStyle |= CC_RGBINIT;
    }
    cc.Flags = nStyle;

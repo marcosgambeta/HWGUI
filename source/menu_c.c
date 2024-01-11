@@ -594,7 +594,7 @@ HB_FUNC( HWG_SETMENUINFO )
       hMenu = hwg_par_HMENU(1);
    if( hMenu )
    {
-      hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush( ( COLORREF ) hb_parnl(2) ) : NULL ;
+      hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush( hwg_par_COLORREF(2) ) : NULL ;
       mi.cbSize          = sizeof( mi );
       mi.fMask           = MIM_APPLYTOSUBMENUS | MIM_BACKGROUND ;
       mi.hbrBack         = hbrush;

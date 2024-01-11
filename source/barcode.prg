@@ -908,7 +908,7 @@ HB_FUNC_STATIC( RICH_CREATEPEN )
 {
    HB_RETHANDLE(CreatePen( hb_parni(1),   // pen style
                             hb_parni(2),   // pen width
-                            (COLORREF) hb_parnl(3)    // pen color
+                            hwg_par_COLORREF(3)    // pen color
                            ));
 }
 
@@ -922,7 +922,7 @@ HB_FUNC_STATIC( RICH_SELECTOBJECT )
 
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush( (COLORREF) hb_parnl(1) ));    // brush color
+   HB_RETHANDLE(CreateSolidBrush( hwg_par_COLORREF(1) ));    // brush color
 }
 
 #pragma ENDDUMP

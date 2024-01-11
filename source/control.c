@@ -1125,7 +1125,7 @@ HB_FUNC( HWG_IMAGELIST_ADD )
 HB_FUNC( HWG_IMAGELIST_ADDMASKED )
 {
    hb_retnl( ImageList_AddMasked(( HIMAGELIST ) HB_PARHANDLE(1),
-               hwg_par_HBITMAP(2), ( COLORREF ) hb_parnl(3)) );
+               hwg_par_HBITMAP(2), hwg_par_COLORREF(3)) );
 }
 
 /*
@@ -2123,8 +2123,8 @@ HB_FUNC( HWG_ADDBARCOLORS )
 {
    HWND pParent = hwg_par_HWND(1);
    HWND pBar = hwg_par_HWND(2);
-   COLORREF clrFore = ( COLORREF ) hb_parnl(3);
-   COLORREF clrBack = ( COLORREF ) hb_parnl(4);
+   COLORREF clrFore = hwg_par_COLORREF(3);
+   COLORREF clrBack = hwg_par_COLORREF(4);
    void * hStr;
    LPCTSTR pszText = HB_PARSTR(5, &hStr, NULL);
    DWORD dwStyle = hb_parnl(6);
