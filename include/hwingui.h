@@ -139,3 +139,4 @@ HB_EXTERN_END
 #define hwg_par_HBITMAP(n)    (HBITMAP) HB_PARHANDLE(n)
 #define hwg_par_HICON(n)      (HICON) HB_PARHANDLE(n)
 #define hwg_par_HBRUSH(n)     (HBRUSH) HB_PARHANDLE(n)
+#define hwg_par_COLORREF(n)   (COLORREF) hb_parnl(n)
