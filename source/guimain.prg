@@ -137,7 +137,7 @@ FUNCTION hwg_ReadStatus( oWnd, nPart )
    ENDIF
    RETURN cText
 
-FUNCTION hwg_VColor( cColor )
+FUNCTION hwg_VColor(cColor)
 
    LOCAL i, res := 0, n := 1, iValue
    cColor := Trim( cColor )
@@ -157,7 +157,7 @@ FUNCTION hwg_VColor( cColor )
    NEXT
    RETURN res
 
-FUNCTION hwg_MsgGet( cTitle, cText, nStyle, x, y, nDlgStyle, cResIni )
+FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
 
    LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, - 13)
    LOCAL cRes := IIf( cResIni != Nil, Trim( cResIni ), "" )
@@ -238,7 +238,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    IF ValType(arr) == "C"
       lArray := .F.
       aLen := RecCount()
-      IF ( nField := FieldPos( arr ) ) == 0
+      IF ( nField := FieldPos(arr) ) == 0
          RETURN 0
       ENDIF
       nLen := dbFieldInfo( 3, nField )
@@ -259,7 +259,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    hwg_Selectobject( hDC, oFont:handle )
    aMetr := hwg_Gettextmetric(hDC)
    aArea := hwg_GetDeviceArea(hDC)
-   aRect := hwg_Getwindowrect( hwg_Getactivewindow() )
+   aRect := hwg_Getwindowrect(hwg_Getactivewindow())
    hwg_Releasedc(hwg_Getactivewindow(), hDC)
    height := ( aMetr[1] + 1 ) * aLen + 4 + addY + 8
    IF height > aArea[2] - aRect[2] - nTop - 60
@@ -272,7 +272,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
         SIZE width, height       ;
         STYLE nStyle            ;
         FONT oFont              ;
-        ON INIT { | o | hwg_Resetwindowpos( o:handle ), o:nInitFocus := oBrw }
+        ON INIT { | o | hwg_Resetwindowpos(o:handle), o:nInitFocus := oBrw }
    IF lArray
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
@@ -283,7 +283,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       ENDIF
    ELSE
       @ 0, 0 Browse oBrw DATABASE
-      oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), ( o:Alias ) ->( FieldGet( nField ) ) }, "C", nLen ) )
+      oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), ( o:Alias ) ->( FieldGet(nField) ) }, "C", nLen ) )
    ENDIF
 
    oBrw:oFont  := oFont
@@ -354,7 +354,7 @@ FUNCTION hwg_ShowProgress( nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, h
    ELSEIF nStep == 2
       hwg_Updateprogressbar( hPBar )
    ELSEIF nStep == 3
-      hwg_Setwindowtext( oDlg:handle, cTitle )
+      hwg_Setwindowtext(oDlg:handle, cTitle)
       IF maxPos != Nil
          hwg_Setprogressbar( hPBar, maxPos )
       ENDIF
@@ -384,10 +384,10 @@ FUNCTION hwg_HdSerial( cDrive )
 
    RETURN cResult
 
-FUNCTION Hwg_GetIni( cSection, cEntry, cDefault, cFile )
+FUNCTION Hwg_GetIni(cSection, cEntry, cDefault, cFile)
    RETURN hwg_GetPrivateProfileString( cSection, cEntry, cDefault, cFile )
 
-FUNCTION Hwg_WriteIni( cSection, cEntry, cValue, cFile )
+FUNCTION Hwg_WriteIni(cSection, cEntry, cValue, cFile)
    RETURN( hwg_WritePrivateProfileString( cSection, cEntry, cValue, cFile ) )
 
 FUNCTION hwg_SetHelpFileName ( cNewName )
@@ -467,7 +467,7 @@ FUNCTION HWG_Version( oTip )
    ENDIF
    RETURN oVersion
 
-FUNCTION hwg_TxtRect( cTxt, oWin, oFont )
+FUNCTION hwg_TxtRect(cTxt, oWin, oFont)
 
 
    LOCAL hDC
@@ -657,7 +657,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
 
 FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
 
-   Local bColor := hwg_Getsyscolor( COLOR_BTNFACE ), hTheme
+   Local bColor := hwg_Getsyscolor(COLOR_BTNFACE), hTheme
    Local brush := nil
 
    DEFAULT lTransparent := .F.
@@ -670,7 +670,7 @@ FUNCTION hwg_GetBackColorParent( oCtrl, lSelf, lTransparent )
        ELSEIF hwg_Isthemeactive() .AND. oCtrl:WindowsManifest
           hTheme := hwg_openthemedata(oCtrl:handle, "TAB")
           IF !EMPTY(hTheme)
-             bColor := HWG_GETTHEMESYSCOLOR( hTheme, COLOR_WINDOW  )
+             bColor := HWG_GETTHEMESYSCOLOR(hTheme, COLOR_WINDOW)
              hwg_closethemedata(hTheme)
           ENDIF
        ENDIF
@@ -767,7 +767,7 @@ FUNCTION HWG_ScrollHV( oForm, msg, wParam, lParam )
       oForm:nVscrollPos += nInc
       nDelta := - VERT_PTS * nInc
       hwg_Scrollwindow( oForm:handle, 0, nDelta ) //, Nil, NIL )
-      hwg_Setscrollpos( oForm:Handle, SB_VERT, oForm:nVscrollPos, .T. )
+      hwg_Setscrollpos(oForm:Handle, SB_VERT, oForm:nVscrollPos, .T.)
 
    ELSEIF ( msg = WM_HSCROLL ) //.OR. msg == WM_MOUSEWHEEL
     // Handle vertical scrollbar messages
@@ -798,7 +798,7 @@ FUNCTION HWG_ScrollHV( oForm, msg, wParam, lParam )
       oForm:nHscrollPos += nInc
       nDelta := - HORZ_PTS * nInc
       hwg_Scrollwindow( oForm:handle, nDelta, 0 )
-      hwg_Setscrollpos( oForm:Handle, SB_HORZ, oForm:nHscrollPos, .T. )
+      hwg_Setscrollpos(oForm:Handle, SB_HORZ, oForm:nHscrollPos, .T.)
    ENDIF 	
    RETURN Nil
 

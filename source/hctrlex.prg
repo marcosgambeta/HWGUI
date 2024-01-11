@@ -44,7 +44,7 @@ CLASS HStaticEx INHERIT HStatic
       bColor, lTransp, bClick, bDblClick, bOther )
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther)
-   METHOD SetText( value ) INLINE ::SetValue(value)
+   METHOD SetText(value) INLINE ::SetValue(value)
    METHOD SetValue(cValue)
    METHOD Auto_Size(cValue)  HIDDEN
    METHOD Init()
@@ -76,7 +76,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       nStyle +=  SS_OWNERDRAW - ::nStyleHS
    ENDIF
 
-   ::hBrushDefault := HBrush():Add(hwg_Getsyscolor( COLOR_BTNFACE ))
+   ::hBrushDefault := HBrush():Add(hwg_Getsyscolor(COLOR_BTNFACE))
    ::bOther := bOther
    // ::title := cCaption
 
@@ -132,7 +132,7 @@ METHOD Init() CLASS HStaticEx
          ::Auto_Size(::Title)
       ENDIF
       IF ::title != NIL
-         hwg_Setwindowtext( ::handle, ::title )
+         hwg_Setwindowtext(::handle, ::title)
       ENDIF
    ENDIF
 
@@ -172,13 +172,13 @@ METHOD SetValue(cValue)  CLASS HStaticEx
 
    ::Auto_Size(cValue)
    IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible(::handle)
-      hwg_Setdlgitemtext( ::oParent:handle, ::id, cValue )
+      hwg_Setdlgitemtext(::oParent:handle, ::id, cValue)
       IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible(::handle)
          hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_ERASENOW + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
          hwg_Updatewindow( ::oParent:Handle )
       ENDIF
    ELSEIF ::backstyle != TRANSPARENT
-      hwg_Setdlgitemtext( ::oParent:handle, ::id, cValue )
+      hwg_Setdlgitemtext(::oParent:handle, ::id, cValue)
    ENDIF
    ::Title := cValue
 
@@ -190,8 +190,8 @@ METHOD Paint( lpDis ) CLASS HStaticEx
    LOCAL dwtext, nstyle, brBackground
    LOCAL dc := drawInfo[3]
 
-   client_rect := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
-   szText := hwg_Getwindowtext( ::handle )
+   client_rect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
+   szText := hwg_Getwindowtext(::handle)
 
    // Map "Static Styles" to "Text Styles"
    nstyle := ::nStyleHS  // ::style
@@ -205,19 +205,19 @@ METHOD Paint( lpDis ) CLASS HStaticEx
    hwg_Setbkmode(dc, ::backstyle)
    IF ::BackStyle = OPAQUE
       brBackground := iif( !Empty(::brush), ::brush, ::hBrushDefault )
-      hwg_Fillrect( dc, client_rect[1], client_rect[2], client_rect[3], client_rect[4], brBackground:handle )
+      hwg_Fillrect(dc, client_rect[1], client_rect[2], client_rect[3], client_rect[4], brBackground:handle)
    ENDIF
 
    IF ::tcolor != NIL .AND. ::isEnabled()
-      hwg_Settextcolor( dc, ::tcolor )
+      hwg_Settextcolor(dc, ::tcolor)
    ELSEIF !::isEnabled()
-      hwg_Settextcolor( dc, 16777215 )
-      hwg_Drawtext( dc, szText, { client_rect[1] + 1, client_rect[2] + 1, client_rect[3] + 1, client_rect[4] + 1 }, dwtext )
+      hwg_Settextcolor(dc, 16777215)
+      hwg_Drawtext(dc, szText, { client_rect[1] + 1, client_rect[2] + 1, client_rect[3] + 1, client_rect[4] + 1 }, dwtext)
       hwg_Setbkmode(dc, TRANSPARENT)
-      hwg_Settextcolor( dc, 10526880 )
+      hwg_Settextcolor(dc, 10526880)
    ENDIF
    // Draw the text
-   hwg_Drawtext( dc, szText, client_rect, dwtext )
+   hwg_Drawtext(dc, szText, client_rect, dwtext)
 
    RETURN NIL
 
@@ -245,7 +245,7 @@ METHOD Auto_Size(cValue) CLASS HStaticEx
 
    IF ::autosize
       nAlign := ::nStyleHS - SS_NOTIFY
-      ASize :=  hwg_TxtRect( cValue, Self )
+      ASize :=  hwg_TxtRect(cValue, Self)
       // ajust VCENTER
       IF nAlign == SS_RIGHT
          nLeft := ::nLeft + ( ::nWidth - ASize[1] - 2 )
@@ -352,7 +352,7 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
    IF msg = WM_SETFOCUS .AND. ::oParent:oParent = NIL
    ELSEIF msg = WM_KILLFOCUS
       IF hwg_GetParentForm( Self ):handle != ::oParent:Handle
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
          hwg_Sendmessage(::handle, BM_SETSTYLE, BS_PUSHBUTTON, 1)
       ENDIF
    ELSEIF msg = WM_KEYDOWN
@@ -422,7 +422,7 @@ METHOD onGetFocus()  CLASS HButtonX
       IF res != NIL .AND.  Empty(res)
          hwg_WhenSetFocus( Self, nSkip )
          IF ::lflat
-            hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  )
+            hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
          ENDIF
       ENDIF
    ENDIF
@@ -432,7 +432,7 @@ METHOD onGetFocus()  CLASS HButtonX
 METHOD onLostFocus()  CLASS HButtonX
 
    IF ::lflat
-      hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  )
+      hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
    ::lnoWhen := .F.
    IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform( Self ):Handle )
@@ -484,14 +484,14 @@ CLASS HButtonEX INHERIT HButtonX
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
       cTooltip, tcolor, bColor, cCaption, hBitmap, iStyle, hIcon, bGFocus, nPictureMargin)
    METHOD PaintBk( hdc )
-   METHOD Setcolor( tcolor, bcolor ) INLINE ::SetDefaultColor( tcolor, bcolor ) //, ::SetDefaultColor( .T. )
-   METHOD SetDefaultColor( tColor, bColor, lPaint )
+   METHOD Setcolor(tcolor, bcolor) INLINE ::SetDefaultColor(tcolor, bcolor) //, ::SetDefaultColor(.T.)
+   METHOD SetDefaultColor(tColor, bColor, lPaint)
    METHOD SetColorEx( nIndex, nColor, lPaint )
-   METHOD SetText( c ) INLINE ::title := c, ;
+   METHOD SetText(c) INLINE ::title := c, ;
       hwg_Redrawwindow( ::Handle, RDW_NOERASE + RDW_INVALIDATE ), ;
       iif( ::oParent != NIL .AND. hwg_Iswindowvisible(::Handle), ;
-      hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  ), ), ;
-      hwg_Setwindowtext( ::handle, ::title )
+      hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight), ), ;
+      hwg_Setwindowtext(::handle, ::title)
    //   METHOD SaveParentBackground()
 
 END CLASS
@@ -541,12 +541,12 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
    ::iStyle  := iStyle
    ::hBitmap := hBitmap
    ::hIcon   := hIcon
-   ::m_crColors[BTNST_COLOR_BK_IN]    := hwg_Getsyscolor( COLOR_BTNFACE )
-   ::m_crColors[BTNST_COLOR_FG_IN]    := hwg_Getsyscolor( COLOR_BTNTEXT )
-   ::m_crColors[BTNST_COLOR_BK_OUT]   := hwg_Getsyscolor( COLOR_BTNFACE )
-   ::m_crColors[BTNST_COLOR_FG_OUT]   := hwg_Getsyscolor( COLOR_BTNTEXT )
-   ::m_crColors[BTNST_COLOR_BK_FOCUS] := hwg_Getsyscolor( COLOR_BTNFACE )
-   ::m_crColors[BTNST_COLOR_FG_FOCUS] := hwg_Getsyscolor( COLOR_BTNTEXT )
+   ::m_crColors[BTNST_COLOR_BK_IN]    := hwg_Getsyscolor(COLOR_BTNFACE)
+   ::m_crColors[BTNST_COLOR_FG_IN]    := hwg_Getsyscolor(COLOR_BTNTEXT)
+   ::m_crColors[BTNST_COLOR_BK_OUT]   := hwg_Getsyscolor(COLOR_BTNFACE)
+   ::m_crColors[BTNST_COLOR_FG_OUT]   := hwg_Getsyscolor(COLOR_BTNTEXT)
+   ::m_crColors[BTNST_COLOR_BK_FOCUS] := hwg_Getsyscolor(COLOR_BTNFACE)
+   ::m_crColors[BTNST_COLOR_FG_FOCUS] := hwg_Getsyscolor(COLOR_BTNTEXT)
    ::PictureMargin                      := nPictureMargin
 
    ::Super:Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
@@ -637,8 +637,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          pt[1] := hwg_Loword(lParam)
          pt[2] := hwg_Hiword(lParam)
          acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
-         rectButton := hwg_Getwindowrect( ::handle )
-         IF ( !hwg_Ptinrect( rectButton, acoor ) )
+         rectButton := hwg_Getwindowrect(::handle)
+         IF ( !hwg_Ptinrect(rectButton, acoor) )
             hwg_Sendmessage(::handle, BM_SETSTATE, ::m_bToggled, 0)
             ::bMouseOverButton := .F.
             RETURN 0
@@ -646,7 +646,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ENDIF
       IF ( !::bMouseOverButton )
          ::bMouseOverButton := .T.
-         hwg_Invalidaterect( ::handle, .F. )
+         hwg_Invalidaterect(::handle, .F.)
          hwg_Trackmousevent( ::handle )
       ENDIF
       RETURN 0
@@ -717,10 +717,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          pt[1] := hwg_Loword(lParam)
          pt[2] := hwg_Hiword(lParam)
          acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
-         rectButton := hwg_Getwindowrect( ::handle )
-         IF ( !hwg_Ptinrect( rectButton, acoor ) )
+         rectButton := hwg_Getwindowrect(::handle)
+         IF ( !hwg_Ptinrect(rectButton, acoor) )
             ::m_bToggled := !::m_bToggled
-            hwg_Invalidaterect( ::handle, 0 )
+            hwg_Invalidaterect(::handle, 0)
             hwg_Sendmessage(::handle, BM_SETSTATE, 0, 0)
             ::m_bLButtonDown := .T.
          ENDIF
@@ -735,7 +735,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ::m_bLButtonDown := .T.
       IF ( ::m_bIsToggle )
          ::m_bToggled := !::m_bToggled
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
       ENDIF
       RETURN - 1
    ELSEIF msg == WM_LBUTTONDBLCLK
@@ -764,7 +764,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       IF wParam == VK_RETURN .OR. wParam == VK_SPACE
          IF ( ::m_bIsToggle )
             ::m_bToggled := !::m_bToggled
-            hwg_Invalidaterect( ::handle, 0 )
+            hwg_Invalidaterect(::handle, 0)
          ELSE
             hwg_Sendmessage(::handle, BM_SETSTATE, 1, 0)
             //::m_bSent := .T.
@@ -784,15 +784,15 @@ METHOD CancelHover() CLASS HBUTTONEx
    IF ( ::bMouseOverButton ) .AND. ::id != IDOK //NANDO
       ::bMouseOverButton := .F.
       IF !::lflat
-         hwg_Invalidaterect( ::handle, .F. )
+         hwg_Invalidaterect(::handle, .F.)
       ELSE
-         hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight  )
+         hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
       ENDIF
    ENDIF
 
    RETURN NIL
 
-METHOD SetDefaultColor( tColor, bColor, lPaint ) CLASS HBUTTONEx
+METHOD SetDefaultColor(tColor, bColor, lPaint) CLASS HBUTTONEx
 
    DEFAULT lPaint TO .F.
 
@@ -802,18 +802,18 @@ METHOD SetDefaultColor( tColor, bColor, lPaint ) CLASS HBUTTONEx
    IF !Empty(bColor)
       ::bColor := bColor
    ENDIF
-   ::m_crColors[BTNST_COLOR_BK_IN]    := iif( ::bColor = NIL, hwg_Getsyscolor( COLOR_BTNFACE ), ::bColor )
-   ::m_crColors[BTNST_COLOR_FG_IN]    := iif( ::tColor = NIL, hwg_Getsyscolor( COLOR_BTNTEXT ), ::tColor )
-   ::m_crColors[BTNST_COLOR_BK_OUT]   := iif( ::bColor = NIL, hwg_Getsyscolor( COLOR_BTNFACE ), ::bColor )
-   ::m_crColors[BTNST_COLOR_FG_OUT]   := iif( ::tColor = NIL, hwg_Getsyscolor( COLOR_BTNTEXT ), ::tColor )
-   ::m_crColors[BTNST_COLOR_BK_FOCUS] := iif( ::bColor = NIL, hwg_Getsyscolor( COLOR_BTNFACE ), ::bColor )
-   ::m_crColors[BTNST_COLOR_FG_FOCUS] := iif( ::tColor = NIL, hwg_Getsyscolor( COLOR_BTNTEXT ), ::tColor )
+   ::m_crColors[BTNST_COLOR_BK_IN]    := iif( ::bColor = NIL, hwg_Getsyscolor(COLOR_BTNFACE), ::bColor )
+   ::m_crColors[BTNST_COLOR_FG_IN]    := iif( ::tColor = NIL, hwg_Getsyscolor(COLOR_BTNTEXT), ::tColor )
+   ::m_crColors[BTNST_COLOR_BK_OUT]   := iif( ::bColor = NIL, hwg_Getsyscolor(COLOR_BTNFACE), ::bColor )
+   ::m_crColors[BTNST_COLOR_FG_OUT]   := iif( ::tColor = NIL, hwg_Getsyscolor(COLOR_BTNTEXT), ::tColor )
+   ::m_crColors[BTNST_COLOR_BK_FOCUS] := iif( ::bColor = NIL, hwg_Getsyscolor(COLOR_BTNFACE), ::bColor )
+   ::m_crColors[BTNST_COLOR_FG_FOCUS] := iif( ::tColor = NIL, hwg_Getsyscolor(COLOR_BTNTEXT), ::tColor )
    //
    ::m_crBrush[BTNST_COLOR_BK_IN] := HBrush():Add(::m_crColors[BTNST_COLOR_BK_IN])
    ::m_crBrush[BTNST_COLOR_BK_OUT] := HBrush():Add(::m_crColors[BTNST_COLOR_BK_OUT])
    ::m_crBrush[BTNST_COLOR_BK_FOCUS] := HBrush():Add(::m_crColors[BTNST_COLOR_BK_FOCUS])
    IF lPaint
-      hwg_Invalidaterect( ::handle, .F. )
+      hwg_Invalidaterect(::handle, .F.)
    ENDIF
 
    RETURN Self
@@ -826,7 +826,7 @@ METHOD SetColorEx( nIndex, nColor, lPaint ) CLASS HBUTTONEx
    ENDIF
    ::m_crColors[nIndex]    := nColor
    IF lPaint
-      hwg_Invalidaterect( ::handle, .F. )
+      hwg_Invalidaterect(::handle, .F.)
    ENDIF
 
    RETURN 0
@@ -842,7 +842,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL captionRect
    LOCAL centerRect
    LOCAL bHasTitle
-   LOCAL itemRect := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] } )
+   LOCAL itemRect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
    LOCAL state
    LOCAL crColor
    LOCAL brBackground
@@ -853,7 +853,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL centerRectHeight
 
    LOCAL uAlign, uStyleTmp
-   LOCAL aTxtSize := iif( !Empty(::caption), hwg_TxtRect( ::caption, Self ), { 0, 0 } )
+   LOCAL aTxtSize := iif( !Empty(::caption), hwg_TxtRect(::caption, Self), { 0, 0 } )
    LOCAL aBmpSize := iif( !Empty(::hbitmap), hwg_Getbitmapsize(::hbitmap), { 0, 0 } )
    LOCAL itemRectOld, saveCaptionRect, bmpRect, itemRect1, captionRect1, fillRect
    LOCAL lMultiLine, nHeight := 0
@@ -896,22 +896,22 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       IF !::lFlat
          hwg_drawthemebackground(::hTheme, dc, BP_PUSHBUTTON, state, itemRect, NIL)
       ELSEIF bIsDisabled
-         hwg_Fillrect( dc, itemRect[1] + 1, itemRect[2] + 1, itemRect[3] - 1, itemRect[4] - 1, hwg_Getsyscolorbrush( hwg_Getsyscolor( COLOR_BTNFACE ) ) )
+         hwg_Fillrect(dc, itemRect[1] + 1, itemRect[2] + 1, itemRect[3] - 1, itemRect[4] - 1, hwg_Getsyscolorbrush( hwg_Getsyscolor(COLOR_BTNFACE) ))
       ELSEIF ::bMouseOverButton .OR. bIsFocused
          hwg_drawthemebackground(::hTheme, dc, BP_PUSHBUTTON, state, itemRect, NIL) // + PBS_DEFAULTED
       ENDIF
    ELSE
       IF bIsFocused .OR. ::id = IDOK
          br := HBRUSH():Add(hwg_Rgb(1, 1, 1))
-         hwg_Framerect( dc, itemRect, br:handle )
-         hwg_Inflaterect( @itemRect, - 1, - 1 )
+         hwg_Framerect(dc, itemRect, br:handle)
+         hwg_Inflaterect(@itemRect, - 1, - 1)
       ENDIF
-      crColor := hwg_Getsyscolor( COLOR_BTNFACE )
+      crColor := hwg_Getsyscolor(COLOR_BTNFACE)
       brBackground := HBRUSH():Add(crColor)
-      hwg_Fillrect( dc, itemRect, brBackground:handle )
+      hwg_Fillrect(dc, itemRect, brBackground:handle)
       IF ( bIsPressed )
-         brBtnShadow := HBRUSH():Add(hwg_Getsyscolor( COLOR_BTNSHADOW ))
-         hwg_Framerect( dc, itemRect, brBtnShadow:handle )
+         brBtnShadow := HBRUSH():Add(hwg_Getsyscolor(COLOR_BTNSHADOW))
+         hwg_Framerect(dc, itemRect, brBtnShadow:handle)
       ELSE
          IF !::lFlat .OR. ::bMouseOverButton
             uState := HWG_BITOR( ;
@@ -946,10 +946,10 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    uStyleTmp := HWG_GETWINDOWSTYLE(::handle)
    itemRectOld := AClone(itemRect)
    IF hb_BitAnd(uStyleTmp, BS_MULTILINE) != 0 .AND. !Empty(::caption) .AND. ;
-         Int( aTxtSize[2] ) !=  Int( hwg_Drawtext( dc, ::caption, itemRect[1], itemRect[2],;
+         Int( aTxtSize[2] ) !=  Int( hwg_Drawtext(dc, ::caption, itemRect[1], itemRect[2],;
          itemRect[3] - iif( ::iStyle = ST_ALIGN_VERT, 0, aBmpSize[1] + 8 ), ;
-         itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld ) )
-      // *-INT( aTxtSize[2] ) !=  INT( hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK ) )
+         itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld) )
+      // *-INT( aTxtSize[2] ) !=  INT( hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK) )
       uAlign += DT_WORDBREAK
       lMultiline := .T.
       drawInfo[4] += 2
@@ -977,26 +977,26 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    itemRectOld := AClone(itemRect)
 
    IF !Empty(::caption) .AND. !Empty(::hbitmap)  //.AND.!EMPTY(::hicon)
-      nHeight :=  aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK  ), aTxtSize[2] )
+      nHeight :=  aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK), aTxtSize[2] )
       IF ::iStyle = ST_ALIGN_HORIZ
          itemRect[1] := iif( ::PictureMargin = 0, ( ( ( ::nWidth - aTxtSize[1] - aBmpSize[1] / 2 ) / 2 ) ) / 2, ::PictureMargin )
          itemRect[1] := iif( itemRect[1] < 0, 0, itemRect[1] )
       ELSEIF ::iStyle = ST_ALIGN_HORIZ_RIGHT
       ELSEIF ::iStyle = ST_ALIGN_VERT .OR. ::iStyle = ST_ALIGN_OVERLAP
-         nHeight := iif( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK  ), aTxtSize[2] )
+         nHeight := iif( lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK), aTxtSize[2] )
          ::iStyle := ST_ALIGN_OVERLAP
          itemRect[1] := ( ::nWidth - aBmpSize[1] ) /  2
          itemRect[2] := iif( ::PictureMargin = 0, ( ( ( ::nHeight - ( nHeight + aBmpSize[2] + 1 ) ) / 2 ) ), ::PictureMargin )
       ENDIF
    ELSEIF !Empty(::caption)
-      nHeight := aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext( dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK ), aTxtSize[2] )
+      nHeight := aTxtSize[2] //nHeight := IIF( lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK), aTxtSize[2] )
    ENDIF
 
    bHasTitle := ValType(::caption) == "C" .AND. !Empty(::Caption)
 
    //   hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
    IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent .AND. ( !bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT )
-      bmpRect := hwg_Prepareimagerect( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, ::hIcon, ::hbitmap, ::iStyle )
+      bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, ::hIcon, ::hbitmap, ::iStyle)
       IF ::istyle = ST_ALIGN_HORIZ_RIGHT
          bmpRect[1]     -= ::PictureMargin
          captionRect[3] -= ::PictureMargin
@@ -1012,7 +1012,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       ENDIF
       hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
    ELSE
-      hwg_Inflaterect( @captionRect, - 3, - 3 )
+      hwg_Inflaterect(@captionRect, - 3, - 3)
    ENDIF
    captionRect[1] += iif( HWG_BITAND(::Style, BS_LEFT)  != 0, Max( ::PictureMargin, 2 ), 0 )
    captionRect[3] -= iif( HWG_BITAND(::Style, BS_RIGHT) != 0, Max( ::PictureMargin, 3 ), 0 )
@@ -1024,13 +1024,13 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    IF ( bHasTitle )
       // If button is pressed then "press" title also
       IF bIsPressed .AND. !::Themed
-         hwg_Offsetrect( @captionRect, 1, 1 )
+         hwg_Offsetrect(@captionRect, 1, 1)
       ENDIF
       // Center text
-      centerRect := hwg_Copyrect( captionRect )
+      centerRect := hwg_Copyrect(captionRect)
       IF ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N"
          IF !lmultiline  .AND. ::iStyle != ST_ALIGN_OVERLAP
-            // hwg_Drawtext( dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign + DT_CALCRECT, @captionRect )
+            // hwg_Drawtext(dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign + DT_CALCRECT, @captionRect)
          ELSEIF !Empty(::caption)
             // figura no topo texto em baixo
             IF ::iStyle = ST_ALIGN_OVERLAP //ST_ALIGN_VERT
@@ -1040,7 +1040,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
                captionRect[2] :=  ( ::nHeight - nHeight ) / 2 + 2
             ENDIF
             savecaptionRect := AClone(captionRect)
-            hwg_Drawtext( dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign, @captionRect )
+            hwg_Drawtext(dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign, @captionRect)
          ENDIF
       ELSE
          // *- uAlign += DT_CENTER
@@ -1048,7 +1048,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
       captionRectHeight := captionRect[4] - captionRect[2]
       centerRectHeight  := centerRect[4] - centerRect[2]
-      hwg_Offsetrect( @captionRect, 0, ( centerRectHeight - captionRectHeight ) / 2 )
+      hwg_Offsetrect(@captionRect, 0, ( centerRectHeight - captionRectHeight ) / 2)
       IF ::Themed
          IF ( ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N" )
             IF lMultiLine  .OR. ::iStyle = ST_ALIGN_OVERLAP
@@ -1057,42 +1057,42 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
          ELSEIF lMultiLine
             captionRect[2] := ( ::nHeight  - nHeight ) / 2 + 2
          ENDIF
-         hwg_drawthemetext( ::hTheme, dc, BP_PUSHBUTTON, iif( bIsDisabled, PBS_DISABLED, PBS_NORMAL ), ;
+         hwg_drawthemetext(::hTheme, dc, BP_PUSHBUTTON, iif( bIsDisabled, PBS_DISABLED, PBS_NORMAL ), ;
             ::caption, ;
             uAlign + DT_END_ELLIPSIS, ;
-            0, captionRect )
+            0, captionRect)
       ELSE
          hwg_Setbkmode(dc, TRANSPARENT)
          IF ( bIsDisabled )
-            hwg_Offsetrect( @captionRect, 1, 1 )
-            hwg_Settextcolor( dc, hwg_Getsyscolor( COLOR_3DHILIGHT ) )
-            hwg_Drawtext( dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign )
-            hwg_Offsetrect( @captionRect, - 1, - 1 )
-            hwg_Settextcolor( dc, hwg_Getsyscolor( COLOR_3DSHADOW ) )
-            hwg_Drawtext( dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign )
+            hwg_Offsetrect(@captionRect, 1, 1)
+            hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DHILIGHT))
+            hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
+            hwg_Offsetrect(@captionRect, - 1, - 1)
+            hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DSHADOW))
+            hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
          ELSE
             IF ( ::bMouseOverButton .OR. bIsPressed )
-               hwg_Settextcolor( dc, ::m_crColors[BTNST_COLOR_FG_IN] )
-               hwg_Setbkcolor( dc, ::m_crColors[BTNST_COLOR_BK_IN] )
-               fillRect := hwg_Copyrect( itemRect )
+               hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_IN])
+               hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_IN])
+               fillRect := hwg_Copyrect(itemRect)
                IF bIsPressed
                   hwg_Drawbutton( dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], 6 )
                ENDIF
-               hwg_Inflaterect( @fillRect, - 2, - 2 )
-               hwg_Fillrect( dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_IN]:handle )
+               hwg_Inflaterect(@fillRect, - 2, - 2)
+               hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_IN]:handle)
             ELSE
                IF ( bIsFocused )
-                  hwg_Settextcolor( dc, ::m_crColors[BTNST_COLOR_FG_FOCUS] )
-                  hwg_Setbkcolor( dc, ::m_crColors[BTNST_COLOR_BK_FOCUS] )
-                  fillRect := hwg_Copyrect( itemRect )
-                  hwg_Inflaterect( @fillRect, - 2, - 2 )
-                  hwg_Fillrect( dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_FOCUS]:handle )
+                  hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_FOCUS])
+                  hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_FOCUS])
+                  fillRect := hwg_Copyrect(itemRect)
+                  hwg_Inflaterect(@fillRect, - 2, - 2)
+                  hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_FOCUS]:handle)
                ELSE
-                  hwg_Settextcolor( dc, ::m_crColors[BTNST_COLOR_FG_OUT] )
-                  hwg_Setbkcolor( dc, ::m_crColors[BTNST_COLOR_BK_OUT] )
-                  fillRect := hwg_Copyrect( itemRect )
-                  hwg_Inflaterect( @fillRect, - 2, - 2 )
-                  hwg_Fillrect( dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_OUT]:handle )
+                  hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_OUT])
+                  hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_OUT])
+                  fillRect := hwg_Copyrect(itemRect)
+                  hwg_Inflaterect(@fillRect, - 2, - 2)
+                  hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_OUT]:handle)
                ENDIF
             ENDIF
             IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent
@@ -1107,16 +1107,16 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
             ELSEIF lMultiLine
                captionRect[2] := ( ::nHeight  - nHeight ) / 2 + 2
             ENDIF
-            hwg_Drawtext( dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign )
+            hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
          ENDIF
       ENDIF
    ENDIF
 
    // Draw the focus rect
    IF bIsFocused .AND. bDrawFocusRect .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
-      focusRect := hwg_Copyrect( itemRect )
-      hwg_Inflaterect( @focusRect, - 3, - 3 )
-      hwg_Drawfocusrect( dc, focusRect )
+      focusRect := hwg_Copyrect(itemRect)
+      hwg_Inflaterect(@focusRect, - 3, - 3)
+      hwg_Drawfocusrect(dc, focusRect)
    ENDIF
    hwg_Deleteobject( br )
    hwg_Deleteobject( brBackground )
@@ -1129,8 +1129,8 @@ METHOD PAINTBK( hdc ) CLASS HBUTTONEx
    LOCAL clDC := HclientDc():New( ::oparent:handle )
    LOCAL rect, rect1
 
-   rect := hwg_Getclientrect( ::handle )
-   rect1 := hwg_Getwindowrect( ::handle )
+   rect := hwg_Getclientrect(::handle)
+   rect1 := hwg_Getwindowrect(::handle)
    hwg_Screentoclient( ::oparent:handle, rect1 )
    IF ValType(::m_dcBk) == "U"
       ::m_dcBk := hdc():New()
@@ -1188,9 +1188,9 @@ METHOD Init() CLASS HGroupEx
          ::oRGroup:Init()
       ELSE
          IF ::oBrush != NIL
-            hwg_Setwindowpos( ::Handle, NIL, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOACTIVATE )
+            hwg_Setwindowpos(::Handle, NIL, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOACTIVATE)
          ELSE
-            hwg_Setwindowpos( ::Handle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOACTIVATE + SWP_NOSENDCHANGING )
+            hwg_Setwindowpos(::Handle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOACTIVATE + SWP_NOSENDCHANGING)
          ENDIF
       ENDIF
    ENDIF
@@ -1202,12 +1202,12 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    LOCAL DC := drawInfo[3]
    LOCAL ppnOldPen, pnFrmDark, pnFrmLight, iUpDist
    LOCAL szText, aSize, dwStyle
-   LOCAL rc  := hwg_Copyrect( { drawInfo[4], drawInfo[5], drawInfo[6] - 1, drawInfo[7] - 1 } )
+   LOCAL rc  := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6] - 1, drawInfo[7] - 1 })
    LOCAL rcText
 
    // determine text length
    szText := ::Title
-   aSize := hwg_TxtRect( iif( Empty(szText), "A", szText ), Self )
+   aSize := hwg_TxtRect(iif( Empty(szText), "A", szText ), Self)
    // distance from window top to group rect
    iUpDist := ( aSize[2] / 2 )
    dwStyle := ::Style //HWG_GETWINDOWSTYLE(::handle) //GetStyle();
@@ -1228,7 +1228,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    IF Hwg_BitAND(dwStyle, BS_FLAT) != 0  // "flat" frame
       //pnFrmDark  := hwg_Createpen( PS_SOLID, 1, hwg_Rgb(0, 0, 0) ) )
       pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Rgb(64, 64, 64))
-      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:Handle )
       hwg_Moveto( dc, rcText[1] - 2, rcText[2]  )
       hwg_Lineto( dc, rc[1], rcText[2] )
@@ -1244,8 +1244,8 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
       hwg_Lineto( dc, rc[3] - 1, rcText[4] + 1 )
       hwg_Lineto( dc, rcText[3], rcText[4] + 1 )
    ELSE // 3D frame
-      pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW ))
-      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+      pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
+      pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
       ppnOldPen := hwg_Selectobject( dc, pnFrmDark:handle )
       hwg_Moveto( dc, rcText[1] - 2, rcText[2] )
       hwg_Lineto( dc, rc[1], rcText[2] )
@@ -1267,12 +1267,12 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    IF !Empty(szText) // !(dwExStyle & (BS_ICON|BS_BITMAP)))
       hwg_Setbkmode(dc, TRANSPARENT)
       IF ::oBrush != NIL
-         hwg_Fillrect( DC, rc[1] + 2, rc[2] + iUpDist + 2, rc[3] - 2, rc[4] - 2, ::brush:handle )
+         hwg_Fillrect(DC, rc[1] + 2, rc[2] + iUpDist + 2, rc[3] - 2, rc[4] - 2, ::brush:handle)
          IF !::lTransparent
-            hwg_Fillrect( DC, rcText[1] - 2, rc[2] + 1, rcText[3] + 1, rc[2] + iUpDist + 2, ::brush:handle )
+            hwg_Fillrect(DC, rcText[1] - 2, rc[2] + 1, rcText[3] + 1, rc[2] + iUpDist + 2, ::brush:handle)
          ENDIF
       ENDIF
-      hwg_Drawtext( dc, szText, rcText, DT_VCENTER + DT_LEFT + DT_SINGLELINE + DT_NOCLIP )
+      hwg_Drawtext(dc, szText, rcText, DT_VCENTER + DT_LEFT + DT_SINGLELINE + DT_NOCLIP)
    ENDIF
    // cleanup
    hwg_Deleteobject( pnFrmLight )

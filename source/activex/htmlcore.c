@@ -128,8 +128,8 @@ HRESULT STDMETHODCALLTYPE Frame_InsertMenus( IOleInPlaceFrame *, HMENU,
 HRESULT STDMETHODCALLTYPE Frame_SetMenu( IOleInPlaceFrame *, HMENU, HOLEMENU,
       HWND );
 HRESULT STDMETHODCALLTYPE Frame_RemoveMenus( IOleInPlaceFrame *, HMENU );
-HRESULT STDMETHODCALLTYPE Frame_SetStatusText( IOleInPlaceFrame *,
-      LPCOLESTR );
+HRESULT STDMETHODCALLTYPE Frame_SetStatusText(IOleInPlaceFrame *,
+      LPCOLESTR);
 HRESULT STDMETHODCALLTYPE Frame_EnableModeless( IOleInPlaceFrame *, BOOL );
 HRESULT STDMETHODCALLTYPE Frame_TranslateAccelerator( IOleInPlaceFrame *,
       LPMSG, WORD );
@@ -249,8 +249,8 @@ HRESULT STDMETHODCALLTYPE UI_TranslateAccelerator( IDocHostUIHandler *, LPMSG,
       const GUID *, DWORD );
 HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath( IDocHostUIHandler *,
       LPOLESTR *, DWORD );
-HRESULT STDMETHODCALLTYPE UI_GetDropTarget( IDocHostUIHandler *,
-      IDropTarget *, IDropTarget ** );
+HRESULT STDMETHODCALLTYPE UI_GetDropTarget(IDocHostUIHandler *,
+      IDropTarget *, IDropTarget **);
 HRESULT STDMETHODCALLTYPE UI_GetExternal( IDocHostUIHandler *, IDispatch ** );
 HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler *, DWORD,
       OLECHAR *, OLECHAR ** );
@@ -299,9 +299,9 @@ HRESULT STDMETHODCALLTYPE InPlace_ContextSensitiveHelp( IOleInPlaceSite *,
 HRESULT STDMETHODCALLTYPE InPlace_CanInPlaceActivate(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceActivate(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate(IOleInPlaceSite *);
-HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext( IOleInPlaceSite *,
+HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext(IOleInPlaceSite *,
       LPOLEINPLACEFRAME *, LPOLEINPLACEUIWINDOW *, LPRECT, LPRECT,
-      LPOLEINPLACEFRAMEINFO );
+      LPOLEINPLACEFRAMEINFO);
 HRESULT STDMETHODCALLTYPE InPlace_Scroll( IOleInPlaceSite *, SIZE );
 HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate(IOleInPlaceSite *, BOOL);
 HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate(IOleInPlaceSite *);
@@ -471,9 +471,9 @@ void SetEmbedded(HWND handle, IOleObject ** obj)
    PHB_ITEM pObject, pEmbed;
    PHB_ITEM temp;
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr( handle, GWL_USERDATA );
+   pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
    pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
-   temp = hb_itemPutNL( NULL, ( LONG ) obj );
+   temp = hb_itemPutNL(NULL, ( LONG ) obj);
    SetObjectVar( pEmbed, "_HANDLE", temp );
    hb_itemRelease(temp);
 }
@@ -482,9 +482,9 @@ IOleObject **GetEmbedded(HWND handle)
 {
    PHB_ITEM pObject, pEmbed;
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr( handle, GWL_USERDATA );
+   pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
    pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
-   return ( IOleObject ** ) hb_itemGetNL( GetObjectVar( pEmbed, "HANDLE" ) );
+   return ( IOleObject ** ) hb_itemGetNL(GetObjectVar( pEmbed, "HANDLE" ));
 }
 
 ///////////////////// My IDocHostUIHandler functions  ///////////////////
@@ -539,7 +539,7 @@ HRESULT STDMETHODCALLTYPE UI_ShowContextMenu( IDocHostUIHandler * This,
    ( void ) ppt;
    ( void ) pcmdtReserved;
    ( void ) pdispReserved;
-   GetCursorPos( &pt );
+   GetCursorPos(&pt);
 
    // If desired, we can pop up our own custom context menu here. But instead,
    // let's just post a WM_CONTENTMENU message to the window hosting the web
@@ -692,9 +692,9 @@ HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath( IDocHostUIHandler * This,
 // our own IDropTarget object, IDropTarget functions, and IDropTarget VTable if
 // we want to determine what happens when someone drags and
 // drops some object on our embedded browser object.
-HRESULT STDMETHODCALLTYPE UI_GetDropTarget( IDocHostUIHandler * This,
+HRESULT STDMETHODCALLTYPE UI_GetDropTarget(IDocHostUIHandler * This,
       IDropTarget __RPC_FAR * pDropTarget,
-      IDropTarget __RPC_FAR * __RPC_FAR * ppDropTarget )
+      IDropTarget __RPC_FAR * __RPC_FAR * ppDropTarget)
 {
    ( void ) This;
    ( void ) pDropTarget;
@@ -1117,10 +1117,10 @@ HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate(IOleInPlaceSite * This)
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext( IOleInPlaceSite * This,
+HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext(IOleInPlaceSite * This,
       LPOLEINPLACEFRAME * lplpFrame, LPOLEINPLACEUIWINDOW * lplpDoc,
       LPRECT lprcPosRect, LPRECT lprcClipRect,
-      LPOLEINPLACEFRAMEINFO lpFrameInfo )
+      LPOLEINPLACEFRAMEINFO lpFrameInfo)
 {
    ( void ) lprcPosRect;
    ( void ) lprcClipRect;
@@ -1328,8 +1328,8 @@ HRESULT STDMETHODCALLTYPE Frame_RemoveMenus( IOleInPlaceFrame * This,
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_SetStatusText( IOleInPlaceFrame * This,
-      LPCOLESTR pszStatusText )
+HRESULT STDMETHODCALLTYPE Frame_SetStatusText(IOleInPlaceFrame * This,
+      LPCOLESTR pszStatusText)
 {
    ( void ) This;
    ( void ) pszStatusText;
@@ -2663,7 +2663,7 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
          {
             // Set the display area of our browser control the same as our
             // window's size and actually put the browser object into our window.
-            GetClientRect( hwnd, &rect );
+            GetClientRect(hwnd, &rect);
             if( !browserObject->lpVtbl->DoVerb(browserObject,
                         OLEIVERB_INPLACEACTIVATE, 0,
                         ( IOleClientSite * ) _iOleClientSiteEx, 0, hwnd,

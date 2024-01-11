@@ -179,7 +179,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -192,7 +192,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
       hMenu = hwg_par_HMENU(1);
 
    if( !hMenu )
-      MessageBox( GetActiveWindow(), TEXT( "" ), TEXT( "No Menu!" ),
+      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
                   MB_OK | MB_ICONINFORMATION );
    else
    {
@@ -210,7 +210,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -244,7 +244,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -258,7 +258,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT( "" ), TEXT( "No Menu!" ),
+      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
                   MB_OK | MB_ICONINFORMATION );
       HB_RETHANDLE(NULL);
    }
@@ -280,7 +280,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -344,7 +344,7 @@ HB_FUNC( HWG_DESTROYMENU )
  */
 HB_FUNC( HWG_CREATEACCELERATORTABLE )
 {
-   PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY ), pSubArr;
+   PHB_ITEM pArray = hb_param(1, HB_IT_ARRAY), pSubArr;
    LPACCEL lpaccl;
    ULONG ul, ulEntries = hb_arrayLen(pArray);
    HACCEL h;
@@ -353,11 +353,11 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
 
    for( ul = 1; ul <= ulEntries; ul++ )
    {
-      pSubArr = hb_arrayGetItemPtr( pArray, ul );
+      pSubArr = hb_arrayGetItemPtr(pArray, ul);
       lpaccl[ul - 1].fVirt =
-            ( BYTE ) hb_arrayGetNL( pSubArr, 1 ) | FNOINVERT | FVIRTKEY;
-      lpaccl[ul - 1].key = ( WORD ) hb_arrayGetNL( pSubArr, 2 );
-      lpaccl[ul - 1].cmd = ( WORD ) hb_arrayGetNL( pSubArr, 3 );
+            ( BYTE ) hb_arrayGetNL(pSubArr, 1) | FNOINVERT | FVIRTKEY;
+      lpaccl[ul - 1].key = ( WORD ) hb_arrayGetNL(pSubArr, 2);
+      lpaccl[ul - 1].cmd = ( WORD ) hb_arrayGetNL(pSubArr, 3);
    }
    h = CreateAcceleratorTable(lpaccl, ( int ) ulEntries);
 
@@ -388,7 +388,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -402,7 +402,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT( "" ), TEXT( "No Menu!" ),
+      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
                   MB_OK | MB_ICONINFORMATION );
       hb_retl(0);
    }
@@ -437,7 +437,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
 
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -451,7 +451,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT( "" ), TEXT( "No Menu!" ),
+      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
                   MB_OK | MB_ICONINFORMATION );
       hb_retl(0);
    }
@@ -481,28 +481,28 @@ HB_FUNC( HWG__SETMENUITEMBITMAPS )
 
 HB_FUNC( HWG_GETMENUCHECKMARKDIMENSIONS )
 {
-   hb_retnl( ( LONG ) GetMenuCheckMarkDimensions() );
+   hb_retnl(( LONG ) GetMenuCheckMarkDimensions());
 }
 
 
 HB_FUNC( HWG_GETMENUBITMAPWIDTH )
 {
-   hb_retni( GetSystemMetrics( SM_CXMENUSIZE ) );
+   hb_retni(GetSystemMetrics( SM_CXMENUSIZE ));
 }
 
 HB_FUNC( HWG_GETMENUBITMAPHEIGHT )
 {
-   hb_retni( GetSystemMetrics( SM_CYMENUSIZE ) );
+   hb_retni(GetSystemMetrics( SM_CYMENUSIZE ));
 }
 
 HB_FUNC( HWG_GETMENUCHECKMARKWIDTH )
 {
-   hb_retni( GetSystemMetrics( SM_CXMENUCHECK ) );
+   hb_retni(GetSystemMetrics( SM_CXMENUCHECK ));
 }
 
 HB_FUNC( HWG_GETMENUCHECKMARKHEIGHT )
 {
-   hb_retni( GetSystemMetrics( SM_CYMENUCHECK ) );
+   hb_retni(GetSystemMetrics( SM_CYMENUCHECK ));
 }
 
 HB_FUNC( HWG_STRETCHBLT )
@@ -581,7 +581,7 @@ HB_FUNC( HWG_SETMENUINFO )
    
    if( HB_ISOBJECT(1) )
    {
-      PHB_ITEM pObject = hb_param( 1, HB_IT_OBJECT );
+      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
       hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
@@ -594,9 +594,9 @@ HB_FUNC( HWG_SETMENUINFO )
       hMenu = hwg_par_HMENU(1);
    if( hMenu )
    {
-      hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush( hwg_par_COLORREF(2) ) : NULL ;
+      hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush( hwg_par_COLORREF(2) ) : NULL;
       mi.cbSize          = sizeof( mi );
-      mi.fMask           = MIM_APPLYTOSUBMENUS | MIM_BACKGROUND ;
+      mi.fMask           = MIM_APPLYTOSUBMENUS | MIM_BACKGROUND;
       mi.hbrBack         = hbrush;
       SetMenuInfo( hMenu, &mi );
    } 

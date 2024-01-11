@@ -262,7 +262,7 @@ Function hwg_dbg_Wait( nWait )
 
 Return Nil
 
-Function hwg_dbg_Input( p1, p2 )
+Function hwg_dbg_Input(p1, p2)
 Local n, cmd, arr
 
    IF !lDebugRun

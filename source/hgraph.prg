@@ -51,7 +51,7 @@ METHOD New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
 
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, ;
               bSize, { | o, lpdis | o:Paint( lpdis ) }, ctooltip, ;
-              IIf( tcolor == Nil, hwg_VColor( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
+              IIf( tcolor == Nil, hwg_VColor("FFFFFF"), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
 
    ::aValues := aValues
    ::nType   := 1
@@ -66,7 +66,7 @@ METHOD Redefine(oWndParent, nId, aValues, oFont, ;
 
    ::Super:New( oWndParent, nId, SS_OWNERDRAW, 0, 0, 0, 0, oFont,, ;
               bSize, { | o, lpdis | o:Paint( lpdis ) }, ctooltip, ;
-              IIf( tcolor == Nil, hwg_VColor( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
+              IIf( tcolor == Nil, hwg_VColor("FFFFFF"), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
 
    ::aValues := aValues
 
@@ -152,7 +152,7 @@ METHOD Paint( lpdis ) CLASS HGraph
    x0 := x1 + ( 0 - ::xmin ) / ::scaleX
    y0 := Iif( ::lPositive, y2, y2 - ( 0 - ::ymin ) / ::scaleY )
 
-   hwg_Fillrect( hDC, drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle )
+   hwg_Fillrect(hDC, drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7], ::brush:handle)
    IF ::nType != 3
       hwg_Selectobject( hDC, ::oPenCoor:handle )
       hwg_Drawline(hDC, x0, drawInfo[5] + 3, x0, drawInfo[7] - 3)
@@ -184,7 +184,7 @@ METHOD Paint( lpdis ) CLASS HGraph
                   // px1 := Round(x1 + nWidth * ( j * 2 - 1 ), 0)
                   px1 := Round(x1 + nWidth * ( j - 1 ) + 1, 0)
                   py1 := Round(y2 - 2 - ( ::aValues[i, j, 2] - ::ymin ) / ::scaleY, 0)
-                  hwg_Fillrect( hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle )
+                  hwg_Fillrect(hDC, px1, y2 - 2, px1 + nWidth - 1, py1, ::tbrush:handle)
                ENDIF
             NEXT
          ELSEIF ::nType == 3
@@ -203,14 +203,14 @@ METHOD Paint( lpdis ) CLASS HGraph
       IF ::oFont != Nil
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
-      hwg_Settextcolor( hDC, ::colorCoor )
+      hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignY)
          py1 := Round(y2 - 2 - ( ::aSignY[i, 1] - ::ymin ) / ::scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0-4, py1, x0+1, py1)
             IF ::aSignY[i, 2] != Nil
-               hwg_Drawtext( hDC, Iif( Valtype(::aSignY[i, 2])=="C",::aSignY[i, 2], ;
-                     Ltrim(Str(::aSignY[i, 2]))), drawInfo[4], py1-8, x0-4, py1+8, DT_RIGHT )
+               hwg_Drawtext(hDC, Iif( Valtype(::aSignY[i, 2])=="C",::aSignY[i, 2], ;
+                     Ltrim(Str(::aSignY[i, 2]))), drawInfo[4], py1-8, x0-4, py1+8, DT_RIGHT)
                IF ::lGridY
                   hwg_Drawline(hDC, x0+1, py1, x2, py1)
                ENDIF
@@ -223,13 +223,13 @@ METHOD Paint( lpdis ) CLASS HGraph
       IF ::oFont != Nil
          hwg_Selectobject( hDC, ::oFont:handle )
       ENDIF
-      hwg_Settextcolor( hDC, ::colorCoor )
+      hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignX)
          px1 := Round(x0 + nWidth * ::aSignX[i, 1] + Iif( ::lGridXMid, nWidth/2, 0 ), 0)
          hwg_Drawline(hDC, px1, y0+4, px1, y0-1)
          IF ::aSignX[i, 2] != Nil
-            hwg_Drawtext( hDC, Iif( Valtype(::aSignX[i, 2])=="C",::aSignX[i, 2], ;
-                  Ltrim(Str(::aSignX[i, 2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER )
+            hwg_Drawtext(hDC, Iif( Valtype(::aSignX[i, 2])=="C",::aSignX[i, 2], ;
+                  Ltrim(Str(::aSignX[i, 2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER)
             IF ::lGridX
                hwg_Drawline(hDC, px1, y0-1, px1, y1)
             ENDIF

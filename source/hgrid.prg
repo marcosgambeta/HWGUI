@@ -161,13 +161,13 @@ METHOD Init() CLASS HGrid
       NEXT
 
       IF ::color != nil
-         hwg_Listview_settextcolor( ::handle, ::color )
+         hwg_Listview_settextcolor(::handle, ::color)
 
       ENDIF
 
       IF ::bkcolor != nil
-         hwg_Listview_setbkcolor( ::handle, ::bkcolor )
-         hwg_Listview_settextbkcolor( ::handle, ::bkcolor )
+         hwg_Listview_setbkcolor(::handle, ::bkcolor)
+         hwg_Listview_settextbkcolor(::handle, ::bkcolor)
       ENDIF
    ENDIF
    RETURN Nil

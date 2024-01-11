@@ -87,7 +87,7 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS 
       ::nWidth  := IIf( nLength == NIL, 20, nLength )
       ::nHeight := 10
    ENDIF
-   ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( nColor ))
+   ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(nColor))
 
    ::Activate()
 
@@ -169,7 +169,7 @@ CLASS HDrawShape INHERIT HControl
          lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )
    METHOD Activate()
    METHOD Paint( lpDis )
-   METHOD SetColor( tcolor, bcolor, lRedraw )
+   METHOD SetColor(tcolor, bcolor, lRedraw)
    METHOD Curvature(nCurvature)
    //METHOD Refresh() INLINE hwg_Sendmessage(::handle, WM_PAINT, 0, 0), hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
 
@@ -192,14 +192,14 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor
    ::nbStyle := nbStyle
    ::nfStyle := nfStyle
    ::nCurvature := nCurvature
-   ::SetColor( ::tcolor, ::bColor )
+   ::SetColor(::tcolor, ::bColor)
 
    ::Activate()
 
    IF ::ncStyle == NIL
       ::oPen := HPen():Add(::nbStyle, ::nBorder, ::tColor)
    //ELSE  // CONTAINER
-   //    ::oPen := HPen():Add(PS_SOLID, 5, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+   //    ::oPen := HPen():Add(PS_SOLID, 5, hwg_Getsyscolor(COLOR_3DHILIGHT))
    ENDIF
 
    RETURN Self
@@ -215,10 +215,10 @@ METHOD Activate() CLASS HDrawShape
 
    RETURN NIL
 
-METHOD SetColor( tcolor, bColor, lRedraw ) CLASS HDrawShape
+METHOD SetColor(tcolor, bColor, lRedraw) CLASS HDrawShape
 
    ::brushFill := HBrush():Add(tColor, ::nfstyle)
-   ::Super:SetColor( tColor, bColor )
+   ::Super:SetColor(tColor, bColor)
    IF !Empty(lRedraw)
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
    ENDIF
@@ -230,7 +230,7 @@ METHOD Curvature(nCurvature) CLASS HDrawShape
    IF nCurvature != NIL
       ::nCurvature := nCurvature
       hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_ERASENOW, ::nLeft, ::nTop, ::nWidth, ::nHeight )
-      hwg_Invalidaterect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+      hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
 
    RETURN NIL
@@ -268,14 +268,14 @@ METHOD Paint( lpdis ) CLASS HDrawShape
          IF ::Brush != NIL
             hwg_Selectobject( hDC, ::Brush:handle )
          ENDIF
-         //hwg_Roundrect( hDC, x1 + 1, y1 + 1, x2, y2, ::nCurvature, ::nCurvature)
+         //hwg_Roundrect(hDC, x1 + 1, y1 + 1, x2, y2, ::nCurvature, ::nCurvature)
       ENDIF
       IF ::nfStyle != BS_TRANSPARENT .OR. ::backStyle = OPAQUE
          hwg_Selectobject( hDC, ::BrushFill:handle )
       ELSE
          hwg_Selectobject( hDC, hwg_Getstockobject( NULL_BRUSH ) )
       ENDIF
-      hwg_Roundrect( hDC, x1 + 1, y1 + 1, x2, y2, ::nCurvature, ::nCurvature)
+      hwg_Roundrect(hDC, x1 + 1, y1 + 1, x2, y2, ::nCurvature, ::nCurvature)
    ENDIF
    hwg_Setbkmode(hDC, oldbkMode)
 
@@ -283,7 +283,7 @@ METHOD Paint( lpdis ) CLASS HDrawShape
 
 // END NEW CLASSE
 //-----------------------------------------------------------------
-FUNCTION hwg_Rect( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )
+FUNCTION hwg_Rect(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST)
 
 
    IF lPress = NIL
@@ -333,13 +333,13 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSiz
    ::bLoad := bLoad
    ::bRefresh := bRefresh
    ::bOther := bOther
-   ::SetColor( ::tColor, ::bColor )
+   ::SetColor(::tColor, ::bColor)
    ::Activate()
    IF ::bLoad != NIL
       // SET ENVIRONMENT
       Eval( ::bLoad, Self )
    ENDIF
-   ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
+   ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
 
   RETURN Self
 
@@ -377,7 +377,7 @@ METHOD Init() CLASS HContainer
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
       Hwg_InitStaticProc(::handle)
-      //hwg_Setwindowpos( ::Handle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOZORDER)
+      //hwg_Setwindowpos(::Handle, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_NOZORDER)
    ENDIF
 
    RETURN  NIL
@@ -460,10 +460,10 @@ METHOD Paint( lpdis ) CLASS HContainer
       ENDIF
       IF ::backStyle != TRANSPARENT
          IF ::Brush != NIL
-            hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2, ::brush:handle )
+            hwg_Fillrect(hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2, ::brush:handle)
          ENDIF
       ELSE
-         hwg_Fillrect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2, hwg_Getstockobject(5) )
+         hwg_Fillrect(hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2, hwg_Getstockobject(5))
       ENDIF
       //hwg_Setbkmode(hDC, 0)
    ENDIF

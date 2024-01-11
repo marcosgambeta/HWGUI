@@ -39,7 +39,7 @@ HB_FUNC( HWG_MSGSTOP )
 
 HB_FUNC( HWG_MSGOKCANCEL )
 {
-   hb_retni( s_msgbox( MB_OKCANCEL | MB_ICONQUESTION ) );
+   hb_retni(s_msgbox( MB_OKCANCEL | MB_ICONQUESTION ));
 }
 
 HB_FUNC( HWG_MSGYESNO )
@@ -54,7 +54,7 @@ HB_FUNC( HWG_MSGNOYES )
 
 HB_FUNC( HWG_MSGYESNOCANCEL )
 {
-   hb_retni( s_msgbox( MB_YESNOCANCEL | MB_ICONQUESTION ) );
+   hb_retni(s_msgbox( MB_YESNOCANCEL | MB_ICONQUESTION ));
 }
 
 HB_FUNC( HWG_MSGEXCLAMATION )
@@ -64,7 +64,7 @@ HB_FUNC( HWG_MSGEXCLAMATION )
 
 HB_FUNC( HWG_MSGRETRYCANCEL )
 {
-   hb_retni( s_msgbox( MB_RETRYCANCEL | MB_ICONQUESTION | MB_ICONQUESTION ) );
+   hb_retni(s_msgbox( MB_RETRYCANCEL | MB_ICONQUESTION | MB_ICONQUESTION ));
 }
 
 HB_FUNC( HWG_MSGBEEP )
@@ -92,8 +92,8 @@ HB_FUNC( HWG_MSGTEMP )
 #else
       msg = cres;
 #endif
-      hb_retni( MessageBox( GetActiveWindow(), msg, TEXT( "DialogBaseUnits" ),
-                            MB_OKCANCEL | MB_ICONQUESTION ) );
+      hb_retni(MessageBox( GetActiveWindow(), msg, TEXT("DialogBaseUnits"),
+                            MB_OKCANCEL | MB_ICONQUESTION ));
    }
 }
 

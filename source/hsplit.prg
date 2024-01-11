@@ -100,7 +100,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
       Hwg_SetCursor( ::hCursor )
       hwg_Setcapture(::handle)
       ::lCaptured := .T.
-      hwg_Invalidaterect( ::handle, 1 )
+      hwg_Invalidaterect(::handle, 1)
    ELSEIF msg == WM_LBUTTONUP
       hwg_Releasecapture()
       ::lCaptured := .F.
@@ -121,8 +121,8 @@ METHOD Paint() CLASS HSplitter
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint( ::handle, pps )
    IF hwg_Getppserase(pps) > 0
-      //aCoors := hwg_Getclientrect( ::handle )
-      aCoors := hwg_Getppsrect( pps )
+      //aCoors := hwg_Getclientrect(::handle)
+      aCoors := hwg_Getppsrect(pps)
 
       x1 := aCoors[1] //+ IIf( ::lVertical, 1, 2 )
       y1 := aCoors[2] //+ IIf( ::lVertical, 2, 1 )
@@ -137,7 +137,7 @@ METHOD Paint() CLASS HSplitter
            oBrushFill := HBrush():Add(hwg_Rgb(156, 156, 156))
            hwg_Selectobject( hDC, oBrushFill:handle )
            hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif( ::lVertical, BF_RECT, BF_TOP ) + BF_MIDDLE)
-           hwg_Fillrect( hDC, x1, y1, x2, y2, oBrushFill:handle )
+           hwg_Fillrect(hDC, x1, y1, x2, y2, oBrushFill:handle)
         ELSEIF ::BackStyle = OPAQUE
             hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf( ::lVertical, BF_LEFT, BF_TOP ))
          ENDIF
@@ -167,7 +167,7 @@ METHOD Drag( lParam ) CLASS HSplitter
    ENDIF
    ::Move(::nLeft + xPos, ::nTop + yPos, ::nWidth, ::nHeight)
    IF !::lScrolling
-      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth, ::nTop + ::nHeight )
+      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
    ::lMoved := .T.
 
@@ -191,7 +191,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       ENDIF
       oCtrl:Move(oCtrl:nLeft + xDiff, oCtrl:nTop + yDiff, oCtrl:nWidth - xDiff, oCtrl:nHeight - yDiff, !lScroll)
       IF ( yDiff < 0.OR. xDiff > 0 ) .OR. !lScroll
-         hwg_Invalidaterect( oCtrl:Handle, 0 )
+         hwg_Invalidaterect(oCtrl:Handle, 0)
       ENDIF
    NEXT
    FOR i := 1 TO Len(::aLeft)
@@ -205,7 +205,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       ENDIF
       oCtrl:Move(oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth + xDiff, oCtrl:nHeight + yDiff, !lScroll)
       IF ( yDiff > 0.OR. xDiff > 0 ) .OR. !lScroll
-         hwg_Invalidaterect( oCtrl:Handle, 0 )
+         hwg_Invalidaterect(oCtrl:Handle, 0)
       ENDIF
    NEXT
    //::lMoved := .F.

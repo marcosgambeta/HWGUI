@@ -50,8 +50,8 @@ CLASS HPrinter INHERIT HObject
    METHOD SetMode(nOrientation)
    METHOD AddFont( fontName, nHeight, lBold, lItalic, lUnderline, nCharSet )
    METHOD SetFont( oFont )  INLINE hwg_Selectobject( ::hDC, oFont:handle )
-   METHOD Settextcolor( nColor )  INLINE hwg_Settextcolor( ::hDC, nColor )
-   METHOD SetTBkColor( nColor )   INLINE hwg_Setbkcolor( ::hDC, nColor )
+   METHOD Settextcolor(nColor)  INLINE hwg_Settextcolor(::hDC, nColor)
+   METHOD SetTBkColor(nColor)   INLINE hwg_Setbkcolor(::hDC, nColor)
    METHOD Setbkmode(lmode)   INLINE hwg_Setbkmode(::hDC, IIF( lmode, 1, 0 ))
    METHOD StartDoc(lPreview, cMetaName)
    METHOD EndDoc()
@@ -224,16 +224,16 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS H
       hFont := hwg_Selectobject( ::hDC, oFont:handle )
    ENDIF
    IF nTextColor != NIL
-      nOldTC := hwg_Settextcolor( ::hDC, nTextColor )
+      nOldTC := hwg_Settextcolor(::hDC, nTextColor)
    ENDIF
    IF nBkColor != NIL
-      nOldBC := hwg_Setbkcolor( ::hDC, nBkColor )
+      nOldBC := hwg_Setbkcolor(::hDC, nBkColor)
    ENDIF
 
    IF ::lmm
-      hwg_Drawtext( ::hDC, cString, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2, IIf( nOpt == NIL, DT_LEFT, nOpt ) )
+      hwg_Drawtext(::hDC, cString, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2, IIf( nOpt == NIL, DT_LEFT, nOpt ))
    ELSE
-      hwg_Drawtext( ::hDC, cString, x1, y1, x2, y2, IIf( nOpt == NIL, DT_LEFT, nOpt ) )
+      hwg_Drawtext(::hDC, cString, x1, y1, x2, y2, IIf( nOpt == NIL, DT_LEFT, nOpt ))
    ENDIF
 
    IF oFont != NIL
@@ -241,11 +241,11 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS H
    ENDIF
 
    IF nTextColor != NIL
-      hwg_Settextcolor( ::hDC, nOldTC )
+      hwg_Settextcolor(::hDC, nOldTC)
    ENDIF
 
    IF nBkColor != NIL
-      hwg_Setbkcolor( ::hDC, nOldBC )
+      hwg_Setbkcolor(::hDC, nOldBC)
    ENDIF
 
    RETURN NIL
@@ -535,8 +535,8 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
 
    HB_SYMBOL_UNUSED(lParam)
 
-   nPosVert := hwg_Getscrollpos( oCanvas:handle, SB_VERT )
-   nPosHorz := hwg_Getscrollpos( oCanvas:handle, SB_HORZ )
+   nPosVert := hwg_Getscrollpos(oCanvas:handle, SB_VERT)
+   nPosHorz := hwg_Getscrollpos(oCanvas:handle, SB_HORZ)
 
    IF msg = WM_VSCROLL
       hwg_Setscrollrange(oCanvas:handle, SB_VERT, 1, 20)
@@ -564,7 +564,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
             nPosVert := 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, nPosVert )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, nPosVert)
       ::NeedsRedraw := .T.
    ENDIF
 
@@ -594,7 +594,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
             nPosHorz := 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_HORZ, nPosHorz )
+      hwg_Setscrollpos(oCanvas:handle, SB_HORZ, nPosHorz)
       ::NeedsRedraw := .T.
    ENDIF
 
@@ -609,7 +609,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
             nPosVert := 1
          ENDIF
       ENDIF
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, nPosVert )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, nPosVert)
       ::NeedsRedraw := .T.
    ENDIF
 
@@ -660,7 +660,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
          ::yOffset := Round(( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0)
       ENDIF
    ELSE
-      hwg_Setscrollpos( oCanvas:handle, SB_VERT, 0 )
+      hwg_Setscrollpos(oCanvas:handle, SB_VERT, 0)
    ENDIF
 
    IF nWidth > x
@@ -670,7 +670,7 @@ METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
          ::xOffset := Round(nPos * ( nWidth - x + 10 ), 0)
       ENDIF
    ELSE
-      hwg_Setscrollpos( oCanvas:handle, SB_HORZ, 0 )
+      hwg_Setscrollpos(oCanvas:handle, SB_HORZ, 0)
    ENDIF
 
    ::x1 := IIf( nWidth < x, Round(( x - nWidth ) / 2, 0), 10 ) - ::xOffset
@@ -697,7 +697,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
    STATIC BrushLine := NIL
    STATIC BrushBackground := NIL
 
-   rect := hwg_Getclientrect( oWnd:handle )
+   rect := hwg_Getclientrect(oWnd:handle)
 
    // WriteLog(stR(rect[1])+ stR(rect[2])+ stR(rect[3])+ stR(rect[4]) )
    // offscreen canvas must be THE WHOLE CANVAS !
@@ -708,7 +708,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
 
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint( oWnd:handle, pps )
-   aArray = hwg_Getppsrect( pps )
+   aArray = hwg_Getppsrect(pps)
    // tracelog( "PPS"+str(aArray[1])+str(aArray[2])+str(aArray[3])+str(aArray[4]) )
 
    IF ( aArray[1] == 0 .AND. aArray[2] == 0 )  // IF WHOLE AREA
@@ -718,7 +718,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
             ::memDC:Createcompatibledc(hDC)
             ::memBitmap := hwg_Createcompatiblebitmap( hDC, rect[3] - rect[1], rect[4] - rect[2] )
             ::memDC:Selectobject( ::memBitmap )
-            Brush           := HBrush():Add(hwg_Getsyscolor( COLOR_3DHILIGHT + 1 )):handle
+            Brush           := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
             BrushWhite      := HBrush():Add(hwg_Rgb(255, 255, 255)):handle
             BrushBlack      := HBrush():Add(hwg_Rgb(0, 0, 0)):handle
             BrushLine       := HBrush():Add(hwg_Rgb(102, 100, 92)):handle
@@ -729,26 +729,26 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
 
          IF ::NeedsRedraw
             // Draw the canvas background (gray)
-            hwg_Fillrect( ::memDC:m_hDC, rect[1], rect[2], rect[3], rect[4], BrushBackground )
-            hwg_Fillrect( ::memDC:m_hDC, rect[1], rect[2], rect[1], rect[4], BrushBorder )
-            hwg_Fillrect( ::memDC:m_hDC, rect[1], rect[2], rect[3], rect[2], BrushBorder )
+            hwg_Fillrect(::memDC:m_hDC, rect[1], rect[2], rect[3], rect[4], BrushBackground)
+            hwg_Fillrect(::memDC:m_hDC, rect[1], rect[2], rect[1], rect[4], BrushBorder)
+            hwg_Fillrect(::memDC:m_hDC, rect[1], rect[2], rect[3], rect[2], BrushBorder)
             // Draw the PAPER background (white)
-            hwg_Fillrect( ::memDC:m_hDC, ::x1 - 1, ::y1 - 1, ::x2 + 1, ::y2 + 1, BrushLine )
-            hwg_Fillrect( ::memDC:m_hDC, ::x1, ::y1, ::x2, ::y2, BrushWhite )
+            hwg_Fillrect(::memDC:m_hDC, ::x1 - 1, ::y1 - 1, ::x2 + 1, ::y2 + 1, BrushLine)
+            hwg_Fillrect(::memDC:m_hDC, ::x1, ::y1, ::x2, ::y2, BrushWhite)
             // Draw the actual printer data
             hwg_PlayEnhMetafile(::memDC:m_hDC, ::aMeta[::nCurrPage], ::x1, ::y1, ::x2, ::y2)
             // Draw
             // hwg_Rectangle(::memDC:m_hDC, ::x1, ::y1, ::x2, ::y2)
 
-            hwg_Fillrect( ::memDC:m_hDC, ::x2, ::y1 + 2, ::x2 + 1, ::y2 + 2, BrushBlack )
-            hwg_Fillrect( ::memDC:m_hDC, ::x2 + 1, ::y1 + 1, ::x2 + 2, ::y2 + 2, BrushShadow )
-            hwg_Fillrect( ::memDC:m_hDC, ::x2 + 1, ::y1 + 2, ::x2 + 2, ::y2 + 2, BrushLine )
-            hwg_Fillrect( ::memDC:m_hDC, ::x2 + 2, ::y1 + 2, ::x2 + 3, ::y2 + 2, BrushShadow )
+            hwg_Fillrect(::memDC:m_hDC, ::x2, ::y1 + 2, ::x2 + 1, ::y2 + 2, BrushBlack)
+            hwg_Fillrect(::memDC:m_hDC, ::x2 + 1, ::y1 + 1, ::x2 + 2, ::y2 + 2, BrushShadow)
+            hwg_Fillrect(::memDC:m_hDC, ::x2 + 1, ::y1 + 2, ::x2 + 2, ::y2 + 2, BrushLine)
+            hwg_Fillrect(::memDC:m_hDC, ::x2 + 2, ::y1 + 2, ::x2 + 3, ::y2 + 2, BrushShadow)
 
 
-            hwg_Fillrect( ::memDC:m_hDC, ::x1 + 2, ::y2, ::x2, ::y2 + 2, BrushBlack )
-            hwg_Fillrect( ::memDC:m_hDC, ::x1 + 2, ::y2 + 1, ::x2 + 1, ::y2 + 2, BrushLine )
-            hwg_Fillrect( ::memDC:m_hDC, ::x1 + 2, ::y2 + 2, ::x2 + 2, ::y2 + 3, BrushShadow )
+            hwg_Fillrect(::memDC:m_hDC, ::x1 + 2, ::y2, ::x2, ::y2 + 2, BrushBlack)
+            hwg_Fillrect(::memDC:m_hDC, ::x1 + 2, ::y2 + 1, ::x2 + 1, ::y2 + 2, BrushLine)
+            hwg_Fillrect(::memDC:m_hDC, ::x1 + 2, ::y2 + 2, ::x2 + 2, ::y2 + 3, BrushShadow)
             ::NeedsRedraw := .F.
          ENDIF
          // tracelog("bitblt")

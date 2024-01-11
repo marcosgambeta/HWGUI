@@ -82,10 +82,10 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
       BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color,
       RECT * prect);
 void cxshade_SetFlat( PCXSHADE pshade, BOOL bFlag );
-COLORREF cxshade_SetTextColor( PCXSHADE pshade, COLORREF new_color );
+COLORREF cxshade_SetTextColor(PCXSHADE pshade, COLORREF new_color);
 
-void Draw3dRect( HDC hDC, RECT * lprect, COLORREF clrTopLeft,
-      COLORREF clrBottomRight )
+void Draw3dRect(HDC hDC, RECT * lprect, COLORREF clrTopLeft,
+      COLORREF clrBottomRight)
 {
    RECT r;
    int x, y, cx, cy;
@@ -95,20 +95,20 @@ void Draw3dRect( HDC hDC, RECT * lprect, COLORREF clrTopLeft,
    cx = lprect->right - lprect->left;
    cy = lprect->bottom - lprect->top;
 
-   SetBkColor( hDC, clrTopLeft );
+   SetBkColor(hDC, clrTopLeft);
 
-   SetRect( &r, x, y, x + cx - 1, y + 1 );
+   SetRect(&r, x, y, x + cx - 1, y + 1);
    ExtTextOut( hDC, 0, 0, ETO_OPAQUE, &r, NULL, 0, NULL );
 
-   SetRect( &r, x, y, x + 1, y + cy - 1 );
+   SetRect(&r, x, y, x + 1, y + cy - 1);
    ExtTextOut( hDC, 0, 0, ETO_OPAQUE, &r, NULL, 0, NULL );
 
-   SetBkColor( hDC, clrBottomRight );
+   SetBkColor(hDC, clrBottomRight);
 
-   SetRect( &r, x + cx, y, x + cx - 1, y + cy );
+   SetRect(&r, x + cx, y, x + cx - 1, y + cy);
    ExtTextOut( hDC, 0, 0, ETO_OPAQUE, &r, NULL, 0, NULL );
 
-   SetRect( &r, x, y + cy, x + cx, y + cy - 1 );
+   SetRect(&r, x, y + cy, x + cx, y + cy - 1);
    ExtTextOut( hDC, 0, 0, ETO_OPAQUE, &r, NULL, 0, NULL );
 
 }
@@ -325,8 +325,8 @@ PCXSHADE cxshade_New( RECT * prect, BOOL lFlat )
    PCXSHADE pshade = ( PCXSHADE ) hb_xgrab(sizeof( CXSHADE ));
 
    memset( pshade, 0, sizeof( CXSHADE ) );
-   SetRect( &( pshade->m_rect ), prect->left, prect->top, prect->right,
-         prect->bottom );
+   SetRect(&( pshade->m_rect ), prect->left, prect->top, prect->right,
+         prect->bottom);
    pshade->m_Border = 1;        //draw 3D border
    pshade->m_FocusRectMargin = 4;       //focus dotted rect margin
    pshade->m_flat = lFlat;
@@ -358,8 +358,8 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
    HDC hdcMem;                  //create a memory DC to avoid flicker
    HDC pDC;
 
-   SetRect( &r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right,
-         pshade->m_rect.bottom );
+   SetRect(&r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right,
+         pshade->m_rect.bottom);
 
    hdcMem = CreateCompatibleDC(pRealDC);
    pDC = hdcMem;                //(just use pRealDC to paint directly the screen)
@@ -392,8 +392,8 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
          if( pshade->m_Border )
          {
             if( pshade->m_flat )
-               Draw3dRect( pDC, &r, GetSysColor( COLOR_BTNSHADOW ),
-                     GetSysColor( COLOR_BTNHILIGHT ) );
+               Draw3dRect(pDC, &r, GetSysColor(COLOR_BTNSHADOW),
+                     GetSysColor(COLOR_BTNHILIGHT));
             else
                DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
          }
@@ -421,14 +421,14 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
             if( !( pshade->m_flat ) )   // ( state & STATE_DEFAULT )
             {
                DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
-               InflateRect( &r, -1, -1 );
+               InflateRect(&r, -1, -1);
                DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
             }
             else
             {
                if( pshade->m_flat )
-                  Draw3dRect( pDC, &r, GetSysColor( COLOR_BTNHILIGHT ),
-                        GetSysColor( COLOR_BTNSHADOW ) );
+                  Draw3dRect(pDC, &r, GetSysColor(COLOR_BTNHILIGHT),
+                        GetSysColor(COLOR_BTNSHADOW));
                else
                   DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
             }
@@ -438,7 +438,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state )
          // paint the focus rect
          if( (state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0) )
          {
-         InflateRect( &r,-pshade->m_FocusRectMargin,-pshade->m_FocusRectMargin );
+         InflateRect(&r,-pshade->m_FocusRectMargin,-pshade->m_FocusRectMargin);
          cxdib_Draw( &(pshade->m_dh), pDC, 1+r.left, r.top );
          cxdib_Draw( &(pshade->m_dh), pDC, 1+r.left, r.bottom );
          cxdib_Draw( &(pshade->m_dv), pDC, r.left, 1+r.top );
@@ -465,17 +465,17 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
    long sXSize, sYSize, bytes, j, i, k, h;
    BYTE *iDst, *posDst;
    //get the button base colors
-   COLORREF hicr = ( palette ) ? 16777215 : GetSysColor( COLOR_BTNHIGHLIGHT );
-   COLORREF midcr = ( palette ) ? 12632256 : GetSysColor( COLOR_BTNFACE );
-   COLORREF locr = ( palette ) ? 8421504 : GetSysColor( COLOR_BTNSHADOW );
+   COLORREF hicr = ( palette ) ? 16777215 : GetSysColor(COLOR_BTNHIGHLIGHT);
+   COLORREF midcr = ( palette ) ? 12632256 : GetSysColor(COLOR_BTNFACE);
+   COLORREF locr = ( palette ) ? 8421504 : GetSysColor(COLOR_BTNSHADOW);
    long r, g, b;
    long a, x, y, d, xs, idxmax, idxmin;
    long aa, bb;
    int grainx2;
 
    if( prect )
-      SetRect( &( pshade->m_rect ), prect->left, prect->top, prect->right,
-            prect->bottom );
+      SetRect(&( pshade->m_rect ), prect->left, prect->top, prect->right,
+            prect->bottom);
    sYSize = pshade->m_rect.bottom - pshade->m_rect.top;
    sXSize = pshade->m_rect.right - pshade->m_rect.left;
 
@@ -734,8 +734,8 @@ HB_FUNC( HWG_SHADE_NEW )
    RECT rect;
    PCXSHADE pshade;
 
-   SetRect( &rect, hb_parni(1), hb_parni(2), hb_parni(3),
-         hb_parni(4) );
+   SetRect(&rect, hb_parni(1), hb_parni(2), hb_parni(3),
+         hb_parni(4));
    pshade = cxshade_New( &rect, ( HB_ISNIL(5) ) ? 0 : hb_parl(5) );
    HB_RETHANDLE(pshade);
 }
@@ -763,8 +763,8 @@ HB_FUNC( HWG_SHADE_SET )
    RECT rect;
 
    if( !HB_ISNIL(7) )
-      SetRect( &rect, hb_parni(7), hb_parni(8), hb_parni(9),
-            hb_parni(10) );
+      SetRect(&rect, hb_parni(7), hb_parni(8), hb_parni(9),
+            hb_parni(10));
 
    cxshade_SetShade(pshade, shadeID, palette, granularity, highlight,
          coloring, color, ( HB_ISNIL(8) ) ? NULL : &rect);

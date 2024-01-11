@@ -150,11 +150,11 @@ BOOL s_freeImgInit( void )
 {
    if( !hFreeImageDll )
    {
-      hFreeImageDll = LoadLibrary( TEXT( "FreeImage.dll" ) );
+      hFreeImageDll = LoadLibrary( TEXT("FreeImage.dll") );
       if( !hFreeImageDll )
       {
-         MessageBox( GetActiveWindow(), TEXT( "Library not loaded" ),
-                     TEXT( "FreeImage.dll" ), MB_OK | MB_ICONSTOP );
+         MessageBox( GetActiveWindow(), TEXT("Library not loaded"),
+                     TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP );
          return 0;
       }
    }
@@ -256,8 +256,8 @@ HB_FUNC( HWG_FI_LOAD )
    if( pGetfiffromfile && pLoad )
    {
       const char *name = hb_parc(1);
-      hb_retnl( ( ULONG ) pLoad(pGetfiffromfile(name), name,
-                  ( hb_pcount() > 1 ) ? hb_parni(2) : 0) );
+      hb_retnl(( ULONG ) pLoad(pGetfiffromfile(name), name,
+                  ( hb_pcount() > 1 ) ? hb_parni(2) : 0));
    }
    else
       hb_retnl(0);
@@ -275,8 +275,8 @@ HB_FUNC( HWG_FI_LOADTYPE )
    if( pLoad )
    {
       const char *name = hb_parc(2);
-      hb_retnl( ( ULONG ) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  name, ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
+      hb_retnl(( ULONG ) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
+                  name, ( hb_pcount() > 2 ) ? hb_parni(3) : 0));
    }
    else
       hb_retnl(0);
@@ -328,7 +328,7 @@ HB_FUNC( HWG_FI_GETWIDTH )
          ( FREEIMAGE_GETWIDTH ) s_getFunction( ( FARPROC ) pGetwidth,
          "_FreeImage_GetWidth@4" );
 
-   hb_retnl( ( pGetwidth ) ? pGetwidth( ( FIBITMAP * ) hb_parnl(1) ) : 0 );
+   hb_retnl(( pGetwidth ) ? pGetwidth( ( FIBITMAP * ) hb_parnl(1) ) : 0);
 }
 
 HB_FUNC( HWG_FI_GETHEIGHT )
@@ -337,8 +337,8 @@ HB_FUNC( HWG_FI_GETHEIGHT )
          ( FREEIMAGE_GETHEIGHT ) s_getFunction( ( FARPROC ) pGetheight,
          "_FreeImage_GetHeight@4" );
 
-   hb_retnl( ( pGetheight ) ? pGetheight( ( FIBITMAP * ) hb_parnl(1) ) :
-         0 );
+   hb_retnl(( pGetheight ) ? pGetheight( ( FIBITMAP * ) hb_parnl(1) ) :
+         0);
 }
 
 HB_FUNC( HWG_FI_GETBPP )
@@ -347,7 +347,7 @@ HB_FUNC( HWG_FI_GETBPP )
          ( FREEIMAGE_GETBPP ) s_getFunction( ( FARPROC ) pGetBPP,
          "_FreeImage_GetBPP@4" );
 
-   hb_retnl( ( pGetBPP ) ? pGetBPP( ( FIBITMAP * ) hb_parnl(1) ) : 0 );
+   hb_retnl(( pGetBPP ) ? pGetBPP( ( FIBITMAP * ) hb_parnl(1) ) : 0);
 }
 
 HB_FUNC( HWG_FI_GETIMAGETYPE )
@@ -356,8 +356,8 @@ HB_FUNC( HWG_FI_GETIMAGETYPE )
          ( FREEIMAGE_GETIMAGETYPE ) s_getFunction( ( FARPROC ) pGetImageType,
          "_FreeImage_GetImageType@4" );
 
-   hb_retnl( ( pGetImageType ) ? pGetImageType(( FIBITMAP * ) hb_parnl(1))
-         : 0 );
+   hb_retnl(( pGetImageType ) ? pGetImageType(( FIBITMAP * ) hb_parnl(1))
+         : 0);
 }
 
 HB_FUNC( HWG_FI_2BITMAP )
@@ -375,8 +375,8 @@ HB_FUNC( HWG_FI_2BITMAP )
          ( FREEIMAGE_GETINFOHEADER ) s_getFunction( ( FARPROC ) pGetinfoHead,
          "_FreeImage_GetInfoHeader@4" );
 
-   hb_retnl( ( LONG ) CreateDIBitmap( hDC, pGetinfoHead(dib),
-               CBM_INIT, pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS ) );
+   hb_retnl(( LONG ) CreateDIBitmap( hDC, pGetinfoHead(dib),
+               CBM_INIT, pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS ));
 
    ReleaseDC(0, hDC);
 }
@@ -490,7 +490,7 @@ HB_FUNC( HWG_FI_FI2DIB )
       memcpy( ( LPBYTE ) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
             pGetbits( dib ), lpbi->bmiHeader.biSizeImage );
       GlobalUnlock( hdib );
-      hb_retnl( ( LONG ) hdib );
+      hb_retnl(( LONG ) hdib);
    }
    else
    {
@@ -592,7 +592,7 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       GlobalUnlock( hMem );
    }
 
-   hb_retnl( ( LONG ) hMem );
+   hb_retnl(( LONG ) hMem);
 }
 
 HB_FUNC( HWG_FI_DRAW )
@@ -673,7 +673,7 @@ HB_FUNC( HWG_FI_BMP2FI )
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
          ReleaseDC(NULL, hDC);
-         hb_retnl( ( LONG ) dib );
+         hb_retnl(( LONG ) dib);
          return;
       }
    }
@@ -773,7 +773,7 @@ HB_FUNC( HWG_FI_DIB2FI )
          }
 
          GlobalUnlock( hdib );
-         hb_retnl( ( LONG ) dib );
+         hb_retnl(( LONG ) dib);
          return;
 
       }
@@ -791,9 +791,9 @@ HB_FUNC( HWG_FI_RESCALE )
          ( FREEIMAGE_RESCALE ) s_getFunction( ( FARPROC ) pRescale,
          "_FreeImage_Rescale@16" );
 
-   hb_retnl( ( pRescale ) ? ( LONG ) pRescale(( FIBITMAP * ) hb_parnl(1),
+   hb_retnl(( pRescale ) ? ( LONG ) pRescale(( FIBITMAP * ) hb_parnl(1),
                hb_parnl(2), hb_parnl(3),
-               ( FREE_IMAGE_FILTER ) hb_parni(4)) : 0 );
+               ( FREE_IMAGE_FILTER ) hb_parni(4)) : 0);
 }
 
 /* Channel is an enumerated type from freeimage.h passed as second parameter */
@@ -916,8 +916,8 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
          fif = FIF_UNKNOWN;
 
       g_load_address = ( fi_handle ) image;
-      hb_retnl( ( LONG ) pLoadFromHandle(fif, &io, ( fi_handle ) image,
-                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
+      hb_retnl(( LONG ) pLoadFromHandle(fif, &io, ( fi_handle ) image,
+                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0));
    }
    else
       hb_retnl(0);
@@ -929,8 +929,8 @@ HB_FUNC( HWG_FI_ROTATECLASSIC )
          ( FREEIMAGE_ROTATECLASSIC ) s_getFunction( ( FARPROC ) pRotateClassic,
          "_FreeImage_RotateClassic@12" );
 
-   hb_retnl( ( pRotateClassic ) ? ( LONG ) pRotateClassic(( FIBITMAP * )
-               hb_parnl(1), hb_parnd(2)) : 0 );
+   hb_retnl(( pRotateClassic ) ? ( LONG ) pRotateClassic(( FIBITMAP * )
+               hb_parnl(1), hb_parnd(2)) : 0);
 }
 
 HB_FUNC( HWG_FI_GETDOTSPERMETERX )
@@ -939,8 +939,8 @@ HB_FUNC( HWG_FI_GETDOTSPERMETERX )
          ( FREEIMAGE_GETDOTSPERMETERX ) s_getFunction( ( FARPROC )
          pGetDotsPerMeterX, "_FreeImage_GetDotsPerMeterX@4" );
 
-   hb_retnl( ( pGetDotsPerMeterX ) ? pGetDotsPerMeterX( ( FIBITMAP * )
-               hb_parnl(1) ) : 0 );
+   hb_retnl(( pGetDotsPerMeterX ) ? pGetDotsPerMeterX( ( FIBITMAP * )
+               hb_parnl(1) ) : 0);
 }
 
 HB_FUNC( HWG_FI_GETDOTSPERMETERY )
@@ -949,8 +949,8 @@ HB_FUNC( HWG_FI_GETDOTSPERMETERY )
          ( FREEIMAGE_GETDOTSPERMETERY ) s_getFunction( ( FARPROC )
          pGetDotsPerMeterY, "_FreeImage_GetDotsPerMeterY@4" );
 
-   hb_retnl( ( pGetDotsPerMeterY ) ? pGetDotsPerMeterY( ( FIBITMAP * )
-               hb_parnl(1) ) : 0 );
+   hb_retnl(( pGetDotsPerMeterY ) ? pGetDotsPerMeterY( ( FIBITMAP * )
+               hb_parnl(1) ) : 0);
 }
 
 HB_FUNC( HWG_FI_SETDOTSPERMETERX )
@@ -986,8 +986,8 @@ HB_FUNC( HWG_FI_ALLOCATE )
          "_FreeImage_Allocate@24" );
 
    // X, Y, DEPTH
-   hb_retnl( ( ULONG ) pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3),
-               0, 0, 0) );
+   hb_retnl(( ULONG ) pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3),
+               0, 0, 0));
 }
 
 
@@ -1011,11 +1011,11 @@ HB_FUNC( HWG_FI_COPY )
          ( FREEIMAGE_COPY ) s_getFunction( ( FARPROC ) pCopy,
          "_FreeImage_Copy@20" );
 
-   hb_retnl( ( ULONG ) pCopy( ( FIBITMAP * ) hb_parnl(1),     // dib
+   hb_retnl(( ULONG ) pCopy( ( FIBITMAP * ) hb_parnl(1),     // dib
                hb_parnl(2),   // left
                hb_parnl(3),   // top
                hb_parnl(4),   // right
-               hb_parnl(5) ) );       // bottom
+               hb_parnl(5) ));       // bottom
 }
 
 /* just a test, should receive a RGBQUAD structure, a xharbour array */
@@ -1027,7 +1027,7 @@ HB_FUNC( HWG_FI_SETBACKGROUNDCOLOR )
          ( FREEIMAGE_SETBACKGROUNDCOLOR ) s_getFunction( ( FARPROC )
          pSetBackgroundColor, "_FreeImage_SetBackgroundColor@8" );
 
-   hb_retl( pSetBackgroundColor( ( FIBITMAP * ) hb_parnl(1), &rgbquad ) );
+   hb_retl( pSetBackgroundColor(( FIBITMAP * ) hb_parnl(1), &rgbquad) );
 }
 
 HB_FUNC( HWG_FI_INVERT )
@@ -1045,7 +1045,7 @@ HB_FUNC( HWG_FI_GETBITS )
          ( FREEIMAGE_GETBITS ) s_getFunction( ( FARPROC ) pGetbits,
          "_FreeImage_GetBits@4" );
 
-   hb_retptr( pGetbits( ( FIBITMAP * ) hb_parnl(1) ) );
+   hb_retptr(pGetbits( ( FIBITMAP * ) hb_parnl(1) ));
 }
 
 HB_FUNC( HWG_FI_CONVERTTO8BITS )
@@ -1054,7 +1054,7 @@ HB_FUNC( HWG_FI_CONVERTTO8BITS )
          ( FREEIMAGE_CONVERTTO8BITS ) s_getFunction( ( FARPROC )
          pConvertTo8Bits, "_FreeImage_ConvertTo8Bits@4" );
 
-   hb_retnl( ( LONG ) pConvertTo8Bits( ( FIBITMAP * ) hb_parnl(1) ) );
+   hb_retnl(( LONG ) pConvertTo8Bits( ( FIBITMAP * ) hb_parnl(1) ));
 }
 
 HB_FUNC( HWG_FI_CONVERTTOGREYSCALE )
@@ -1063,7 +1063,7 @@ HB_FUNC( HWG_FI_CONVERTTOGREYSCALE )
          ( FREEIMAGE_CONVERTTOGREYSCALE ) s_getFunction( ( FARPROC )
          pConvertToGreyscale, "_FreeImage_ConvertToGreyscale@4" );
 
-   hb_retnl( ( LONG ) pConvertToGreyscale(( FIBITMAP * ) hb_parnl(1)) );
+   hb_retnl(( LONG ) pConvertToGreyscale(( FIBITMAP * ) hb_parnl(1)));
 }
 
 HB_FUNC( HWG_FI_THRESHOLD )
@@ -1072,8 +1072,8 @@ HB_FUNC( HWG_FI_THRESHOLD )
          ( FREEIMAGE_THRESHOLD ) s_getFunction( ( FARPROC ) pThreshold,
          "_FreeImage_Threshold@8" );
 
-   hb_retnl( ( LONG ) pThreshold(( FIBITMAP * ) hb_parnl(1),
-               ( BYTE ) hb_parnl(2)) );
+   hb_retnl(( LONG ) pThreshold(( FIBITMAP * ) hb_parnl(1),
+               ( BYTE ) hb_parnl(2)));
 }
 
 HB_FUNC( HWG_FI_FLIPVERTICAL )
@@ -1097,7 +1097,7 @@ HB_FUNC( HWG_FI_GETPIXELINDEX )
          hb_parni(3), &value );
 
    if( lRes )
-      hb_stornl( ( ULONG ) value, 4 );
+      hb_stornl(( ULONG ) value, 4);
 
    hb_retl( lRes );
 }

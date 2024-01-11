@@ -232,7 +232,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFo
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )
 
    ::Activate()
-   //::SetColor( tcolor, bColor, .T. )
+   //::SetColor(tcolor, bColor, .T.)
    //::oParent:AddControl( Self )
 
    IF ::oGroup != NIL
@@ -302,7 +302,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    /*
    ::tcolor  := tcolor
    IF tColor != NIL .AND. bColor == NIL
-      bColor := hwg_Getsyscolor( COLOR_3DFACE )
+      bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    */
    ::backStyle :=  IIF( lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE )

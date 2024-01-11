@@ -50,13 +50,13 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Enabled(lEnabled) SETGET
    METHOD SetFont( oFont )
    METHOD Setfocus( lValid )
-   METHOD GetText()     INLINE hwg_Getwindowtext( ::handle )
-   METHOD SetText( c )  INLINE hwg_Setwindowtext( ::Handle, c ), ::title := c, ::Refresh()
+   METHOD GetText()     INLINE hwg_Getwindowtext(::handle)
+   METHOD SetText(c)  INLINE hwg_Setwindowtext(::Handle, c), ::title := c, ::Refresh()
    METHOD Refresh()     VIRTUAL
    METHOD onAnchor( x, y, w, h )
    METHOD SetToolTip( ctooltip )
    METHOD ControlSource(cControlSource) SETGET
-   METHOD DisableBackColor( DisableBColor ) SETGET
+   METHOD DisableBackColor(DisableBColor) SETGET
    METHOD END()
 
 ENDCLASS
@@ -81,7 +81,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    ENDIF
    ::bPaint  := bPaint
    ::tooltip := cTooltip
-   ::Setcolor( tcolor, bColor )
+   ::Setcolor(tcolor, bColor)
    ::oParent:AddControl( Self )
 
    RETURN Self
@@ -136,7 +136,7 @@ METHOD INIT() CLASS HControl
       ENDIF
       IF oForm != NIL .AND. oForm:Type != WND_DLG_RESOURCE  .AND. ( ::nLeft + ::nTop + ::nWidth + ::nHeight  != 0 )
          // fix init position in FORM reduce  flickering
-         hwg_Setwindowpos( ::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING ) //+ SWP_DRAWFRAME )
+         hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME )
       ENDIF
       IF ISBLOCK( ::bInit )
          ::oparent:lSuspendMsgsHandling := .T.
@@ -187,7 +187,7 @@ METHOD Enable() CLASS HControl
 
    RETURN NIL
 
-METHOD DisableBackColor( DisableBColor )
+METHOD DisableBackColor(DisableBColor)
 
    IF DisableBColor != NIL
       ::DisableBColor := DisableBColor
@@ -196,7 +196,7 @@ METHOD DisableBackColor( DisableBColor )
       ENDIF
       ::Disablebrush := HBrush():Add(::DisableBColor)
       IF !::IsEnabled() .AND. hwg_Iswindowvisible(::Handle)
-         hwg_Invalidaterect( ::Handle, 0 )
+         hwg_Invalidaterect(::Handle, 0)
       ENDIF
    ENDIF
 
@@ -354,37 +354,37 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
          nCxv := iif( HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1, 3 )
          nCyh := iif( HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1, 3 )
          IF ( x1 != x9 .OR. y1 != y9 ) .AND. x9 < ::oParent:nWidth
-            hwg_Invalidaterect( ::oParent:handle, 1, Max( x9 - 1, 0 ), Max( y9 - 1, 0 ), ;
-               x9 + w9 + nCxv, y9 + h9 + nCyh )
+            hwg_Invalidaterect(::oParent:handle, 1, Max( x9 - 1, 0 ), Max( y9 - 1, 0 ), ;
+               x9 + w9 + nCxv, y9 + h9 + nCyh)
          ELSE
             IF w1 < w9
-               hwg_Invalidaterect( ::oParent:handle, 1, x1 + w1 - nCxv - 1, Max( y1 - 2, 0 ), ;
-                  x1 + w9 + 2, y9 + h9 + nCxv + 1 )
+               hwg_Invalidaterect(::oParent:handle, 1, x1 + w1 - nCxv - 1, Max( y1 - 2, 0 ), ;
+                  x1 + w9 + 2, y9 + h9 + nCxv + 1)
             ENDIF
             IF h1 < h9
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 5, 0 ), y1 + h1 - nCyh - 1, ;
-                  x1 + w9 + 2, y1 + h9 + nCYh )
+               hwg_Invalidaterect(::oParent:handle, 1, Max( x1 - 5, 0 ), y1 + h1 - nCyh - 1, ;
+                  x1 + w9 + 2, y1 + h9 + nCYh)
             ENDIF
          ENDIF
          IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
                ( ::Title != NIL .AND. !Empty(::Title) ) ) .OR. __ObjHasMsg( Self, "oImage" )
             IF __ObjHasMsg( Self, "oImage" ) .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1, y1 + h1 + 1 )
+               hwg_Invalidaterect(::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1, y1 + h1 + 1)
             ELSE
                hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
             ENDIF
          ELSE
             IF Len(::aControls) = 0 .AND. ::Title != NIL
-               hwg_Invalidaterect( ::handle, 0 )
+               hwg_Invalidaterect(::handle, 0)
             ENDIF
             IF w1 > w9
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1 + w9 - nCxv - 1, 0 ), ;
-                  Max( y1, 0 ), x1 + w1 + nCxv, y1 + h1 + 2  )
+               hwg_Invalidaterect(::oParent:handle, 1, Max( x1 + w9 - nCxv - 1, 0 ), ;
+                  Max( y1, 0 ), x1 + w1 + nCxv, y1 + h1 + 2)
             ENDIF
             IF h1 > h9
-               hwg_Invalidaterect( ::oParent:handle, 1, Max( x1, 0 ), ;
-                  Max( y1 + h9 - nCyh - 1, 1 ), x1 + w1 + 2, y1 + h1 + nCyh )
+               hwg_Invalidaterect(::oParent:handle, 1, Max( x1, 0 ), ;
+                  Max( y1 + h9 - nCyh - 1, 1 ), x1 + w1 + 2, y1 + h1 + nCyh)
             ENDIF
          ENDIF
          // redefine new position e new size
@@ -500,7 +500,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
    LOCAL aCoors
 
    IF nHeight != NIL
-      aCoors := hwg_Getwindowrect( ::handle )
+      aCoors := hwg_Getwindowrect(::handle)
       IF nHeight != 0
          IF ::lInit .AND. __ObjHasMsg( ::oParent, "AOFFSET" )
             ::oParent:aOffset[4] -= ( aCoors[4] - aCoors[2] )
@@ -508,7 +508,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
          hwg_Sendmessage(::handle, ;           // (HWND) handle to destination control
             SB_SETMINHEIGHT, nHeight, 0)      // (UINT) message ID  // = (WPARAM)(int) minHeight;
          hwg_Sendmessage(::handle, WM_SIZE, 0, 0)
-         aCoors := hwg_Getwindowrect( ::handle )
+         aCoors := hwg_Getwindowrect(::handle)
       ENDIF
       ::nStatusHeight := ( aCoors[4] - aCoors[2] ) - 1
       IF __ObjHasMsg( ::oParent, "AOFFSET" )
@@ -589,7 +589,7 @@ CLASS HStatic INHERIT HControl
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Activate()
-   METHOD SetValue(value) INLINE hwg_Setwindowtext( ::handle, value )
+   METHOD SetValue(value) INLINE hwg_Setwindowtext(::handle, value)
    METHOD Init()
 
 ENDCLASS
@@ -657,7 +657,7 @@ METHOD Init() CLASS HStatic
    IF !::lInit
       ::Super:init()
       IF ::title != NIL
-         hwg_Setwindowtext( ::handle, ::title )
+         hwg_Setwindowtext(::handle, ::title)
       ENDIF
    ENDIF
 
@@ -730,7 +730,7 @@ METHOD Init() CLASS HButton
 
    ::super:Init()
    IF ::title != NIL
-      hwg_Setwindowtext( ::handle, ::title )
+      hwg_Setwindowtext(::handle, ::title)
    ENDIF
 RETURN  NIL
 
@@ -803,8 +803,8 @@ METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, 
          ::nWidth  := iif( nLength == NIL, 20, nLength )
          ::nHeight := ::nBorder + 1 //10
       ENDIF
-      ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
-      ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW  ))
+      ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
+      ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
    ELSE
       ::nWidth  := nLength
       ::nHeight := nHeight

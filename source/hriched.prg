@@ -48,7 +48,7 @@ CLASS HRichEdit INHERIT HControl
    METHOD UpdatePos()
    METHOD onChange()
    METHOD ReadOnly( lreadOnly ) SETGET
-   METHOD SetColor( tColor, bColor, lRedraw )
+   METHOD SetColor(tColor, bColor, lRedraw)
    METHOD Savefile(cFile)
    METHOD OpenFile(cFile)
    METHOD Print()
@@ -62,7 +62,7 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
                         IIf( lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0 ) )
    ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, hwg_Getsyscolor( COLOR_BTNHIGHLIGHT ), bcolor ) )
+              bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor ) )
 
    ::title   := vari
    ::bOther  := bOther
@@ -101,7 +101,7 @@ METHOD Init()  CLASS HRichEdit
       hwg_Setwindowobject( ::handle, Self )
       Hwg_InitRichProc(::handle)
       ::Super:Init()
-      ::SetColor( ::tColor, ::bColor )
+      ::SetColor(::tColor, ::bColor)
       IF ::bChange != Nil
          hwg_Sendmessage(::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE)
          ::oParent:AddEvent( EN_CHANGE, ::id, {| | ::onChange()} )
@@ -164,7 +164,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
                       iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0
       ELSEIF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE
-         hwg_Re_inserttext( ::handle, CHR( VK_TAB ) )
+         hwg_Re_inserttext(::handle, CHR( VK_TAB ))
           RETURN 0
       ENDIF
       IF wParam == VK_ESCAPE .AND. hwg_GetParentForm( Self ):Handle != ::oParent:handle
@@ -186,7 +186,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
 
    RETURN - 1
 
-METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
+METHOD SetColor(tColor, bColor, lRedraw)  CLASS HRichEdit
 
    IF tcolor != NIL
       hwg_Re_setdefault( ::handle, tColor ) //, ID_FONT,, ) // cor e fonte padrao
@@ -194,7 +194,7 @@ METHOD SetColor( tColor, bColor, lRedraw )  CLASS HRichEdit
    IF bColor != NIL
       hwg_Sendmessage(::Handle, EM_SETBKGNDCOLOR, 0, bColor)  // cor de fundo
    ENDIF
-   ::super:SetColor( tColor, bColor, lRedraw )
+   ::super:SetColor(tColor, bColor, lRedraw)
 
    RETURN NIL
 

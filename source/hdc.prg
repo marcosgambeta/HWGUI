@@ -50,14 +50,14 @@ CLASS HDC
    METHOD ATTACH( hDc )
    METHOD Moveto( x1, y1 )
    METHOD Lineto( x1, y1 )
-   METHOD fillsolidrect( lpRect, clr )
-   METHOD Fillrect( lpRect, clr )
+   METHOD fillsolidrect(lpRect, clr)
+   METHOD Fillrect(lpRect, clr)
    METHOD Selectcliprgn( pRgn )
-   METHOD Settextcolor( xColor )
+   METHOD Settextcolor(xColor)
    METHOD Setbkmode(xMode)
-   METHOD Setbkcolor(  clr ) INLINE    hwg_Setbkcolor( ::m_hDC, clr )
+   METHOD Setbkcolor(clr) INLINE    hwg_Setbkcolor(::m_hDC, clr)
    METHOD Selectobject( xMode )
-   METHOD Drawtext( strText, Rect, dwFlags )
+   METHOD Drawtext(strText, Rect, dwFlags)
    METHOD Createcompatibledc(x)
    METHOD Patblt( a, s, d, f, g ) INLINE hwg_Patblt( ::m_hDc, a, s, d, f, g )
    METHOD Savedc()
@@ -66,7 +66,7 @@ CLASS HDC
    METHOD SetWindowOrg( x, y )
    METHOD SetWindowExt( x, y )
    METHOD SetViewportOrg( x, y )
-   METHOD SetViewportExt( x, y )
+   METHOD SetViewportExt(x, y)
    METHOD Setarcdirection( nArcDirection )
    METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
    METHOD Setrop2( nDrawMode )
@@ -132,16 +132,16 @@ METHOD Selectcliprgn( pRgn ) CLASS HDC
 
    RETURN nRetVal
 
-METHOD fillsolidrect( lpRect, clr ) CLASS HDC
+METHOD fillsolidrect(lpRect, clr) CLASS HDC
 
-   hwg_Setbkcolor( ::m_hDC, clr )
+   hwg_Setbkcolor(::m_hDC, clr)
    hwg_Exttextout( ::m_hDC, 0, 0, lpRect[1], lpRect[2], lpRect[3], lpRect[4], NIL )
 
    RETURN NIL
 
-METHOD Settextcolor( xColor ) CLASS HDC
+METHOD Settextcolor(xColor) CLASS HDC
 
-   RETURN hwg_Settextcolor( ::m_hDc, xColor )
+   RETURN hwg_Settextcolor(::m_hDc, xColor)
 
 METHOD Setbkmode(xMode) CLASS HDC
 
@@ -151,15 +151,15 @@ METHOD Selectobject( xMode ) CLASS HDC
 
    RETURN hwg_Selectobject( ::m_hDc, xMode )
 
-METHOD Drawtext( strText, Rect, dwFlags ) CLASS HDC
+METHOD Drawtext(strText, Rect, dwFlags) CLASS HDC
 
-   hwg_Drawtext( ::m_hDC, strText, Rect[1], Rect[2], Rect[3], Rect[4], dwFlags )
+   hwg_Drawtext(::m_hDC, strText, Rect[1], Rect[2], Rect[3], Rect[4], dwFlags)
 
    RETURN NIL
 
-METHOD Fillrect( lpRect, clr ) CLASS HDC
+METHOD Fillrect(lpRect, clr) CLASS HDC
 
-   hwg_Fillrect( ::m_hDC, lpRect[1], lpRect[2], lpRect[3], lpRect[4], clr )
+   hwg_Fillrect(::m_hDC, lpRect[1], lpRect[2], lpRect[3], lpRect[4], clr)
 
    RETURN NIL
 
@@ -242,7 +242,7 @@ METHOD SetViewportOrg( x, y ) CLASS HDC
 
    RETURN point
 
-METHOD SetViewportExt( x, y ) CLASS HDC
+METHOD SetViewportExt(x, y) CLASS HDC
    LOCAL point
 
    IF ( ::m_hDC != ::m_hAttribDC )

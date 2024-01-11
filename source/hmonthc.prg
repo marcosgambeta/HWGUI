@@ -160,7 +160,7 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
 
    hMC = CreateWindowEx( 0,
                          MONTHCAL_CLASS,
-                         TEXT( "" ),
+                         TEXT(""),
                          (LONG) hb_parnl(3), /* 0, 0, 0, 0, */
                          hb_parni(4), hb_parni(5),      /* x, y       */
                          hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
@@ -169,16 +169,16 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
                          GetModuleHandle(NULL),
                          NULL );
 
-   MonthCal_GetMinReqRect( hMC, &rc );
+   MonthCal_GetMinReqRect(hMC, &rc);
 
-   SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), SWP_NOZORDER );
+   SetWindowPos(hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), SWP_NOZORDER);
 
     HB_RETHANDLE(hMC);
 }
 
 HB_FUNC ( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of file Control.c
 {
-   PHB_ITEM pDate = hb_param( 2, HB_IT_DATE );
+   PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
 
    if( pDate )
    {
@@ -212,7 +212,7 @@ HB_FUNC ( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of 
 
    SendMessage(hwg_par_HWND(1), MCM_GETCURSEL, 0, (LPARAM) &st);
 
-   hb_dateStrPut( szDate, st.wYear, st.wMonth, st.wDay );
+   hb_dateStrPut(szDate, st.wYear, st.wMonth, st.wDay);
    szDate[8] = 0;
    hb_retds( szDate );
 }

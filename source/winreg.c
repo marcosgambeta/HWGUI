@@ -69,11 +69,11 @@ HB_FUNC( HWG_REGCLOSEKEY )
 
    if( RegCloseKey( hwHandle ) == ERROR_SUCCESS )
    {
-      hb_retnl( ERROR_SUCCESS );
+      hb_retnl(ERROR_SUCCESS);
    }
    else
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
 }
 
@@ -89,11 +89,11 @@ HB_FUNC( HWG_REGOPENKEYEX )
                           &phwHandle );
    if( lError > 0 )
    {
-      hb_retni( -1 );
+      hb_retni(-1);
    }
    else
    {
-      hb_stornl( PtrToLong( phwHandle ), 5 );
+      hb_stornl(PtrToLong( phwHandle ), 5);
       hb_retni(0);
    }
    hb_strfree(hValue);
@@ -117,7 +117,7 @@ HB_FUNC( HWG_REGQUERYVALUEEX )
                                 lpData, &lpcbData );
       if( lError > 0 )
       {
-         hb_retni( -1 );
+         hb_retni(-1);
       }
       else
       {
@@ -146,11 +146,11 @@ HB_FUNC( HWG_REGENUMKEYEX )
    if( nErr == ERROR_SUCCESS )
    {
       HB_STORSTR(Buffer, 3);
-      hb_stornl( ( long ) dwBuffSize, 4 );
+      hb_stornl(( long ) dwBuffSize, 4);
       HB_STORSTR(Class, 6);
-      hb_stornl( ( long ) dwClass, 7 );
+      hb_stornl(( long ) dwClass, 7);
    }
-   hb_retnl( nErr );
+   hb_retnl(nErr);
 }
 
 
@@ -158,10 +158,10 @@ HB_FUNC( HWG_REGSETVALUEEX )
 {
    void * hValue;
 
-   hb_retnl( RegSetValueEx( ( HKEY ) hb_parnl(1),
+   hb_retnl(RegSetValueEx( ( HKEY ) hb_parnl(1),
                             HB_PARSTRDEF( 2, &hValue, NULL ), 0,
                             hb_parnl(4), ( const BYTE * ) hb_parcx(5),
-                            hb_parclen(5) + 1 ) );
+                            hb_parclen(5) + 1 ));
    hb_strfree(hValue);
 }
 
@@ -175,9 +175,9 @@ HB_FUNC( HWG_REGCREATEKEY )
                         HB_PARSTRDEF( 2, &hValue, NULL ), &hKey );
    if( nErr == ERROR_SUCCESS )
    {
-      hb_stornl( PtrToLong( hKey ), 3 );
+      hb_stornl(PtrToLong( hKey ), 3);
    }
-   hb_retnl( nErr );
+   hb_retnl(nErr);
    hb_strfree(hValue);
 }
 
@@ -219,10 +219,10 @@ HB_FUNC( HWG_REGCREATEKEYEX )
 
    if( nErr == ERROR_SUCCESS )
    {
-      hb_stornl( ( LONG ) hkResult, 8 );
-      hb_stornl( ( LONG ) dwDisposition, 9 );
+      hb_stornl(( LONG ) hkResult, 8);
+      hb_stornl(( LONG ) dwDisposition, 9);
    }
-   hb_retnl( nErr );
+   hb_retnl(nErr);
    hb_strfree(hValue);
    hb_strfree(hClass);
 }
@@ -232,8 +232,8 @@ HB_FUNC( HWG_REGDELETEKEY )
 {
    void * hValue;
 
-   hb_retni( RegDeleteKey( ( HKEY ) hb_parnl(1),
-               HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1 );
+   hb_retni(RegDeleteKey( ( HKEY ) hb_parnl(1),
+               HB_PARSTRDEF( 2, &hValue, NULL ) ) == ERROR_SUCCESS ? 0 : -1);
    hb_strfree(hValue);
 }
 
@@ -244,7 +244,7 @@ HB_FUNC( HWG_REGDELETEVALUE )
 {
    void * hValue;
 
-   hb_retni( RegDeleteValue(( HKEY ) hb_parnl(1),
-               HB_PARSTRDEF( 2, &hValue, NULL )) == ERROR_SUCCESS ? 0 : -1 );
+   hb_retni(RegDeleteValue(( HKEY ) hb_parnl(1),
+               HB_PARSTRDEF( 2, &hValue, NULL )) == ERROR_SUCCESS ? 0 : -1);
    hb_strfree(hValue);
 }

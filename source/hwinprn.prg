@@ -53,7 +53,7 @@ CLASS HWinPrn INHERIT HObject
    METHOD StartDoc(lPreview, cMetaName)
    METHOD NextPage()
    METHOD PrintLine(cLine, lNewLine)
-   METHOD PrintText( cText )
+   METHOD PrintText(cText)
    METHOD PutCode(cLine)
    METHOD EndDoc()
    METHOD End()
@@ -226,14 +226,14 @@ Local i, i0, j, slen, c
       DO WHILE i <= slen
          IF ( c := Substr(cLine, i, 1) ) < " "
             IF i0 != 0
-               ::PrintText( Substr(cLine, i0, i-i0) )
+               ::PrintText(Substr(cLine, i0, i-i0))
                i0 := 0
             ENDIF
             i += ::PutCode(Substr(cLine, i))
             LOOP
          ELSEIF ( j := At( c, cPseudoChar ) ) != 0
             IF i0 != 0
-               ::PrintText( Substr(cLine, i0, i-i0) )
+               ::PrintText(Substr(cLine, i0, i-i0))
                i0 := 0
             ENDIF
             IF j < 3            // Horisontal line ÄÍ
@@ -286,13 +286,13 @@ Local i, i0, j, slen, c
          i ++
       ENDDO
       IF i0 != 0
-         ::PrintText( Substr(cLine, i0, i-i0) )
+         ::PrintText(Substr(cLine, i0, i-i0))
       ENDIF
    ENDIF
 
 Return Nil
 
-METHOD PrintText( cText ) CLASS HWinPrn
+METHOD PrintText(cText) CLASS HWinPrn
 
    IF ::lChanged
       ::SetMode()

@@ -25,7 +25,7 @@ CLASS HHtml // INHERIT HControl
 
    METHOD New( oParent )
    METHOD DisplayPage(cUrl)   INLINE hwgax_DisplayHtmlPage(::oParent:handle, cUrl)
-   METHOD DisplayText( cText )  INLINE hwgax_DisplayHtmlStr(::oParent:handle, cText)
+   METHOD DisplayText(cText)  INLINE hwgax_DisplayHtmlStr(::oParent:handle, cText)
    METHOD Activate()
    METHOD Resize(width, height)
    METHOD GoBack()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOBACK )

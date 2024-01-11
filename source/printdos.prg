@@ -537,9 +537,9 @@ STATIC FUNCTION PrintDosAnt( nPage, oText )
       nPage := 1
    ENDIF
    IF nPage = 1  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
-      hwg_Setdlgitemtext( oDlg, 1001, SUBS( oText[nPage], 2 ) )  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
+      hwg_Setdlgitemtext(oDlg, 1001, SUBS( oText[nPage], 2 ))  //Added by  Por Fernando Exclui 1 byte do oText nao sei de onde ele aparece
    ELSE
-      hwg_Setdlgitemtext( oDlg, 1001, oText[nPage] )
+      hwg_Setdlgitemtext(oDlg, 1001, oText[nPage])
    ENDIF
    RETURN nPage
 
@@ -549,12 +549,12 @@ STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
    IF nPage > oPage
       nPage := oPage
    ENDIF
-   hwg_Setdlgitemtext( oDlg, 1001, oText[nPage] )
+   hwg_Setdlgitemtext(oDlg, 1001, oText[nPage])
    RETURN nPage
 
 FUNCTION hwg_regenfile(o, new)
 
-   LOCAL aText := AFillText( o )
+   LOCAL aText := AFillText(o)
    LOCAL stroka
    LOCAL o1 := printdos():new( new )
    LOCAL nLine := 0
@@ -584,7 +584,7 @@ FUNCTION hwg_regenfile(o, new)
 #PRAGMA BEGINDUMP
 /*
    txtfile.c
-   AFILLTEXT( cFile ) -> aArray
+   AFILLTEXT(cFile) -> aArray
    NTXTLINE(cFile)  -> nLines
 */
 

@@ -162,26 +162,26 @@ METHOD Create() CLASS HNICEButton
    LOCAL w
    LOCAL h
 
-   Rct    := hwg_Getclientrect( ::handle )
+   Rct    := hwg_Getclientrect(::handle)
    w      := Rct[3] - Rct[1]
    h      := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
    hwg_Setwindowrgn( ::Handle, Region, .T. )
-   hwg_Invalidaterect( ::Handle, 0, 0 )
+   hwg_Invalidaterect(::Handle, 0, 0)
 
    RETURN Self
 
 METHOD Size() CLASS HNICEButton
 
    ::State := OBTN_NORMAL
-   hwg_Invalidaterect( ::Handle, 0, 0 )
+   hwg_Invalidaterect(::Handle, 0, 0)
 
    RETURN Self
 
 METHOD Moving() CLASS HNICEButton
 
    ::State := .F.
-   hwg_Invalidaterect( ::Handle, 0, 0 )
+   hwg_Invalidaterect(::Handle, 0, 0)
 
    RETURN Self
 
@@ -197,7 +197,7 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
 
       IF otmp != Nil .AND. otmp:id != ::id .AND. !otmp:lPress
          otmp:state := OBTN_NORMAL
-         hwg_Invalidaterect( otmp:handle, 0 )
+         hwg_Invalidaterect(otmp:handle, 0)
          hwg_Postmessage(otmp:handle, WM_PAINT, 0, 0)
          hwg_SetNiceBtnSelected(Nil)
       ENDIF
@@ -206,7 +206,7 @@ METHOD MouseMove(wParam, lParam) CLASS HNICEButton
          ::state := OBTN_MOUSOVER
 
          // aBtn[CTRL_HANDLE] := hBtn
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
          hwg_Postmessage(::handle, WM_PAINT, 0, 0)
          hwg_SetNiceBtnSelected(Self)
       ENDIF
@@ -219,7 +219,7 @@ METHOD MUp() CLASS HNICEButton
    IF ::state == OBTN_PRESSED
       IF !::lPress
          ::state := IIf( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
-         hwg_Invalidaterect( ::handle, 0 )
+         hwg_Invalidaterect(::handle, 0)
          hwg_Postmessage(::handle, WM_PAINT, 0, 0)
       ENDIF
       IF !::lFlat
@@ -237,7 +237,7 @@ METHOD MDown() CLASS HNICEButton
    IF ::state != OBTN_PRESSED
       ::state := OBTN_PRESSED
 
-      hwg_Invalidaterect( ::Handle, 0, 0 )
+      hwg_Invalidaterect(::Handle, 0, 0)
       hwg_Postmessage(::handle, WM_PAINT, 0, 0)
       hwg_SetNiceBtnSelected(Self)
    ENDIF
@@ -259,14 +259,14 @@ METHOD PAINT() CLASS HNICEButton
    LOCAL h
    //  *******************
 
-   Rct  := hwg_Getclientrect( ::Handle )
+   Rct  := hwg_Getclientrect(::Handle)
    x    := Rct[1]
    y    := Rct[2]
    w    := Rct[3] - Rct[1]
    h    := Rct[4] - Rct[2]
    XCtr := ( Rct[1] + Rct[3] ) / 2
    YCtr := ( Rct[2] + Rct[4] ) / 2
-   T    := hwg_Getwindowtext( ::Handle )
+   T    := hwg_Getwindowtext(::Handle)
    // **********************************
    //         Draw our control
    // **********************************
@@ -281,10 +281,10 @@ METHOD PAINT() CLASS HNICEButton
    hwg_Setbkmode(hDC, TRANSPARENT)
 
    IF ( ::State == OBTN_MOUSOVER )
-      hwg_Settextcolor( hDC, hwg_VColor( "FF0000" ) )
+      hwg_Settextcolor(hDC, hwg_VColor("FF0000"))
       hwg_Textout( hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T )
    ELSE
-      hwg_Settextcolor( hDC, hwg_VColor( "0000FF" ) )
+      hwg_Settextcolor(hDC, hwg_VColor("0000FF"))
       hwg_Textout( hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T )
    ENDIF
 
@@ -300,7 +300,7 @@ METHOD RELEASE() CLASS HNiceButton
 
    ::lPress := .F.
    ::state  := OBTN_NORMAL
-   hwg_Invalidaterect( ::handle, 0 )
+   hwg_Invalidaterect(::handle, 0)
    hwg_Postmessage(::handle, WM_PAINT, 0, 0)
 
    RETURN Nil

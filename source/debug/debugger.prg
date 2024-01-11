@@ -317,7 +317,7 @@ METHOD HandleEvent() CLASS HBDebugger
 
    DO WHILE .T.
 
-      nKey := hwg_dbg_Input( @p1, @p2 )
+      nKey := hwg_dbg_Input(@p1, @p2)
 
       DO CASE
       CASE nKey == CMD_QUIT
@@ -513,9 +513,9 @@ METHOD VarGetValue(aVar) CLASS HBDebugger
    LOCAL cType := Left( aVar[VAR_TYPE], 1 )
 
    DO CASE
-   CASE cType == "G" ; RETURN __dbgVMVarGGet( aVar[VAR_LEVEL], aVar[VAR_POS] )
-   CASE cType == "L" ; RETURN __dbgVMVarLGet( __dbgProcLevel() - aVar[VAR_LEVEL], aVar[VAR_POS] )
-   CASE cType == "S" ; RETURN __dbgVMVarSGet( aVar[VAR_LEVEL], aVar[VAR_POS] )
+   CASE cType == "G" ; RETURN __dbgVMVarGGet(aVar[VAR_LEVEL], aVar[VAR_POS])
+   CASE cType == "L" ; RETURN __dbgVMVarLGet(__dbgProcLevel() - aVar[VAR_LEVEL], aVar[VAR_POS])
+   CASE cType == "S" ; RETURN __dbgVMVarSGet(aVar[VAR_LEVEL], aVar[VAR_POS])
    OTHERWISE         ; RETURN aVar[VAR_POS] // Public or Private
    ENDCASE
 
@@ -573,7 +573,7 @@ Local arr := Array( Len(aVars) * 3 + 1 ), i, j := 1, xVal
    arr[1] := Ltrim( Str(Len(aVars)) )
    FOR i := 1 TO Len(aVars)
       arr[++j] := aVars[i, VAR_NAME]
-      xVal := __dbgvmVarLGet( __dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS] )
+      xVal := __dbgvmVarLGet(__dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS])
       arr[++j] := Valtype(xVal)
       arr[++j] := __dbgValToStr(xVal)
       IF Len(arr[j]) > VAR_MAX_LEN

@@ -142,7 +142,7 @@ CLASS HPen INHERIT HObject
    DATA nCounter   INIT 1
 
    METHOD Add(nStyle, nWidth, nColor)
-   METHOD Get( nStyle, nWidth, nColor )
+   METHOD Get(nStyle, nWidth, nColor)
    METHOD RELEASE()
 
 ENDCLASS
@@ -184,7 +184,7 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
 
    RETURN Self
 
-METHOD Get( nStyle, nWidth, nColor ) CLASS HPen
+METHOD Get(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
    nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )

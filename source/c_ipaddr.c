@@ -66,7 +66,7 @@ HB_FUNC( HWG_INITIPADDRESS )
 
    HB_FUNC_EXEC( HWG_INITCOMMONCONTROLSEX );
 
-   hIpAddress = CreateWindowEx( WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT( "" ),
+   hIpAddress = CreateWindowEx( WS_EX_CLIENTEDGE, WC_IPADDRESS, TEXT(""),
          hb_parni(3),
          hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
          hwg_par_HWND(1), ( HMENU ) hb_parni(2),
@@ -102,10 +102,10 @@ HB_FUNC( HWG_GETIPADDRESS )
    v4 = ( BYTE ) FOURTH_IPADDRESS( pdwAddr );
 
    hb_reta(4);
-   hb_storvni( ( INT ) v1, -1, 1 );
-   hb_storvni( ( INT ) v2, -1, 2 );
-   hb_storvni( ( INT ) v3, -1, 3 );
-   hb_storvni( ( INT ) v4, -1, 4 );
+   hb_storvni(( INT ) v1, -1, 1);
+   hb_storvni(( INT ) v2, -1, 2);
+   hb_storvni(( INT ) v3, -1, 3);
+   hb_storvni(( INT ) v4, -1, 4);
 }
 
 HB_FUNC( HWG_CLEARIPADDRESS )

@@ -359,7 +359,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
 #ifdef __USEHASHEVENTS
 
    if( hb_hashScan( ( ( MyRealIEventHandler * ) this )->pEvents,
-               hb_itemPutNL( Key, dispid ), &ulPos ) )
+               hb_itemPutNL(Key, dispid), &ulPos ) )
    {
       PHB_ITEM pArray =
             hb_hashGetValueAt( ( ( MyRealIEventHandler * ) this )->pEvents,
@@ -369,7 +369,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
 
    ulPos =
          hb_arrayScan( ( ( MyRealIEventHandler * ) this )->pEvents,
-         hb_itemPutNL( Key, dispid ), NULL, NULL, 0
+         hb_itemPutNL(Key, dispid), NULL, NULL, 0
 #ifdef __XHARBOUR__
          , 0
 #endif
@@ -378,12 +378,12 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
    if( ulPos )
    {
       PHB_ITEM pArray =
-            hb_arrayGetItemPtr( ( ( MyRealIEventHandler * ) this )->
-            pEventsExec, ulPos );
+            hb_arrayGetItemPtr(( ( MyRealIEventHandler * ) this )->
+            pEventsExec, ulPos);
 
 #endif
 
-      PHB_ITEM pExec = hb_arrayGetItemPtr( pArray, 01 );
+      PHB_ITEM pExec = hb_arrayGetItemPtr(pArray, 01);
 
       if( pExec )
       {
@@ -402,9 +402,9 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
 
             case HB_IT_STRING:
             {
-               PHB_ITEM pObject = hb_arrayGetItemPtr( pArray, 2 );
+               PHB_ITEM pObject = hb_arrayGetItemPtr(pArray, 2);
                hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName
-                           ( hb_itemGetCPtr( pExec ) ) ) );
+                           ( hb_itemGetCPtr(pExec) ) ) );
 
                if( HB_IS_OBJECT( pObject ) )
                   hb_vmPush( pObject );
@@ -458,11 +458,11 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                      //   break;
                   case VT_I2 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.piVal ) =
-                           ( short ) hb_itemGetNI( pItemArray[i - 1] );
+                           ( short ) hb_itemGetNI(pItemArray[i - 1]);
                      break;
                   case VT_I4 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.plVal ) =
-                           ( long ) hb_itemGetNL( pItemArray[i - 1] );
+                           ( long ) hb_itemGetNL(pItemArray[i - 1]);
                      break;
                   case VT_R4 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
@@ -666,15 +666,15 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
       pThis = ( void * ) thisobj;
 
 #ifndef __USEHASHEVENTS
-      pThis->pEventsExec = hb_itemNew( hb_param( 4, HB_IT_ANY ) );
+      pThis->pEventsExec = hb_itemNew( hb_param(4, HB_IT_ANY) );
 #endif
 
-      pThis->pEvents = hb_itemNew( hb_param( 3, HB_IT_ANY ) );
-      hb_stornl( ( LONG ) pThis, 2 );
+      pThis->pEvents = hb_itemNew( hb_param(3, HB_IT_ANY) );
+      hb_stornl(( LONG ) pThis, 2);
 
    }
 
-   hb_retnl( hr );
+   hb_retnl(hr);
 
 }
 

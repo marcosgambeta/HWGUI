@@ -19,7 +19,7 @@ HB_FUNC( HWG_SELECTFONT )
    CHOOSEFONT cf;
    LOGFONT lf;
    HFONT hfont;
-   PHB_ITEM pObj = ( HB_ISNIL(1) ) ? NULL : hb_param( 1, HB_IT_OBJECT );
+   PHB_ITEM pObj = ( HB_ISNIL(1) ) ? NULL : hb_param(1, HB_IT_OBJECT);
    PHB_ITEM temp1;
    PHB_ITEM aMetr = hb_itemArrayNew(9), temp;
 
@@ -31,19 +31,19 @@ HB_FUNC( HWG_SELECTFONT )
       HB_ITEMCOPYSTR(temp1, lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
       lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
       temp1 = GetObjectVar( pObj, "WIDTH" );
-      lf.lfWidth = hb_itemGetNI( temp1 );
+      lf.lfWidth = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "HEIGHT" );
-      lf.lfHeight = hb_itemGetNI( temp1 );
+      lf.lfHeight = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "WEIGHT" );
-      lf.lfWeight = hb_itemGetNI( temp1 );
+      lf.lfWeight = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "CHARSET" );
-      lf.lfCharSet = hb_itemGetNI( temp1 );
+      lf.lfCharSet = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "ITALIC" );
-      lf.lfItalic = hb_itemGetNI( temp1 );
+      lf.lfItalic = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "UNDERLINE" );
-      lf.lfUnderline = hb_itemGetNI( temp1 );
+      lf.lfUnderline = hb_itemGetNI(temp1);
       temp1 = GetObjectVar( pObj, "STRIKEOUT" );
-      lf.lfStrikeOut = hb_itemGetNI( temp1 );
+      lf.lfStrikeOut = hb_itemGetNI(temp1);
    }
 
    cf.lStructSize = sizeof( CHOOSEFONT );
@@ -76,34 +76,34 @@ HB_FUNC( HWG_SELECTFONT )
    /* selection and return a handle identifying   */
    /* that font.                                  */
 
-   hfont = CreateFontIndirect( cf.lpLogFont );
+   hfont = CreateFontIndirect(cf.lpLogFont);
 
    temp = HB_PUTHANDLE(NULL, hfont);
-   hb_itemArrayPut( aMetr, 1, temp );
+   hb_itemArrayPut(aMetr, 1, temp);
 
    HB_ITEMPUTSTR(temp, lf.lfFaceName);
-   hb_itemArrayPut( aMetr, 2, temp );
+   hb_itemArrayPut(aMetr, 2, temp);
 
-   hb_itemPutNL( temp, lf.lfWidth );
-   hb_itemArrayPut( aMetr, 3, temp );
+   hb_itemPutNL(temp, lf.lfWidth);
+   hb_itemArrayPut(aMetr, 3, temp);
 
-   hb_itemPutNL( temp, lf.lfHeight );
-   hb_itemArrayPut( aMetr, 4, temp );
+   hb_itemPutNL(temp, lf.lfHeight);
+   hb_itemArrayPut(aMetr, 4, temp);
 
-   hb_itemPutNL( temp, lf.lfWeight );
-   hb_itemArrayPut( aMetr, 5, temp );
+   hb_itemPutNL(temp, lf.lfWeight);
+   hb_itemArrayPut(aMetr, 5, temp);
 
-   hb_itemPutNI( temp, lf.lfCharSet );
-   hb_itemArrayPut( aMetr, 6, temp );
+   hb_itemPutNI(temp, lf.lfCharSet);
+   hb_itemArrayPut(aMetr, 6, temp);
 
-   hb_itemPutNI( temp, lf.lfItalic );
-   hb_itemArrayPut( aMetr, 7, temp );
+   hb_itemPutNI(temp, lf.lfItalic);
+   hb_itemArrayPut(aMetr, 7, temp);
 
-   hb_itemPutNI( temp, lf.lfUnderline );
-   hb_itemArrayPut( aMetr, 8, temp );
+   hb_itemPutNI(temp, lf.lfUnderline);
+   hb_itemArrayPut(aMetr, 8, temp);
 
-   hb_itemPutNI( temp, lf.lfStrikeOut );
-   hb_itemArrayPut( aMetr, 9, temp );
+   hb_itemPutNI(temp, lf.lfStrikeOut);
+   hb_itemArrayPut(aMetr, 9, temp);
 
    hb_itemRelease(temp);
 
@@ -145,8 +145,8 @@ HB_FUNC( HWG_SELECTFILE )
          LPCTSTR  lpStr2;
          HB_SIZE  nLen2;
       } * pArrStr;
-      PHB_ITEM pArr1 = hb_param( 1, HB_IT_ARRAY );
-      PHB_ITEM pArr2 = hb_param( 2, HB_IT_ARRAY );
+      PHB_ITEM pArr1 = hb_param(1, HB_IT_ARRAY);
+      PHB_ITEM pArr2 = hb_param(2, HB_IT_ARRAY);
       HB_SIZE n, nArrLen = hb_arrayLen(pArr1), nSize;
       LPTSTR ptr;
 
@@ -324,8 +324,8 @@ HB_FUNC( HWG_CHOOSECOLOR )
    }
    cc.Flags = nStyle;
 
-   if( ChooseColor( &cc ) )
-      hb_retnl( ( LONG ) cc.rgbResult );
+   if( ChooseColor(&cc) )
+      hb_retnl(( LONG ) cc.rgbResult);
    else
       hb_ret();
 }
@@ -343,7 +343,7 @@ static unsigned long Get_SerialNumber( LPCTSTR RootPathName )
 HB_FUNC( HWG_HDGETSERIAL )
 {
    void * hStr;
-   hb_retnl( Get_SerialNumber( HB_PARSTR(1, &hStr, NULL) ) );
+   hb_retnl(Get_SerialNumber( HB_PARSTR(1, &hStr, NULL) ));
    hb_strfree(hStr);
 }
 
@@ -456,9 +456,9 @@ HB_FUNC( HWG_PRINTSETUPDOS )
    if( PrintDlg( &s_pd ) )
    {
       s_fPName = FALSE;
-      hb_stornl( s_pd.nFromPage, 1 );
-      hb_stornl( s_pd.nToPage, 2 );
-      hb_stornl( s_pd.nCopies, 3 );
+      hb_stornl(s_pd.nFromPage, 1);
+      hb_stornl(s_pd.nToPage, 2);
+      hb_stornl(s_pd.nCopies, 3);
       HB_RETHANDLE(s_pd.hDC);
    }
    else
@@ -525,7 +525,7 @@ HB_FUNC( HWG_GETOPENFILENAME )
 
    if( GetOpenFileName(&ofn) )
    {
-      hb_stornl( ofn.nFilterIndex, 8 );
+      hb_stornl(ofn.nFilterIndex, 8);
       HB_STORSTRLEN(lpFileBuff, nSize, 2);
       HB_RETSTR(ofn.lpstrFile);
    }

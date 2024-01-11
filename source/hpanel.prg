@@ -30,7 +30,7 @@ CLASS HPanel INHERIT HControl, HScrollArea
    METHOD Init()
    METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
    METHOD Paint()
-   METHOD BackColor( bcolor ) INLINE ::SetColor(, bcolor, .T. )
+   METHOD BackColor(bcolor) INLINE ::SetColor(, bcolor, .T. )
    METHOD Hide()
    METHOD Show()
    METHOD Release()
@@ -100,7 +100,7 @@ METHOD Activate() CLASS HPanel
       ::ResizeOffSet(0)
       /*
       IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI
-         aCoors := hwg_Getwindowrect( ::handle )
+         aCoors := hwg_Getwindowrect(::handle)
          nWidth := aCoors[3] - aCoors[1]
          nHeight:= aCoors[4] - aCoors[2]
          IF nWidth > nHeight .OR. nWidth == 0
@@ -142,7 +142,7 @@ METHOD Init() CLASS HPanel
 METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
    LOCAL nret
 
-   IF msg == WM_PAINT .AND. hwg_Getupdaterect( ::Handle ) > 0
+   IF msg == WM_PAINT .AND. hwg_Getupdaterect(::Handle) > 0
       ::Paint()
 
    ELSEIF msg == WM_NCPAINT .AND. !hwg_Selffocus( hwg_GetParentForm(Self):handle, hwg_Getactivewindow() )
@@ -154,11 +154,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
          /*
          IF ::brush != NIL
             IF Valtype(::brush) != "N"
-               hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle )
+               hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, ::brush:handle)
             ENDIF
             RETURN 1
          ELSE
-            hwg_Fillrect( wParam, 0, 0, ::nWidth, ::nHeight, COLOR_3DFACE + 1 )
+            hwg_Fillrect(wParam, 0, 0, ::nWidth, ::nHeight, COLOR_3DFACE + 1)
             RETURN 1
          ENDIF
          */
@@ -219,23 +219,23 @@ METHOD Paint() CLASS HPanel
    ENDIF
    pps    := hwg_Definepaintstru()
    hDC    := hwg_Beginpaint( ::handle, pps )
-   aCoors := hwg_Getclientrect( ::handle )
+   aCoors := hwg_Getclientrect(::handle)
    hwg_Setbkmode(hDC, ::backStyle)
    IF ::backstyle = OPAQUE .AND. ::nrePaint = -1
-      aCoors := hwg_Getclientrect( ::handle )
+      aCoors := hwg_Getclientrect(::handle)
       IF ::brush != NIL
          IF Valtype(::brush) != "N"
-            hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::brush:handle )
+            hwg_Fillrect(hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], ::brush:handle)
          ENDIF
       ELSE
-         hwg_Fillrect( hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], COLOR_3DFACE + 1 )
+         hwg_Fillrect(hDC, aCoors[1], aCoors[2], aCoors[3], aCoors[4], COLOR_3DFACE + 1)
       ENDIF
    ENDIF
    ::nrePaint := -1
    IF ::nScrollBars = - 1
       IF  !::lBorder
-         oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DHILIGHT ))
-         oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor( COLOR_3DSHADOW))
+         oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
+         oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
          hwg_Selectobject( hDC, oPenLight:handle )
          hwg_Drawline(hDC, 0, 1, aCoors[3] - 1, 1)
          hwg_Selectobject( hDC, oPenGray:handle )
@@ -302,7 +302,7 @@ METHOD Hide() CLASS HPanel
    ::Super:Hide()
    IF ::oParent:type == WND_MDI .AND. lRes
       //hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
-      hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop + 1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+      hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop + 1, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
 
    RETURN NIL
@@ -331,13 +331,13 @@ METHOD Show() CLASS HPanel
    ::Super:Show()
    IF ::oParent:type == WND_MDI .AND. lRes
        //hwg_Sendmessage(::oParent:Handle, WM_SIZE, 0, hwg_Makelparam(::oParent:nWidth, ::oParent:nHeight))
-       hwg_Invalidaterect( ::oParent:handle, 1, ::nLeft, ::nTop+1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+       hwg_Invalidaterect(::oParent:handle, 1, ::nLeft, ::nTop+1, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
 
    RETURN NIL
 
 METHOD Resize() CLASS HPanel
-   LOCAL aCoors := hwg_Getwindowrect( ::handle )
+   LOCAL aCoors := hwg_Getwindowrect(::handle)
    Local nHeight := aCoors[4] - aCoors[2]
    Local nWidth  := aCoors[3] - aCoors[1]
 
@@ -372,7 +372,7 @@ METHOD Resize() CLASS HPanel
 
 /* nMode => nMode = 0 INIT  / nMode = 1 RESIZE  / nMode = 2 SHOW  / nMode = 3 HIDE */
 METHOD ResizeOffSet( nMode ) CLASS HPanel
-   LOCAL aCoors := hwg_Getwindowrect( ::handle )
+   LOCAL aCoors := hwg_Getwindowrect(::handle)
    LOCAL nHeight := aCoors[4] - aCoors[2]
    LOCAL nWidth  := aCoors[3] - aCoors[1]
    LOCAL nWinc :=  nWidth  - ::nWidth

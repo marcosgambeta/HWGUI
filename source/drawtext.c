@@ -67,7 +67,7 @@ HB_FUNC( HWG_DRAWTEXT )
    RECT rc;
    UINT uFormat = ( hb_pcount() == 4 ? hb_parni(4) : hb_parni(7) );
    // int uiPos = ( hb_pcount() == 4 ? 3 : hb_parni(8) );
-   int heigh ;
+   int heigh;
 
    if( hb_pcount() > 4 )
    {
@@ -80,25 +80,25 @@ HB_FUNC( HWG_DRAWTEXT )
    }
    else
    {
-      Array2Rect( hb_param( 3, HB_IT_ARRAY ), &rc );
+      Array2Rect(hb_param(3, HB_IT_ARRAY), &rc);
    }
 
 
-   heigh = DrawText( hwg_par_HDC(1), // handle of device context
+   heigh = DrawText(hwg_par_HDC(1), // handle of device context
                      lpText,    // address of string
                      nLen,      // number of characters in string
-                     &rc, uFormat );
+                     &rc, uFormat);
    hb_strfree(hText);
 
    //if( HB_ISBYREF( uiPos ) )
    if( HB_ISARRAY(8) )
    {
-      hb_storvni( rc.left, 8, 1 );
-      hb_storvni( rc.top, 8, 2 );
-      hb_storvni( rc.right, 8, 3 );
-      hb_storvni( rc.bottom, 8, 4 );
+      hb_storvni(rc.left, 8, 1);
+      hb_storvni(rc.top, 8, 2);
+      hb_storvni(rc.right, 8, 3);
+      hb_storvni(rc.bottom, 8, 4);
    }
-   hb_retni( heigh );
+   hb_retni(heigh);
 
 }
 
@@ -112,36 +112,36 @@ HB_FUNC( HWG_GETTEXTMETRIC )
          &tm                    // address of text metrics structure
           );
 
-   temp = hb_itemPutNL( NULL, tm.tmHeight );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(NULL, tm.tmHeight);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmAveCharWidth );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNL(NULL, tm.tmAveCharWidth);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmMaxCharWidth );
-   hb_itemArrayPut( aMetr, 3, temp );
+   temp = hb_itemPutNL(NULL, tm.tmMaxCharWidth);
+   hb_itemArrayPut(aMetr, 3, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmExternalLeading );
-   hb_itemArrayPut( aMetr, 4, temp );
+   temp = hb_itemPutNL(NULL, tm.tmExternalLeading);
+   hb_itemArrayPut(aMetr, 4, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmInternalLeading );
-   hb_itemArrayPut( aMetr, 5, temp );
+   temp = hb_itemPutNL(NULL, tm.tmInternalLeading);
+   hb_itemArrayPut(aMetr, 5, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmAscent );
-   hb_itemArrayPut( aMetr, 6, temp );
+   temp = hb_itemPutNL(NULL, tm.tmAscent);
+   hb_itemArrayPut(aMetr, 6, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmDescent );
-   hb_itemArrayPut( aMetr, 7, temp );
+   temp = hb_itemPutNL(NULL, tm.tmDescent);
+   hb_itemArrayPut(aMetr, 7, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, tm.tmWeight );
-   hb_itemArrayPut( aMetr, 8, temp );
+   temp = hb_itemPutNL(NULL, tm.tmWeight);
+   hb_itemArrayPut(aMetr, 8, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -161,12 +161,12 @@ HB_FUNC( HWG_GETTEXTSIZE )
    GetTextExtentPoint32( hwg_par_HDC(1), lpText, nLen, &sz );
    hb_strfree(hText);
 
-   temp = hb_itemPutNL( NULL, sz.cx );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(NULL, sz.cx);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, sz.cy );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNL(NULL, sz.cy);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -179,22 +179,22 @@ HB_FUNC( HWG_GETCLIENTRECT )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   GetClientRect( hwg_par_HWND(1), &rc );
+   GetClientRect(hwg_par_HWND(1), &rc);
 
-   temp = hb_itemPutNL( NULL, rc.left );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(NULL, rc.left);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.top );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNL(NULL, rc.top);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.right );
-   hb_itemArrayPut( aMetr, 3, temp );
+   temp = hb_itemPutNL(NULL, rc.right);
+   hb_itemArrayPut(aMetr, 3, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.bottom );
-   hb_itemArrayPut( aMetr, 4, temp );
+   temp = hb_itemPutNL(NULL, rc.bottom);
+   hb_itemArrayPut(aMetr, 4, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -207,22 +207,22 @@ HB_FUNC( HWG_GETWINDOWRECT )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   GetWindowRect( hwg_par_HWND(1), &rc );
+   GetWindowRect(hwg_par_HWND(1), &rc);
 
-   temp = hb_itemPutNL( NULL, rc.left );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(NULL, rc.left);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.top );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNL(NULL, rc.top);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.right );
-   hb_itemArrayPut( aMetr, 3, temp );
+   temp = hb_itemPutNL(NULL, rc.right);
+   hb_itemArrayPut(aMetr, 3, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, rc.bottom );
-   hb_itemArrayPut( aMetr, 4, temp );
+   temp = hb_itemPutNL(NULL, rc.bottom);
+   hb_itemArrayPut(aMetr, 4, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -235,20 +235,20 @@ HB_FUNC( HWG_GETCLIENTAREA )
    PHB_ITEM aMetr = hb_itemArrayNew(4);
    PHB_ITEM temp;
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.left );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNL(NULL, pps->rcPaint.left);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.top );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNL(NULL, pps->rcPaint.top);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.right );
-   hb_itemArrayPut( aMetr, 3, temp );
+   temp = hb_itemPutNL(NULL, pps->rcPaint.right);
+   hb_itemArrayPut(aMetr, 3, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL( NULL, pps->rcPaint.bottom );
-   hb_itemArrayPut( aMetr, 4, temp );
+   temp = hb_itemPutNL(NULL, pps->rcPaint.bottom);
+   hb_itemArrayPut(aMetr, 4, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -257,18 +257,18 @@ HB_FUNC( HWG_GETCLIENTAREA )
 
 HB_FUNC( HWG_SETTEXTCOLOR )
 {
-   COLORREF crColor = SetTextColor( hwg_par_HDC(1),  // handle of device context
+   COLORREF crColor = SetTextColor(hwg_par_HDC(1),  // handle of device context
          hwg_par_COLORREF(2)     // text color
           );
-   hb_retnl( ( LONG ) crColor );
+   hb_retnl(( LONG ) crColor);
 }
 
 HB_FUNC( HWG_SETBKCOLOR )
 {
-   COLORREF crColor = SetBkColor( hwg_par_HDC(1),    // handle of device context
+   COLORREF crColor = SetBkColor(hwg_par_HDC(1),    // handle of device context
          hwg_par_COLORREF(2)     // text color
           );
-   hb_retnl( ( LONG ) crColor );
+   hb_retnl(( LONG ) crColor);
 }
 
 HB_FUNC( HWG_SETTRANSPARENTMODE )
@@ -280,12 +280,12 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
-   hb_retnl( ( LONG ) GetTextColor( hwg_par_HDC(1) ) );
+   hb_retnl(( LONG ) GetTextColor(hwg_par_HDC(1)));
 }
 
 HB_FUNC( HWG_GETBKCOLOR )
 {
-   hb_retnl( ( LONG ) GetBkColor( hwg_par_HDC(1) ) );
+   hb_retnl(( LONG ) GetBkColor(hwg_par_HDC(1)));
 }
 
 /*
@@ -305,12 +305,12 @@ HB_FUNC( HWG_GETTEXTSIZE )
    );
    hb_strfree(hString);
 
-   temp = hb_itemPutNI( NULL, size.cx );
-   hb_itemArrayPut( aMetr, 1, temp );
+   temp = hb_itemPutNI(NULL, size.cx);
+   hb_itemArrayPut(aMetr, 1, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNI( NULL, size.cy );
-   hb_itemArrayPut( aMetr, 2, temp );
+   temp = hb_itemPutNI(NULL, size.cy);
+   hb_itemArrayPut(aMetr, 2, temp);
    hb_itemRelease(temp);
 
    hb_itemReturn( aMetr );
@@ -429,21 +429,21 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   reg = CreateRectRgnIndirect( &rc );
+   reg = CreateRectRgnIndirect(&rc);
    HB_RETHANDLE(reg);
 }
 
 
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
 {
-   hb_retni( ExtSelectClipRgn( hwg_par_HDC(1),
-               ( HRGN ) HB_PARHANDLE(2), hb_parni(3) ) );
+   hb_retni(ExtSelectClipRgn( hwg_par_HDC(1),
+               ( HRGN ) HB_PARHANDLE(2), hb_parni(3) ));
 }
 
 HB_FUNC( HWG_SELECTCLIPRGN )
 {
-   hb_retni( SelectClipRgn( hwg_par_HDC(1),
-               ( HRGN ) HB_PARHANDLE(2) ) );
+   hb_retni(SelectClipRgn( hwg_par_HDC(1),
+               ( HRGN ) HB_PARHANDLE(2) ));
 }
 
 
@@ -455,10 +455,10 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);
-   HB_ITEMCOPYSTR(hb_param( 1, HB_IT_ANY ), lf.lfFaceName, HB_SIZEOFARRAY( lf.lfFaceName ));
+   HB_ITEMCOPYSTR(hb_param(1, HB_IT_ANY), lf.lfFaceName, HB_SIZEOFARRAY( lf.lfFaceName ));
    lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
 
-   f = CreateFontIndirect( &lf );
+   f = CreateFontIndirect(&lf);
    HB_RETHANDLE(f);
 }
 

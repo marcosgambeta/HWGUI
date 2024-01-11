@@ -34,7 +34,7 @@ CLASS hrebar INHERIT HControl
          bSize, bPaint, ctooltip, tcolor, bcolor, lVert)
    METHOD Activate()
    METHOD INIT()
-   METHOD ADDBARColor( pBar, clrFore, clrBack, pszText, dwStyle ) INLINE hwg_Addbarcolors( ::handle, pBar, clrFore, clrBack, pszText, dwStyle )
+   METHOD ADDBARColor(pBar, clrFore, clrBack, pszText, dwStyle) INLINE hwg_Addbarcolors( ::handle, pBar, clrFore, clrBack, pszText, dwStyle )
    METHOD Addbarbitmap( pBar, pszText, pbmp, dwStyle ) INLINE hwg_Addbarbitmap( ::handle, pBar, pszText, pbmp, dwStyle )
    METHOD RebarBandNew( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) INLINE ::CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
    METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle )
@@ -102,7 +102,7 @@ METHOD CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) CLASS hreba
    ENDIF
    dwStyle := RBBS_GRIPPERALWAYS + RBBS_USECHEVRON
    FOR i = 1 TO LEN(::aBands)
-      ::aBands[i, 4] := IIF( ::aBands[i, 4] = NIL, hwg_Getsyscolor( COLOR_3DFACE ), ::aBands[i, 4] )
+      ::aBands[i, 4] := IIF( ::aBands[i, 4] = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::aBands[i, 4] )
       ::aBands[i, 6] := IIF( ::aBands[i, 6] = NIL, dwStyle, ::aBands[i, 6] )
       IF !Empty(::aBands[i, 1])
          ::aBands[i, 1] := IIF( ValType(::aBands[i, 1]) = "C", &( ::aBands[i, 1] ), ::aBands[i, 1] )

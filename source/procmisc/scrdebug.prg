@@ -118,7 +118,7 @@ Local nFirst, i
          ENDIF
       ENDIF
       aScriptCurr := aScript
-      hwg_Setwindowtext( oDlgDebug:handle, "Script Debugger - " + aScript[1] )
+      hwg_Setwindowtext(oDlgDebug:handle, "Script Debugger - " + aScript[1])
    ENDIF
 
    oBrwScript:aArray := aScript[3]
@@ -204,7 +204,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 #ifdef __GTK__
    IF !Empty(xRes := oEditExpr:GetText())
 #else
-   IF !Empty(xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ))
+   IF !Empty(xRes := hwg_Getedittext(oEditExpr:oParent:handle, oEditExpr:id))
 #endif
       bOldError := ERRORBLOCK( { | e | MacroError(e) } )
       BEGIN SEQUENCE
@@ -228,7 +228,7 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
       ENDIF
       oBrwData:Refresh()
    ELSE
-      oEditRes:SetText( "Error..." )
+      oEditRes:SetText("Error...")
    ENDIF
 Return .T.
 
@@ -269,7 +269,7 @@ Local xRes, bOldError, lRes := .T., cType
 #ifdef __GTK__
    IF !Empty(xRes := oEditExpr:GetText())
 #else
-   IF !Empty(xRes := hwg_Getedittext( oEditExpr:oParent:handle, oEditExpr:id ))
+   IF !Empty(xRes := hwg_Getedittext(oEditExpr:oParent:handle, oEditExpr:id))
 #endif
       bOldError := ERRORBLOCK( { | e | MacroError(e) } )
       BEGIN SEQUENCE
@@ -282,16 +282,16 @@ Local xRes, bOldError, lRes := .T., cType
 
    IF lRes
       IF ( cType := Valtype(xRes) ) == "N"
-         oEditRes:SetText( Ltrim(Str(xRes)) )
+         oEditRes:SetText(Ltrim(Str(xRes)))
       ELSEIF cType == "D"
-         oEditRes:SetText( Dtoc(xRes) )
+         oEditRes:SetText(Dtoc(xRes))
       ELSEIF cType == "L"
-         oEditRes:SetText( Iif(xRes, ".T.", ".F.") )
+         oEditRes:SetText(Iif(xRes, ".T.", ".F."))
       ELSE
-         oEditRes:SetText( xRes )
+         oEditRes:SetText(xRes)
       ENDIF
    ELSE
-      oEditRes:SetText( "Error..." )
+      oEditRes:SetText("Error...")
    ENDIF
    
 Return .T.

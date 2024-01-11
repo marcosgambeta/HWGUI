@@ -28,10 +28,10 @@ STATIC aCustomEvents := { ;
        { ;
          { | o, w, l | onNotify( o, w, l ) }                                 , ;
          { | o, w |   IIf( o:bPaint != NIL, Eval( o:bPaint, o, w ), - 1 ) }  , ;
-         { | o, w, l | onCtlColor( o, w, l ) }                               , ;
-         { | o, w, l | onCtlColor( o, w, l ) }                               , ;
-         { | o, w, l | onCtlColor( o, w, l ) }                               , ;
-         { | o, w, l | onCtlColor( o, w, l ) }                               , ;
+         { | o, w, l | onCtlColor(o, w, l) }                               , ;
+         { | o, w, l | onCtlColor(o, w, l) }                               , ;
+         { | o, w, l | onCtlColor(o, w, l) }                               , ;
+         { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCommand(o, w, l) }                                , ;
          { | o, w, l | onDrawItem( o, w, l ) }                               , ;
          { | o, w, l | onSize(o, w, l) }                                   , ;
@@ -111,7 +111,7 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST) ) SHARE
    METHOD Move(x1, y1, width, height, nRePaint)
    METHOD onEvent( msg, wParam, lParam )
    METHOD END()
-   METHOD SetColor( tcolor, bColor, lRepaint )
+   METHOD SetColor(tcolor, bColor, lRepaint)
    METHOD Refresh( lAll, oCtrl )
    METHOD Anchor( oCtrl, x, y, w, h )
    METHOD SetTextClass ( x ) HIDDEN
@@ -193,10 +193,10 @@ METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
    width  := IIF( width  = NIL, ::nWidth, width )
    height := IIF( height = NIL, ::nHeight, height )
    IF  Hwg_BitAnd(::style, WS_CHILD) = 0
-      rect := hwg_Getwindowrect( ::Handle )
-      nHx := rect[4] - rect[2]  - hwg_Getclientrect( ::Handle )[4] - ;
+      rect := hwg_Getwindowrect(::Handle)
+      nHx := rect[4] - rect[2]  - hwg_Getclientrect(::Handle)[4] - ;
                  IIF( Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics( SM_CYHSCROLL ), 0 )
-      nWx := rect[3] - rect[1]  - hwg_Getclientrect( ::Handle )[3] - ;
+      nWx := rect[3] - rect[1]  - hwg_Getclientrect(::Handle)[3] - ;
                  IIF( Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics( SM_CXVSCROLL ), 0 )
    ENDIF
 
@@ -305,19 +305,19 @@ METHOD SetTextClass( x ) CLASS HCustomWindow
 
    IF  __ObjHasMsg( Self, "SETVALUE" ) .AND. ::winClass != "STATIC" .AND. ::winclass != "BUTTON" 
    ELSEIF __ObjHasMsg( Self, "SETTEXT" )
-      ::SetText( x )
+      ::SetText(x)
    ELSE
       ::title := x
       hwg_Sendmessage(::handle, WM_SETTEXT, 0, ::Title)
    ENDIF
    RETURN NIL
 
-METHOD SetColor( tcolor, bColor, lRepaint ) CLASS HCustomWindow
+METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
 
    IF tcolor != NIL
       ::tcolor := tcolor
       IF bColor == NIL .AND. ::bColor == NIL
-         bColor := hwg_Getsyscolor( COLOR_3DFACE )
+         bColor := hwg_Getsyscolor(COLOR_3DFACE)
       ENDIF
    ENDIF
 
@@ -421,21 +421,21 @@ STATIC FUNCTION onDestroy( oWnd )
    RETURN 1
 
 
-STATIC FUNCTION onCtlColor( oWnd, wParam, lParam )
+STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
    LOCAL oCtrl
    oCtrl := oWnd:FindControl( , lParam )
 
    IF  oCtrl != Nil .AND. VALTYPE(oCtrl) != "N"
       IF oCtrl:tcolor != NIL
-         hwg_Settextcolor( wParam, oCtrl:tcolor )
+         hwg_Settextcolor(wParam, oCtrl:tcolor)
       ENDIF
       hwg_Setbkmode(wParam, oCtrl:backstyle)
       IF !oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
          hwg_Setbkmode(wParam, TRANSPARENT)
-         hwg_Setbkcolor( wParam, oCtrl:DisablebColor )
+         hwg_Setbkcolor(wParam, oCtrl:DisablebColor)
          RETURN oCtrl:disablebrush:handle
       ELSEIF oCtrl:bcolor != NIL  .AND. oCtrl:BackStyle = OPAQUE
-         hwg_Setbkcolor( wParam, oCtrl:bcolor )
+         hwg_Setbkcolor(wParam, oCtrl:bcolor)
          IF oCtrl:brush != Nil
             RETURN oCtrl:brush:handle
          ELSEIF oCtrl:oParent:brush != Nil
@@ -490,7 +490,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    
    nw1 := oWnd:nWidth
    nh1 := oWnd:nHeight
-   aCoors := hwg_Getwindowrect( oWnd:handle )
+   aCoors := hwg_Getwindowrect(oWnd:handle)
    IF EMPTY(oWnd:Type)
       oWnd:nWidth  := aCoors[3] - aCoors[1]
       oWnd:nHeight := aCoors[4] - aCoors[2]
@@ -576,7 +576,7 @@ ENDCLASS
 
 METHOD RedefineScrollbars() CLASS HScrollArea
 
-   ::rect := hwg_Getclientrect( ::handle )
+   ::rect := hwg_Getclientrect(::handle)
    IF ::nScrollBars > - 1 .AND. ::bScroll = Nil
       IF  ::nVscrollPos = 0
           ::ncurHeight := 0                                                              //* 4
@@ -597,7 +597,7 @@ METHOD RedefineScrollbars() CLASS HScrollArea
 METHOD SetupScrollbars() CLASS HScrollArea
    LOCAL tempRect, nwMax, nhMax, aMenu, nPos
 
-   tempRect := hwg_Getclientrect( ::handle )
+   tempRect := hwg_Getclientrect(::handle)
    aMenu := IIF( __objHasData(Self, "MENU"), ::menu, Nil )
     // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
@@ -621,14 +621,14 @@ METHOD SetupScrollbars() CLASS HScrollArea
           ::nHScrollMax := 0
       ENDIF
       ::nHscrollPos := Min( ::nHscrollPos, ::nHscrollMax )
-      hwg_Setscrollpos( ::handle, SB_HORZ, ::nHscrollPos, .T. )
+      hwg_Setscrollpos(::handle, SB_HORZ, ::nHscrollPos, .T.)
       hwg_Setscrollinfo( ::Handle, SB_HORZ, 1, ::nHScrollPos, HORZ_PTS, ::nHscrollMax )
       IF ::nHscrollPos > 0
-         nPos := hwg_Getscrollpos( ::handle, SB_HORZ )
+         nPos := hwg_Getscrollpos(::handle, SB_HORZ)
          IF nPos < ::nHscrollPos
              hwg_Scrollwindow( ::Handle, 0, ( ::nHscrollPos - nPos ) * SB_HORZ )
              ::nVscrollPos := nPos
-             hwg_Setscrollpos( ::Handle, SB_HORZ, ::nHscrollPos, .T. )
+             hwg_Setscrollpos(::Handle, SB_HORZ, ::nHscrollPos, .T.)
          ENDIF
       ENDIF
    ENDIF
@@ -639,14 +639,14 @@ METHOD SetupScrollbars() CLASS HScrollArea
       ELSEIF ::nVScrollMax <= VERT_PTS
          ::nVScrollMax := 0
       ENDIF
-      hwg_Setscrollpos( ::Handle, SB_VERT, ::nVscrollPos, .T. )
+      hwg_Setscrollpos(::Handle, SB_VERT, ::nVscrollPos, .T.)
       hwg_Setscrollinfo( ::Handle, SB_VERT, 1, ::nVscrollPos, VERT_PTS, ::nVscrollMax )
       IF ::nVscrollPos > 0 //.AND. nPosVert != ::nVscrollPos
-         nPos := hwg_Getscrollpos( ::handle, SB_VERT )
+         nPos := hwg_Getscrollpos(::handle, SB_VERT)
          IF nPos < ::nVscrollPos
              hwg_Scrollwindow( ::Handle, 0, ( ::nVscrollPos - nPos ) * VERT_PTS )
              ::nVscrollPos := nPos
-             hwg_Setscrollpos( ::Handle, SB_VERT, ::nVscrollPos, .T. )
+             hwg_Setscrollpos(::Handle, SB_VERT, ::nVscrollPos, .T.)
          ENDIF
       ENDIF
    ENDIF

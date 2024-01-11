@@ -105,8 +105,8 @@ CLASS HTreeNode INHERIT HObject
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
    METHOD Delete(lInternal)
    METHOD FindChild(h)
-   METHOD GetText()  INLINE hwg_Treegetnodetext( ::oTree:handle, ::handle )
-   METHOD SetText( cText ) INLINE hwg_Treesetitem( ::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText ), ::title := cText
+   METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
+   METHOD SetText(cText) INLINE hwg_Treesetitem( ::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText ), ::title := cText
    METHOD Checked(lChecked)  SETGET
    METHOD GetLevel( h )
 
@@ -278,7 +278,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD Activate()
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
    METHOD FindChild(h)
-   METHOD FindChildPos( oNode, h )
+   METHOD FindChildPos(oNode, h)
    METHOD GetSelected() INLINE IIF( VALTYPE(::oItem := hwg_Treegetselected(::handle)) = "O", ::oItem, Nil )
    METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
    METHOD Expand(oNode, lAllNode)   //BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle), hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE  )}
@@ -443,7 +443,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
          IF !hwg_IsCtrlShift( .T. )
             IF ( ::hitemDrag:oParent = Nil .OR. ::hitemDrop:oParent = Nil ) .OR. ;
                ( ::hitemDrag:oParent:handle == ::hitemDrop:oParent:handle )
-               IF ::FindChildPos( ::hitemDrop:oParent, ::hitemDrag:Handle ) > ::FindChildPos( ::hitemDrop:oParent, ::hitemDrop:Handle )
+               IF ::FindChildPos(::hitemDrop:oParent, ::hitemDrag:Handle) > ::FindChildPos(::hitemDrop:oParent, ::hitemDrop:Handle)
                   htiNext := ::hitemDrop //htiParent
                ELSE
                   htiPrev := ::hitemDrop  //htiParent
@@ -498,7 +498,7 @@ METHOD FindChild(h) CLASS HTree
    NEXT
    RETURN Nil
 
-METHOD FindChildPos( oNode, h ) CLASS HTree
+METHOD FindChildPos(oNode, h) CLASS HTree
    LOCAL aItems := IIF( oNode = Nil, ::aItems, oNode:aItems )
    LOCAL i, alen := Len(aItems)
 
@@ -506,7 +506,7 @@ METHOD FindChildPos( oNode, h ) CLASS HTree
       IF aItems[i]:handle == h
          RETURN i
       ELSEIF .F. //!Empty(aItems[i]:aItems)
-         RETURN ::FindChildPos( aItems[i], h )
+         RETURN ::FindChildPos(aItems[i], h)
       ENDIF
    NEXT
    RETURN 0

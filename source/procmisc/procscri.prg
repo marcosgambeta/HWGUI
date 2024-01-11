@@ -613,7 +613,7 @@ STATIC w__buf
       RESTSCREEN( y1, x1, y2, x2, w__buf )
       y__size := 0
    ELSE
-      oldc := SETCOLOR( "N/W" )
+      oldc := SETCOLOR("N/W")
       IF prnew
          w__buf := SAVESCREEN( y1, x1, y2, x2 )
          @ y1, x1, y2, x2 BOX "ÚÄ¿³ÙÄÀ³ "
@@ -621,11 +621,11 @@ STATIC w__buf
          SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
       ENDIF
       @ y2 - 1, x1 + 2 SAY sout         
-      SETCOLOR( oldc )
+      SETCOLOR(oldc)
    ENDIF
 RETURN Nil
 
-FUNCTION WndGet( sout, varget, spict )
+FUNCTION WndGet(sout, varget, spict)
 
 LOCAL y1, x1, y2, x2, oldc
 LOCAL GetList := {}
@@ -634,7 +634,7 @@ LOCAL GetList := {}
    x1   := 41 - INT( x__size / 2 )
    y2   := y1 + y__size
    x2   := x1 + x__size
-   oldc := SETCOLOR( "N/W" )
+   oldc := SETCOLOR("N/W")
    IF LEN(sout) + IIF( spict = "@D", 8, LEN(spict) ) > x__size - 3
       SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
    ELSE
@@ -642,7 +642,7 @@ LOCAL GetList := {}
    ENDIF
    @ y2 - 1, x1 + 2 GET varget PICTURE spict        
    READ
-   SETCOLOR( oldc )
+   SETCOLOR(oldc)
 RETURN IIF( LASTKEY() = 27, Nil, varget )
 
 FUNCTION WndOpen( ysize, xsize )

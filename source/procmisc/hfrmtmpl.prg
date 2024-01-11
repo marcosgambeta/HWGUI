@@ -924,19 +924,19 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          ENDIF
          /* Assigning the value of the property to the variable with
          the same name as the property */
-         __mvPut( cPName, xProperty )
+         __mvPut(cPName, xProperty)
 
          IF cPName == "varname" .AND. !Empty(xProperty)
             cVarName := xProperty
             bSetGet := &( "{|v|Iif(v == NIL," + xProperty + "," + xProperty + ":=v)}" )
-            IF __mvGet( xProperty ) == NIL
+            IF __mvGet(xProperty) == NIL
                /* If the variable with 'varname' name isn't initialized
                while onFormInit procedure, we assign her the init value */
-                  __mvPut( xProperty, xInitValue )
+                  __mvPut(xProperty, xInitValue)
             ELSEIF cInitName != NIL
                /* If it is initialized, we assign her value to the 'init'
                variable ( cInitValue, nInitValue, ... ) */
-               __mvPut( cInitName, __mvGet( xProperty ) )
+               __mvPut(cInitName, __mvGet(xProperty))
             ENDIF
          ELSEIF SubStr(cPName, 2) == "initvalue"
             xInitValue := xProperty
@@ -945,9 +945,9 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    NEXT
    FOR i := 1 TO Len(oCtrlTmpl:aMethods)
       IF ( cType := ValType(oCtrlTmpl:aMethods[i, 2]) ) == "B"
-         __mvPut( oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2] )
+         __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2])
       ELSEIF cType == "A"
-         __mvPut( oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2, 1] )
+         __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2, 1])
       ENDIF
    NEXT
 
@@ -1076,13 +1076,13 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
    ENDIF
    IF Type("m->name") == "C"
       // writelog( oCtrlTmpl:cClass+" "+name )
-      __mvPut( name, oCtrl )
+      __mvPut(name, oCtrl)
       name := NIL
    ENDIF
    IF !Empty(oCtrlTmpl:aControls)
       IF oCtrlTmpl:cClass == "page"
          __mvPrivate("tmp_nSheet")
-         __mvPut( "tmp_nSheet", 0 )
+         __mvPut("tmp_nSheet", 0)
       ENDIF
       FOR i := 1 TO Len(oCtrlTmpl:aControls)
          CreateCtrl( IIf( oCtrlTmpl:cClass == "group".OR.oCtrlTmpl:cClass == "radiogroup", oParent, oCtrl ), oCtrlTmpl:aControls[i], oForm )

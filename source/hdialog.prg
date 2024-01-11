@@ -26,7 +26,7 @@ STATIC aMessModalDlg := { ;
       { WM_ACTIVATE, { | o, w, l| onActivate(o, w, l) } },      ;
       { WM_PSPNOTIFY, { |o, w, l| onPspNotify( o, w, l ) } },      ;
       { WM_HELP, { |o, w, l| hwg_onHelp( o, w, l ) } },            ;
-      { WM_CTLCOLORDLG, { |o, w, l| onDlgColor( o, w, l ) } }      ;
+      { WM_CTLCOLORDLG, { |o, w, l| onDlgColor(o, w, l) } }      ;
       }
 
    // Class HDialog
@@ -93,7 +93,7 @@ METHOD NEW( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSi
    IF nHelpId != nil
       ::HelpId := nHelpId
    END
-   ::Setcolor( , bColor )
+   ::Setcolor(, bColor)
    IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
       ::nScrollBars ++
    ENDIF
@@ -135,15 +135,15 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
       IF lNoModal == Nil .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
-         Hwg_DlgBoxIndirect( hwg_Getactivewindow(), Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style )
+         Hwg_DlgBoxIndirect(hwg_Getactivewindow(), Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
       ELSE
          ::lModal  := .F.
          ::handle  := 0
          ::lResult := .F.
          ::AddItem()
-         Hwg_CreateDlgIndirect( hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style )
+         Hwg_CreateDlgIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
          IF  ::WindowState > SW_HIDE
-            hwg_Setwindowpos( ::Handle, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_FRAMECHANGED )
+            hwg_Setwindowpos(::Handle, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_FRAMECHANGED)
             hwg_Redrawwindow( ::handle, RDW_UPDATENOW + RDW_NOCHILDREN )
          ENDIF
 
@@ -168,7 +168,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
    ELSEIF msg = WM_MENUCHAR
       RETURN onSysCommand(Self, SC_KEYMENU, hwg_Loword(wParam))
    ELSEIF msg = WM_MOVE
-      aCoors := hwg_Getwindowrect( ::handle )
+      aCoors := hwg_Getwindowrect(::handle)
       ::nLeft := aCoors[1]
       ::nTop  := aCoors[2]
    ELSEIF  msg = WM_UPDATEUISTATE .AND. hwg_Hiword(wParam) != UISF_HIDEFOCUS
@@ -266,7 +266,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       hwg__SetMenu( oDlg:handle, oDlg:menu[5] )
    ENDIF
 
-   oDlg:rect := hwg_Getclientrect( oDlg:handle )
+   oDlg:rect := hwg_Getclientrect(oDlg:handle)
 
    IF oDlg:oIcon != Nil
       hwg_Sendmessage(oDlg:handle, WM_SETICON, 1, oDlg:oIcon:handle)
@@ -275,7 +275,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       hwg_Sendmessage(oDlg:handle, WM_SETFONT, oDlg:oFont:handle, 0)
    ENDIF
    IF oDlg:Title != NIL
-      hwg_Setwindowtext( oDlg:Handle, oDlg:Title )
+      hwg_Setwindowtext(oDlg:Handle, oDlg:Title)
    ENDIF
    IF !oDlg:lClosable
       oDlg:Closable(.F.)
@@ -347,7 +347,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
       ENDIF
    ENDIF
 
-   oDlg:rect := hwg_Getclientrect( oDlg:handle )
+   oDlg:rect := hwg_Getclientrect(oDlg:handle)
    IF oDlg:nScrollBars > - 1
       AEval( oDlg:aControls, { | o | oDlg:ncurHeight := Max( o:nTop + o:nHeight + VERT_PTS * 4, oDlg:ncurHeight ) } )
       AEval( oDlg:aControls, { | o | oDlg:ncurWidth := Max( o:nLeft + o:nWidth  + HORZ_PTS * 4, oDlg:ncurWidth ) } )
@@ -357,7 +357,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
    RETURN nReturn
 
-STATIC FUNCTION onDlgColor( oDlg, wParam, lParam )
+STATIC FUNCTION onDlgColor(oDlg, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
 
@@ -500,7 +500,7 @@ FUNCTION hwg_DlgMouseMove()
 
    IF oBtn != Nil .AND. !oBtn:lPress
       oBtn:state := OBTN_NORMAL
-      hwg_Invalidaterect( oBtn:handle, 0 )
+      hwg_Invalidaterect(oBtn:handle, 0)
       // hwg_Postmessage(oBtn:handle, WM_PAINT, 0, 0)
       hwg_SetNiceBtnSelected(Nil)
    ENDIF

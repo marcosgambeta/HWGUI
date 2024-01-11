@@ -91,7 +91,7 @@ HB_FUNC( HBXML_SETENTITY )
    }
    else
    {
-      pArray = hb_param( 1, HB_IT_ARRAY );
+      pArray = hb_param(1, HB_IT_ARRAY);
       ulLen = ( HB_ULONG ) hb_arrayLen(pArray);
 
       nPredefsKol = (int) ulLen;
@@ -101,11 +101,11 @@ HB_FUNC( HBXML_SETENTITY )
 
       for( ul = 1; ul <= ulLen; ul++ )
       {
-         pArr = (PHB_ITEM) hb_arrayGetItemPtr( pArray, ul );
+         pArr = (PHB_ITEM) hb_arrayGetItemPtr(pArray, ul);
          ulItemLen = hb_arrayGetCLen(pArr, 1);
          pEntity1[ul-1] = (unsigned char *) hb_xgrab(ulItemLen+1);
          // hwg_writelog( NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen );
-         memcpy( pEntity1[ul-1], hb_arrayGetCPtr( pArr, 1 ), ulItemLen );
+         memcpy( pEntity1[ul-1], hb_arrayGetCPtr(pArr, 1), ulItemLen );
          pEntity1[ul-1][ulItemLen] = '\0';
          pEntity2[ul-1] = * hb_arrayGetCPtr(pArr,2);
       }
@@ -160,7 +160,7 @@ HB_FUNC( HBXML_TRANSFORM )
          ptr1++;
       }
       *ptr1 = '\0';
-      pItem = hb_itemPutCLPtr( NULL, ( char * ) pNew, ulLen + iLenAdd );
+      pItem = hb_itemPutCLPtr(NULL, ( char * ) pNew, ulLen + iLenAdd);
    }
    else
       pItem = hb_itemPutCL( NULL, ( char * ) pBuffer, ulLen );
@@ -337,17 +337,17 @@ void hbxml_getdoctype(PHB_ITEM pDoc, unsigned char **pBuffer)
 PHB_ITEM hbxml_addnode(PHB_ITEM pParent)
 {
    PHB_ITEM pNode = hb_itemNew( NULL );
-   PHB_DYNS pSym = hb_dynsymGet( "HXMLNODE" );
+   PHB_DYNS pSym = hb_dynsymGet("HXMLNODE");
 
    hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );
    hb_vmPushNil();
    hb_vmDo(0);
 
-   hb_objSendMsg( hb_param( -1, HB_IT_ANY ), "NEW", 0 );
-   hb_itemCopy( pNode, hb_param( -1, HB_IT_ANY ) );
+   hb_objSendMsg( hb_param(-1, HB_IT_ANY), "NEW", 0 );
+   hb_itemCopy( pNode, hb_param(-1, HB_IT_ANY) );
 
    hb_objSendMsg( pParent, "AITEMS", 0 );
-   hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pNode);
+   hb_arrayAdd(hb_param(-1, HB_IT_ANY), pNode);
 
    return pNode;
 }
@@ -358,7 +358,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    PHB_ITEM pNode = hbxml_addnode(pParent);
    PHB_ITEM pTemp;
 
-   pTemp = hb_itemPutNI( NULL, HBXML_TYPE_COMMENT );
+   pTemp = hb_itemPutNI(NULL, HBXML_TYPE_COMMENT);
    hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
    hb_itemRelease(pTemp);
 
@@ -373,7 +373,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
+      hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
 
       ( *pBuffer ) += 3;
@@ -391,7 +391,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
    PHB_ITEM pNode = hbxml_addnode(pParent);
    PHB_ITEM pTemp;
 
-   pTemp = hb_itemPutNI( NULL, HBXML_TYPE_CDATA );
+   pTemp = hb_itemPutNI(NULL, HBXML_TYPE_CDATA);
    hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
    hb_itemRelease(pTemp);
 
@@ -406,7 +406,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
       hb_objSendMsg( pNode, "AITEMS", 0 );
-      hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
+      hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
 
       ( *pBuffer ) += 3;
@@ -455,10 +455,10 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
       hb_itemRelease(pArray);
    }
    pTemp =
-         hb_itemPutNI( NULL,
+         hb_itemPutNI(NULL,
          ( lSingle ) ? ( ( lSingle ==
                      2 ) ? HBXML_TYPE_PI : HBXML_TYPE_SINGLE ) :
-         HBXML_TYPE_TAG );
+         HBXML_TYPE_TAG);
    hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
    hb_itemRelease(pTemp);
 
@@ -479,7 +479,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
          {
             pTemp = hbxml_pp( ptr, *pBuffer - ptr );
             hb_objSendMsg( pNode, "AITEMS", 0 );
-            hb_arrayAdd(hb_param( -1, HB_IT_ANY ), pTemp);
+            hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
             hb_itemRelease(pTemp);
             if( nParseError )
             {
@@ -544,7 +544,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
 
 HB_FUNC( HBXML_GETDOC )
 {
-   PHB_ITEM pDoc = hb_param( 1, HB_IT_OBJECT );
+   PHB_ITEM pDoc = hb_param(1, HB_IT_OBJECT);
    HB_BOOL bFile;
    unsigned char *ptr;
    int iMainTags = 0;
@@ -590,7 +590,7 @@ HB_FUNC( HBXML_GETDOC )
                hb_xfree(cBuffer);
             if( pArray )
                hb_itemRelease(pArray);
-            hb_retni( nParseError );
+            hb_retni(nParseError);
             return;
          }
          hb_objSendMsg( pDoc, "_AATTR", 1, pArray );
@@ -645,6 +645,6 @@ HB_FUNC( HBXML_GETDOC )
    if( bFile )
       hb_xfree(cBuffer);
 
-   hb_retni( nParseError );
+   hb_retni(nParseError);
 }
 
