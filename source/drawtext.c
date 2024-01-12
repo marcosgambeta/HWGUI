@@ -437,13 +437,13 @@ HB_FUNC( HWG_CREATERECTRGNINDIRECT )
 HB_FUNC( HWG_EXTSELECTCLIPRGN )
 {
    hb_retni(ExtSelectClipRgn( hwg_par_HDC(1),
-               ( HRGN ) HB_PARHANDLE(2), hb_parni(3) ));
+               hwg_par_HRGN(2), hb_parni(3) ));
 }
 
 HB_FUNC( HWG_SELECTCLIPRGN )
 {
    hb_retni(SelectClipRgn( hwg_par_HDC(1),
-               ( HRGN ) HB_PARHANDLE(2) ));
+               hwg_par_HRGN(2) ));
 }
 
 

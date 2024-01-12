@@ -169,7 +169,7 @@ HB_FUNC( HWG_CREATEROUNDRECTRGN )
 
 HB_FUNC( HWG_SETWINDOWRGN )
 {
-   hb_retni(SetWindowRgn( hwg_par_HWND(1), ( HRGN ) hb_parnl(2),
+   hb_retni(SetWindowRgn( hwg_par_HWND(1), ( HRGN ) hb_parnl(2), /* TODO: pointer */
                hb_parl(3) ));
 }
 
