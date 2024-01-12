@@ -124,7 +124,7 @@ HB_FUNC( HWG_INITMAINWINDOW )
                NULL, NULL, ( HINSTANCE ) hInstance, NULL );
 
          temp = hb_itemPutNL(NULL, 1);
-         SetObjectVar( pObject, "_NHOLDER", temp );
+         SetObjectVar(pObject, "_NHOLDER", temp);
          hb_itemRelease(temp);
          SetWindowObject( hWnd, pObject );
 
@@ -298,8 +298,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       {
          fRegistered = FALSE;
 #ifdef __XHARBOUR__
-         MessageBox( GetActiveWindow(), lpAppName,
-                     TEXT("Register Child Wnd Class"), MB_OK | MB_ICONSTOP );
+         MessageBox(GetActiveWindow(), lpAppName, TEXT("Register Child Wnd Class"), MB_OK | MB_ICONSTOP);
 #endif
       }
    }
@@ -313,7 +312,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
             hParent, NULL, ( HINSTANCE ) hInstance, NULL );
 
       temp = hb_itemPutNL(NULL, 1);
-      SetObjectVar( pObject, "_NHOLDER", temp );
+      SetObjectVar(pObject, "_NHOLDER", temp);
       hb_itemRelease(temp);
       SetWindowObject( hWnd, pObject );
    }
@@ -412,7 +411,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
             else
             {
                temp = hb_itemPutNL(NULL, 1);
-               SetObjectVar( pObject, "_NHOLDER", temp );
+               SetObjectVar(pObject, "_NHOLDER", temp);
                hb_itemRelease(temp);
                SetWindowObject( hWnd, pObject );
 
@@ -481,13 +480,13 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
 {
    HWND hWnd = NULL;
    PHB_ITEM pObj = hb_param(1, HB_IT_OBJECT);
-   DWORD style = ( DWORD ) hb_itemGetNL(GetObjectVar( pObj, "STYLE" ));
-   int y = ( int ) hb_itemGetNL(GetObjectVar( pObj, "NTOP" ));
-   int x = ( int ) hb_itemGetNL(GetObjectVar( pObj, "NLEFT" ));
-   int width = ( int ) hb_itemGetNL(GetObjectVar( pObj, "NWIDTH" ));
-   int height = ( int ) hb_itemGetNL(GetObjectVar( pObj, "NHEIGHT" ));
+   DWORD style = ( DWORD ) hb_itemGetNL(GetObjectVar(pObj, "STYLE"));
+   int y = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NTOP"));
+   int x = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NLEFT"));
+   int width = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NWIDTH"));
+   int height = ( int ) hb_itemGetNL(GetObjectVar(pObj, "NHEIGHT"));
    void * hTitle;
-   LPCTSTR lpTitle = HB_ITEMGETSTR(GetObjectVar( pObj, "TITLE" ), &hTitle, NULL);
+   LPCTSTR lpTitle = HB_ITEMGETSTR(GetObjectVar(pObj, "TITLE"), &hTitle, NULL);
 
    //if( !style )
    //   style = WS_VISIBLE | WS_OVERLAPPEDWINDOW | WS_MAXIMIZE;
@@ -569,7 +568,7 @@ HB_FUNC( HWG_SETWINDOWOBJECT )
 void SetWindowObject( HWND hWnd, PHB_ITEM pObject )
 {
    SetWindowLongPtr(hWnd, GWLP_USERDATA,
-         pObject ? ( LPARAM ) hb_itemNew( pObject ) : 0);
+         pObject ? ( LPARAM ) hb_itemNew(pObject) : 0);
 }
 
 HB_FUNC( HWG_GETWINDOWOBJECT )
@@ -590,7 +589,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
 {
    HWND hWnd = hwg_par_HWND(1);
    ULONG ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0);
-   LPTSTR cText = ( TCHAR * ) hb_xgrab(( ulLen + 1 ) * sizeof( TCHAR  ));
+   LPTSTR cText = ( TCHAR * ) hb_xgrab(( ulLen + 1 ) * sizeof(TCHAR));
 
    ulLen = ( ULONG ) SendMessage(hWnd, WM_GETTEXT, ( WPARAM ) ( ulLen + 1 ),
                                   ( LPARAM ) cText);
@@ -794,11 +793,11 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
       PHB_ITEM temp;
 
       temp = hb_itemPutNL(NULL, 1);
-      SetObjectVar( *pObj, "_NHOLDER", temp );
+      SetObjectVar(*pObj, "_NHOLDER", temp);
       hb_itemRelease(temp);
 
       temp = HB_PUTHANDLE(NULL, hWnd);
-      SetObjectVar( *pObj, "_HANDLE", temp );
+      SetObjectVar(*pObj, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       SetWindowObject( hWnd, *pObj );
@@ -829,7 +828,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
 
 }
 
-PHB_ITEM GetObjectVar( PHB_ITEM pObject, const char *varname )
+PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname)
 {
    /* ( char * ) casting is a hack for old [x]Harbour versions
     * which used wrong hb_objSendMsg() declaration
@@ -837,7 +836,7 @@ PHB_ITEM GetObjectVar( PHB_ITEM pObject, const char *varname )
    return hb_objSendMsg( pObject, ( char * ) varname, 0 );
 }
 
-void SetObjectVar( PHB_ITEM pObject, const char *varname, PHB_ITEM pValue )
+void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue)
 {
    /* ( char * ) casting is a hack for old [x]Harbour versions
     * which used wrong hb_objSendMsg() declaration
@@ -911,8 +910,8 @@ char * hwg_strunshare(void ** phStr, const char * pStr, HB_SIZE nLen)
 
    if( *phStr == ( void * ) s_szConstStr && nLen > 0 )
    {
-      char * pszDest = ( char * ) hb_xgrab(( nLen + 1 ) * sizeof( char ));
-      memcpy( pszDest, pStr, nLen * sizeof( char ) );
+      char * pszDest = ( char * ) hb_xgrab(( nLen + 1 ) * sizeof(char));
+      memcpy( pszDest, pStr, nLen * sizeof(char) );
       pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
@@ -959,7 +958,7 @@ const wchar_t * hwg_wstrget(PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen)
       }
       else
       {
-         wchar_t * pResult = ( wchar_t * ) hb_xgrab(( nDest + 1 ) * sizeof( wchar_t ));
+         wchar_t * pResult = ( wchar_t * ) hb_xgrab(( nDest + 1 ) * sizeof(wchar_t));
 
          pResult[nDest] = 0;
          nDest = MultiByteToWideChar( s_iVM_CP, 0, pszText, nLen, pResult, nDest );
@@ -1003,7 +1002,7 @@ void hwg_wstrlenset( PHB_ITEM pItem, const wchar_t * pStr, HB_SIZE nLen )
 PHB_ITEM hwg_wstrlenput(PHB_ITEM pItem, const wchar_t * pStr, HB_SIZE nLen)
 {
    if( pItem == NULL )
-      pItem = hb_itemNew( NULL );
+      pItem = hb_itemNew(NULL);
 
    hwg_wstrlenset( pItem, pStr, nLen );
 
@@ -1054,8 +1053,8 @@ wchar_t * hwg_wstrunshare(void ** phStr, const wchar_t * pStr, HB_SIZE nLen)
 
    if( *phStr == ( void * ) s_wszConstStr && nLen > 0 )
    {
-      wchar_t * pszDest = ( wchar_t * ) hb_xgrab(( nLen + 1 ) * sizeof( wchar_t ));
-      memcpy( pszDest, pStr, nLen * sizeof( wchar_t ) );
+      wchar_t * pszDest = ( wchar_t * ) hb_xgrab(( nLen + 1 ) * sizeof(wchar_t));
+      memcpy( pszDest, pStr, nLen * sizeof(wchar_t) );
       pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
@@ -1422,7 +1421,7 @@ HB_FUNC( HWG_GETWINDOWPLACEMENT )
    HWND hWnd = hwg_par_HWND(1);
    WINDOWPLACEMENT wp;
    
-   wp.length = sizeof( WINDOWPLACEMENT );
+   wp.length = sizeof(WINDOWPLACEMENT);
 
    if ( GetWindowPlacement( hWnd, &wp ) ) 
       hb_retnl(wp.showCmd);
@@ -1439,7 +1438,7 @@ HB_FUNC( HWG_FLASHWINDOW )
 
 HB_FUNC( HWG_ANSITOUNICODE )
 {
-   void * hText = ( TCHAR * ) hb_xgrab(( 1024 + 1 ) * sizeof( TCHAR  ));
+   void * hText = ( TCHAR * ) hb_xgrab(( 1024 + 1 ) * sizeof(TCHAR));
 #if !defined(__XHARBOUR__)
     hb_parstr_u16( 1, HB_CDP_ENDIAN_NATIVE, &hText, NULL );
 #else
@@ -1470,7 +1469,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
 
 HB_FUNC( HWG_PAINTWINDOW )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof( PAINTSTRUCT ));
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
    HDC hDC = BeginPaint( hwg_par_HWND(1), pps );
    BOOL fErase = pps->fErase;
    RECT rc = pps->rcPaint;

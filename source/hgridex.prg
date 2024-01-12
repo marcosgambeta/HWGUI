@@ -61,9 +61,9 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    DATA aRowStyle  INIT { }
    DATA iRowSelect INIT  0
 
-   METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-               bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-               nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems )
+   METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+              bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+              nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems)
 
    METHOD Activate()
    METHOD Init()
@@ -85,16 +85,16 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
 ENDCLASS
 
 
-METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems ) CLASS HGridEx
+METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+           bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+           nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit, aItems) CLASS HGridEx
 
    HB_SYMBOL_UNUSED(nItemCount)
 
    //nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_VISIBLE + WS_CHILD + WS_TABSTOP + LVS_REPORT )
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + WS_BORDER   )
-   ::Super:New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
-              bSize, bPaint )
+   ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
+              bSize, bPaint)
    DEFAULT aBit TO { }
    ::aItems := aItems
    ::ItemCount := Len(aItems)
@@ -274,7 +274,7 @@ METHOD Notify( lParam )  CLASS HGRIDEX
 
    IF nCode == LVN_COLUMNCLICK //.AND. hwg_Getnotifycodefrom(lParam) == ::Handle
       IF Empty(::hsort)
-         ::hSort := hwg_Listviewsortinfonew( lParam, nil )
+         ::hSort := hwg_Listviewsortinfonew(lParam, nil)
       ENDIF
       hwg_Listviewsort( ::handle, lParam, ::hSort )
       RETURN  0
@@ -301,8 +301,8 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED(lTransp)
 
    DEFAULT  aItem TO { }
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+              bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::arow := aItem
 

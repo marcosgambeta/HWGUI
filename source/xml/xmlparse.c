@@ -236,12 +236,12 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
 
    unsigned char *ptr, cQuo;
    int nlen;
-   PHB_ITEM pArray = hb_itemNew( NULL );
+   PHB_ITEM pArray = hb_itemNew(NULL);
    PHB_ITEM pSubArray = NULL;
    PHB_ITEM pTemp;
    HB_BOOL bPI = 0;
 
-   hb_arrayNew( pArray, 0 );
+   hb_arrayNew(pArray, 0);
    *lSingle = HB_FALSE;
    if( **pBuffer == '<' )
    {
@@ -276,8 +276,8 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
          HB_SKIPCHARS( *pBuffer );      // skip attribute name
          nlen = *pBuffer - ptr;
          // add attribute name to result array
-         pSubArray = hb_itemNew( NULL );
-         hb_arrayNew( pSubArray, 2 );
+         pSubArray = hb_itemNew(NULL);
+         hb_arrayNew(pSubArray, 2);
          pTemp = hb_itemPutCL( NULL, ( char * ) ptr, nlen );
          hb_arraySet( pSubArray, 1, pTemp );
          hb_itemRelease(pTemp);
@@ -336,7 +336,7 @@ void hbxml_getdoctype(PHB_ITEM pDoc, unsigned char **pBuffer)
 
 PHB_ITEM hbxml_addnode(PHB_ITEM pParent)
 {
-   PHB_ITEM pNode = hb_itemNew( NULL );
+   PHB_ITEM pNode = hb_itemNew(NULL);
    PHB_DYNS pSym = hb_dynsymGet("HXMLNODE");
 
    hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );

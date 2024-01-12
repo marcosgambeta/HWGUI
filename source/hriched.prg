@@ -35,9 +35,9 @@ CLASS HRichEdit INHERIT HControl
 
    DATA bChange
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip,;
-               tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder )
+   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip,;
+              tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
@@ -55,14 +55,14 @@ CLASS HRichEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, ;
-            tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder ) CLASS HRichEdit
+METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, ;
+           tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
                         IIf( lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0 ) )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor ) )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+              bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor ))
 
    ::title   := vari
    ::bOther  := bOther

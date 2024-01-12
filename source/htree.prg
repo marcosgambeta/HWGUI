@@ -101,7 +101,7 @@ CLASS HTreeNode INHERIT HObject
    DATA image1, image2
    DATA lchecked INIT .F.
 
-   METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick )
+   METHOD New(oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick)
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
    METHOD Delete(lInternal)
    METHOD FindChild(h)
@@ -112,7 +112,7 @@ CLASS HTreeNode INHERIT HObject
 
 ENDCLASS
 
-METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick ) CLASS HTreeNode
+METHOD New(oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick) CLASS HTreeNode
    LOCAL aItems, i, h, im1, im2, cImage, op, nPos
 
    ::oTree    := oTree
@@ -193,7 +193,7 @@ METHOD New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bC
 
 METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick) CLASS HTreeNode
    LOCAL oParent := Self
-   LOCAL oNode := HTreeNode():New( ::oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lCheck, bClick )
+   LOCAL oNode := HTreeNode():New(::oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lCheck, bClick)
 
    RETURN oNode
 
@@ -272,8 +272,8 @@ CLASS VAR winclass   INIT "SysTreeView32"
    DATA  hitemDrag, hitemDrop HIDDEN
    DATA hTreeEdit
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor, ;
-               aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lCheckbox, bCheck, lDragDrop, bDrag, bDrop, bOther )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor, ;
+               aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lCheckbox, bCheck, lDragDrop, bDrag, bDrop, bOther)
    METHOD Init()
    METHOD Activate()
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
@@ -296,8 +296,8 @@ CLASS VAR winclass   INIT "SysTreeView32"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor, ;
-            aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lcheckbox, bCheck, lDragDrop, bDrag, bDrop, bOther ) CLASS HTree
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor, ;
+           aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lcheckbox, bCheck, lDragDrop, bDrag, bDrop, bOther) CLASS HTree
    LOCAL i, aBmpSize
 
 
@@ -312,8 +312,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,
                           IIF( !lDragDrop, TVS_DISABLEDRAGDROP, 0 ) )
 
    ::sTyle := nStyle
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              bSize,,, color, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+              bSize,,, color, bcolor)
 
    ::lEditLabels :=  lEditLabels
    ::lCheckBox   :=  lCheckBox
@@ -481,7 +481,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
 
 
 METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick) CLASS HTree
-   LOCAL oNode := HTreeNode():New( Self, Nil, oPrev, oNext, cTitle, bAction, aImages, lCheck, bClick )
+   LOCAL oNode := HTreeNode():New(Self, Nil, oPrev, oNext, cTitle, bAction, aImages, lCheck, bClick)
    ::lEmpty := .F.
    RETURN oNode
 

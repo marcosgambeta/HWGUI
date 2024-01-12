@@ -115,8 +115,7 @@ BOOL s_freeImgInit( void )
    if( !hFreeImageDll ) {
       hFreeImageDll = LoadLibrary( TEXT("FreeImage.dll") );
       if( !hFreeImageDll ) {
-         MessageBox( GetActiveWindow(), TEXT("Library not loaded"),
-                     TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP );
+         MessageBox(GetActiveWindow(), TEXT("Library not loaded"), TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP);
          return 0;
       }
    }
@@ -365,7 +364,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    }
 
    // initialize BITMAPINFOHEADER
-   bi.biSize = sizeof( BITMAPINFOHEADER );
+   bi.biSize = sizeof(BITMAPINFOHEADER);
    bi.biWidth = dwWidth;        // fill in width from parameter
    bi.biHeight = dwHeight;      // fill in height from parameter
    bi.biPlanes = 1;             // must be 1
@@ -508,13 +507,13 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
    if( _dib ) {
       // Get equivalent DIB size
-      long dib_size = sizeof( BITMAPINFOHEADER );
+      long dib_size = sizeof(BITMAPINFOHEADER);
       BYTE *dib;
       BYTE *p_dib, *bits;
       BITMAPINFOHEADER *bih;
       RGBQUAD *pal;
 
-      dib_size += pGetColorsUsed(_dib) * sizeof( RGBQUAD );
+      dib_size += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
       dib_size += pGetPitch( _dib ) * pGetheight( _dib );
 
       // Allocate a DIB
@@ -527,18 +526,18 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
       // Copy the BITMAPINFOHEADER
       bih = pGetinfoHead(_dib);
-      memcpy( p_dib, bih, sizeof( BITMAPINFOHEADER ) );
+      memcpy( p_dib, bih, sizeof(BITMAPINFOHEADER) );
 
       if( pGetImageType(_dib) != 1 /*FIT_BITMAP */  ) {
          // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
          SET_FREEIMAGE_MARKER( ( BITMAPINFOHEADER * ) p_dib, _dib );
       }
-      p_dib += sizeof( BITMAPINFOHEADER );
+      p_dib += sizeof(BITMAPINFOHEADER);
 
       // Copy the palette
       pal = pGetPalette(_dib);
-      memcpy( p_dib, pal, pGetColorsUsed(_dib) * sizeof( RGBQUAD ) );
-      p_dib += pGetColorsUsed(_dib) * sizeof( RGBQUAD );
+      memcpy( p_dib, pal, pGetColorsUsed(_dib) * sizeof(RGBQUAD) );
+      p_dib += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
 
       // Copy the bitmap
       bits = pGetbits( _dib );
@@ -572,10 +571,10 @@ HB_FUNC( HWG_FI_DRAW )
    pp[0].y = hb_parni(6);
    pp[1].x = pp[0].x + nDestWidth;
    pp[1].y = pp[0].y + nDestHeight;
-   // sprintf( cres,"\n %d %d %d %d",pp[0].x,pp[0].y,pp[1].x,pp[1].y );
+   // sprintf(cres, "\n %d %d %d %d", pp[0].x, pp[0].y, pp[1].x, pp[1].y);
    // writelog(cres);
    // l = DPtoLP( hDC, pp, 2 );
-   // sprintf( cres,"\n %d %d %d %d %d",pp[0].x,pp[0].y,pp[1].x,pp[1].y,l );
+   // sprintf(cres, "\n %d %d %d %d %d", pp[0].x, pp[0].y, pp[1].x, pp[1].y, l);
    // writelog(cres);
 
    pGetbits =
@@ -617,7 +616,7 @@ HB_FUNC( HWG_FI_BMP2FI )
       if( pAllocate && pGetbits && pGetinfo && pGetheight ) {
          HDC hDC = GetDC(NULL);
 
-         GetObject( hbmp, sizeof( BITMAP ), ( LPVOID ) &bm );
+         GetObject( hbmp, sizeof(BITMAP), ( LPVOID ) &bm );
          dib = pAllocate(bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0);
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
@@ -637,7 +636,7 @@ static int ColorCount( int bpp )
 
 static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
 {
-   if( lpbi->biSize == sizeof( BITMAPCOREHEADER ) ) {
+   if( lpbi->biSize == sizeof(BITMAPCOREHEADER) ) {
       LPBITMAPCOREHEADER lpbc = ( ( LPBITMAPCOREHEADER ) lpbi );
       return 1 << lpbc->bcBitCount;
    } else if( lpbi->biClrUsed == 0 ) {
@@ -656,7 +655,7 @@ static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
    DWORD dwColorTableSize =
-         ( DWORD ) ( DibNumColors( lpdib ) * sizeof( RGBQUAD ) );
+         ( DWORD ) ( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
    LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;

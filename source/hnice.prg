@@ -32,9 +32,9 @@ CLASS HNiceButton INHERIT HControl
    DATA lFlat
    DATA nOrder
 
-   METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
-               bInit, bClick, ;
-               cText, cTooltip, r, g, b )
+   METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
+              bInit, bClick, ;
+              cText, cTooltip, r, g, b)
 
    METHOD Redefine(oWndParent, nId, nStyleEx, ;
                    bInit, bClick, ;
@@ -55,11 +55,11 @@ CLASS HNiceButton INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
-            bInit, bClick, ;
-            cText, cTooltip, r, g, b ) CLASS HNiceButton
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, bInit, ;
-              ,, cTooltip )
+METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
+           bInit, bClick, ;
+           cText, cTooltip, r, g, b) CLASS HNiceButton
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, bInit, ;
+              ,, cTooltip)
    DEFAULT g := ::g
    DEFAULT b := ::b
 
@@ -88,7 +88,7 @@ METHOD Redefine(oWndParent, nId, nStyleEx, ;
                 bInit, bClick, ;
                 cText, cTooltip, r, g, b) CLASS HNiceButton
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit,,, cTooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0,, bInit,,, cTooltip)
 
    DEFAULT g := ::g
    DEFAULT b := ::b

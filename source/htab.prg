@@ -33,7 +33,7 @@ CLASS HPage INHERIT HObject
    DATA aItemPos       INIT { }
    DATA Tooltip
 
-   METHOD New( cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip )
+   METHOD New(cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip)
    METHOD Enable() INLINE ::Enabled(.T.)
    METHOD Disable() INLINE ::Enabled(.F.)
    METHOD GetTabText() INLINE hwg_Gettabname(::oParent:Handle, ::PageOrder - 1)
@@ -46,7 +46,7 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New( cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip ) CLASS HPage
+METHOD New(cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip) CLASS HPage
 
    cCaption := iif( cCaption == NIL, "New Page", cCaption )
    ::lEnabled := iif( lEnabled != NIL, lEnabled, .T. )
@@ -134,9 +134,9 @@ CLASS HTab INHERIT HControl, HScrollArea
    DATA TabHeightSize
    DATA internalPaint INIT 0 HIDDEN
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, ;
-      bClick, bGetFocus, bLostFocus, bRClick )
+      bClick, bGetFocus, bLostFocus, bRClick)
    METHOD Activate()
    METHOD Init()
    METHOD AddPage(oPage, cCaption)
@@ -170,13 +170,13 @@ CLASS HTab INHERIT HControl, HScrollArea
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus, bRClick ) CLASS HTab
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, aTabs, bChange, aImages, lResour, nBC, bClick, bGetFocus, bLostFocus, bRClick) CLASS HTab
    LOCAL i
 
    nStyle   := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_CLIPSIBLINGS + WS_TABSTOP + TCS_TOOLTIPS )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+      bSize, bPaint)
    ::title   := ""
    ::oFont   := iif( oFont == NIL, ::oParent:oFont, oFont )
    ::aTabs   := iif( aTabs == NIL, { }, aTabs )
@@ -201,7 +201,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
          ::Image2 := 1
       ENDIF
    ENDIF
-   ::oPaint := HPaintTab():New( Self, , 0, 0, 0, 0 ) //, ::oFont )
+   ::oPaint := HPaintTab():New(Self, , 0, 0, 0, 0) //, ::oFont)
    // ::brush := hwg_GetBackColorParent( Self, .T. )
    HWG_InitCommonControlsEx()
    ::Activate()
@@ -225,14 +225,14 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED(lTransp)
    HB_SYMBOL_UNUSED(aItem)
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::lResourceTab := .T.
    ::aTabs := { }
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::brush := hwg_GetBackColorParent( Self, .T. )
-   ::oPaint := HPaintTab():New( Self, , 0, 0, 0, 0 ) //, ::oFont )
+   ::oPaint := HPaintTab():New(Self, , 0, 0, 0, 0) //, ::oFont )
 
    RETURN Self
 
@@ -275,7 +275,7 @@ METHOD Init() CLASS HTab
          ENDIF
       ELSEIF ( i := hwg_Sendmessage(::handle, TCM_GETITEMCOUNT, 0, 0) ) > 0
          ASize(::aPages, i)
-         AEval( ::aPages, { | a, i | HB_SYMBOL_UNUSED(a), ::AddPage(HPage():New( "", i, .T., ), "") } )
+         AEval( ::aPages, { | a, i | HB_SYMBOL_UNUSED(a), ::AddPage(HPage():New("", i, .T.,), "") } )
          ::nActive := 1
       ENDIF
       ::nHolder := 1
@@ -340,7 +340,7 @@ METHOD StartPage(cname, oDlg, lEnabled, tColor, bColor, cTooltip) CLASS HTab
    ELSE
       AAdd(::aPages, { Len(::aControls), 0 })
    ENDIF
-   ::AddPage(HPage():New( cname, Len(::aPages), lEnabled, tColor, bcolor, cTooltip  ), cName)
+   ::AddPage(HPage():New(cname, Len(::aPages), lEnabled, tColor, bcolor, cTooltip), cName)
    IF ::nActive > 1 .AND. !Empty(::handle)
       ::HidePage(::nActive)
    ENDIF
@@ -892,7 +892,7 @@ CLASS HPaintTab INHERIT HControl
    CLASS VAR winclass   INIT "STATIC"
    DATA hDC
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, tColor, bColor )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, tColor, bColor)
    METHOD Activate()
    METHOD Paint( lpDis )
    METHOD showTextTabs( oPage, aItemPos )
@@ -900,11 +900,11 @@ CLASS HPaintTab INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, tcolor, bColor ) CLASS HPaintTab
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, tcolor, bColor) CLASS HPaintTab
 
    ::bPaint   := { | o, p | o:paint( p ) }
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW + WS_DISABLED + WS_CLIPCHILDREN, nLeft, nTop, nWidth, nHeight, , ;
-      , , ::bPaint, , tcolor, bColor )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW + WS_DISABLED + WS_CLIPCHILDREN, nLeft, nTop, nWidth, nHeight, , ;
+      , , ::bPaint, , tcolor, bColor)
    ::anchor := 15
    ::brush := NIL
    ::Name := "PaintTab"

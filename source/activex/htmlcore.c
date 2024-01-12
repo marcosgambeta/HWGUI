@@ -461,8 +461,8 @@ static const WCHAR BeforeUnload[] = L"beforeunload";
 #include "hbvm.h"
 #include "item.api"
 
-PHB_ITEM GetObjectVar( PHB_ITEM pObject, char *varname );
-void SetObjectVar( PHB_ITEM pObject, char *varname, PHB_ITEM pValue );
+PHB_ITEM GetObjectVar(PHB_ITEM pObject, char * varname);
+void SetObjectVar(PHB_ITEM pObject, char * varname, PHB_ITEM pValue);
 extern void writelog( char *s );
 
 void SetEmbedded(HWND handle, IOleObject ** obj)
@@ -472,9 +472,9 @@ void SetEmbedded(HWND handle, IOleObject ** obj)
    PHB_ITEM temp;
 
    pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
-   pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
+   pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
    temp = hb_itemPutNL(NULL, ( LONG ) obj);
-   SetObjectVar( pEmbed, "_HANDLE", temp );
+   SetObjectVar(pEmbed, "_HANDLE", temp);
    hb_itemRelease(temp);
 }
 
@@ -483,8 +483,8 @@ IOleObject **GetEmbedded(HWND handle)
    PHB_ITEM pObject, pEmbed;
 
    pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
-   pEmbed = hb_itemNew( GetObjectVar( pObject, "OEMBEDDED" ) );
-   return ( IOleObject ** ) hb_itemGetNL(GetObjectVar( pEmbed, "HANDLE" ));
+   pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
+   return ( IOleObject ** ) hb_itemGetNL(GetObjectVar(pEmbed, "HANDLE"));
 }
 
 ///////////////////// My IDocHostUIHandler functions  ///////////////////
@@ -511,8 +511,8 @@ HRESULT STDMETHODCALLTYPE UI_QueryInterface(IDocHostUIHandler * This,
    // _IOleClientSiteEx, and comes immediately after the _IOleInPlaceSiteEx, we
    // can employ the following trickery to get the pointer to our _IOleClientSiteEx.
    return ( Site_QueryInterface(( IOleClientSite * ) ( ( char * ) This -
-                     sizeof( IOleClientSite ) -
-                     sizeof( _IOleInPlaceSiteEx ) ), riid, ppvObj) );
+                     sizeof(IOleClientSite) -
+                     sizeof(_IOleInPlaceSiteEx) ), riid, ppvObj) );
 }
 
 ULONG STDMETHODCALLTYPE UI_AddRef( IDocHostUIHandler * This )
@@ -554,7 +554,7 @@ HRESULT STDMETHODCALLTYPE UI_GetHostInfo( IDocHostUIHandler * This,
       DOCHOSTUIINFO * pInfo )
 {
    ( void ) This;
-   pInfo->cbSize = sizeof( DOCHOSTUIINFO );
+   pInfo->cbSize = sizeof(DOCHOSTUIINFO);
 
    // Set some flags. We don't want any 3D border. You can do other things like
    // hide the scroll bar (DOCHOSTUIFLAG_SCROLL_NO), disable picture display 
@@ -826,7 +826,7 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler * This,
 
          // Get our host window. That was stored in our _IOleInPlaceFrameEx
          hwnd = ( ( _IOleInPlaceSiteEx * ) ( ( char * ) This -
-                     sizeof( _IOleInPlaceSiteEx ) ) )->frame.window;
+                     sizeof(_IOleInPlaceSiteEx) ) )->frame.window;
 
          // Post a message to this window using WM_APP, and pass the number converted above.
          // Do not SendMessage()!. Post instead, since the browser does not like us changing
@@ -925,8 +925,8 @@ HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite * This,
    // if the browser is asking us to match IID_IUnknown, then we'll also
    // return a pointer to our _IOleClientSiteEx.
 
-   if( !memcmp( riid, &IID_IUnknown, sizeof( GUID ) ) ||
-         !memcmp( riid, &IID_IOleClientSite, sizeof( GUID ) ) )
+   if( !memcmp( riid, &IID_IUnknown, sizeof(GUID) ) ||
+         !memcmp( riid, &IID_IOleClientSite, sizeof(GUID) ) )
       *ppvObject = &( ( _IOleClientSiteEx * ) This )->client;
 
    // If the browser is asking us to match IID_IOleInPlaceSite, then it wants
@@ -942,7 +942,7 @@ HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite * This,
    // IOleInPlaceSite, so the browser doesn't mind. We want the browser to 
    // continue passing our _IOleInPlaceSiteEx pointer wherever it would
    // normally pass a IOleInPlaceSite pointer.
-   else if( !memcmp( riid, &IID_IOleInPlaceSite, sizeof( GUID ) ) )
+   else if( !memcmp( riid, &IID_IOleInPlaceSite, sizeof(GUID) ) )
       *ppvObject = &( ( _IOleClientSiteEx * ) This )->inplace;
 
    // If the browser is asking us to match IID_IDocHostUIHandler, then it wants
@@ -959,7 +959,7 @@ HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite * This,
    // continue passing our _IDocHostUIHandlerEx pointer wherever it would
    // normally pass a IDocHostUIHandler pointer. My, we're really playing
    // dirty tricks on the browser here. heheh.
-   else if( !memcmp( riid, &IID_IDocHostUIHandler, sizeof( GUID ) ) )
+   else if( !memcmp( riid, &IID_IDocHostUIHandler, sizeof(GUID) ) )
       *ppvObject = &( ( _IOleClientSiteEx * ) This )->ui;
 
    // For other types of objects the browser wants, just report that we don't
@@ -1056,7 +1056,7 @@ HRESULT STDMETHODCALLTYPE InPlace_QueryInterface(IOleInPlaceSite * This,
    // _IOleClientSiteEx, and comes immediately after the IOleClientSite, we
    // can employ the following trickery to get the pointer to our _IOleClientSiteEx.
    return ( Site_QueryInterface(( IOleClientSite * ) ( ( char * ) This -
-                     sizeof( IOleClientSite ) ), riid, ppvObj) );
+                     sizeof(IOleClientSite) ), riid, ppvObj) );
 }
 
 ULONG STDMETHODCALLTYPE InPlace_AddRef( IOleInPlaceSite * This )
@@ -1208,8 +1208,8 @@ HRESULT STDMETHODCALLTYPE InPlace_OnPosRectChange(IOleInPlaceSite * This,
    // We need to get the browser's IOleInPlaceObject object so we can call its
    // SetObjectRects function.
    browserObject =
-         *( ( IOleObject ** ) ( ( char * ) This - sizeof( IOleObject * ) -
-               sizeof( IOleClientSite ) ) );
+         *( ( IOleObject ** ) ( ( char * ) This - sizeof(IOleObject*) -
+               sizeof(IOleClientSite) ) );
    if( !browserObject->lpVtbl->QueryInterface(browserObject,
                &IID_IOleInPlaceObject, ( void ** ) &inplace) )
    {
@@ -1364,8 +1364,8 @@ HRESULT STDMETHODCALLTYPE Dispatch_QueryInterface(IDispatch * This,
 {
    *ppvObject = 0;
 
-   if( !memcmp( riid, &IID_IUnknown, sizeof( GUID ) ) ||
-         !memcmp( riid, &IID_IDispatch, sizeof( GUID ) ) )
+   if( !memcmp( riid, &IID_IUnknown, sizeof(GUID) ) ||
+         !memcmp( riid, &IID_IDispatch, sizeof(GUID) ) )
    {
       *ppvObject = ( void * ) This;
 
@@ -1531,7 +1531,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
                      0, 0, 0, 0);
                if( ( webParams.eventStr =
                            GlobalAlloc(GMEM_FIXED,
-                                 sizeof( char ) *
+                                 sizeof(char) *
                                  webParams.nmhdr.idFrom) ) == NULL )
                   goto bad;
                WideCharToMultiByte(CP_ACP, 0, ( WCHAR * ) strType, -1,
@@ -1626,7 +1626,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
       // "userdata" member on the IDispatch.
       varDisp.DEF_VT = 0;
       if( !userdata && id >= 0 )
-         varDisp.DEF_VT -= sizeof( void * );
+         varDisp.DEF_VT -= sizeof(void*);
 
       // Create an IDispatch object (actually we create one of our own
       // _IDispatchEx objects) which we'll use to monitor "events" that occur
@@ -1635,7 +1635,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
       // has occurred.
       if( ( lpDispatchEx =
                   ( _IDispatchEx * ) GlobalAlloc(GMEM_FIXED,
-                        sizeof( _IDispatchEx ) + extraData +
+                        sizeof(_IDispatchEx) + extraData +
                         varDisp.DEF_VT) ) != NULL )
       {
          // Clear out the extradata area in case the caller wants that.
@@ -1906,7 +1906,7 @@ BSTR WINAPI TStr2BStr(HWND hwnd, const char * string)
       size = MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, 0, 0 );
       if( ( buffer =
                   ( WCHAR * ) GlobalAlloc(GMEM_FIXED,
-                        sizeof( WCHAR ) * size) ) == NULL )
+                        sizeof(WCHAR) * size) ) == NULL )
          return (0);
       MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, buffer, size );
       bstr = SysAllocString( buffer );
@@ -1944,7 +1944,7 @@ void *WINAPI BStr2TStr(HWND hwnd, BSTR strIn)
    }
    else
    {
-      size = ( *( ( short * ) strIn ) + 1 ) * sizeof( wchar_t );
+      size = ( *( ( short * ) strIn ) + 1 ) * sizeof(wchar_t);
       if( ( strOut = GlobalAlloc(GMEM_FIXED, size) ) != NULL )
          CopyMemory( strOut, ( char * ) strIn + 2, size );
    }
@@ -2581,14 +2581,14 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
    // One final thing. We're going to allocate extra room to store the pointer
    // to the browser object.
    if( ( ptr = ( char * ) GlobalAlloc(GMEM_FIXED,
-                     sizeof( _IOleClientSiteEx ) +
-                     sizeof( IOleObject * )) ) == NULL )
+                     sizeof(_IOleClientSiteEx) +
+                     sizeof(IOleObject*)) ) == NULL )
       return ( -1 );
 
    // Initialize our IOleClientSite object with a pointer to our
    // IOleClientSite VTable.
    _iOleClientSiteEx =
-         ( _IOleClientSiteEx * ) ( ptr + sizeof( IOleObject * ) );
+         ( _IOleClientSiteEx * ) ( ptr + sizeof(IOleObject*) );
    _iOleClientSiteEx->client.lpVtbl = &MyIOleClientSiteTable;
 
    // Initialize our IOleInPlaceSite object with a pointer to our IOleInPlaceSite VTable.

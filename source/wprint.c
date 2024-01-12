@@ -85,8 +85,8 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
    PRINTER_INFO_5 *pinfo5;
    OSVERSIONINFO osvi;
 
-   ZeroMemory( &osvi, sizeof( OSVERSIONINFO ) );
-   osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
+   ZeroMemory( &osvi, sizeof(OSVERSIONINFO) );
+   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 
    GetVersionEx( &osvi );
 
@@ -168,7 +168,7 @@ HB_FUNC( HWG_GETPRINTERS )
    {
       int i;
 
-      aMetr = hb_itemArrayNew( dwReturned );
+      aMetr = hb_itemArrayNew(dwReturned);
 
       for( i = 0; i < ( int ) dwReturned; i++ )
       {
@@ -248,7 +248,7 @@ HB_FUNC( HWG_STARTDOC )
    void * hText;
    DOCINFO di;
 
-   di.cbSize = sizeof( DOCINFO );
+   di.cbSize = sizeof(DOCINFO);
    di.lpszDocName = HB_PARSTR(2, &hText, NULL);
    di.lpszOutput = NULL;
    di.lpszDatatype = NULL;
@@ -369,8 +369,8 @@ HB_FUNC( HWG_CREATEENHMETAFILE )
     */
 
    GetClientRect(hWnd, &rc);
-   // sprintf( cres,"%d %d %d %d %d %d %d %d",iWidthMM, iHeightMM, iWidthPels, iHeightPels,rc.left,rc.top,rc.right,rc.bottom );
-   // MessageBox( GetActiveWindow(), cres, "", MB_OK | MB_ICONINFORMATION );
+   // sprintf(cres, "%d %d %d %d %d %d %d %d", iWidthMM, iHeightMM, iWidthPels, iHeightPels, rc.left, rc.top, rc.right, rc.bottom);
+   // MessageBox(GetActiveWindow(), cres, "", MB_OK | MB_ICONINFORMATION);
 
    /* 
     * Convert client coordinates to .01-mm units. 
@@ -476,7 +476,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
   BOOL bW9X, Result = FALSE;
   HDC hDC = hwg_par_HDC(1);
   OSVERSIONINFO osvi;
-  osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
+  osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
   GetVersionEx ( &osvi );
   bW9X = ( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS );
   if (hDC)
@@ -527,7 +527,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 
                 if( lpFormName && len && len < CCHFORMNAME )
                 {
-                  memcpy( pDevMode->dmFormName, lpFormName, ( len + 1 ) * sizeof( TCHAR ) );
+                  memcpy( pDevMode->dmFormName, lpFormName, ( len + 1 ) * sizeof(TCHAR) );
                   dInit |= DM_FORMNAME;
                 }
                 hb_strfree(hFormName);

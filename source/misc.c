@@ -64,12 +64,12 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       EmptyClipboard();
 
       lpStr = HB_PARSTRDEF( 1, &hStr, &nLen );
-      hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ));
+      hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR));
       if( hglbCopy != NULL )
       {
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock( hglbCopy );
-         memcpy( lptstrCopy, lpStr, nLen * sizeof( TCHAR ) );
+         memcpy( lptstrCopy, lpStr, nLen * sizeof(TCHAR) );
          lptstrCopy[nLen] = 0;       // null character
          GlobalUnlock( hglbCopy );
          hb_strfree(hStr);
@@ -507,7 +507,7 @@ HB_FUNC( HWG_SETSCROLLINFO )
       fMask |= SIF_RANGE;
    }
 
-   si.cbSize = sizeof( SCROLLINFO );
+   si.cbSize = sizeof(SCROLLINFO);
    si.fMask = fMask;
 
    SetScrollInfo( hwg_par_HWND(1),   // handle of window with scroll bar
@@ -705,14 +705,14 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
       return;
    }
 
-   p = GetObjectVar( pObject, "M_BRUSH" );
-   p2 = GetObjectVar( pObject, "M_TEXTCOLOR" );
+   p = GetObjectVar(pObject, "M_BRUSH");
+   p2 = GetObjectVar(pObject, "M_TEXTCOLOR");
    cColor = ( COLORREF ) hb_itemGetNL(p2);
    hBrush = ( HBRUSH ) HB_GETHANDLE(p);
 
    DeleteObject( hBrush );
 
-   p1 = GetObjectVar( pObject, "M_BACKCOLOR" );
+   p1 = GetObjectVar(pObject, "M_BACKCOLOR");
    i = hb_itemGetNL(p1);
    if( i == -1 )
    {
@@ -726,7 +726,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    }
 
    temp = HB_PUTHANDLE(NULL, hBrush);
-   SetObjectVar( pObject, "_M_BRUSH", temp );
+   SetObjectVar(pObject, "_M_BRUSH", temp);
    hb_itemRelease(temp);
 
    SetTextColor(hdc, cColor);

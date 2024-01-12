@@ -87,7 +87,7 @@ HB_FUNC( HWG__ADDMENUITEM )
       // Code to set the ID of submenus, the API seems to assume that you wouldn't really want to,
       // but if you are used to getting help via IDs for popups in 16bit, then this will help you.
       nPos = GetMenuItemCount( hwg_par_HMENU(1) );
-      mii.cbSize = sizeof( MENUITEMINFO );
+      mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_ID;
       if( GetMenuItemInfo( hwg_par_HMENU(1), nPos - 1, TRUE,
                   &mii ) )
@@ -115,7 +115,7 @@ HB_FUNC( HWG__ADDMENUITEM )
    BOOL fByPosition = ( HB_ISNIL(4) )? 0:(BOOL) hb_parl(4);
    void * hData;
 
-   mii.cbSize = sizeof( MENUITEMINFO );
+   mii.cbSize = sizeof(MENUITEMINFO);
    mii.fMask = MIIM_TYPE | MIIM_STATE | MIIM_ID;
    mii.fState = ( HB_ISNIL(6) || hb_parl(6) )? 0:MFS_DISABLED;
    mii.wID = hb_parni(5);
@@ -144,7 +144,7 @@ HB_FUNC( HWG__CREATESUBMENU )
    MENUITEMINFO mii;
    HMENU hSubMenu = CreateMenu();
 
-   mii.cbSize = sizeof( MENUITEMINFO );
+   mii.cbSize = sizeof(MENUITEMINFO);
    mii.fMask = MIIM_SUBMENU;
    mii.hSubMenu = hSubMenu;
 
@@ -192,8 +192,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
       hMenu = hwg_par_HMENU(1);
 
    if( !hMenu )
-      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
-                  MB_OK | MB_ICONINFORMATION );
+      MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
    else
    {
       CheckMenuItem( hMenu,     // handle to menu
@@ -258,8 +257,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
-                  MB_OK | MB_ICONINFORMATION );
+      MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
       HB_RETHANDLE(NULL);
    }
    else
@@ -349,7 +347,7 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    ULONG ul, ulEntries = hb_arrayLen(pArray);
    HACCEL h;
 
-   lpaccl = ( LPACCEL ) hb_xgrab(sizeof( ACCEL ) * ulEntries);
+   lpaccl = ( LPACCEL ) hb_xgrab(sizeof(ACCEL) * ulEntries);
 
    for( ul = 1; ul <= ulEntries; ul++ )
    {
@@ -402,8 +400,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
-                  MB_OK | MB_ICONINFORMATION );
+      MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
       hb_retl(0);
    }
    else
@@ -411,13 +408,13 @@ HB_FUNC( HWG_GETMENUCAPTION )
       MENUITEMINFO mii;
       LPTSTR lpBuffer;
 
-      memset( &mii.cbSize, 0, sizeof( MENUITEMINFO ) );
-      mii.cbSize = sizeof( MENUITEMINFO );
+      memset( &mii.cbSize, 0, sizeof(MENUITEMINFO) );
+      mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
       GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii );
       mii.cch++;
-      lpBuffer = ( LPTSTR ) hb_xgrab(mii.cch * sizeof( TCHAR ));
+      lpBuffer = ( LPTSTR ) hb_xgrab(mii.cch * sizeof(TCHAR));
       lpBuffer[0] = '\0';
       mii.dwTypeData = lpBuffer;
       if( GetMenuItemInfo( hMenu, hb_parni(2), 0, &mii ) )
@@ -451,15 +448,14 @@ HB_FUNC( HWG_SETMENUCAPTION )
 
    if( !hMenu )
    {
-      MessageBox( GetActiveWindow(), TEXT(""), TEXT("No Menu!"),
-                  MB_OK | MB_ICONINFORMATION );
+      MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
       hb_retl(0);
    }
    else
    {
       MENUITEMINFO mii;
       void * hData;
-      mii.cbSize = sizeof( MENUITEMINFO );
+      mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
       mii.dwTypeData = ( LPTSTR ) HB_PARSTR(3, &hData, NULL);
@@ -523,7 +519,7 @@ HB_FUNC( HWG__INSERTBITMAPMENU )
 {
    MENUITEMINFO mii;
 
-   mii.cbSize = sizeof( MENUITEMINFO );
+   mii.cbSize = sizeof(MENUITEMINFO);
    mii.fMask = MIIM_ID | MIIM_BITMAP | MIIM_DATA;
    mii.hbmpItem = hwg_par_HBITMAP(3);
 
@@ -595,7 +591,7 @@ HB_FUNC( HWG_SETMENUINFO )
    if( hMenu )
    {
       hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush( hwg_par_COLORREF(2) ) : NULL;
-      mi.cbSize          = sizeof( mi );
+      mi.cbSize          = sizeof(mi);
       mi.fMask           = MIM_APPLYTOSUBMENUS | MIM_BACKGROUND;
       mi.hbrBack         = hbrush;
       SetMenuInfo( hMenu, &mi );

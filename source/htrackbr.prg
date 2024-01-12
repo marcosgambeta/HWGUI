@@ -30,9 +30,9 @@ CLASS HTrackBar INHERIT HControl
    DATA nHigh
    DATA hCursor
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
          bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
-         lVertical, TickStyle, TickMarks )
+         lVertical, TickStyle, TickMarks)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
@@ -42,9 +42,9 @@ CLASS HTrackBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
-      lVertical, TickStyle, TickMarks ) CLASS HTrackBar
+      lVertical, TickStyle, TickMarks) CLASS HTrackBar
 
    IF TickStyle == NIL
       TickStyle := TBS_AUTOTICKS
@@ -60,8 +60,8 @@ METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    nStyle += IIf( lVertical != NIL .AND. lVertical, TBS_VERT, 0 )
    nStyle += TickStyle + TickMarks
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, ;
-         bInit, bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, ;
+         bInit, bSize, bPaint, cTooltip)
 
    ::value      := IIf( ValType(vari) == "N", vari, 0 )
    ::bChange    := bChange

@@ -104,10 +104,10 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
                               // you can change the object that receives focus adding
                               // ON INIT {|| nInitFocus:=object:[handle] }  to the dialog definition
 
-   METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
-               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-               cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild, lClipper,;
-               lNoClosable, bSetForm, nBmpStretch )
+   METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+              bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+              cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild, lClipper,;
+              lNoClosable, bSetForm, nBmpStretch)
    METHOD AddItem( oWnd )
    METHOD DelItem( oWnd )
    METHOD FindWindow( hWndTitle )
@@ -127,10 +127,10 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
 
 ENDCLASS
 
-METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
-            bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-            cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild,;
-           lClipper, lNoClosable, bSetForm, nBmpStretch )  CLASS HWindow
+METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+           bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild,;
+           lClipper, lNoClosable, bSetForm, nBmpStretch)  CLASS HWindow
 
    HB_SYMBOL_UNUSED(clr)
    HB_SYMBOL_UNUSED(cMenu)
@@ -255,9 +255,9 @@ CLASS VAR aMessages INIT { ;
    DATA  oNotifyIcon, bNotify, oNotifyMenu
    DATA  lTray INIT .F.
 
-   METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
-               oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-               cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, bMdiMenu, nBmpStretch )
+   METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
+              oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+              cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, bMdiMenu, nBmpStretch)
    METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent( msg, wParam, lParam )
    METHOD InitTray( oNotifyIcon, bNotify, oNotifyMenu, cTooltip )
@@ -265,13 +265,13 @@ CLASS VAR aMessages INIT { ;
 
 ENDCLASS
 
-METHOD New( lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
-            oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-            cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, bMdiMenu, nBmpStretch ) CLASS HMainWindow
+METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos,   ;
+           oFont, bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, bMdiMenu, nBmpStretch) CLASS HMainWindow
 
-   ::Super:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+   ::Super:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther,  ;
-              cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh,,,,, nBmpStretch )
+              cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh,,,,, nBmpStretch)
    ::Type := lType
 
    IF lType == WND_MDI
@@ -326,8 +326,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    IF ::Type == WND_MDI
 
-      oWndClient := HWindow():New( ,,, ::style, ::title,, ::bInit, ::bDestroy, ::bSize, ;
-                                   ::bPaint, ::bGetFocus, ::bLostFocus, ::bOther, ::obmp )
+      oWndClient := HWindow():New(,,, ::style, ::title,, ::bInit, ::bDestroy, ::bSize, ;
+                                  ::bPaint, ::bGetFocus, ::bLostFocus, ::bOther, ::obmp)
 
       handle := Hwg_InitClientWindow( oWndClient, ::nMenuPos, ::nLeft, ::nTop, ::nWidth, ::nHeight  )
       ::oClient := HWindow():aWindows[2]
@@ -663,21 +663,21 @@ CLASS HChildWindow INHERIT HWindow
 
    DATA oNotifyMenu
 
-   METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
-               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-               cAppName, oBmp, cHelp, nHelpId, bRefresh )
+   METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+              bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+              cAppName, oBmp, cHelp, nHelpId, bRefresh)
    METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal)
    METHOD onEvent( msg, wParam, lParam )
 
 ENDCLASS
 
-METHOD New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
-            bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
-            cAppName, oBmp, cHelp, nHelpId, bRefresh ) CLASS HChildWindow
+METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+           bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
+           cAppName, oBmp, cHelp, nHelpId, bRefresh) CLASS HChildWindow
 
-   ::Super:New( oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
+   ::Super:New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther,  ;
-              cAppName, oBmp, cHelp, nHelpId,, bRefresh )
+              cAppName, oBmp, cHelp, nHelpId,, bRefresh)
    ::oParent := HWindow():GetMain()
    ::Type := WND_CHILD
    ::rect := hwg_Getwindowrect(::handle)

@@ -36,8 +36,8 @@ CLASS HControl INHERIT HCustomWindow
    ACCESS Name            INLINE ::xName
    ASSIGN Name(cName)   INLINE ::AddName(cName)
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    METHOD Init()
    METHOD AddName(cName) HIDDEN
    METHOD NewId()
@@ -61,8 +61,8 @@ CLASS HControl INHERIT HCustomWindow
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, cTooltip, tcolor, bColor ) CLASS HControl
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+      bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
    ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
    ::id      := iif( nId == NIL, ::NewId(), nId )
@@ -407,7 +407,7 @@ CLASS HStatus INHERIT HControl
    DATA bDblClick
    DATA bRClick
 
-   METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight )
+   METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight)
    METHOD Activate()
    METHOD Init()
    METHOD Notify( lParam )
@@ -422,13 +422,13 @@ CLASS HStatus INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight ) CLASS HStatus
+METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatus
 
    bSize  := iif( bSize != NIL, bSize, { | o, x, y | o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight) } )
    nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), ;
       WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
-   ::Super:New( oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint )
+   ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint)
    ::nStatusHeight := iif( nHeight = NIL, ::nStatusHeight, nHeight )
    ::aParts    := aParts
    ::bDblClick := bDblClick
@@ -465,8 +465,8 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::aParts := aParts
@@ -583,9 +583,9 @@ CLASS HStatic INHERIT HControl
 
    CLASS VAR winclass   INIT "STATIC"
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp )
+      bColor, lTransp)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp)
    METHOD Activate()
@@ -594,9 +594,9 @@ CLASS HStatic INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
-      bColor, lTransp ) CLASS HStatic
+      bColor, lTransp) CLASS HStatic
 
    // Enabling style for tooltips
    IF ValType(cTooltip) == "C"
@@ -607,8 +607,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       ENDIF
    ENDIF
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
-      bInit, bSize, bPaint, cTooltip, tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+      bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
 
@@ -624,8 +624,8 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp) CLASS HStatic
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
@@ -671,25 +671,25 @@ CLASS HButton INHERIT HControl
 
    DATA bClick
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-               tcolor, bColor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
+              tcolor, bColor)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
                     tcolor, bColor, cCaption)
    METHOD Init()
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-            tcolor, bColor ) CLASS HButton
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
+           tcolor, bColor) CLASS HButton
 
    nStyle := Hwg_BitOr( IIF( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON )
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, ;
               IIF( nWidth  == NIL, 90, nWidth  ), ;
               IIF( nHeight == NIL, 30, nHeight ), ;
-              oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor )
+              oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    ::bClick  := bClick
    ::title   := cCaption
    ::Activate()
@@ -716,8 +716,8 @@ RETURN NIL
 METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
                  cTooltip, tcolor, bColor, cCaption) CLASS HButton
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, cTooltip, tcolor, bColor )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+              bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title   := cCaption
 
@@ -740,18 +740,18 @@ CLASS HGroup INHERIT HControl
 
    CLASS VAR winclass   INIT "BUTTON"
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor)
    METHOD Activate()
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, bPaint, tcolor, bColor ) CLASS HGroup
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
+      oFont, bInit, bSize, bPaint, tcolor, bColor) CLASS HGroup
 
    nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), BS_GROUPBOX )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, , tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      oFont, bInit, bSize, bPaint, , tcolor, bColor)
 
    ::title := cCaption
    ::Activate()
@@ -779,16 +779,16 @@ CLASS HLine INHERIT HControl
    DATA nBorder
    DATA oPenLight, oPenGray
 
-   METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, nHeight, cSlant, nBorder )
+   METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, nHeight, cSlant, nBorder)
    METHOD Activate()
    METHOD Paint( lpDis )
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, nHeight, cSlant, nBorder ) CLASS HLine
+METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, nHeight, cSlant, nBorder) CLASS HLine
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , bInit, ;
-      bSize, { | o, lp | o:Paint( lp ) } , , tcolor )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , bInit, ;
+      bSize, { | o, lp | o:Paint( lp ) } , , tcolor)
 
    ::title := ""
    ::lVert := iif( lVert == NIL, .F., lVert )

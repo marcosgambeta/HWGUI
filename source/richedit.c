@@ -94,8 +94,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          chrNew.cpMax = hb_arrayGetNL(pArr1, 2) - 1;
          SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
 
-         memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-         cf.cbSize = sizeof( CHARFORMAT2 );
+         memset( &cf, 0, sizeof(CHARFORMAT2) );
+         cf.cbSize = sizeof(CHARFORMAT2);
          if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != HB_IT_NIL )
          {
             cf.crTextColor = ( COLORREF ) hb_arrayGetNL(pArr1, 3);
@@ -167,8 +167,8 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       chrNew.cpMax = hb_parnl(3) - 1;
       SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
 
-      memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-      cf.cbSize = sizeof( CHARFORMAT2 );
+      memset( &cf, 0, sizeof(CHARFORMAT2) );
+      cf.cbSize = sizeof(CHARFORMAT2);
 
       if( !HB_ISNIL(4) )
       {
@@ -238,8 +238,8 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    HWND hCtrl = hwg_par_HWND(1);
    CHARFORMAT2 cf;
 
-   memset( &cf, 0, sizeof( CHARFORMAT2 ) );
-   cf.cbSize = sizeof( CHARFORMAT2 );
+   memset( &cf, 0, sizeof(CHARFORMAT2) );
+   cf.cbSize = sizeof(CHARFORMAT2);
 
    if( HB_ISNUM(2) )
    {
@@ -315,7 +315,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
    tr.chrg.cpMax = hb_parnl(3) - 1;
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
-                                       sizeof( TCHAR ));
+                                       sizeof(TCHAR));
    ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr);
    HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);
@@ -331,7 +331,7 @@ HB_FUNC( HWG_RE_GETLINE )
    int nLine = hb_parni(2);
    ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0);
    ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0);
-   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab(( ul + 4 ) * sizeof( TCHAR ));
+   LPTSTR lpBuf = ( LPTSTR ) hb_xgrab(( ul + 4 ) * sizeof(TCHAR));
 
    *( ( ULONG * ) lpBuf ) = ul;
    ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);

@@ -21,7 +21,7 @@ HB_FUNC_EXTERN( HB_ANSITOOEM );
 
 HB_FUNC( HWG_DEFINEPAINTSTRU )
 {
-   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof( PAINTSTRUCT ));
+   PAINTSTRUCT *pps = ( PAINTSTRUCT * ) hb_xgrab(sizeof(PAINTSTRUCT));
    HB_RETHANDLE(pps);
 }
 
@@ -451,7 +451,7 @@ HB_FUNC( HWG_CREATEFONTINDIRECT )
 {
    LOGFONT lf;
    HFONT f;
-   memset( &lf, 0, sizeof( LOGFONT ) );
+   memset( &lf, 0, sizeof(LOGFONT) );
    lf.lfQuality = hb_parni(4);
    lf.lfHeight = hb_parni(3);
    lf.lfWeight = hb_parni(2);

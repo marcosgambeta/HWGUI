@@ -34,11 +34,11 @@ CLASS VAR cPath SHARED
    DATA Themed INIT .F.
 
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
-               bInit, bSize, bPaint, bClick, lflat,             ;
-               cText, color, oFont, xt, yt, widtht, heightt,       ;
-               bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
-               cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
+              bInit, bSize, bPaint, bClick, lflat,             ;
+              cText, color, oFont, xt, yt, widtht, heightt,       ;
+              bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
+              cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed)
 
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
@@ -67,14 +67,14 @@ CLASS VAR cPath SHARED
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
-            bInit, bSize, bPaint, bClick, lflat,             ;
-            cText, color, oFont, xt, yt, widtht, heightt,       ;
-            bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
-            cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed ) CLASS HOwnButton
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
+           bInit, bSize, bPaint, bClick, lflat,             ;
+           cText, color, oFont, xt, yt, widtht, heightt,       ;
+           bmp, lResour, xb, yb, widthb, heightb, lTr, trColor, ;
+           cTooltip, lEnabled, lCheck, bColor, bGfocus, bLfocus, themed) CLASS HOwnButton
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+              bSize, bPaint, cTooltip)
 
 //   HB_SYMBOL_UNUSED(bGFocus)
 //   HB_SYMBOL_UNUSED(bLFocus)
@@ -220,7 +220,7 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
                 bmp, lResour, xb, yb, widthb, heightb, lTr,      ;
                 cTooltip, lEnabled, lCheck) CLASS HOwnButton
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize, bPaint, cTooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize, bPaint, cTooltip)
 
    ::lflat   := IIf( lflat == Nil, .F., lflat )
    ::bClick  := bClick

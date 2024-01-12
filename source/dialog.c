@@ -38,7 +38,7 @@ int iDialogs = 0;
 HB_FUNC( HWG_DIALOGBOX )
 {
    PHB_ITEM pObject = hb_param(2, HB_IT_OBJECT);
-   PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
+   PHB_ITEM pData = GetObjectVar(pObject, "XRESOURCEID");
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, NULL);
 
@@ -59,7 +59,7 @@ HB_FUNC( HWG_CREATEDIALOG )
 {
    PHB_ITEM pObject = hb_param(2, HB_IT_OBJECT);
    HWND hDlg;
-   PHB_ITEM pData = GetObjectVar( pObject, "XRESOURCEID" );
+   PHB_ITEM pData = GetObjectVar(pObject, "XRESOURCEID");
    void * hResource;
    LPCTSTR lpResource = HB_ITEMGETSTR(pData, &hResource, NULL);
 
@@ -115,7 +115,7 @@ HB_FUNC( HWG_SETDLGITEMINT )
 HB_FUNC( HWG_GETDLGITEMTEXT )
 {
    USHORT uiLen = hb_parni(3);
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 1 ) * sizeof( TCHAR ));
+   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 1 ) * sizeof(TCHAR));
 
    GetDlgItemText(hwg_par_HWND(1),  // handle of dialog box
                    hb_parni(2),               // identifier of control
@@ -132,7 +132,7 @@ HB_FUNC( HWG_GETEDITTEXT )
    int id = hb_parni(2);
    USHORT uiLen =
       ( USHORT ) SendMessage(GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0);
-   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 2 ) * sizeof( TCHAR ));
+   LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 2 ) * sizeof(TCHAR));
 
    GetDlgItemText(hDlg,      // handle of dialog box
                    id,        // identifier of control
@@ -251,23 +251,23 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
    /* clear styles which needs different dialog template */
    ulStyle &= ~( DS_SETFONT | DS_SHELLFONT );
 
-   pControls = hb_itemNew( GetObjectVar( pObj, "ACONTROLS" ) );
+   pControls = hb_itemNew(GetObjectVar(pObj, "ACONTROLS"));
    ulControls = hb_arrayLen(pControls);
 
-   lTemplateSize += s_nWideStringLen(GetObjectVar( pObj, "TITLE" ));
+   lTemplateSize += s_nWideStringLen(GetObjectVar(pObj, "TITLE"));
    lTemplateSize += lTemplateSize & 1;
 
    for( ul = 1; ul <= ulControls; ul++ )
    {
       pControl = hb_arrayGetItemPtr(pControls, ul);
       lTemplateSize += 13;
-      lTemplateSize += s_nWideStringLen(GetObjectVar( pControl, "WINCLASS" ));
-      lTemplateSize += s_nWideStringLen(GetObjectVar( pControl, "TITLE" ));
+      lTemplateSize += s_nWideStringLen(GetObjectVar(pControl, "WINCLASS"));
+      lTemplateSize += s_nWideStringLen(GetObjectVar(pControl, "TITLE"));
       lTemplateSize += lTemplateSize & 1;
    }
    lTemplateSize += 2;  /* 2 to keep DWORD boundary block size */
 
-   hgbl = GlobalAlloc(GMEM_ZEROINIT, lTemplateSize * sizeof( WORD ));
+   hgbl = GlobalAlloc(GMEM_ZEROINIT, lTemplateSize * sizeof(WORD));
    if( !hgbl )
       return NULL;
 
@@ -291,24 +291,24 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
    *p++ = 0;                    // Class
 
    // Copy the title of the dialog box.
-   p += s_nCopyAnsiToWideChar( p, GetObjectVar( pObj, "TITLE" ), pend - p );
+   p += s_nCopyAnsiToWideChar( p, GetObjectVar(pObj, "TITLE"), pend - p );
 
    for( ul = 1; ul <= ulControls; ul++ )
    {
       pControl = hb_arrayGetItemPtr(pControls, ul);
 
       temp = HB_PUTHANDLE(NULL, -1);
-      SetObjectVar( pControl, "_HANDLE", temp );
+      SetObjectVar(pControl, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       p = s_lpwAlign( p );
 
-      ulStyle   = ( ULONG ) hb_itemGetNL(GetObjectVar( pControl, "STYLE" ));
-      lExtStyle = hb_itemGetNL(GetObjectVar( pControl, "EXTSTYLE" ));
-      x1        = ( hb_itemGetNI(GetObjectVar( pControl, "NLEFT" )) * 4 ) / baseunitX;
-      dwidth    = ( hb_itemGetNI(GetObjectVar( pControl, "NWIDTH" )) * 4 ) / baseunitX;
-      y1        = ( hb_itemGetNI(GetObjectVar( pControl, "NTOP" )) * 8 ) / baseunitY;
-      dheight   = ( hb_itemGetNI(GetObjectVar( pControl, "NHEIGHT" )) * 8 ) / baseunitY;
+      ulStyle   = ( ULONG ) hb_itemGetNL(GetObjectVar(pControl, "STYLE"));
+      lExtStyle = hb_itemGetNL(GetObjectVar(pControl, "EXTSTYLE"));
+      x1        = ( hb_itemGetNI(GetObjectVar(pControl, "NLEFT")) * 4 ) / baseunitX;
+      dwidth    = ( hb_itemGetNI(GetObjectVar(pControl, "NWIDTH")) * 4 ) / baseunitX;
+      y1        = ( hb_itemGetNI(GetObjectVar(pControl, "NTOP")) * 8 ) / baseunitY;
+      dheight   = ( hb_itemGetNI(GetObjectVar(pControl, "NHEIGHT")) * 8 ) / baseunitY;
 
       *p++ = 0;                 // LOWORD (lHelpID)
       *p++ = 0;                 // HIWORD (lHelpID)
@@ -320,14 +320,14 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
       *p++ = y1;                // y
       *p++ = dwidth;            // cx
       *p++ = dheight;           // cy
-      *p++ = hb_itemGetNI(GetObjectVar( pControl, "ID" ));    // LOWORD (Control ID)
+      *p++ = hb_itemGetNI(GetObjectVar(pControl, "ID"));    // LOWORD (Control ID)
       *p++ = 0;                 // HOWORD (Control ID)
 
       // class name
-      p += s_nCopyAnsiToWideChar( p, GetObjectVar( pControl, "WINCLASS" ), pend - p );
+      p += s_nCopyAnsiToWideChar( p, GetObjectVar(pControl, "WINCLASS"), pend - p );
 
       // Caption
-      p += s_nCopyAnsiToWideChar( p, GetObjectVar( pControl, "TITLE" ), pend - p );
+      p += s_nCopyAnsiToWideChar( p, GetObjectVar(pControl, "TITLE"), pend - p );
 
       *p++ = 0;                 // Advance pointer over nExtraStuff WORD.
    }
@@ -370,13 +370,13 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    LPDLGTEMPLATE pdlgtemplate;
    HPROPSHEETPAGE h;
 
-   memset( ( void * ) &psp, 0, sizeof( PROPSHEETPAGE ) );
+   memset( ( void * ) &psp, 0, sizeof(PROPSHEETPAGE) );
 
-   psp.dwSize = sizeof( PROPSHEETPAGE );
+   psp.dwSize = sizeof(PROPSHEETPAGE);
    psp.hInstance = ( HINSTANCE ) NULL;
    psp.pszTitle = NULL;
    psp.pfnDlgProc = ( DLGPROC ) s_PSPProc;
-   psp.lParam = ( LPARAM ) hb_itemNew( pObj );
+   psp.lParam = ( LPARAM ) hb_itemNew(pObj);
    psp.pfnCallback = ( LPFNPSPCALLBACK ) s_PSPProcRelease;
    psp.pcRefParent = 0;
 #if !defined(__BORLANDC__) ||  (__BORLANDC__ > 1424)
@@ -385,13 +385,13 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    psp.DUMMYUNIONNAME2.hIcon = 0;
 #endif
 
-   if( hb_itemGetNI(GetObjectVar( pObj, "TYPE" )) == WND_DLG_RESOURCE )
+   if( hb_itemGetNI(GetObjectVar(pObj, "TYPE")) == WND_DLG_RESOURCE )
    {
       LPCTSTR lpTitle;
 
       psp.dwFlags = 0 | PSP_USECALLBACK;
 
-      temp = GetObjectVar( pObj, "XRESOURCEID" );
+      temp = GetObjectVar(pObj, "XRESOURCEID");
       if( HB_IS_STRING( temp ) )
          lpTitle = HB_ITEMGETSTR(temp, &hTitle, NULL);
       else if( HB_IS_NUMERIC(temp) )
@@ -444,7 +444,7 @@ HB_FUNC( HWG__PROPERTYSHEET )
    for( i = 0; i < nPages; i++ )
       psp[i] = ( HPROPSHEETPAGE ) hb_arrayGetNL(pArr, i + 1);
 
-   psh.dwSize = sizeof( PROPSHEETHEADER );
+   psh.dwSize = sizeof(PROPSHEETHEADER);
    psh.dwFlags = dwFlags;
    psh.hwndParent = hwg_par_HWND(1);
    psh.hInstance = ( HINSTANCE ) NULL;
@@ -531,11 +531,11 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
       PHB_ITEM temp;
 
       temp = hb_itemPutNL(NULL, 1);
-      SetObjectVar( ( PHB_ITEM ) lParam, "_NHOLDER", temp );
+      SetObjectVar(( PHB_ITEM ) lParam, "_NHOLDER", temp);
       hb_itemRelease(temp);
 
       temp = HB_PUTHANDLE(NULL, hDlg);
-      SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
+      SetObjectVar(( PHB_ITEM ) lParam, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       SetWindowObject( hDlg, ( PHB_ITEM ) lParam );
@@ -582,11 +582,11 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       PHB_ITEM temp;
 
       temp = hb_itemPutNL(NULL, 1);
-      SetObjectVar( ( PHB_ITEM ) lParam, "_NHOLDER", temp );
+      SetObjectVar(( PHB_ITEM ) lParam, "_NHOLDER", temp);
       hb_itemRelease(temp);
 
       temp = HB_PUTHANDLE(NULL, hDlg);
-      SetObjectVar( ( PHB_ITEM ) lParam, "_HANDLE", temp );
+      SetObjectVar(( PHB_ITEM ) lParam, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       SetWindowObject( hDlg, ( PHB_ITEM ) lParam );
@@ -595,11 +595,11 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab(sizeof( HWND ) * s_nDialogs);
+            aDialogs = ( HWND * ) hb_xgrab(sizeof(HWND) * s_nDialogs);
          else
             aDialogs =
                   ( HWND * ) hb_xrealloc(aDialogs,
-                  sizeof( HWND ) * s_nDialogs);
+                  sizeof(HWND) * s_nDialogs);
       }
       aDialogs[iDialogs++] = hDlg;
    }
@@ -658,11 +658,11 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       pObj = ( PHB_ITEM ) ( ( ( PROPSHEETPAGE * ) lParam )->lParam );
 
       temp = hb_itemPutNL(NULL, 1);
-      SetObjectVar( pObj, "_NHOLDER", temp );
+      SetObjectVar(pObj, "_NHOLDER", temp);
       hb_itemRelease(temp);
 
       temp = HB_PUTHANDLE(NULL, hDlg);
-      SetObjectVar( pObj, "_HANDLE", temp );
+      SetObjectVar(pObj, "_HANDLE", temp);
       hb_itemRelease(temp);
 
       SetWindowObject( hDlg, pObj );
@@ -671,11 +671,11 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       {
          s_nDialogs += 16;
          if( s_nDialogs == 16 )
-            aDialogs = ( HWND * ) hb_xgrab(sizeof( HWND ) * s_nDialogs);
+            aDialogs = ( HWND * ) hb_xgrab(sizeof(HWND) * s_nDialogs);
          else
             aDialogs =
                   ( HWND * ) hb_xrealloc(aDialogs,
-                  sizeof( HWND ) * s_nDialogs);
+                  sizeof(HWND) * s_nDialogs);
       }
       aDialogs[iDialogs++] = hDlg;
       // hb_itemRelease(pObj);

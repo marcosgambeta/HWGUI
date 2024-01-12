@@ -58,9 +58,9 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    DATA bGfocus
    DATA bLfocus
 
-   METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-               bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-               nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit )
+   METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+              bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+              nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit)
 
    METHOD Activate()
    METHOD Init()
@@ -73,13 +73,13 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
 ENDCLASS
 
 
-METHOD New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
-            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
-            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit ) CLASS HGrid
+METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
+           bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
+           nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) CLASS HGrid
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf( lNoBord, 0, WS_BORDER ) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL )
-   ::Super:New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
-              bSize, bPaint )
+   ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
+              bSize, bPaint)
    DEFAULT aBit TO { }
    ::ItemCount := nItemCount
    ::aBitMaps := aBit

@@ -461,7 +461,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
             bOldError := Errorblock( { | e | MacroError( 2, e ) } )
             BEGIN SEQUENCE
                j := 1
-               DO WHILE !Empty(varName := getNextVar( @stroka, @varValue ))
+               DO WHILE !Empty(varName := getNextVar(@stroka, @varValue))
                   PRIVATE &varName
                   IF varvalue != Nil
                      &varName := &varValue

@@ -60,8 +60,8 @@ STATIC aCtrls := { ;
        "HStatus():New(oPrnt,nId,nStyle,oFont,aParts,onInit,onSize)", ;
        ".F.", ;
        "HAnimation():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,Filename,AutoPlay,Center,Transparent)", ;
-       "HProgressBar():New( oPrnt,nId,nLeft,nTop,nWidth,nHeight,maxPos,nRange,bInit,bSize,bPaint,ctooltip )", ;
-       "HshadeButton():New( oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,onClick,lFlat,caption,color,font,xt,yt,bmp,lResour,xb,yb,widthb,heightb,lTr,trColor,cTooltip,lEnabled,shadeID,palette,granularity,highlight,coloring,shcolor)", ;
+       "HProgressBar():New(oPrnt,nId,nLeft,nTop,nWidth,nHeight,maxPos,nRange,bInit,bSize,bPaint,ctooltip)", ;
+       "HshadeButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,onClick,lFlat,caption,color,font,xt,yt,bmp,lResour,xb,yb,widthb,heightb,lTr,trColor,cTooltip,lEnabled,shadeID,palette,granularity,highlight,coloring,shcolor)", ;
        "HListBox():New(oPrnt,nId,nInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,Items,oFont,onInit,onSize,onPaint,onChange,cTooltip)", ;
        "HGridEx():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onEnter,onGetfocus,onLostfocus,lNoVScroll,lNoBorder,onKeyDown,onPosChg,onDispInfo,nItemCout,lNoLines,TextColor,BackColor,lNoHeader,aBit,Items)", ;
        "HTimer():New(oPrnt,nId,nInterval, onAction)", ;
@@ -124,7 +124,7 @@ CLASS HCtrlTmpl
    DATA aControls INIT { }
    DATA aProp, aMethods
 
-   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
+   METHOD New(oParent)   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
    METHOD F( nId )
 ENDCLASS
 
@@ -590,7 +590,7 @@ STATIC PROCEDURE CompileErr( e, stroka )
    BREAK( NIL )
 
 STATIC FUNCTION ReadCtrl( oCtrlDesc, oContainer, oForm )
-   LOCAL oCtrl := HCtrlTmpl():New( oContainer )
+   LOCAL oCtrl := HCtrlTmpl():New(oContainer)
    LOCAL i, j, o, cName, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems
 
    oCtrl:nId      := oForm:nCtrlId
@@ -1063,12 +1063,12 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
                m->nDec := j[i, 4]
                m->cPicture := NIL
                lEdit := .T.
-               oCtrl:AddColumn( HColumn():New( cHeader, fBlock, cValType, nLength, nDec, lEdit ) )
+               oCtrl:AddColumn( HColumn():New(cHeader, fBlock, cValType, nLength, nDec, lEdit) )
             NEXT
          ENDIF
       ELSE
          oCtrl:aArray := caArray  //IIF(TYPE("caArray")="C",&(caArray), caArray)
-         oCtrl:AddColumn( HColumn():New( , { | v, o | IIf( v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent] ) }, 'C', 100, 0 ) )
+         oCtrl:AddColumn( HColumn():New(, { | v, o | IIf( v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent] ) }, 'C', 100, 0) )
       ENDIF
    ENDIF
    IF cVarName != NIL
@@ -1094,10 +1094,10 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
 
    RETURN NIL
 
-FUNCTION RadioNew( oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor, nInitValue, bSetGet )
-   LOCAL oCtrl := HGroup():New( oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor )
+FUNCTION RadioNew(oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor, nInitValue, bSetGet)
+   LOCAL oCtrl := HGroup():New(oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor)
 
-   HRadioGroup():New( nInitValue, bSetGet )
+   HRadioGroup():New(nInitValue, bSetGet)
 
    RETURN oCtrl
 
@@ -1121,7 +1121,7 @@ FUNCTION Font2XML( oFont )
       AAdd(aAttr, { "underline", LTrim( Str(oFont:Underline, 5) ) })
    ENDIF
 
-   RETURN HXMLNode():New( "font", HBXML_TYPE_SINGLE, aAttr )
+   RETURN HXMLNode():New("font", HBXML_TYPE_SINGLE, aAttr)
 
 FUNCTION hwg_hfrm_FontFromXML( oXmlNode )
    LOCAL width  := oXmlNode:GetAttribute("width")
@@ -1215,7 +1215,7 @@ CLASS HRepItem
    DATA y2
    DATA lMark INIT .F.
 
-   METHOD New( oParent )   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
+   METHOD New(oParent)   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
 ENDCLASS
 
 CLASS HRepTmpl
@@ -1316,7 +1316,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
    RETURN Self
 
 METHOD Print( printer, lPreview, p1, p2, p3 ) CLASS HRepTmpl
-   LOCAL oPrinter := IIf( printer != NIL, IIf( ValType(printer) == "O", printer, HPrinter():New( printer, .T. ) ), HPrinter():New(, .T. ) )
+   LOCAL oPrinter := IIf( printer != NIL, IIf( ValType(printer) == "O", printer, HPrinter():New(printer, .T.) ), HPrinter():New(, .T. ) )
    LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1
    MEMVAR oReport
    PRIVATE oReport := Self
@@ -1528,7 +1528,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
          IF ValType(cText) == "C"
             IF ( xProperty := aGetSecond(oItem:aProp, "border") ) != NIL ;
                   .AND. xProperty
-               ::oPrinter:Box( x, y, x2, y2 )
+               ::oPrinter:Box(x, y, x2, y2)
                x += 0.5
                y += 0.5
             ENDIF
@@ -1567,7 +1567,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
             // Writelog( str(x)+" "+str(y)+" "+str(x2)+" "+str(y2)+" "+str(::nAOffSet)+" "+str(::nTOffSet)+" Say: "+cText)
          ENDIF
       ELSEIF oItem:cClass == "box"
-         ::oPrinter:Box( x, y, x2, y2, oItem:oPen )
+         ::oPrinter:Box(x, y, x2, y2, oItem:oPen)
          // writelog( "Draw "+str(x)+" "+str(x+width-1) )
       ELSEIF oItem:cClass == "vline"
          ::oPrinter:Line(x, y, x, y2, oItem:oPen)
@@ -1629,7 +1629,7 @@ METHOD Close() CLASS HRepTmpl
    RETURN NIL
 
 STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
-   LOCAL oCtrl := HRepItem():New( oContainer )
+   LOCAL oCtrl := HRepItem():New(oContainer)
    LOCAL i, j, o, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems, xProperty, cName
 
    oCtrl:cClass   := oCtrlDesc:GetAttribute("class")

@@ -48,7 +48,7 @@ CLASS HActiveX FROM HControl
 
 ENDCLASS
 
-METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
+METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
    LOCAL nStyle, nExStyle, cClsName, hSink
    LOCAL i, a, h, n
    LOCAL oError, bErrorBlock
@@ -57,7 +57,7 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
    nExStyle := 0
    cClsName := "AtlAxWin"
 
-   ::Super:New( oWnd, , nStyle, nLeft, nTop, nWidth, nHeight )   // ,,,,bSize)
+   ::Super:New(oWnd, , nStyle, nLeft, nTop, nWidth, nHeight)   // ,,,,bSize)
    ::title = cProgId
 
    ::handle = hwg_Createactivex(  nExStyle, cClsName, cProgId, ::style, ;
@@ -72,13 +72,13 @@ METHOD New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize ) CLASS HActiveX
    bErrorBlock := ErrorBlock( { |x| break( x ) } )
    #ifdef __XHARBOUR__
       TRY
-         ::oOle := ToleAuto():New( ::hObj )
+         ::oOle := ToleAuto():New(::hObj)
       CATCH oError
          hwg_Msginfo( oError:Description )
       END
    #else
       BEGIN SEQUENCE
-         ::oOle := ToleAuto():New( ::hObj )
+         ::oOle := ToleAuto():New(::hObj)
       RECOVER USING oError
          hwg_Msginfo( oError:Description )
       END

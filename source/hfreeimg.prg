@@ -27,7 +27,7 @@ CLASS VAR aImages   INIT { }
    DATA nCounter   INIT 1
 
    METHOD AddFile(name)
-   METHOD AddFromVar( cImage, cType )
+   METHOD AddFromVar(cImage, cType)
    METHOD FromBitmap( oBitmap )
    METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight )
    METHOD Release()
@@ -62,7 +62,7 @@ METHOD AddFile(name) CLASS HFreeImage
 
    RETURN Self
 
-METHOD AddFromVar( cImage, cType ) CLASS HFreeImage
+METHOD AddFromVar(cImage, cType) CLASS HFreeImage
 
    IF Empty(::handle := hwg_Fi_loadfrommem( cImage, cType ))
       RETURN Nil
@@ -131,26 +131,26 @@ CLASS HSayFImage INHERIT HSayImage
    DATA nOffsetH  INIT 0
    DATA nZoom
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
-               bSize, ctooltip, cType )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
+              bSize, ctooltip, cType)
    METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip)
    METHOD ReplaceImage(Image, cType)
    METHOD Paint( lpdis )
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
-            bSize, ctooltip, cType ) CLASS HSayFImage
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
+           bSize, ctooltip, cType) CLASS HSayFImage
 
    IF Image != Nil
       ::oImage := IIf( ValType(Image) == "C", ;
-                       IIf( cType != Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile(Image) ), Image )
+                       IIf( cType != Nil, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image) ), Image )
       IF nWidth == Nil
          nWidth  := ::oImage:nWidth
          nHeight := ::oImage:nHeight
       ENDIF
    ENDIF
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
    ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
@@ -175,7 +175,7 @@ METHOD ReplaceImage(Image, cType)
       ::oImage:Release()
    ENDIF
    ::oImage := IIf( ValType(Image) == "C", ;
-                    IIf( cType != Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile(Image) ), Image )
+                    IIf( cType != Nil, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image) ), Image )
 
    RETURN Nil
 

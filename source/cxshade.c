@@ -47,7 +47,7 @@ typedef struct CXDIB_STRU
 
 } CXDIB, *PCXDIB;
 
-PCXDIB cxdib_New( void );
+PCXDIB cxdib_New(void);
 void cxdib_Release(PCXDIB pdib);
 BOOL cxdib_IsWin30Dib(PCXDIB pdib);
 WORD cxdib_GetPaletteSize(PCXDIB pdib);
@@ -75,7 +75,7 @@ typedef struct CXSHADE_STRU
 
 } CXSHADE, *PCXSHADE;
 
-PCXSHADE cxshade_New( RECT * prect, BOOL lFlat );
+PCXSHADE cxshade_New(RECT * prect, BOOL lFlat);
 void cxshade_Release(PCXSHADE pshade);
 void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state );
 void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
@@ -121,7 +121,7 @@ void cxdib_Release(PCXDIB pdib)
 
 WORD cxdib_GetPaletteSize(PCXDIB pdib)
 {
-   return ( pdib->m_nColors * sizeof( RGBQUAD ) );
+   return ( pdib->m_nColors * sizeof(RGBQUAD) );
 }
 
 BYTE *cxdib_GetBits( PCXDIB pdib )
@@ -195,7 +195,7 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
    pdib->m_LineWidth = WIDTHBYTES( wBitCount * dwWidth );
 
    // initialize BITMAPINFOHEADER
-   pdib->m_bi.biSize = sizeof( BITMAPINFOHEADER );
+   pdib->m_bi.biSize = sizeof(BITMAPINFOHEADER);
    pdib->m_bi.biWidth = dwWidth;        // fill in width from parameter
    pdib->m_bi.biHeight = dwHeight;      // fill in height from parameter
    pdib->m_bi.biPlanes = 1;     // must be 1
@@ -262,10 +262,10 @@ void cxdib_SetPaletteIndex( PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b )
 {
    if( ( pdib->hDib ) && ( pdib->m_nColors ) )
    {
-      BYTE *iDst = ( BYTE * ) ( pdib->hDib ) + sizeof( BITMAPINFOHEADER );
+      BYTE *iDst = ( BYTE * ) ( pdib->hDib ) + sizeof(BITMAPINFOHEADER);
       if( idx < pdib->m_nColors )
       {
-         long ldx = idx * sizeof( RGBQUAD );
+         long ldx = idx * sizeof(RGBQUAD);
          iDst[ldx++] = ( BYTE ) b;
          iDst[ldx++] = ( BYTE ) g;
          iDst[ldx++] = ( BYTE ) r;
@@ -280,7 +280,7 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
       return;
    else
    {
-      BYTE *iDst = ( BYTE * ) ( pdib->hDib ) + sizeof( BITMAPINFOHEADER );
+      BYTE *iDst = ( BYTE * ) ( pdib->hDib ) + sizeof(BITMAPINFOHEADER);
       long i, r, g, b;
       RGBQUAD *pPal = ( RGBQUAD * ) iDst;
 
@@ -320,11 +320,11 @@ void cxdib_SetPixelIndex( PCXDIB pdib, long x, long y, BYTE i )
 
 /*  --------------------------------------------------------------  */
 
-PCXSHADE cxshade_New( RECT * prect, BOOL lFlat )
+PCXSHADE cxshade_New(RECT * prect, BOOL lFlat)
 {
-   PCXSHADE pshade = ( PCXSHADE ) hb_xgrab(sizeof( CXSHADE ));
+   PCXSHADE pshade = ( PCXSHADE ) hb_xgrab(sizeof(CXSHADE));
 
-   memset( pshade, 0, sizeof( CXSHADE ) );
+   memset( pshade, 0, sizeof(CXSHADE) );
    SetRect(&( pshade->m_rect ), prect->left, prect->top, prect->right,
          prect->bottom);
    pshade->m_Border = 1;        //draw 3D border
@@ -727,7 +727,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
 /* --------------------------------------------------------------- */
 
 /*
- * shade_New( nLeft, nTop, nRight, nBottom, lFlat ) -> pshade
+ * shade_New(nLeft, nTop, nRight, nBottom, lFlat) -> pshade
  */
 HB_FUNC( HWG_SHADE_NEW )
 {
@@ -736,7 +736,7 @@ HB_FUNC( HWG_SHADE_NEW )
 
    SetRect(&rect, hb_parni(1), hb_parni(2), hb_parni(3),
          hb_parni(4));
-   pshade = cxshade_New( &rect, ( HB_ISNIL(5) ) ? 0 : hb_parl(5) );
+   pshade = cxshade_New(&rect, ( HB_ISNIL(5) ) ? 0 : hb_parl(5));
    HB_RETHANDLE(pshade);
 }
 

@@ -23,8 +23,8 @@ CLASS HSayImage INHERIT HControl
    DATA  oImage
    DATA bClick, bDblClick
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
-         bSize, ctooltip, bClick, bDblClick )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
+         bSize, ctooltip, bClick, bDblClick)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
    METHOD END()  INLINE ( ::Super:END(), IIf( ::oImage <> NIL, ::oImage:Release(), ::oImage := NIL ), ::oImage := NIL )
@@ -33,13 +33,13 @@ CLASS HSayImage INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
-      bSize, ctooltip, bClick, bDblClick ) CLASS HSayImage
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
+      bSize, ctooltip, bClick, bDblClick) CLASS HSayImage
 
    nStyle := Hwg_BitOr( nStyle, IIF( ISBLOCK( bClick ) .OR. ISBLOCK( bDblClick ), SS_NOTIFY, 0 ) )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop,               ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop,               ;
          IIf( nWidth != NIL, nWidth, 0 ), IIf( nHeight != NIL, nHeight, 0 ),, ;
-         bInit, bSize,, ctooltip )
+         bInit, bSize,, ctooltip)
 
    ::title   := ""
    ::bClick := bClick
@@ -51,7 +51,7 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
 
 METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip) CLASS HSayImage
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize,, ctooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize,, ctooltip)
 
    RETURN Self
 
@@ -92,8 +92,8 @@ CLASS HSayBmp INHERIT HSayImage
    DATA nZoom
    DATA nStretch
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
-         bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+         bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle)
    METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp)
    METHOD Init()
    METHOD Paint( lpdis )
@@ -103,11 +103,11 @@ CLASS HSayBmp INHERIT HSayImage
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle ) CLASS HSayBmp
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+      bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle) CLASS HSayBmp
 
    nStyle := IIF( nStyle = NIL, 0, nStyle )
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW + nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW + nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
    ::bPaint := { | o, lpdis | o:Paint( lpdis ) }
    ::nStretch := IIf( nStretch = NIL, 0, nStretch )
@@ -217,18 +217,18 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
 //- HSayIcon
 CLASS HSayIcon INHERIT HSayImage
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
-         bSize, ctooltip, lOEM, bClick, bDblClick )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+         bSize, ctooltip, lOEM, bClick, bDblClick)
    METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip)
    METHOD Init()
    METHOD REFRESH() INLINE hwg_Sendmessage(::handle, STM_SETIMAGE, IMAGE_ICON, ::oImage:handle)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
-      bSize, ctooltip, lOEM, bClick, bDblClick ) CLASS HSayIcon
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
+      bSize, ctooltip, lOEM, bClick, bDblClick) CLASS HSayIcon
 
-   ::Super:New( oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick )
+   ::Super:New(oWndParent, nId, SS_ICON, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
    IF lRes == NIL
       lRes := .F.

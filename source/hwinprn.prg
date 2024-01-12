@@ -47,7 +47,7 @@ CLASS HWinPrn INHERIT HObject
    DATA   nRight    INIT 5
 
 
-   METHOD New( cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies )
+   METHOD New(cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies)
    METHOD InitValues( lElite, lCond, nLineInch, lBold, lItalic, lUnder  )
    METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder)
    METHOD StartDoc(lPreview, cMetaName)
@@ -65,9 +65,9 @@ CLASS HWinPrn INHERIT HObject
 
 ENDCLASS
 
-METHOD New( cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies ) CLASS HWinPrn
+METHOD New(cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies) CLASS HWinPrn
 
-   ::oPrinter := HPrinter():New( Iif( cPrinter==Nil, "", cPrinter ), .F., nFormType, nBin, lLandScape, nCopies )
+   ::oPrinter := HPrinter():New(Iif( cPrinter==Nil, "", cPrinter ), .F., nFormType, nBin, lLandScape, nCopies)
    IF ::oPrinter == Nil
       Return Nil
    ENDIF

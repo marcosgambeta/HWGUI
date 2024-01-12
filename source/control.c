@@ -87,7 +87,7 @@ HB_FUNC( HWG_INITCOMMONCONTROLSEX )
    {
       INITCOMMONCONTROLSEX i;
 
-      i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+      i.dwSize = sizeof(INITCOMMONCONTROLSEX);
       i.dwICC =
             ICC_DATE_CLASSES | ICC_INTERNET_CLASSES | ICC_BAR_CLASSES |
             ICC_LISTVIEW_CLASSES | ICC_TAB_CLASSES | ICC_TREEVIEW_CLASSES;
@@ -391,7 +391,7 @@ HB_FUNC( HWG_INITSTATUS )
    PHB_ITEM pArray = hb_param(4, HB_IT_ARRAY);
 
    // Allocate an array for holding the right edge coordinates.
-   hloc = LocalAlloc(LHND, sizeof( int ) * nParts);
+   hloc = LocalAlloc(LHND, sizeof(int) * nParts);
    lpParts = ( LPINT ) LocalLock( hloc );
 
    if( !pArray || hb_arrayGetNI(pArray, 1) == 0 )
@@ -474,7 +474,7 @@ HB_FUNC( HWG_DELTOOLTIP )
 
    if( hWndTT )
    {
-      ti.cbSize = sizeof( TOOLINFO );
+      ti.cbSize = sizeof(TOOLINFO);
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = hwg_par_HWND(1);
       ti.uId = ( UINT ) hb_parnl(2);
@@ -494,7 +494,7 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
       TOOLINFO ti;
       void * hStr;
 
-      ti.cbSize = sizeof( TOOLINFO );
+      ti.cbSize = sizeof(TOOLINFO);
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = hWnd;
       ti.uId = ( UINT ) hb_parnl(2);
@@ -682,9 +682,9 @@ HB_FUNC( HWG_GETTIMEPICKER )
                 ( LPARAM ) & st);
 
    #if __HARBOUR__ - 0 >= 0x010100
-      hb_snprintf( szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond );
+      hb_snprintf(szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
    #else
-      snprintf( szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond );
+      snprintf(szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
    #endif
    hb_retc(szTime);
 }
@@ -850,7 +850,7 @@ HB_FUNC( HWG_TREEADDNODE )
 
    tvi.mask = TVIF_TEXT | TVIF_PARAM;
    tvi.pszText = ( LPTSTR ) HB_PARSTR(6, &hStr, NULL);
-   tvi.lParam = ( LPARAM ) ( hb_itemNew( pObject ) );
+   tvi.lParam = ( LPARAM ) ( hb_itemNew(pObject) );
    if( hb_pcount() > 6 && !HB_ISNIL(7) )
    {
       tvi.iImage = hb_parni(7);
@@ -907,13 +907,13 @@ HB_FUNC( HWG_TREEGETSELECTED )
 {
    TV_ITEM TreeItem;
 
-   memset( &TreeItem, 0, sizeof( TV_ITEM ) );
+   memset( &TreeItem, 0, sizeof(TV_ITEM) );
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeView_GetSelection( hwg_par_HWND(1) );
 
    if( TreeItem.hItem )
    {
-      PHB_ITEM oNode;           // = hb_itemNew( NULL );
+      PHB_ITEM oNode;           // = hb_itemNew(NULL);
       SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0,
             ( LPARAM ) ( &TreeItem ));
       oNode = ( PHB_ITEM ) TreeItem.lParam;
@@ -942,7 +942,7 @@ HB_FUNC( HWG_TREEGETNODETEXT )
    TV_ITEM TreeItem;
    TCHAR ItemText[256] = { 0 };
 
-   memset( &TreeItem, 0, sizeof( TV_ITEM ) );
+   memset( &TreeItem, 0, sizeof(TV_ITEM) );
    TreeItem.mask = TVIF_HANDLE | TVIF_TEXT;
    TreeItem.hItem = ( HTREEITEM ) HB_PARHANDLE(2);
    TreeItem.pszText = ItemText;
@@ -962,7 +962,7 @@ HB_FUNC( HWG_TREESETITEM )
    int iType = hb_parni(3);
    void * hStr = NULL;
 
-   memset( &TreeItem, 0, sizeof( TV_ITEM ) );
+   memset( &TreeItem, 0, sizeof(TV_ITEM) );
    TreeItem.mask = TVIF_HANDLE;
    TreeItem.hItem = ( HTREEITEM ) HB_PARHANDLE(2);
 
@@ -1006,7 +1006,7 @@ HB_FUNC( HWG_TREEGETNOTIFY )
    else if( iType == TREE_GETNOTIFY_PARAM ||
          iType == TREE_GETNOTIFY_EDITPARAM || iType == TREE_GETNOTIFY_OLDPARAM )
    {
-      PHB_ITEM oNode;           // = hb_itemNew( NULL );
+      PHB_ITEM oNode;           // = hb_itemNew(NULL);
       if( iType == TREE_GETNOTIFY_EDITPARAM )
          oNode =
                ( PHB_ITEM ) ( ( ( TV_DISPINFO * ) HB_PARHANDLE(1) )->item.
@@ -1055,10 +1055,10 @@ HB_FUNC( HWG_TREEHITTEST )
 
    if( ht.hItem )
    {
-      PHB_ITEM oNode;           // = hb_itemNew( NULL );
+      PHB_ITEM oNode;           // = hb_itemNew(NULL);
       TV_ITEM TreeItem;
 
-      memset( &TreeItem, 0, sizeof( TV_ITEM ) );
+      memset( &TreeItem, 0, sizeof(TV_ITEM) );
       TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
       TreeItem.hItem = ht.hItem;
 
@@ -1076,7 +1076,7 @@ HB_FUNC( HWG_TREERELEASENODE )
 {
    TV_ITEM TreeItem;
 
-   memset( &TreeItem, 0, sizeof( TV_ITEM ) );
+   memset( &TreeItem, 0, sizeof(TV_ITEM) );
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = ( HTREEITEM ) HB_PARHANDLE(2);
 
@@ -1773,7 +1773,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    PHB_ITEM pArray = hb_param(2, HB_IT_ARRAY);
    int iButtons = hb_parni(3);
    TBBUTTON *tb =
-         ( struct _TBBUTTON * ) hb_xgrab(iButtons * sizeof( TBBUTTON ));
+         ( struct _TBBUTTON * ) hb_xgrab(iButtons * sizeof(TBBUTTON));
    PHB_ITEM pTemp;
 
    ULONG ulCount;
@@ -1785,7 +1785,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
    SetWindowLongPtr(hWndCtrl, GWL_STYLE,
          style | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT);
 
-   SendMessage(hWndCtrl, TB_BUTTONSTRUCTSIZE, sizeof( TBBUTTON ), 0L);
+   SendMessage(hWndCtrl, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0L);
 
    for( ulCount = 0; ( ulCount < hb_arrayLen(pArray) ); ulCount++ )
    {
@@ -1821,7 +1821,7 @@ HB_FUNC( HWG_TOOLBAR_SETBUTTONINFO )
    int iIDB = hb_parni(2);
    void * hStr;
 
-   tb.cbSize = sizeof( tb );
+   tb.cbSize = sizeof(tb);
    tb.dwMask = TBIF_TEXT;
    tb.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
    //tb.cchText = 1000;
@@ -1930,7 +1930,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
-   tpm.cbSize = sizeof( TPMPARAMS );
+   tpm.cbSize = sizeof(TPMPARAMS);
    // tpm.rcExclude = rc;
    tpm.rcExclude.left = rc.left;
    tpm.rcExclude.top = rc.top;
@@ -1964,7 +1964,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
-   tpm.cbSize = sizeof( TPMPARAMS );
+   tpm.cbSize = sizeof(TPMPARAMS);
    //tpm.rcExclude = rc;
    tpm.rcExclude.left = rc.left;
    tpm.rcExclude.top = rc.top;
@@ -2035,8 +2035,8 @@ HB_FUNC( HWG_REBARSETIMAGELIST )
          HB_ISPOINTER(2) ) ? ( HIMAGELIST ) HB_PARHANDLE(2) : NULL;
    REBARINFO rbi;
 
-   memset( &rbi, '\0', sizeof( rbi ) );
-   rbi.cbSize = sizeof( REBARINFO );
+   memset( &rbi, '\0', sizeof(rbi) );
+   rbi.cbSize = sizeof(REBARINFO);
    rbi.fMask = ( HB_ISNUM(2) || HB_ISPOINTER(2) ) ? RBIM_IMAGELIST : 0;
    rbi.himl = ( HB_ISNUM(2) ||
          HB_ISPOINTER(2) ) ? ( HIMAGELIST ) p : ( HIMAGELIST ) NULL;
@@ -2050,7 +2050,7 @@ static BOOL _AddBar( HWND pParent, HWND pBar, REBARBANDINFO * pRBBI )
    RECT rect;
    BOOL bResult;
 
-   pRBBI->cbSize = sizeof( REBARBANDINFO );
+   pRBBI->cbSize = sizeof(REBARBANDINFO);
    pRBBI->fMask |= RBBIM_CHILD | RBBIM_CHILDSIZE;
    pRBBI->hwndChild = pBar;
 
@@ -2073,7 +2073,7 @@ static BOOL AddBar( HWND pParent, HWND pBar, LPCTSTR pszText, HBITMAP pbmp,
 {
    REBARBANDINFO rbBand;
 
-   memset( &rbBand, '\0', sizeof( rbBand ) );
+   memset( &rbBand, '\0', sizeof(rbBand) );
 
    rbBand.fMask = RBBIM_STYLE;
    rbBand.fStyle = dwStyle;
@@ -2094,7 +2094,7 @@ static BOOL AddBar1( HWND pParent, HWND pBar, COLORREF clrFore, COLORREF clrBack
       LPCTSTR pszText, DWORD dwStyle )
 {
    REBARBANDINFO rbBand;
-   memset( &rbBand, '\0', sizeof( rbBand ) );
+   memset( &rbBand, '\0', sizeof(rbBand) );
    rbBand.fMask = RBBIM_STYLE | RBBIM_COLORS;
    rbBand.fStyle = dwStyle;
    rbBand.clrFore = clrFore;

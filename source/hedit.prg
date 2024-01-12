@@ -52,9 +52,9 @@ CLASS HEdit INHERIT HControl
    DATA cSelText   INIT "" HIDDEN
    DATA nSelLength INIT 0 HIDDEN
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, cPicture, ;
-      lNoBorder, nMaxLength, lPassword, bKeyDown, bChange, bOther )
+      lNoBorder, nMaxLength, lPassword, bKeyDown, bChange, bOther)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, ;
@@ -92,17 +92,17 @@ CLASS HEdit INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, ;
-      cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange, bOther ) CLASS HEdit
+      cPicture, lNoBorder, nMaxLength, lPassword, bKeyDown, bChange, bOther) CLASS HEdit
 
    nStyle := Hwg_BitOr( iif( nStyle == Nil, 0, nStyle ), ;
       WS_TABSTOP + iif( lNoBorder == Nil .OR. !lNoBorder, WS_BORDER, 0 ) + ;
       iif( lPassword == Nil .OR. !lPassword, 0, ES_PASSWORD )  )
 
    bcolor := iif( bcolor == Nil .AND. Hwg_BitAnd(nStyle, WS_DISABLED) = 0, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor  )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, bcolor)
 
    IF vari != Nil
       ::cType   := ValType(vari)
@@ -487,8 +487,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
 METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, ;
       bGfocus, bLfocus, ctooltip, tcolor, bcolor, cPicture, nMaxLength, lMultiLine, bKeyDown, bChange)  CLASS HEdit
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, iif( bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor ) )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
+      bSize, bPaint, ctooltip, tcolor, iif( bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor ))
    ::bKeyDown := bKeyDown
    IF ValType(lMultiLine) == "L"
       ::lMultiLine := lMultiLine

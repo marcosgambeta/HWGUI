@@ -1233,8 +1233,8 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 
    // determine size of bitmap image
 
-   memset( &bmi, 0, sizeof( BITMAPINFO ) );
-   bmi.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
    GetDIBits( hDC, hBitmap, 0, 0, NULL, &bmi, DIB_RGB_COLORS );
 
    // determine position of top-left corner of bitmap (positioned according to style)
@@ -1264,8 +1264,8 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 
    // determine size of icon image
    GetIconInfo( hIcon, &ii );
-   memset( &bmi, 0, sizeof( BITMAPINFO ) );
-   bmi.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
    if( ii.hbmColor != NULL )
    {
@@ -1535,8 +1535,8 @@ void Calc_iconWidthHeight( HWND m_hWnd, DWORD * ccx, DWORD * ccy, HDC hDC,
 
    // determine size of icon image
    GetIconInfo( hIcon, &ii );
-   memset( &bmi, 0, sizeof( BITMAPINFO ) );
-   bmi.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
    if( ii.hbmColor != NULL )
    {
@@ -1573,8 +1573,8 @@ void Calc_bitmapWidthHeight( HWND m_hWnd, DWORD * ccx, DWORD * ccy, HDC hDC,
       return;
    }
 
-   memset( &bmi, 0, sizeof( BITMAPINFO ) );
-   bmi.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
    GetDIBits( hDC, hBitmap, 0, 0, NULL, &bmi, DIB_RGB_COLORS );
 
    *ccx = bmi.bmiHeader.biWidth;
@@ -1773,7 +1773,7 @@ HB_FUNC( HWG_OPENTHEMEDATA )
    LPCSTR pText = hb_parc(2);
    HTHEME p;
    int mlen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, NULL, 0 );
-   WCHAR *output = ( WCHAR * ) hb_xgrab(mlen * sizeof( WCHAR ));
+   WCHAR *output = ( WCHAR * ) hb_xgrab(mlen * sizeof(WCHAR));
 
    MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, output, mlen );
    p = hb_OpenThemeData(hwnd, output);
@@ -1900,7 +1900,7 @@ HB_FUNC( HWG_DRAWTHEMETEXT )
    DWORD dwTextFlags2 = hb_parnl(7);
    RECT pRect;
    int mlen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, pText, -1, NULL, 0 );
-   WCHAR *output = ( WCHAR * ) hb_xgrab(mlen * sizeof( WCHAR ));
+   WCHAR *output = ( WCHAR * ) hb_xgrab(mlen * sizeof(WCHAR));
 
    if( HB_ISARRAY(8) )
       Array2Rect(hb_param(8, HB_IT_ARRAY), &pRect);
@@ -1924,7 +1924,7 @@ HB_FUNC( HWG_TRACKMOUSEVENT )
    DWORD dwHoverTime = hwg_par_DWORD(3);
    TRACKMOUSEEVENT csTME;
 
-   csTME.cbSize = sizeof( csTME );
+   csTME.cbSize = sizeof(csTME);
    csTME.dwFlags = hb_pcount() == 2 ? dwFlags : TME_LEAVE;
    csTME.hwndTrack = m_hWnd;
    csTME.dwHoverTime = hb_pcount() == 3 ? dwHoverTime : HOVER_DEFAULT;

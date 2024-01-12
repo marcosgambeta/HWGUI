@@ -47,7 +47,7 @@ CLASS PrintDos
    DATA nEndPage init 0
    DATA nCopy init 1
 
-   METHOD New( oPorta ) CONSTRUCTOR
+   METHOD New(oPorta) CONSTRUCTOR
 
    METHOD Say( oPRow, oPCol, oTexto, oPicture )
 
@@ -84,7 +84,7 @@ CLASS PrintDos
 
 ENDCLASS
 
-METHOD New( oPorta ) CLASS PrintDos
+METHOD New(oPorta) CLASS PrintDos
    LOCAL oDouble  := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
    LOCAL oNormal  := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
    LOCAL oCompress := { oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI }
@@ -556,7 +556,7 @@ FUNCTION hwg_regenfile(o, new)
 
    LOCAL aText := AFillText(o)
    LOCAL stroka
-   LOCAL o1 := printdos():new( new )
+   LOCAL o1 := printdos():new(new)
    LOCAL nLine := 0
    LOCAL nChr12
    LOCAL i
@@ -661,7 +661,7 @@ HB_FUNC( AFILLTEXT )
    }
 
    string = (char*) hb_xgrab(LINE_MAX + 1);
-   hb_arrayNew( pArray, 0 );
+   hb_arrayNew(pArray, 0);
 
    while ( file_read ( inFile, string ) )
    {

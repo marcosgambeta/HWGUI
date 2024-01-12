@@ -46,7 +46,7 @@ CLASS HPrinter INHERIT HObject
    DATA LeftMargin
    DATA RightMargin
 
-   METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn )
+   METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn)
    METHOD SetMode(nOrientation)
    METHOD AddFont( fontName, nHeight, lBold, lItalic, lUnderline, nCharSet )
    METHOD SetFont( oFont )  INLINE hwg_Selectobject( ::hDC, oFont:handle )
@@ -62,7 +62,7 @@ CLASS HPrinter INHERIT HObject
    METHOD PrintMeta(nPage)
    METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser  )
    METHOD END()
-   METHOD Box( x1, y1, x2, y2, oPen, oBrush )
+   METHOD Box(x1, y1, x2, y2, oPen, oBrush)
    METHOD Line(x1, y1, x2, y2, oPen)
    METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor )
    METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap )
@@ -71,7 +71,7 @@ CLASS HPrinter INHERIT HObject
    METHOD ChangePage(oSayPage, n, nPage) HIDDEN
 ENDCLASS
 
-METHOD New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn ) CLASS HPrinter
+METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn) CLASS HPrinter
    LOCAL aPrnCoors, cPrinterName
 
    IF Valtype(nFormType) = "N"
@@ -188,7 +188,7 @@ METHOD END() CLASS HPrinter
 
    RETURN NIL
 
-METHOD Box( x1, y1, x2, y2, oPen, oBrush ) CLASS HPrinter
+METHOD Box(x1, y1, x2, y2, oPen, oBrush) CLASS HPrinter
 
    IF oPen != NIL
       hwg_Selectobject( ::hDC, oPen:handle )
@@ -197,9 +197,9 @@ METHOD Box( x1, y1, x2, y2, oPen, oBrush ) CLASS HPrinter
       hwg_Selectobject( ::hDC, oBrush:handle )
    ENDIF
    IF ::lmm
-      hwg_Box( ::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2 )
+      hwg_Box(::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2)
    ELSE
-      hwg_Box( ::hDC, x1, y1, x2, y2 )
+      hwg_Box(::hDC, x1, y1, x2, y2)
    ENDIF
 
    RETURN NIL

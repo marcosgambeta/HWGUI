@@ -49,10 +49,10 @@ Type < nBCodeType >              ;
 [ VERTICAL <lVert>           ] ;
 [ TRANSPARENT <lTransparent> ] ;
 => ;
-< oBC > := Barcode():New( [ <hDC> ], < cText >, < nTop >, < nLeft >, ;
-                          [ <nWidth>       ], [ <nHeight>   ], [ <nBCodeType> ], ;
-                          [ <nColText>     ], [ <nColPane>  ], [ !<lVert>     ], ;
-                          [ <lTransparent> ], [ <nPinWidth> ] )
+< oBC > := Barcode():New([ <hDC> ], < cText >, < nTop >, < nLeft >, ;
+                         [ <nWidth>       ], [ <nHeight>   ], [ <nBCodeType> ], ;
+                         [ <nColText>     ], [ <nColPane>  ], [ !<lVert>     ], ;
+                         [ <lTransparent> ], [ <nPinWidth> ])
 
 //------------------------------------------------------------------------------
 #xcommand SHOWBARCODE < oBC > => < oBC > :ShowBarcode()
@@ -91,10 +91,10 @@ FUNCTION main
    nWidth    := 200
    nHeight   := 40
 
-   oBC := Barcode():New( hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
-                         nWidth, nHeight, nBCodeType, ;
-                         nColText, nColPane, lHorz, ;
-                         lTransparent, nPinWidth )
+   oBC := Barcode():New(hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
+                        nWidth, nHeight, nBCodeType, ;
+                        nColText, nColPane, lHorz, ;
+                        lTransparent, nPinWidth)
 
 
    @ 163, 10 EDITBOX oEdit1 CAPTION oBC:InitEAN13()  SIZE 100, 20
@@ -142,8 +142,8 @@ CLASS Barcode
    //  16 = Matrix 2 of 5
    //  17 = Matrix 2 of 5 check digit
 
-   METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-               nColText, nColPane, lHorz, lTransparent, nPinWidth ) CONSTRUCTOR
+   METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
+              nColText, nColPane, lHorz, lTransparent, nPinWidth) CONSTRUCTOR
    METHOD ShowBarcode()
    METHOD CreateBarcode(cCode)
    METHOD InitCode39( lCheck )
@@ -164,8 +164,8 @@ ENDCLASS
 *  Description:
 *-----------------------------------------------------------------------------
 
-METHOD New( hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-            nColText, nColPane, lHorz, lTransparent, nPinWidth ) CLASS Barcode
+METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
+           nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS Barcode
 
    DEFAULT nWidth       := 200
    DEFAULT nHeight      := 20

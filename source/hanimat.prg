@@ -19,8 +19,8 @@ CLASS VAR winclass   INIT "SysAnimate32"
    DATA cFileName
    DATA xResID
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               cFilename, lAutoPlay, lCenter, lTransparent, xResID )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              cFilename, lAutoPlay, lCenter, lTransparent, xResID)
    METHOD Activate()
    METHOD Init()
    METHOD Open( cFileName )
@@ -33,14 +33,14 @@ CLASS VAR winclass   INIT "SysAnimate32"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            cFilename, lAutoPlay, lCenter, lTransparent, xResID ) CLASS HAnimation
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
 
    nStyle     := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE )
    nStyle     := nStyle + IIf( lAutoPlay == Nil.OR.lAutoPlay, ACS_AUTOPLAY, 0 )
    nStyle     := nStyle + IIf( lCenter == Nil.OR. !lCenter, 0, ACS_CENTER )
    nStyle     := nStyle + IIf( lTransparent == Nil.OR. !lTransparent, 0, ACS_TRANSPARENT )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight)
    ::xResID    := xResID
    ::cFilename := cFilename
    ::brush     := ::oParent:brush

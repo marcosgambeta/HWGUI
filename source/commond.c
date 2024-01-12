@@ -26,27 +26,27 @@ HB_FUNC( HWG_SELECTFONT )
    /* Initialize members of the CHOOSEFONT structure. */
    if( pObj )
    {
-      memset( &lf, 0, sizeof( LOGFONT ) );
-      temp1 = GetObjectVar( pObj, "NAME" );
+      memset( &lf, 0, sizeof(LOGFONT) );
+      temp1 = GetObjectVar(pObj, "NAME");
       HB_ITEMCOPYSTR(temp1, lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
       lf.lfFaceName[HB_SIZEOFARRAY( lf.lfFaceName ) - 1] = '\0';
-      temp1 = GetObjectVar( pObj, "WIDTH" );
+      temp1 = GetObjectVar(pObj, "WIDTH");
       lf.lfWidth = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "HEIGHT" );
+      temp1 = GetObjectVar(pObj, "HEIGHT");
       lf.lfHeight = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "WEIGHT" );
+      temp1 = GetObjectVar(pObj, "WEIGHT");
       lf.lfWeight = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "CHARSET" );
+      temp1 = GetObjectVar(pObj, "CHARSET");
       lf.lfCharSet = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "ITALIC" );
+      temp1 = GetObjectVar(pObj, "ITALIC");
       lf.lfItalic = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "UNDERLINE" );
+      temp1 = GetObjectVar(pObj, "UNDERLINE");
       lf.lfUnderline = hb_itemGetNI(temp1);
-      temp1 = GetObjectVar( pObj, "STRIKEOUT" );
+      temp1 = GetObjectVar(pObj, "STRIKEOUT");
       lf.lfStrikeOut = hb_itemGetNI(temp1);
    }
 
-   cf.lStructSize = sizeof( CHOOSEFONT );
+   cf.lStructSize = sizeof(CHOOSEFONT);
    cf.hwndOwner = ( HWND ) NULL;
    cf.hDC = ( HDC ) NULL;
    cf.lpLogFont = &lf;
@@ -127,10 +127,10 @@ HB_FUNC( HWG_SELECTFILE )
       lpStr1 = HB_PARSTRDEF( 1, &hStr1, &nLen1 );
       lpStr2 = HB_PARSTRDEF( 2, &hStr2, &nLen2 );
 
-      lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ));
-      memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
-      memcpy( lpFilter, lpStr1, nLen1 * sizeof( TCHAR ) );
-      memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof( TCHAR ) );
+      lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof(TCHAR));
+      memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof(TCHAR) );
+      memcpy( lpFilter, lpStr1, nLen1 * sizeof(TCHAR) );
+      memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof(TCHAR) );
 
       hb_strfree(hStr1);
       hb_strfree(hStr2);
@@ -151,7 +151,7 @@ HB_FUNC( HWG_SELECTFILE )
       LPTSTR ptr;
 
       pArrStr = ( struct _hb_arrStr * )
-                hb_xgrab(nArrLen * sizeof( struct _hb_arrStr ));
+                hb_xgrab(nArrLen * sizeof(struct _hb_arrStr));
       nSize = 4;
       for( n = 0; n < nArrLen; n++ )
       {
@@ -163,14 +163,14 @@ HB_FUNC( HWG_SELECTFILE )
                                               &pArrStr[n].nLen2);
          nSize += pArrStr[n].nLen1 + pArrStr[n].nLen2 + 2;
       }
-      lpFilter = ( LPTSTR ) hb_xgrab(nSize * sizeof( TCHAR ));
+      lpFilter = ( LPTSTR ) hb_xgrab(nSize * sizeof(TCHAR));
       ptr = lpFilter;
       for( n = 0; n < nArrLen; n++ )
       {
-         memcpy( ptr, pArrStr[n].lpStr1, pArrStr[n].nLen1 * sizeof( TCHAR ) );
+         memcpy( ptr, pArrStr[n].lpStr1, pArrStr[n].nLen1 * sizeof(TCHAR) );
          ptr += pArrStr[n].nLen1;
          *ptr++ = 0;
-         memcpy( ptr, pArrStr[n].lpStr2, pArrStr[n].nLen2 * sizeof( TCHAR ) );
+         memcpy( ptr, pArrStr[n].lpStr2, pArrStr[n].nLen2 * sizeof(TCHAR) );
          ptr += pArrStr[n].nLen2;
          *ptr++ = 0;
          hb_strfree(pArrStr[n].hStr1);
@@ -186,8 +186,8 @@ HB_FUNC( HWG_SELECTFILE )
       return;
    }
 
-   memset( ( void * ) &ofn, 0, sizeof( OPENFILENAME ) );
-   ofn.lStructSize = sizeof( ofn );
+   memset( ( void * ) &ofn, 0, sizeof(OPENFILENAME) );
+   ofn.lStructSize = sizeof(ofn);
    ofn.hwndOwner = GetActiveWindow();
    ofn.lpstrFilter = lpFilter;
    ofn.lpstrFile = buffer;
@@ -219,8 +219,8 @@ HB_FUNC( HWG_SAVEFILE )
    lpFileName = HB_PARSTR(1, &hFileName, &nSize);
    if( nSize < 1024 )
    {
-      memcpy( buffer, lpFileName, nSize * sizeof( TCHAR ) );
-      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
+      memcpy( buffer, lpFileName, nSize * sizeof(TCHAR) );
+      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof(TCHAR) );
       lpFileBuff = buffer;
       nSize = 1024;
    }
@@ -231,16 +231,16 @@ HB_FUNC( HWG_SAVEFILE )
    lpStr1 = HB_PARSTRDEF( 2, &hStr1, &nLen1 );
    lpStr2 = HB_PARSTRDEF( 3, &hStr2, &nLen2 );
 
-   lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ));
-   memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof( TCHAR ) );
-   memcpy( lpFilter, lpStr1, nLen1 * sizeof( TCHAR ) );
-   memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof( TCHAR ) );
+   lpFilter = ( LPTSTR ) hb_xgrab(( nLen1 + nLen2 + 4 ) * sizeof(TCHAR));
+   memset( lpFilter, 0, ( nLen1 + nLen2 + 4 ) * sizeof(TCHAR) );
+   memcpy( lpFilter, lpStr1, nLen1 * sizeof(TCHAR) );
+   memcpy( lpFilter + nLen1 + 1, lpStr2, nLen2 * sizeof(TCHAR) );
 
    hb_strfree(hStr1);
    hb_strfree(hStr2);
 
-   memset( ( void * ) &ofn, 0, sizeof( OPENFILENAME ) );
-   ofn.lStructSize = sizeof( ofn );
+   memset( ( void * ) &ofn, 0, sizeof(OPENFILENAME) );
+   ofn.lStructSize = sizeof(ofn);
    ofn.hwndOwner = GetActiveWindow();
    ofn.lpstrFilter = lpFilter;
    ofn.lpstrFile = lpFileBuff;
@@ -266,9 +266,9 @@ HB_FUNC( HWG_PRINTSETUP )
 {
    PRINTDLG pd;
 
-   memset( ( void * ) &pd, 0, sizeof( PRINTDLG ) );
+   memset( ( void * ) &pd, 0, sizeof(PRINTDLG) );
 
-   pd.lStructSize = sizeof( PRINTDLG );
+   pd.lStructSize = sizeof(PRINTDLG);
    // pd.hDevNames = (HANDLE) NULL; 
    pd.Flags = PD_RETURNDC;
    pd.hwndOwner = GetActiveWindow();
@@ -312,9 +312,9 @@ HB_FUNC( HWG_CHOOSECOLOR )
    COLORREF rgb[16];
    DWORD nStyle = ( HB_ISLOG(2) && hb_parl(2) ) ? CC_FULLOPEN : 0;
 
-   memset( ( void * ) &cc, 0, sizeof( CHOOSECOLOR ) );
+   memset( ( void * ) &cc, 0, sizeof(CHOOSECOLOR) );
 
-   cc.lStructSize = sizeof( CHOOSECOLOR );
+   cc.lStructSize = sizeof(CHOOSECOLOR);
    cc.hwndOwner = GetActiveWindow();
    cc.lpCustColors = rgb;
    if( HB_ISNUM(1) )
@@ -402,8 +402,8 @@ static void StartPrn( void )
    if( !s_fInit )
    {
       s_fInit = TRUE;
-      memset( &s_pd, 0, sizeof( PRINTDLG ) );
-      s_pd.lStructSize = sizeof( PRINTDLG );
+      memset( &s_pd, 0, sizeof(PRINTDLG) );
+      s_pd.lStructSize = sizeof(PRINTDLG);
       s_pd.hwndOwner = GetActiveWindow();
       s_pd.Flags = PD_RETURNDEFAULT;
       s_pd.nMinPage = 1;
@@ -442,9 +442,9 @@ HB_FUNC( HWG_PRINTSETUPDOS )
 
    StartPrn();
 
-   memset( ( void * ) &s_pd, 0, sizeof( PRINTDLG ) );
+   memset( ( void * ) &s_pd, 0, sizeof(PRINTDLG) );
 
-   s_pd.lStructSize = sizeof( PRINTDLG );
+   s_pd.lStructSize = sizeof(PRINTDLG);
    s_pd.Flags = PD_RETURNDC;
    s_pd.hwndOwner = GetActiveWindow();
    s_pd.nFromPage = 0xFFFF;
@@ -473,9 +473,9 @@ HB_FUNC( HWG_PRINTSETUPEX )
    PRINTDLG pd;
    DEVMODE *pDevMode;
 
-   memset( ( void * ) &pd, 0, sizeof( PRINTDLG ) );
+   memset( ( void * ) &pd, 0, sizeof(PRINTDLG) );
 
-   pd.lStructSize = sizeof( PRINTDLG );
+   pd.lStructSize = sizeof(PRINTDLG);
    pd.Flags = PD_RETURNDC;
    pd.hwndOwner = GetActiveWindow();
    pd.nFromPage = 1;
@@ -501,17 +501,17 @@ HB_FUNC( HWG_GETOPENFILENAME )
 
    if( nSize < 1024 )
    {
-      memcpy( buffer, lpFileName, nSize * sizeof( TCHAR ) );
-      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof( TCHAR ) );
+      memcpy( buffer, lpFileName, nSize * sizeof(TCHAR) );
+      memset( &buffer[nSize], 0, ( 1024 - nSize ) * sizeof(TCHAR) );
       lpFileBuff = buffer;
       nSize = 1024;
    }
    else
       lpFileBuff = HB_STRUNSHARE(&hFileName, lpFileName, nSize);
 
-   ZeroMemory( &ofn, sizeof( ofn ) );
+   ZeroMemory( &ofn, sizeof(ofn) );
    ofn.hInstance = GetModuleHandle(NULL);
-   ofn.lStructSize = sizeof( ofn );
+   ofn.lStructSize = sizeof(ofn);
    ofn.hwndOwner =
          ( HB_ISNIL(1) ? GetActiveWindow() : hwg_par_HWND(1) );
    ofn.lpstrTitle = HB_PARSTR(3, &hTitle, NULL);

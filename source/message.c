@@ -12,15 +12,12 @@
 #include <commctrl.h>
 #include <richedit.h>
 
-static int s_msgbox( UINT uType )
+static int s_msgbox(UINT uType)
 {
    void * hText, * hTitle;
    int iResult;
 
-   iResult = MessageBox( GetActiveWindow(),
-                         HB_PARSTR(1, &hText, NULL),
-                         HB_PARSTRDEF( 2, &hTitle, NULL ),
-                         uType );
+   iResult = MessageBox(GetActiveWindow(), HB_PARSTR(1, &hText, NULL), HB_PARSTRDEF(2, &hTitle, NULL), uType);
    hb_strfree(hText);
    hb_strfree(hTitle);
 
@@ -29,42 +26,42 @@ static int s_msgbox( UINT uType )
 
 HB_FUNC( HWG_MSGINFO )
 {
-   s_msgbox( MB_OK | MB_ICONINFORMATION );
+   s_msgbox(MB_OK | MB_ICONINFORMATION);
 }
 
 HB_FUNC( HWG_MSGSTOP )
 {
-   s_msgbox( MB_OK | MB_ICONSTOP );
+   s_msgbox(MB_OK | MB_ICONSTOP);
 }
 
 HB_FUNC( HWG_MSGOKCANCEL )
 {
-   hb_retni(s_msgbox( MB_OKCANCEL | MB_ICONQUESTION ));
+   hb_retni(s_msgbox(MB_OKCANCEL | MB_ICONQUESTION));
 }
 
 HB_FUNC( HWG_MSGYESNO )
 {
-   hb_retl( s_msgbox( MB_YESNO | MB_ICONQUESTION ) == IDYES );
+   hb_retl( s_msgbox(MB_YESNO | MB_ICONQUESTION) == IDYES );
 }
 
 HB_FUNC( HWG_MSGNOYES )
 {
-   hb_retl( s_msgbox( MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2 ) == IDYES );
+   hb_retl( s_msgbox(MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES );
 }
 
 HB_FUNC( HWG_MSGYESNOCANCEL )
 {
-   hb_retni(s_msgbox( MB_YESNOCANCEL | MB_ICONQUESTION ));
+   hb_retni(s_msgbox(MB_YESNOCANCEL | MB_ICONQUESTION));
 }
 
 HB_FUNC( HWG_MSGEXCLAMATION )
 {
-   s_msgbox( MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+   s_msgbox(MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 }
 
 HB_FUNC( HWG_MSGRETRYCANCEL )
 {
-   hb_retni(s_msgbox( MB_RETRYCANCEL | MB_ICONQUESTION | MB_ICONQUESTION ));
+   hb_retni(s_msgbox(MB_RETRYCANCEL | MB_ICONQUESTION | MB_ICONQUESTION));
 }
 
 HB_FUNC( HWG_MSGBEEP )
@@ -78,11 +75,9 @@ HB_FUNC( HWG_MSGTEMP )
    LPCTSTR msg;
 
 #if __HARBOUR__ - 0 >= 0x010100
-   hb_snprintf( cres, sizeof( cres ), "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ",
-                ( LONG ) WS_OVERLAPPEDWINDOW, NM_FIRST );
+   hb_snprintf(cres, sizeof(cres), "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ", (LONG) WS_OVERLAPPEDWINDOW, NM_FIRST);
 #else
-   sprintf( cres, "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ",
-            ( LONG ) WS_OVERLAPPEDWINDOW, NM_FIRST );
+   sprintf(cres, "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ", (LONG) WS_OVERLAPPEDWINDOW, NM_FIRST);
 #endif
    {
 #ifdef UNICODE
@@ -92,8 +87,7 @@ HB_FUNC( HWG_MSGTEMP )
 #else
       msg = cres;
 #endif
-      hb_retni(MessageBox( GetActiveWindow(), msg, TEXT("DialogBaseUnits"),
-                            MB_OKCANCEL | MB_ICONQUESTION ));
+      hb_retni(MessageBox(GetActiveWindow(), msg, TEXT("DialogBaseUnits"), MB_OKCANCEL | MB_ICONQUESTION));
    }
 }
 

@@ -26,7 +26,7 @@ CLASS HXMLNode
    DATA aAttr   INIT {}
    DATA cargo
 
-   METHOD New( cTitle, type, aAttr )
+   METHOD New(cTitle, type, aAttr)
    METHOD Add(xItem)
    METHOD GetAttribute(cName, cType, xDefault)
    METHOD SetAttribute(cName, cValue)
@@ -35,7 +35,7 @@ CLASS HXMLNode
    METHOD Find(cTitle, nStart)
 ENDCLASS
 
-METHOD New( cTitle, type, aAttr, cValue ) CLASS HXMLNode
+METHOD New(cTitle, type, aAttr, cValue) CLASS HXMLNode
 
    IF cTitle != Nil
       ::title := cTitle
@@ -207,14 +207,14 @@ Return Nil
 
 CLASS HXMLDoc INHERIT HXMLNode
 
-   METHOD New( encoding )
+   METHOD New(encoding)
    METHOD Read(fname)
    METHOD ReadString( buffer )  INLINE ::Read(, buffer)
    METHOD Save(fname, lNoHeader)
    METHOD Save2String()  INLINE ::Save()
 ENDCLASS
 
-METHOD New( encoding ) CLASS HXMLDoc
+METHOD New(encoding) CLASS HXMLDoc
 
    IF encoding != Nil
       Aadd(::aAttr, { "version", "1.0" })

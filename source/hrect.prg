@@ -23,12 +23,12 @@ CLASS HRect INHERIT HControl
    DATA oLine3
    DATA oLine4
 
-   METHOD New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle )
+   METHOD New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle)
 
 ENDCLASS
 
 //----------------------------------------------------------------
-METHOD New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle ) CLASS HRect
+METHOD New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle) CLASS HRect
    LOCAL nCor1, nCor2
 
    IF nStyle = NIL
@@ -44,18 +44,18 @@ METHOD New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle ) CLASS HRe
 
    DO CASE
    CASE nStyle = 1
-      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
-      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
+      ::oLine1 = HRect_Line():New(oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1)
+      ::oLine3 = HRect_Line():New(oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2)
 
    CASE nStyle = 2
-      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
-      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
+      ::oLine2 = HRect_Line():New(oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1)
+      ::oLine4 = HRect_Line():New(oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2)
 
    OTHERWISE
-      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
-      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
-      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
-      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
+      ::oLine1 = HRect_Line():New(oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1)
+      ::oLine2 = HRect_Line():New(oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1)
+      ::oLine3 = HRect_Line():New(oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2)
+      ::oLine4 = HRect_Line():New(oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2)
    ENDCASE
 
    RETURN Self
@@ -67,16 +67,16 @@ CLASS HRect_Line INHERIT HControl
    DATA lVert
    DATA oPen
 
-   METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor )
+   METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor)
    METHOD Activate()
    METHOD Paint( lpDis )
 
 ENDCLASS
 
 //---------------------------------------------------------------------------
-METHOD New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor ) CLASS HRect_Line
+METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor) CLASS HRect_Line
 
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop,,,,, bSize, { | o, lp | o:Paint( lp ) } )
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop,,,,, bSize, { | o, lp | o:Paint( lp ) })
 
    //::title := ""
    ::lVert := IIf( lVert == NIL, .F., lVert )
@@ -123,36 +123,36 @@ METHOD Paint( lpdis ) CLASS HRect_Line
 
 CLASS HShape INHERIT HControl
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
-         nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle )  //, bClick, bDblClick)
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
+         nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle)  //, bClick, bDblClick)
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
-      nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle ) CLASS HShape
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature, ;
+      nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle) CLASS HShape
 
    nBorder := IIf( nBorder = NIL, 1, nBorder )
    nbStyle := IIf( nbStyle = NIL, PS_SOLID, nbStyle )
    nfStyle := IIf( nfStyle = NIL, BS_TRANSPARENT, nfStyle )
    nCurvature := nCurvature
 
-   RETURN HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor,,, ;
-         nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )
+   RETURN HDrawShape():New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor,,, ;
+         nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle)
 
 //---------------------------------------------------------------------------
 CLASS HLContainer INHERIT HControl
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit )  //, bClick, bDblClick)
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit) //, bClick, bDblClick)
 
 ENDCLASS
 
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit ) CLASS HLContainer
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit) CLASS HLContainer
 
    nStyle := IIf( nStyle = NIL, 3, nStyle )  // FLAT
    lnoBorder := IIf( lnoBorder = NIL, .F., lnoBorder )  // FLAT
 
-   RETURN HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize,,, nStyle, lnoBorder,,,,, bInit ) //, bClick, bDblClick)
+   RETURN HDrawShape():New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize,,, nStyle, lnoBorder,,,,, bInit) //, bClick, bDblClick)
 
 //---------------------------------------------------------------------------
 CLASS HDrawShape INHERIT HControl
@@ -165,8 +165,8 @@ CLASS HDrawShape INHERIT HControl
    DATA brushFill
    DATA bClick, bDblClick
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
-         lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
+         lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle)
    METHOD Activate()
    METHOD Paint( lpDis )
    METHOD SetColor(tcolor, bcolor, lRedraw)
@@ -175,14 +175,14 @@ CLASS HDrawShape INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
-      lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )  CLASS HDrawShape
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle, ;
+      lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle) CLASS HDrawShape
 
    HB_SYMBOL_UNUSED(ncStyle)
 
    ::bPaint   := { | o, p | o:paint( p ) }
-   ::Super:New( oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ,;
-         bInit, bSize, ::bPaint, , tcolor, bColor ) //= NIL
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ,;
+         bInit, bSize, ::bPaint, , tcolor, bColor) //= NIL
 
    //::title := ""
    // OPAQUE DEFAULT
@@ -290,7 +290,7 @@ FUNCTION hwg_Rect(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST)
       lPress := .F.
    ENDIF
 
-   RETURN  HRect():New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )
+   RETURN  HRect():New(oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST)
 
 //---------------------------------------------------------------------------
 CLASS HContainer INHERIT HControl, HScrollArea
@@ -306,8 +306,8 @@ CLASS HContainer INHERIT HControl, HScrollArea
    DATA xVisible  INIT .T. HIDDEN
    DATA lTABSTOP INIT .F. HIDDEN
 
-   METHOD New( oWndParent, nId, nstyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
-         lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther)  //, bClick, bDblClick)
+   METHOD New(oWndParent, nId, nstyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
+         lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) //, bClick, bDblClick)
    METHOD Activate()
    METHOD Init()
    METHOD Create() INLINE ::lCreate := .T.
@@ -317,14 +317,14 @@ CLASS HContainer INHERIT HControl, HScrollArea
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainer  //, bClick, bDblClick)
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
    ::bPaint   := { | o, p | o:paint( p ) }
    nStyle := SS_OWNERDRAW + IIF( nStyle = WS_TABSTOP, WS_TABSTOP, 0 ) + Hwg_Bitand(nStyle, SS_NOTIFY)
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
-         bInit, bSize, ::bPaint,, tcolor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
+         bInit, bSize, ::bPaint,, tcolor, bColor)
 
    //::title := ""
    ::ncStyle := IIF( ncStyle = NIL .AND. nStyle < WS_TABSTOP, 3, ncStyle )

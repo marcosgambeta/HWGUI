@@ -25,8 +25,8 @@ CLASS VAR winclass   INIT "SysIPAddress32"
    DATA bGetFocus
    DATA lnoValid   INIT .F.
 
-   METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               oFont, bGetFocus, bKillFocus )
+   METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              oFont, bGetFocus, bKillFocus)
    METHOD Activate()
    METHOD Init()
    METHOD SetValue(aValue)
@@ -39,11 +39,11 @@ CLASS VAR winclass   INIT "SysIPAddress32"
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            oFont, bGetFocus, bKillFocus ) CLASS HIPedit
+METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
    nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
 
    ::title   := ""
 

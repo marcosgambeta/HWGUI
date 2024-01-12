@@ -23,8 +23,8 @@ CLASS HPanel INHERIT HControl, HScrollArea
    DATA lBorder INIT .F.
    DATA nRePaint  INIT  - 1
 
-   METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-         bInit, bSize, bPaint, bcolor )
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+         bInit, bSize, bPaint, bcolor)
    METHOD Activate()
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
@@ -39,13 +39,13 @@ CLASS HPanel INHERIT HControl, HScrollArea
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      bInit, bSize, bPaint, bcolor ) CLASS HPanel
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
+      bInit, bSize, bPaint, bcolor) CLASS HPanel
    LOCAL oParent := Iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
 
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == NIL, 0, nWidth ), ;
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == NIL, 0, nWidth ), ;
          Iif( nHeight == NIL, 0, nHeight ), oParent:oFont, bInit, ;
-         bSize, bPaint,,, bcolor )
+         bSize, bPaint,,, bcolor)
 
    ::lBorder  := IIF( Hwg_Bitand(nStyle, WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F. )
    ::bPaint   := bPaint
@@ -80,9 +80,9 @@ METHOD New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) CLASS HPanel
    LOCAL oParent := Iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, Iif( nWidth == NIL, 0, nWidth ), ;
+   ::Super:New(oWndParent, nId, 0, 0, 0, Iif( nWidth == NIL, 0, nWidth ), ;
          Iif( nHeight != NIL, nHeight, 0 ), oParent:oFont, bInit, ;
-         bSize, bPaint,,, bcolor )
+         bSize, bPaint,,, bcolor)
 
    ::bPaint   := bPaint
    ::lResizeX := ( ::nWidth == 0 )

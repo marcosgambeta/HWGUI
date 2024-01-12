@@ -131,7 +131,7 @@ static void HB_EXPORT hb_itemPushList( ULONG ulRefMask, ULONG ulPCount,
 
    if( ulPCount )
    {
-      itmRef = hb_itemNew( NULL );
+      itmRef = hb_itemNew(NULL);
 
       // initialize the reference item
       itmRef->type = HB_IT_BYREF;
@@ -341,7 +341,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
    ULONG ulPos;
    PHB_ITEM Key;
 
-   Key = hb_itemNew( NULL );
+   Key = hb_itemNew(NULL);
 
    // We implement only a "default" interface
    if( !IsEqualIID(riid, &IID_NULL) )
@@ -427,7 +427,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
          iArg = params->cArgs;
          for( i = 1; i <= iArg; i++ )
          {
-            pItem = hb_itemNew( NULL );
+            pItem = hb_itemNew(NULL);
             hb_oleVariantToItem( pItem, &( params->rgvarg[iArg - i] ) );
             pItemArray[i - 1] = pItem;
             // set bit i
@@ -563,7 +563,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 
    thisobj =
          ( IEventHandler * ) GlobalAlloc(GMEM_FIXED,
-         sizeof( MyRealIEventHandler ));
+         sizeof(MyRealIEventHandler));
 
    if( !thisobj )
    {
@@ -666,10 +666,10 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
       pThis = ( void * ) thisobj;
 
 #ifndef __USEHASHEVENTS
-      pThis->pEventsExec = hb_itemNew( hb_param(4, HB_IT_ANY) );
+      pThis->pEventsExec = hb_itemNew(hb_param(4, HB_IT_ANY));
 #endif
 
-      pThis->pEvents = hb_itemNew( hb_param(3, HB_IT_ANY) );
+      pThis->pEvents = hb_itemNew(hb_param(3, HB_IT_ANY));
       hb_stornl(( LONG ) pThis, 2);
 
    }

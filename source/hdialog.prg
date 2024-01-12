@@ -47,9 +47,9 @@ CLASS HDialog INHERIT HWindow
    // you can change the object that receives focus adding
    // ON INIT {|| nInitFocus:=object:[handle] }  to the dialog definition
 
-   METHOD New( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
+   METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, ;
-      xResourceID, lExitOnEsc, bcolor, bRefresh, lNoClosable )
+      xResourceID, lExitOnEsc, bcolor, bRefresh, lNoClosable)
    METHOD Activate(lNoModal, bOnActivate, nShow)
    METHOD onEvent( msg, wParam, lParam )
    METHOD AddItem()      INLINE AAdd(iif( ::lModal, ::aModalDialogs, ::aDialogs ), Self)
@@ -61,9 +61,9 @@ CLASS HDialog INHERIT HWindow
 
 ENDCLASS
 
-METHOD NEW( lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
+METHOD NEW(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, ;
-      xResourceID, lExitOnEsc, bcolor, bRefresh, lNoClosable ) CLASS HDialog
+      xResourceID, lExitOnEsc, bcolor, bRefresh, lNoClosable) CLASS HDialog
 
    ::oDefaultParent := Self
    ::xResourceID := xResourceID
@@ -122,7 +122,7 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
       IF lNoModal == Nil .OR. !lNoModal
          ::lModal := .T.
          ::AddItem()
-         Hwg_DialogBox( hwg_Getactivewindow(), Self )
+         Hwg_DialogBox(hwg_Getactivewindow(), Self)
       ELSE
          ::lModal  := .F.
          ::handle  := 0

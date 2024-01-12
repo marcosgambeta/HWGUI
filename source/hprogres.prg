@@ -26,8 +26,8 @@ CLASS HProgressBar INHERIT HControl
    DATA  nPercent INIT 0
    DATA  lPercent INIT .F.
 
-   METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical )
-   METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent )
+   METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical)
+   METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
    METHOD Init()
    METHOD Activate()
    METHOD Increment() INLINE hwg_Updateprogressbar( ::handle )
@@ -40,13 +40,13 @@ CLASS HProgressBar INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical ) CLASS HProgressBar
+METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) CLASS HProgressBar
 
    ::Style := IIF( lvertical != NIL .AND. lVertical, PBS_VERTICAL, 0 )
    ::Style += IIF( nAnimation != NIL .AND. nAnimation > 0, PBS_MARQUEE, 0 )
    ::nAnimation := nAnimation
 
-   ::Super:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight,, bInit, bSize, bPaint, ctooltip )
+   ::Super:New(oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight,, bInit, bSize, bPaint, ctooltip)
 
    ::maxPos  := Iif( maxPos != NIL .AND. maxPos != 0, maxPos, 20 )
    ::lNewBox := .F.
@@ -57,7 +57,7 @@ METHOD New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit
 
    RETURN Self
 
-METHOD NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent ) CLASS HProgressBar
+METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent) CLASS HProgressBar
 
    // ::classname:= "HPROGRESSBAR"
    ::style := WS_CHILD + WS_VISIBLE

@@ -98,7 +98,7 @@ CLASS HColumn INHERIT HObject
    DATA aHints INIT {}
    DATA Hint INIT .F.
 
-   METHOD New( cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bColor, bClick )
+   METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bColor, bClick)
    METHOD Visible(lVisible) SETGET
    METHOD Hide()
    METHOD Show()
@@ -110,7 +110,7 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New( cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick ) CLASS HColumn
+METHOD New(cHeading, block, Type, length, dec, lEditable, nJusHead, nJusLin, cPict, bValid, bWhen, aItem, bColorBlock, bHeadClick, tcolor, bcolor, bClick) CLASS HColumn
 
    ::heading   := iif( cHeading == NIL, "", cHeading )
    ::block     := block
@@ -321,10 +321,10 @@ CLASS HBrowse INHERIT HControl
    // 2 nopersit highlighting //for current row and current cell
    // 3 nopersist when grid is not the current active control.
 
-   METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+   METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, brclick, bChgRowCol, ctooltip )
+      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, brclick, bChgRowCol, ctooltip)
    METHOD InitBrw( nType, lInit )
    METHOD Rebuild()
    METHOD Activate()
@@ -390,18 +390,18 @@ ENDCLASS
 
    //----------------------------------------------------//
 
-METHOD New( lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
+METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, bEnter, bGfocus, bLfocus, lNoVScroll, ;
       lNoBorder, lAppend, lAutoedit, bUpdate, bKeyDown, bPosChg, lMultiSelect, ;
-      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip ) CLASS HBrowse
+      lDescend, bWhile, bFirst, bLast, bFor, bOther, tcolor, bcolor, bRclick, bChgRowCol, ctooltip) CLASS HBrowse
 
    lNoVScroll := iif( lNoVScroll = NIL, .F., lNoVScroll )
    nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ;
       iif( lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0 ) +            ;
       iif( !lNoVScroll, WS_VSCROLL, 0 ) )
    nStyle -= iif( Hwg_BitAND(nStyle, WS_VSCROLL) > 0 .AND. lNoVScroll, WS_VSCROLL, 0 )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL, 0, nWidth ), ;
-      iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, ctooltip, tColor, bColor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, iif( nWidth == NIL, 0, nWidth ), ;
+      iif( nHeight == NIL, 0, nHeight ), oFont, bInit, bSize, bPaint, ctooltip, tColor, bColor)
    ::lNoVScroll := lNoVScroll
    ::Type    := lType
    IF oFont == NIL
@@ -844,7 +844,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
 
 METHOD Redefine(lType, oWndParent, nId, oFont, bInit, bSize, bPaint, bEnter, bGfocus, bLfocus) CLASS HBrowse
 
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint)
 
    ::Type    := lType
    IF oFont == NIL
@@ -3547,10 +3547,10 @@ FUNCTION hwg_CREATEARLIST( oBrw, arr )
       // oBrw:aColumns := {}
       IF ValType(arr[1]) == "A"
          FOR i := 1 TO Len(arr[1])
-            oBrw:AddColumn( HColumn():New( , hwg_ColumnArBlock() ) )
+            oBrw:AddColumn( HColumn():New(, hwg_ColumnArBlock()) )
          NEXT
       ELSE
-         oBrw:AddColumn( HColumn():New( , { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent] } ) )
+         oBrw:AddColumn( HColumn():New(, { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent] }) )
       ENDIF
    ENDIF
    Eval( oBrw:bGoTop, oBrw )
@@ -3586,12 +3586,12 @@ FUNCTION hwg_CreateList( oBrw, lEditable )
    oBrw:Alias   := Alias()
    oBrw:aColumns := { }
    FOR i := 1 TO kolf
-      oBrw:AddColumn( HColumn():New( FieldName(i),                      ;
+      oBrw:AddColumn( HColumn():New(FieldName(i),                      ;
          FieldWBlock( FieldName(i), nArea ), ;
          dbFieldInfo( DBS_TYPE, i ),         ;
          iif( dbFieldInfo( DBS_TYPE, i ) == "D" .AND. __SetCentury(), 10, dbFieldInfo( DBS_LEN, i ) ), ;
          dbFieldInfo( DBS_DEC, i ),          ;
-         lEditable ) )
+         lEditable) )
    NEXT
    oBrw:Refresh()
 

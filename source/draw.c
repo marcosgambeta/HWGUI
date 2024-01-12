@@ -68,7 +68,7 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 PHB_ITEM Rect2Array( RECT * rc )
 {
    PHB_ITEM aRect = hb_itemArrayNew(4);
-   PHB_ITEM element = hb_itemNew( NULL );
+   PHB_ITEM element = hb_itemNew(NULL);
 
    hb_arraySet( aRect, 1, hb_itemPutNL(element, rc->left) );
    hb_arraySet( aRect, 2, hb_itemPutNL(element, rc->top) );
@@ -402,7 +402,7 @@ HB_FUNC( HWG_DRAWBITMAP )
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    if( nWidthDest && ( nWidthDest != bitmap.bmWidth ||
                nHeightDest != bitmap.bmHeight ) )
    {
@@ -445,7 +445,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    // Create the mask bitmap
    bitmapTrans = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc
@@ -509,7 +509,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    RECT rc;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    GetClientRect(hwg_par_HWND(2), &rc);
 
    while( rc.top < rc.bottom )
@@ -544,7 +544,7 @@ HB_FUNC( HWG_CENTERBITMAP )
          1 ) : hwg_par_HBRUSH(5);
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    GetClientRect(hwg_par_HWND(2), &rc);
 
    FillRect(hDC, &rc, hBrush);
@@ -563,7 +563,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject( hwg_par_HBITMAP(1), sizeof( BITMAP ),
+   nret = GetObject( hwg_par_HBITMAP(1), sizeof(BITMAP),
          ( LPVOID ) & bitmap );
 
    temp = hb_itemPutNL(NULL, bitmap.bmWidth);
@@ -637,15 +637,15 @@ HB_FUNC( HWG_OPENBITMAP )
       return;
    }
    /* Retrieve the BITMAPFILEHEADER structure. */
-   ReadFile(hfbm, &bmfh, sizeof( BITMAPFILEHEADER ), &dwRead, NULL);
+   ReadFile(hfbm, &bmfh, sizeof(BITMAPFILEHEADER), &dwRead, NULL);
 
    /* Retrieve the BITMAPFILEHEADER structure. */
-   ReadFile(hfbm, &bmih, sizeof( BITMAPINFOHEADER ), &dwRead, NULL);
+   ReadFile(hfbm, &bmih, sizeof(BITMAPINFOHEADER), &dwRead, NULL);
 
    /* Allocate memory for the BITMAPINFO structure. */
 
-   hmem1 = GlobalAlloc(GHND, sizeof( BITMAPINFOHEADER ) +
-         ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ));
+   hmem1 = GlobalAlloc(GHND, sizeof(BITMAPINFOHEADER) +
+         ( ( 1 << bmih.biBitCount ) * sizeof(RGBQUAD) ));
    lpbmi = ( LPBITMAPINFO ) GlobalLock( hmem1 );
 
    /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
@@ -671,7 +671,7 @@ HB_FUNC( HWG_OPENBITMAP )
       case 4:
       case 8:
          ReadFile(hfbm, lpbmi->bmiColors,
-               ( ( 1 << bmih.biBitCount ) * sizeof( RGBQUAD ) ),
+               ( ( 1 << bmih.biBitCount ) * sizeof(RGBQUAD) ),
                &dwRead, ( LPOVERLAPPED ) NULL);
          break;
 
@@ -679,7 +679,7 @@ HB_FUNC( HWG_OPENBITMAP )
       case 32:
          if( bmih.biCompression == BI_BITFIELDS )
             ReadFile(hfbm, lpbmi->bmiColors,
-                  ( 3 * sizeof( RGBQUAD ) ), &dwRead, ( LPOVERLAPPED ) NULL);
+                  ( 3 * sizeof(RGBQUAD) ), &dwRead, ( LPOVERLAPPED ) NULL);
          break;
 
       case 24:
@@ -843,7 +843,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
    // Create the mask bitmap
    bitmapgray = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc

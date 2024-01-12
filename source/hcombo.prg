@@ -68,9 +68,9 @@ CLASS HComboBox INHERIT HControl
    DATA nMaxLength     INIT Nil
 
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, ;
-      bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength )
+      bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength)
    METHOD Activate()
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, bGFocus, bLFocus, bIChange, nDisplay, nMaxLength, ledit, ltext)
    METHOD INIT()
@@ -97,9 +97,9 @@ CLASS HComboBox INHERIT HControl
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bLFocus, ;
-      bIChange, nDisplay, nhItem, ncWidth, nMaxLength ) CLASS HComboBox
+      bIChange, nDisplay, nhItem, ncWidth, nMaxLength) CLASS HComboBox
 
    IF !Empty(nDisplay) .AND. nDisplay > 0
       nStyle := Hwg_BitOr( nStyle, CBS_NOINTEGRALHEIGHT  + WS_VSCROLL )
@@ -116,7 +116,7 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
    ENDIF
 
    nStyle := Hwg_BitOr( iif( nStyle == Nil, 0, nStyle ), iif( lEdit, CBS_DROPDOWN, CBS_DROPDOWNLIST ) + WS_TABSTOP )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor)
 
    IF lText == Nil
       lText := .F.
@@ -213,7 +213,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
       nDisplay := 6
    ENDIF
    ::lResource := .T.
-   ::Super:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip )
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip)
 
    ::nDisplay := nDisplay
 
@@ -857,9 +857,9 @@ CLASS HCheckComboBox INHERIT HComboBox
    METHOD onGetText(wParam, lParam)
    METHOD OnGetTextLength( wParam, lParam )
 
-   METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
+   METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, ;
-      tcolor, bcolor, bValid, acheck, nDisplay, nhItem, ncWidth, aImages )
+      tcolor, bcolor, bValid, acheck, nDisplay, nhItem, ncWidth, aImages)
    METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint, ;
       bChange, ctooltip, bGFocus, acheck)
    METHOD INIT()
@@ -882,9 +882,9 @@ CLASS HCheckComboBox INHERIT HComboBox
 
 ENDCLASS
 
-METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
-      bValid, acheck, nDisplay, nhItem, ncWidth, aImages ) CLASS hCheckComboBox
+      bValid, acheck, nDisplay, nhItem, ncWidth, aImages) CLASS hCheckComboBox
 
    ::acheck := iif( acheck == Nil, {}, acheck )
    ::lCheck := iif( aImages == Nil, .T. , .F. )
@@ -898,9 +898,9 @@ METHOD New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight
 
    bPaint := { | o, p | o:paint( p ) }
 
-   ::Super:New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
+   ::Super:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
-      bValid, , nDisplay, nhItem, ncWidth )
+      bValid, , nDisplay, nhItem, ncWidth)
 
    RETURN Self
 
@@ -1283,7 +1283,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
    RETURN Self
 
 METHOD MeasureItem( l ) CLASS hCheckComboBox
-   LOCAL dc                  := HCLIENTDC():new( ::handle )
+   LOCAL dc                  := HCLIENTDC():new(::handle)
    LOCAL lpMeasureItemStruct := hwg_Getmeasureiteminfo( l )
    LOCAL metrics
    LOCAL pFont

@@ -31,7 +31,7 @@ CLASS HTimer INHERIT HObject
    ACCESS Interval       INLINE ::value
    ASSIGN Interval( x )  INLINE ::value := x, hwg_Settimer( ::oParent:handle, ::id, ::value )
 
-   METHOD New( oParent, nId, value, bAction )
+   METHOD New(oParent, nId, value, bAction)
    METHOD Init()
    METHOD onAction()
    METHOD END()
@@ -39,7 +39,7 @@ CLASS HTimer INHERIT HObject
 ENDCLASS
 
 
-METHOD New( oParent, nId, value, bAction ) CLASS HTimer
+METHOD New(oParent, nId, value, bAction) CLASS HTimer
 
    ::oParent := Iif( oParent==NIL, HWindow():GetMain():oDefaultParent, oParent )
    IF nId == NIL

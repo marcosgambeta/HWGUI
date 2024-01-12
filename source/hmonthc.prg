@@ -30,9 +30,9 @@ CLASS VAR winclass   INIT "SysMonthCal32"
    DATA bChange
    DATA bSelect
 
-   METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-               oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
-               lWeekNumbers, bSelect )
+   METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+              oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
+              lWeekNumbers, bSelect)
    METHOD Activate()
    METHOD Init()
    METHOD SetValue(dValue)
@@ -45,16 +45,16 @@ ENDCLASS
 
 //--------------------------------------------------------------------------//
 
-METHOD New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
-            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
-            lWeekNumbers, bSelect ) CLASS HMonthCalendar
+METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
+           oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
+           lWeekNumbers, bSelect) CLASS HMonthCalendar
 
    nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 0 ) //WS_TABSTOP )
    nStyle   += IIf( lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY )
    nStyle   += IIf( lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE )
    nStyle   += IIf( lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS )
-   ::Super:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              ,, cTooltip )
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
+              ,, cTooltip)
 
    ::value   := IIf( ValType(vari) == "D" .And. !Empty(vari), vari, Date() )
 

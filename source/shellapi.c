@@ -90,9 +90,9 @@ HB_FUNC( HWG_SHELLNOTIFYICON )
 {
    NOTIFYICONDATA tnid;
 
-   memset( ( void * ) &tnid, 0, sizeof( NOTIFYICONDATA ) );
+   memset( ( void * ) &tnid, 0, sizeof(NOTIFYICONDATA) );
 
-   tnid.cbSize = sizeof( NOTIFYICONDATA );
+   tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = hwg_par_HWND(2);
    tnid.uID = ID_NOTIFYICON;
    tnid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
@@ -114,9 +114,9 @@ HB_FUNC( HWG_SHELLMODIFYICON )
 {
    NOTIFYICONDATA tnid;
 
-   memset( ( void * ) &tnid, 0, sizeof( NOTIFYICONDATA ) );
+   memset( ( void * ) &tnid, 0, sizeof(NOTIFYICONDATA) );
 
-   tnid.cbSize = sizeof( NOTIFYICONDATA );
+   tnid.cbSize = sizeof(NOTIFYICONDATA);
    tnid.hWnd = hwg_par_HWND(1);
    tnid.uID = ID_NOTIFYICON;
    if( HB_ISNUM(2) || HB_ISPOINTER(2) )

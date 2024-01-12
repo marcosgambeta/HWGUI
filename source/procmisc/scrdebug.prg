@@ -65,9 +65,9 @@ Local nFirst, i
           ON SIZE {|o, x, y|o:Move(,, x)}
 
       oBrwData:aArray := aWatches
-      oBrwData:AddColumn( HColumn():New( "",{|v, o|o:aArray[o:nCurrent, 1]}, "C", 30, 0 ) )
-      oBrwData:AddColumn( HColumn():New( "",{|v, o|o:aArray[o:nCurrent, 3]}, "C", 1, 0 ) )
-      oBrwData:AddColumn( HColumn():New( "",{|v, o|o:aArray[o:nCurrent, 4]}, "C", 60, 0 ) )
+      oBrwData:AddColumn( HColumn():New("", {|v, o|o:aArray[o:nCurrent, 1]}, "C", 30, 0) )
+      oBrwData:AddColumn( HColumn():New("", {|v, o|o:aArray[o:nCurrent, 3]}, "C", 1, 0) )
+      oBrwData:AddColumn( HColumn():New("", {|v, o|o:aArray[o:nCurrent, 4]}, "C", 60, 0) )
       @ 0, 4 BROWSE oBrwScript ARRAY SIZE 500, 236    ;
           FONT oScrFont STYLE WS_BORDER+WS_VSCROLL+WS_HSCROLL ;
           ON SIZE {|o, x, y|o:Move(,, x, y-oSplit:nTop-oSplit:nHeight-64)}
@@ -78,13 +78,13 @@ Local nFirst, i
       oBrwScript:aArray := aScript[3]
 #ifdef __GTK__
       oBrwScript:rowCount := 5
-      oBrwScript:AddColumn( HColumn():New( "",{|v, o|Iif(o:nCurrent==i_scr,'>', Iif(aBreakPoints!=Nil.AND.Ascan(aBreakPoints[2], oBrwScript:nCurrent)!=0,'*',' '))}, "C", 1, 0 ) )
+      oBrwScript:AddColumn(HColumn():New("", {|v, o|Iif(o:nCurrent == i_scr, '>', Iif(aBreakPoints != Nil .AND. Ascan(aBreakPoints[2], oBrwScript:nCurrent) != 0, '*', ' '))}, "C", 1, 0))
 #else
-      oBrwScript:AddColumn( HColumn():New( "",{|v, o|Iif(o:nCurrent==i_scr, 1, Iif(aBreakPoints!=Nil.AND.Ascan(aBreakPoints[2], oBrwScript:nCurrent)!=0, 2, 0))}, "N", 1, 0 ) )
+      oBrwScript:AddColumn(HColumn():New("", {|v, o|Iif(o:nCurrent == i_scr, 1, Iif(aBreakPoints != Nil .AND. Ascan(aBreakPoints[2], oBrwScript:nCurrent) != 0, 2, 0))}, "N", 1, 0))
       oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1}, oBmpCurr },{ {|n|n==2}, oBmpPoint } }
 #endif
-      oBrwScript:AddColumn( HColumn():New( "",{|v, o|Left(o:aArray[o:nCurrent], 4)}, "C", 4, 0 ) )
-      oBrwScript:AddColumn( HColumn():New( "",{|v, o|Substr(o:aArray[o:nCurrent], 6)}, "C", 80, 0 ) )
+      oBrwScript:AddColumn(HColumn():New("", {|v, o|Left(o:aArray[o:nCurrent], 4)}, "C", 4, 0))
+      oBrwScript:AddColumn(HColumn():New("", {|v, o|Substr(o:aArray[o:nCurrent], 6)}, "C", 80, 0))
 
       oBrwScript:bEnter:= {||AddBreakPoint()}
 
