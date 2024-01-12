@@ -213,8 +213,8 @@ HB_FUNC( HWG_REGCREATEKEYEX )
                           HB_PARSTRDEF( 2, &hValue, NULL ),
                           ( DWORD ) 0,
                           ( LPTSTR ) HB_PARSTRDEF( 4, &hClass, NULL ),
-                          ( DWORD ) hb_parnl(5),
-                          ( DWORD ) hb_parnl(6),
+                          hwg_par_DWORD(5),
+                          hwg_par_DWORD(6),
                           sa, &hkResult, &dwDisposition );
 
    if( nErr == ERROR_SUCCESS )

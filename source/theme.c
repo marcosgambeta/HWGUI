@@ -1920,8 +1920,8 @@ HB_FUNC( HWG_CLOSETHEMEDATA )
 HB_FUNC( HWG_TRACKMOUSEVENT )
 {
    HWND m_hWnd = hwg_par_HWND(1);
-   DWORD dwFlags = ( DWORD ) hb_parnl(2);
-   DWORD dwHoverTime = ( DWORD ) hb_parnl(3);
+   DWORD dwFlags = hwg_par_DWORD(2);
+   DWORD dwHoverTime = hwg_par_DWORD(3);
    TRACKMOUSEEVENT csTME;
 
    csTME.cbSize = sizeof( csTME );

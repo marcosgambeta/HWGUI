@@ -394,7 +394,7 @@ HB_FUNC( HWG_DRAWBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
-   DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : ( DWORD ) hb_parnl(3);
+   DWORD dwraster = ( HB_ISNIL(3) ) ? SRCCOPY : hwg_par_DWORD(3);
    HBITMAP hBitmap = hwg_par_HBITMAP(2);
    BITMAP bitmap;
    int nWidthDest = ( hb_pcount() >= 5 && !HB_ISNIL(6) ) ? hb_parni(6) : 0;
@@ -503,7 +503,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    HDC hDC =
          HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1); // TODO: pointer
    HDC hDCmem = CreateCompatibleDC(hDC);
-   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
+   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : hwg_par_DWORD(4);
    HBITMAP hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;
@@ -535,7 +535,7 @@ HB_FUNC( HWG_CENTERBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
    HDC hDCmem = CreateCompatibleDC(hDC);
-   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : ( DWORD ) hb_parnl(4);
+   DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : hwg_par_DWORD(4);
    HBITMAP hBitmap = hwg_par_HBITMAP(3);
    BITMAP bitmap;
    RECT rc;

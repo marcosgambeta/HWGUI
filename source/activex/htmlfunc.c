@@ -62,11 +62,11 @@ HB_FUNC( HWGAX_DISPLAYHTMLSTR )
 
 HB_FUNC( HWGAX_RESIZEBROWSER )
 {
-   ResizeBrowser( hwg_par_HWND(1), ( DWORD ) hb_parnl(2),
-         ( DWORD ) hb_parnl(3) );
+   ResizeBrowser( hwg_par_HWND(1), hwg_par_DWORD(2),
+         hwg_par_DWORD(3) );
 }
 
 HB_FUNC( HWGAX_DOPAGEACTION )
 {
-   DoPageAction( hwg_par_HWND(1), ( DWORD ) hb_parnl(2) );
+   DoPageAction( hwg_par_HWND(1), hwg_par_DWORD(2) );
 }

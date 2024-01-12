@@ -625,7 +625,7 @@ HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void * hStr;
    hb_retl( SetFileAttributes( HB_PARSTR(1, &hStr, NULL),
-                               ( DWORD ) hb_parnl(2) ) );
+                               hwg_par_DWORD(2) ) );
    hb_strfree(hStr);
 }
 
