@@ -133,6 +133,7 @@ extern PHB_DYNS pSym_onEvent;
 HB_EXTERN_END
 
 // macros for parameters
+
 #define hwg_par_HWND(n)       (HWND) HB_PARHANDLE(n)
 #define hwg_par_HDC(n)        (HDC) HB_PARHANDLE(n)
 #define hwg_par_HMENU(n)      (HMENU) HB_PARHANDLE(n)
@@ -141,3 +142,5 @@ HB_EXTERN_END
 #define hwg_par_HBRUSH(n)     (HBRUSH) HB_PARHANDLE(n)
 #define hwg_par_COLORREF(n)   (COLORREF) hb_parnl(n)
 #define hwg_par_HRGN(n)       (HRGN) HB_PARHANDLE(n)
+
+#define hwg_par_DWORD(n)     (DWORD) hb_parnl(n)
