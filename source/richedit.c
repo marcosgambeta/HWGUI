@@ -417,7 +417,7 @@ HB_FUNC( HWG_PRINTRTF )
     fr.rc.top = 1440* cyPhysOffset/ppi_y;
     fr.rc.bottom = 1440 * (cyPhysOffset + cyPhys)/ppi_y;
 
-    SendMessage(hwnd, EM_SETSEL, 0, (LPARAM) -1 );
+    SendMessage(hwnd, EM_SETSEL, 0, -1 );
     SendMessage(hwnd, EM_EXGETSEL, 0, (LPARAM)&fr.chrg);
     while (fr.chrg.cpMin < fr.chrg.cpMax && fSuccess) 
     {

@@ -53,6 +53,6 @@ HB_FUNC( HWG_CREATELISTBOX )
 
 HB_FUNC( HWG_LISTBOXDELETESTRING )
 {
-   SendMessage(hwg_par_HWND(1), LB_DELETESTRING, 0, ( LPARAM ) 0);
+   SendMessage(hwg_par_HWND(1), LB_DELETESTRING, 0, 0);
 }
 

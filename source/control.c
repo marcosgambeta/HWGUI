@@ -147,7 +147,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
          ( HMENU ) NULL, GetModuleHandle(NULL), NULL );
 
    SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM( 0, hb_parni(2) ));
-   SendMessage(hPBar, PBM_SETSTEP, ( WPARAM ) 1, 0);
+   SendMessage(hPBar, PBM_SETSTEP, 1, 0);
 
    HB_RETHANDLE(hPBar);
 }
@@ -655,7 +655,7 @@ HB_FUNC( HWG_SETDATEPICKER )
 HB_FUNC( HWG_SETDATEPICKERNULL )
 {
    SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE,
-                ( LPARAM ) 0);
+                0);
 }
 
 HB_FUNC( HWG_GETDATEPICKER )
@@ -2062,7 +2062,7 @@ static BOOL _AddBar( HWND pParent, HWND pBar, REBARBANDINFO * pRBBI )
    pRBBI->cxMinChild = size.cx;
    pRBBI->cyMinChild = size.cy;
    bResult =
-         SendMessage(pParent, RB_INSERTBAND, ( WPARAM ) - 1,
+         SendMessage(pParent, RB_INSERTBAND, -1,
          ( LPARAM ) pRBBI);
 
    return bResult;

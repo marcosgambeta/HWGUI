@@ -344,7 +344,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    {
       case 0:
          if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_INSERTITEM,
-                          ( WPARAM ) 0, ( LPARAM ) & lvi) == -1 )
+                          0, ( LPARAM ) & lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
@@ -352,7 +352,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
       case 1:
          if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_SETITEM,
-                          ( WPARAM ) 0, ( LPARAM ) & lvi) == FALSE )
+                          0, ( LPARAM ) & lvi) == FALSE )
             iResult = 0;
          else
             iResult = 1;
@@ -370,7 +370,7 @@ HB_FUNC( HWG_LISTVIEWSELECTALL )
    HWND hList = hwg_par_HWND(1);
 
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
-   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) - 1, FALSE);
+   SendMessage(hList, LVM_ENSUREVISIBLE, -1, FALSE);
    ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
    hb_retl(1);
 }
@@ -380,7 +380,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    HWND hList = hwg_par_HWND(1);
    int items;
 
-   items = SendMessage(hList, LVM_GETITEMCOUNT, ( WPARAM ) 0, ( LPARAM ) 0);
+   items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
    items--;
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
    SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE);
