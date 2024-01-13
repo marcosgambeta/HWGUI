@@ -140,7 +140,7 @@ METHOD INIT() CLASS HControl
       ENDIF
       IF ISBLOCK( ::bInit )
          ::oparent:lSuspendMsgsHandling := .T.
-         Eval( ::bInit, Self )
+         Eval(::bInit, Self)
          ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
       IF ::lnoThemes
@@ -486,11 +486,11 @@ METHOD Notify( lParam ) CLASS HStatus
    CASE nCode == NM_CLICK
    CASE nCode == NM_DBLCLK
       IF ::bdblClick != NIL
-         Eval( ::bdblClick, Self, nParts )
+         Eval(::bdblClick, Self, nParts)
       ENDIF
    CASE nCode == NM_RCLICK
       IF ::bRClick != NIL
-         Eval( ::bRClick, Self, nParts )
+         Eval(::bRClick, Self, nParts)
       ENDIF
    ENDCASE
 

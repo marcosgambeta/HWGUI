@@ -190,7 +190,7 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
    LOCAL aCord
 
    IF hwg_Getnotifycode ( lParam ) = LVN_KEYDOWN .AND. oCtrl:bKeydown != nil
-      Eval( oCtrl:bKeyDown, oCtrl, hwg_Listview_getgridkey( lParam ) )
+      Eval(oCtrl:bKeyDown, oCtrl, hwg_Listview_getgridkey( lParam ))
 
    ELSEIF hwg_Getnotifycode ( lParam ) == NM_DBLCLK .AND. oCtrl:bEnter != nil
       aCord := hwg_Listview_hittest( oCtrl:handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(oCtrl:handle)[2], ;
@@ -198,19 +198,19 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
       oCtrl:nRow := aCord[1]
       oCtrl:nCol := aCord[2]
 
-      Eval( oCtrl:bEnter, oCtrl )
+      Eval(oCtrl:bEnter, oCtrl)
 
    ELSEIF hwg_Getnotifycode ( lParam ) == NM_SETFOCUS .AND. oCtrl:bGfocus != nil
-      Eval( oCtrl:bGfocus, oCtrl )
+      Eval(oCtrl:bGfocus, oCtrl)
 
    ELSEIF hwg_Getnotifycode ( lParam ) == NM_KILLFOCUS .AND. oCtrl:bLfocus != nil
-      Eval( oCtrl:bLfocus, oCtrl )
+      Eval(oCtrl:bLfocus, oCtrl)
 
    ELSEIF hwg_Getnotifycode ( lParam ) = LVN_ITEMCHANGED
       oCtrl:nRow := oCtrl:Row()
 
       IF oCtrl:bPosChg != nil
-         Eval( oCtrl:bPosChg, oCtrl, hwg_Listview_getfirstitem( oCtrl:handle ) )
+         Eval(oCtrl:bPosChg, oCtrl, hwg_Listview_getfirstitem( oCtrl:handle ))
       ENDIF
 
    ELSEIF hwg_Getnotifycode ( lParam ) = LVN_GETDISPINFO .AND. oCtrl:bDispInfo != nil
@@ -219,7 +219,7 @@ FUNCTION hwg_ListViewNotify( oCtrl, lParam )
       oCtrl:nRow := aCord[1]
       oCtrl:nCol := aCord[2]
 
-      hwg_Listview_setdispinfo( lParam, Eval( oCtrl:bDispInfo, oCtrl, oCtrl:nRow, oCtrl:nCol ) )
+      hwg_Listview_setdispinfo( lParam, Eval(oCtrl:bDispInfo, oCtrl, oCtrl:nRow, oCtrl:nCol) )
 
    ENDIF
    RETURN 0

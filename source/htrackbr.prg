@@ -89,7 +89,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
 
    IF msg == WM_PAINT
       IF ::bPaint != NIL
-         Eval( ::bPaint, Self )
+         Eval(::bPaint, Self)
          RETURN 0
       ENDIF
    ELSEIF msg == WM_MOUSEMOVE
@@ -116,7 +116,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
           RETURN 0
       ENDIF
    ELSEIF ::bOther != NIL
-      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+      RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
    RETURN - 1

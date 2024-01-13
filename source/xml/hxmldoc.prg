@@ -61,7 +61,7 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
       IF cType == Nil .OR. cType == "C"
          Return ::aAttr[i, 2]
       ELSEIF cType == "N"
-         Return Val( ::aAttr[i, 2] )
+         Return Val(::aAttr[i, 2])
       ELSEIF cType == "L"
          Return ( Lower( ::aAttr[i, 2] ) $ ".t.;on.yes" )
       ENDIF
@@ -189,7 +189,7 @@ Local i
          EXIT
       ELSE
          nStart := i
-         IF block == Nil .OR. Eval( block,::aItems[i] )
+         IF block == Nil .OR. Eval(block,::aItems[i])
             Return ::aItems[i]
          ELSE
             nStart ++

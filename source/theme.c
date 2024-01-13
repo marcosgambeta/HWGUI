@@ -86,7 +86,7 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd );
 void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd );
 
 static int image_top( int cy, const RECT * Rect, DWORD style );
-static int image_left( int cx, const RECT * Rect, DWORD style );
+static int image_left(int cx, const RECT * Rect, DWORD style);
 
 typedef HTHEME ( __stdcall * PFNOPENTHEMEDATA ) ( HWND hwnd,
       LPCWSTR pszClassList );
@@ -1238,7 +1238,7 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    GetDIBits( hDC, hBitmap, 0, 0, NULL, &bmi, DIB_RGB_COLORS );
 
    // determine position of top-left corner of bitmap (positioned according to style)
-   x = image_left( bmi.bmiHeader.biWidth, Rect, style );
+   x = image_left(bmi.bmiHeader.biWidth, Rect, style);
    y = image_top( bmi.bmiHeader.biHeight, Rect, style );
 
    // Draw the bitmap
@@ -1283,7 +1283,7 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    }
 
    // determine position of top-left corner of icon
-   x = image_left( cx, Rect, style );
+   x = image_left(cx, Rect, style);
    y = image_top( cy, Rect, style );
    // Draw the icon
    DrawState(hDC, NULL, NULL, ( LPARAM ) hIcon, 0, x, y, cx, cy,
@@ -1293,7 +1293,7 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 
 // calcultate the left position of the image so it is drawn on left, right or centred (the default)
 // as dictated by the style settings.
-static int image_left( int cx, const RECT * Rect, DWORD style )
+static int image_left(int cx, const RECT * Rect, DWORD style)
 {
    int x;
 

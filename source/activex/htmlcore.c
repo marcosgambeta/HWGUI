@@ -2675,10 +2675,10 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
                // put_Height(). Note that we reference the IWebBrowser2 object's
                // VTable to get pointers to those functions. And also note that
                // the first arg we pass to each is the pointer to the IWebBrowser2 object.
-               webBrowser2->lpVtbl->put_Left( webBrowser2, 0 );
-               webBrowser2->lpVtbl->put_Top( webBrowser2, 0 );
-               webBrowser2->lpVtbl->put_Width( webBrowser2, rect.right );
-               webBrowser2->lpVtbl->put_Height( webBrowser2, rect.bottom );
+               webBrowser2->lpVtbl->put_Left(webBrowser2, 0);
+               webBrowser2->lpVtbl->put_Top(webBrowser2, 0);
+               webBrowser2->lpVtbl->put_Width(webBrowser2, rect.right);
+               webBrowser2->lpVtbl->put_Height(webBrowser2, rect.bottom);
 
                // We no longer need the IWebBrowser2 object (ie, we don't plan
                // to call any more functions in it right now, so we can release

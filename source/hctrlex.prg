@@ -142,7 +142,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
    LOCAL nEval, pos
 
    IF ::bOther != NIL
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != - 1 .AND. nEval != NIL
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF
@@ -225,7 +225,7 @@ METHOD onClick()  CLASS HStaticEx
 
    IF ::bClick != NIL
       //::oParent:lSuspendMsgsHandling := .T.
-      Eval( ::bClick, Self, ::id )
+      Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -234,7 +234,7 @@ METHOD onClick()  CLASS HStaticEx
 METHOD onDblClick()  CLASS HStaticEx
 
    IF ::bDblClick != NIL
-      Eval( ::bDblClick, Self, ::id )
+      Eval(::bDblClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -391,7 +391,7 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
 METHOD onClick()  CLASS HButtonX
 
    IF ::bClick != NIL
-      Eval( ::bClick, Self, ::id )
+      Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -417,7 +417,7 @@ METHOD onGetFocus()  CLASS HButtonX
    IF ::bGetFocus != NIL
       nSkip := iif( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
       ::oParent:lSuspendMsgsHandling := .T.
-      res := Eval( ::bGetFocus, ::title, Self )
+      res := Eval(::bGetFocus, ::title, Self)
       ::oParent:lSuspendMsgsHandling := .F.
       IF res != NIL .AND.  Empty(res)
          hwg_WhenSetFocus( Self, nSkip )
@@ -437,7 +437,7 @@ METHOD onLostFocus()  CLASS HButtonX
    ::lnoWhen := .F.
    IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform( Self ):Handle )
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval( ::bLostFocus, ::title, Self )
+      Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -655,7 +655,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       RETURN 0
    ENDIF
    IF ::bOther != NIL
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != - 1 .AND. nEval != NIL
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF

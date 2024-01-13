@@ -132,9 +132,9 @@ METHOD New(oPorta) CLASS PrintDos
                hwg_Msginfo( "Error, file to:ERROR.TXT" )
                ::oPorta := "Error.txt"
             ELSE
-               oPtrName := AllTrim( oPtrName )
+               oPtrName := AllTrim(oPtrName)
                IF SubStr(oPtrName, 1, 3) == "LPT"
-                  oPtrName := Left( oPtrName, Len(oPtrName) - 1 )
+                  oPtrName := Left(oPtrName, Len(oPtrName) - 1)
                ENDIF
                ::oPorta := oPtrName
             ENDIF
@@ -169,31 +169,31 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
    oStr := Chr( Val ( oComm1 ) )
 
    IF oComm2  != NIL
-      oStr += Chr( Val( oComm2 ) )
+      oStr += Chr( Val(oComm2) )
    ENDIF
    IF oComm3  != NIL
-      oStr += Chr( Val( oComm3 ) )
+      oStr += Chr( Val(oComm3) )
    ENDIF
    IF oComm4  != NIL
-      oStr += Chr( Val( oComm4 ) )
+      oStr += Chr( Val(oComm4) )
    ENDIF
    IF oComm5  != NIL
-      oStr += Chr( Val( oComm5 ) )
+      oStr += Chr( Val(oComm5) )
    ENDIF
    IF oComm6  != NIL
-      oStr += Chr( Val( oComm6 ) )
+      oStr += Chr( Val(oComm6) )
    ENDIF
    IF oComm7  != NIL
-      oStr += Chr( Val( oComm7 ) )
+      oStr += Chr( Val(oComm7) )
    ENDIF
    IF oComm8  != NIL
-      oStr += Chr( Val( oComm8 ) )
+      oStr += Chr( Val(oComm8) )
    ENDIF
    IF oComm9  != NIL
-      oStr += Chr( Val( oComm9 ) )
+      oStr += Chr( Val(oComm9) )
    ENDIF
    IF oComm10 != NIL
-      oStr += Chr( Val( oComm10 ) )
+      oStr += Chr( Val(oComm10) )
    ENDIF
 
 
@@ -226,10 +226,10 @@ METHOD Eject()   CLASS PrintDos
    FWrite(::gText, ::oText)
 
    IF ::oAns2Oem
-      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val( ::cEject ) ) ))
+      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val(::cEject) ) ))
       FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) ))
    ELSE
-      FWrite(::gText, Chr(13) + Chr(10) + Chr( Val( ::cEject ) ))
+      FWrite(::gText, Chr(13) + Chr(10) + Chr( Val(::cEject) ))
       FWrite(::gText, Chr(13) + Chr(10))
    ENDIF
 
@@ -362,7 +362,7 @@ METHOD PrinterFile(fname) CLASS PrintDos
             EXIT
          ENDIF
 
-         IF FWrite(::gText, Left( strbuf, nRead )) < nRead
+         IF FWrite(::gText, Left(strbuf, nRead)) < nRead
             ::ErrosAnt := FError()
             FClose(han)
             RETURN .F.
@@ -427,7 +427,7 @@ METHOD TxttoGraphic(fName, osize, oPreview) CLASS PrintDos
             oCol := oCol + ( osize + 2 )   //Added by  Por Fernando Athayde
          ENDIF
 
-         IF Left( stroka, 1 ) == Chr(12)
+         IF Left(stroka, 1) == Chr(12)
             oPrinter:EndPage()
             oPrinter:StartPage()
             oCol := 0  //Added by  Por Fernando Athayde
@@ -469,7 +469,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
          ELSE
             oText[oPage] += stroka + Chr(13) + Chr(10)
          ENDIF
-         IF Left( stroka, 1 ) == Chr(12)
+         IF Left(stroka, 1) == Chr(12)
             AAdd(oText, "")
             ++ oPage
          ENDIF

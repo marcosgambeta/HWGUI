@@ -142,7 +142,7 @@ METHOD Init() CLASS HDatePicker
 METHOD OnEvent( msg, wParam, lParam ) CLASS HDatePicker
 
    IF ::bOther != NIL
-      IF Eval( ::bOther, Self, msg, wParam, lParam ) != -1
+      IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
    ENDIF
@@ -208,7 +208,7 @@ METHOD SetValue(xValue) CLASS HDatePicker
    ::tValue := hwg_Gettimepicker( ::handle )
    ::title := IIF( ::lShowTime, ::tValue, ::dValue )
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self )
+      Eval(::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self)
    ENDIF
 
    RETURN NIL
@@ -217,9 +217,9 @@ METHOD Refresh() CLASS HDatePicker
 
    IF ::bSetGet != NIL
       IF !::lShowTime
-         ::dValue := Eval( ::bSetGet,, Self )
+         ::dValue := Eval(::bSetGet,, Self)
       ELSE
-         ::tValue := Eval( ::bSetGet,, Self )
+         ::tValue := Eval(::bSetGet,, Self)
       ENDIF
    ENDIF
    IF Empty(::dValue) .AND. !::lShowTime
@@ -244,11 +244,11 @@ METHOD onChange(nMess) CLASS HDatePicker
       ::dValue := hwg_Getdatepicker( ::handle )
       ::tValue := hwg_Gettimepicker( ::handle )
       IF ::bSetGet != NIL
-         Eval( ::bSetGet, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+         Eval(::bSetGet, IIF( ::lShowTime, ::tValue, ::dValue ), Self)
       ENDIF
       IF ::bChange != NIL
          ::oparent:lSuspendMsgsHandling := .T.
-         Eval( ::bChange, IIF( ::lShowTime, ::tValue, ::dValue), Self )
+         Eval(::bChange, IIF( ::lShowTime, ::tValue, ::dValue), Self)
          ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
    ENDIF
@@ -265,7 +265,7 @@ METHOD When() CLASS HDatePicker
       nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
-      res :=  Eval( ::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+      res :=  Eval(::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self)
       ::lnoValid := !res
       ::oParent:lSuspendMsgsHandling := .F.
       IF VALTYPE(res) = "L" .AND. !res
@@ -286,11 +286,11 @@ METHOD Valid() CLASS HDatePicker
    ENDIF
    ::dValue := hwg_Getdatepicker( ::handle )
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self )
+      Eval(::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self)
    ENDIF
    IF ::bLostFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.
-      res := Eval( ::bLostFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+      res := Eval(::bLostFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self)
       res := IIF( ValType(res) == "L", res, .T. )
       ::oparent:lSuspendMsgsHandling := .F.
       IF !res

@@ -237,7 +237,7 @@ Local xRes, bOldError, lRes := .T., cType
 
    bOldError := ERRORBLOCK( { | e | MacroError(e) } )
    BEGIN SEQUENCE
-      xRes := Eval( aWatches[n, 2] )
+      xRes := Eval(aWatches[n, 2])
    RECOVER
       lRes := .F.
    END SEQUENCE

@@ -318,7 +318,7 @@ Static aCodes := {   ;
    { Chr(27)+'G',,,,, .T., },  ;     /* bold */
    { Chr(27)+'H',,,, .F.,, }   ;     /* cancel bold */
  }
-Local i, sLen := Len(aCodes), c := Left( cLine, 1 )
+Local i, sLen := Len(aCodes), c := Left(cLine, 1)
 
    FOR i := 1 TO sLen
       IF Left(aCodes[i, 1], 1) == c .AND. At( aCodes[i, 1], Left(cLine, 3) ) == 1

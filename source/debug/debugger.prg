@@ -291,7 +291,7 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
       xResult := oErr:operation + ": " + oErr:description
       IF HB_ISARRAY( oErr:args )
          xResult += "; arguments:"
-         AEval( oErr:args, {| x | xResult += " " + AllTrim( __dbgValToStr(x) ) } )
+         AEval(oErr:args, {| x | xResult += " " + AllTrim(__dbgValToStr(x)) })
       ENDIF
       lValid := .F.
    END SEQUENCE
@@ -418,8 +418,8 @@ METHOD HandleEvent() CLASS HBDebugger
             hwg_dbg_Answer( "valueareas", SendAreas() )
 
       CASE nKey == CMD_CALC
-         IF Left( p1, 1 ) == "?"
-            p1 := Ltrim( Substr(p1, Iif( Left(p1, 2) == "??", 3, 2 )) )
+         IF Left(p1, 1) == "?"
+            p1 := Ltrim(Substr(p1, Iif( Left(p1, 2) == "??", 3, 2 )))
          ENDIF
          hwg_dbg_Answer( "value", __dbgValToStr(::GetExprValue(p1)) )
 
@@ -493,7 +493,7 @@ METHOD ShowCodeLine(nProc) CLASS HBDebugger
 
 METHOD VarGetInfo( aVar ) CLASS HBDebugger
 
-   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
+   LOCAL cType := Left(aVar[VAR_TYPE], 1)
    LOCAL uValue := ::VarGetValue(aVar)
 
    DO CASE
@@ -510,7 +510,7 @@ METHOD VarGetInfo( aVar ) CLASS HBDebugger
 
 METHOD VarGetValue(aVar) CLASS HBDebugger
 
-   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
+   LOCAL cType := Left(aVar[VAR_TYPE], 1)
 
    DO CASE
    CASE cType == "G" ; RETURN __dbgVMVarGGet(aVar[VAR_LEVEL], aVar[VAR_POS])
@@ -527,7 +527,7 @@ METHOD VarGetValue(aVar) CLASS HBDebugger
 METHOD VarSetValue(aVar, uValue) CLASS HBDebugger
 
    LOCAL nProcLevel
-   LOCAL cType := Left( aVar[VAR_TYPE], 1 )
+   LOCAL cType := Left(aVar[VAR_TYPE], 1)
 
    IF cType == "G"
       __dbgVMVarGSet( aVar[VAR_LEVEL], aVar[VAR_POS], uValue )
@@ -557,7 +557,7 @@ STATIC FUNCTION SendStack()
 Local aStack := t_oDebugger:aProcStack
 Local arr := Array( Len(aStack) * 3 + 1 ), i, j := 2
 
-   arr[1] := Ltrim( Str(Len(aStack)) )
+   arr[1] := Ltrim(Str(Len(aStack)))
    FOR i := 1 TO Len(aStack)
       arr[j++] := Iif( Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE] )
       arr[j++] := Iif( Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION] )
@@ -570,14 +570,14 @@ STATIC FUNCTION SendLocal()
 Local aVars := t_oDebugger:aProcStack[1, CSTACK_LOCALS]
 Local arr := Array( Len(aVars) * 3 + 1 ), i, j := 1, xVal
 
-   arr[1] := Ltrim( Str(Len(aVars)) )
+   arr[1] := Ltrim(Str(Len(aVars)))
    FOR i := 1 TO Len(aVars)
       arr[++j] := aVars[i, VAR_NAME]
       xVal := __dbgvmVarLGet(__dbgprocLevel() - aVars[i, VAR_LEVEL], aVars[i, VAR_POS])
       arr[++j] := Valtype(xVal)
       arr[++j] := __dbgValToStr(xVal)
       IF Len(arr[j]) > VAR_MAX_LEN
-         arr[j] := Left( arr[j], VAR_MAX_LEN )
+         arr[j] := Left(arr[j], VAR_MAX_LEN)
       ENDIF
    NEXT
 
@@ -586,7 +586,7 @@ Local arr := Array( Len(aVars) * 3 + 1 ), i, j := 1, xVal
 STATIC FUNCTION SendWatch()
 Local arr := Array( t_oDebugger:nWatches + 1 ), i
 
-   arr[1] := Ltrim( Str(t_oDebugger:nWatches) )
+   arr[1] := Ltrim(Str(t_oDebugger:nWatches))
 
    FOR i := 1 TO t_oDebugger:nWatches
       arr[i+1] := __dbgValToStr(t_oDebugger:GetExprValue(i))
@@ -632,7 +632,7 @@ Local arr, arr1[512], n, i, nAreas := 0, nAlias
 
 /* Check if a string starts with another string */
 STATIC FUNCTION starts( cLine, cStart )
-   RETURN cStart == Left( cLine, Len(cStart) )
+   RETURN cStart == Left(cLine, Len(cStart))
 
 
 /* Strip path from filename */

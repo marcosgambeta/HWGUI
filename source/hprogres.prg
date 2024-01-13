@@ -126,7 +126,7 @@ METHOD STEP( cTitle )
       ::SET( cTitle )
       IF !EMPTY(::lPercent)
          ::nPercent += ::maxPos  //::nLimit
-         ::setLabel( LTRIM( STR(::nPercent, 3) ) + " %" )
+         ::setLabel( LTRIM(STR(::nPercent, 3)) + " %" )
       ENDIF
       RETURN .T.
    ENDIF

@@ -117,7 +117,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
    LOCAL oCtrl
 
    IF ::bOther != NIL
-      IF Eval( ::bOther, Self, msg, wParam, lParam ) != -1
+      IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
    ENDIF
@@ -165,7 +165,7 @@ METHOD SetValue(lValue) CLASS HCheckButton
    hwg_Sendmessage(::handle, BM_SETCHECK, IIF( EMPTY(lValue), 0, 1 ), 0)
    ::lValue := IIF( lValue = NIL .OR. Valtype(lValue) != "L", .F., lValue )
    IF ::bSetGet != NIL
-       Eval( ::bSetGet, lValue, Self )
+       Eval(::bSetGet, lValue, Self)
    ENDIF
    ::Refresh()
 
@@ -183,7 +183,7 @@ METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != NIL
-      var :=  Eval( ::bSetGet,, Self )
+      var :=  Eval(::bSetGet,, Self)
       IF var = NIL .OR. Valtype(var) != "L"
          var := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1
       ENDIF
@@ -242,7 +242,7 @@ METHOD killFocus() CLASS HCheckButton
    ENDIF
    IF ::bLostFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval( ::bLostFocus, Self, ::lValue )
+      Eval(::bLostFocus, Self, ::lValue)
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -259,9 +259,9 @@ METHOD When() CLASS HCheckButton
       ::lnoValid := .T.
       ::oParent:lSuspendMsgsHandling := .T.
       IF ::bSetGet != NIL
-         res := Eval( ::bGetFocus, Eval( ::bSetGet, , Self ), Self )
+         res := Eval(::bGetFocus, Eval(::bSetGet, , Self), Self)
       ELSE
-         res := Eval( ::bGetFocus,::lValue, Self )
+         res := Eval(::bGetFocus,::lValue, Self)
       ENDIF
       ::lnoValid := !res
       IF !res
@@ -286,11 +286,11 @@ METHOD Valid() CLASS HCheckButton
       ::lValue := ( l == 1 )
    ENDIF
    IF ::bSetGet != NIL
-      Eval( ::bSetGet, ::lValue, Self )
+      Eval(::bSetGet, ::lValue, Self)
    ENDIF
    IF ::bClick != NIL
       ::oparent:lSuspendMsgsHandling := .T.
-       Eval( ::bClick, Self, ::lValue )
+       Eval(::bClick, Self, ::lValue)
        ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
    IF EMPTY(hwg_Getfocus())

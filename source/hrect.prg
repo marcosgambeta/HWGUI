@@ -337,7 +337,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize
    ::Activate()
    IF ::bLoad != NIL
       // SET ENVIRONMENT
-      Eval( ::bLoad, Self )
+      Eval(::bLoad, Self)
    ENDIF
    ::oPen := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
 
@@ -386,7 +386,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HContainer
    LOCAL nEval
 
    IF ::bOther != NIL
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam ) ) != NIL .AND. nEval != -1
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != NIL .AND. nEval != -1
          RETURN 0
       ENDIF
    ENDIF

@@ -199,7 +199,7 @@ static void     hb_dbgAddStatic(HB_DEBUGINFO * info, const char * szName, int nI
 static void     hb_dbgAddVar(int * nVars, HB_VARINFO ** aVars, const char * szName, char cType, int nIndex, int nFrame, PHB_ITEM pFrame);
 static void     hb_dbgAddStopLines( PHB_ITEM pItem );
 static void     hb_dbgEndProc(HB_DEBUGINFO * info);
-static PHB_ITEM hb_dbgEval( HB_DEBUGINFO * info, HB_WATCHPOINT * watch );
+static PHB_ITEM hb_dbgEval(HB_DEBUGINFO * info, HB_WATCHPOINT * watch);
 static PHB_ITEM hb_dbgEvalMacro( const char * szExpr, PHB_ITEM pItem );
 static PHB_ITEM hb_dbgEvalMakeBlock( HB_WATCHPOINT * watch );
 static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO * info, HB_WATCHPOINT * watch);
@@ -440,7 +440,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
             HB_TRACEPOINT * tp = &info->aTrace[i];
             PHB_ITEM xValue;
 
-            xValue = hb_dbgEval( info, &info->aWatch[tp->nIndex] );
+            xValue = hb_dbgEval(info, &info->aWatch[tp->nIndex]);
             if( !xValue )
                xValue = hb_itemNew(NULL);
 
@@ -830,7 +830,7 @@ void hb_dbgAddWatch( void * handle, const char * szExpr, HB_BOOL bTrace )
      HB_TRACEPOINT * pTrace = ARRAY_ADD(HB_TRACEPOINT, info->aTrace, info->nTracePoints);
 
      pTrace->nIndex = info->nWatchPoints - 1;
-     pTrace->xValue = hb_dbgEval( info, pWatch );
+     pTrace->xValue = hb_dbgEval(info, pWatch);
    }
 }
 
@@ -943,7 +943,7 @@ static HB_BOOL hb_dbgEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
 }
 
 
-static PHB_ITEM hb_dbgEval( HB_DEBUGINFO * info, HB_WATCHPOINT * watch )
+static PHB_ITEM hb_dbgEval(HB_DEBUGINFO * info, HB_WATCHPOINT * watch)
 {
    PHB_ITEM xResult = NULL;
 
@@ -1341,7 +1341,7 @@ PHB_ITEM hb_dbgGetExpressionValue(void * handle, const char *expression)
    point.pBlock = NULL;
    point.nVars = 0;
 
-   result = hb_dbgEval( info, &point );
+   result = hb_dbgEval(info, &point);
 
    hb_dbgClearWatch( &point );
 
@@ -1373,7 +1373,7 @@ PHB_ITEM hb_dbgGetWatchValue(void * handle, int nWatch)
 {
    HB_DEBUGINFO * info = ( HB_DEBUGINFO * ) handle;
 
-   return hb_dbgEval( info, &( info->aWatch[nWatch] ) );
+   return hb_dbgEval(info, &(info->aWatch[nWatch]));
 }
 
 
@@ -1573,7 +1573,7 @@ void hb_dbgSetWatch( void * handle, int nWatch, const char * szExpr, HB_BOOL bTr
       HB_TRACEPOINT * pTrace = ARRAY_ADD(HB_TRACEPOINT, info->aTrace, info->nTracePoints);
 
       pTrace->nIndex = nWatch;
-      pTrace->xValue = hb_dbgEval( info, pWatch );
+      pTrace->xValue = hb_dbgEval(info, pWatch);
    }
 }
 

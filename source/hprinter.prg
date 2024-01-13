@@ -301,7 +301,7 @@ METHOD StartPage() CLASS HPrinter
    LOCAL fname
 
    IF ::lPreview
-      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim( Str(Len(::aMeta) + 1) ) + ".emf", NIL )
+      fname := IIf( ::cMetaName != NIL, ::cMetaName + LTrim(Str(Len(::aMeta) + 1)) + ".emf", NIL )
       AAdd(::aMeta, hwg_CreateMetaFile(::hDCPrn, fname))
       ::hDC := ATail( ::aMeta )
    ELSE

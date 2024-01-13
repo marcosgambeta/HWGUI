@@ -140,7 +140,7 @@ FUNCTION hwg_ReadStatus( oWnd, nPart )
 FUNCTION hwg_VColor(cColor)
 
    LOCAL i, res := 0, n := 1, iValue
-   cColor := Trim( cColor )
+   cColor := Trim(cColor)
    FOR i := 1 TO Len(cColor)
       iValue := Asc(SubStr(cColor, Len(cColor) - i + 1, 1))
       IF iValue < 58 .AND. iValue > 47
@@ -160,7 +160,7 @@ FUNCTION hwg_VColor(cColor)
 FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
 
    LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, - 13)
-   LOCAL cRes := IIf( cResIni != Nil, Trim( cResIni ), "" )
+   LOCAL cRes := IIf( cResIni != Nil, Trim(cResIni), "" )
    nStyle := IIf( nStyle == Nil, 0, nStyle )
    x := IIf( x == Nil, 210, x )
    y := IIf( y == Nil, 10, y )
@@ -180,7 +180,7 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
 
    oFont:Release()
    IF oModDlg:lResult
-      RETURN Trim( cRes )
+      RETURN Trim(cRes)
    ELSE
       cRes := ""
    ENDIF
@@ -402,7 +402,7 @@ FUNCTION hwg_SetHelpFileName ( cNewName )
 FUNCTION hwg_RefreshAllGets( oDlg )
 
 
-   AEval( oDlg:GetList, { | o | o:Refresh() } )
+   AEval(oDlg:GetList, { | o | o:Refresh() })
    RETURN Nil
 
 /*
@@ -434,7 +434,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
 
    nAt := At( Chr(0) + Chr(0), cFile )
    IF nAt != 0
-      cFile := Left( cFile, nAt - 1 )
+      cFile := Left(cFile, nAt - 1)
       nAt := At( Chr(0), cFile )
       IF nAt != 0
          /* skip path which is already in cPath variable */
@@ -444,7 +444,7 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
             nAt := At( Chr(0), cFile )
             IF nAt != 0
                AAdd(aFiles, cPath + hb_osPathSeparator() + ;
-                             Left( cFile, nAt - 1 ))
+                             Left(cFile, nAt - 1))
                cFile := SubStr(cFile, nAt + 1)
             ELSE
                AAdd(aFiles, cPath + hb_osPathSeparator() + cFile)
@@ -568,7 +568,7 @@ LOCAL oParent, nCtrl, nPos
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
          nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
          IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
-            Eval( oParent:KeyList[nPos, 3], oCtrl )
+            Eval(oParent:KeyList[nPos, 3], oCtrl)
             RETURN .T.
          ENDIF
       ENDIF

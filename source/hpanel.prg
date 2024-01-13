@@ -180,7 +180,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
       RETURN 0
    ENDIF
    IF ::bOther != NIL
-      IF Valtype(nRet := Eval( ::bOther, Self, msg, wParam, lParam )) != "N"
+      IF Valtype(nRet := Eval(::bOther, Self, msg, wParam, lParam)) != "N"
          nRet := IIF( VALTYPE(nRet) = "L" .AND. !nRet, 0, -1 )
       ENDIF
       IF nRet >= 0
@@ -214,7 +214,7 @@ METHOD Paint() CLASS HPanel
    LOCAL pps, hDC, aCoors, oPenLight, oPenGray
 
    IF ::bPaint != NIL
-      Eval( ::bPaint, Self )
+      Eval(::bPaint, Self)
       RETURN NIL
    ENDIF
    pps    := hwg_Definepaintstru()

@@ -157,7 +157,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
    LOCAL nEval
 
    IF ::bOther != Nil
-      IF (nEval := Eval( ::bOther, Self, msg, wParam, lParam )) != -1 .AND. nEval != Nil
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != Nil
          RETURN 0
       ENDIF
    ENDIF
@@ -171,7 +171,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
       ENDIF
          IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == 'B'
          ::oparent:lSuspendMsgsHandling := .T.
-         nEval := Eval( ::bKeyDown, Self, wParam )
+         nEval := Eval(::bKeyDown, Self, wParam)
          IF (VALTYPE(nEval) == "L" .AND. !nEval ) .OR. ( nEval != -1 .AND. nEval != Nil )
             ::oparent:lSuspendMsgsHandling := .F.
             RETURN 0
@@ -202,7 +202,7 @@ METHOD Refresh() CLASS HListBox
    LOCAL vari
 
    IF ::bSetGet != Nil
-      vari := Eval( ::bSetGet )
+      vari := Eval(::bSetGet)
    ENDIF
 
    ::value := IIf( vari == Nil .OR. ValType(vari) != "N", 0, vari )
@@ -216,11 +216,11 @@ METHOD SetItem( nPos ) CLASS HListBox
    hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
 
    IF ::bSetGet != Nil
-      Eval( ::bSetGet, ::value )
+      Eval(::bSetGet, ::value)
    ENDIF
 
    IF ::bChangeSel != Nil
-      Eval( ::bChangeSel, ::value, Self )
+      Eval(::bChangeSel, ::value, Self)
    ENDIF
 
    RETURN Nil
@@ -229,7 +229,7 @@ METHOD onDblClick() CLASS HListBox
 
    IF ::bDblClick != Nil
       ::oParent:lSuspendMsgsHandling := .T.
-      Eval( ::bDblClick, self, ::value )
+      Eval(::bDblClick, self, ::value)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -255,7 +255,7 @@ METHOD DeleteItem( nPos ) CLASS HListBox
       ASize(::Aitems, Len(::aitems) - 1)
       ::value := Min( Len(::aitems), ::value )
       IF ::bSetGet != Nil
-         Eval( ::bSetGet, ::value, Self )
+         Eval(::bSetGet, ::value, Self)
       ENDIF
       RETURN .T.
    ENDIF
@@ -293,12 +293,12 @@ METHOD When( oCtrl ) CLASS HListBox
    ENDIF
     nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
    IF ::bSetGet != Nil
-      Eval( ::bSetGet, ::value, Self )
+      Eval(::bSetGet, ::value, Self)
    ENDIF
    IF ::bGetFocus != Nil
       ::lnoValid := .T.
       ::oparent:lSuspendMsgsHandling := .T.
-      res := Eval( ::bGetFocus, ::Value, Self )
+      res := Eval(::bGetFocus, ::Value, Self)
       ::oparent:lSuspendMsgsHandling := .F.
       ::lnoValid := !res
       IF !res
@@ -324,14 +324,14 @@ METHOD Valid(oCtrl) CLASS HListBox
    IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != Nil
-         Eval( ::bSetGet, ::value, Self )
+         Eval(::bSetGet, ::value, Self)
       ENDIF
       IF oDlg != Nil
          oDlg:nLastKey := 27
       ENDIF
       IF ::bLostFocus != Nil
          ::oparent:lSuspendMsgsHandling := .T.
-         res := Eval( ::bLostFocus, ::value, Self )
+         res := Eval(::bLostFocus, ::value, Self)
          ::oparent:lSuspendMsgsHandling := .F.
          IF !res
             ::Setfocus( .T. ) //( ::handle )

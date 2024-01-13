@@ -350,7 +350,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       lOEM := .F.
    ENDIF
    IF ValType(name) == "N"
-      name := LTrim( Str(name) )
+      name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF
 #ifdef __XHARBOUR__
@@ -373,10 +373,10 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    NEXT
 #endif
    IF lOEM
-      ::handle := hwg_Loadimage(0, Val( name ), IMAGE_BITMAP, nil, nil, Hwg_bitor( nFlags, LR_SHARED ))
+      ::handle := hwg_Loadimage(0, Val(name), IMAGE_BITMAP, nil, nil, Hwg_bitor( nFlags, LR_SHARED ))
    ELSE
-      //::handle := hwg_Loadimage(nil, IIf( lPreDefined, Val( name ), name ), IMAGE_BITMAP, nil, nil, nFlags)
-      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val( name ), name ), IMAGE_BITMAP, nWidth, nHeight, nFlags)
+      //::handle := hwg_Loadimage(nil, IIf( lPreDefined, Val(name), name ), IMAGE_BITMAP, nil, nil, nFlags)
+      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val(name), name ), IMAGE_BITMAP, nWidth, nHeight, nFlags)
    ENDIF
    ::name    := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
@@ -388,7 +388,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    RETURN Self
 
 METHOD AddStandard(nId) CLASS HBitmap
-   LOCAL i, aBmpSize, name := "s" + LTrim( Str(nId) )
+   LOCAL i, aBmpSize, name := "s" + LTrim(Str(nId))
 
 #ifdef __XHARBOUR__
 
@@ -440,8 +440,8 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
       DirChange(cCurDir)
    ENDIF
 
-   IF Lower( Right( name, 4 ) ) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTranparent == Nil )
-      IF Lower( Right( name, 4 ) ) == ".bmp"
+   IF Lower( Right(name, 4) ) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTranparent == Nil )
+      IF Lower( Right(name, 4) ) == ".bmp"
          ::handle := hwg_Openbitmap( name, hDC )
       ELSE
          ::handle := hwg_Openimage(name)
@@ -468,7 +468,7 @@ METHOD AddWindow( oWnd, lFull ) CLASS HBitmap
    LOCAL aBmpSize
 
    ::handle := hwg_Window2bitmap( oWnd:handle, lFull )
-   ::name := LTrim( hb_valToStr(oWnd:handle) )
+   ::name := LTrim(hb_valToStr(oWnd:handle))
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
@@ -538,7 +538,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
       lOEM := .F.
    ENDIF
    IF ValType(name) == "N"
-      name := LTrim( Str(name) )
+      name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF
 #ifdef __XHARBOUR__
@@ -558,9 +558,9 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
 #endif
    // ::classname:= "HICON"
    IF lOEM // LR_SHARED is required for OEM images
-      ::handle := hwg_Loadimage(0, Val( name ), IMAGE_ICON, nWidth, nHeight, Hwg_bitor( nFlags, LR_SHARED ))
+      ::handle := hwg_Loadimage(0, Val(name), IMAGE_ICON, nWidth, nHeight, Hwg_bitor( nFlags, LR_SHARED ))
    ELSE
-      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val( name ), name ), IMAGE_ICON, nWidth, nHeight, nFlags)
+      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val(name), name ), IMAGE_ICON, nWidth, nHeight, nFlags)
    ENDIF
    ::name   := name
    aIconSize := hwg_Geticonsize(::handle)

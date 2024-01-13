@@ -226,7 +226,7 @@ METHOD MUp() CLASS HNICEButton
          hwg_SetNiceBtnSelected(Nil)
       ENDIF
       IF ::bClick != Nil
-         Eval( ::bClick, ::oParent, ::id )
+         Eval(::bClick, ::oParent, ::id)
       ENDIF
    ENDIF
 

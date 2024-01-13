@@ -80,7 +80,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 
    IF Valtype(vari) != "N"
       vari := 0
-      Eval( bSetGet, vari )
+      Eval(bSetGet, vari)
    ENDIF
    IF bSetGet = Nil
       bSetGet := {| v | IIF( v == Nil, ::nValue, ::nValue := v ) }
@@ -225,7 +225,7 @@ METHOD SetValue(nValue)  CLASS HUpDown
    ::title := Str(::nValue)
    hwg_Setupdown( ::hwndUpDown, ::nValue )
    IF ::bSetGet != Nil
-      Eval( ::bSetGet, ::nValue, Self )
+      Eval(::bSetGet, ::nValue, Self)
    ENDIF
 
    RETURN ::nValue
@@ -233,7 +233,7 @@ METHOD SetValue(nValue)  CLASS HUpDown
 METHOD Refresh()  CLASS HUpDown
 
    IF ::bSetGet != Nil //.AND. ::nValue != Nil
-      ::nValue := Eval( ::bSetGet, , Self )
+      ::nValue := Eval(::bSetGet, , Self)
       IF Str(::nValue) != ::title
          //::title := Str(::nValue)
          //hwg_Setupdown( ::hwndUpDown, ::nValue )
@@ -259,9 +259,9 @@ METHOD Valid() CLASS HUpDown
 
    /*
    ::title := hwg_Getedittext(::oParent:handle, ::oEditUpDown:id)
-   ::nValue := Val( Ltrim( ::title ) )
+   ::nValue := Val(Ltrim(::title))
    IF ::bSetGet != Nil
-      Eval( ::bSetGet, ::nValue )
+      Eval(::bSetGet, ::nValue)
    ENDIF
    */
    res :=  ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
@@ -305,11 +305,11 @@ METHOD Notify( lParam ) CLASS HeditUpDown
 
  	 IF ::oUpDown = Nil .OR. Hwg_BitAnd(hwg_Getwindowlong( ::handle, GWL_STYLE ), ES_READONLY) != 0 .OR. ;
  	     hwg_Getfocus() != ::Handle .OR. ;
-       ( ::oUpDown:bGetFocus != Nil .AND. !Eval( ::oUpDown:bGetFocus, ::oUpDown:nValue, ::oUpDown ) )
+       ( ::oUpDown:bGetFocus != Nil .AND. !Eval(::oUpDown:bGetFocus, ::oUpDown:nValue, ::oUpDown) )
 	     Return 0
    ENDIF
 
-   vari := Val( LTrim( ::UnTransform( ::title ) ) )
+   vari := Val(LTrim(::UnTransform( ::title )))
 
    IF ( vari <= ::oUpDown:nLower .AND. iDelta < 0 ) .OR. ;
        ( vari >= ::oUpDown:nUpper .AND. iDelta > 0 ) .OR. ::oUpDown:Increment = 0
@@ -331,9 +331,9 @@ METHOD Notify( lParam ) CLASS HeditUpDown
       IF nCode = UDN_DELTAPOS .AND. ( ::oUpDown:bClickUp != Nil .OR. ::oUpDown:bClickDown != Nil )
       ::oparent:lSuspendMsgsHandling := .T.
       IF iDelta < 0 .AND. ::oUpDown:bClickDown  != Nil
-         res := Eval( ::oUpDown:bClickDown, ::oUpDown, ::oUpDown:nValue, iDelta, ipos )
+         res := Eval(::oUpDown:bClickDown, ::oUpDown, ::oUpDown:nValue, iDelta, ipos)
       ELSEIF iDelta > 0 .AND. ::oUpDown:bClickUp  != Nil
-         res := Eval( ::oUpDown:bClickUp, ::oUpDown, ::oUpDown:nValue, iDelta, ipos )
+         res := Eval(::oUpDown:bClickUp, ::oUpDown, ::oUpDown:nValue, iDelta, ipos)
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
       IF VALTYPE(res) = "L" .AND. !res

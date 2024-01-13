@@ -76,7 +76,7 @@ METHOD Caption( cText )  CLASS HToolButton
 
 METHOD onClick()  CLASS HToolButton
   IF ::bClick != Nil
-      Eval( ::bClick, self, ::id )
+      Eval(::bClick, self, ::id)
    ENDIF
 RETURN Nil
 
@@ -464,7 +464,7 @@ METHOD Notify( lParam ) CLASS hToolBar
       nId := hwg_Toolbar_idclick( lParam )     
       nPos := AScan( ::aItem, { | x | x[2] == nId } )
       if nPos > 0 .AND. ::aItem[nPos, 7] != NIL
-         Eval( ::aItem[nPos, 7], ::aItem[nPos, 11], nId )
+         Eval(::aItem[nPos, 7], ::aItem[nPos, 11], nId)
       endif
    ENDIF
 
@@ -480,17 +480,17 @@ METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, n
    DEFAULT ctext to ""
    IF nId = Nil .OR. EMPTY(nId)
       //IDTOOLBAR
-      nId := VAL( RIGHT( STR(::id, 6), 1 ) ) * IDMAXBUTTONTOOLBAR
+      nId := VAL(RIGHT(STR(::id, 6), 1)) * IDMAXBUTTONTOOLBAR
       nId := nId + ::id + IDTOOLBAR + LEN(::aButtons) + LEN(::aSeparators) + 1
    ENDIF
 
    IF bStyle != BTNS_SEP  //1
-      DEFAULT cName to "oToolButton" + LTRIM( STR(LEN(::aButtons) + 1) )
-      AAdd(::aButtons,{ Alltrim( cName ), nid })
+      DEFAULT cName to "oToolButton" + LTRIM(STR(LEN(::aButtons) + 1))
+      AAdd(::aButtons,{ Alltrim(cName), nid })
    ELSE
       bstate :=  IIF( !( ::lVertical .AND. LEN(::aButtons) = 0 ), bState, 8 )//TBSTATE_HIDE
       DEFAULT nBitIp to 0
-      DEFAULT cName to "oSeparator"+LTRIM( STR(LEN(::aSeparators) + 1) )
+      DEFAULT cName to "oSeparator"+LTRIM(STR(LEN(::aSeparators) + 1))
       AAdd(::aSeparators,{ cName, nid })
       //bStyle := TBSTYLE_SEP //TBSTYLE_FLAT
    ENDIF

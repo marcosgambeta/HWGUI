@@ -377,7 +377,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
    Local nEval, hitemNew, htiParent, htiPrev, htiNext
    
    IF ::bOther != Nil
-      IF ( nEval := Eval( ::bOther, Self, msg, wParam, lParam )) != Nil .AND. nEval != - 1
+      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam)) != Nil .AND. nEval != - 1
          RETURN 0
       ENDIF
    ENDIF
@@ -393,7 +393,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
             ::EditLabel( ::oSelected )
          ELSEIF ::bDblClick != Nil
             ::Setfocus()
-            Eval( ::bDblClick, ::oItem, Self )
+            Eval(::bDblClick, ::oItem, Self)
             //hwg_Sendmessage(::handle, WM_LBUTTONDBLCLK, 0, hwg_Makelparam(1, 1))
             RETURN 0
          ENDIF
@@ -423,7 +423,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
       hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_DROPHILITE, Nil)
 
       IF ::bDrag != Nil
-         nEval :=  Eval( ::bDrag, Self, ::hitemDrag, ::hitemDrop )
+         nEval :=  Eval(::bDrag, Self, ::hitemDrag, ::hitemDrop)
          nEval := IIF( VALTYPE(nEval) = "L", nEval, .T. )
          IF !nEval
             RETURN 0
@@ -470,7 +470,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
       ::Select( hitemNew )
 
       IF ::bDrop != Nil
-         Eval( ::bDrop, Self, hitemNew, ::hitemDrop )
+         Eval(::bDrop, Self, hitemNew, ::hitemDrop)
       ENDIF
 
    ELSEIF  ::lEditLabels .AND. ( ( msg = WM_LBUTTONDBLCLK .AND. ::bDblClick = Nil ) .OR. msg = WM_CHAR )
@@ -569,9 +569,9 @@ METHOD Notify( lParam )  CLASS HTree
          oItem:oTree:oSelected := oItem
          IF oItem != Nil .AND. !oItem:oTree:lEmpty
             IF oItem:bAction != Nil
-               Eval( oItem:bAction, oItem, Self )
+               Eval(oItem:bAction, oItem, Self)
             ELSEIF oItem:oTree:bAction != Nil
-               Eval( oItem:oTree:bAction, oItem, Self )
+               Eval(oItem:oTree:bAction, oItem, Self)
             ENDIF
             hwg_Sendmessage(::handle, TVM_SETITEM, , oitem:HANDLE)
          ENDIF
@@ -590,7 +590,7 @@ METHOD Notify( lParam )  CLASS HTree
          oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_EDITPARAM )
          IF ValType(oItem) == "O"
             IF !cText ==  oItem:GetText()  .AND. ;
-               ( oItem:oTree:bItemChange == Nil .OR. Eval( oItem:oTree:bItemChange, oItem, cText ) )
+               ( oItem:oTree:bItemChange == Nil .OR. Eval(oItem:oTree:bItemChange, oItem, cText) )
                hwg_Treesetitem( oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText )
             ENDIF
          ENDIF
@@ -601,8 +601,8 @@ METHOD Notify( lParam )  CLASS HTree
       oItem := hwg_Treegetnotify( lParam, TREE_GETNOTIFY_PARAM )
       IF ValType(oItem) == "O"
          IF ::bExpand != Nil
-            RETURN IIf( Eval( oItem:oTree:bExpand, oItem, ;
-                              hwg_Checkbit( hwg_Treegetnotify( lParam, TREE_GETNOTIFY_ACTION ), TVE_EXPAND ) ), ;
+            RETURN IIf( Eval(oItem:oTree:bExpand, oItem, ;
+                              hwg_Checkbit( hwg_Treegetnotify( lParam, TREE_GETNOTIFY_ACTION ), TVE_EXPAND )), ;
                         0, 1 )
          ENDIF
       ENDIF
@@ -613,7 +613,7 @@ METHOD Notify( lParam )  CLASS HTree
 
    ELSEIF nCode = TVN_KEYDOWN .AND. ::oItem != Nil
       IF ::oItem:oTree:bKeyDown != Nil
-         Eval( ::oItem:oTree:bKeyDown, ::oItem, nKeyDown, Self )
+         Eval(::oItem:oTree:bKeyDown, ::oItem, nKeyDown, Self)
       ENDIF
 
 	 ELSEIF nCode = NM_CLICK  //.AND. ::oitem != Nil // .AND. !::lEditLabels
@@ -626,7 +626,7 @@ METHOD Notify( lParam )  CLASS HTree
             ::oItem := oItem
          ENDIF
          IF ::bCheck != Nil
-            lEval := Eval( ::bCheck, !::oItem:checked, ::oItem, Self )
+            lEval := Eval(::bCheck, !::oItem:checked, ::oItem, Self)
          ENDIF
          IF lEval == Nil .OR. !EMPTY(lEval)
             MarkCheckTree(::oItem, IIF( ::oItem:checked, 1, 2 ))
@@ -636,7 +636,7 @@ METHOD Notify( lParam )  CLASS HTree
       ELSEIF !::lEditLabels .AND. EMPTY(nHitem)
          IF !oItem:oTree:lEmpty
             IF oItem:bClick != Nil
-               Eval( oItem:bClick, oItem, Self )
+               Eval(oItem:bClick, oItem, Self)
             ENDIF
          ENDIF
       ENDIF
@@ -648,19 +648,19 @@ METHOD Notify( lParam )  CLASS HTree
             oItem := ::oItem
             *::Select( oItem )
          ENDIF
-         Eval( ::bDblClick, oItem, Self, nAct )
+         Eval(::bDblClick, oItem, Self, nAct)
       ENDIF
    ELSEIF nCode == NM_RCLICK
       IF ::bRClick != Nil
          oItem  := hwg_Treehittest( ::handle,,, @nAct )
-         Eval( ::bRClick, oItem, Self, nAct )
+         Eval(::bRClick, oItem, Self, nAct)
       ENDIF
       
       /* working only windows 7
    ELSEIF nCode == - 24 .AND. ::oitem != Nil
       //nhitem := hwg_Treehittest( ::handle,,, @nAct )
       IF ::bCheck != Nil
-         lEval := Eval( ::bCheck, !::oItem:checked, ::oItem, Self )
+         lEval := Eval(::bCheck, !::oItem:checked, ::oItem, Self)
       ENDIF
       IF lEval == Nil .OR. !EMPTY(lEval)
          MarkCheckTree(::oItem, IIF( ::oItem:checked, 1, 2 ))

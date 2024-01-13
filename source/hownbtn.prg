@@ -162,7 +162,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
       RETURN 0
    ELSEIF msg == WM_PAINT
       IF ::bPaint != Nil
-         Eval( ::bPaint, Self )
+         Eval(::bPaint, Self)
       ELSE
          ::Paint()
       ENDIF
@@ -177,14 +177,14 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
    ELSEIF msg == WM_SETFOCUS
       /*
       IF !Empty(::bGetfocus)
-         Eval( ::bGetfocus, Self, msg, wParam, lParam )
+         Eval(::bGetfocus, Self, msg, wParam, lParam)
       ENDIF
       */
       ::onGetFocus()
    ELSEIF msg == WM_KILLFOCUS
       /*
       IF !Empty(::bLostfocus)
-         Eval( ::bLostfocus, Self, msg, wParam, lParam )
+         Eval(::bLostfocus, Self, msg, wParam, lParam)
       ENDIF
       */
       IF !::lCheck
@@ -199,7 +199,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HOwnButton
       ENDIF
    ELSE
       IF !Empty(::bOther)
-         Eval( ::bOther, Self, msg, wParam, lParam )
+         Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
    ENDIF
 
@@ -465,7 +465,7 @@ METHOD MUp() CLASS HOwnButton
       ENDIF
       IF ::bClick != Nil
          hwg_Releasecapture()
-         Eval( ::bClick, ::oParent, ::id )
+         Eval(::bClick, ::oParent, ::id)
          Release()
       ENDIF
       hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW  )
@@ -496,7 +496,7 @@ METHOD onGetFocus()  CLASS HOwnButton
    nSkip := iif( hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), -1, 1 )
    IF ::bGetFocus != Nil
       ::oparent:lSuspendMsgsHandling := .T.
-      res := Eval( ::bGetFocus, ::title, Self )
+      res := Eval(::bGetFocus, ::title, Self)
       IF res != Nil .AND. EMPTY(res)
          hwg_WhenSetFocus( Self, nSkip )
       ENDIF
@@ -511,7 +511,7 @@ METHOD onLostFocus()  CLASS HOwnButton
    ENDIF
     IF ::bLostFocus != Nil
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval( ::bLostFocus, ::title, Self )
+      Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
     RETURN Nil
@@ -519,7 +519,7 @@ METHOD onLostFocus()  CLASS HOwnButton
 METHOD onClick()  CLASS HOwnButton
    IF ::bClick != Nil
       //::oParent:lSuspendMsgsHandling := .T.
-      Eval( ::bClick, Self, ::id )
+      Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
    RETURN Nil

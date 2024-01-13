@@ -29,7 +29,7 @@ CLASS HTimer INHERIT HObject
    ASSIGN Name(cName)  INLINE IIF( !EMPTY(cName) .AND. VALTYPE(cName) == "C" .AND. !":" $ cName .AND. !"[" $ cName,;
          ( ::xName := cName, __objAddData(::oParent, cName), ::oParent: & ( cName ) := Self), Nil)
    ACCESS Interval       INLINE ::value
-   ASSIGN Interval( x )  INLINE ::value := x, hwg_Settimer( ::oParent:handle, ::id, ::value )
+   ASSIGN Interval(x)  INLINE ::value := x, hwg_Settimer( ::oParent:handle, ::id, ::value )
 
    METHOD New(oParent, nId, value, bAction)
    METHOD Init()
@@ -102,7 +102,7 @@ FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 
    IF i != 0 .AND. HTimer():aTimers[i]:value > 0 .AND. HTimer():aTimers[i]:bAction != Nil .AND.;
       ValType(HTimer():aTimers[i]:bAction) == "B"
-      Eval( HTimer():aTimers[i]:bAction, HTimer():aTimers[i], time )
+      Eval(HTimer():aTimers[i]:bAction, HTimer():aTimers[i], time)
    ENDIF
 
    RETURN NIL

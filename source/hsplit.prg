@@ -107,7 +107,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
       ::lMoved := .F.
       ::DragAll( .F. )
       IF ::bEndDrag != NIL
-         // Eval( ::bEndDrag, Self )
+         // Eval(::bEndDrag, Self)
       ENDIF
    ELSEIF msg == WM_DESTROY
       ::END()
@@ -131,7 +131,7 @@ METHOD Paint() CLASS HSplitter
 
       hwg_Setbkmode(hDC, ::backStyle)
       IF ::bPaint != NIL
-         Eval( ::bPaint, Self )
+         Eval(::bPaint, Self)
       ELSEIF !::lScrolling
         IF ::lCaptured
            oBrushFill := HBrush():Add(hwg_Rgb(156, 156, 156))
@@ -217,7 +217,7 @@ METHOD DragAll( lScroll ) CLASS HSplitter
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop - ::nHeight - yDiff - 1, ::nLeft + ::nWidth, ::nTop + ::nHeight + yDiff + 1)
    ENDIF
    IF ::bEndDrag != NIL
-      Eval( ::bEndDrag, Self )
+      Eval(::bEndDrag, Self)
    ENDIF
 
    RETURN NIL

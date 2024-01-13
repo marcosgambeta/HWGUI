@@ -27,7 +27,7 @@ STATIC aCustomEvents := { ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
        { ;
          { | o, w, l | onNotify( o, w, l ) }                                 , ;
-         { | o, w |   IIf( o:bPaint != NIL, Eval( o:bPaint, o, w ), - 1 ) }  , ;
+         { | o, w |   IIf( o:bPaint != NIL, Eval(o:bPaint, o, w), - 1 ) }  , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
@@ -142,7 +142,7 @@ METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
          ( oCtrl := ::aControls[i]:FindControl( nId, nHandle ) ) != nil
          RETURN oCtrl
       ENDIF
-      IF Eval( bSearch, ::aControls[i] )
+      IF Eval(bSearch, ::aControls[i])
          RETURN ::aControls[i]
       ENDIF
       i --
@@ -240,11 +240,11 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
    ENDIF
 
    IF ( i := AScan( aCustomEvents[EVENTS_MESSAGES], msg ) ) != 0
-      RETURN Eval( aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam )
+      RETURN Eval(aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam)
 
    ELSEIF ::bOther != NIL
 
-      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+      RETURN Eval(::bOther, Self, msg, wParam, lParam)
 
    ENDIF
 
@@ -285,7 +285,7 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
 		        ELSEIF  !Empty(lRefresh) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
                oCtrlTmp:Refresh()
                IF oCtrlTmp:bRefresh != Nil  
-                  EVAL( oCtrlTmp:bRefresh, oCtrlTmp )
+                  EVAL(oCtrlTmp:bRefresh, oCtrlTmp)
                ENDIF   
             ELSEIF  hwg_Iswindowenabled(oCtrlTmp:Handle) .AND. !oCtrlTmp:lHide .AND.  !lRefresh
                oCtrlTmp:SHOW( SW_SHOWNOACTIVATE )
@@ -293,10 +293,10 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
          ENDIF
       NEXT
       IF oCtrl:bRefresh != Nil .AND. oCtrl:handle != hCtrl
-         Eval( oCtrl:bRefresh, Self ) 
+         Eval(oCtrl:bRefresh, Self)
       ENDIF
    ELSEIF  oCtrl:bRefresh != Nil
-      Eval( oCtrl:bRefresh, Self )
+      Eval(oCtrl:bRefresh, Self)
    ENDIF  
    RETURN Nil
 
@@ -394,7 +394,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
          ELSEIF oWnd:aNotify != NIL .AND. !oWnd:lSuspendMsgsHandling .AND. ;
             ( iItem := AScan( oWnd:aNotify, { | a | a[1] == nCode .AND. ;
                                               a[2] == wParam } ) ) > 0
-            IF ( res := Eval( oWnd:aNotify[iItem, 3], oWnd, wParam ) ) != NIL
+            IF ( res := Eval(oWnd:aNotify[iItem, 3], oWnd, wParam) ) != NIL
                RETURN res
             ENDIF
          ENDIF
@@ -457,7 +457,7 @@ STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
    LOCAL oCtrl
    IF !EMPTY(wParam) .AND. ( oCtrl := oWnd:FindControl( wParam ) ) != NIL .AND. ;
                  VALTYPE(oCtrl) != "N"  .AND. oCtrl:bPaint != NIL
-      Eval( oCtrl:bPaint, oCtrl, lParam )
+      Eval(oCtrl:bPaint, oCtrl, lParam)
       RETURN 1
 
    ENDIF
@@ -475,7 +475,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
          oForm:nFocus := IIF( hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus )
       ENDIF
-      Eval( oWnd:aEvents[iItem, 3], oWnd, iParLow )
+      Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl( , hwg_Getfocus() ) = Nil .AND. ;
          !Empty(oForm:nFocus) .AND. !hwg_Selffocus( hwg_Getactivewindow() )
          hwg_Setfocus( oForm:nFocus )
@@ -520,7 +520,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
 
    FOR EACH oItem IN aControls
       IF oItem:bSize != NIL
-         Eval( oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam) )
+         Eval(oItem:bSize, oItem, hwg_Loword(lParam), hwg_Hiword(lParam))
       ENDIF
    NEXT
    RETURN - 1
@@ -533,7 +533,7 @@ FUNCTION hwg_onTrackScroll( oWnd, msg, wParam, lParam )
       msg := hwg_Loword(wParam)
       IF msg == TB_ENDTRACK
          IF __ObjHasMsg( oCtrl, "BCHANGE" ) .AND. ISBLOCK( oCtrl:bChange )
-            Eval( oCtrl:bChange, oCtrl )
+            Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
       ELSEIF msg == TB_THUMBTRACK .OR. ;
@@ -541,13 +541,13 @@ FUNCTION hwg_onTrackScroll( oWnd, msg, wParam, lParam )
          msg == TB_PAGEDOWN
 
          IF __ObjHasMsg( oCtrl, "BTHUMBDRAG" ) .AND. ISBLOCK( oCtrl:bThumbDrag )
-            Eval( oCtrl:bThumbDrag, oCtrl )
+            Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF
       ENDIF
    ELSE
       IF ISBLOCK( oWnd:bScroll )
-         Eval( oWnd:bScroll, oWnd, msg, wParam, lParam )
+         Eval(oWnd:bScroll, oWnd, msg, wParam, lParam)
          RETURN 0
       ENDIF
    ENDIF
@@ -580,13 +580,13 @@ METHOD RedefineScrollbars() CLASS HScrollArea
    IF ::nScrollBars > - 1 .AND. ::bScroll = Nil
       IF  ::nVscrollPos = 0
           ::ncurHeight := 0                                                              //* 4
-          AEval( ::aControls, { | o | ::ncurHeight := INT( Max( o:nTop + o:nHeight + VERT_PTS * 1, ;
-                                      ::ncurHeight ) ) } )
+          AEval(::aControls, { | o | ::ncurHeight := INT( Max( o:nTop + o:nHeight + VERT_PTS * 1, ;
+                                      ::ncurHeight ) ) })
       ENDIF
       IF  ::nHscrollPos = 0
           ::ncurWidth  := 0                                                           // * 4
-          AEval( ::aControls, { | o | ::ncurWidth := INT( Max( o:nLeft + o:nWidth  + HORZ_PTS * 1, ;
-                                      ::ncurWidth ) ) } )
+          AEval(::aControls, { | o | ::ncurWidth := INT( Max( o:nLeft + o:nWidth  + HORZ_PTS * 1, ;
+                                      ::ncurWidth ) ) })
       ENDIF
       ::ResetScrollbars()
       ::SetupScrollbars()

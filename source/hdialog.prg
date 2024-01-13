@@ -187,14 +187,14 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
          IF nPos > 0
             oTab := ::aControls[nPos]
             IF Len(oTab:aPages) > 0
-               Eval( aMessModalDlg[i, 2], oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam )
+               Eval(aMessModalDlg[i, 2], oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
             ENDIF
          ENDIF
       ENDIF
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE
          //writelog( str(msg) + str(wParam) + str(lParam)+CHR(13) )
-         RETURN Eval( aMessModalDlg[i, 2], Self, wParam, lParam )
+         RETURN Eval(aMessModalDlg[i, 2], Self, wParam, lParam)
       ENDIF
    ELSEIF msg = WM_CLOSE
       ::close()
@@ -287,7 +287,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
    IF oDlg:bInit != Nil
       oDlg:lSuspendMsgsHandling := .T.
-      IF ValType(nReturn := Eval( oDlg:bInit, oDlg )) != "N"
+      IF ValType(nReturn := Eval(oDlg:bInit, oDlg)) != "N"
          oDlg:lSuspendMsgsHandling := .F.
          IF ValType(nReturn) = "L" .AND. !nReturn
             oDlg:Close()
@@ -331,7 +331,7 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
    IF oDlg:bGetFocus != Nil
       oDlg:lSuspendMsgsHandling := .T.
-      Eval( oDlg:bGetFocus, oDlg )
+      Eval(oDlg:bGetFocus, oDlg)
       oDlg:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -343,14 +343,14 @@ STATIC FUNCTION InitModalDlg( oDlg, wParam, lParam )
 
    IF !oDlg:lModal
       IF ValType(oDlg:bOnActivate) == "B"
-         Eval( oDlg:bOnActivate, oDlg )
+         Eval(oDlg:bOnActivate, oDlg)
       ENDIF
    ENDIF
 
    oDlg:rect := hwg_Getclientrect(oDlg:handle)
    IF oDlg:nScrollBars > - 1
-      AEval( oDlg:aControls, { | o | oDlg:ncurHeight := Max( o:nTop + o:nHeight + VERT_PTS * 4, oDlg:ncurHeight ) } )
-      AEval( oDlg:aControls, { | o | oDlg:ncurWidth := Max( o:nLeft + o:nWidth  + HORZ_PTS * 4, oDlg:ncurWidth ) } )
+      AEval(oDlg:aControls, { | o | oDlg:ncurHeight := Max( o:nTop + o:nHeight + VERT_PTS * 4, oDlg:ncurHeight ) })
+      AEval(oDlg:aControls, { | o | oDlg:ncurWidth := Max( o:nLeft + o:nWidth  + HORZ_PTS * 4, oDlg:ncurWidth ) })
       oDlg:ResetScrollbars()
       oDlg:SetupScrollbars()
    ENDIF
@@ -458,7 +458,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
    IF oDlg:aEvents != Nil .AND. ;
          ( i := AScan( oDlg:aEvents, { | a | a[1] == iParHigh .AND. a[2] == iParLow } ) ) > 0
       IF !oDlg:lSuspendMsgsHandling
-         Eval( oDlg:aEvents[i, 3], oDlg, iParLow )
+         Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
       ENDIF
    ELSEIF iParHigh == 0 .AND. ( ;
          ( iParLow == IDOK .AND. oDlg:FindControl( IDOK ) != nil ) .OR. ;
@@ -484,12 +484,12 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          hwg_Checkmenuitem( , aMenu[1, i, 3], !hwg_Ischeckedmenuitem( , aMenu[1, i, 3] ) )
       ENDIF
       IF aMenu[1, i, 1] != Nil
-         Eval( aMenu[1, i, 1], i, iParlow )
+         Eval(aMenu[1, i, 1], i, iParlow)
       ENDIF
    ELSEIF __ObjHasMsg( oDlg, "OPOPUP" ) .AND. oDlg:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu, wParam, @i ) ) != Nil ;
          .AND. aMenu[1, i, 1] != Nil
-      Eval( aMenu[1, i, 1], i, wParam )
+      Eval(aMenu[1, i, 1], i, wParam)
    ENDIF
 
    RETURN 1
@@ -528,15 +528,15 @@ STATIC FUNCTION onSize(oDlg, wParam, lParam)
 
    IF oDlg:bSize != Nil .AND. ;
          ( oDlg:oParent == Nil .OR. !__ObjHasMsg( oDlg:oParent, "ACONTROLS" ) )
-      Eval( oDlg:bSize, oDlg, hwg_Loword(lParam), hwg_Hiword(lParam) )
+      Eval(oDlg:bSize, oDlg, hwg_Loword(lParam), hwg_Hiword(lParam))
    ENDIF
    aControls := oDlg:aControls
    IF aControls != Nil .AND. !Empty(oDlg:Rect)
       oDlg:Anchor( oDlg, nW1, nH1, oDlg:nWidth, oDlg:nHeight )
       FOR iCont := 1 TO Len(aControls)
          IF aControls[iCont]:bSize != Nil
-            Eval( aControls[iCont]:bSize, ;
-               aControls[iCont], hwg_Loword(lParam), hwg_Hiword(lParam), nW1, nH1 )
+            Eval(aControls[iCont]:bSize, ;
+               aControls[iCont], hwg_Loword(lParam), hwg_Hiword(lParam), nW1, nH1)
          ENDIF
       NEXT
    ENDIF
@@ -555,7 +555,7 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
    IF  iParLow = WA_ACTIVE  .AND. hwg_Selffocus( lParam, oDlg:Handle )
       IF ValType(oDlg:bOnActivate) == "B"
          //- oDlg:lSuspendMsgsHandling := .T.
-         Eval( oDlg:bOnActivate, oDlg )
+         Eval(oDlg:bOnActivate, oDlg)
          //-oDlg:lSuspendMsgsHandling := .F.
       ENDIF
 
@@ -565,12 +565,12 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
          IF iParHigh > 0  // MINIMIZED
 
          ENDIF
-         Eval( oDlg:bGetFocus, oDlg, lParam )
+         Eval(oDlg:bGetFocus, oDlg, lParam)
          oDlg:lSuspendMsgsHandling := .F.
       ENDIF
    ELSEIF iParLow = WA_INACTIVE  .AND. oDlg:bLostFocus != Nil
       oDlg:lSuspendMsgsHandling := .T.
-      Eval( oDlg:bLostFocus, oDlg, lParam  )
+      Eval(oDlg:bLostFocus, oDlg, lParam)
       oDlg:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -596,7 +596,7 @@ FUNCTION hwg_onHelp( oDlg, wParam, lParam )
             nHelpId := iif( Empty(oParent:HelpId), oDlg:HelpId, oParent:HelpId )
          ENDIF
          IF "chm" $ Lower( CutPath( hwg_SetHelpFileName() ) )
-            nHelpId := iif( ValType(nHelpId) = "N", LTrim( Str(nHelpId) ), nHelpId )
+            nHelpId := iif( ValType(nHelpId) = "N", LTrim(Str(nHelpId)), nHelpId )
             hwg_Shellexecute("hh.exe", "open", CutPath( hwg_SetHelpFileName() ) + "::" + nHelpId + ".html", cDir)
          ELSE
             hwg_Winhelp( oDlg:handle, hwg_SetHelpFileName(), iif( Empty(nHelpId), 3, 1 ), nHelpId )
@@ -618,7 +618,7 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
    IF nCode == PSN_SETACTIVE
       IF oDlg:bGetFocus != Nil
          oDlg:lSuspendMsgsHandling := .T.
-         res := Eval( oDlg:bGetFocus, oDlg )
+         res := Eval(oDlg:bGetFocus, oDlg)
          oDlg:lSuspendMsgsHandling := .F.
       ENDIF
       // 'res' should be 0(Ok) or -1
@@ -628,7 +628,7 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
    ELSEIF nCode == PSN_KILLACTIVE
       IF oDlg:bLostFocus != Nil
          oDlg:lSuspendMsgsHandling := .T.
-         res := Eval( oDlg:bLostFocus, oDlg )
+         res := Eval(oDlg:bLostFocus, oDlg)
          oDlg:lSuspendMsgsHandling := .F.
       ENDIF
       // 'res' should be 0(Ok) or 1
@@ -637,7 +637,7 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
    ELSEIF nCode == PSN_RESET
    ELSEIF nCode == PSN_APPLY
       IF oDlg:bDestroy != Nil
-         res := Eval( oDlg:bDestroy, oDlg )
+         res := Eval(oDlg:bDestroy, oDlg)
       ENDIF
       // 'res' should be 0(Ok) or 2
       Hwg_SetDlgResult( oDlg:handle, iif( res, 0, 2 ) )
@@ -647,7 +647,7 @@ STATIC FUNCTION onPspNotify( oDlg, wParam, lParam )
       RETURN 1
    ELSE
       IF oDlg:bOther != Nil
-         res := Eval( oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam )
+         res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
          Hwg_SetDlgResult( oDlg:handle, iif( res, 0, 1 ) )
          RETURN 1
       ENDIF
@@ -716,7 +716,7 @@ FUNCTION hwg_EndDialog( handle )
    ENDIF
    IF oDlg:bDestroy != Nil
       //oDlg:lSuspendMsgsHandling := .T.
-      res := Eval( oDlg:bDestroy, oDlg )
+      res := Eval(oDlg:bDestroy, oDlg)
       //oDlg:lSuspendMsgsHandling := .F.
       IF !res
          oDlg:nLastKey := 0

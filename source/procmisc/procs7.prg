@@ -25,7 +25,7 @@ LOCAL stro := "", rez, oldpoz, poz1
          poz  := At( Chr(10), strbuf )
          stro += Substr(strbuf, 1, poz)
       ELSE
-         stro += Rtrim( Substr(strbuf, oldpoz) )
+         stro += Rtrim(Substr(strbuf, oldpoz))
          poz  := oldpoz + Len(stro)
          IF Len(stro) == 0
             RETURN ""
@@ -37,7 +37,7 @@ LOCAL stro := "", rez, oldpoz, poz1
    ENDIF
    poz ++
    poz1 := Len(stro)
-   IF poz1 > 2 .AND. Right( stro, 1 ) $ Chr(13) + Chr(10)
+   IF poz1 > 2 .AND. Right(stro, 1) $ Chr(13) + Chr(10)
       IF Substr(stro, poz1 - 1, 1) $ Chr(13) + Chr(10)
          poz1 --
       ENDIF
@@ -52,11 +52,11 @@ LOCAL varName, iPosEnd, iPos3
       RETURN ""
    ELSE
       IF ( iPosEnd := Find_Z( stroka ) ) == 0
-         iPosEnd := Iif( Right( stroka, 1 ) = ';', Len(stroka), Len(stroka) + 1 )
+         iPosEnd := Iif( Right(stroka, 1) = ';', Len(stroka), Len(stroka) + 1 )
       ENDIF
-      ipos3    := Find_Z( Left( stroka, iPosEnd - 1 ), ':' )
-      varName  := Rtrim( Ltrim( Left( stroka, Iif( ipos3 = 0, iPosEnd, iPos3 ) - 1 ) ) )
-      varValue := Iif( iPos3 <> 0, Ltrim( Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2) ), Nil )
+      ipos3    := Find_Z( Left(stroka, iPosEnd - 1), ':' )
+      varName  := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
+      varValue := Iif( iPos3 <> 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil )
       stroka   := Substr(stroka, iPosEnd + 1)
    ENDIF
 RETURN varName
@@ -112,8 +112,8 @@ FUNCTION FilePath( fname )
 
 LOCAL i
 RETURN Iif( ( i := Rat( '\', fname ) ) = 0, ;
-            Iif( ( i := Rat( '/', fname ) ) = 0, "", Left( fname, i ) ), ;
-            Left( fname, i ) )
+            Iif( ( i := Rat( '/', fname ) ) = 0, "", Left(fname, i) ), ;
+            Left(fname, i) )
 
 FUNCTION CutPath( fname )
 
@@ -137,10 +137,10 @@ LOCAL i, oldPos
       oldPos := nPos
       IF ( i := At( cSep, Substr(stroka, nPos) ) ) == 0
          nPos := 99999
-         RETURN Ltrim( Rtrim( Substr(stroka, oldPos) ) )
+         RETURN Ltrim(Rtrim(Substr(stroka, oldPos)))
       ELSE
          nPos += i
-         RETURN Ltrim( Rtrim( Substr(stroka, oldPos, i - 1) ) )
+         RETURN Ltrim(Rtrim(Substr(stroka, oldPos, i - 1)))
       ENDIF
    ENDIF
 RETURN ""

@@ -626,9 +626,9 @@ HB_FUNC( HWG_SETDATEPICKER )
             ulLen = strlen(szTime);
             if( ulLen >= 4 )
             {
-               lSeconds = (LONG) hb_strVal( szTime, 2 ) * 3600 * 1000 +
-                          (LONG) hb_strVal( szTime + 2, 2 ) * 60 * 1000 +
-                          (LONG)(hb_strVal( szTime + 4, ulLen - 4 ) * 1000 );
+               lSeconds = (LONG) hb_strVal(szTime, 2) * 3600 * 1000 +
+                          (LONG) hb_strVal(szTime + 2, 2) * 60 * 1000 +
+                          (LONG)(hb_strVal(szTime + 4, ulLen - 4) * 1000 );
             }
          }
          #ifdef __XHARBOUR__
