@@ -67,7 +67,7 @@ ENDCLASS
 
 METHOD New(cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies) CLASS HWinPrn
 
-   ::oPrinter := HPrinter():New(Iif( cPrinter==Nil, "", cPrinter ), .F., nFormType, nBin, lLandScape, nCopies)
+   ::oPrinter := HPrinter():New(Iif(cPrinter==Nil, "", cPrinter), .F., nFormType, nBin, lLandScape, nCopies)
    IF ::oPrinter == Nil
       Return Nil
    ENDIF
@@ -297,7 +297,7 @@ METHOD PrintText(cText) CLASS HWinPrn
    IF ::lChanged
       ::SetMode()
    ENDIF
-   ::oPrinter:Say( Iif( ::cpFrom!=::cpTo, hb_Translate(cText, ::cpFrom, ::cpTo), cText ), ;
+   ::oPrinter:Say( Iif(::cpFrom!=::cpTo, hb_Translate(cText, ::cpFrom, ::cpTo), cText), ;
             ::x, ::y, ::oPrinter:nWidth, ::y+::nLineHeight+::nLined )
    ::x += ( ::nCharW * Len(cText) )
 

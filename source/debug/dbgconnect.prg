@@ -96,7 +96,7 @@ Function hwg_dbg_New()
    IF File(cDebugger+".info") .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
       IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0
          arr := hb_aTokens( Left(cBuffer, i), ;
-               Iif( hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10) ) )
+               Iif(hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10)) )
          FOR i := 1 TO Len(arr)
             IF ( nPos := At( "=", arr[i] ) ) > 0
                cCmd := Lower( Trim(Left(arr[i], nPos - 1)) )
@@ -130,7 +130,7 @@ Function hwg_dbg_New()
    ENDIF
 
    IF !Empty(cDir)
-      cDir += Iif( Right(cDir, 1) $ "\/", "", hb_OsPathSeparator() )
+      cDir += Iif(Right(cDir, 1) $ "\/", "", hb_OsPathSeparator())
       IF File(cDir + cDebugger + ".d1") .AND. File(cDir + cDebugger + ".d2")
          IF ( handl1 := FOpen( cDir + cDebugger + ".d1", FO_READ + FO_SHARED ) ) != -1
             IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0 .AND. ;
@@ -146,10 +146,10 @@ Function hwg_dbg_New()
       ENDIF
    ENDIF
 
-   cFile := Iif( !Empty(cDir), cDir, hb_dirTemp() ) + ;
-         Iif( ( i := Rat( '\', cFile ) ) = 0, ;
-         Iif( ( i := Rat( '/', cFile ) ) = 0, cFile, Substr(cFile, i + 1) ), ;
-         Substr(cFile, i + 1) )
+   cFile := Iif(!Empty(cDir), cDir, hb_dirTemp()) + ;
+         Iif(( i := Rat( '\', cFile ) ) = 0, ;
+         Iif(( i := Rat( '/', cFile ) ) = 0, cFile, Substr(cFile, i + 1)), ;
+         Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")
    Ferase(cFile + ".d2")
@@ -161,7 +161,7 @@ Function hwg_dbg_New()
 
 #if defined(__PLATFORM__UNIX)
    IF Empty(cExe)
-      cExe := Iif( File(cDebugger), "./", "" ) + cDebugger
+      cExe := Iif(File(cDebugger), "./", "") + cDebugger
    ENDIF
    lRun := __dbgProcessRun( cExe, "-c" + cFile )
 #else
@@ -348,7 +348,7 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
       IF Valtype(arr[i]) == "A"
          lConvert := ( i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left(arr[i - 1], 5) == "value" )
          FOR j := 1 TO Len(arr[i])
-            s += Iif( j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j] ) + ","
+            s += Iif(j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j]) + ","
          NEXT
       ELSE
          IF arr[i] == "value" .AND. i < Len(arr)
@@ -371,15 +371,15 @@ Function hwg_dbg_Msg( cMessage )
 Return Nil
 
 Function hwg_dbg_Alert( cMessage )
-Local bCode := &( Iif( Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
-       Iif( Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}" ) ) )
+Local bCode := &( Iif(Type("hwg_msginfo()") == "UI", "{|s|hwg_msginfo(s)}", ;
+       Iif(Type("msginfo()") == "UI", "{|s|msginfo(s)}", "{|s|alert(s)}")) )
 
 Eval(bCode, cMessage)
 Return Nil
 
 Function hwg_dbg_Quit()
-Local bCode := &( Iif( Type("hwg_endwindow()") == "UI", "{|s|hwg_endwindow()}", ;
-      Iif( Type("ReleaseAllWindows()") == "UI", "{||ReleaseAllWindows()}", "{||__Quit()}" ) )  )
+Local bCode := &( Iif(Type("hwg_endwindow()") == "UI", "{|s|hwg_endwindow()}", ;
+      Iif(Type("ReleaseAllWindows()") == "UI", "{||ReleaseAllWindows()}", "{||__Quit()}"))  )
 
 Eval(bCode)
 Return Nil

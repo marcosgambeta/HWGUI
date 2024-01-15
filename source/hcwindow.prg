@@ -27,7 +27,7 @@ STATIC aCustomEvents := { ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
        { ;
          { | o, w, l | onNotify( o, w, l ) }                                 , ;
-         { | o, w |   IIf( o:bPaint != NIL, Eval(o:bPaint, o, w), - 1 ) }  , ;
+         { | o, w |   IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), - 1) }  , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
@@ -122,8 +122,8 @@ ENDCLASS
 
 METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindow
 
-   AAdd(IIf( lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify ), ;
-         { nEvent, IIf( ValType(oCtrl) == "N", oCtrl, oCtrl:id ), bAction })
+   AAdd(IIf(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), ;
+         { nEvent, IIf(ValType(oCtrl) == "N", oCtrl, oCtrl:id), bAction })
    IF bAction != Nil .AND. ValType(oCtrl) == "O"  //.AND. ValType(oCtrl) != "N"
       IF cMethName != Nil //.AND. !__objHasMethod(oCtrl, cMethName)
          __objAddInline(oCtrl, cMethName, bAction)
@@ -133,7 +133,7 @@ METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindo
 
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
 
-   LOCAL bSearch := IIf( nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) } )
+   LOCAL bSearch := IIf(nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) })
    LOCAL i := Len(::aControls)
    LOCAL oCtrl
 
@@ -188,16 +188,16 @@ METHOD DelControl( oCtrl ) CLASS HCustomWindow
 METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
    LOCAL rect, nHx := 0, nWx := 0
    
-   x1     := IIF( x1     = NIL, ::nLeft, x1 )
-   y1     := IIF( y1     = NIL, ::nTop, y1 )
-   width  := IIF( width  = NIL, ::nWidth, width )
-   height := IIF( height = NIL, ::nHeight, height )
+   x1     := IIF(x1     = NIL, ::nLeft, x1)
+   y1     := IIF(y1     = NIL, ::nTop, y1)
+   width  := IIF(width  = NIL, ::nWidth, width)
+   height := IIF(height = NIL, ::nHeight, height)
    IF  Hwg_BitAnd(::style, WS_CHILD) = 0
       rect := hwg_Getwindowrect(::Handle)
       nHx := rect[4] - rect[2]  - hwg_Getclientrect(::Handle)[4] - ;
-                 IIF( Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics( SM_CYHSCROLL ), 0 )
+                 IIF(Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics( SM_CYHSCROLL ), 0)
       nWx := rect[3] - rect[1]  - hwg_Getclientrect(::Handle)[3] - ;
-                 IIF( Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics( SM_CXVSCROLL ), 0 )
+                 IIF(Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics( SM_CXVSCROLL ), 0)
    ENDIF
 
    IF nRePaint = Nil
@@ -231,10 +231,10 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
       IF ::minWidth  > - 1 .OR. ::maxWidth  > - 1 .OR. ;
          ::minHeight > - 1 .OR. ::maxHeight > - 1
          hwg_Minmaxwindow( ::handle, lParam, ;
-                       IIf( ::minWidth  > - 1, ::minWidth, nil ), ;
-                       IIf( ::minHeight > - 1, ::minHeight, nil ), ;
-                       IIf( ::maxWidth  > - 1, ::maxWidth, nil ), ;
-                       IIf( ::maxHeight > - 1, ::maxHeight, nil ) )
+                       IIf(::minWidth  > - 1, ::minWidth, nil), ;
+                       IIf(::minHeight > - 1, ::minHeight, nil), ;
+                       IIf(::maxWidth  > - 1, ::maxWidth, nil), ;
+                       IIf(::maxHeight > - 1, ::maxHeight, nil) )
          RETURN 0
       ENDIF
    ENDIF
@@ -270,8 +270,8 @@ LOCAL aControls, i, nLen
 METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
    LOCAL nlen, i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
    
-	 oCtrl := IIF( oCtrl == Nil, Self, oCtrl )
-	 lAll  := IIF( lAll  == Nil, .F., lAll )
+	 oCtrl := IIF(oCtrl == Nil, Self, oCtrl)
+	 lAll  := IIF(lAll  == Nil, .F., lAll)
 	 nLen  := LEN(oCtrl:aControls)
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
@@ -473,7 +473,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh .AND. ;
                                         a[2] == iParLow } ) ) > 0
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
-         oForm:nFocus := IIF( hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus )
+         oForm:nFocus := IIF(hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), oForm:Handle ), hwg_Getfocus(), oForm:nFocus)
       ENDIF
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl( , hwg_Getfocus() ) = Nil .AND. ;
@@ -598,7 +598,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
    LOCAL tempRect, nwMax, nhMax, aMenu, nPos
 
    tempRect := hwg_Getclientrect(::handle)
-   aMenu := IIF( __objHasData(Self, "MENU"), ::menu, Nil )
+   aMenu := IIF(__objHasData(Self, "MENU"), ::menu, Nil)
     // Calculate how many scrolling increments for the client area
    IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
       nwMax := Max( ::ncurWidth, tempRect[3] ) //::maxWidth
@@ -610,7 +610,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
       nhMax := Max( ::ncurHeight, ::Rect[4] )
       ::nHorzInc := INT( ( nwMax - tempRect[3] ) / HORZ_PTS + HORZ_PTS )
       ::nVertInc := INT( ( nhMax - tempRect[4] ) / VERT_PTS + VERT_PTS - ;
-                      IIF( amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0 ) )  // MENU
+                      IIF(amenu != Nil, hwg_Getsystemmetrics( SM_CYMENU ), 0) )  // MENU
    ENDIF
     // Set the vertical and horizontal scrolling info
    IF ::nScrollBars = 0 .OR. ::nScrollBars = 2

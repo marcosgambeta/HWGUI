@@ -44,7 +44,7 @@ LOCAL han, stroka, scom, aScr, rejim := 0, i
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL aFormCode, aFormName
 
-   scrkod := IIF( scrkod==Nil, "000", Upper(scrkod) )
+   scrkod := IIF(scrkod==Nil, "000", Upper(scrkod))
    IF DEF_CH_SEP $ fname
       fname := StrTran( fname, DEF_CH_SEP, DEF_SEP )
    ENDIF
@@ -101,7 +101,7 @@ RETURN aScr
 FUNCTION RdScript( scrSource, strbuf, poz, lppNoInit, cTitle )
 
 LOCAL han
-LOCAL rezArray := Iif( lDebugInfo, { "", {}, {} }, { "", {} } )
+LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
 
    IF lppNoInit == Nil
       lppNoInit := .F.
@@ -162,7 +162,7 @@ FUNCTION ppScript( stroka, lNew )
 STATIC s_pp
 
    IF lNew != Nil
-      s_pp := Iif( lNew, __pp_init(), Nil )
+      s_pp := Iif(lNew, __pp_init(), Nil)
       RETURN Nil
    ENDIF
 RETURN __pp_process( s_pp, stroka )
@@ -220,7 +220,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          ENDIF
 
          poz1 := AT( " ", stroka )
-         scom := UPPER( SUBSTR(stroka, 1, IIF( poz1 <> 0, poz1 - 1, 999 )) )
+         scom := UPPER( SUBSTR(stroka, 1, IIF(poz1 <> 0, poz1 - 1, 999)) )
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
             IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE(ATAIL( rezArray[2] )) ) == "C" ;
@@ -291,8 +291,8 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          CASE scom == "FUNCTION"
             stroka := Ltrim(Substr(stroka, poz1 + 1))
             poz1 := At( "(", stroka )
-            scom := UPPER( LEFT(stroka, IIF( poz1 != 0, poz1 - 1, 999 )) )
-            AADD(rezArray[2], Iif( lDebug,{ scom,{},{} },{ scom,{} } ))
+            scom := UPPER( LEFT(stroka, IIF(poz1 != 0, poz1 - 1, 999)) )
+            AADD(rezArray[2], Iif(lDebug,{ scom,{},{} },{ scom,{} }))
             AADD(tmpArray, "")
             IF !CompileScr( han, @strbuf, @poz, rezArray[2, Len(rezArray[2])] )
                RETURN .F.
@@ -389,7 +389,7 @@ LOCAL i, j, bOldError
          tmpArray[i] := ""
          i --
          IF i > 0 .AND. tmpArray[i] == "JUMP"
-            rezArray[2, i] := &( "{||iscr:=" + LTRIM(STR(IIF( prju, j - 1, j ), 5)) + "}" )
+            rezArray[2, i] := &( "{||iscr:=" + LTRIM(STR(IIF(prju, j - 1, j), 5)) + "}" )
             tmpArray[i] := ""
          ENDIF
          RETURN .T.
@@ -416,7 +416,7 @@ LOCAL i, j, iloop := 0, iPos, bOldError
          bOldError := ERRORBLOCK( { | e | MacroError(1, e, tmpArray[i] ) } )
          BEGIN SEQUENCE
             rezArray[i] = &( "{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], ;
-                 IIF( UPPER( LEFT(tmpArray[i], 1) ) == "D", 10, 7 ))) + ;
+                 IIF(UPPER( LEFT(tmpArray[i], 1) ) == "D", 10, 7))) + ;
                  ",.T.,iscr:=" + LTRIM(STR(j + 1, 5)) + ")}" )
          RECOVER
             ERRORBLOCK( bOldError )
@@ -566,12 +566,12 @@ RETURN &("{||"+string+"}")
 
 FUNCTION SetDebugInfo( lDebug )
 
-   lDebugInfo := Iif( lDebug==Nil, .T., lDebug )
+   lDebugInfo := Iif(lDebug==Nil, .T., lDebug)
 RETURN .T.
 
 FUNCTION SetDebugger( lDebug )
 
-   lDebugger := Iif( lDebug==Nil, .T., lDebug )
+   lDebugger := Iif(lDebug==Nil, .T., lDebug)
 RETURN .T.
 
 FUNCTION SetDebugRun()
@@ -581,7 +581,7 @@ RETURN .T.
 
 Function RunScript( fname, scrname, args )
 Local scr := OpenScript( fname, scrname )
-Return Iif( scr==Nil, Nil, DoScript( scr, args ) )
+Return Iif(scr==Nil, Nil, DoScript( scr, args ))
 
 #ifdef __WINDOWS__
 
@@ -635,7 +635,7 @@ LOCAL GetList := {}
    y2   := y1 + y__size
    x2   := x1 + x__size
    oldc := SETCOLOR("N/W")
-   IF LEN(sout) + IIF( spict = "@D", 8, LEN(spict) ) > x__size - 3
+   IF LEN(sout) + IIF(spict = "@D", 8, LEN(spict)) > x__size - 3
       SCROLL( y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1 )
    ELSE
       x1 += LEN(sout) + 1
@@ -643,7 +643,7 @@ LOCAL GetList := {}
    @ y2 - 1, x1 + 2 GET varget PICTURE spict        
    READ
    SETCOLOR(oldc)
-RETURN IIF( LASTKEY() = 27, Nil, varget )
+RETURN IIF(LASTKEY() = 27, Nil, varget)
 
 FUNCTION WndOpen( ysize, xsize )
 

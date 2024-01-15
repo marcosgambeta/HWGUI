@@ -49,11 +49,11 @@ ENDCLASS
 METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
             bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus, bKeydown, bDblclick, bOther) CLASS HListBox
 
-   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + WS_VSCROLL + LBS_DISABLENOSCROLL + LBS_NOTIFY + LBS_NOINTEGRALHEIGHT + WS_BORDER )
+   nStyle   := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP + WS_VSCROLL + LBS_DISABLENOSCROLL + LBS_NOTIFY + LBS_NOINTEGRALHEIGHT + WS_BORDER )
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, cTooltip, tColor, bcolor)
 
-   ::value   := IIf( vari == Nil .OR. ValType(vari) != "N", 0, vari )
+   ::value   := IIf(vari == Nil .OR. ValType(vari) != "N", 0, vari)
    ::bSetGet := bSetGet
 
    IF aItems == Nil
@@ -108,7 +108,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
               bSize, bPaint, cTooltip)
 
-   ::value   := IIf( vari == Nil .OR. ValType(vari) != "N", 1, vari )
+   ::value   := IIf(vari == Nil .OR. ValType(vari) != "N", 1, vari)
    ::bSetGet := bSetGet
    ::bKeydown := bKeydown
    ::bOther := bOther
@@ -166,7 +166,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HListBox
          RETURN - 1
       ENDIF
       IF wParam = VK_TAB //.AND. nType < WND_DLG_RESOURCE
-         hwg_GetSkip( ::oParent, ::handle, , iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
+         hwg_GetSkip( ::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
         //RETURN 0
       ENDIF
          IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == 'B'
@@ -205,7 +205,7 @@ METHOD Refresh() CLASS HListBox
       vari := Eval(::bSetGet)
    ENDIF
 
-   ::value := IIf( vari == Nil .OR. ValType(vari) != "N", 0, vari )
+   ::value := IIf(vari == Nil .OR. ValType(vari) != "N", 0, vari)
    ::SetItem( ::value )
 
    RETURN Nil
@@ -291,7 +291,7 @@ METHOD When( oCtrl ) CLASS HListBox
    IF !hwg_CheckFocus( Self, .F. )
       RETURN .T.
    ENDIF
-    nSkip := IIf( hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1 )
+    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1)
    IF ::bSetGet != Nil
       Eval(::bSetGet, ::value, Self)
    ENDIF
@@ -320,7 +320,7 @@ METHOD Valid(oCtrl) CLASS HListBox
    IF !hwg_CheckFocus( Self, .T. ) .OR. ::lNoValid
       RETURN .T.
    ENDIF
-   //nSkip := IIf( hwg_Getkeystate(VK_SHIFT) < 0, - 1, 1 )
+   //nSkip := IIf(hwg_Getkeystate(VK_SHIFT) < 0, - 1, 1)
    IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != Nil

@@ -27,7 +27,7 @@ CLASS HSayImage INHERIT HControl
          bSize, ctooltip, bClick, bDblClick)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
-   METHOD END()  INLINE ( ::Super:END(), IIf( ::oImage <> NIL, ::oImage:Release(), ::oImage := NIL ), ::oImage := NIL )
+   METHOD END()  INLINE ( ::Super:END(), IIf(::oImage <> NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL )
    METHOD onClick()
    METHOD onDblClick()
 
@@ -36,9 +36,9 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctooltip, bClick, bDblClick) CLASS HSayImage
 
-   nStyle := Hwg_BitOr( nStyle, IIF( ISBLOCK( bClick ) .OR. ISBLOCK( bDblClick ), SS_NOTIFY, 0 ) )
+   nStyle := Hwg_BitOr( nStyle, IIF(ISBLOCK( bClick ) .OR. ISBLOCK( bDblClick ), SS_NOTIFY, 0) )
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop,               ;
-         IIf( nWidth != NIL, nWidth, 0 ), IIf( nHeight != NIL, nHeight, 0 ),, ;
+         IIf(nWidth != NIL, nWidth, 0), IIf(nHeight != NIL, nHeight, 0),, ;
          bInit, bSize,, ctooltip)
 
    ::title   := ""
@@ -106,11 +106,11 @@ ENDCLASS
 METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle) CLASS HSayBmp
 
-   nStyle := IIF( nStyle = NIL, 0, nStyle )
+   nStyle := IIF(nStyle = NIL, 0, nStyle)
    ::Super:New(oWndParent, nId, SS_OWNERDRAW + nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
    ::bPaint := { | o, lpdis | o:Paint( lpdis ) }
-   ::nStretch := IIf( nStretch = NIL, 0, nStretch )
+   ::nStretch := IIf(nStretch = NIL, 0, nStretch)
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
       ::extStyle +=  WS_EX_TRANSPARENT
@@ -120,10 +120,10 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := IIf( lRes .OR. ValType(Image) == "N",     ;
+      ::oImage := IIf(lRes .OR. ValType(Image) == "N",     ;
             HBitmap():AddResource(Image), ;
-            IIf( ValType(Image) == "C",     ;
-            HBitmap():AddFile(Image), Image ) )
+            IIf(ValType(Image) == "C",     ;
+            HBitmap():AddFile(Image), Image))
       IF nWidth == NIL .OR. nHeight == NIL
          ::nWidth  := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
@@ -145,10 +145,10 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf( lRes .OR. ValType(xImage) == "N",     ;
+   ::oImage := IIf(lRes .OR. ValType(xImage) == "N",     ;
          HBitmap():AddResource(xImage), ;
-         IIf( ValType(xImage) == "C",     ;
-         HBitmap():AddFile(xImage), xImage ) )
+         IIf(ValType(xImage) == "C",     ;
+         HBitmap():AddFile(xImage), xImage))
 
    RETURN Self
 
@@ -207,10 +207,10 @@ METHOD ReplaceBitmap( Image, lRes ) CLASS HSayBmp
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf( lRes .OR. ValType(Image) == "N",     ;
+   ::oImage := IIf(lRes .OR. ValType(Image) == "N",     ;
          HBitmap():AddResource(Image), ;
-         IIf( ValType(Image) == "C",     ;
-         HBitmap():AddFile(Image), Image ) )
+         IIf(ValType(Image) == "C",     ;
+         HBitmap():AddFile(Image), Image))
 
    RETURN NIL
 
@@ -237,10 +237,10 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       lOEM := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf( lRes .OR. ValType(Image) == "N",  ;
+      ::oImage := IIf(lRes .OR. ValType(Image) == "N",  ;
             HIcon():AddResource(Image,,,, lOEM),  ;
-            IIf( ValType(Image) == "C",    ;
-            HIcon():AddFile(Image), Image ) )
+            IIf(ValType(Image) == "C",    ;
+            HIcon():AddFile(Image), Image))
    ENDIF
    ::Activate()
 
@@ -254,10 +254,10 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSa
       lRes := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf( lRes .OR. ValType(xImage) == "N",   ;
+      ::oImage := IIf(lRes .OR. ValType(xImage) == "N",   ;
             HIcon():AddResource(xImage), ;
-            IIf( ValType(xImage) == "C",   ;
-            HIcon():AddFile(xImage), xImage ) )
+            IIf(ValType(xImage) == "C",   ;
+            HIcon():AddFile(xImage), xImage))
    ENDIF
 
    RETURN Self

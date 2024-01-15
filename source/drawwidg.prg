@@ -34,12 +34,12 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, ;
 
    LOCAL i, nlen := Len(::aFonts)
 
-   nHeight  := iif( nHeight == Nil, - 13, nHeight )
-   fnWeight := iif( fnWeight == Nil, 0, fnWeight )
-   fdwCharSet := iif( fdwCharSet == Nil, 0, fdwCharSet )
-   fdwItalic := iif( fdwItalic == Nil, 0, fdwItalic )
-   fdwUnderline := iif( fdwUnderline == Nil, 0, fdwUnderline )
-   fdwStrikeOut := iif( fdwStrikeOut == Nil, 0, fdwStrikeOut )
+   nHeight  := iif(nHeight == Nil, -13, nHeight)
+   fnWeight := iif(fnWeight == Nil, 0, fnWeight)
+   fdwCharSet := iif(fdwCharSet == Nil, 0, fdwCharSet)
+   fdwItalic := iif(fdwItalic == Nil, 0, fdwItalic)
+   fdwUnderline := iif(fdwUnderline == Nil, 0, fdwUnderline)
+   fdwStrikeOut := iif(fdwStrikeOut == Nil, 0, fdwStrikeOut)
 
    FOR i := 1 TO nlen
       IF ::aFonts[i]:name == fontName .AND.          ;
@@ -85,21 +85,21 @@ METHOD SELECT( oFont, nCharSet  ) CLASS HFont
       RETURN Nil
    ENDIF
 
-   RETURN ::Add(af[2], af[3], af[4], af[5], iif( Empty(nCharSet), af[6], nCharSet ), af[7], af[8], af[9], af[1])
+   RETURN ::Add(af[2], af[3], af[4], af[5], iif(Empty(nCharSet), af[6], nCharSet), af[7], af[8], af[9], af[1])
 
 METHOD SetFontStyle(lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) CLASS HFont
    LOCAL weight, Italic, Underline, StrikeOut
 
    IF lBold != Nil
-      weight = iif( lBold, FW_BOLD, FW_REGULAR )
+      weight = iif(lBold, FW_BOLD, FW_REGULAR)
    ELSE
       weight := ::weight
    ENDIF
-   Italic    := iif( lItalic = Nil, ::Italic, iif( lItalic, 1, 0 ) )
-   Underline := iif( lUnder  = Nil, ::Underline, iif( lUnder, 1, 0 ) )
-   StrikeOut := iif( lStrike = Nil, ::StrikeOut, iif( lStrike, 1, 0 ) )
-   nheight   := iif( nheight = Nil, ::height, nheight )
-   nCharSet  := iif( nCharSet = Nil, ::CharSet, nCharSet )
+   Italic    := iif(lItalic = Nil, ::Italic, iif(lItalic, 1, 0))
+   Underline := iif(lUnder  = Nil, ::Underline, iif(lUnder, 1, 0))
+   StrikeOut := iif(lStrike = Nil, ::StrikeOut, iif(lStrike, 1, 0))
+   nheight   := iif(nheight = Nil, ::height, nheight)
+   nCharSet  := iif(nCharSet = Nil, ::CharSet, nCharSet)
 
    RETURN HFont():Add(::name, ::width, nheight, weight, ;
       nCharSet, Italic, Underline, StrikeOut)
@@ -150,9 +150,9 @@ ENDCLASS
 METHOD Add(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, BS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
-   nColor := iif( nColor == Nil, 0, nColor )
+   nStyle := iif(nStyle == Nil, BS_SOLID, nStyle)
+   nWidth := iif(nWidth == Nil, 1, nWidth)
+   nColor := iif(nColor == Nil, 0, nColor)
 
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aPens
@@ -187,9 +187,9 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
 METHOD Get(nStyle, nWidth, nColor) CLASS HPen
    LOCAL i
 
-   nStyle := iif( nStyle == Nil, PS_SOLID, nStyle )
-   nWidth := iif( nWidth == Nil, 1, nWidth )
-   nColor := iif( nColor == Nil, 0, nColor )
+   nStyle := iif(nStyle == Nil, PS_SOLID, nStyle)
+   nWidth := iif(nWidth == Nil, 1, nWidth)
+   nColor := iif(nColor == Nil, 0, nColor)
 
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aPens
@@ -375,8 +375,8 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    IF lOEM
       ::handle := hwg_Loadimage(0, Val(name), IMAGE_BITMAP, nil, nil, Hwg_bitor( nFlags, LR_SHARED ))
    ELSE
-      //::handle := hwg_Loadimage(nil, IIf( lPreDefined, Val(name), name ), IMAGE_BITMAP, nil, nil, nFlags)
-      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val(name), name ), IMAGE_BITMAP, nWidth, nHeight, nFlags)
+      //::handle := hwg_Loadimage(nil, IIf(lPreDefined, Val(name), name), IMAGE_BITMAP, nil, nil, nFlags)
+      ::handle := hwg_Loadimage(nil, iif(lPreDefined, Val(name), name), IMAGE_BITMAP, nWidth, nHeight, nFlags)
    ENDIF
    ::name    := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
@@ -433,7 +433,7 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
       ENDIF
    NEXT
 #endif
-   name := iif( !File(name) .AND. File(cname), cname, name )
+   name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir  := DiskName() + ':\' + CurDir()
       name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
@@ -560,7 +560,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
    IF lOEM // LR_SHARED is required for OEM images
       ::handle := hwg_Loadimage(0, Val(name), IMAGE_ICON, nWidth, nHeight, Hwg_bitor( nFlags, LR_SHARED ))
    ELSE
-      ::handle := hwg_Loadimage(nil, iif( lPreDefined, Val(name), name ), IMAGE_ICON, nWidth, nHeight, nFlags)
+      ::handle := hwg_Loadimage(nil, iif(lPreDefined, Val(name), name), IMAGE_ICON, nWidth, nHeight, nFlags)
    ENDIF
    ::name   := name
    aIconSize := hwg_Geticonsize(::handle)
@@ -596,7 +596,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    NEXT
 #endif
    // ::classname:= "HICON"
-   name := iif( !File(name) .AND. File(cname), cname, name )
+   name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir  := DiskName() + ':\' + CurDir()
       name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"

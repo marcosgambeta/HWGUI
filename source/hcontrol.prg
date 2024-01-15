@@ -41,10 +41,10 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Init()
    METHOD AddName(cName) HIDDEN
    METHOD NewId()
-   METHOD Show( nShow ) INLINE ::Super:Show( nShow ), iif( ::oParent:lGetSkipLostFocus, ;
-      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, iif( ::oParent:FindControl(, hwg_Getfocus() ) != NIL, 0, ::handle ), 1), .T. )
+   METHOD Show( nShow ) INLINE ::Super:Show( nShow ), iif(::oParent:lGetSkipLostFocus, ;
+      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, iif(::oParent:FindControl(, hwg_Getfocus() ) != NIL, 0, ::handle), 1), .T.)
    METHOD Hide() INLINE ( ::oParent:lGetSkipLostFocus := .F., ::Super:Hide() )
-   METHOD Disable() INLINE ( iif( hwg_Selffocus( ::Handle ), hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0), ), hwg_Enablewindow( ::handle, .F. ) )
+   METHOD Disable() INLINE ( iif(hwg_Selffocus(::Handle), hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0),), hwg_Enablewindow( ::handle, .F. ) )
    METHOD Enable()
    METHOD IsEnabled() INLINE hwg_Iswindowenabled(::Handle)
    METHOD Enabled(lEnabled) SETGET
@@ -64,14 +64,14 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
-   ::oParent := iif( oWndParent == NIL, ::oDefaultParent, oWndParent )
-   ::id      := iif( nId == NIL, ::NewId(), nId )
-   ::style   := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), ;
+   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id      := iif(nId == NIL, ::NewId(), nId)
+   ::style   := Hwg_BitOr( iif(nStyle == NIL, 0, nStyle), ;
       WS_VISIBLE + WS_CHILD )
-   ::nLeft   := iif( nLeft = NIL, 0, nLeft )
-   ::nTop    := iif( nTop = NIL, 0, nTop )
-   ::nWidth  := iif( nWidth = NIL, 0, nWidth )
-   ::nHeight := iif( nHeight = NIL, 0, nHeight )
+   ::nLeft   := iif(nLeft = NIL, 0, nLeft)
+   ::nTop    := iif(nTop = NIL, 0, nTop)
+   ::nWidth  := iif(nWidth = NIL, 0, nWidth)
+   ::nHeight := iif(nHeight = NIL, 0, nHeight)
    ::oFont   := oFont
    ::bInit   := bInit
    IF Valtype(bSize) == "N"
@@ -242,7 +242,7 @@ METHOD ControlSource(cControlSource) CLASS HControl
    IF cControlSource != NIL .AND. !Empty(cControlSource) .AND. __objHasData(Self, "BSETGETFIELD")
       ::xControlSource := cControlSource
       temp := SubStr(cControlSource, At( "->", cControlSource ) + 2)
-      ::bSetGetField := iif( "->" $ cControlSource, FieldWBlock( temp, Select( SubStr(cControlSource, 1, At("->", cControlSource) - 1) ) ), FieldBlock( cControlSource ) )
+      ::bSetGetField := iif("->" $ cControlSource, FieldWBlock(temp, Select( SubStr(cControlSource, 1, At("->", cControlSource) - 1))), FieldBlock(cControlSource))
    ENDIF
 
    RETURN ::xControlSource
@@ -268,8 +268,8 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    w9 := w1 := ::nWidth
    h9 := h1 := ::nHeight
    // *- calculo relativo
-   nXincRelative := Iif( x > 0, w / x, 1 ) 
-   nYincRelative := Iif( y > 0, h / y, 1 )
+   nXincRelative := Iif(x > 0, w / x, 1)
+   nYincRelative := Iif(y > 0, h / y, 1)
    // *- calculo ABSOLUTE
    nXincAbsolute := ( w - x )
    nYincAbsolute := ( h - y )
@@ -351,8 +351,8 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
    // REDRAW AND INVALIDATE SCREEN
    IF ( x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9 )
       IF hwg_Iswindowvisible(::handle)
-         nCxv := iif( HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1, 3 )
-         nCyh := iif( HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1, 3 )
+         nCxv := iif(HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics( SM_CXVSCROLL ) + 1, 3)
+         nCyh := iif(HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics( SM_CYHSCROLL ) + 1, 3)
          IF ( x1 != x9 .OR. y1 != y9 ) .AND. x9 < ::oParent:nWidth
             hwg_Invalidaterect(::oParent:handle, 1, Max( x9 - 1, 0 ), Max( y9 - 1, 0 ), ;
                x9 + w9 + nCxv, y9 + h9 + nCyh)
@@ -424,12 +424,12 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatus
 
-   bSize  := iif( bSize != NIL, bSize, { | o, x, y | o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight) } )
-   nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), ;
+   bSize  := iif(bSize != NIL, bSize, { | o, x, y | o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight) })
+   nStyle := Hwg_BitOr( iif(nStyle == NIL, 0, nStyle), ;
       WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS )
    ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, ;
       bSize, bPaint)
-   ::nStatusHeight := iif( nHeight = NIL, ::nStatusHeight, nHeight )
+   ::nStatusHeight := iif(nHeight = NIL, ::nStatusHeight, nHeight)
    ::aParts    := aParts
    ::bDblClick := bDblClick
    ::bRClick   := bRClick
@@ -547,7 +547,7 @@ METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
    IF HB_IsNumeric(cIcon) .OR. At( ".", cIcon ) = 0
       //oIcon := HIcon():addResource(cIcon, nWidth, nHeight)
       oIcon := HIcon():addResource(cIcon, nWidth, nHeight, LR_LOADMAP3DCOLORS + ;
-         iif( Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0 ))
+         iif(Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0))
    ELSE
       oIcon := HIcon():addFile(cIcon, nWidth, nHeight)
    ENDIF
@@ -572,7 +572,7 @@ METHOD Resize(xIncrSize) CLASS HStatus
 METHOD onAnchor( x, y, w, h ) CLASS HStatus
 
    IF ::Super:onAnchor( x, y, w, h )
-      ::Resize(Iif( x > 0, w / x, 1 ))
+      ::Resize(Iif(x > 0, w / x, 1))
    ENDIF
 
    RETURN .T.
@@ -684,11 +684,11 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
            cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
            tcolor, bColor) CLASS HButton
 
-   nStyle := Hwg_BitOr( IIF( nStyle == NIL, 0, nStyle ), BS_PUSHBUTTON )
+   nStyle := Hwg_BitOr( IIF(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON )
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, ;
-              IIF( nWidth  == NIL, 90, nWidth  ), ;
-              IIF( nHeight == NIL, 30, nHeight ), ;
+              IIF(nWidth  == NIL, 90, nWidth), ;
+              IIF(nHeight == NIL, 30, nHeight), ;
               oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
    ::bClick  := bClick
    ::title   := cCaption
@@ -749,7 +749,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
       oFont, bInit, bSize, bPaint, tcolor, bColor) CLASS HGroup
 
-   nStyle := Hwg_BitOr( iif( nStyle == NIL, 0, nStyle ), BS_GROUPBOX )
+   nStyle := Hwg_BitOr( iif(nStyle == NIL, 0, nStyle), BS_GROUPBOX )
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, , tcolor, bColor)
 
@@ -791,16 +791,16 @@ METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, n
       bSize, { | o, lp | o:Paint( lp ) } , , tcolor)
 
    ::title := ""
-   ::lVert := iif( lVert == NIL, .F., lVert )
-   ::LineSlant := iif( Empty(cSlant) .OR. !cSlant $ "/\", "", cSlant )
-   ::nBorder := iif( Empty(nBorder), 1, nBorder )
+   ::lVert := iif(lVert == NIL, .F., lVert)
+   ::LineSlant := iif(Empty(cSlant) .OR. !cSlant $ "/\", "", cSlant)
+   ::nBorder := iif(Empty(nBorder), 1, nBorder)
 
    IF Empty(::LineSlant)
       IF ::lVert
          ::nWidth  := ::nBorder + 1 //10
-         ::nHeight := iif( nLength == NIL, 20, nLength )
+         ::nHeight := iif(nLength == NIL, 20, nLength)
       ELSE
-         ::nWidth  := iif( nLength == NIL, 20, nLength )
+         ::nWidth  := iif(nLength == NIL, 20, nLength)
          ::nHeight := ::nBorder + 1 //10
       ENDIF
       ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))

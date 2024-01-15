@@ -75,7 +75,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    METHOD AddRow( a, bUpdate )
    METHOD Notify( lParam )
 
-   METHOD DELETEROW()    INLINE IIF( ::bFlag, ( hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F. ), .T. )
+   METHOD DELETEROW()    INLINE IIF(::bFlag, ( hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F. ), .T.)
    METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := { }, hwg_Sendmessage(::Handle, LVM_DELETEALLITEMS, 0, 0)
    METHOD SELECTALL()    INLINE hwg_Listviewselectall( ::Handle )
    METHOD SELECTLAST()   INLINE hwg_Listviewselectlastitem( ::handle )
@@ -91,8 +91,8 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
 
    HB_SYMBOL_UNUSED(nItemCount)
 
-   //nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_VISIBLE + WS_CHILD + WS_TABSTOP + LVS_REPORT )
-   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_TABSTOP + WS_BORDER   )
+   //nStyle := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_VISIBLE + WS_CHILD + WS_TABSTOP + LVS_REPORT )
+   nStyle := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP + WS_BORDER   )
    ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
               bSize, bPaint)
    DEFAULT aBit TO { }
@@ -184,7 +184,7 @@ METHOD Init() CLASS HGridEx
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
       FOR i := 1 TO Len(::aColumns)
-         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIF( ::aColumns[i, 4] != NIL, ::aColumns[i, 4], - 1 ) )
+         hwg_Listview_addcolumnex( ::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIF(::aColumns[i, 4] != NIL, ::aColumns[i, 4], - 1) )
 
       NEXT
       IF Len(::aRow) > 0
@@ -231,12 +231,12 @@ METHOD AddRow( a, bupdate ) CLASS HGRIDEX
    DEFAULT bupdate TO .F.
    FOR n := 1 TO nLen STEP 4
       AAdd(aTmp1, a[n])
-      AAdd(aTmp, IIF( ValType(a[n + 1]) == "N", a[n + 1], - 1 ))
+      AAdd(aTmp, IIF(ValType(a[n + 1]) == "N", a[n + 1], - 1))
 
-      AAdd(aTmp2, IIF( ValType(a[n + 2]) == "N", a[n + 2], hwg_Rgb(12, 15, 46) ))
+      AAdd(aTmp2, IIF(ValType(a[n + 2]) == "N", a[n + 2], hwg_Rgb(12, 15, 46)))
 
 
-      AAdd(aTmp2, IIF( ValType(a[n + 3]) == "N", a[n + 3], hwg_Rgb(192, 192, 192) ))
+      AAdd(aTmp2, IIF(ValType(a[n + 3]) == "N", a[n + 3], hwg_Rgb(192, 192, 192)))
 
       AAdd(::aColors, aTmp2)
       aTmp2 := { }

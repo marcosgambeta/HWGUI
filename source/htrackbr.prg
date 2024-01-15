@@ -55,19 +55,19 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF bPaint != NIL
       TickStyle := Hwg_BitOr( TickStyle, TBS_AUTOTICKS )
    ENDIF
-   nStyle := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ), ;
+   nStyle := Hwg_BitOr( IIf(nStyle == NIL, 0, nStyle), ;
          WS_CHILD + WS_VISIBLE + WS_TABSTOP )
-   nStyle += IIf( lVertical != NIL .AND. lVertical, TBS_VERT, 0 )
+   nStyle += IIf(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nStyle += TickStyle + TickMarks
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, ;
          bInit, bSize, bPaint, cTooltip)
 
-   ::value      := IIf( ValType(vari) == "N", vari, 0 )
+   ::value      := IIf(ValType(vari) == "N", vari, 0)
    ::bChange    := bChange
    ::bThumbDrag := bDrag
-   ::nLow       := IIf( nLow == NIL, 0, nLow )
-   ::nHigh      := IIf( nHigh == NIL, 100, nHigh )
+   ::nLow       := IIf(nLow == NIL, 0, nLow)
+   ::nHigh      := IIf(nHigh == NIL, 100, nHigh)
 
    HWG_InitCommonControlsEx()
    ::Activate()
@@ -108,7 +108,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
    ELSEIF msg == WM_CHAR
       IF wParam = VK_TAB
          hwg_GetSkip( ::oParent, ::handle, , ;
-               iif( hwg_IsCtrlShift(.F., .T.), -1, 1) )
+               iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0
       ENDIF
     ELSEIF msg = WM_KEYDOWN

@@ -36,10 +36,10 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
            cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
 
-   nStyle     := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), WS_CHILD + WS_VISIBLE )
-   nStyle     := nStyle + IIf( lAutoPlay == Nil.OR.lAutoPlay, ACS_AUTOPLAY, 0 )
-   nStyle     := nStyle + IIf( lCenter == Nil.OR. !lCenter, 0, ACS_CENTER )
-   nStyle     := nStyle + IIf( lTransparent == Nil.OR. !lTransparent, 0, ACS_TRANSPARENT )
+   nStyle     := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE )
+   nStyle     := nStyle + IIf(lAutoPlay == Nil.OR.lAutoPlay, ACS_AUTOPLAY, 0)
+   nStyle     := nStyle + IIf(lCenter == Nil.OR. !lCenter, 0, ACS_CENTER)
+   nStyle     := nStyle + IIf(lTransparent == Nil.OR. !lTransparent, 0, ACS_TRANSPARENT)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight)
    ::xResID    := xResID
    ::cFilename := cFilename
@@ -77,14 +77,14 @@ METHOD Open( cFileName ) CLASS HAnimation
    RETURN Nil
 
 METHOD Play( nFrom, nTo, nRep ) CLASS HAnimation
-   nFrom := IIf( nFrom == Nil, 0, nFrom )
-   nTo   := IIf( nTo   == Nil, - 1, nTo   )
-   nRep  := IIf( nRep  == Nil, - 1, nRep  )
+   nFrom := IIf(nFrom == Nil, 0, nFrom)
+   nTo   := IIf(nTo   == Nil, - 1, nTo)
+   nRep  := IIf(nRep  == Nil, - 1, nRep)
    hwg_Animate_Play( ::handle, nFrom, nTo, nRep )
    RETURN Self
 
 METHOD Seek( nFrame ) CLASS HAnimation
-   nFrame := IIf( nFrame == Nil, 0, nFrame )
+   nFrame := IIf(nFrame == Nil, 0, nFrame)
    hwg_Animate_Seek( ::handle, nFrame )
    RETURN Self
 

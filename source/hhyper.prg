@@ -83,7 +83,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    LOCAL oPrevFont
    
    nStyle := Hwg_BitOR( nStyle, SS_NOTIFY + SS_RIGHT  )
-   ::lAllUnderline := IIF( EMPTY(cLink), .F., ::lAllUnderline )
+   ::lAllUnderline := IIF(EMPTY(cLink), .F., ::lAllUnderline)
    ::title := IIF(cCaption != Nil, cCaption, "HWGUI HomePage")
    ::hbitmap := hbitmap
 
@@ -99,7 +99,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
-   ::title := IIf( cCaption == Nil, "", cCaption )
+   ::title := IIf(cCaption == Nil, "", cCaption)
 
    // Test The Font the underline must be 1
    IF ::oFont == NIL
@@ -107,7 +107,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
          ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
                                  ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add("Arial", 0, - 12, , , , IIF( ::lAllUnderline, 1, ),)
+         ::oFont := HFONT():Add("Arial", 0, - 12, , , , IIF(::lAllUnderline, 1,),)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0 .AND. ::lAllUnderline
@@ -214,7 +214,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
       ELSEIF   wParam = VK_UP
          hwg_GetSkip( ::oparent, ::handle,, - 1 )
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip( ::oParent, ::handle, , IIF( hwg_IsCtrlShift( .F., .T.), -1, 1 ) )
+         hwg_GetSkip( ::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1) )
       ENDIF
       RETURN 0
    ELSEIF msg == WM_KEYUP
@@ -226,7 +226,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
       ENDIF
       */
    ELSEIF msg = WM_GETDLGCODE
-      RETURN IIF( wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB )
+      RETURN IIF(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
 
    ENDIF
    RETURN - 1
@@ -366,7 +366,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
 //   LOCAL POLDFONT
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
-   LOCAL aBmpSize    := IIF( !EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap),{0, 0} )
+   LOCAL aBmpSize    := IIF(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap),{0, 0})
    LOCAL itemRect    := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
    LOCAL captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
@@ -398,7 +398,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
       ELSE
          hwg_Drawbitmap( dc, ::hbitmap, , bmpRect[1], bmpRect[2] + 1 )
       ENDIF
-      rcclient[1] +=  IIF( ::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1 )
+      rcclient[1] +=  IIF(::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1)
       rcclient[2] +=  2
    ELSEIF Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       rcclient[1] += 3
@@ -406,7 +406,7 @@ METHOD PAint( lpDis ) CLASS HStaticLink
    ENDIF
    hwg_Setbkmode(DC, ::backstyle)
    IF ::backstyle != TRANSPARENT
-      hwg_Setbkcolor(DC, IIF( ::bColor = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::bcolor ))
+      hwg_Setbkcolor(DC, IIF(::bColor = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::bcolor))
       hwg_Fillrect(dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4]) //, ::brush:handle )
    ENDIF
    dwFlags    := DT_LEFT + DT_WORDBREAK
@@ -451,12 +451,12 @@ METHOD Resize(x, y) CLASS HStaticLink
       RETURN Nil
    ENDIF
 
-   x := iif( x == Nil, 0, x - ::nWidth + 1 )
-   aBmpSize := IIF( !EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap), {0, 0} )
-   aBmpSize[1] += IIF( aBmpSize[1] > 0, 6, 0 )
+   x := iif(x == Nil, 0, x - ::nWidth + 1)
+   aBmpSize := IIF(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap), {0, 0})
+   aBmpSize[1] += IIF(aBmpSize[1] > 0, 6, 0)
    ::Move(, , ::nWidth + x, , 0)
    aTxtSize := hwg_TxtRect(::Title, Self)
-   aTxtSize[2] += IIF( ::lAllUnderline, 0, 3 )
+   aTxtSize[2] += IIF(::lAllUnderline, 0, 3)
    IF aTxtSize[1] + 1  <  ::nWidth - aBmpSize[1] //tava 20
       ::nHeight := aTxtSize[2] + 2
    ELSE

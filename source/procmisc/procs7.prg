@@ -52,11 +52,11 @@ LOCAL varName, iPosEnd, iPos3
       RETURN ""
    ELSE
       IF ( iPosEnd := Find_Z( stroka ) ) == 0
-         iPosEnd := Iif( Right(stroka, 1) = ';', Len(stroka), Len(stroka) + 1 )
+         iPosEnd := Iif(Right(stroka, 1) = ';', Len(stroka), Len(stroka) + 1)
       ENDIF
       ipos3    := Find_Z( Left(stroka, iPosEnd - 1), ':' )
       varName  := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
-      varValue := Iif( iPos3 <> 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil )
+      varValue := Iif(iPos3 <> 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil)
       stroka   := Substr(stroka, iPosEnd + 1)
    ENDIF
 RETURN varName
@@ -65,7 +65,7 @@ FUNCTION FIND_Z( stroka, symb )
 
 LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-   symb := Iif( symb = Nil, ",", symb )
+   symb := Iif(symb = Nil, ",", symb)
    DO WHILE .T.
       poz := At( symb, Substr(stroka, poz1) )
       IF poz = 0
@@ -101,26 +101,26 @@ FUNCTION Fchoice()
 FUNCTION CutExten( fname )
 
 LOCAL i
-RETURN Iif( ( i := Rat( '.', fname ) ) = 0, fname, Substr(fname, 1, i - 1) )
+RETURN Iif(( i := Rat( '.', fname ) ) = 0, fname, Substr(fname, 1, i - 1))
 
 FUNCTION FilExten( fname )
 
 LOCAL i
-RETURN Iif( ( i := Rat( '.', fname ) ) = 0, "", Substr(fname, i + 1) )
+RETURN Iif(( i := Rat( '.', fname ) ) = 0, "", Substr(fname, i + 1))
 
 FUNCTION FilePath( fname )
 
 LOCAL i
-RETURN Iif( ( i := Rat( '\', fname ) ) = 0, ;
-            Iif( ( i := Rat( '/', fname ) ) = 0, "", Left(fname, i) ), ;
-            Left(fname, i) )
+RETURN Iif(( i := Rat( '\', fname ) ) = 0, ;
+           Iif(( i := Rat( '/', fname )) = 0, "", Left(fname, i) ), ;
+           Left(fname, i))
 
 FUNCTION CutPath( fname )
 
 LOCAL i
-RETURN Iif( ( i := Rat( '\', fname ) ) = 0, ;
-            Iif( ( i := Rat( '/', fname ) ) = 0, fname, Substr(fname, i + 1) ), ;
-            Substr(fname, i + 1) )
+RETURN Iif(( i := Rat( '\', fname ) ) = 0, ;
+            Iif(( i := Rat( '/', fname ) ) = 0, fname, Substr(fname, i + 1)), ;
+            Substr(fname, i + 1))
 
 FUNCTION NextItem( stroka, lFirst, cSep )
 

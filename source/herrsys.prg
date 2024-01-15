@@ -18,7 +18,7 @@ STATIC LogInitialPath := ""
 PROCEDURE hwg_ErrSys
 
    ErrorBlock( { | oError | DefError( oError ) } )
-   LogInitialPath := "\" + CurDir() + IIf( Empty(CurDir()), "", "\" )
+   LogInitialPath := "\" + CurDir() + IIf(Empty(CurDir()), "", "\")
 
    RETURN
 
@@ -84,7 +84,7 @@ FUNCTION hwg_ErrMsg( oError )
    LOCAL cMessage
 
    // start error message
-   cMessage := IIf( oError:severity > ES_WARNING, "Error", "Warning" ) + " "
+   cMessage := IIf(oError:severity > ES_WARNING, "Error", "Warning") + " "
 
    // add subsystem name if available
    IF ISCHARACTER( oError:subsystem )
@@ -124,7 +124,7 @@ FUNCTION hwg_ErrMsg( oError )
 FUNCTION hwg_WriteLog( cText, fname )
    LOCAL nHand
 
-   fname := LogInitialPath + IIf( fname == Nil, "a.log", fname )
+   fname := LogInitialPath + IIf(fname == Nil, "a.log", fname)
    IF !File(fname)
       nHand := FCreate(fname)
    ELSE

@@ -66,7 +66,7 @@ METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
    DEFAULT r := ::r
    ::lFlat  := .T.
    ::bClick := bClick
-   ::nOrder  := IIf( oWndParent == nil, 0, Len(oWndParent:aControls) )
+   ::nOrder  := IIf(oWndParent == nil, 0, Len(oWndParent:aControls))
 
    ::ExStyle := nStyleEx
    ::text    := cText
@@ -218,7 +218,7 @@ METHOD MUp() CLASS HNICEButton
 
    IF ::state == OBTN_PRESSED
       IF !::lPress
-         ::state := IIf( ::lFlat, OBTN_MOUSOVER, OBTN_NORMAL )
+         ::state := IIf(::lFlat, OBTN_MOUSOVER, OBTN_NORMAL)
          hwg_Invalidaterect(::handle, 0)
          hwg_Postmessage(::handle, WM_PAINT, 0, 0)
       ENDIF

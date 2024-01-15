@@ -419,7 +419,7 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_CALC
          IF Left(p1, 1) == "?"
-            p1 := Ltrim(Substr(p1, Iif( Left(p1, 2) == "??", 3, 2 )))
+            p1 := Ltrim(Substr(p1, Iif(Left(p1, 2) == "??", 3, 2)))
          ENDIF
          hwg_dbg_Answer( "value", __dbgValToStr(::GetExprValue(p1)) )
 
@@ -482,9 +482,9 @@ METHOD ShowCodeLine(nProc) CLASS HBDebugger
 
       IF !Empty(cPrgName)
          hwg_dbg_SetActiveLine(cPrgName, nLine, ;
-               Iif( ::lViewStack, SendStack(), Nil ),  ;
-               Iif( ::lShowLocals, SendLocal(), Nil ), ;
-               Iif( ::lShowWatch .AND. (::nWatches > 0), SendWatch(), Nil ))
+               Iif(::lViewStack, SendStack(), Nil),  ;
+               Iif(::lShowLocals, SendLocal(), Nil), ;
+               Iif(::lShowWatch .AND. (::nWatches > 0), SendWatch(), Nil))
       ENDIF
    ENDIF
 
@@ -559,9 +559,9 @@ Local arr := Array( Len(aStack) * 3 + 1 ), i, j := 2
 
    arr[1] := Ltrim(Str(Len(aStack)))
    FOR i := 1 TO Len(aStack)
-      arr[j++] := Iif( Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE] )
-      arr[j++] := Iif( Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION] )
-      arr[j++] := Iif( Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str(aStack[i, CSTACK_LINE])) )
+      arr[j++] := Iif(Empty(aStack[i, CSTACK_MODULE]), "", aStack[i, CSTACK_MODULE])
+      arr[j++] := Iif(Empty(aStack[i, CSTACK_FUNCTION]), "Unknown", aStack[i, CSTACK_FUNCTION])
+      arr[j++] := Iif(Empty(aStack[i, CSTACK_LINE]), "", Ltrim(Str(aStack[i, CSTACK_LINE])))
    NEXT
 
    RETURN arr
@@ -612,15 +612,15 @@ Local arr, arr1[512], n, i, nAreas := 0, nAlias
    n := 2
    FOR i := 1 TO nAreas
       Select( arr1[i] )
-      arr[++n] := Iif( arr1[i]==nAlias, "*", "" ) + Alias()
+      arr[++n] := Iif(arr1[i]==nAlias, "*", "") + Alias()
       arr[++n] := hb_ntos( arr1[i] )
       arr[++n] := rddname()
       arr[++n] := hb_ntos( Reccount() )
       arr[++n] := hb_ntos( Recno() )
-      arr[++n] := Iif( Bof(), "Yes", "No" )
-      arr[++n] := Iif( Eof(), "Yes", "No" )
-      arr[++n] := Iif( Found(), "Yes", "No" )
-      arr[++n] := Iif( Deleted(), "Yes", "No" )
+      arr[++n] := Iif(Bof(), "Yes", "No")
+      arr[++n] := Iif(Eof(), "Yes", "No")
+      arr[++n] := Iif(Found(), "Yes", "No")
+      arr[++n] := Iif(Deleted(), "Yes", "No")
       arr[++n] := dbFilter()
       arr[++n] := ordName()
       arr[++n] := ordKey()
@@ -660,14 +660,14 @@ FUNCTION __dbgValToStr(uVal)
       s := ""
       nLen := Min( 8, Len(uVal) )
       FOR i := 1 TO nLen
-         s += '"' + Valtype( uVal[i] ) + '"' + Iif( i==nLen, "", ", " )
+         s += '"' + Valtype( uVal[i] ) + '"' + Iif(i == nLen, "", ", ")
       NEXT
       IF nLen < Len(uVal)
          s += ", ..."
       ENDIF
       RETURN "Array(" + hb_ntos( Len(uVal) ) + "): { " + s + " }"
    CASE cType $ "CM" ; RETURN '"' + uVal + '"'
-   CASE cType == "L" ; RETURN Iif( uVal, ".T.", ".F." )
+   CASE cType == "L" ; RETURN Iif(uVal, ".T.", ".F.")
    CASE cType == "D" ; RETURN DToC(uVal)
 #ifndef __XHARBOUR__
    CASE cType == "T" ; RETURN hb_TToC(uVal)

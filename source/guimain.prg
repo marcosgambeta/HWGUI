@@ -49,7 +49,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
 
    LOCAL i, pArray := oWnd:aControls, lInit
 
-   lNoActivate := IIf( lNoActivate == Nil, .F., lNoActivate )
+   lNoActivate := IIf(lNoActivate == Nil, .F., lNoActivate)
 
    IF pArray != Nil
       FOR i := 1 TO Len(pArray)
@@ -62,7 +62,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
          ELSEIF  !lNoActivate
             pArray[i]:lInit := .T.
          ENDIF
-         IF IIF( ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong( pArray[i]:handle ), pArray[i]:handle ) <= 0
+         IF IIF(ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong( pArray[i]:handle ), pArray[i]:handle) <= 0
             pArray[i]:handle := hwg_Getdlgitem( oWnd:handle, pArray[i]:id )
 
             // writelog( "InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname )
@@ -160,11 +160,11 @@ FUNCTION hwg_VColor(cColor)
 FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
 
    LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, - 13)
-   LOCAL cRes := IIf( cResIni != Nil, Trim(cResIni), "" )
-   nStyle := IIf( nStyle == Nil, 0, nStyle )
-   x := IIf( x == Nil, 210, x )
-   y := IIf( y == Nil, 10, y )
-   nDlgStyle := IIf( nDlgStyle == Nil, 0, nDlgStyle )
+   LOCAL cRes := IIf(cResIni != Nil, Trim(cResIni), "")
+   nStyle := IIf(nStyle == Nil, 0, nStyle)
+   x := IIf(x == Nil, 210, x)
+   y := IIf(y == Nil, 10, y)
+   nDlgStyle := IIf(nDlgStyle == Nil, 0, nDlgStyle)
 
    INIT DIALOG oModDlg TITLE cTitle At x, y SIZE 300, 140 ;
         FONT oFont CLIPPER ;
@@ -176,7 +176,7 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
    @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
-   ACTIVATE DIALOG oModDlg ON ACTIVATE { || IIF( !EMPTY(cRes), hwg_Keyb_event( VK_END ), .T. ) }
+   ACTIVATE DIALOG oModDlg ON ACTIVATE { || IIF(!EMPTY(cRes), hwg_Keyb_event( VK_END ), .T.) }
 
    oFont:Release()
    IF oModDlg:lResult
@@ -306,7 +306,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
    ENDIF
 
    IF cOk != Nil
-      x1 := Int( width / 2 ) - IIf( cCancel != Nil, 90, 40 )
+      x1 := Int( width / 2 ) - IIf(cCancel != Nil, 90, 40)
       @ x1, height - 36 BUTTON cOk SIZE 80, 30 ON CLICK { || nChoice := oBrw:nCurrent, hwg_EndDialog( oDlg:handle ) }
       IF cCancel != Nil
          @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 30 ON CLICK { || nChoice := 0, hwg_EndDialog( oDlg:handle ) }
@@ -326,12 +326,12 @@ FUNCTION hwg_ShowProgress( nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, h
    STATIC oDlg, hPBar, iCou, nLimit
 
    IF nStep == 0
-      nLimit := IIf( nRange != Nil, Int( nRange / maxPos ), 1 )
+      nLimit := IIf(nRange != Nil, Int( nRange / maxPos ), 1)
       iCou := 0
-      x1 := IIf( x1 == Nil, 0, x1 )
-      y1 := IIf( x1 == Nil, 0, y1 )
-      width := IIf( width == Nil, 220, width )
-      height := IIf( height == Nil, 55, height )
+      x1 := IIf(x1 == Nil, 0, x1)
+      y1 := IIf(x1 == Nil, 0, y1)
+      width := IIf(width == Nil, 220, width)
+      height := IIf(height == Nil, 55, height)
       IF x1 == 0
          nStyle += DS_CENTER
       ENDIF
@@ -474,7 +474,7 @@ FUNCTION hwg_TxtRect(cTxt, oWin, oFont)
    LOCAL ASize
    LOCAL hFont
 
-   oFont := IIF( oFont != Nil, oFont, oWin:oFont )
+   oFont := IIF(oFont != Nil, oFont, oWin:oFont)
 
    hDC       := hwg_Getdc(oWin:handle)
    IF oFont == Nil .AND. oWin:oParent != Nil
@@ -564,9 +564,9 @@ LOCAL oParent, nCtrl, nPos
       RETURN .F.
    ENDIF
    IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
-      oParent := IIF( oMain != Nil, oMain, hwg_GetParentForm( oCtrl ) )
+      oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm( oCtrl ))
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
-         nctrl := IIf( hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ) )
+         nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ))
          IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
             Eval(oParent:KeyList[nPos, 3], oCtrl)
             RETURN .T.
@@ -581,7 +581,7 @@ LOCAL oParent, nCtrl, nPos
 FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
 
    Local oWin := hwg_GetParentForm(oCtrl), lEscape
-   Local iParHigh := IIF( nKey = VK_RETURN, IDOK, IDCANCEL )
+   Local iParHigh := IIF(nKey = VK_RETURN, IDOK, IDCANCEL)
    LOCAL oCtrlFocu := oCtrl
 
    lForce := !Empty(lForce)
@@ -692,8 +692,8 @@ Function  hwg_SetFontStyle(oWnd, lBold, lItalic, lUnderline)
       IF oFont == NIL .AND. lBold == NIL .AND. lItalic == NIL .AND. lUnderline == NIL
          RETURN .T.
       ENDIF
-      oWnd:oFont := IIF( oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic!=Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline!=Nil, Iif(lUnderline, 1, 0), NIL)), ;
-            HFont():Add("", 0,, Iif(lBold!=Nil, Iif(lBold, FW_BOLD, FW_REGULAR), NIL),, Iif(lItalic!=Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline!=Nil, Iif(lUnderline, 1, 0), NIL)) )
+      oWnd:oFont := IIF(oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic != Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline != Nil, Iif(lUnderline, 1, 0), NIL)), ;
+            HFont():Add("", 0,, Iif(lBold != Nil, Iif(lBold, FW_BOLD, FW_REGULAR), NIL),, Iif(lItalic != Nil, Iif(lItalic, 1, 0), NIL), Iif(lUnderline != Nil, Iif(lUnderline, 1, 0), NIL)))
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
       oWnd:oFont := oWnd:oFont:SetFontStyle(lBold,, lItalic, lUnderline)
@@ -711,8 +711,8 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
  // cClass baseclass hwgui
    Local nLen, i
 
-   aControls := IIF( EMPTY(aControls), oWnd:aControls, aControls )
-   nLen := IIF( VALTYPE(aControls) = "C", Len(oWnd:&aControls), LEN(aControls) )
+   aControls := IIF(EMPTY(aControls), oWnd:aControls, aControls)
+   nLen := IIF(VALTYPE(aControls) = "C", Len(oWnd:&aControls), LEN(aControls))
    FOR i = 1 TO nLen
       IF VALTYPE(aControls) = "C"
          oWnd:&aControls[i]:&cProperty := Value
@@ -735,8 +735,8 @@ FUNCTION HWG_ScrollHV( oForm, msg, wParam, lParam )
 
    nSBCode := hwg_Loword(wParam)
    IF msg == WM_MOUSEWHEEL
-      nSBCode = IIF( hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam) )
-      nSBCode = IIF( nSBCode < 0, SB_LINEDOWN, SB_LINEUP )
+      nSBCode = IIF(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+      nSBCode = IIF(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
    ENDIF
    IF ( msg = WM_VSCROLL ) .OR.msg == WM_MOUSEWHEEL
      // Handle vertical scrollbar messages

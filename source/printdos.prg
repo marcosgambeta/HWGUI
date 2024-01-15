@@ -456,7 +456,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
    LOCAL oText := { "" }
    LOCAL oDlg, oColor1, oColor2
    LOCAL oEdit
-   LOCAL oPrt := IIf( Empty(::oPorta) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
+   LOCAL oPrt := IIf(Empty(::oPorta) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta)
 
    IF han <> - 1
       DO WHILE .T.
@@ -490,7 +490,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
       oColor2 := 0
    ENDIF
 
-   IIf( cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle )
+   IIf(cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle)
 
    INIT DIALOG oDlg TITLE cTitle ;
         At 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() on init { || hwg_Sendmessage(oedit1:handle, WM_VSCROLL, SB_TOP, 0) }
@@ -510,8 +510,8 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
 //   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
 //       COLOR 16711680 BACKCOLOR 16777215  //Black to Write
-   @ 6, 30 BUTTON "<<"    ON CLICK { || nPage := PrintDosAnt( nPage, oText ) } SIZE 69, 32  STYLE IIF( nPage = 1, WS_DISABLED, 0 )
-   @ 6, 80 BUTTON ">>"    ON CLICK { || nPage := PrintDosNext( oPage, nPage, oText ) } SIZE 69, 32 STYLE IIF( nPage = 1, WS_DISABLED, 0 )
+   @ 6, 30 BUTTON "<<"    ON CLICK { || nPage := PrintDosAnt( nPage, oText ) } SIZE 69, 32  STYLE IIF(nPage = 1, WS_DISABLED, 0)
+   @ 6, 80 BUTTON ">>"    ON CLICK { || nPage := PrintDosNext( oPage, nPage, oText ) } SIZE 69, 32 STYLE IIF(nPage = 1, WS_DISABLED, 0)
    @ 6, 130 BUTTON "Imprimir" ON CLICK { || PrintDosPrint( oText, oPrt ) } SIZE 69, 32
 //   @ 6, 180 BUTTON "Grafico" on Click {||hwg_EndDialog(), oDos2:TxttoGraphic(fName, 2, .T.), oDos2:end()} SIZE 69, 32
    @ 6, 230 BUTTON "Fechar" ON CLICK { || hwg_EndDialog() } SIZE 69, 32

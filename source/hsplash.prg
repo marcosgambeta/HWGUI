@@ -28,7 +28,7 @@ METHOD Create(cFile, oTime, oResource, nWidth, nHeight, nStyle) CLASS HSplash
    LOCAL aWidth, aHeigth
    LOCAL bitmap
 
-   IIf( Empty(oTime) .OR. oTime == NIL, oTime := 2000, oTime := oTime )
+   IIf(Empty(oTime) .OR. oTime == NIL, oTime := 2000, oTime := oTime)
 
    IF oResource == NIL .OR. !oResource
       bitmap  := HBitmap():AddFile(cFile,,, nWidth, nHeight)
@@ -36,8 +36,8 @@ METHOD Create(cFile, oTime, oResource, nWidth, nHeight, nStyle) CLASS HSplash
       bitmap  := HBitmap():AddResource(cFile,,, nWidth, nHeight)
    ENDIF
 
-   aWidth := IIF( nWidth = NIL, bitmap:nWidth, nWidth )
-   aHeigth := IIF( nHeight = NIL, bitmap:nHeight, nHeight )
+   aWidth := IIF(nWidth = NIL, bitmap:nWidth, nWidth)
+   aHeigth := IIF(nHeight = NIL, bitmap:nHeight, nHeight)
 
    IF nWidth = NIL .OR. nHeight = NIL
       INIT DIALOG ::oDlg TITLE "" ;

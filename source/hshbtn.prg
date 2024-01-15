@@ -63,9 +63,9 @@ METHOD Paint() CLASS HShadeButton
    ENDIF
 
    IF ::lEnabled
-      nState := IIf( ::state == OBTN_PRESSED, STATE_SELECTED, STATE_DEFAULT + ;
-            IIf( ::state == OBTN_MOUSOVER, STATE_OVER, 0 ) ) + ;
-            IIf( hwg_Getfocus() == ::handle, STATE_FOCUS, 0 )
+      nState := IIf(::state == OBTN_PRESSED, STATE_SELECTED, STATE_DEFAULT + ;
+            IIf(::state == OBTN_MOUSOVER, STATE_OVER, 0)) + ;
+            IIf(hwg_Getfocus() == ::handle, STATE_FOCUS, 0)
    ELSE
       nState := STATE_DISABLED
    ENDIF

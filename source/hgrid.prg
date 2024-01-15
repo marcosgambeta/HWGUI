@@ -77,7 +77,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) CLASS HGrid
 
-   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf( lNoBord, 0, WS_BORDER ) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL )
+   nStyle := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL )
    ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
               bSize, bPaint)
    DEFAULT aBit TO { }
@@ -157,7 +157,7 @@ METHOD Init() CLASS HGrid
       hwg_Listview_init( ::handle, ::ItemCount, ::lNoLines )
 
       FOR i := 1 TO Len(::aColumns)
-         hwg_Listview_addcolumn( ::handle, i, ::aColumns[i, 2], ::aColumns[i, 1], ::aColumns[i, 3], IIF( ::aColumns[i, 4] != nil, ::aColumns[i, 4], 0 ) )
+         hwg_Listview_addcolumn( ::handle, i, ::aColumns[i, 2], ::aColumns[i, 1], ::aColumns[i, 3], IIF(::aColumns[i, 4] != nil, ::aColumns[i, 4], 0) )
       NEXT
 
       IF ::color != nil
