@@ -783,35 +783,35 @@ METHOD Populate() CLASS HComboBox
    ::columnBound := iif(cValueBound = Nil, 1, 2)
    IF ::value == Nil
       IF ::lText
-         ::value := iif(cAlias = Nil, ::aItems[1], ( cAlias ) -> ( &( value ) ))
+         ::value := iif(cAlias = Nil, ::aItems[1], (cAlias)->(&(value)))
       ELSE
          ::value := 1
       ENDIF
    ELSEIF ::lText .AND. !::lEdit .AND. Empty ( ::value )
-      ::value := iif(cAlias = Nil, ::aItems[1], ( cAlias ) -> ( &( value ) ))
+      ::value := iif(cAlias = Nil, ::aItems[1], (cAlias)->(&(value)))
    ENDIF
    hwg_Sendmessage(::handle, CB_RESETCONTENT, 0, 0)
    ::AitemsBound := {}
    IF cAlias != Nil .AND. Select( cAlias ) > 0
       ::aItems := {}
-      nRecno := ( cAlias ) -> ( RecNo() )
-      ( cAlias ) -> ( DBGOTOP() )
+      nRecno := (cAlias)->(RecNo())
+      (cAlias)->(DBGOTOP())
       i := 1
-      DO WHILE !( cAlias ) -> ( Eof() )
-         AAdd(::Aitems, ( cAlias ) -> ( &( value ) ))
+      DO WHILE !(cAlias)->(Eof())
+         AAdd(::Aitems, (cAlias)->(&(value)))
          IF !Empty(cvaluebound)
-            AAdd(::AitemsBound, ( cAlias ) -> ( &( cValueBound ) ))
+            AAdd(::AitemsBound, (cAlias)->(&(cValueBound)))
          ENDIF
          hwg_Comboaddstring( ::handle, ::aItems[i] )
          numofchars := hwg_Sendmessage(::handle, CB_GETLBTEXTLEN, i - 1, 0)
          IF  numofchars > LongComboWidth
             LongComboWidth := numofchars
          ENDIF
-         ( cAlias ) -> ( dbSkip() )
+         (cAlias)->(dbSkip())
          i ++
       ENDDO
       IF nRecno > 0
-         ( cAlias ) -> ( dbGoto( nRecno ) )
+         (cAlias)->(dbGoto(nRecno))
       ENDIF
    ELSE
       FOR i := 1 TO Len(::aItems)
