@@ -22,7 +22,7 @@ STATIC aWatches := {}
 STATIC aScriptCurr
 STATIC nScriptSch := 0
 
-Function hwg_scrDebug( aScript, iscr )
+Function hwg_scrDebug(aScript, iscr)
 Local nFirst, i
 
    IF Len(aScript) < 3

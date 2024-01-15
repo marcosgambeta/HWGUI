@@ -20,7 +20,7 @@
 #endif
 #include "guilib.h"
 
-void hwg_writelog( const char * sFile, const char * sTraceMsg, ... );
+void hwg_writelog(const char * sFile, const char * sTraceMsg, ...);
 
 #if (defined(_MSC_VER)&&(_MSC_VER>=1400))
    #define sscanf sscanf_s
@@ -104,7 +104,7 @@ HB_FUNC( HBXML_SETENTITY )
          pArr = (PHB_ITEM) hb_arrayGetItemPtr(pArray, ul);
          ulItemLen = hb_arrayGetCLen(pArr, 1);
          pEntity1[ul-1] = (unsigned char *) hb_xgrab(ulItemLen+1);
-         // hwg_writelog( NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen );
+         // hwg_writelog(NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen);
          memcpy( pEntity1[ul-1], hb_arrayGetCPtr(pArr, 1), ulItemLen );
          pEntity1[ul-1][ulItemLen] = '\0';
          pEntity2[ul-1] = * hb_arrayGetCPtr(pArr,2);
@@ -343,10 +343,10 @@ PHB_ITEM hbxml_addnode(PHB_ITEM pParent)
    hb_vmPushNil();
    hb_vmDo(0);
 
-   hb_objSendMsg( hb_param(-1, HB_IT_ANY), "NEW", 0 );
+   hb_objSendMsg(hb_param(-1, HB_IT_ANY), "NEW", 0);
    hb_itemCopy( pNode, hb_param(-1, HB_IT_ANY) );
 
-   hb_objSendMsg( pParent, "AITEMS", 0 );
+   hb_objSendMsg(pParent, "AITEMS", 0);
    hb_arrayAdd(hb_param(-1, HB_IT_ANY), pNode);
 
    return pNode;
@@ -359,7 +359,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    PHB_ITEM pTemp;
 
    pTemp = hb_itemPutNI(NULL, HBXML_TYPE_COMMENT);
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
    hb_itemRelease(pTemp);
 
    ( *pBuffer ) += 4;
@@ -372,7 +372,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
    if( **pBuffer )
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
-      hb_objSendMsg( pNode, "AITEMS", 0 );
+      hb_objSendMsg(pNode, "AITEMS", 0);
       hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
 
@@ -392,7 +392,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
    PHB_ITEM pTemp;
 
    pTemp = hb_itemPutNI(NULL, HBXML_TYPE_CDATA);
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
    hb_itemRelease(pTemp);
 
    ( *pBuffer ) += 9;
@@ -405,7 +405,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
    if( **pBuffer )
    {
       pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
-      hb_objSendMsg( pNode, "AITEMS", 0 );
+      hb_objSendMsg(pNode, "AITEMS", 0);
       hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
 
@@ -438,7 +438,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
    cNodeName[nLenNodeName] = '\0';
 
    pTemp = hb_itemPutC(NULL, ( char * ) cNodeName);
-   hb_objSendMsg( pNode, "_TITLE", 1, pTemp );
+   hb_objSendMsg(pNode, "_TITLE", 1, pTemp);
    hb_itemRelease(pTemp);
 
    ( *pBuffer )--;
@@ -451,7 +451,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
    }
    else
    {
-      hb_objSendMsg( pNode, "_AATTR", 1, pArray );
+      hb_objSendMsg(pNode, "_AATTR", 1, pArray);
       hb_itemRelease(pArray);
    }
    pTemp =
@@ -459,7 +459,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
          ( lSingle ) ? ( ( lSingle ==
                      2 ) ? HBXML_TYPE_PI : HBXML_TYPE_SINGLE ) :
          HBXML_TYPE_TAG);
-   hb_objSendMsg( pNode, "_TYPE", 1, pTemp );
+   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
    hb_itemRelease(pTemp);
 
    if( !lSingle )
@@ -478,7 +478,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
          if( !lEmpty )
          {
             pTemp = hbxml_pp( ptr, *pBuffer - ptr );
-            hb_objSendMsg( pNode, "AITEMS", 0 );
+            hb_objSendMsg(pNode, "AITEMS", 0);
             hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
             hb_itemRelease(pTemp);
             if( nParseError )
@@ -593,7 +593,7 @@ HB_FUNC( HBXML_GETDOC )
             hb_retni(nParseError);
             return;
          }
-         hb_objSendMsg( pDoc, "_AATTR", 1, pArray );
+         hb_objSendMsg(pDoc, "_AATTR", 1, pArray);
          hb_itemRelease(pArray);
          HB_SKIPTABSPACES( ptr );
       }

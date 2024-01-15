@@ -33,7 +33,7 @@ CLASS HSplitter INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD Init()
    METHOD Paint()
-   METHOD Drag( lParam )
+   METHOD Drag(lParam)
    METHOD DragAll( lScroll )
 
 ENDCLASS
@@ -88,7 +88,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
       ENDIF
       Hwg_SetCursor( ::hCursor )
       IF ::lCaptured
-         ::Drag( lParam )
+         ::Drag(lParam)
          IF ::lScrolling
             ::DragAll( .T. )
          ENDIF
@@ -149,7 +149,7 @@ METHOD Paint() CLASS HSplitter
 
    RETURN NIL
 
-METHOD Drag( lParam ) CLASS HSplitter
+METHOD Drag(lParam) CLASS HSplitter
    LOCAL xPos := hwg_Loword(lParam), yPos := hwg_Hiword(lParam)
 
    IF ::lVertical

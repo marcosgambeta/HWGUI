@@ -97,7 +97,7 @@ LOCAL nState
    IF lPressed != Nil
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, INT(::id), 0)
       hwg_Sendmessage(::oParent:handle, TB_SETSTATE, INT(::id),;
-        hwg_Makelong( IIF(lPressed, HWG_BITOR( nState, TBSTATE_PRESSED ), nState - HWG_BITAND(nState, TBSTATE_PRESSED)), 0 ))
+        hwg_Makelong(IIF(lPressed, HWG_BITOR( nState, TBSTATE_PRESSED ), nState - HWG_BITAND(nState, TBSTATE_PRESSED)), 0))
       ::lPressed := lPressed
    ENDIF
    RETURN ::lPressed
@@ -108,7 +108,7 @@ LOCAL nState
    IF lCheck != Nil
       nState := hwg_Sendmessage(::oParent:handle, TB_GETSTATE, INT(::id), 0)
       hwg_Sendmessage(::oParent:handle, TB_SETSTATE, INT(::id),;
-        hwg_Makelong( IIF(lCheck, HWG_BITOR( nState, TBSTATE_CHECKED ), nState - HWG_BITAND(nState, TBSTATE_CHECKED)), 0 ))
+        hwg_Makelong(IIF(lCheck, HWG_BITOR( nState, TBSTATE_CHECKED ), nState - HWG_BITAND(nState, TBSTATE_CHECKED)), 0))
       ::lChecked := lCheck
    ENDIF
    RETURN ::lChecked
@@ -150,9 +150,9 @@ CLASS HToolBar INHERIT HControl
    METHOD CreateTool()
    METHOD AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex )
    METHOD Notify( lParam )
-   METHOD EnableButton( idButton, lEnable ) INLINE hwg_Sendmessage(::handle, TB_ENABLEBUTTON, INT(idButton), hwg_Makelong( IIF(lEnable, 1, 0), 0))
-   METHOD ShowButton( idButton ) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, INT( idButton ), hwg_Makelong( 0, 0 ))
-   METHOD HideButton( idButton ) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, INT( idButton ), hwg_Makelong( 1, 0 ))
+   METHOD EnableButton( idButton, lEnable ) INLINE hwg_Sendmessage(::handle, TB_ENABLEBUTTON, INT(idButton), hwg_Makelong(IIF(lEnable, 1, 0), 0))
+   METHOD ShowButton( idButton ) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, INT( idButton ), hwg_Makelong(0, 0))
+   METHOD HideButton( idButton ) INLINE hwg_Sendmessage(::handle, TB_HIDEBUTTON, INT( idButton ), hwg_Makelong(1, 0))
    METHOD REFRESH() VIRTUAL
    METHOD RESIZE(xIncrSize, lWidth, lHeight)
    METHOD onAnchor( x, y, w, h )
@@ -196,7 +196,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
          ::Line := HLine():New(oWndParent,,::lVertical, nLeft + nWidth + 1, nTop, nHeight )
       ENDIF
    ENDIF
-   IF __ObjHasMsg( ::oParent, "AOFFSET" ) .AND. ::oParent:type == WND_MDI .AND. ;
+   IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI .AND. ;
         ::oParent:aOffset[2] + ::oParent:aOffset[3] = 0
       IF ::nWidth > ::nHeight .OR. ::nWidth == 0
          ::oParent:aOffset[2] += ::nHeight
@@ -299,7 +299,7 @@ METHOD CREATETOOL() CLASS hToolBar
 		    ::nwSize := MAX( 16, ( ::nHeight - 16 )  )
   	ENDIF
 	  IF ::nwSize != Nil
-	     hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong( ::nwSize, ::nhSize ))
+	     hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(::nwSize, ::nhSize))
 	  ENDIF
 
    FOR n := 1 TO Len(::aItem)
@@ -393,7 +393,7 @@ METHOD CREATETOOL() CLASS hToolBar
       NEXT
       hwg_Sendmessage(::Handle, TB_SETIMAGELIST, 0, hIm)
    ELSEIF Len(aButton ) = 0
-      hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong( 0, 0 ))
+      hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(0, 0))
           //hwg_Sendmessage(::handle, TB_SETDRAWTEXTFLAGS, DT_CENTER+DT_VCENTER, DT_CENTER+DT_VCENTER)
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETINDENT, ::nIndent, 0)

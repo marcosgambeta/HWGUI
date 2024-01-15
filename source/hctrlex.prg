@@ -661,7 +661,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
    ENDIF
    IF msg == WM_KEYDOWN
 #ifdef __XHARBOUR__
-      IF hb_BitIsSet( hwg_Ptrtoulong( lParam ), 30 )  // the key was down before ?
+      IF hb_BitIsSet( hwg_Ptrtoulong(lParam), 30 )  // the key was down before ?
 #else
       IF hb_BitTest( lParam, 30 )   // the key was down before ?
 #endif
@@ -692,7 +692,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          ENDIF
       ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif(ValType(o:title) = "C", ( pos := At( "&", o:title ) ) > 0 .AND. ;
             wParam == Asc(Upper( SubStr(o:title, ++ pos, 1) )),) } ) ) > 0
-         IF __ObjHasMsg( ::oParent:aControls[nID], "BCLICK" ) .AND. ;
+         IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
                ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::oParent:aControls[nID]:id, BN_CLICKED ), ::oParent:aControls[nID]:handle)
          ENDIF

@@ -179,7 +179,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
       RETURN o
    ENDIF
    IF Left(fname, 5) == "<?xml"
-      oDoc := HXMLDoc():ReadString( fname )
+      oDoc := HXMLDoc():ReadString(fname)
    ELSE
       oDoc := HXMLDoc():Read(fname)
    ENDIF
@@ -516,7 +516,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
       RETURN NIL
    ENDIF
    IF oCtrl != NIL .AND. Left(oCtrl:oParent:Classname(), 2) == "HC"
-      // writelog( oCtrl:cClass+" "+oCtrl:oParent:cClass+" "+ oCtrl:oParent:oParent:Classname() )
+      // writelog(oCtrl:cClass+" "+oCtrl:oParent:cClass+" "+ oCtrl:oParent:oParent:Classname())
       nContainer := oForm:nContainer
    ENDIF
    IF Asc(cMethod) <= 32
@@ -585,7 +585,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
 
 STATIC PROCEDURE CompileErr( e, stroka )
 
-   hwg_Msgstop( hwg_ErrMsg( e ) + Chr(10) + Chr(13) + "in" + Chr(10) + Chr(13) + ;
+   hwg_Msgstop( hwg_ErrMsg(e) + Chr(10) + Chr(13) + "in" + Chr(10) + Chr(13) + ;
             AllTrim(stroka), "Script compiling error" )
    BREAK( NIL )
 
@@ -746,10 +746,10 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
          nTop    := Val(xProperty[2])
          nWidth  := Val(xProperty[3])
          nHeight := Val(xProperty[4])
-         IF __ObjHasMsg( oParent, "ID" )
+         IF __ObjHasMsg(oParent, "ID")
             nLeft -= oParent:nLeft
             nTop -= oParent:nTop
-            IF __ObjHasMsg( oParent:oParent, "ID" )
+            IF __ObjHasMsg(oParent:oParent, "ID")
                nLeft -= oParent:oParent:nLeft
                nTop -= oParent:oParent:nTop
             ENDIF
@@ -1075,7 +1075,7 @@ STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
       oCtrl:cargo := cVarName
    ENDIF
    IF Type("m->name") == "C"
-      // writelog( oCtrlTmpl:cClass+" "+name )
+      // writelog(oCtrlTmpl:cClass+" "+name)
       __mvPut(name, oCtrl)
       name := NIL
    ENDIF
@@ -1255,7 +1255,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
    ENDIF
 
    IF Left(fname, 5) == "<?xml"
-      oDoc := HXMLDoc():ReadString( fname )
+      oDoc := HXMLDoc():ReadString(fname)
    ELSE
       oDoc := HXMLDoc():Read(fname)
    ENDIF
@@ -1378,7 +1378,7 @@ METHOD Print( printer, lPreview, p1, p2, p3 ) CLASS HRepTmpl
          oPrinter:SetFont( oFont )
       ENDIF
       ::nTOffset := ::nAOffSet := ::ny := 0
-      // Writelog( "Print-1 "+ str(oPrinter:nPage) )
+      // Writelog("Print-1 "+ str(oPrinter:nPage))
       FOR i := 1 TO Len(::aControls)
          ::PrintItem( ::aControls[i] )
       NEXT
@@ -1437,11 +1437,11 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
       y   := Val(xProperty[2]) * ::nKoefY
       x2  := Val(xProperty[5]) * ::nKoefX
       y2  := Val(xProperty[6]) * ::nKoefY
-      // writelog( xProperty[1]+" "+xProperty[2] )
+      // writelog(xProperty[1]+" "+xProperty[2])
 
       IF oItem:cClass == "area"
          oItem:y2 := y2
-         // writelog( "Area: "+cText+" "+Iif(::lNextPage, "T", "F") )
+         // writelog("Area: "+cText+" "+Iif(::lNextPage, "T", "F"))
          IF ( xProperty := aGetSecond(oItem:aProp, "varoffset") ) == NIL ;
               .OR. !xProperty
             ::nTOffset := ::nAOffSet := 0
@@ -1473,7 +1473,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
                ENDIF
             ENDDO
             IF lLastCycle
-               // writelog( "--> "+str(::nAOffSet)+str(y2-y+1 - ( ::ny - y )) )
+               // writelog("--> "+str(::nAOffSet)+str(y2-y+1 - (::ny - y)))
                ::nAOffSet += y2 - y + 1 - ( ::ny - y )
                ::nTOffset := 0
                ::lFinish := .T.
@@ -1497,7 +1497,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
             oItem:lMark := .T.
             ::lNextPage := .T.
             ::nTOffset := ::nAOffSet := 0
-            // writelog( "::lNextPage := .T. "+ oItem:cClass )
+            // writelog("::lNextPage := .T. "+ oItem:cClass)
             RETURN NIL
          ENDIF
       ENDIF
@@ -1517,7 +1517,7 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
 #else
          oItem:oPen := HPen():Add(nPenType, nPenWidth)
 #endif
-         // writelog( str(nPenWidth) + " " + str(::nKoefY) )
+         // writelog(str(nPenWidth) + " " + str(::nKoefY))
       ENDIF
       IF oItem:cClass == "label"
          IF ( aMethod := aGetSecond(oItem:aMethods, "expression") ) != NIL
@@ -1564,11 +1564,11 @@ METHOD PrintItem( oItem ) CLASS HRepTmpl
                ::oPrinter:Say( cText, x, y, x2, y2, nJustify, oItem:obj )
             ENDIF
             hwg_Settransparentmode(::oPrinter:hDC, .F.)
-            // Writelog( str(x)+" "+str(y)+" "+str(x2)+" "+str(y2)+" "+str(::nAOffSet)+" "+str(::nTOffSet)+" Say: "+cText)
+            // Writelog(str(x)+" "+str(y)+" "+str(x2)+" "+str(y2)+" "+str(::nAOffSet)+" "+str(::nTOffSet)+" Say: "+cText)
          ENDIF
       ELSEIF oItem:cClass == "box"
          ::oPrinter:Box(x, y, x2, y2, oItem:oPen)
-         // writelog( "Draw "+str(x)+" "+str(x+width-1) )
+         // writelog("Draw "+str(x)+" "+str(x+width-1))
       ELSEIF oItem:cClass == "vline"
          ::oPrinter:Line(x, y, x, y2, oItem:oPen)
       ELSEIF oItem:cClass == "hline"

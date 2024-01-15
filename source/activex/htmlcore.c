@@ -463,7 +463,7 @@ static const WCHAR BeforeUnload[] = L"beforeunload";
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, char * varname);
 void SetObjectVar(PHB_ITEM pObject, char * varname, PHB_ITEM pValue);
-extern void writelog( char *s );
+extern void writelog(char * s);
 
 void SetEmbedded(HWND handle, IOleObject ** obj)
 {
@@ -1537,7 +1537,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
                WideCharToMultiByte(CP_ACP, 0, ( WCHAR * ) strType, -1,
                      ( char * ) webParams.eventStr, webParams.nmhdr.idFrom, 0,
                      0);
-             freestr:SysFreeString( strType );
+             freestr:SysFreeString(strType);
                strType = 0;
             }
 
@@ -1553,7 +1553,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
 
          // Free anything allocated or gotten above
        bad:if( strType )
-            SysFreeString( strType );
+            SysFreeString(strType);
          else if( webParams.eventStr && ( ( _IDispatchEx * ) This )->id >= 0 )
             GlobalFree(( void * ) webParams.eventStr);
 
@@ -1909,11 +1909,11 @@ BSTR WINAPI TStr2BStr(HWND hwnd, const char * string)
                         sizeof(WCHAR) * size) ) == NULL )
          return (0);
       MultiByteToWideChar( CP_ACP, 0, ( char * ) string, -1, buffer, size );
-      bstr = SysAllocString( buffer );
+      bstr = SysAllocString(buffer);
       GlobalFree(buffer);
    }
    else
-      bstr = SysAllocString( ( WCHAR * ) string );
+      bstr = SysAllocString(( WCHAR * ) string);
 
    return ( bstr );
 }
@@ -2249,7 +2249,7 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
       // browser object's QueryInterface(), but you don't.
 
       // Give a URL that causes the browser to display an empty page.
-      myURL.DEF_BSTRVAL = SysAllocString( &Blank[0] );
+      myURL.DEF_BSTRVAL = SysAllocString(&Blank[0]);
 
       // Call the Navigate2() function to actually display the page.
       webBrowser2->lpVtbl->Navigate2( webBrowser2, &myURL, 0, 0, 0, 0 );
@@ -2258,7 +2258,7 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
       if( WaitOnReadyState(hwnd, READYSTATE_COMPLETE, 1000,
                   webBrowser2) != WORS_DESTROYED )
       {
-         SysFreeString( myURL.DEF_BSTRVAL );
+         SysFreeString(myURL.DEF_BSTRVAL);
 
          // Get the browser's IHTMLDocument2 object.
          if( !GetWebPtrs( hwnd, 0, &htmlDoc2 ) )
@@ -2311,7 +2311,7 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
          }
       }
       else
-         SysFreeString( myURL.DEF_BSTRVAL );
+         SysFreeString(myURL.DEF_BSTRVAL);
 
       // Release the IWebBrowser2 object.
       webBrowser2->lpVtbl->Release(webBrowser2);

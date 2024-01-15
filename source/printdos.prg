@@ -221,7 +221,7 @@ METHOD gWrite(oText)  CLASS PrintDos
    RETURN Nil
 
 METHOD Eject()   CLASS PrintDos
-//tracelog( ::gText, ::oText )
+//tracelog(::gText, ::oText)
 
    FWrite(::gText, ::oText)
 
@@ -236,7 +236,7 @@ METHOD Eject()   CLASS PrintDos
    ::oText := ""
    ::nProw := 0
    ::nPcol := 0
-   //tracelog( ::gText, ::oText )
+   //tracelog(::gText, ::oText)
    RETURN Nil
 
 METHOD Compress() CLASS PrintDos

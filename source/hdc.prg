@@ -63,9 +63,9 @@ CLASS HDC
    METHOD Savedc()
    METHOD Restoredc(nSavedDC)
    METHOD Setmapmode(nMapMode)
-   METHOD SetWindowOrg( x, y )
+   METHOD SetWindowOrg(x, y)
    METHOD SetWindowExt( x, y )
-   METHOD SetViewportOrg( x, y )
+   METHOD SetViewportOrg(x, y)
    METHOD SetViewportExt(x, y)
    METHOD Setarcdirection( nArcDirection )
    METHOD Gettextmetric() INLINE hwg_Gettextmetric(::m_hDC)
@@ -206,7 +206,7 @@ METHOD Setmapmode(nMapMode) CLASS HDC
 
    RETURN nRetVal
 
-METHOD SetWindowOrg( x, y ) CLASS HDC
+METHOD SetWindowOrg(x, y) CLASS HDC
    LOCAL point
 
    IF ( ::m_hDC != ::m_hAttribDC )
@@ -230,7 +230,7 @@ METHOD SetWindowExt( x, y ) CLASS HDC
 
    RETURN point
 
-METHOD SetViewportOrg( x, y ) CLASS HDC
+METHOD SetViewportOrg(x, y) CLASS HDC
    LOCAL point
 
    IF ( ::m_hDC != ::m_hAttribDC )

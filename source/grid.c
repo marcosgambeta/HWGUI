@@ -264,7 +264,7 @@ HB_FUNC( HWG_LISTVIEW_SETVIEW )
    HWND hWndListView = hwg_par_HWND(1);
    DWORD dwView = hb_parnl(2);
 
-   DWORD dwStyle = GetWindowLong( hWndListView, GWL_STYLE );
+   DWORD dwStyle = GetWindowLong(hWndListView, GWL_STYLE);
 
    // Only set the window style if the view bits have changed.
    if( ( dwStyle & LVS_TYPEMASK ) != dwView )

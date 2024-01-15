@@ -159,7 +159,7 @@ PROCEDURE __dbgAltDEntry()
       on first LINE with debugged info
     */
 
-   __dbgInvokeDebug( Set( _SET_DEBUG ) )
+   __dbgInvokeDebug(Set(_SET_DEBUG))
 
    RETURN
 
@@ -475,8 +475,7 @@ METHOD ShowCodeLine(nProc) CLASS HBDebugger
       nLine := ::aProcStack[nProc][CSTACK_LINE]
       cPrgName := ::aProcStack[nProc][CSTACK_MODULE]
       IF nLine == NIL
-         hwg_dbg_Msg( ::aProcStack[nProc][CSTACK_FUNCTION] + ;
-            ": Code not available" )
+         hwg_dbg_Msg(::aProcStack[nProc][CSTACK_FUNCTION] + ": Code not available")
          RETURN NIL
       ENDIF
 

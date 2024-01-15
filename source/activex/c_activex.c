@@ -644,7 +644,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
                      device_event_interface_iid = rriid;
             }
             else
-               OutputDebugString( "error getting iid" );
+               OutputDebugString("error getting iid");
 
             //OutputDebugString("calling advise");
             hr = m_pIConnectionPoint->lpVtbl->Advise(m_pIConnectionPoint,

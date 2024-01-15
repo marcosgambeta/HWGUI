@@ -53,7 +53,7 @@ HB_FUNC( HWG_DIALOGBOX )
 }
 
 /*  Creates modeless dialog
-    CreateDialog( hParentWindow, aDialog )
+    CreateDialog(hParentWindow, aDialog)
 */
 HB_FUNC( HWG_CREATEDIALOG )
 {
@@ -77,7 +77,7 @@ HB_FUNC( HWG_CREATEDIALOG )
 
 HB_FUNC( HWG__ENDDIALOG )
 {
-   EndDialog( hwg_par_HWND(1), TRUE );
+   EndDialog(hwg_par_HWND(1), TRUE);
 }
 
 HB_FUNC( HWG_GETDLGITEM )
@@ -392,7 +392,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
       psp.dwFlags = 0 | PSP_USECALLBACK;
 
       temp = GetObjectVar(pObj, "XRESOURCEID");
-      if( HB_IS_STRING( temp ) )
+      if( HB_IS_STRING(temp) )
          lpTitle = HB_ITEMGETSTR(temp, &hTitle, NULL);
       else if( HB_IS_NUMERIC(temp) )
          lpTitle = MAKEINTRESOURCE(hb_itemGetNL(temp));
@@ -549,8 +549,8 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-      hb_vmPushLong( ( LONG ) wParam );
+      hb_vmPushLong(( LONG ) uMsg);
+      hb_vmPushLong(( LONG ) wParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
@@ -623,8 +623,8 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-      hb_vmPushLong( ( LONG ) wParam );
+      hb_vmPushLong(( LONG ) uMsg);
+      hb_vmPushLong(( LONG ) wParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
@@ -702,9 +702,9 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) uMsg );
-      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(( LONG ) uMsg);
+      hb_vmPushLong(( LONG ) wParam);
+//      hb_vmPushLong((LONG ) lParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       res = hb_parnl(-1);

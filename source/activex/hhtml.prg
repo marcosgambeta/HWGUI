@@ -62,7 +62,7 @@ Return Nil
 
 METHOD Resize(width, height) CLASS HHtml
 
-   // writelog( str(width)+" "+str(height) +" / " + str(::oParent:nwidth)+" "+str(::oParent:nheight) )
+   // writelog(str(width)+" "+str(height) +" / " + str(::oParent:nwidth)+" "+str(::oParent:nheight))
    hwgax_ResizeBrowser(::oParent:handle, width, height )
 Return Nil
 

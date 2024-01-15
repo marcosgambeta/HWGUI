@@ -174,7 +174,7 @@ METHOD Close()
 
    hwg_Destroywindow( ::handle )
    IF ::lNewBox
-      hwg_EndDialog( ::oParent:handle )
+      hwg_EndDialog(::oParent:handle)
    ENDIF
 
    RETURN NIL

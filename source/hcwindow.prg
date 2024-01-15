@@ -133,7 +133,7 @@ METHOD AddEvent( nEvent, oCtrl, bAction, lNotify, cMethName ) CLASS HCustomWindo
 
 METHOD FindControl( nId, nHandle ) CLASS HCustomWindow
 
-   LOCAL bSearch := IIf(nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( nHandle ) })
+   LOCAL bSearch := IIf(nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(nHandle) })
    LOCAL i := Len(::aControls)
    LOCAL oCtrl
 
@@ -225,7 +225,7 @@ METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
 METHOD onEvent( msg, wParam, lParam )  CLASS HCustomWindow
    LOCAL i
 
-   // Writelog( "== "+::Classname()+Str(msg)+IIF(wParam!=NIL, Str(wParam), "NIL")+IIF(lParam!=NIL, Str(lParam), "NIL") )
+   // Writelog("== "+::Classname()+Str(msg)+IIF(wParam!=NIL, Str(wParam), "NIL")+IIF(lParam!=NIL, Str(lParam), "NIL"))
 
    IF msg = WM_GETMINMAXINFO
       IF ::minWidth  > - 1 .OR. ::maxWidth  > - 1 .OR. ;
@@ -279,7 +279,7 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
          oCtrlTmp :=  oCtrl:aControls[i]
          lRefresh :=  !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
          IF ( ( oCtrlTmp:Handle != hCtrl .OR. LEN(oCtrlTmp:aControls) = 0) .OR.  lAll ) .AND. ;
-            ( !oCtrlTmp:lHide .OR.  __ObjHasMsg( oCtrlTmp, "BSETGET" ) ) 
+            ( !oCtrlTmp:lHide .OR.  __ObjHasMsg(oCtrlTmp, "BSETGET") ) 
   	        IF LEN(oCtrlTmp:aControls) > 0
   	            ::Refresh( lAll, oCtrlTmp )
 		        ELSEIF  !Empty(lRefresh) .AND. ( lAll .OR. ASCAN( ::GetList, {| o | o:Handle == oCtrlTmp:handle } ) > 0 ) 
@@ -303,8 +303,8 @@ METHOD Refresh( lAll, oCtrl ) CLASS HCustomWindow
 
 METHOD SetTextClass( x ) CLASS HCustomWindow
 
-   IF  __ObjHasMsg( Self, "SETVALUE" ) .AND. ::winClass != "STATIC" .AND. ::winclass != "BUTTON" 
-   ELSEIF __ObjHasMsg( Self, "SETTEXT" )
+   IF  __ObjHasMsg(Self, "SETVALUE") .AND. ::winClass != "STATIC" .AND. ::winclass != "BUTTON" 
+   ELSEIF __ObjHasMsg(Self, "SETTEXT")
       ::SetText(x)
    ELSE
       ::title := x
@@ -338,13 +338,13 @@ METHOD Anchor( oCtrl, x, y, w, h ) CLASS HCustomWindow
    LOCAL nlen, i, x1, y1
 
    IF oCtrl = Nil .OR.;
-       ASCAN( oCtrl:aControls, {| o | __ObjHasMsg( o, "ANCHOR") .AND. o:Anchor > 0 } ) = 0
+       ASCAN( oCtrl:aControls, {| o | __ObjHasMsg(o, "ANCHOR") .AND. o:Anchor > 0 } ) = 0
       RETURN .F.
    ENDIF
 
    nlen := Len(oCtrl:aControls)
    FOR i = nLen TO 1 STEP -1
-      IF __ObjHasMsg( oCtrl:aControls[i], "ANCHOR" ) .AND. oCtrl:aControls[i]:anchor > 0
+      IF __ObjHasMsg(oCtrl:aControls[i], "ANCHOR") .AND. oCtrl:aControls[i]:anchor > 0
          x1 := oCtrl:aControls[i]:nWidth
          y1 := oCtrl:aControls[i]:nHeight
          oCtrl:aControls[i]:onAnchor( x, y, w, h )
@@ -385,7 +385,7 @@ STATIC FUNCTION onNotify( oWnd, wParam, lParam )
 
    IF oCtrl != NIL  .AND. VALTYPE(oCtrl) != "N"
 
-      IF __ObjHasMsg( oCtrl, "NOTIFY" )
+      IF __ObjHasMsg(oCtrl, "NOTIFY")
          RETURN oCtrl:Notify( lParam )
       ELSE
          nCode := hwg_Getnotifycode(lParam)
@@ -442,7 +442,7 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
             RETURN oCtrl:oParent:brush:handle
          ENDIF
       ELSEIF oCtrl:BackStyle = TRANSPARENT
-         IF  __ObjHasMsg( oCtrl, "PAINT" ) .OR. oCtrl:lnoThemes .OR. ( oCtrl:winClass == "BUTTON"  .AND. oCtrl:classname != "HCHECKBUTTON" )
+         IF  __ObjHasMsg(oCtrl, "PAINT") .OR. oCtrl:lnoThemes .OR. ( oCtrl:winClass == "BUTTON"  .AND. oCtrl:classname != "HCHECKBUTTON" )
             RETURN hwg_Getstockobject( NULL_BRUSH )
          ENDIF
          RETURN hwg_GetBackColorParent( oCtrl, , .T. ):handle
@@ -532,7 +532,7 @@ FUNCTION hwg_onTrackScroll( oWnd, msg, wParam, lParam )
    IF oCtrl != NIL
       msg := hwg_Loword(wParam)
       IF msg == TB_ENDTRACK
-         IF __ObjHasMsg( oCtrl, "BCHANGE" ) .AND. ISBLOCK( oCtrl:bChange )
+         IF __ObjHasMsg(oCtrl, "BCHANGE") .AND. ISBLOCK( oCtrl:bChange )
             Eval(oCtrl:bChange, oCtrl)
             RETURN 0
          ENDIF
@@ -540,7 +540,7 @@ FUNCTION hwg_onTrackScroll( oWnd, msg, wParam, lParam )
          msg == TB_PAGEUP     .OR. ;
          msg == TB_PAGEDOWN
 
-         IF __ObjHasMsg( oCtrl, "BTHUMBDRAG" ) .AND. ISBLOCK( oCtrl:bThumbDrag )
+         IF __ObjHasMsg(oCtrl, "BTHUMBDRAG") .AND. ISBLOCK( oCtrl:bThumbDrag )
             Eval(oCtrl:bThumbDrag, oCtrl)
             RETURN 0
          ENDIF

@@ -208,7 +208,7 @@ METHOD FindWindow( hWndTitle ) CLASS HWindow
    LOCAL cType := VALTYPE(hWndTitle), i
 
    IF cType != "C"
-      i := AScan( ::aWindows, { | o | hwg_Ptrtoulong( o:handle ) == hwg_Ptrtoulong( hWndTitle ) } )
+      i := AScan( ::aWindows, { | o | hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle) } )
    ELSE
       i := AScan( ::aWindows, { | o | VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle } )
    ENDIF
@@ -433,7 +433,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    Local i, xPos, yPos, oMdi, aCoors
    LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
 
-   // writelog( str(msg) + str(wParam) + str(lParam) + chr(13) )
+   // writelog(str(msg) + str(wParam) + str(lParam) + chr(13))
 
    IF msg = WM_MENUCHAR
       // PROCESS ACCELERATOR IN CONTROLS
@@ -723,8 +723,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    Hwg_ActivateChildWindow( lShow, ::handle, lMaximized, lMinimized )
    //hwg_Sendmessage(::Handle, WM_NCACTIVATE, 1, Nil)
-   hwg_Sendmessage(::handle, WM_UPDATEUISTATE, hwg_Makelong( UIS_CLEAR, UISF_HIDEFOCUS ), 0)
-   hwg_Sendmessage(::handle, WM_UPDATEUISTATE, hwg_Makelong( UIS_CLEAR, UISF_HIDEACCEL ), 0)
+   hwg_Sendmessage(::handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEFOCUS), 0)
+   hwg_Sendmessage(::handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEACCEL), 0)
 
    
    IF !EMPTY(lCentered) .AND. lCentered
@@ -786,11 +786,11 @@ FUNCTION hwg_ReleaseAllWindows( hWnd )
    LOCAL oItem
 
    FOR EACH oItem IN HWindow():aWindows
-      IF oItem:oParent != Nil .AND. hwg_Ptrtoulong( oItem:oParent:handle ) == hwg_Ptrtoulong( hWnd )
+      IF oItem:oParent != Nil .AND. hwg_Ptrtoulong(oItem:oParent:handle) == hwg_Ptrtoulong(hWnd)
          hwg_Sendmessage(oItem:handle, WM_CLOSE, 0, 0)
       ENDIF
    NEXT
-   IF hwg_Ptrtoulong( HWindow():aWindows[1]:handle ) == hwg_Ptrtoulong( hWnd )
+   IF hwg_Ptrtoulong(HWindow():aWindows[1]:handle) == hwg_Ptrtoulong(hWnd)
       hwg_Postquitmessage(0)
    ENDIF
 
@@ -928,10 +928,10 @@ STATIC FUNCTION onSysCommand(oWnd, wParam, lParam)
          ENDIF
          oWnd:bDestroy := Nil
       ENDIF
-      IF __ObjHasMsg( oWnd, "ONOTIFYICON" ) .AND. oWnd:oNotifyIcon != Nil
+      IF __ObjHasMsg(oWnd, "ONOTIFYICON") .AND. oWnd:oNotifyIcon != Nil
          hwg_Shellnotifyicon( .F., oWnd:handle, oWnd:oNotifyIcon:handle )
       ENDIF
-      IF __ObjHasMsg( oWnd, "HACCEL" ) .AND. oWnd:hAccel != Nil
+      IF __ObjHasMsg(oWnd, "HACCEL") .AND. oWnd:hAccel != Nil
          hwg_Destroyacceleratortable(oWnd:hAccel)
       ENDIF
       RETURN - 1
@@ -939,7 +939,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam, lParam)
 
    oWnd:WindowState := hwg_Getwindowplacement( oWnd:handle )
    IF wParam == SC_MINIMIZE
-      IF __ObjHasMsg( oWnd, "LTRAY" ) .AND. oWnd:lTray
+      IF __ObjHasMsg(oWnd, "LTRAY") .AND. oWnd:lTray
          oWnd:Hide()
          RETURN 0
       ENDIF
@@ -1063,8 +1063,8 @@ STATIC FUNCTION onMdiCreate(oWnd, lParam)
    ENDIF
    //draw rect focus
    oWnd:nInitFocus := IIF(VALTYPE(oWnd:nInitFocus) = "O", oWnd:nInitFocus:Handle, oWnd:nInitFocus )
-   hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong( UIS_CLEAR, UISF_HIDEFOCUS ), 0)
-   hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong( UIS_CLEAR, UISF_HIDEACCEL ), 0)
+   hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEFOCUS), 0)
+   hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEACCEL), 0)
    IF oWnd:WindowState > 0
       hwg_onMove(oWnd)
    ENDIF
@@ -1083,11 +1083,11 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
    ENDIF
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
-      IF hwg_Ptrtoulong( hwg_Getparent( hwg_Getfocus() ) ) = hwg_Ptrtoulong( oWnd:Handle )
+      IF hwg_Ptrtoulong(hwg_Getparent(hwg_Getfocus())) = hwg_Ptrtoulong(oWnd:Handle)
          oWnd:nFocus := hwg_Getfocus()
       ENDIF
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF __ObjHasMsg( oWnd, "OPOPUP") .AND. oWnd:oPopup != Nil .AND. ;
+   ELSEIF __ObjHasMsg(oWnd, "OPOPUP") .AND. oWnd:oPopup != Nil .AND. ;
          ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu, wParam, @iItem ) ) != Nil ;
          .AND. aMenu[1, iItem, 1] != Nil
           Eval(aMenu[1, iItem, 1],  wParam)
@@ -1159,7 +1159,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
       IF oWnd:lModal
          aWndMain := oWnd:GETMAIN():aWindows
          AEVAL(aWndMain,{| w | IIF(w:Type >= WND_MDICHILD .AND.;
-             hwg_Ptrtoulong( w:Handle ) != hwg_Ptrtoulong( wParam ), hwg_Enablewindow( w:Handle, .T. ),)})
+             hwg_Ptrtoulong(w:Handle) != hwg_Ptrtoulong(wParam), hwg_Enablewindow( w:Handle, .T. ),)})
       ENDIF
    ELSEIF hwg_Selffocus( oWnd:Handle, lParam ) //.AND. ownd:screen:handle != WPARAM
       IF ISBLOCK( oWnd:bSetForm )
@@ -1168,7 +1168,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
       IF oWnd:lModal
          aWndMain := oWnd:GETMAIN():aWindows
          AEVAL(aWndMain,{| w | IIF(w:Type >= WND_MDICHILD .AND.;
-             hwg_Ptrtoulong( w:Handle ) != hwg_Ptrtoulong( lParam ), hwg_Enablewindow( w:Handle, .F. ),)})
+             hwg_Ptrtoulong(w:Handle) != hwg_Ptrtoulong(lParam), hwg_Enablewindow( w:Handle, .F. ),)})
          AEVAL(oWnd:aChilds,{| wH | hwg_Enablewindow( wH, .T. )})
      ENDIF
       IF oWnd:bGetFocus != Nil .AND. !oWnd:lSuspendMsgsHandling .AND. !oWnd:IsMaximized()
@@ -1189,7 +1189,7 @@ STATIC FUNCTION onEnterIdle(oDlg, wParam, lParam)
          .AND. oItem:handle == lParam )
       oDlg := oItem
    ENDIF
-   IF __ObjHasMsg( oDlg, "LACTIVATED" )
+   IF __ObjHasMsg(oDlg, "LACTIVATED")
       IF  !oDlg:lActivated
          oDlg:lActivated := .T.
          IF oDlg:bActivate != Nil
@@ -1218,7 +1218,7 @@ STATIC FUNCTION onActivate(oWin, wParam, lParam)
    HB_SYMBOL_UNUSED(lParam)
 
    IF ( iParLow = WA_ACTIVE .OR. iParLow = WA_CLICKACTIVE ) .AND. hwg_Iswindowvisible(oWin:handle)
-      IF  ( oWin:type = WND_MDICHILD .AND. hwg_Ptrtoulong( lParam ) = 0  ) .OR.;
+      IF  ( oWin:type = WND_MDICHILD .AND. hwg_Ptrtoulong(lParam) = 0  ) .OR.;
           ( oWin:type != WND_MDICHILD .AND. iParHigh = 0 )
          IF oWin:bGetFocus != Nil //.AND. hwg_Iswindowvisible(::handle)
             oWin:lSuspendMsgsHandling := .T.
@@ -1230,8 +1230,8 @@ STATIC FUNCTION onActivate(oWin, wParam, lParam)
          ENDIF
       ENDIF
    ELSEIF iParLow = WA_INACTIVE
-      IF  ( oWin:type = WND_MDICHILD .AND. hwg_Ptrtoulong( lParam ) != 0 ).OR.;
-          ( oWin:type != WND_MDICHILD .AND. iParHigh = 0 .AND. hwg_Ptrtoulong( lParam ) = 0 )
+      IF  ( oWin:type = WND_MDICHILD .AND. hwg_Ptrtoulong(lParam) != 0 ).OR.;
+          ( oWin:type != WND_MDICHILD .AND. iParHigh = 0 .AND. hwg_Ptrtoulong(lParam) = 0 )
          IF  oWin:bLostFocus != Nil //.AND. hwg_Iswindowvisible(::handle)
             oWin:lSuspendMsgsHandling := .T.
             Eval(oWin:bLostFocus, oWin, lParam)

@@ -29,8 +29,7 @@ HB_FUNC( HWG_GETRESOURCES )
 HB_FUNC( HWG_LOADSTRING )
 {
    TCHAR buffer[2048];
-   int iBuffRet = LoadString( ( HINSTANCE ) hModule, ( UINT ) hb_parnl(2),
-                              buffer, 2048 );
+   int iBuffRet = LoadString(( HINSTANCE ) hModule, ( UINT ) hb_parnl(2), buffer, 2048);
    HB_RETSTRLEN(buffer, iBuffRet);
 }
 
@@ -61,7 +60,7 @@ HB_CALL_ON_STARTUP_END(_hwgui_module_init_)
    #if defined(HB_OS_WIN_64)
       #pragma section( HB_MSC_START_SEGMENT, long, read )
    #endif
-   #pragma data_seg( HB_MSC_START_SEGMENT )
+   #pragma data_seg(HB_MSC_START_SEGMENT)
    static HB_$INITSYM hb_vm_auto_hwgui_module_init_ = _hwgui_module_init_;
    #pragma data_seg()
 #endif

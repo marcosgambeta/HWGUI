@@ -735,9 +735,9 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message,
 
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(( LONG ) message);
+      hb_vmPushLong(( LONG ) wParam);
+//      hb_vmPushLong((LONG ) lParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       res = hb_parnl(-1);
@@ -763,9 +763,9 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(( LONG ) message);
+      hb_vmPushLong(( LONG ) wParam);
+//      hb_vmPushLong((LONG ) lParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       res = hb_parnl(-1);
@@ -812,9 +812,9 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
    {
       hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
       hb_vmPush( pObject );
-      hb_vmPushLong( ( LONG ) message );
-      hb_vmPushLong( ( LONG ) wParam );
-//      hb_vmPushLong( (LONG ) lParam );
+      hb_vmPushLong(( LONG ) message);
+      hb_vmPushLong(( LONG ) wParam);
+//      hb_vmPushLong((LONG ) lParam);
       HB_PUSHITEM( lParam );
       hb_vmSend(3);
       res = hb_parnl(-1);
@@ -833,7 +833,7 @@ PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char * varname)
    /* ( char * ) casting is a hack for old [x]Harbour versions
     * which used wrong hb_objSendMsg() declaration
     */
-   return hb_objSendMsg( pObject, ( char * ) varname, 0 );
+   return hb_objSendMsg(pObject, ( char * ) varname, 0);
 }
 
 void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue)
@@ -841,7 +841,7 @@ void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue)
    /* ( char * ) casting is a hack for old [x]Harbour versions
     * which used wrong hb_objSendMsg() declaration
     */
-   hb_objSendMsg( pObject, ( char * ) varname, 1, pValue );
+   hb_objSendMsg(pObject, ( char * ) varname, 1, pValue);
 }
 
 #if !defined(HB_HAS_STR_FUNC)
@@ -861,7 +861,7 @@ const char * hwg_strget(PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen)
 {
    const char * pStr;
 
-   if( pItem && HB_IS_STRING( pItem ) )
+   if( pItem && HB_IS_STRING(pItem) )
    {
       *phStr = ( void * ) s_szConstStr;
       pStr = hb_itemGetCPtr(pItem);
@@ -880,7 +880,7 @@ const char * hwg_strget(PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen)
 
 HB_SIZE hwg_strcopy( PHB_ITEM pItem, char * pStr, HB_SIZE nLen )
 {
-   if( pItem && HB_IS_STRING( pItem ) )
+   if( pItem && HB_IS_STRING(pItem) )
    {
       HB_SIZE size = hb_itemGetCLen(pItem);
 
@@ -943,7 +943,7 @@ const wchar_t * hwg_wstrget(PHB_ITEM pItem, void ** phStr, HB_SIZE * pnLen)
 {
    const wchar_t * pStr;
 
-   if( pItem && HB_IS_STRING( pItem ) )
+   if( pItem && HB_IS_STRING(pItem) )
    {
       HB_SIZE nLen = hb_itemGetCLen(pItem), nDest = 0;
       const char * pszText = hb_itemGetCPtr(pItem);
@@ -1021,7 +1021,7 @@ void hwg_wstrset( PHB_ITEM pItem, const wchar_t * pStr )
 
 HB_SIZE hwg_wstrcopy( PHB_ITEM pItem, wchar_t * pStr, HB_SIZE nLen )
 {
-   if( pItem && HB_IS_STRING( pItem ) )
+   if( pItem && HB_IS_STRING(pItem) )
    {
       const char * text = hb_itemGetCPtr(pItem);
       HB_SIZE size = hb_itemGetCLen(pItem);
@@ -1333,7 +1333,7 @@ LRESULT CALLBACK KbdHook( int code, WPARAM wp, LPARAM lp )
             {
                hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEven_Tool ) );
                hb_vmPush( pObject );
-               hb_vmPushLong( ( LONG ) uId );
+               hb_vmPushLong(( LONG ) uId);
 
                hb_vmSend(1);
                Res = hb_parnl(-1);

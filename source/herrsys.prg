@@ -48,7 +48,7 @@ STATIC FUNCTION DefError( oError )
       RETURN .F.
    ENDIF
 
-   cMessage := hwg_ErrMsg( oError )
+   cMessage := hwg_ErrMsg(oError)
    IF !Empty(oError:osCode)
       cDOSError := "(DOS Error " + LTrim(Str(oError:osCode)) + ")"
    ENDIF
@@ -80,7 +80,7 @@ STATIC FUNCTION DefError( oError )
    RETURN .F.
 
 
-FUNCTION hwg_ErrMsg( oError )
+FUNCTION hwg_ErrMsg(oError)
    LOCAL cMessage
 
    // start error message
@@ -121,7 +121,7 @@ FUNCTION hwg_ErrMsg( oError )
 
    RETURN cMessage
 
-FUNCTION hwg_WriteLog( cText, fname )
+FUNCTION hwg_WriteLog(cText, fname)
    LOCAL nHand
 
    fname := LogInitialPath + IIf(fname == Nil, "a.log", fname)

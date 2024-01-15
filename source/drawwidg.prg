@@ -263,7 +263,7 @@ METHOD Add(nColor, nHatch) CLASS HBrush
       nHatch := 99
    ENDIF
    IF ValType(nColor) == "P"
-      nColor := hwg_Ptrtoulong( nColor )
+      nColor := hwg_Ptrtoulong(nColor)
    ENDIF
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aBrushes

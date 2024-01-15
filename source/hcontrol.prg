@@ -178,8 +178,8 @@ METHOD Enable() CLASS HControl
 
    hwg_Enablewindow( ::handle, .T. )
    IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND(HWG_GETWINDOWSTYLE(::Handle), WS_TABSTOP) > 0
-      nNext := Ascan( ::oParent:aControls, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( hwg_Getfocus() ) } )
-      nPos  := Ascan( ::oParent:acontrols, { | o | hwg_Ptrtoulong( o:Handle ) = hwg_Ptrtoulong( ::handle ) } )
+      nNext := Ascan( ::oParent:aControls, { | o | hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(hwg_Getfocus()) } )
+      nPos  := Ascan( ::oParent:acontrols, { | o | hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(::handle) } )
       IF nPos < nNext
          hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1)
       ENDIF
@@ -368,8 +368,8 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
          ENDIF
          IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
-               ( ::Title != NIL .AND. !Empty(::Title) ) ) .OR. __ObjHasMsg( Self, "oImage" )
-            IF __ObjHasMsg( Self, "oImage" ) .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
+               ( ::Title != NIL .AND. !Empty(::Title) ) ) .OR. __ObjHasMsg(Self, "oImage")
+            IF __ObjHasMsg(Self, "oImage") .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
                hwg_Invalidaterect(::oParent:handle, 1, Max( x1 - 1, 0 ), Max( y1 - 1, 0 ), x1 + w1 + 1, y1 + h1 + 1)
             ELSE
                hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
@@ -502,7 +502,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
    IF nHeight != NIL
       aCoors := hwg_Getwindowrect(::handle)
       IF nHeight != 0
-         IF ::lInit .AND. __ObjHasMsg( ::oParent, "AOFFSET" )
+         IF ::lInit .AND. __ObjHasMsg(::oParent, "AOFFSET")
             ::oParent:aOffset[4] -= ( aCoors[4] - aCoors[2] )
          ENDIF
          hwg_Sendmessage(::handle, ;           // (HWND) handle to destination control
@@ -511,7 +511,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
          aCoors := hwg_Getwindowrect(::handle)
       ENDIF
       ::nStatusHeight := ( aCoors[4] - aCoors[2] ) - 1
-      IF __ObjHasMsg( ::oParent, "AOFFSET" )
+      IF __ObjHasMsg(::oParent, "AOFFSET")
          ::oParent:aOffset[4] += ( aCoors[4] - aCoors[2]  )
       ENDIF
    ENDIF

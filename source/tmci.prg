@@ -52,7 +52,7 @@ METHOD SendStr(cMciStr) CLASS TMci
 
    LOCAL cBuffer := ::cBuffer
 
-   hwg_Mcisendstring( cMciStr, @cBuffer, ::oWnd:hWnd )
+   hwg_Mcisendstring(cMciStr, @cBuffer, ::oWnd:hWnd)
    ::cBuffer = cBuffer
 
    RETURN NIL
@@ -67,6 +67,6 @@ METHOD lOpen() CLASS TMci
 
 METHOD cGetError() CLASS Tmci
    LOCAL cError
-   hwg_Mcigeterrorstring( ::nError, @cError )
+   hwg_Mcigeterrorstring(::nError, @cError)
 
    RETURN    cError

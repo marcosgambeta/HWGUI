@@ -67,7 +67,7 @@ CLASS HPrinter INHERIT HObject
    METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor )
    METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap )
    METHOD GetTextWidth( cString, oFont )
-   METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) HIDDEN
+   METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) HIDDEN
    METHOD ChangePage(oSayPage, n, nPage) HIDDEN
 ENDCLASS
 
@@ -135,7 +135,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
       ::BottomMargin     := (::nPHeight - ::TopMargin)+1
       ::LeftMargin       := aPrnCoors[11]
       ::RightMargin      := (::nPWidth - ::LeftMargin)+1
-      // writelog( ::cPrinterName + str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]) )
+      // writelog(::cPrinterName + str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]))
    ENDIF
 
    RETURN Self
@@ -157,7 +157,7 @@ METHOD SetMode(nOrientation) CLASS HPrinter
       ::nPHeight := IIf(::lmm, aPrnCoors[9], aPrnCoors[2])
       ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
       ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
-      // writelog( ":"+str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]) )
+      // writelog(":"+str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]))
       RETURN .T.
    ENDIF
 
@@ -359,10 +359,10 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
          At 40, 10 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight()                        ;
          STYLE hwg_multibitor( WS_POPUP, WS_VISIBLE, WS_CAPTION, WS_SYSMENU, WS_SIZEBOX, WS_MAXIMIZEBOX, WS_CLIPCHILDREN ) ;
          ICON HIcon():AddResource("ICON_PRW");
-         ON INIT { | o | o:Maximize(), ::ResizePreviewDlg( oCanvas, 1 ), SetTimerPrinter( oCanvas, @oTimer ) } ;
+         ON INIT { | o | o:Maximize(), ::ResizePreviewDlg(oCanvas, 1), SetTimerPrinter( oCanvas, @oTimer ) } ;
          ON EXIT { || oCanvas:brush := NIL, .T. }
 
-   oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+   oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas,, msg, wParam, lParam) }
    oDlg:brush := HBrush():Add(11316396)
 
    @ 0, 0 PANEL oToolBar SIZE 88, oDlg:nHeight
@@ -370,10 +370,10 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
    // Canvas should fill ALL the available space
    @ oToolBar:nWidth, 0 PANEL oCanvas ;
       SIZE oDlg:nWidth - oToolBar:nWidth, oDlg:nHeight ;
-      ON SIZE { | o, x, y | o:Move(,, x - oToolBar:nWidth, y ), ::ResizePreviewDlg( o ) } ;
+      ON SIZE { | o, x, y | o:Move(,, x - oToolBar:nWidth, y ), ::ResizePreviewDlg(o) } ;
       ON PAINT { || ::PlayMeta(oCanvas) } STYLE WS_VSCROLL + WS_HSCROLL
 
-   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas,, msg, wParam, lParam) }
    // DON'T CHANGE NOR REMOVE THE FOLLOWING LINE !
    // I need it to have the correct side-effect to avoid flickering !!!
    oCanvas:brush := 0
@@ -440,7 +440,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
 
    @ 1, 189 LINE LENGTH oToolBar:nWidth - 1
 
-   @ 3, 192 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg( oCanvas, - 1 ) } ;
+   @ 3, 192 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, - 1) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "(-)" FONT oFont   ;
          TOOLTIP IIf(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
@@ -449,7 +449,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
       oBtn:lTransp := lTransp
    ENDIF
 
-   @ 3, 216 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg( oCanvas, 1 ) } ;
+   @ 3, 216 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, 1) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "(+)" FONT oFont   ;
          TOOLTIP IIf(aTooltips != NIL, aTooltips[8], "Zoom in")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
@@ -526,7 +526,7 @@ METHOD ChangePage(oSayPage, n, nPage) CLASS hPrinter
 /***
  nZoom: zoom factor: -1 or 1, NIL if scroll message
 */
-METHOD ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam ) CLASS hPrinter
+METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
    LOCAL nWidth, nHeight, k1, k2, x, y
    LOCAL i, nPos, wmsg, nPosVert, nPosHorz
 
@@ -703,13 +703,13 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
    // offscreen canvas must be THE WHOLE CANVAS !
 
    IF ::xOffset == NIL
-      ::ResizePreviewDlg( oWnd )
+      ::ResizePreviewDlg(oWnd)
    ENDIF
 
    pps := hwg_Definepaintstru()
    hDC := hwg_Beginpaint( oWnd:handle, pps )
    aArray = hwg_Getppsrect(pps)
-   // tracelog( "PPS"+str(aArray[1])+str(aArray[2])+str(aArray[3])+str(aArray[4]) )
+   // tracelog("PPS"+str(aArray[1])+str(aArray[2])+str(aArray[3])+str(aArray[4]))
 
    IF ( aArray[1] == 0 .AND. aArray[2] == 0 )  // IF WHOLE AREA
       IF ( ::NeedsRedraw .OR. lRefreshVideo )

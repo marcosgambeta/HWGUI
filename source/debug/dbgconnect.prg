@@ -362,7 +362,7 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
 
 Return Nil
 
-Function hwg_dbg_Msg( cMessage )
+Function hwg_dbg_Msg(cMessage)
 
    IF !lDebugRun
       Return Nil

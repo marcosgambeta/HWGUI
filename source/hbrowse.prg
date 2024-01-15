@@ -637,7 +637,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ENDIF
          IF wParam != VK_SHIFT .AND. wParam != VK_CONTROL .AND. wParam != 18
             oParent := ::oParent
-            DO WHILE oParent != NIL .AND. !__ObjHasMsg( oParent, "GETLIST" )
+            DO WHILE oParent != NIL .AND. !__ObjHasMsg(oParent, "GETLIST")
                oParent := oParent:oParent
             ENDDO
             IF oParent != NIL .AND. !Empty(oParent:KeyList)
@@ -2720,7 +2720,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
       ENDIF
 
    ELSEIF nLine == 0
-      IF hwg_Ptrtoulong( oCursor ) ==  hwg_Ptrtoulong( ColSizeCursor )
+      IF hwg_Ptrtoulong(oCursor) ==  hwg_Ptrtoulong(ColSizeCursor)
          ::lResizing := .T.
          ::isMouseOver := .F.
          Hwg_SetCursor( oCursor )
@@ -2740,7 +2740,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
          ::lHeadClick := .T.
       ENDIF
    ENDIF
-   IF ( hwg_Ptrtoulong( hwg_Getactivewindow() ) = hwg_Ptrtoulong( hwg_GetParentForm(Self ):Handle )  .OR. ;
+   IF ( hwg_Ptrtoulong(hwg_Getactivewindow()) = hwg_Ptrtoulong(hwg_GetParentForm(Self ):Handle)  .OR. ;
          hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE )
       ::Setfocus()
       ::RefreshLine()
@@ -2913,7 +2913,7 @@ METHOD MouseMove(wParam, lParam) CLASS HBrowse
                x += ::aColumns[i]:width
                ::xPosMouseOver := xPos
                IF Abs( x - xPos ) < 8
-                  IF hwg_Ptrtoulong( oCursor ) != hwg_Ptrtoulong( ColSizeCursor )
+                  IF hwg_Ptrtoulong(oCursor) != hwg_Ptrtoulong(ColSizeCursor)
                      oCursor := ColSizeCursor
                   ENDIF
                   Hwg_SetCursor( oCursor )

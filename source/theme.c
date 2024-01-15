@@ -868,8 +868,8 @@ HRESULT hb_GetThemeMetric(HTHEME hTheme, HDC hdc, int iPartId,
    return ( *pfn ) ( hTheme, hdc, iPartId, iStateId, iPropId, piVal );
 }
 
-HRESULT hb_GetThemeString( HTHEME hTheme, int iPartId,
-      int iStateId, int iPropId, LPWSTR pszBuff, int cchMaxBuffChars )
+HRESULT hb_GetThemeString(HTHEME hTheme, int iPartId,
+      int iStateId, int iPropId, LPWSTR pszBuff, int cchMaxBuffChars)
 {
    PFNGETTHEMESTRING pfn =
          ( PFNGETTHEMESTRING ) GetProc("GetThemeString",
@@ -1019,8 +1019,8 @@ HRESULT hb_GetThemeSysFont( HTHEME hTheme, int iFontId, LOGFONT * plf )
    return ( *pfn ) ( hTheme, iFontId, plf );
 }
 
-HRESULT hb_GetThemeSysString( HTHEME hTheme, int iStringId,
-      LPWSTR pszStringBuff, int cchMaxStringChars )
+HRESULT hb_GetThemeSysString(HTHEME hTheme, int iStringId,
+      LPWSTR pszStringBuff, int cchMaxStringChars)
 {
    PFNGETTHEMESYSSTRING pfn =
          ( PFNGETTHEMESYSSTRING ) GetProc("GetThemeSysString",
@@ -1124,7 +1124,7 @@ HRESULT hb_DrawThemeParentBackground(HWND hwnd, HDC hdc, RECT * prc)
    return ( *pfn ) ( hwnd, hdc, prc );
 }
 
-HRESULT hb_EnableTheming( BOOL fEnable )
+HRESULT hb_EnableTheming(BOOL fEnable)
 {
    PFNENABLETHEMING pfn =
          ( PFNENABLETHEMING ) GetProc("EnableTheming",
@@ -1136,7 +1136,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
 {
    LPNMCUSTOMDRAW pCustomDraw = ( LPNMCUSTOMDRAW ) pNotifyStruct;
    HWND m_hWnd = pCustomDraw->hdr.hwndFrom;
-   DWORD style = ( DWORD ) GetWindowLong( m_hWnd, GWL_STYLE );
+   DWORD style = ( DWORD ) GetWindowLong(m_hWnd, GWL_STYLE);
 
    if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed() ||
          !hb_IsThemeActive() )

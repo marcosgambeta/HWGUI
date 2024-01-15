@@ -174,8 +174,7 @@ HB_FUNC ( HWG_INITTRACKBAR )
 
 HB_FUNC ( HWG_TRACKBARSETRANGE )
 {
-    SendMessage(hwg_par_HWND(1), TBM_SETRANGE, TRUE,
-                  MAKELONG( hb_parni(2), hb_parni(3) ));
+    SendMessage(hwg_par_HWND(1), TBM_SETRANGE, TRUE, MAKELONG(hb_parni(2), hb_parni(3)));
 }
 
 #pragma ENDDUMP

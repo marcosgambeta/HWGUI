@@ -250,9 +250,9 @@ static void hb_dbgActivate(HB_DEBUGINFO * info)
 
       hb_vmPushDynSym( pDynSym );
       hb_vmPushNil();
-      hb_vmPushLong( HB_DBG_ACTIVATE );
+      hb_vmPushLong(HB_DBG_ACTIVATE);
       hb_vmPushPointer( info );
-      hb_vmPushLong( info->nProcLevel );
+      hb_vmPushLong(info->nProcLevel);
       hb_vmPush( aCallStack );
       hb_vmPush( aModules );
       hb_vmPush( aBreak );
@@ -406,7 +406,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
             if( info->aBreak[i].szFunction
                  && !strcmp( info->aBreak[i].szFunction, szProcName ) )
             {
-               hb_dbg_InvokeDebug( HB_TRUE );
+               hb_dbg_InvokeDebug(HB_TRUE);
                break;
             }
          }
@@ -470,7 +470,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
          hb_clsSetScope(bOldClsScope);
 
          if( hb_dbgIsBreakPoint( info, pTop->szModule, nLine )
-              || hb_dbg_InvokeDebug( HB_FALSE )
+              || hb_dbg_InvokeDebug(HB_FALSE)
               || ( info->pFunInvoke && info->pFunInvoke() ) )
          {
             info->bTraceOver = HB_FALSE;
@@ -929,7 +929,7 @@ static HB_BOOL hb_dbgEqual( PHB_ITEM pItem1, PHB_ITEM pItem2 )
       return ( hb_itemGetL( pItem1 ) == hb_itemGetL( pItem2 ) );
    if( HB_IS_POINTER( pItem1 ) )
       return ( hb_itemGetPtr(pItem1) == hb_itemGetPtr(pItem2) );
-   if( HB_IS_STRING( pItem1 ) )
+   if( HB_IS_STRING(pItem1) )
       return !hb_itemStrCmp( pItem1, pItem2, HB_TRUE );
    if( HB_IS_NUMINT( pItem1 ) )
       return ( hb_itemGetNInt( pItem1 ) == hb_itemGetNInt( pItem2 ) );
@@ -1002,7 +1002,7 @@ static PHB_ITEM hb_dbgEvalMacro( const char * szExpr, PHB_ITEM pItem )
    if( ( !strcmp( type, "U" ) || !strcmp( type, "UE" ) ) )
       return NULL;
 
-   hb_vmPushString( szExpr, ( HB_SIZE ) strlen(szExpr) );
+   hb_vmPushString(szExpr, ( HB_SIZE ) strlen(szExpr));
    hb_macroGetValue(hb_stackItemFromTop( -1 ), 0, HB_SM_RT_MACRO);
    hb_itemMove(pItem, hb_stackItemFromTop( -1 ));
    hb_stackPop();
@@ -1634,7 +1634,7 @@ static void hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue )
          {
             hb_vmPushDynSym( pDynSym );
             hb_vmPushNil();
-            hb_vmPushString( scope->szName, ( HB_SIZE ) strlen(scope->szName) );
+            hb_vmPushString(scope->szName, ( HB_SIZE ) strlen(scope->szName));
             hb_vmPush( xNewValue );
             hb_vmDo(2);
          }

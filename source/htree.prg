@@ -289,7 +289,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD isExpand(oNodo) INLINE !hwg_Checkbit( oNodo, TVE_EXPAND )
    METHOD onEvent( msg, wParam, lParam )
    METHOD ItemHeight( nHeight ) SETGET
-   METHOD SearchString( cText, iNivel, oNode, inodo )
+   METHOD SearchString(cText, iNivel, oNode, inodo)
    METHOD Selecteds( oItem, aSels )
    METHOD Top()    INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[1] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_TOP ), Nil) ),)
    METHOD Bottom() INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[LEN(::aItems)] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_BOTTOM ), Nil) ),)
@@ -511,7 +511,7 @@ METHOD FindChildPos(oNode, h) CLASS HTree
    NEXT
    RETURN 0
 
-METHOD SearchString( cText, iNivel, oNode, inodo ) CLASS HTree
+METHOD SearchString(cText, iNivel, oNode, inodo) CLASS HTree
    LOCAL aItems := IIF(oNode = Nil, ::aItems, oNode:aItems)
    Local i, alen := Len(aItems)
    LOCAL oNodeRet
@@ -519,7 +519,7 @@ METHOD SearchString( cText, iNivel, oNode, inodo ) CLASS HTree
    iNodo := IIF(inodo = Nil, 0, iNodo)
    FOR i := 1 TO aLen
       IF !Empty(aItems[i]:aItems) .AND. ;
-         ( oNodeRet := ::SearchString( cText, iNivel, aItems[i], iNodo ) ) != Nil 
+         ( oNodeRet := ::SearchString(cText, iNivel, aItems[i], iNodo) ) != Nil 
          RETURN oNodeRet
       ENDIF
       IF  aItems[i]:Title = cText .AND. ( iNivel == Nil .OR. aItems[i]:GetLevel() = iNivel )

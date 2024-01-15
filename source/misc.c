@@ -20,7 +20,7 @@
 
 #include "missing.h"
 
-void writelog( char *s )
+void writelog(char * s)
 {
    HB_FHANDLE handle;
 
@@ -126,31 +126,31 @@ HB_FUNC( HWG_GETSTOCKOBJECT )
 
 HB_FUNC( HWG_LOWORD )
 {
-   hb_retni(( int ) ( ( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
+   hb_retni(( int ) ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
                               ( ULONG ) hb_parnl(1) ) & 0xFFFF ));
 }
 
 HB_FUNC( HWG_HIWORD )
 {
-   hb_retni(( int ) ( ( ( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
+   hb_retni(( int ) ( ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
                               ( ULONG ) hb_parnl(1) ) >> 16 ) & 0xFFFF ));
 }
 
 HB_FUNC( HWG_BITOR )
 {
-   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
+   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
                               ( ULONG ) hb_parnl(1) ) | hb_parnl(2) );
 }
 
 HB_FUNC( HWG_BITAND )
 {
-   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
+   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
                               ( ULONG ) hb_parnl(1) ) & hb_parnl(2));
 }
 
 HB_FUNC( HWG_BITANDINVERSE )
 {
-   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :
+   hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
                               ( ULONG ) hb_parnl(1) ) & ( ~hb_parnl(2) ));
 }
 
@@ -164,7 +164,7 @@ HB_FUNC( HWG_SETBIT )
 
 HB_FUNC( HWG_CHECKBIT )
 {
-   hb_retl (    ( HB_ISPOINTER(1) ? PtrToUlong( hb_parptr(1) ) :( ULONG ) hb_parnl(1) ) & ( 1 << (  hb_parni(2) - 1 )   )    );
+   hb_retl (    ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :( ULONG ) hb_parnl(1) ) & ( 1 << (  hb_parni(2) - 1 )   )    );
 }
 
 HB_FUNC( HWG_SIN )
@@ -748,14 +748,13 @@ HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 
 HB_FUNC( HWG_PTRTOULONG )
 {
-   hb_retnl(HB_ISPOINTER(1) ? ( LONG ) PtrToUlong( hb_parptr(1) ) :
-                                 hb_parnl(1));
+   hb_retnl(HB_ISPOINTER(1) ? ( LONG ) PtrToUlong(hb_parptr(1)) : hb_parnl(1));
 }
 
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )
 {
    void * hStr;
-   OutputDebugString( HB_PARSTRDEF( 1, &hStr, NULL ) );
+   OutputDebugString(HB_PARSTRDEF(1, &hStr, NULL));
    hb_strfree(hStr);
 }
 

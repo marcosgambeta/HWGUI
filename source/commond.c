@@ -287,7 +287,7 @@ HB_FUNC( HWG_PRINTSETUP )
    // pd.hPrintTemplate = (HANDLE) NULL; 
    // pd.hSetupTemplate = (HANDLE) NULL; 
 
-   if( PrintDlg( &pd ) )
+   if( PrintDlg(&pd) )
    {
       if( pd.hDevNames )
       {
@@ -362,10 +362,10 @@ HB_FUNC( HWG_GETPRIVATEPROFILESTRING )
    void * hSection, * hEntry, * hDefault, * hFileName;
    LPCTSTR lpDefault = HB_PARSTR(3, &hDefault, NULL);
 
-   dwLen = GetPrivateProfileString( HB_PARSTR(1, &hSection, NULL),
-                                    HB_PARSTR(2, &hEntry, NULL),
-                                    lpDefault, buffer, HB_SIZEOFARRAY( buffer ),
-                                    HB_PARSTR(4, &hFileName, NULL) );
+   dwLen = GetPrivateProfileString(HB_PARSTR(1, &hSection, NULL),
+                                   HB_PARSTR(2, &hEntry, NULL),
+                                   lpDefault, buffer, HB_SIZEOFARRAY( buffer ),
+                                   HB_PARSTR(4, &hFileName, NULL));
    if( dwLen )
       HB_RETSTRLEN(buffer, dwLen);
    else
@@ -381,10 +381,10 @@ HB_FUNC( HWG_WRITEPRIVATEPROFILESTRING )
 {
    void * hSection, * hEntry, * hData, * hFileName;
 
-   hb_retl( WritePrivateProfileString( HB_PARSTR(1, &hSection, NULL),
-                                       HB_PARSTR(2, &hEntry, NULL),
-                                       HB_PARSTR(3, &hData, NULL),
-                                       HB_PARSTR(4, &hFileName, NULL) ) ?
+   hb_retl( WritePrivateProfileString(HB_PARSTR(1, &hSection, NULL),
+                                      HB_PARSTR(2, &hEntry, NULL),
+                                      HB_PARSTR(3, &hData, NULL),
+                                      HB_PARSTR(4, &hFileName, NULL)) ?
             TRUE : FALSE );
 
    hb_strfree(hSection);
@@ -409,7 +409,7 @@ static void StartPrn( void )
       s_pd.nMinPage = 1;
       s_pd.nMaxPage = 65535;
 
-      PrintDlg( &s_pd );
+      PrintDlg(&s_pd);
 
       /*
          if (PrintDlg(&s_pd)==TRUE)
@@ -453,7 +453,7 @@ HB_FUNC( HWG_PRINTSETUPDOS )
    s_pd.nMaxPage = 0xFFFF;
    s_pd.nCopies = 1;
 
-   if( PrintDlg( &s_pd ) )
+   if( PrintDlg(&s_pd) )
    {
       s_fPName = FALSE;
       hb_stornl(s_pd.nFromPage, 1);
@@ -482,7 +482,7 @@ HB_FUNC( HWG_PRINTSETUPEX )
    pd.nToPage = 1;
    pd.nCopies = 1;
 
-   if( PrintDlg( &pd ) )
+   if( PrintDlg(&pd) )
    {
       pDevMode = ( LPDEVMODE ) GlobalLock( pd.hDevMode );
       HB_RETSTR(( LPCTSTR ) pDevMode->dmDeviceName);
