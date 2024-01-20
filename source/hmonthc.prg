@@ -200,7 +200,7 @@ HB_FUNC ( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of 
       sysTime.wSecond = 0;
       sysTime.wMilliseconds = 0;
 
-      MonthCal_SetCurSel( hwg_par_HWND(1), &sysTime);
+      MonthCal_SetCurSel(hwg_par_HWND(1), &sysTime);
 
    }
 }

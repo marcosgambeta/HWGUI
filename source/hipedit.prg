@@ -65,16 +65,15 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
    ENDIF
 
    // Notificacoes de Ganho e perda de foco
-   ::oParent:AddEvent( EN_SETFOCUS, Self, { | o, id | __GetFocus( o:FindControl( id ) ) },, "onGotFocus" )
-   ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o, id | __KillFocus( o:FindControl( id ) ) },, "onLostFocus" )
+   ::oParent:AddEvent( EN_SETFOCUS, Self, { | o, id | __GetFocus( o:FindControl(id) ) },, "onGotFocus" )
+   ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o, id | __KillFocus( o:FindControl(id) ) },, "onLostFocus" )
 
 
    RETURN Self
 
 METHOD Activate() CLASS HIPedit
    IF !Empty(::oParent:handle)
-      ::handle := hwg_InitIPAddress( ::oParent:handle, ::id, ::style, ;
-                                  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_InitIPAddress(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
    RETURN Nil

@@ -61,9 +61,9 @@ CLASS VAR winclass INIT "STATIC"
                    bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)
    METHOD INIT()
    METHOD onEvent( msg, wParam, lParam )
-   METHOD GoToLinkUrl( csLink )
+   METHOD GoToLinkUrl(csLink)
    METHOD GetLinkText()
-   METHOD SetLinkUrl( csUrl )
+   METHOD SetLinkUrl(csUrl)
    METHOD GetLinkUrl()
    METHOD SetVisitedColor(sVisitedColor)
    METHOD SetHoverColor(cHoverColor)
@@ -231,7 +231,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HStaticLink
    ENDIF
    RETURN - 1
 
-METHOD GoToLinkUrl( csLink ) CLASS HStaticLink
+METHOD GoToLinkUrl(csLink) CLASS HStaticLink
 
    LOCAL hInstance := hwg_Shellexecute(csLink, "open", NIL, NIL, 2)
    //hwg_Shellexecute(NULL              , _T("open")                             , csLink.operator LPCTSTR(), NULL                                 , NULL                                   , 2);
@@ -250,7 +250,7 @@ METHOD GetLinkText() CLASS HStaticLink
 
    RETURN ::Title
 
-METHOD SetLinkUrl( csUrl ) CLASS HStaticLink
+METHOD SetLinkUrl(csUrl) CLASS HStaticLink
 
    ::m_csUrl := csUrl
 
@@ -274,7 +274,7 @@ METHOD SetHoverColor(cHoverColor) CLASS HStaticLink
 METHOD OnClicked() CLASS HStaticLink
    LOCAL nCtrlID
 
-   IF ISBLOCK( ::bClick )
+   IF ISBLOCK(::bClick)
       ::state := LBL_NORMAL
 
    ELSEIF !EMPTY(::m_csUrl)
@@ -282,7 +282,7 @@ METHOD OnClicked() CLASS HStaticLink
          nCtrlID := ::id
          ::Sendmessage(::oparent:Handle, _HYPERLINK_EVENT, nCtrlID, 0)
       ELSE
-         ::GoToLinkUrl( ::m_csUrl )
+         ::GoToLinkUrl(::m_csUrl)
       ENDIF
       ::m_bVisited := .T.
       ::state := LBL_NORMAL

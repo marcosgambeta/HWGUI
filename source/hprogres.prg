@@ -33,7 +33,7 @@ CLASS HProgressBar INHERIT HControl
    METHOD Increment() INLINE hwg_Updateprogressbar( ::handle )
    METHOD STEP( cTitle )
    METHOD SET( cTitle, nPos )
-   METHOD SetLabel( cCaption )
+   METHOD SetLabel(cCaption)
    METHOD SetAnimation( nAnimation ) SETGET
    METHOD Close()
    METHOD End() INLINE hwg_Destroywindow( ::handle )
@@ -92,7 +92,7 @@ METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPerc
    ::id := ::NewId()
    ::nHeight := 0
    ::Activate()
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 
@@ -126,7 +126,7 @@ METHOD STEP( cTitle )
       ::SET( cTitle )
       IF !EMPTY(::lPercent)
          ::nPercent += ::maxPos  //::nLimit
-         ::setLabel( LTRIM(STR(::nPercent, 3)) + " %" )
+         ::setLabel(LTRIM(STR(::nPercent, 3)) + " %")
       ENDIF
       RETURN .T.
    ENDIF
@@ -144,7 +144,7 @@ METHOD SET( cTitle, nPos ) CLASS HProgressBar
 
    RETURN NIL
 
-METHOD SetLabel( cCaption ) CLASS HProgressBar
+METHOD SetLabel(cCaption) CLASS HProgressBar
 
    IF cCaption != NIL .AND. ::lNewBox
       ::LabelBox:SetValue(cCaption)

@@ -233,7 +233,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
    ::Activate()
    //::SetColor(tcolor, bColor, .T.)
-   //::oParent:AddControl( Self )
+   //::oParent:AddControl(Self)
 
    IF ::oGroup != NIL
       bClick := IIF(bClick != NIL, bClick, ::oGroup:bClick)
@@ -244,8 +244,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
-      //::oParent:AddEvent( BN_SETFOCUS, Self, { | o, id | __When( o:FindControl( id ) ) },, "onGotFocus" )
+      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
+      //::oParent:AddEvent( BN_SETFOCUS, Self, { | o, id | __When( o:FindControl(id) ) },, "onGotFocus" )
       ::lnoValid := .T.
    ENDIF
 
@@ -255,7 +255,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       AAdd(::oGroup:aButtons, Self)
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
-      *- ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
+      *- ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick" )
       ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick() },, "onClick" )
       // ENDIF
    ENDIF
@@ -307,7 +307,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    */
    ::backStyle :=  IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
    ::setcolor(tColor, bColor, .T.)
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    IF bClick != NIL .AND. ( ::oGroup == NIL .OR. ::oGroup:bSetGet == NIL )
       *::oParent:AddEvent( 0, self, bClick,, "onClick" )
@@ -316,7 +316,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
       ::lnoValid := .T.
    ENDIF
    //::oParent:AddEvent( BN_KILLFOCUS, Self, { || ::Notify( WM_KEYDOWN ) } )
@@ -325,7 +325,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
       AAdd(::oGroup:aButtons, Self)
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
-      //::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
+      //::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick" )
       ::oParent:AddEvent( BN_CLICKED, self, { |  | ::onClick() },, "onClick" )
       // ENDIF
    ENDIF
@@ -341,10 +341,10 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HRadioButton
       ENDIF
    ENDIF
    IF msg = WM_GETDLGCODE //.AND.  !EMPTY(wParam)
-      IF wParam = VK_RETURN .AND. hwg_ProcOkCancel( Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE )
+      IF wParam = VK_RETURN .AND. hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE)
          RETURN 0
       ELSEIF wParam = VK_ESCAPE  .AND. ;
-            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != Nil .AND. !oCtrl:IsEnabled()
+            ( oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL) ) != Nil .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF ( wParam != VK_TAB .AND. hwg_Getdlgmessage(lParam) = WM_CHAR ) .OR. hwg_Getdlgmessage(lParam) = WM_SYSCHAR .OR. ;
             wParam = VK_ESCAPE

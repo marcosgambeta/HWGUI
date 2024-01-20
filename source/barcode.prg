@@ -150,7 +150,7 @@ CLASS Barcode
    METHOD InitCode128( cMode )
    METHOD InitEAN13()
    METHOD InitUPC(nLen)
-   METHOD InitE13BL( nLen )
+   METHOD InitE13BL(nLen)
    METHOD InitCodabar()
    METHOD InitSub5()
    METHOD InitIndustrial25( lCheck )
@@ -279,7 +279,7 @@ METHOD CreateBarcode(cCode) CLASS BarCode
 
    hPen      := Rich_CreatePen( , , ::nColText )
    hOldPen   := Rich_SelectObject( ::hDC, hPen )
-   hBrush    := Rich_CreateSolidBrush( ::nColText )
+   hBrush    := Rich_CreateSolidBrush(::nColText)
    hOldBrush := Rich_SelectObject( ::hDC, hBrush )
 
    IIf(::nPinWidth < 1, ::nPinWidth := 1,)
@@ -371,7 +371,7 @@ METHOD InitCode39( lCheck ) CLASS BarCode
 
    DEFAULT lCheck := .F.
 
-   cCode := Upper( cCode )
+   cCode := Upper(cCode)
 
    IF Len(cCode) > 32
       cCode := Left(cCode, 32)
@@ -381,7 +381,7 @@ METHOD InitCode39( lCheck ) CLASS BarCode
 
    FOR n := 1 TO Len(cCode)
       cCar := SubStr(cCode, n, 1)
-      m    := At( cCar, cCars )
+      m    := At(cCar, cCars)
       IF n > 0
          cBarra := cBarra + aBarras[m]
          nCheck += ( m - 1 )
@@ -434,8 +434,8 @@ METHOD InitCode128( cMode ) CLASS BarCode
    ENDIF
 
    IF .NOT. Empty(cMode)
-      IF ValType(cMode) = "C" .AND. Upper( cMode ) $ "ABC"
-         cMode := Upper( cMode )
+      IF ValType(cMode) = "C" .AND. Upper(cMode) $ "ABC"
+         cMode := Upper(cMode)
       ELSE
          hwg_Msginfo( "Code 128 modes are A,B o C. Character values." )
       ENDIF
@@ -663,7 +663,7 @@ METHOD InitUPC(nLen) CLASS BarCode
 *         Name: InitE13BL
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitE13BL( nLen ) CLASS BarCode
+METHOD InitE13BL(nLen) CLASS BarCode
 
    nLen := Int( nLen / 2 )
 
@@ -688,10 +688,10 @@ METHOD InitCodabar() CLASS BarCode
 
    LOCAL n, nCar
    LOCAL cBarra := ""
-   LOCAL cCode := Upper( ::cText )
+   LOCAL cCode := Upper(::cText)
 
    FOR n := 1 TO Len(cCode)
-      IF ( nCar := At( SubStr(cCode, n, 1), cChar ) ) > 0
+      IF ( nCar := At(SubStr(cCode, n, 1), cChar) ) > 0
          cBarra += abar[nCar]
       ENDIF
    NEXT
@@ -895,12 +895,7 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
 
 HB_FUNC_STATIC( RICH_RECTANGLE )
 {
-   hb_retl( Rectangle(hwg_par_HDC(1),
-                       hb_parni(2)      ,
-                       hb_parni(3)      ,
-                       hb_parni(4)      ,
-                       hb_parni(5)
-                       ) );
+   hb_retl(Rectangle(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5)));
 }
 
 
@@ -922,7 +917,7 @@ HB_FUNC_STATIC( RICH_SELECTOBJECT )
 
 HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush( hwg_par_COLORREF(1) ));    // brush color
+   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));    // brush color
 }
 
 #pragma ENDDUMP

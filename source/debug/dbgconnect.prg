@@ -96,10 +96,10 @@ Function hwg_dbg_New()
    IF File(cDebugger+".info") .AND. ( handl1 := FOpen( cDebugger+".info", FO_READ ) ) != -1
       IF ( i := FRead(handl1, @cBuffer, Len(cBuffer)) ) > 0
          arr := hb_aTokens( Left(cBuffer, i), ;
-               Iif(hb_At( Chr(13), cBuffer, 1, i ) > 0, Chr(13)+Chr(10), Chr(10)) )
+               Iif(hb_At(Chr(13), cBuffer, 1, i) > 0, Chr(13)+Chr(10), Chr(10)) )
          FOR i := 1 TO Len(arr)
-            IF ( nPos := At( "=", arr[i] ) ) > 0
-               cCmd := Lower( Trim(Left(arr[i], nPos - 1)) )
+            IF ( nPos := At("=", arr[i]) ) > 0
+               cCmd := Lower(Trim(Left(arr[i], nPos - 1)))
                IF cCmd == "dir"
                   cDir := Ltrim(Substr(arr[i], nPos+1))
                ELSEIF cCmd == "debugger"
@@ -147,8 +147,8 @@ Function hwg_dbg_New()
    ENDIF
 
    cFile := Iif(!Empty(cDir), cDir, hb_dirTemp()) + ;
-         Iif(( i := Rat( '\', cFile ) ) = 0, ;
-         Iif(( i := Rat( '/', cFile ) ) = 0, cFile, Substr(cFile, i + 1)), ;
+         Iif(( i := Rat('\', cFile) ) = 0, ;
+         Iif(( i := Rat('/', cFile) ) = 0, cFile, Substr(cFile, i + 1)), ;
          Substr(cFile, i + 1))
 
    Ferase(cFile + ".d1")
@@ -187,10 +187,10 @@ Return Nil
 Static Function hwg_dbg_Read()
 Local n, s := "", arr
 
-   FSeek( handl1, 0, 0 )
+   FSeek(handl1, 0, 0)
    DO WHILE ( n := Fread(handl1, @cBuffer, Len(cBuffer)) ) > 0
       s += Left(cBuffer, n)
-      IF ( n := At( ",!", s ) ) > 0
+      IF ( n := At(",!", s) ) > 0
          IF ( arr := hb_aTokens( Left(s, n + 1), "," ) ) != Nil .AND. Len(arr) > 2 .AND. arr[1] == arr[Len(arr)-1]
             Return arr
          ELSE
@@ -203,13 +203,13 @@ Return Nil
 Static Function hwg_dbg_Send(...)
 Local arr := hb_aParams(), i, s := ""
 
-   FSeek( handl2, 0, 0 )
+   FSeek(handl2, 0, 0)
    FOR i := 2 TO Len(arr)
       s += arr[i] + ","
    NEXT
    IF Len(s) > 800
       FWrite(handl2, "!," + Space(Len(arr[1])-1) + s + arr[1] + ",!")
-      FSeek( handl2, 0, 0 )
+      FSeek(handl2, 0, 0)
       FWrite(handl2, arr[1] + ",")
    ELSE
       FWrite(handl2, arr[1] + "," + s + arr[1] + ",!")

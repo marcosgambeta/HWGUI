@@ -28,7 +28,7 @@ HB_FUNC( HWGAX_OLEINITIALIZE )
       if( OleInitialize(NULL) == S_OK )
          bOleInitialized = 1;
    }
-   hb_retl( bOleInitialized );
+   hb_retl(bOleInitialized);
 }
 
 HB_FUNC( HWGAX_OLEUNINITIALIZE )
@@ -42,7 +42,7 @@ HB_FUNC( HWGAX_OLEUNINITIALIZE )
 
 HB_FUNC( HWGAX_EMBEDBROWSEROBJECT )
 {
-   hb_retl( !EmbedBrowserObject( hwg_par_HWND(1) ) );
+   hb_retl(!EmbedBrowserObject(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWGAX_UNEMBEDBROWSEROBJECT )

@@ -179,7 +179,7 @@ void ProcessMessage(MSG msg, HACCEL hAcceler, BOOL lMdi)
 
    if( i == iDialogs )
    {
-      if( lMdi && TranslateMDISysAccel( aWindows[1], &msg ) )
+      if( lMdi && TranslateMDISysAccel(aWindows[1], &msg) )
          return;
 
       if( !hAcceler || !TranslateAccelerator( aWindows[0], hAcceler, &msg ) )
@@ -193,7 +193,7 @@ void ProcessMessage(MSG msg, HACCEL hAcceler, BOOL lMdi)
 void ProcessMdiMessage(HWND hJanBase, HWND hJanClient, MSG msg,
                         HACCEL hAcceler)
 {
-   if( !TranslateMDISysAccel( hJanClient, &msg ) &&
+   if( !TranslateMDISysAccel(hJanClient, &msg) &&
          !TranslateAccelerator( hJanBase, hAcceler, &msg ) )
    {
       TranslateMessage(&msg);
@@ -244,10 +244,10 @@ HB_FUNC( HWG_PEEKMESSAGE )
 {
    MSG msg;
 
-   hb_retl( PeekMessage(&msg, hwg_par_HWND(1),      // handle of window whose message queue will be searched
-               ( UINT ) hb_parni(2),  // wMsgFilterMin,
-               ( UINT ) hb_parni(3),  // wMsgFilterMax,
-               PM_NOREMOVE) );
+   hb_retl(PeekMessage(&msg, hwg_par_HWND(1),      // handle of window whose message queue will be searched
+               (UINT) hb_parni(2),  // wMsgFilterMin,
+               (UINT) hb_parni(3),  // wMsgFilterMax,
+               PM_NOREMOVE));
 }
 
 HB_FUNC( HWG_INITCHILDWINDOW )
@@ -287,7 +287,7 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       /*
          wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
          ( (hb_parnl(6)==-1)? (HBRUSH)(COLOR_WINDOW+1) :
-         CreateSolidBrush( hb_parnl(6) ) )
+         CreateSolidBrush(hb_parnl(6)))
          : (HBRUSH)(COLOR_WINDOW+1) ) );
        */
       wndclass.lpszMenuName = lpMenu;
@@ -557,7 +557,7 @@ HB_FUNC( HWG_GETFOCUS )
 HB_FUNC( HWG_SELFFOCUS )
 {
    HWND  hWnd = HB_ISNIL(2) ? ( HWND ) GetFocus() : hwg_par_HWND(2);
-   hb_retl( hwg_par_HWND(1) == hWnd );
+   hb_retl(hwg_par_HWND(1) == hWnd);
 }
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
@@ -638,17 +638,17 @@ HB_FUNC( HWG_RESTOREWINDOW )
 
 HB_FUNC( HWG_ISICONIC )
 {
-   hb_retl( IsIconic(hwg_par_HWND(1)) );
+   hb_retl(IsIconic(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_ISWINDOWENABLED )
 {
-   hb_retl( IsWindowEnabled(hwg_par_HWND(1)) );
+   hb_retl(IsWindowEnabled(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_ISWINDOWVISIBLE )
 {
-   hb_retl( IsWindowVisible(hwg_par_HWND(1)) );
+   hb_retl(IsWindowVisible(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_GETACTIVEWINDOW )
@@ -695,12 +695,12 @@ HB_FUNC( HWG_FINDWINDOW )
 
 HB_FUNC( HWG_SETFOREGROUNDWINDOW )
 {
-   hb_retl( SetForegroundWindow( hwg_par_HWND(1) ) );
+   hb_retl(SetForegroundWindow(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_BRINGWINDOWTOTOP )
 {
-   hb_retl( BringWindowToTop( hwg_par_HWND(1) ) );
+   hb_retl(BringWindowToTop(hwg_par_HWND(1)));
 }
 
 //HB_FUNC( HWG_SETACTIVEWINDOW )
@@ -733,8 +733,8 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message,
    if( pSym_onEvent && pObject )
    {
 
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -761,8 +761,8 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -810,8 +810,8 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -852,7 +852,7 @@ void SetObjectVar(PHB_ITEM pObject, const char * varname, PHB_ITEM pValue)
 
 static const char s_szConstStr[1] = { 0 };
 
-const char * hwg_strnull( const char * str )
+const char * hwg_strnull(const char * str)
 {
    return str ? str : "";
 }
@@ -934,7 +934,7 @@ static int s_iVM_CP = CP_ACP; /* CP_OEMCP */
 
 static const wchar_t s_wszConstStr[1] = { 0 };
 
-const wchar_t * hwg_wstrnull( const wchar_t * str )
+const wchar_t * hwg_wstrnull(const wchar_t * str)
 {
    return str ? str : L"";
 }
@@ -1117,7 +1117,7 @@ HB_FUNC( HWG_SETTOPMOST )
          SetWindowPos(hwg_par_HWND(1), HWND_TOPMOST, 0, 0, 0, 0,
          SWP_NOMOVE | SWP_NOSIZE);
 
-   hb_retl( i );
+   hb_retl(i);
 }
 
 HB_FUNC( HWG_REMOVETOPMOST )
@@ -1126,7 +1126,7 @@ HB_FUNC( HWG_REMOVETOPMOST )
          SetWindowPos(hwg_par_HWND(1), HWND_NOTOPMOST, 0, 0, 0, 0,
          SWP_NOMOVE | SWP_NOSIZE);
 
-   hb_retl( i );
+   hb_retl(i);
 }
 
 HB_FUNC( HWG_CHILDWINDOWFROMPOINT )
@@ -1187,7 +1187,7 @@ HB_FUNC( HWG_SETWINDOWPOS )
 
    res = SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
 
-   hb_retl( res );
+   hb_retl(res);
 }
 
 HB_FUNC( HWG_SETASTYLE )
@@ -1223,7 +1223,7 @@ HB_FUNC( HWG_BRINGTOTOP )
    if( IsIconic(hWnd) )
    {
       ShowWindow( hWnd, SW_RESTORE );
-      hb_retl( TRUE );
+      hb_retl(TRUE);
       return;
    }
 
@@ -1284,7 +1284,7 @@ HB_FUNC( HWG_GETFONTDIALOGUNITS )
                ( HFONT ) HB_PARHANDLE(2) ));
 }
 
-LRESULT CALLBACK KbdHook( int code, WPARAM wp, LPARAM lp )
+LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
 {
    int nId, nBtnNo;
    UINT uId;
@@ -1331,8 +1331,8 @@ LRESULT CALLBACK KbdHook( int code, WPARAM wp, LPARAM lp )
 
             if( pSym_onEven_Tool && pObject )
             {
-               hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEven_Tool ) );
-               hb_vmPush( pObject );
+               hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEven_Tool));
+               hb_vmPush(pObject);
                hb_vmPushLong(( LONG ) uId);
 
                hb_vmSend(1);
@@ -1392,7 +1392,7 @@ HB_FUNC( HWG_GETTOOLBARID )
 
 HB_FUNC( HWG_ISWINDOW )
 {
-   hb_retl( IsWindow( hwg_par_HWND(1) ) );
+   hb_retl(IsWindow(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_MINMAXWINDOW )

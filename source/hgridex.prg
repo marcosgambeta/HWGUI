@@ -77,7 +77,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
 
    METHOD DELETEROW()    INLINE IIF(::bFlag, ( hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F. ), .T.)
    METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := { }, hwg_Sendmessage(::Handle, LVM_DELETEALLITEMS, 0, 0)
-   METHOD SELECTALL()    INLINE hwg_Listviewselectall( ::Handle )
+   METHOD SELECTALL()    INLINE hwg_Listviewselectall(::Handle)
    METHOD SELECTLAST()   INLINE hwg_Listviewselectlastitem( ::handle )
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
    METHOD UpdateData()

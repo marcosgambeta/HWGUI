@@ -29,7 +29,7 @@ void writelog(char * s)
    else
       handle = hb_fsCreate("ac.log", 0);
 
-   hb_fsSeek( handle, 0, SEEK_END );
+   hb_fsSeek(handle, 0, SEEK_END);
    hb_fsWrite(handle, ( const char * ) s, (USHORT) strlen(s));
    hb_fsWrite(handle, "\n\r", 2);
 
@@ -48,7 +48,7 @@ HB_FUNC( HWG_SETCAPTURE )
 
 HB_FUNC( HWG_RELEASECAPTURE )
 {
-   hb_retl( ReleaseCapture() );
+   hb_retl(ReleaseCapture());
 }
 
 HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
@@ -68,10 +68,10 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       if( hglbCopy != NULL )
       {
          // Lock the handle and copy the text to the buffer.
-         lptstrCopy = ( char * ) GlobalLock( hglbCopy );
+         lptstrCopy = ( char * ) GlobalLock(hglbCopy);
          memcpy( lptstrCopy, lpStr, nLen * sizeof(TCHAR) );
          lptstrCopy[nLen] = 0;       // null character
-         GlobalUnlock( hglbCopy );
+         GlobalUnlock(hglbCopy);
          hb_strfree(hStr);
 
          // Place the handle on the clipboard.
@@ -99,7 +99,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
 #endif
       if( hglb )
       {
-         LPVOID lpMem = GlobalLock( hglb );
+         LPVOID lpMem = GlobalLock(hglb);
          if( lpMem )
          {
             HB_SIZE nSize = ( HB_SIZE ) GlobalSize(hglb);
@@ -109,7 +109,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
                memcpy( lpText, lpMem, nSize );
                lpText[nSize] = 0;
             }
-            ( void ) GlobalUnlock( hglb );
+            ( void ) GlobalUnlock(hglb);
          }
       }
       CloseClipboard();
@@ -370,7 +370,7 @@ HB_FUNC( HWG_GETTEMPDIR )
 {
    TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
-   GetTempPath( MAX_PATH, szBuffer );
+   GetTempPath(MAX_PATH, szBuffer);
    HB_RETSTR(szBuffer);
 }
 
@@ -535,8 +535,7 @@ HB_FUNC( HWG_GETSCROLLRANGE )
 
 HB_FUNC( HWG_SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange(hwg_par_HWND(1), hb_parni(2),
-               hb_parni(3), hb_parni(4), hb_parl(5)) );
+   hb_retl(SetScrollRange(hwg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
 
@@ -571,17 +570,17 @@ HB_FUNC( HWG_SCROLLWINDOW )
 
 HB_FUNC( HWG_ISCAPSLOCKACTIVE )
 {
-   hb_retl( GetKeyState(VK_CAPITAL) );
+   hb_retl(GetKeyState(VK_CAPITAL));
 }
 
 HB_FUNC( HWG_ISNUMLOCKACTIVE )
 {
-   hb_retl( GetKeyState(VK_NUMLOCK) );
+   hb_retl(GetKeyState(VK_NUMLOCK));
 }
 
 HB_FUNC( HWG_ISSCROLLLOCKACTIVE )
 {
-   hb_retl( GetKeyState(VK_SCROLL) );
+   hb_retl(GetKeyState(VK_SCROLL));
 }
 
 /* Added By Sandro Freire sandrorrfreire_nospam_yahoo.com.br*/
@@ -596,7 +595,7 @@ HB_FUNC( HWG_CREATEDIRECTORY )
 HB_FUNC( HWG_REMOVEDIRECTORY )
 {
    void * hStr;
-   hb_retl( RemoveDirectory( HB_PARSTR(1, &hStr, NULL) ) );
+   hb_retl(RemoveDirectory(HB_PARSTR(1, &hStr, NULL)));
    hb_strfree(hStr);
 }
 
@@ -610,7 +609,7 @@ HB_FUNC( HWG_SETCURRENTDIRECTORY )
 HB_FUNC( HWG_DELETEFILE )
 {
    void * hStr;
-   hb_retl( DeleteFile(HB_PARSTR(1, &hStr, NULL)) );
+   hb_retl(DeleteFile(HB_PARSTR(1, &hStr, NULL)));
    hb_strfree(hStr);
 }
 
@@ -624,8 +623,7 @@ HB_FUNC( HWG_GETFILEATTRIBUTES )
 HB_FUNC( HWG_SETFILEATTRIBUTES )
 {
    void * hStr;
-   hb_retl( SetFileAttributes( HB_PARSTR(1, &hStr, NULL),
-                               hwg_par_DWORD(2) ) );
+   hb_retl(SetFileAttributes(HB_PARSTR(1, &hStr, NULL), hwg_par_DWORD(2)));
    hb_strfree(hStr);
 }
 
@@ -654,12 +652,12 @@ HB_FUNC( HWG_GETUSERNAME )
 
 HB_FUNC( HWG_ISDOWNPRESSESED )
 {
-   hb_retl( HIWORD(GetKeyState(VK_DOWN)) > 0 );
+   hb_retl(HIWORD(GetKeyState(VK_DOWN)) > 0);
 }
 
 HB_FUNC( HWG_ISPGDOWNPRESSESED )
 {
-   hb_retl( HIWORD(GetKeyState(VK_NEXT)) > 0 );
+   hb_retl(HIWORD(GetKeyState(VK_NEXT)) > 0);
 }
 
 HB_FUNC( HWG_EDIT1UPDATECTRL )
@@ -721,7 +719,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
    }
    else
    {
-      hBrush = CreateSolidBrush( ( COLORREF ) i );
+      hBrush = CreateSolidBrush((COLORREF) i);
       SetBkColor(hdc, ( COLORREF ) i);
    }
 

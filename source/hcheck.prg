@@ -62,12 +62,12 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bGetFocus  := bGFocus
 
    IF bGFocus != NIL
-      //::oParent:AddEvent( BN_SETFOCUS, Self, { | o, id | __When( o:FindControl( id ) ) },, "onGotFocus" )
-      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      //::oParent:AddEvent( BN_SETFOCUS, Self, { | o, id | __When( o:FindControl(id) ) },, "onGotFocus" )
+      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
       ::lnoValid := .T.
    ENDIF
-   //::oParent:AddEvent( BN_CLICKED, Self, { | o, id | __Valid(o:FindControl( id ),) },, "onClick" )
-   ::oParent:AddEvent( BN_CLICKED, Self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
+   //::oParent:AddEvent( BN_CLICKED, Self, { | o, id | __Valid(o:FindControl(id),) },, "onClick" )
+   ::oParent:AddEvent( BN_CLICKED, Self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick" )
    ::oParent:AddEvent( BN_KILLFOCUS, Self, { || ::KILLFOCUS() } )
 
    RETURN Self
@@ -93,9 +93,9 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bCl
    ::bLostFocus := bClick
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ::oParent:AddEvent( BN_SETFOCUS, self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
    ENDIF
-   ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl( id )) },, "onClick" )
+   ::oParent:AddEvent( BN_CLICKED, self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick" )
    ::oParent:AddEvent( BN_KILLFOCUS, Self, { || ::KILLFOCUS() } )
 
    RETURN Self
@@ -148,7 +148,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HCheckButton
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
          RETURN -1
       ELSEIF wParam = VK_ESCAPE  .AND. ;
-            ( oCtrl := hwg_GetParentForm(Self):FindControl( IDCANCEL ) ) != NIL .AND. !oCtrl:IsEnabled()
+            ( oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL) ) != NIL .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE .OR.;

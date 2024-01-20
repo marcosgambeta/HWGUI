@@ -66,7 +66,7 @@ CLASS HPrinter INHERIT HObject
    METHOD Line(x1, y1, x2, y2, oPen)
    METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor )
    METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap )
-   METHOD GetTextWidth( cString, oFont )
+   METHOD GetTextWidth(cString, oFont)
    METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) HIDDEN
    METHOD ChangePage(oSayPage, n, nPage) HIDDEN
 ENDCLASS
@@ -260,7 +260,7 @@ METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap ) CLASS HPrinter
 
    RETURN NIL
 
-METHOD GetTextWidth( cString, oFont ) CLASS HPrinter
+METHOD GetTextWidth(cString, oFont) CLASS HPrinter
    LOCAL arr, hFont
 
    IF oFont != NIL
@@ -303,7 +303,7 @@ METHOD StartPage() CLASS HPrinter
    IF ::lPreview
       fname := IIf(::cMetaName != NIL, ::cMetaName + LTrim(Str(Len(::aMeta) + 1)) + ".emf", NIL)
       AAdd(::aMeta, hwg_CreateMetaFile(::hDCPrn, fname))
-      ::hDC := ATail( ::aMeta )
+      ::hDC := ATail(::aMeta)
    ELSE
       Hwg_StartPage(::hDC)
    ENDIF

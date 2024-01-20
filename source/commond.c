@@ -293,9 +293,9 @@ HB_FUNC( HWG_PRINTSETUP )
       {
          if( hb_pcount() > 0 )
          {
-            LPDEVNAMES lpdn = ( LPDEVNAMES ) GlobalLock( pd.hDevNames );
+            LPDEVNAMES lpdn = ( LPDEVNAMES ) GlobalLock(pd.hDevNames);
             HB_STORSTR(( LPCTSTR ) lpdn + lpdn->wDeviceOffset, 1);
-            GlobalUnlock( pd.hDevNames );
+            GlobalUnlock(pd.hDevNames);
          }
          GlobalFree(pd.hDevNames);
          GlobalFree(pd.hDevMode);
@@ -381,11 +381,11 @@ HB_FUNC( HWG_WRITEPRIVATEPROFILESTRING )
 {
    void * hSection, * hEntry, * hData, * hFileName;
 
-   hb_retl( WritePrivateProfileString(HB_PARSTR(1, &hSection, NULL),
-                                      HB_PARSTR(2, &hEntry, NULL),
-                                      HB_PARSTR(3, &hData, NULL),
-                                      HB_PARSTR(4, &hFileName, NULL)) ?
-            TRUE : FALSE );
+   hb_retl(WritePrivateProfileString(HB_PARSTR(1, &hSection, NULL),
+                                     HB_PARSTR(2, &hEntry, NULL),
+                                     HB_PARSTR(3, &hData, NULL),
+                                     HB_PARSTR(4, &hFileName, NULL)) ?
+            TRUE : FALSE);
 
    hb_strfree(hSection);
    hb_strfree(hEntry);
@@ -431,9 +431,9 @@ HB_FUNC( HWG_PRINTPORTNAME )
       LPDEVNAMES lpDevNames;
 
       s_fPName = TRUE;
-      lpDevNames = ( LPDEVNAMES ) GlobalLock( s_pd.hDevNames );
+      lpDevNames = ( LPDEVNAMES ) GlobalLock(s_pd.hDevNames);
       HB_RETSTR(( LPCTSTR ) lpDevNames + lpDevNames->wOutputOffset);
-      GlobalUnlock( s_pd.hDevNames );
+      GlobalUnlock(s_pd.hDevNames);
    }
 }
 
@@ -484,9 +484,9 @@ HB_FUNC( HWG_PRINTSETUPEX )
 
    if( PrintDlg(&pd) )
    {
-      pDevMode = ( LPDEVMODE ) GlobalLock( pd.hDevMode );
+      pDevMode = ( LPDEVMODE ) GlobalLock(pd.hDevMode);
       HB_RETSTR(( LPCTSTR ) pDevMode->dmDeviceName);
-      GlobalUnlock( pd.hDevMode );
+      GlobalUnlock(pd.hDevMode);
    }
 }
 

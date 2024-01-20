@@ -113,7 +113,7 @@ METHOD RELEASE() CLASS HFont
       FOR EACH i IN ::aFonts
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aFonts, hb_enumindex() )
+            ADel(::aFonts, hb_enumindex())
             ASize(::aFonts, nlen - 1)
             EXIT
          ENDIF
@@ -122,7 +122,7 @@ METHOD RELEASE() CLASS HFont
       FOR i := 1 TO nlen
          IF ::aFonts[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aFonts, i )
+            ADel(::aFonts, i)
             ASize(::aFonts, nlen - 1)
             EXIT
          ENDIF
@@ -222,7 +222,7 @@ METHOD RELEASE() CLASS HPen
       FOR EACH i  IN ::aPens
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aPens, hb_EnumIndex() )
+            ADel(::aPens, hb_EnumIndex())
             ASize(::aPens, nlen - 1)
             EXIT
          ENDIF
@@ -231,7 +231,7 @@ METHOD RELEASE() CLASS HPen
       FOR i := 1 TO nlen
          IF ::aPens[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aPens, i )
+            ADel(::aPens, i)
             ASize(::aPens, nlen - 1)
             EXIT
          ENDIF
@@ -282,9 +282,9 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    NEXT
 #endif
    IF nHatch != 99
-      ::handle := hwg_Createhatchbrush( nHatch, nColor )
+      ::handle := hwg_Createhatchbrush(nHatch, nColor)
    ELSE
-      ::handle := hwg_Createsolidbrush( nColor )
+      ::handle := hwg_Createsolidbrush(nColor)
    ENDIF
    ::color  := nColor
    AAdd(::aBrushes, Self)
@@ -300,7 +300,7 @@ METHOD RELEASE() CLASS HBrush
       FOR EACH i IN ::aBrushes
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, hb_enumindex() )
+            ADel(::aBrushes, hb_enumindex())
             ASize(::aBrushes, nlen - 1)
             EXIT
          ENDIF
@@ -309,7 +309,7 @@ METHOD RELEASE() CLASS HBrush
       FOR i := 1 TO nlen
          IF ::aBrushes[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBrushes, i )
+            ADel(::aBrushes, i)
             ASize(::aBrushes, nlen - 1)
             EXIT
          ENDIF
@@ -416,7 +416,7 @@ METHOD AddStandard(nId) CLASS HBitmap
    RETURN Self
 
 METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
-   LOCAL i, aBmpSize, cname := CutPath( name ), cCurDir
+   LOCAL i, aBmpSize, cname := CutPath(name), cCurDir
 
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aBitmaps
@@ -436,12 +436,12 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir  := DiskName() + ':\' + CurDir()
-      name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
+      name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
 
-   IF Lower( Right(name, 4) ) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTranparent == Nil )
-      IF Lower( Right(name, 4) ) == ".bmp"
+   IF Lower(Right(name, 4)) != ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTranparent == Nil )
+      IF Lower(Right(name, 4)) == ".bmp"
          ::handle := hwg_Openbitmap( name, hDC )
       ELSE
          ::handle := hwg_Openimage(name)
@@ -485,7 +485,7 @@ METHOD RELEASE() CLASS HBitmap
       FOR EACH i IN ::aBitmaps
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBitmaps, hB_enumIndex() )
+            ADel(::aBitmaps, hB_enumIndex())
             ASize(::aBitmaps, nlen - 1)
             EXIT
          ENDIF
@@ -494,7 +494,7 @@ METHOD RELEASE() CLASS HBitmap
       FOR i := 1 TO nlen
          IF ::aBitmaps[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aBitmaps, i )
+            ADel(::aBitmaps, i)
             ASize(::aBitmaps, nlen - 1)
             EXIT
          ENDIF
@@ -572,7 +572,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
    RETURN Self
 
 METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
-   LOCAL i, aIconSize, cname := CutPath( name ), cCurDir
+   LOCAL i, aIconSize, cname := CutPath(name), cCurDir
 
    IF nWidth == nil
       nWidth := 0
@@ -599,7 +599,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
       cCurDir  := DiskName() + ':\' + CurDir()
-      name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ), FilePath( name ), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
+      name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
 
@@ -623,7 +623,7 @@ METHOD RELEASE() CLASS HIcon
       FOR EACH i IN ::aIcons
          IF i:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aIcons, hb_enumindex() )
+            ADel(::aIcons, hb_enumindex())
             ASize(::aIcons, nlen - 1)
             EXIT
          ENDIF
@@ -632,7 +632,7 @@ METHOD RELEASE() CLASS HIcon
       FOR i := 1 TO nlen
          IF ::aIcons[i]:handle == ::handle
             hwg_Deleteobject( ::handle )
-            ADel( ::aIcons, i )
+            ADel(::aIcons, i)
             ASize(::aIcons, nlen - 1)
             EXIT
          ENDIF

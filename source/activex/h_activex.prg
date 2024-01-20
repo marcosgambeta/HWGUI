@@ -69,7 +69,7 @@ METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
 
    ::hObj   := hwg_Atlaxgetdisp( ::handle )
 
-   bErrorBlock := ErrorBlock( { |x| break( x ) } )
+   bErrorBlock := ErrorBlock({|x|break(x)})
    #ifdef __XHARBOUR__
       TRY
          ::oOle := ToleAuto():New(::hObj)
@@ -83,7 +83,7 @@ METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
          hwg_Msginfo( oError:Description )
       END
    #endif
-   ErrorBlock( bErrorBlock )
+   ErrorBlock(bErrorBlock)
 
    hwg_Setupconnectionpoint( ::hObj, @hSink, ::aAxEv, ::aAxExec )
    ::hSink := hSink
@@ -94,7 +94,7 @@ METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
 METHOD Release() CLASS HActiveX
 *-----------------------------------------------------------------------------*
    hwg_Shutdownconnectionpoint( ::hSink )
-   hwg_Releasedispatch( ::hObj )
+   hwg_Releasedispatch(::hObj)
 Return ::Super:Release()
 
 *-----------------------------------------------------------------------------* 

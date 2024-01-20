@@ -131,7 +131,7 @@ Local nFirst, i
       ENDIF
       IF nDebugMode < 2
          FOR i := 1 TO Len(aWatches)
-            CalcWatch( i )
+            CalcWatch(i)
          NEXT
          IF !Empty(aWatches)
             oBrwData:Refresh()
@@ -192,7 +192,7 @@ Local i
          Aadd(aBreakPoints[2], oBrwScript:nCurrent)
       ENDIF
    ELSE
-      Adel( aBreakPoints[2], i )
+      Adel(aBreakPoints[2], i)
       aBreakPoints[2, Len(aBreakPoints[2])] := 0
    ENDIF
    oBrwScript:Refresh()
@@ -206,19 +206,19 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
 #else
    IF !Empty(xRes := hwg_Getedittext(oEditExpr:oParent:handle, oEditExpr:id))
 #endif
-      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      bOldError := ERRORBLOCK({|e|MacroError(e)})
       BEGIN SEQUENCE
          bCodeblock := &( "{||" + xRes + "}" )
       RECOVER
          lRes := .F.
       END SEQUENCE
-      ERRORBLOCK( bOldError )
+      ERRORBLOCK(bOldError)
    ENDIF
 
    IF lRes
       IF Ascan( aWatches, {|s|s[1] == xRes} ) == 0
          Aadd(aWatches, { xRes, bCodeblock, Nil, Nil })
-         CalcWatch( Len(aWatches) )
+         CalcWatch(Len(aWatches))
       ENDIF
       IF oBrwData:nHeight < 20
          oSplit:Move(, 56)
@@ -232,16 +232,16 @@ Local xRes, bCodeblock, bOldError, lRes := .T.
    ENDIF
 Return .T.
 
-Static Function CalcWatch( n )
+Static Function CalcWatch(n)
 Local xRes, bOldError, lRes := .T., cType
 
-   bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+   bOldError := ERRORBLOCK({|e|MacroError(e)})
    BEGIN SEQUENCE
       xRes := Eval(aWatches[n, 2])
    RECOVER
       lRes := .F.
    END SEQUENCE
-   ERRORBLOCK( bOldError )
+   ERRORBLOCK(bOldError)
 
    IF lRes
       IF ( cType := Valtype(xRes) ) == "N"
@@ -271,13 +271,13 @@ Local xRes, bOldError, lRes := .T., cType
 #else
    IF !Empty(xRes := hwg_Getedittext(oEditExpr:oParent:handle, oEditExpr:id))
 #endif
-      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      bOldError := ERRORBLOCK({|e|MacroError(e)})
       BEGIN SEQUENCE
          xRes := &xRes
       RECOVER
          lRes := .F.
       END SEQUENCE
-      ERRORBLOCK( bOldError )
+      ERRORBLOCK(bOldError)
    ENDIF
 
    IF lRes

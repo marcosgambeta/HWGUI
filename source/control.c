@@ -174,7 +174,7 @@ HB_FUNC( HWG_SETRANGEPROGRESSBAR )
 }   
 
 /*
-   CreatePanel( hParentWindow, nPanelControlID, nStyle, x1, y1, nWidth, nHeight )
+   CreatePanel(hParentWindow, nPanelControlID, nStyle, x1, y1, nWidth, nHeight)
 */
 HB_FUNC( HWG_CREATEPANEL )
 {
@@ -392,7 +392,7 @@ HB_FUNC( HWG_INITSTATUS )
 
    // Allocate an array for holding the right edge coordinates.
    hloc = LocalAlloc(LHND, sizeof(int) * nParts);
-   lpParts = ( LPINT ) LocalLock( hloc );
+   lpParts = ( LPINT ) LocalLock(hloc);
 
    if( !pArray || hb_arrayGetNI(pArray, 1) == 0 )
    {
@@ -426,7 +426,7 @@ HB_FUNC( HWG_INITSTATUS )
    SendMessage(hStatus, SB_SETPARTS, ( WPARAM ) nParts, ( LPARAM ) lpParts);
 
    // Free the array, and return.
-   LocalUnlock( hloc );
+   LocalUnlock(hloc);
    LocalFree(hloc);
 }
 
@@ -463,8 +463,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    ti.hinst = GetModuleHandle(NULL);
    ti.lpszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
-   hb_retl( SendMessage(hWndTT, TTM_ADDTOOL, 0,
-               ( LPARAM ) ( LPTOOLINFO ) & ti) );
+   hb_retl(SendMessage(hWndTT, TTM_ADDTOOL, 0, (LPARAM) (LPTOOLINFO) &ti));
    hb_strfree(hStr);
 }
 
@@ -501,8 +500,7 @@ HB_FUNC( HWG_SETTOOLTIPTITLE )
       ti.hinst = GetModuleHandle(NULL);
       ti.lpszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
-      hb_retl( SendMessage(hWndTT, TTM_SETTOOLINFO, 0,
-                            ( LPARAM ) ( LPTOOLINFO ) & ti) );
+      hb_retl(SendMessage(hWndTT, TTM_SETTOOLINFO, 0, (LPARAM) (LPTOOLINFO) &ti));
       hb_strfree(hStr);
    }
 }
@@ -544,11 +542,11 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL32 )
 
 HB_FUNC( HWG_CREATEUPDOWNCONTROL )
 {
-   HB_RETHANDLE(CreateUpDownControl( WS_CHILD | WS_BORDER | WS_VISIBLE |
+   HB_RETHANDLE(CreateUpDownControl(WS_CHILD | WS_BORDER | WS_VISIBLE |
                hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
                hb_parni(7), hwg_par_HWND(1), hb_parni(2),
                GetModuleHandle(NULL), hwg_par_HWND(8),
-               hb_parni(9), hb_parni(10), hb_parni(11) ));
+               hb_parni(9), hb_parni(10), hb_parni(11)));
 }
 
 HB_FUNC( HWG_SETUPDOWN )
@@ -610,7 +608,7 @@ HB_FUNC( HWG_SETDATEPICKER )
       int lSecond;
 #endif
 
-      hb_dateDecode(hb_itemGetDL( pDate ), &lYear, &lMonth, &lDay);
+      hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
       if ( hb_pcount() < 3 )
       {
          GetLocalTime(&st);
@@ -767,7 +765,7 @@ HB_FUNC( HWG_DELETETAB )
 
 HB_FUNC( HWG_GETCURRENTTAB )
 {
-   hb_retni(TabCtrl_GetCurSel( hwg_par_HWND(1) ) + 1);
+   hb_retni(TabCtrl_GetCurSel(hwg_par_HWND(1)) + 1);
 }
 
 HB_FUNC( HWG_SETTABSIZE )
@@ -893,7 +891,7 @@ HB_FUNC( HWG_TREEADDNODE )
 HB_FUNC( HWG_TREEDELNODE )
 {
 
-   hb_parl( TreeView_DeleteItem( hwg_par_HWND(1), (HTREEITEM)HB_PARHANDLE(2) ) );
+   hb_parl(TreeView_DeleteItem(hwg_par_HWND(1), (HTREEITEM) HB_PARHANDLE(2)));
 }
 
 HB_FUNC( HWG_TREEDELALLNODES )
@@ -1150,7 +1148,7 @@ HB_FUNC( HWG_SETTIMER )
 
 HB_FUNC( HWG_KILLTIMER )
 {
-   hb_retl( KillTimer( hwg_par_HWND(1), ( UINT ) hb_parni(2) ) );
+   hb_retl(KillTimer(hwg_par_HWND(1), (UINT) hb_parni(2)));
 }
 
 HB_FUNC( HWG_GETPARENT )
@@ -1198,7 +1196,7 @@ HB_FUNC( HWG_SETTOOLTIPBALLOON )
 
 HB_FUNC( HWG_GETTOOLTIPBALLOON )
 {
-   hb_retl( lToolTipBalloon );
+   hb_retl(lToolTipBalloon);
 }
 
 HB_FUNC( HWG_REGPANEL )
@@ -1296,7 +1294,7 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
    }
 }
 
-BOOL RegisterWinCtrl( void )    // Added by jamaj - Used by WinCtrl
+BOOL RegisterWinCtrl(void)    // Added by jamaj - Used by WinCtrl
 {
    WNDCLASS wndclass;
 
@@ -1330,8 +1328,8 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1366,8 +1364,8 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1400,8 +1398,8 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1437,8 +1435,8 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1476,8 +1474,8 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1506,8 +1504,8 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1543,8 +1541,8 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1586,8 +1584,8 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1623,8 +1621,8 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1659,8 +1657,8 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -1695,8 +1693,8 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
@@ -2112,7 +2110,7 @@ HB_FUNC( HWG_ADDBARBITMAP )
    LPCTSTR pszText = HB_PARSTR(3, &hStr, NULL);
    HBITMAP pbmp = hwg_par_HBITMAP(4);
    DWORD dwStyle = hb_parnl(5);
-   hb_retl( AddBar( pParent, pBar, pszText, pbmp, dwStyle ) );
+   hb_retl(AddBar(pParent, pBar, pszText, pbmp, dwStyle));
    hb_strfree(hStr);
 }
 
@@ -2126,7 +2124,7 @@ HB_FUNC( HWG_ADDBARCOLORS )
    LPCTSTR pszText = HB_PARSTR(5, &hStr, NULL);
    DWORD dwStyle = hb_parnl(6);
 
-   hb_retl( AddBar1( pParent, pBar, clrFore, clrBack, pszText, dwStyle ) );
+   hb_retl(AddBar1(pParent, pBar, clrFore, clrBack, pszText, dwStyle));
    hb_strfree(hStr);
 }
 

@@ -17,7 +17,7 @@ STATIC LogInitialPath := ""
 
 PROCEDURE hwg_ErrSys
 
-   ErrorBlock( { | oError | DefError( oError ) } )
+   ErrorBlock({|oError|DefError(oError)})
    LogInitialPath := "\" + CurDir() + IIf(Empty(CurDir()), "", "\")
 
    RETURN
@@ -130,7 +130,7 @@ FUNCTION hwg_WriteLog(cText, fname)
    ELSE
       nHand := FOpen( fname, 1 )
    ENDIF
-   FSeek( nHand, 0, 2 )
+   FSeek(nHand, 0, 2)
    FWrite(nHand, cText + Chr(10))
    FClose(nHand)
 

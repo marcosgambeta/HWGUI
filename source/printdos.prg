@@ -383,7 +383,7 @@ FUNCTION hwg_wProw( oPrinter )
 
    RETURN oPrinter:nProw
 
-FUNCTION hwg_wPCol( oPrinter )
+FUNCTION hwg_wPCol(oPrinter)
 
    RETURN oPrinter:nPcol
 
@@ -564,7 +564,7 @@ FUNCTION hwg_regenfile(o, new)
    FOR i := 1 TO Len(aText)
 
       stroka := aText[i]
-      nChr12 := At( Chr(12), stroka )
+      nChr12 := At(Chr(12), stroka)
 
       IF nChr12 > 0
          stroka := SubStr(stroka, 1, nChr12 - 1)

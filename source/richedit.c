@@ -67,8 +67,8 @@ HB_FUNC( HWG_CREATERICHEDIT )
 }
 
 /*
- * re_SetCharFormat( hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic, 
-           lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected )
+ * re_SetCharFormat(hCtrl, n1, n2, nColor, cName, nHeight, lBold, lItalic,
+           lUnderline, nCharset, lSuperScript/lSubscript(.T./.F.), lProtected)
  */
 HB_FUNC( HWG_RE_SETCHARFORMAT )
 {
@@ -117,19 +117,19 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          }
          if( ulLen1 > 5 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != HB_IT_NIL &&
-               hb_arrayGetL( pArr1, 6 ) )
+               hb_arrayGetL(pArr1, 6) )
          {
             cf.dwEffects |= CFE_BOLD;
          }
          if( ulLen1 > 6 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != HB_IT_NIL &&
-               hb_arrayGetL( pArr1, 7 ) )
+               hb_arrayGetL(pArr1, 7) )
          {
             cf.dwEffects |= CFE_ITALIC;
          }
          if( ulLen1 > 7 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != HB_IT_NIL &&
-               hb_arrayGetL( pArr1, 8 ) )
+               hb_arrayGetL(pArr1, 8) )
          {
             cf.dwEffects |= CFE_UNDERLINE;
          }
@@ -142,7 +142,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          if( ulLen1 > 9 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != HB_IT_NIL )
          {
-            if( hb_arrayGetL( pArr1, 10 ) )
+            if( hb_arrayGetL(pArr1, 10) )
                cf.dwEffects |= CFE_SUPERSCRIPT;
             else
                cf.dwEffects |= CFE_SUBSCRIPT;
@@ -150,7 +150,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          }
          if( ulLen1 > 10 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL &&
-               hb_arrayGetL( pArr1, 11 ) )
+               hb_arrayGetL(pArr1, 11) )
          {
             cf.dwEffects |= CFE_PROTECTED;
          }
@@ -455,8 +455,8 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
       hb_vmPushLong(( LONG ) lParam);
@@ -473,7 +473,7 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
                   lParam) );
 }
 
-static DWORD CALLBACK RichStreamOutCallback( DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb )
+static DWORD CALLBACK RichStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 {
    HANDLE pFile = ( HANDLE ) dwCookie;
    DWORD dwW;
@@ -486,7 +486,7 @@ static DWORD CALLBACK RichStreamOutCallback( DWORD dwCookie, LPBYTE pbBuff, LONG
    return 0;
 }
 
-static DWORD CALLBACK EditStreamCallback( DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb )
+static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
  HANDLE hFile = (HANDLE)dwCookie;
  return ! ReadFile(hFile, lpBuff, cb, ( DWORD * ) pcb, NULL );

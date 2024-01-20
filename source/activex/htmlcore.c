@@ -234,11 +234,11 @@ HRESULT STDMETHODCALLTYPE UI_ShowContextMenu( IDocHostUIHandler *, DWORD,
       POINT *, IUnknown *, IDispatch * );
 HRESULT STDMETHODCALLTYPE UI_GetHostInfo( IDocHostUIHandler *,
       DOCHOSTUIINFO * );
-HRESULT STDMETHODCALLTYPE UI_ShowUI( IDocHostUIHandler *, DWORD,
+HRESULT STDMETHODCALLTYPE UI_ShowUI(IDocHostUIHandler *, DWORD,
       IOleInPlaceActiveObject *, IOleCommandTarget *, IOleInPlaceFrame *,
-      IOleInPlaceUIWindow * );
-HRESULT STDMETHODCALLTYPE UI_HideUI( IDocHostUIHandler * );
-HRESULT STDMETHODCALLTYPE UI_UpdateUI( IDocHostUIHandler * );
+      IOleInPlaceUIWindow *);
+HRESULT STDMETHODCALLTYPE UI_HideUI(IDocHostUIHandler *);
+HRESULT STDMETHODCALLTYPE UI_UpdateUI(IDocHostUIHandler *);
 HRESULT STDMETHODCALLTYPE UI_EnableModeless( IDocHostUIHandler *, BOOL );
 HRESULT STDMETHODCALLTYPE UI_OnDocWindowActivate(IDocHostUIHandler *, BOOL);
 HRESULT STDMETHODCALLTYPE UI_OnFrameWindowActivate(IDocHostUIHandler *,
@@ -247,13 +247,13 @@ HRESULT STDMETHODCALLTYPE UI_ResizeBorder( IDocHostUIHandler *, LPCRECT,
       IOleInPlaceUIWindow *, BOOL );
 HRESULT STDMETHODCALLTYPE UI_TranslateAccelerator( IDocHostUIHandler *, LPMSG,
       const GUID *, DWORD );
-HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath( IDocHostUIHandler *,
-      LPOLESTR *, DWORD );
+HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath(IDocHostUIHandler *,
+      LPOLESTR *, DWORD);
 HRESULT STDMETHODCALLTYPE UI_GetDropTarget(IDocHostUIHandler *,
       IDropTarget *, IDropTarget **);
-HRESULT STDMETHODCALLTYPE UI_GetExternal( IDocHostUIHandler *, IDispatch ** );
-HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler *, DWORD,
-      OLECHAR *, OLECHAR ** );
+HRESULT STDMETHODCALLTYPE UI_GetExternal(IDocHostUIHandler *, IDispatch **);
+HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler *, DWORD,
+      OLECHAR *, OLECHAR **);
 HRESULT STDMETHODCALLTYPE UI_FilterDataObject( IDocHostUIHandler *,
       IDataObject *, IDataObject ** );
 
@@ -302,7 +302,7 @@ HRESULT STDMETHODCALLTYPE InPlace_OnUIActivate(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext(IOleInPlaceSite *,
       LPOLEINPLACEFRAME *, LPOLEINPLACEUIWINDOW *, LPRECT, LPRECT,
       LPOLEINPLACEFRAMEINFO);
-HRESULT STDMETHODCALLTYPE InPlace_Scroll( IOleInPlaceSite *, SIZE );
+HRESULT STDMETHODCALLTYPE InPlace_Scroll(IOleInPlaceSite *, SIZE);
 HRESULT STDMETHODCALLTYPE InPlace_OnUIDeactivate(IOleInPlaceSite *, BOOL);
 HRESULT STDMETHODCALLTYPE InPlace_OnInPlaceDeactivate(IOleInPlaceSite *);
 HRESULT STDMETHODCALLTYPE InPlace_DiscardUndoState(IOleInPlaceSite *);
@@ -572,10 +572,10 @@ HRESULT STDMETHODCALLTYPE UI_GetHostInfo( IDocHostUIHandler * This,
 
 // Called when the browser object shows its UI. This allows us to replace its
 // menus and toolbars by creating our own and displaying them here.
-HRESULT STDMETHODCALLTYPE UI_ShowUI( IDocHostUIHandler * This, DWORD dwID,
+HRESULT STDMETHODCALLTYPE UI_ShowUI(IDocHostUIHandler * This, DWORD dwID,
       IOleInPlaceActiveObject * pActiveObject,
       IOleCommandTarget __RPC_FAR * pCommandTarget,
-      IOleInPlaceFrame __RPC_FAR * pFrame, IOleInPlaceUIWindow * pDoc )
+      IOleInPlaceFrame __RPC_FAR * pFrame, IOleInPlaceUIWindow * pDoc)
 {
    ( void ) This;
    ( void ) dwID;
@@ -590,7 +590,7 @@ HRESULT STDMETHODCALLTYPE UI_ShowUI( IDocHostUIHandler * This, DWORD dwID,
 }
 
 // Called when browser object hides its UI. This allows us to hide any menus/toolbars we created in ShowUI.
-HRESULT STDMETHODCALLTYPE UI_HideUI( IDocHostUIHandler * This )
+HRESULT STDMETHODCALLTYPE UI_HideUI(IDocHostUIHandler * This)
 {
    ( void ) This;
    return ( S_OK );
@@ -599,7 +599,7 @@ HRESULT STDMETHODCALLTYPE UI_HideUI( IDocHostUIHandler * This )
 // Called when the browser object wants to notify us that the command state
 // has changed. We should update any controls we have that are dependent upon
 // our embedded object, such as "Back", "Forward", "Stop", or "Home" buttons.
-HRESULT STDMETHODCALLTYPE UI_UpdateUI( IDocHostUIHandler * This )
+HRESULT STDMETHODCALLTYPE UI_UpdateUI(IDocHostUIHandler * This)
 {
    ( void ) This;
    // We update our UI in our window message loop so we don't do anything here.
@@ -678,8 +678,8 @@ HRESULT STDMETHODCALLTYPE UI_TranslateAccelerator( IDocHostUIHandler * This,
 // get its options in the registry. We can use this to prevent the browser from
 // using its default settings in the registry, by telling it to use
 // some other registry key we've setup with the options we want.
-HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath( IDocHostUIHandler * This,
-      LPOLESTR __RPC_FAR * pchKey, DWORD dw )
+HRESULT STDMETHODCALLTYPE UI_GetOptionKeyPath(IDocHostUIHandler * This,
+      LPOLESTR __RPC_FAR * pchKey, DWORD dw)
 {
    // Let the browser use its default registry settings.
    ( void ) This;
@@ -724,8 +724,8 @@ HRESULT STDMETHODCALLTYPE UI_GetDropTarget(IDocHostUIHandler * This,
 // running in the URL we display could call our IDispatch functions. We'd write
 // them so that any args passed to them would use the generic datatypes like
 // a BSTR for utmost flexibility.
-HRESULT STDMETHODCALLTYPE UI_GetExternal( IDocHostUIHandler * This,
-      IDispatch ** ppDispatch )
+HRESULT STDMETHODCALLTYPE UI_GetExternal(IDocHostUIHandler * This,
+      IDispatch ** ppDispatch)
 {
    ( void ) This;
    // Return our IDispatch object associated with this IDocHostUIHandler object.
@@ -782,8 +782,8 @@ DWORD asciiToNumW( OLECHAR * val )
 }
 
 // Called by the browser object to give us an opportunity to modify the URL to be loaded.
-HRESULT STDMETHODCALLTYPE UI_TranslateUrl( IDocHostUIHandler * This,
-      DWORD dwTranslate, OLECHAR * pchURLIn, OLECHAR ** ppchURLOut )
+HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler * This,
+      DWORD dwTranslate, OLECHAR * pchURLIn, OLECHAR ** ppchURLOut)
 {
    unsigned short *src;
    unsigned short *dest;
@@ -1162,8 +1162,8 @@ HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext(IOleInPlaceSite * This,
    return ( S_OK );
 }
 
-HRESULT STDMETHODCALLTYPE InPlace_Scroll( IOleInPlaceSite * This,
-      SIZE scrollExtent )
+HRESULT STDMETHODCALLTYPE InPlace_Scroll(IOleInPlaceSite * This,
+      SIZE scrollExtent)
 {
    ( void ) This;
    ( void ) scrollExtent;
@@ -1436,7 +1436,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_GetIDsOfNames( IDispatch * This,
    return ( S_OK );
 }
 
-static void webDetach( _IDispatchEx * lpDispatchEx )
+static void webDetach(_IDispatchEx * lpDispatchEx)
 {
    IHTMLWindow3 *htmlWindow3;
 
@@ -1561,7 +1561,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
          // that event for its web page element. This should also cause the
          // IE engine to call this IDispatch's Dispatch_Release().
          if( !webParams.nmhdr.code )
-            webDetach( ( _IDispatchEx * ) This );
+            webDetach((_IDispatchEx *) This);
       }
 
       // Release the IHTMLEventObj.
@@ -1746,7 +1746,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
 
 void WINAPI FreeWebEvtHandler( IDispatch * lpDispatch )
 {
-   webDetach( ( _IDispatchEx * ) lpDispatch );
+   webDetach((_IDispatchEx *) lpDispatch);
 }
 
 
@@ -1997,8 +1997,8 @@ IHTMLElement *WINAPI GetWebElement( HWND hwnd, IHTMLDocument2 * htmlDoc2,
       // IDispatch object for the element the caller wants on the web page.
       // And from that IDispatch, we get the IHTMLElement object. Really
       // roundabout, ain't it?  // That's COM
-      if( !htmlDoc2->lpVtbl->get_all( htmlDoc2, &htmlCollection ) &&
-            htmlCollection )
+      if( !htmlDoc2->lpVtbl->get_all(htmlDoc2, &htmlCollection ) &&
+            htmlCollection)
       {
          VARIANT varName;
          VARIANT varIndex;
@@ -2436,7 +2436,7 @@ void WINAPI DoPageAction( HWND hwnd, DWORD action )
          case WEBPAGE_GOBACK:
          {
             // Call the IWebBrowser2 object's GoBack function.
-            webBrowser2->lpVtbl->GoBack( webBrowser2 );
+            webBrowser2->lpVtbl->GoBack(webBrowser2);
             break;
          }
 
@@ -2457,14 +2457,14 @@ void WINAPI DoPageAction( HWND hwnd, DWORD action )
          case WEBPAGE_SEARCH:
          {
             // Call the IWebBrowser2 object's GoSearch function.
-            webBrowser2->lpVtbl->GoSearch( webBrowser2 );
+            webBrowser2->lpVtbl->GoSearch(webBrowser2);
             break;
          }
 
          case WEBPAGE_REFRESH:
          {
             // Call the IWebBrowser2 object's Refresh function.
-            webBrowser2->lpVtbl->Refresh( webBrowser2 );
+            webBrowser2->lpVtbl->Refresh(webBrowser2);
          }
 
          case WEBPAGE_STOP:
@@ -2505,8 +2505,8 @@ void WINAPI ResizeBrowser( HWND hwnd, DWORD width, DWORD height )
       // and so its VTable is webBrowser2->lpVtbl.
 
       // Call are put_Width() and put_Height() to set the new width/height.
-      webBrowser2->lpVtbl->put_Width( webBrowser2, width );
-      webBrowser2->lpVtbl->put_Height( webBrowser2, height );
+      webBrowser2->lpVtbl->put_Width(webBrowser2, width);
+      webBrowser2->lpVtbl->put_Height(webBrowser2, height);
 
       // We no longer need the IWebBrowser2 object (ie, we don't plan to call
       // any more functions in it, so we can release our hold on it). Note

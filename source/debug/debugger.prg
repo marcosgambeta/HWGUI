@@ -281,7 +281,7 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
 
    lValid := .F.
 
-   bOldError := Errorblock( {|oErr|Break(oErr)} ) 
+   bOldError := Errorblock({|oErr|Break(oErr)})
    BEGIN SEQUENCE
       xResult := __dbgGetExprValue(::pInfo, xExpr, @lValid)
       IF !lValid
@@ -295,7 +295,7 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
       ENDIF
       lValid := .F.
    END SEQUENCE
-   Errorblock( bOldError ) 
+   Errorblock(bOldError) 
 
    RETURN xResult
 
@@ -355,7 +355,7 @@ METHOD HandleEvent() CLASS HBDebugger
          IF __dbgIsValidStopLine(::pInfo, p1, p2)
             AAdd(::aBreakPoints, { p2, p1 })
             hwg_dbg_Answer( "line", Ltrim(Str(p2)) )
-            __dbgAddBreak( ::pInfo, p1, p2 )
+            __dbgAddBreak(::pInfo, p1, p2)
          ELSE
             hwg_dbg_Answer( "err" )
          ENDIF
@@ -364,19 +364,19 @@ METHOD HandleEvent() CLASS HBDebugger
          IF ( nAt := AScan( ::aBreakPoints, {|a|a[1]==p2 .AND. a[2]==p1 } ) ) == 0
             hwg_dbg_Answer( "err" )
          ELSE
-            ADel( ::aBreakPoints, nAt )
+            ADel(::aBreakPoints, nAt)
             ASize(::aBreakPoints, Len(::aBreakPoints) - 1)
             hwg_dbg_Answer( "ok", Ltrim(Str(p2)) )
-            __dbgDelBreak( ::pInfo, nAt-1 )
+            __dbgDelBreak(::pInfo, nAt - 1)
          ENDIF
 
       CASE nKey == CMD_WADD
-         __dbgAddWatch( ::pInfo, p1, .F. )
+         __dbgAddWatch(::pInfo, p1, .F.)
          ::nWatches ++
          hwg_dbg_Answer( "valuewatch", SendWatch() )
 
       CASE nKey == CMD_WDEL
-         __dbgDelWatch( ::pInfo, p1-1 )
+         __dbgDelWatch(::pInfo, p1 - 1)
          IF -- ::nWatches > 0
             hwg_dbg_Answer( "valuewatch", SendWatch() )
          ELSE
@@ -635,7 +635,7 @@ STATIC FUNCTION starts( cLine, cStart )
 
 
 /* Strip path from filename */
-STATIC FUNCTION strip_path( cFileName )
+STATIC FUNCTION strip_path(cFileName)
 
    LOCAL cName
    LOCAL cExt

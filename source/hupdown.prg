@@ -177,8 +177,8 @@ METHOD CREATEUPDOWN() CLASS Hupdown
       hwg_Addtooltip( hwg_GetParentForm(Self):handle, ::oEditUpDown:handle, ::tooltip )
    ENDIF
    ::handle := ::oEditUpDown:handle
-   ::hwndUpDown := hwg_Createupdowncontrol( ::oParent:handle, ::idUpDown, ;
-                                     ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, -2147483647, 2147483647, Val(::title) )
+   ::hwndUpDown := hwg_Createupdowncontrol(::oParent:handle, ::idUpDown, ;
+                                     ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, -2147483647, 2147483647, Val(::title))
                                     // ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nLower, ::nUpper, Val(::title) )
    ::oEditUpDown:oUpDown := Self
    ::oEditUpDown:lInit := .T.

@@ -37,7 +37,7 @@ HB_FUNC( HWG_ANIMATE_PLAY )
 
 HB_FUNC( HWG_ANIMATE_SEEK )
 {
-   Animate_Seek( hwg_par_HWND(1), hb_parni(2) );
+   Animate_Seek(hwg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( HWG_ANIMATE_STOP )

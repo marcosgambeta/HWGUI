@@ -126,7 +126,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
          oFont := ::oPrinter:AddFont( cFont, ::nStdHeight * ::oPrinter:nVRes )
 #endif
          ::oPrinter:SetFont( oFont )
-         nWidth := ::oPrinter:GetTextWidth( Replicate('A', 80) ) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate('A', 80)) / ::oPrinter:nHRes
          IF nWidth > nPWidth+2 .OR. nWidth < nPWidth-15
             ::nStdHeight := ::nStdHeight * ( nPWidth / nWidth )
          ENDIF
@@ -164,7 +164,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
       ::oFont := oFont
 
       ::oPrinter:SetFont( ::oFont )
-      ::nCharW := ::oPrinter:GetTextWidth( "ABCDEFGHIJ" ) / 10
+      ::nCharW := ::oPrinter:GetTextWidth("ABCDEFGHIJ") / 10
       ::lChanged := .F.
 
    ENDIF
@@ -231,7 +231,7 @@ Local i, i0, j, slen, c
             ENDIF
             i += ::PutCode(Substr(cLine, i))
             LOOP
-         ELSEIF ( j := At( c, cPseudoChar ) ) != 0
+         ELSEIF ( j := At(c, cPseudoChar) ) != 0
             IF i0 != 0
                ::PrintText(Substr(cLine, i0, i-i0))
                i0 := 0
@@ -321,7 +321,7 @@ Static aCodes := {   ;
 Local i, sLen := Len(aCodes), c := Left(cLine, 1)
 
    FOR i := 1 TO sLen
-      IF Left(aCodes[i, 1], 1) == c .AND. At( aCodes[i, 1], Left(cLine, 3) ) == 1
+      IF Left(aCodes[i, 1], 1) == c .AND. At(aCodes[i, 1], Left(cLine, 3)) == 1
          ::InitValues( aCodes[i, 2], aCodes[i, 3], aCodes[i, 4], aCodes[i, 5], aCodes[i, 6], aCodes[i, 7]  )
          Return Len(aCodes[i, 1])
       ENDIF

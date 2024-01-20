@@ -84,7 +84,7 @@ CLASS HEdit INHERIT HControl
    METHOD LastEditable() PROTECTED
    METHOD SetGetUpdated() PROTECTED
    METHOD ReadOnly( lreadOnly ) SETGET
-   METHOD SelLength( Length ) SETGET
+   METHOD SelLength(Length) SETGET
    METHOD SelStart( Start ) SETGET
    METHOD SelText(cText) SETGET
    METHOD Value ( Value ) SETGET
@@ -241,7 +241,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                ::DeleteChar( .T. )
                RETURN 0
             ELSEIF wParam == VK_RETURN
-               IF !hwg_ProcOkCancel( Self, wParam, hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE ) .AND. ;
+               IF !hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE) .AND. ;
                      ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. ;
                      !hwg_GetParentForm( Self ):lModal )
                   hwg_GetSkip( oParent, ::handle, , 1 )
@@ -259,13 +259,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
             ELSEIF wParam == VK_ESCAPE
                oParent := hwg_GetParentForm( Self )
                IF oParent:Handle == ::oParent:Handle .AND. oParent:lExitOnEsc .AND. ;
-                     oParent:FindControl( IDCANCEL ) != Nil .AND. ;
-                     !oParent:FindControl( IDCANCEL ):IsEnabled()
+                     oParent:FindControl(IDCANCEL) != Nil .AND. ;
+                     !oParent:FindControl(IDCANCEL):IsEnabled()
                   hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
                ENDIF
                IF ( oParent:Type < WND_DLG_RESOURCE .OR. !oParent:lModal )
                   hwg_Setfocus(0)
-                  hwg_ProcOkCancel( Self, VK_ESCAPE )
+                  hwg_ProcOkCancel(Self, VK_ESCAPE)
                   RETURN 0
                ENDIF
                RETURN 0
@@ -390,7 +390,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                   hwg_IsCtrlShift( .F., .T. ) )
                hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, nextHandle, 1)
                RETURN 0
-            ELSEIF  ( wParam == VK_RETURN .OR. wParam == VK_ESCAPE ) .AND. hwg_ProcOkCancel( Self, wParam, hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE )
+            ELSEIF (wParam == VK_RETURN .OR. wParam == VK_ESCAPE) .AND. hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE)
                RETURN - 1
             ELSEIF ( wParam == VK_RETURN .OR. wParam == VK_TAB ) .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
                hwg_GetSkip( oParent, ::handle, , 1 )
@@ -470,7 +470,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
 
    ELSEIF msg == WM_GETDLGCODE
       IF wParam = VK_ESCAPE   .AND. ;          // DIALOG MODAL
-            ( oParent := hwg_GetParentForm( Self ):FindControl( IDCANCEL ) ) != Nil .AND. !oParent:IsEnabled()
+            ( oParent := hwg_GetParentForm( Self ):FindControl(IDCANCEL) ) != Nil .AND. !oParent:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ENDIF
       IF !::lMultiLine .OR. wParam = VK_ESCAPE
@@ -611,12 +611,12 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
 
    IF cPicture != Nil
       IF Left(cPicture, 1) == "@"
-         nAt := At( " ", cPicture )
+         nAt := At(" ", cPicture)
          IF nAt == 0
-            ::cPicFunc := Upper( cPicture )
+            ::cPicFunc := Upper(cPicture)
             ::cPicMask := ""
          ELSE
-            ::cPicFunc := Upper( SubStr(cPicture, 1, nAt - 1) )
+            ::cPicFunc := Upper(SubStr(cPicture, 1, nAt - 1))
             ::cPicMask := SubStr(cPicture, nAt + 1)
          ENDIF
          IF ::cPicFunc == "@"
@@ -634,7 +634,7 @@ METHOD ParsePict( cPicture, vari ) CLASS HEdit
          ::cPicMask := StrTran( Dtoc(CToD(Space(8))), ' ', '9' )
       ELSEIF ::cType == "N"
          vari := Str(vari)
-         IF ( nAt := At( ".", vari ) ) > 0
+         IF ( nAt := At(".", vari) ) > 0
             ::cPicMask := Replicate('9', nAt - 1) + "." + ;
                Replicate('9', Len(vari) - nAt)
          ELSE
@@ -842,7 +842,7 @@ METHOD INPUT(cChar, nPos) CLASS HEdit
 
    ELSEIF ::cType == "L"
 
-      IF !( Upper( cChar ) $ "YNTF" )
+      IF !( Upper(cChar) $ "YNTF" )
          RETURN Nil
       ENDIF
 
@@ -894,7 +894,7 @@ METHOD GetApplyKey( cKey ) CLASS HEdit
    ENDIF
    ::title := hwg_Getedittext(::oParent:handle, ::id)
    IF ::cType == "N" .AND. cKey $ ".," .AND. ;
-         ( nPos := At( ".", ::cPicMask ) ) != 0
+         ( nPos := At(".", ::cPicMask) ) != 0
       IF ::lFirst
          // vari := 0
          vari := StrTran( Trim(::title), " ", iif("E" $ ::cPicFunc, ",", ".") )
@@ -932,7 +932,7 @@ METHOD GetApplyKey( cKey ) CLASS HEdit
 
       IF ::cType == "N" .AND. ::lFirst
          nGetLen := Len(::cPicMask)
-         IF ( nPos := At( ".", ::cPicMask ) ) == 0
+         IF ( nPos := At(".", ::cPicMask) ) == 0
             ::title := Space(nGetLen)
          ELSE
             ::title := Space(nPos - 1) + "." + Space(nGetLen - nPos)
@@ -1030,7 +1030,7 @@ METHOD SelStart( Start ) CLASS HEdit
 
    RETURN ::nSelStart
 
-METHOD SelLength( Length ) CLASS HEdit
+METHOD SelLength(Length) CLASS HEdit
 
    IF Length != Nil
       hwg_Sendmessage(::handle, EM_SETSEL, ::nSelStart, ::nSelStart + Length)
@@ -1268,7 +1268,7 @@ METHOD Untransform( cBuffer ) CLASS HEdit
       cBuffer := StrTran( cBuffer, "(", " " )
       cBuffer := StrTran( cBuffer, ")", " " )
 
-      cBuffer := PadL( StrTran( cBuffer, " ", "" ), Len(cBuffer) )
+      cBuffer := PadL(StrTran(cBuffer, " ", ""), Len(cBuffer))
 
       IF minus
          FOR nFor := 1 TO Len(cBuffer)
@@ -1288,7 +1288,7 @@ METHOD Untransform( cBuffer ) CLASS HEdit
 
    ELSEIF ::cType == "L"
 
-      cBuffer := Upper( cBuffer )
+      cBuffer := Upper(cBuffer)
       xValue := "T" $ cBuffer .OR. "Y" $ cBuffer .OR. hb_langmessage(HB_LANG_ITEM_BASE_TEXT + 1) $ cBuffer
 
    ELSEIF ::cType == "D"
@@ -1438,7 +1438,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
          ELSE
             oCtrl := iif(i > 0, oParent:aControls[i], oParent)
          ENDIF
-         GetSkipScroll( oForm, oCtrl )
+         GetSkipScroll(oForm, oCtrl)
       ENDIF
    ENDIF
    IF nSkip != 0 .AND. hwg_Selffocus( hctrl, nextHandle ) .AND. oCtrl != Nil
@@ -1453,7 +1453,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
 
    RETURN .T.
 
-STATIC FUNCTION GetSkipScroll( oForm, oCtrl )
+STATIC FUNCTION GetSkipScroll(oForm, oCtrl)
    LOCAL lScroll := .T.
    LOCAL nWidthScroll := 2
 
@@ -1653,7 +1653,7 @@ FUNCTION hwg_SetColorinFocus( lDef, tcolor, bcolor, lFixed, lPersist )
 
 
    IF ValType(lDef) <> "L"
-      lDef := ( ValType(lDef) = "C" .AND. Upper( lDef ) = "ON" )
+      lDef := ( ValType(lDef) = "C" .AND. Upper(lDef) = "ON" )
    ENDIF
    lColorinFocus := lDef
    IF !lDef
@@ -1670,7 +1670,7 @@ FUNCTION hwg_SetDisableBackColor(lDef, bcolor)
 
 
    IF ValType(lDef) <> "L"
-      lDef := ( ValType(lDef) = "C" .AND. Upper( lDef ) = "ON" )
+      lDef := ( ValType(lDef) = "C" .AND. Upper(lDef) = "ON" )
    ENDIF
    IF !lDef
       bDisablecolor := Nil

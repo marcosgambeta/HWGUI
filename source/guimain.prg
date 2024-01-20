@@ -97,7 +97,7 @@ FUNCTION hwg_FindParent( hCtrl, nLevel )
    ENDIF
    IF nLevel < 2
       IF ( oParent := hwg_FindParent( hParent, nLevel + 1 ) ) != Nil
-         RETURN oParent:FindControl( , hParent )
+         RETURN oParent:FindControl(, hParent)
       ENDIF
    ENDIF
    RETURN Nil
@@ -110,7 +110,7 @@ FUNCTION hwg_FindSelf( hCtrl )
       oParent := hwg_Getancestor( hCtrl, GA_PARENT )
    ENDIF
    IF oParent != Nil  .AND. VALTYPE(oParent) != "N"
-      RETURN oParent:FindControl( , hCtrl )
+      RETURN oParent:FindControl(, hCtrl)
    ENDIF
    RETURN Nil
 
@@ -374,10 +374,10 @@ FUNCTION hwg_EndWindow()
    ENDIF
    RETURN Nil
 
-FUNCTION hwg_HdSerial( cDrive )
+FUNCTION hwg_HdSerial(cDrive)
 
 
-   LOCAL n       :=  hwg_HDGETSERIAL( cDrive )
+   LOCAL n       :=  hwg_HDGETSERIAL(cDrive)
    LOCAL cHex    :=  HB_NUMTOHEX( n )
    LOCAL cResult
    cResult := SubStr(cHex, 1, 4) + '-' + SubStr(cHex, 5, 4)
@@ -427,21 +427,21 @@ FUNCTION hwg_SelectMultipleFiles( cDescr, cTip, cIniDir, cTitle )
     * from MSDN:  The first character of this buffer must be NULL
     *             if initialization is not necessary
     */
-   cFile := repl( chr(0), 32000 )
+   cFile := repl(chr(0), 32000)
    aFiles := {}
 
    cPath := hwg_GetOpenFileName(hWnd, @cFile, cTitle, cFilter, nFlags, cIniDir, Nil, @nIndex)
 
-   nAt := At( Chr(0) + Chr(0), cFile )
+   nAt := At(Chr(0) + Chr(0), cFile)
    IF nAt != 0
       cFile := Left(cFile, nAt - 1)
-      nAt := At( Chr(0), cFile )
+      nAt := At(Chr(0), cFile)
       IF nAt != 0
          /* skip path which is already in cPath variable */
          cFile := SubStr(cFile, nAt + 1)
          /* decode files */
          DO WHILE !cFile == ""
-            nAt := At( Chr(0), cFile )
+            nAt := At(Chr(0), cFile)
             IF nAt != 0
                AAdd(aFiles, cPath + hb_osPathSeparator() + ;
                              Left(cFile, nAt - 1))
@@ -560,7 +560,7 @@ FUNCTION hwg_ProcKeyList( oCtrl, wParam, oMain )
 
 LOCAL oParent, nCtrl, nPos
 
-   IF ( wParam = VK_RETURN .OR. wParam = VK_ESCAPE ) .AND. hwg_ProcOkCancel( oCtrl, wParam )
+   IF ( wParam = VK_RETURN .OR. wParam = VK_ESCAPE ) .AND. hwg_ProcOkCancel(oCtrl, wParam)
       RETURN .F.
    ENDIF
    IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
@@ -578,23 +578,23 @@ LOCAL oParent, nCtrl, nPos
    ENDIF
    RETURN .F.
 
-FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
+FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
 
    Local oWin := hwg_GetParentForm(oCtrl), lEscape
    Local iParHigh := IIF(nKey = VK_RETURN, IDOK, IDCANCEL)
    LOCAL oCtrlFocu := oCtrl
 
    lForce := !Empty(lForce)
-   lEscape := nKey = VK_ESCAPE .AND. ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. !oCtrl:IsEnabled()
+   lEscape := nKey = VK_ESCAPE .AND. ( oCtrl := oWin:FindControl(IDCANCEL) ) != Nil .AND. !oCtrl:IsEnabled()
    IF ( ( oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. !lForce .AND. !lEscape )  .OR. ( nKey != VK_RETURN .AND. nKey != VK_ESCAPE )
       Return .F.
 	 ENDIF
    IF iParHigh == IDOK
-      IF ( oCtrl := oWin:FindControl( IDOK ) ) != Nil .AND. oCtrl:IsEnabled()
+      IF ( oCtrl := oWin:FindControl(IDOK) ) != Nil .AND. oCtrl:IsEnabled()
          oCtrl:Setfocus()
   	     oWin:lResult := .T.
   	     IF lForce
-	       ELSEIF ISBLOCK( oCtrl:bClick ) .AND. !lForce
+	       ELSEIF ISBLOCK(oCtrl:bClick) .AND. !lForce
 	          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
 	       ELSEIF oWin:lExitOnEnter
             oWin:close()
@@ -604,7 +604,7 @@ FUNCTION hwg_ProcOkCancel( oCtrl, nKey, lForce )
          RETURN .T.
       ENDIF
    ELSEIF iParHigh == IDCANCEL
-      IF ( oCtrl := oWin:FindControl( IDCANCEL ) ) != Nil .AND. oCtrl:IsEnabled() 
+      IF ( oCtrl := oWin:FindControl(IDCANCEL) ) != Nil .AND. oCtrl:IsEnabled() 
          oCtrl:Setfocus()
          oWin:lResult := .F.
          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
@@ -648,7 +648,7 @@ FUNCTION hwg_FindAccelerator( oCtrl, lParam )
 	   ENDIF
      IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
          !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
-        IF ( pos := At( "&", oCtrl:aControls[i]:title ) ) > 0 .AND.  Upper( Chr( lParam)) ==  Upper( SubStr(oCtrl:aControls[i]:title, ++ pos, 1) )
+        IF ( pos := At("&", oCtrl:aControls[i]:title) ) > 0 .AND.  Upper(Chr(lParam)) ==  Upper(SubStr(oCtrl:aControls[i]:title, ++ pos, 1))
            RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
@@ -703,7 +703,7 @@ Function  hwg_SetFontStyle(oWnd, lBold, lItalic, lUnderline)
 
    RETURN Iif(lBold!=Nil,(oWnd:oFont:weight==FW_BOLD), Iif(lItalic!=Nil,(oWnd:oFont:italic=1), oWnd:oFont:Underline==1))
 
-Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
+Function hwg_SetAll(oWnd, cProperty, Value, aControls, cClass)
 
 // cProperty Specifies the property to be set.
 // Value Specifies the new setting for the property. The data type of Value depends on the property being set.
@@ -716,7 +716,7 @@ Function hwg_SetAll( oWnd, cProperty, Value, aControls, cClass )
    FOR i = 1 TO nLen
       IF VALTYPE(aControls) = "C"
          oWnd:&aControls[i]:&cProperty := Value
-      ELSEIF cClass == Nil .OR. UPPER( cClass ) == aControls[i]:ClassName
+      ELSEIF cClass == Nil .OR. UPPER(cClass) == aControls[i]:ClassName
          IF Value = Nil
             __mvPrivate("oCtrl")
             &( "oCtrl" ) := aControls[i]

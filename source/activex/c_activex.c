@@ -42,7 +42,7 @@
 #include <hbapiitm.h>
 #include "guilib.h"
 #ifdef HB_ITEM_NIL
-#define hb_dynsymSymbol( pDynSym )        ( ( pDynSym )->pSymbol )
+#define hb_dynsymSymbol(pDynSym)        ((pDynSym)->pSymbol)
 #endif
 
 PHB_SYMB s___GetMessage = NULL;
@@ -101,7 +101,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
    IUnknown *pUnk;
    IDispatch *pDisp;
    _Ax_Init();
-   AtlAxGetControl( hwg_par_HWND(1), &pUnk );
+   AtlAxGetControl(hwg_par_HWND(1), &pUnk);
    pUnk->lpVtbl->QueryInterface(pUnk, &IID_IDispatch, ( void ** ) &pDisp);
    pUnk->lpVtbl->Release(pUnk);
    HB_RETHANDLE(pDisp);
@@ -144,11 +144,11 @@ static void HB_EXPORT hb_itemPushList( ULONG ulRefMask, ULONG ulPCount,
             // when item is passed by reference then we have to put
             // the reference on the stack instead of the item itself
             itmRef->item.asRefer.value = ulParam + 1;
-            hb_vmPush( itmRef );
+            hb_vmPush(itmRef);
          }
          else
          {
-            hb_vmPush( ( *pItems )[ulParam] );
+            hb_vmPush((*pItems)[ulParam]);
          }
       }
 
@@ -362,8 +362,8 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                hb_itemPutNL(Key, dispid), &ulPos ) )
    {
       PHB_ITEM pArray =
-            hb_hashGetValueAt( ( ( MyRealIEventHandler * ) this )->pEvents,
-            ulPos );
+            hb_hashGetValueAt(((MyRealIEventHandler *) this)->pEvents,
+            ulPos);
 
 #else
 
@@ -395,19 +395,18 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
 
             case HB_IT_BLOCK:
             {
-               hb_vmPushSymbol( &hb_symEval );
-               hb_vmPush( pExec );
+               hb_vmPushSymbol(&hb_symEval);
+               hb_vmPush(pExec);
                break;
             }
 
             case HB_IT_STRING:
             {
                PHB_ITEM pObject = hb_arrayGetItemPtr(pArray, 2);
-               hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName
-                           ( hb_itemGetCPtr(pExec) ) ) );
+               hb_vmPushSymbol(hb_dynsymSymbol(hb_dynsymFindName(hb_itemGetCPtr(pExec))));
 
                if( HB_IS_OBJECT( pObject ) )
-                  hb_vmPush( pObject );
+                  hb_vmPush(pObject);
                else
                   hb_vmPushNil();
                break;
@@ -416,8 +415,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
 
             case HB_IT_POINTER:
             {
-               hb_vmPushSymbol( hb_dynsymSymbol( ( ( PHB_SYMB ) pExec )->
-                           pDynSym ) );
+               hb_vmPushSymbol(hb_dynsymSymbol(((PHB_SYMB) pExec)->pDynSym));
                hb_vmPushNil();
                break;
             }
@@ -477,15 +475,14 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                   case VT_BOOL | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
                                              i] ) )->n1.n2.n3.pboolVal ) =
-                           hb_itemGetL( pItemArray[i - 1] ) ? 0xFFFF : 0;
+                           hb_itemGetL(pItemArray[i - 1]) ? 0xFFFF : 0;
                      break;
                      //case VT_ERROR|VT_BYREF:
                      //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pscode) = va_arg(argList, SCODE*);
                      //   break;
                   case VT_DATE | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdate ) =
-                           ( DATE ) ( double ) ( hb_itemGetDL( pItemArray[i -
-                                       1] ) - 2415019 );
+                           ( DATE ) ( double ) ( hb_itemGetDL(pItemArray[i - 1]) - 2415019 );
                      break;
                      //case VT_CY|VT_BYREF:
                      //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pcyVal) = va_arg(argList, CY*);
@@ -500,7 +497,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                      //   pArg->ppdispVal = va_arg(argList, LPDISPATCH*);
                      //   break;
 
-               }                // EOF switch( (&(params->rgvarg[iArg-i]))->n1.n2.vt )
+               }                // EOF switch((&(params->rgvarg[iArg-i]))->n1.n2.vt)
 
             }                   // EOF if( (&(params->rgvarg[iArg-i]))->n1.n2.vt & VT_BYREF == VT_BYREF )
 

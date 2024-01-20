@@ -212,8 +212,7 @@ HB_FUNC( HWG_LISTVIEW_UPDATE )
 
 HB_FUNC( HWG_LISTVIEW_SCROLL )
 {
-   ListView_Scroll( hwg_par_HWND(1), hb_parni(2) - 1,
-         hb_parni(3) - 1 );
+   ListView_Scroll(hwg_par_HWND(1), hb_parni(2) - 1, hb_parni(3) - 1);
 }
 
 HB_FUNC( HWG_LISTVIEW_HITTEST )

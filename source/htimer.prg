@@ -81,7 +81,7 @@ METHOD END() CLASS HTimer
       IF ::oParent != NIL
          hwg_Killtimer( ::oParent:handle, ::id )
       ENDIF
-      ADel( ::aTimers, i )
+      ADel(::aTimers, i)
       ASize(::aTimers, Len(::aTimers) - 1)
    ENDIF
 

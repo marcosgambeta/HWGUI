@@ -108,7 +108,7 @@ CLASS HTreeNode INHERIT HObject
    METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
    METHOD SetText(cText) INLINE hwg_Treesetitem( ::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText ), ::title := cText
    METHOD Checked(lChecked)  SETGET
-   METHOD GetLevel( h )
+   METHOD GetLevel(h)
 
 ENDCLASS
 
@@ -131,7 +131,7 @@ METHOD New(oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bCl
       ENDIF
    ELSE
       FOR i := 1 TO Len(aImages)
-         cImage := Upper( aImages[i] )
+         cImage := Upper(aImages[i])
          IF ( h := AScan( oTree:aImages, cImage ) ) == 0
             AAdd(oTree:aImages, cImage)
             aImages[i] := IIf(oTree:Type, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ))
@@ -212,7 +212,7 @@ METHOD Delete(lInternal) CLASS HTreeNode
    IF lInternal == Nil
       aItems := IIf(::oParent == Nil, ::oTree:aItems, ::oParent:aItems)
       j := AScan( aItems, { | o | o:handle == h } )
-      ADel( aItems, j )
+      ADel(aItems, j)
       ASize(aItems, Len(aItems) - 1)
    ENDIF
    // hwg_DecreaseHolders( ::handle )
@@ -244,7 +244,7 @@ METHOD Checked(lChecked) CLASS HTreeNode
    ENDIF
    RETURN ::lChecked
 
-METHOD GetLevel( h ) CLASS HTreeNode
+METHOD GetLevel(h) CLASS HTreeNode
    LOCAL iLevel := 1
    
    LOCAL oNode := IIF(EMPTY(h), Self, h)
@@ -280,7 +280,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD FindChild(h)
    METHOD FindChildPos(oNode, h)
    METHOD GetSelected() INLINE IIF(VALTYPE(::oItem := hwg_Treegetselected(::handle)) = "O", ::oItem, Nil)
-   METHOD EditLabel( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
+   METHOD EditLabel(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
    METHOD Expand(oNode, lAllNode)   //BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle), hwg_Redrawwindow( ::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE  )}
    METHOD Select( oNode ) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle), ::oItem := hwg_Treegetselected(::handle) }
    METHOD Clean()
@@ -332,7 +332,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    IF aImages != Nil .AND. !Empty(aImages)
       ::aImages := { }
       FOR i := 1 TO Len(aImages)
-         AAdd(::aImages, Upper( aImages[i] ))
+         AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := IIf(lResour <> NIL.AND.lResour, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
@@ -390,7 +390,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
       IF wParam = VK_RETURN
          ::oItem := ::oSelected
          IF ::lEditLabels .AND. ::bDblClick = Nil
-            ::EditLabel( ::oSelected )
+            ::EditLabel(::oSelected)
          ELSEIF ::bDblClick != Nil
             ::Setfocus()
             Eval(::bDblClick, ::oItem, Self)
@@ -474,7 +474,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
       ENDIF
 
    ELSEIF  ::lEditLabels .AND. ( ( msg = WM_LBUTTONDBLCLK .AND. ::bDblClick = Nil ) .OR. msg = WM_CHAR )
-      ::EditLabel( ::oSelected )
+      ::EditLabel(::oSelected)
       RETURN 0
    ENDIF
    RETURN -1
@@ -519,7 +519,7 @@ METHOD SearchString(cText, iNivel, oNode, inodo) CLASS HTree
    iNodo := IIF(inodo = Nil, 0, iNodo)
    FOR i := 1 TO aLen
       IF !Empty(aItems[i]:aItems) .AND. ;
-         ( oNodeRet := ::SearchString(cText, iNivel, aItems[i], iNodo) ) != Nil 
+         ( oNodeRet := ::SearchString(cText, iNivel, aItems[i], iNodo) ) != Nil
          RETURN oNodeRet
       ENDIF
       IF  aItems[i]:Title = cText .AND. ( iNivel == Nil .OR. aItems[i]:GetLevel() = iNivel )

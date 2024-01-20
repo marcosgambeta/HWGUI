@@ -165,7 +165,7 @@ HB_FUNC( HWG_ISDLGBUTTONCHECKED )
    UINT nRes = IsDlgButtonChecked(hwg_par_HWND(1), // handle of dialog box
                                    hb_parni(2)               // button identifier
                                  );
-   hb_retl( nRes == BST_CHECKED );
+   hb_retl(nRes == BST_CHECKED);
 }
 
 HB_FUNC( HWG_COMBOADDSTRING )
@@ -271,7 +271,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
    if( !hgbl )
       return NULL;
 
-   p = ( PWORD ) GlobalLock( hgbl );
+   p = ( PWORD ) GlobalLock(hgbl);
    pend = p + lTemplateSize;
 
    *p++ = 1;                    // DlgVer
@@ -337,7 +337,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1,
 
    hb_itemRelease(pControls);
 
-   GlobalUnlock( hgbl );
+   GlobalUnlock(hgbl);
 
    return ( LPDLGTEMPLATE ) hgbl;
 }
@@ -547,8 +547,8 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
       HB_PUSHITEM( lParam );
@@ -621,8 +621,8 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
       HB_PUSHITEM( lParam );
@@ -700,8 +700,8 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
 
    if( pSym_onEvent && pObject )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSym_onEvent ) );
-      hb_vmPush( pObject );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
+      hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);

@@ -461,7 +461,7 @@ METHOD Notify( lParam ) CLASS hToolBar
          hwg_Toolbar_submenu( lParam, 1, ::oParent:handle )
       ENDIF
    elseif nCode == NM_CLICK
-      nId := hwg_Toolbar_idclick( lParam )     
+      nId := hwg_Toolbar_idclick(lParam)
       nPos := AScan( ::aItem, { | x | x[2] == nId } )
       if nPos > 0 .AND. ::aItem[nPos, 7] != NIL
          Eval(::aItem[nPos, 7], ::aItem[nPos, 11], nId)
@@ -542,7 +542,7 @@ CLASS HToolBarEX INHERIT HToolBar
 
 //method onevent()
    METHOD init()
-   METHOD ExecuteTool( nid )
+   METHOD ExecuteTool(nid)
    DESTRUCTOR MyDestructor
 END CLASS
 
@@ -554,7 +554,7 @@ METHOD init() CLASS htoolbarex
    hwg_Sethook()
    RETURN Self
 
-METHOD ExecuteTool( nid ) CLASS htoolbarex
+METHOD ExecuteTool(nid) CLASS htoolbarex
 
    IF nid > 0
       hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( nid, BN_CLICKED ), ::handle)

@@ -74,15 +74,15 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF bSetGet != Nil
       IF bGFocus != Nil
          ::lnoValid := .T.
-         ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+         ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .F., "onLostFocus" )
+      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F., "onLostFocus" )
       ::bValid := { | o | ::Valid(o) }
    ELSE
       IF bGFocus != Nil
-         ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+         ::oParent:AddEvent( LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus" )
       ENDIF
-      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl( id )) }, .F., "onLostFocus" )
+      ::oParent:AddEvent( LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F., "onLostFocus" )
    ENDIF
    IF bChange != Nil .OR. bSetGet != Nil
       ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::onChange(o:FindControl(id)) },, "onChange" )
@@ -121,7 +121,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
 
    IF bSetGet != Nil
       ::bChangeSel := bChange
-      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl( id )) }, "onChange" )
+      ::oParent:AddEvent( LBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl(id)) }, "onChange" )
    ENDIF
 
    RETURN Self
@@ -251,7 +251,7 @@ METHOD AddItems( p ) CLASS HListBox
 METHOD DeleteItem( nPos ) CLASS HListBox
 
    IF hwg_Sendmessage(::handle, LB_DELETESTRING, nPos - 1, 0) >= 0 //<= LEN(ocombo:aitems)
-      ADel( ::Aitems, nPos )
+      ADel(::Aitems, nPos)
       ASize(::Aitems, Len(::aitems) - 1)
       ::value := Min( Len(::aitems), ::value )
       IF ::bSetGet != Nil

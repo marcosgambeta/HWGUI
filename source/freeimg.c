@@ -137,7 +137,7 @@ static FARPROC s_getFunction( FARPROC h, LPCSTR funcname )
 
 HB_FUNC( HWG_FI_INIT )
 {
-   hb_retl( s_freeImgInit() );
+   hb_retl(s_freeImgInit());
 }
 
 HB_FUNC( HWG_FI_END )
@@ -252,11 +252,9 @@ HB_FUNC( HWG_FI_SAVE )
 
    if( pGetfiffromfile && pSave ) {
       const char *name = hb_parc(2);
-      hb_retl( ( BOOL ) pSave(pGetfiffromfile(name),
-                  hwg_par_FIBITMAP(1), name,
-                  ( hb_pcount() > 2 ) ? hb_parni(3) : 0) );
+      hb_retl((BOOL) pSave(pGetfiffromfile(name), hwg_par_FIBITMAP(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
    } else {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -271,11 +269,9 @@ HB_FUNC( HWG_FI_SAVETYPE )
 
    if( pSave ) {
       const char *name = hb_parc(3);
-      hb_retl( ( BOOL ) pSave(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
-                  hwg_par_FIBITMAP(2), name,
-                  ( hb_pcount() > 3 ) ? hb_parni(4) : 0) );
+      hb_retl((BOOL) pSave((enum FREE_IMAGE_FORMAT) hb_parni(1), hwg_par_FIBITMAP(2), name, (hb_pcount() > 3) ? hb_parni(4) : 0));
    } else {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -285,7 +281,7 @@ HB_FUNC( HWG_FI_GETWIDTH )
          ( FREEIMAGE_GETWIDTH ) s_getFunction( ( FARPROC ) pGetwidth,
          "_FreeImage_GetWidth@4" );
 
-   hb_retnl(( pGetwidth ) ? pGetwidth( hwg_par_FIBITMAP(1) ) : 0);
+   hb_retnl(( pGetwidth ) ? pGetwidth(hwg_par_FIBITMAP(1)) : 0);
 }
 
 HB_FUNC( HWG_FI_GETHEIGHT )
@@ -398,7 +394,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
    }   
 
    // lock memory and get pointer to it
-   lpbi = ( LPBITMAPINFOHEADER ) GlobalLock( hDIB );
+   lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hDIB);
 
    // use our bitmap info structure to fill in first part of
    // our DIB with the BITMAPINFOHEADER
@@ -406,7 +402,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
 
    // Since we don't know what the colortable and bits should contain,
    // just leave these blank.  Unlock the DIB and return the HDIB.
-   GlobalUnlock( hDIB );
+   GlobalUnlock(hDIB);
 
    //return handle to the DIB
    return hDIB;
@@ -440,14 +436,14 @@ HB_FUNC( HWG_FI_FI2DIB )
          ( FREEIMAGE_GETBITS ) s_getFunction( ( FARPROC ) pGetbits,
          "_FreeImage_GetBits@4" );
 
-   hdib = CreateDIB((WORD) pGetwidth( dib ), (WORD) pGetheight( dib ), (WORD) pGetBPP( dib ));
+   hdib = CreateDIB((WORD) pGetwidth(dib), (WORD) pGetheight( dib ), (WORD) pGetBPP( dib ));
 
    if( hdib ) {
-      /* int scan_width = pGetPitch( dib ); unused */
-      LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock( hdib );
+      /* int scan_width = pGetPitch(dib); unused */
+      LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock(hdib);
       memcpy( ( LPBYTE ) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
             pGetbits( dib ), lpbi->bmiHeader.biSizeImage );
-      GlobalUnlock( hdib );
+      GlobalUnlock(hdib);
       hb_retnl(( LONG ) hdib);
    } else {
       hb_retnl(0);
@@ -514,11 +510,11 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       RGBQUAD *pal;
 
       dib_size += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
-      dib_size += pGetPitch( _dib ) * pGetheight( _dib );
+      dib_size += pGetPitch(_dib) * pGetheight( _dib );
 
       // Allocate a DIB
       hMem = GlobalAlloc(GHND, dib_size);
-      dib = ( BYTE * ) GlobalLock( hMem );
+      dib = ( BYTE * ) GlobalLock(hMem);
 
       memset( dib, 0, dib_size );
 
@@ -541,9 +537,9 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
       // Copy the bitmap
       bits = pGetbits( _dib );
-      memcpy( p_dib, bits, pGetPitch( _dib ) * pGetheight( _dib ) );
+      memcpy( p_dib, bits, pGetPitch(_dib) * pGetheight( _dib ) );
 
-      GlobalUnlock( hMem );
+      GlobalUnlock(hMem);
    }
 
    hb_retnl(( LONG ) hMem);
@@ -671,7 +667,7 @@ HB_FUNC( HWG_FI_DIB2FI )
 
    if( hdib ) {
       FIBITMAP *dib;
-      LPBITMAPINFOHEADER lpbi = ( LPBITMAPINFOHEADER ) GlobalLock( hdib );
+      LPBITMAPINFOHEADER lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hdib);
 
       pConvertFromRawBits =
             ( FREEIMAGE_CONVERTFROMRAWBITS ) s_getFunction( ( FARPROC )
@@ -712,12 +708,12 @@ HB_FUNC( HWG_FI_DIB2FI )
             }
          }
 
-         GlobalUnlock( hdib );
+         GlobalUnlock(hdib);
          hb_retnl(( LONG ) dib);
          return;
 
       } else {
-         GlobalUnlock( hdib );
+         GlobalUnlock(hdib);
       }
    }
    hb_retnl(0);
@@ -756,14 +752,13 @@ HB_FUNC( HWG_FI_REMOVECHANNEL )
          ( FREEIMAGE_UNLOAD ) s_getFunction( ( FARPROC ) pUnload,
          "_FreeImage_Unload@4" );
 
-   dib8 = pAllocate(pGetwidth( dib ), pGetheight( dib ), 8, 0, 0, 0);
+   dib8 = pAllocate(pGetwidth(dib), pGetheight( dib ), 8, 0, 0, 0);
 
    if( dib8 ) {
-      hb_retl( pSetChannel( dib, dib8,
-                  ( FREE_IMAGE_COLOR_CHANNEL ) hb_parni(2) ) );
+      hb_retl(pSetChannel(dib, dib8, (FREE_IMAGE_COLOR_CHANNEL) hb_parni(2)));
       pUnload(dib8);
    } else {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -930,11 +925,11 @@ HB_FUNC( HWG_FI_PASTE )
          ( FREEIMAGE_PASTE ) s_getFunction( ( FARPROC ) pPaste,
          "_FreeImage_Paste@20" );
 
-   hb_retl( pPaste(hwg_par_FIBITMAP(1),       // dest
+   hb_retl(pPaste(hwg_par_FIBITMAP(1),       // dest
                hwg_par_FIBITMAP(2),    // src
                hb_parnl(3),   // top
                hb_parnl(4),   // left
-               hb_parnl(5)) );       // alpha
+               hb_parnl(5)));       // alpha
 }
 
 HB_FUNC( HWG_FI_COPY )
@@ -959,7 +954,7 @@ HB_FUNC( HWG_FI_SETBACKGROUNDCOLOR )
          ( FREEIMAGE_SETBACKGROUNDCOLOR ) s_getFunction( ( FARPROC )
          pSetBackgroundColor, "_FreeImage_SetBackgroundColor@8" );
 
-   hb_retl( pSetBackgroundColor(hwg_par_FIBITMAP(1), &rgbquad) );
+   hb_retl(pSetBackgroundColor(hwg_par_FIBITMAP(1), &rgbquad));
 }
 
 HB_FUNC( HWG_FI_INVERT )
@@ -968,7 +963,7 @@ HB_FUNC( HWG_FI_INVERT )
          ( FREEIMAGE_INVERT ) s_getFunction( ( FARPROC ) pInvert,
          "_FreeImage_Invert@4" );
 
-   hb_retl( pInvert( hwg_par_FIBITMAP(1) ) );
+   hb_retl(pInvert(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC( HWG_FI_GETBITS )
@@ -1014,7 +1009,7 @@ HB_FUNC( HWG_FI_FLIPVERTICAL )
          ( FREEIMAGE_FLIPVERTICAL ) s_getFunction( ( FARPROC ) pFlipVertical,
          "_FreeImage_FlipVertical@4" );
 
-   hb_retl( pFlipVertical( hwg_par_FIBITMAP(1) ) );
+   hb_retl(pFlipVertical(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC( HWG_FI_GETPIXELINDEX )
@@ -1032,7 +1027,7 @@ HB_FUNC( HWG_FI_GETPIXELINDEX )
       hb_stornl(( ULONG ) value, 4);
    }
 
-   hb_retl( lRes );
+   hb_retl(lRes);
 }
 
 HB_FUNC( HWG_FI_SETPIXELINDEX )
@@ -1042,8 +1037,7 @@ HB_FUNC( HWG_FI_SETPIXELINDEX )
          ( FREEIMAGE_SETPIXELINDEX ) s_getFunction( ( FARPROC ) pSetPixelIndex,
          "_FreeImage_SetPixelIndex@16" );
 
-   hb_retl( pSetPixelIndex( hwg_par_FIBITMAP(1), hb_parni(2),
-               hb_parni(3), &value ) );
+   hb_retl(pSetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value));
 }
 
 /* todo

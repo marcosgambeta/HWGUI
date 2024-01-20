@@ -150,7 +150,7 @@ CLASS HTab INHERIT HControl, HScrollArea
    METHOD GetActivePage(nFirst, nEnd)
    METHOD Notify( lParam )
    METHOD OnEvent( msg, wParam, lParam )
-   METHOD Refresh( lAll )
+   METHOD Refresh(lAll)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )
    METHOD ShowDisablePage(nPageEnable, nEvent)
@@ -190,7 +190,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF aImages != NIL
       ::aImages := { }
       FOR i := 1 TO Len(aImages)
-         //AAdd(::aImages, Upper( aImages[i] ))
+         //AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := iif(lResour, hwg_Loadbitmap( aImages[i] ), hwg_Openbitmap( aImages[i] ))
          AAdd(::aImages, aImages[i])
       NEXT
@@ -211,8 +211,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Activate() CLASS HTab
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createtabcontrol( ::oParent:handle, ::id, ;
-         ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createtabcontrol(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -240,7 +239,7 @@ METHOD Init() CLASS HTab
    LOCAL i, x := 0
 
    IF !::lInit
-      hwg_Inittabcontrol( ::handle, ::aTabs, iif(::himl != NIL, ::himl, 0) )
+      hwg_Inittabcontrol(::handle, ::aTabs, iif(::himl != NIL, ::himl, 0))
       hwg_Sendmessage(::HANDLE, TCM_SETMINTABWIDTH, 0, 0)
       IF Hwg_BitAnd(::Style, TCS_FIXEDWIDTH) != 0
          ::TabHeightSize := 25 - ( ::oFont:Height + 12 )
@@ -452,7 +451,7 @@ METHOD HidePage(nPage) CLASS HTab
          IF ( k := ASCAN( ::aControlsHide, ::aControls[i]:id  ) ) = 0 .AND. ::aControls[i]:lHide
             AAdd(::aControlsHide, ::aControls[i]:id)
          ELSEIF k > 0 .AND. !::aControls[i]:lHide
-            ADel( ::aControlsHide, k )
+            ADel(::aControlsHide, k)
             ASize(::aControlsHide, Len(::aControlsHide) - 1)
          ENDIF
          ::aControls[i]:Hide()
@@ -495,7 +494,7 @@ METHOD ShowPage(nPage) CLASS HTab
 
    RETURN NIL
 
-METHOD Refresh( lAll ) CLASS HTab
+METHOD Refresh(lAll) CLASS HTab
    LOCAL i, nFirst, nEnd, lRefresh
    LOCAL hCtrl := hwg_Getfocus()
 
@@ -562,22 +561,22 @@ METHOD DeletePage(nPage) CLASS HTab
 Local nFirst, nEnd, i
 
    IF ::lResourceTab
-      ADel( ::m_arrayStatusTab, nPage, , .T. )
+      ADel(::m_arrayStatusTab, nPage, , .T.)
       hwg_Deletetab(::handle, nPage)
       ::nActive := nPage - 1
    ELSE
       nFirst := ::aPages[nPage, 1] + 1
       nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       FOR i := nFirst TO nEnd
-         ::DelControl( ::aControls[i] )
+         ::DelControl(::aControls[i])
       NEXT
       FOR i := nPage + 1 TO Len(::aPages)
          ::aPages[i, 1] -= ( nEnd-nFirst+1 )
       NEXT
 
       hwg_Deletetab(::handle, nPage - 1)
-      ADel( ::aPages, nPage )
-      ADel( ::Pages, nPage )
+      ADel(::aPages, nPage)
+      ADel(::Pages, nPage)
       ASize(::aPages, Len(::aPages) - 1)
       ASize(::Pages, Len(::Pages) - 1)
       IF nPage > 1
@@ -755,7 +754,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       ENDIF
    ELSEIF msg = WM_GETDLGCODE
       IF wparam == VK_RETURN .OR. wParam = VK_ESCAPE  .AND. ;
-            ( ( oCtrl := hwg_GetParentForm(Self ):FindControl( IDCANCEL ) ) != NIL .AND. !oCtrl:IsEnabled() )
+            ((oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != NIL .AND. !oCtrl:IsEnabled())
          RETURN DLGC_WANTMESSAGE
       ENDIF
    ENDIF
@@ -871,9 +870,9 @@ FUNCTION hwg_FindTabAccelerator( oPage, nKey )
 
    LOCAL i, pos, cKey
 
-   cKey := Upper( Chr( nKey ) )
+   cKey := Upper(Chr(nKey))
    FOR i = 1 TO Len(oPage:aPages)
-      IF ( pos := At( "&", oPage:Pages[i]:caption ) ) > 0 .AND.  cKey  ==  Upper( SubStr(oPage:Pages[i]:caption, ++ pos, 1) )
+      IF ( pos := At("&", oPage:Pages[i]:caption) ) > 0 .AND.  cKey  ==  Upper(SubStr(oPage:Pages[i]:caption, ++pos, 1))
          IF oPage:pages[i]:Enabled
             hwg_Sendmessage(oPage:handle, TCM_SETCURFOCUS, i - 1, 0)
          ENDIF

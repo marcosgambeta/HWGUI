@@ -63,7 +63,7 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
       ELSEIF cType == "N"
          Return Val(::aAttr[i, 2])
       ELSEIF cType == "L"
-         Return ( Lower( ::aAttr[i, 2] ) $ ".t.;on.yes" )
+         Return ( Lower(::aAttr[i, 2]) $ ".t.;on.yes" )
       ENDIF
    ENDIF
 Return xDefault
@@ -83,7 +83,7 @@ METHOD DelAttribute(cName) CLASS HXMLNode
 Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
 
    IF i != 0
-      Adel( ::aAttr, i )
+      Adel(::aAttr, i)
       Asize(::aAttr, Len(::aAttr) - 1)
    ENDIF
 Return .T.

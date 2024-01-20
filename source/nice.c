@@ -75,7 +75,7 @@ void Draw_Gradient( HDC hdc, int x, int y, int w, int h, int r, int g, int b )
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
+   s_pGradientfill(hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V);
    // ******************************************************
    Vert[0].x = 0;
    Vert[0].y = h / 2;
@@ -94,7 +94,7 @@ void Draw_Gradient( HDC hdc, int x, int y, int w, int h, int r, int g, int b )
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V );
+   s_pGradientfill(hdc, Vert, 2, &Rect, 1, GRADIENT_FILL_RECT_V);
 }
 
 void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode ) //int , int g, int b, int nMode )
@@ -131,7 +131,7 @@ void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int 
    Rect.UpperLeft = 0;
    Rect.LowerRight = 1;
    // ******************************************************
-   s_pGradientfill( hdc, Vert, 2, &Rect, 1, nmode ); //GRADIENT_FILL_RECT_H );
+   s_pGradientfill(hdc, Vert, 2, &Rect, 1, nmode); //GRADIENT_FILL_RECT_H );
 }
 
 LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam,
@@ -141,14 +141,14 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam,
    PHB_DYNS pSymTest;
    if( ( pSymTest = hb_dynsymFind("HWG_NICEBUTTPROC") ) != NULL )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol( pSymTest ) );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();         /* places NIL at self */
       hb_vmPushLong(( LONG ) hWnd);   /* pushes parameters on to the hvm stack */
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
       hb_vmPushLong(( LONG ) lParam);
       hb_vmDo(4);             /* where iArgCount is the number of pushed parameters */
-      res = hb_parl( -1 );
+      res = hb_parl(-1);
       if( res )
          return 0;
       else
@@ -230,7 +230,7 @@ HB_FUNC( HWG_ISMOUSEOVER )
    POINT Pt;
    GetWindowRect(hwg_par_HWND(1), &Rect);
    GetCursorPos(&Pt);
-   hb_retl( PtInRect(&Rect, Pt) );
+   hb_retl(PtInRect(&Rect, Pt));
 }
 
 

@@ -82,7 +82,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    ::bPaint  := bPaint
    ::tooltip := cTooltip
    ::Setcolor(tcolor, bColor)
-   ::oParent:AddControl( Self )
+   ::oParent:AddControl(Self)
 
    RETURN Self
 
@@ -108,7 +108,7 @@ METHOD AddName(cName) CLASS HControl
    LOCAL nPos
 
    IF !Empty(cName) .AND. ValType(cName) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
-      IF ( nPos :=  RAt( ":", cName ) ) > 0 .OR. ( nPos :=  RAt( ">", cName ) ) > 0
+      IF ( nPos :=  RAt(":", cName) ) > 0 .OR. ( nPos :=  RAt(">", cName) ) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
       ::xName := cName
@@ -138,7 +138,7 @@ METHOD INIT() CLASS HControl
          // fix init position in FORM reduce  flickering
          hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME )
       ENDIF
-      IF ISBLOCK( ::bInit )
+      IF ISBLOCK(::bInit)
          ::oparent:lSuspendMsgsHandling := .T.
          Eval(::bInit, Self)
          ::oparent:lSuspendMsgsHandling := .F.
@@ -241,7 +241,7 @@ METHOD ControlSource(cControlSource) CLASS HControl
 
    IF cControlSource != NIL .AND. !Empty(cControlSource) .AND. __objHasData(Self, "BSETGETFIELD")
       ::xControlSource := cControlSource
-      temp := SubStr(cControlSource, At( "->", cControlSource ) + 2)
+      temp := SubStr(cControlSource, At("->", cControlSource) + 2)
       ::bSetGetField := iif("->" $ cControlSource, FieldWBlock(temp, Select( SubStr(cControlSource, 1, At("->", cControlSource) - 1))), FieldBlock(cControlSource))
    ENDIF
 
@@ -366,7 +366,7 @@ METHOD onAnchor( x, y, w, h ) CLASS HControl
                   x1 + w9 + 2, y1 + h9 + nCYh)
             ENDIF
          ENDIF
-         IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK( ::bPaint ) .OR. ;
+         IF ( ( x1 != x9 .OR. y1 != y9 ) .AND. ( ISBLOCK(::bPaint) .OR. ;
                x9 + w9 > ::oParent:nWidth ) ) .OR. ( ::backstyle = TRANSPARENT .AND. ;
                ( ::Title != NIL .AND. !Empty(::Title) ) ) .OR. __ObjHasMsg(Self, "oImage")
             IF __ObjHasMsg(Self, "oImage") .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
@@ -413,9 +413,9 @@ CLASS HStatus INHERIT HControl
    METHOD Notify( lParam )
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)
-   METHOD SetTextPanel( nPart, cText, lRedraw )
-   METHOD GetTextPanel( nPart )
-   METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight )
+   METHOD SetTextPanel(nPart, cText, lRedraw)
+   METHOD GetTextPanel(nPart)
+   METHOD SetIconPanel(nPart, cIcon, nWidth, nHeight)
    METHOD StatusHeight( nHeight )
    METHOD Resize(xIncrSize)
    METHOD onAnchor( x, y, w, h )
@@ -518,7 +518,7 @@ METHOD StatusHeight( nHeight  ) CLASS HStatus
 
    RETURN ::nStatusHeight
 
-METHOD GetTextPanel( nPart ) CLASS HStatus
+METHOD GetTextPanel(nPart) CLASS HStatus
    LOCAL ntxtLen, cText := ""
 
    ntxtLen := hwg_Sendmessage(::handle, SB_GETTEXTLENGTH, nPart - 1, 0)
@@ -527,7 +527,7 @@ METHOD GetTextPanel( nPart ) CLASS HStatus
 
    RETURN cText
 
-METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatus
+METHOD SetTextPanel(nPart, cText, lRedraw) CLASS HStatus
 
    //hwg_Writestatuswindow( ::handle, nPart-1, cText )
    hwg_Sendmessage(::handle, SB_SETTEXT, nPart - 1, cText)
@@ -537,14 +537,14 @@ METHOD SetTextPanel( nPart, cText, lRedraw ) CLASS HStatus
 
    RETURN NIL
 
-METHOD SetIconPanel( nPart, cIcon, nWidth, nHeight ) CLASS HStatus
+METHOD SetIconPanel(nPart, cIcon, nWidth, nHeight) CLASS HStatus
    LOCAL oIcon
 
    DEFAULT nWidth := 16
    DEFAULT nHeight := 16
    DEFAULT cIcon := ""
 
-   IF HB_IsNumeric(cIcon) .OR. At( ".", cIcon ) = 0
+   IF HB_IsNumeric(cIcon) .OR. At(".", cIcon) = 0
       //oIcon := HIcon():addResource(cIcon, nWidth, nHeight)
       oIcon := HIcon():addResource(cIcon, nWidth, nHeight, LR_LOADMAP3DCOLORS + ;
          iif(Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0))

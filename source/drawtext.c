@@ -275,7 +275,7 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 {
    int iMode = SetBkMode(hwg_par_HDC(1),    // handle of device context
          ( hb_parl(2) ) ? TRANSPARENT : OPAQUE);
-   hb_retl( iMode == TRANSPARENT );
+   hb_retl(iMode == TRANSPARENT);
 }
 
 HB_FUNC( HWG_GETTEXTCOLOR )

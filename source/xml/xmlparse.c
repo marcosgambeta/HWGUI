@@ -163,7 +163,7 @@ HB_FUNC( HBXML_TRANSFORM )
       pItem = hb_itemPutCLPtr(NULL, ( char * ) pNew, ulLen + iLenAdd);
    }
    else
-      pItem = hb_itemPutCL( NULL, ( char * ) pBuffer, ulLen );
+      pItem = hb_itemPutCL(NULL, (char *) pBuffer, ulLen);
    hb_itemRelease(hb_itemReturn(pItem));
 }
 
@@ -228,7 +228,7 @@ PHB_ITEM hbxml_pp( unsigned char *ptr, HB_ULONG ulLen )
       ptr--;
       ulLen--;
    }
-   return hb_itemPutCL( NULL, ( char * ) ptrStart, ulLen );
+   return hb_itemPutCL(NULL, (char *) ptrStart, ulLen);
 }
 
 PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
@@ -278,7 +278,7 @@ PHB_ITEM hbxml_getattr( unsigned char **pBuffer, HB_BOOL * lSingle )
          // add attribute name to result array
          pSubArray = hb_itemNew(NULL);
          hb_arrayNew(pSubArray, 2);
-         pTemp = hb_itemPutCL( NULL, ( char * ) ptr, nlen );
+         pTemp = hb_itemPutCL(NULL, (char *) ptr, nlen);
          hb_arraySet( pSubArray, 1, pTemp );
          hb_itemRelease(pTemp);
 
@@ -339,7 +339,7 @@ PHB_ITEM hbxml_addnode(PHB_ITEM pParent)
    PHB_ITEM pNode = hb_itemNew(NULL);
    PHB_DYNS pSym = hb_dynsymGet("HXMLNODE");
 
-   hb_vmPushSymbol( hb_dynsymSymbol( pSym ) );
+   hb_vmPushSymbol(hb_dynsymSymbol(pSym));
    hb_vmPushNil();
    hb_vmDo(0);
 
@@ -371,7 +371,7 @@ HB_BOOL hbxml_readComment( PHB_ITEM pParent, unsigned char **pBuffer )
 
    if( **pBuffer )
    {
-      pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
+      pTemp = hb_itemPutCL(NULL, (char *) ptr, *pBuffer - ptr);
       hb_objSendMsg(pNode, "AITEMS", 0);
       hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
@@ -404,7 +404,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
 
    if( **pBuffer )
    {
-      pTemp = hb_itemPutCL( NULL, ( char * ) ptr, *pBuffer - ptr );
+      pTemp = hb_itemPutCL(NULL, (char *) ptr, *pBuffer - ptr);
       hb_objSendMsg(pNode, "AITEMS", 0);
       hb_arrayAdd(hb_param(-1, HB_IT_ANY), pTemp);
       hb_itemRelease(pTemp);
@@ -562,9 +562,9 @@ HB_FUNC( HBXML_GETDOC )
    else if( HB_ISNUM(2) )
    {
       HB_FHANDLE hInput = ( HB_FHANDLE ) hb_parnint(2);
-      HB_ULONG ulLen = hb_fsSeek( hInput, 0, FS_END ), ulRead;
+      HB_ULONG ulLen = hb_fsSeek(hInput, 0, FS_END), ulRead;
 
-      hb_fsSeek( hInput, 0, FS_SET );
+      hb_fsSeek(hInput, 0, FS_SET);
       cBuffer = ( unsigned char * ) hb_xgrab(ulLen + 1);
       ulRead = hb_fsReadLarge(hInput, ( HB_BYTE * ) cBuffer, ulLen);
       cBuffer[ulRead] = '\0';

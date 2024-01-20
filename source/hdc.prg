@@ -28,7 +28,7 @@ METHOD NEW(nWnd) CLASS HPAINTDC
    ::Super:new()
    ::m_ps   := hwg_Definepaintstru()
    ::m_hWnd := nWnd
-   ::Attach( hwg_Beginpaint( ::m_hWnd, ::m_ps ) )
+   ::Attach(hwg_Beginpaint(::m_hWnd, ::m_ps))
 
    RETURN Self
 
@@ -47,7 +47,7 @@ CLASS HDC
 
    METHOD NEW()
    METHOD SetAttribDC(hDC)
-   METHOD ATTACH( hDc )
+   METHOD ATTACH(hDc)
    METHOD Moveto( x1, y1 )
    METHOD Lineto( x1, y1 )
    METHOD fillsolidrect(lpRect, clr)
@@ -93,7 +93,7 @@ METHOD Lineto( x1, y1 ) CLASS HDC
 
    RETURN Self
 
-METHOD Attach( hDC ) CLASS HDC
+METHOD Attach(hDC) CLASS HDC
 
    IF Empty(hDC)
       RETURN .F.
@@ -165,7 +165,7 @@ METHOD Fillrect(lpRect, clr) CLASS HDC
 
 METHOD Createcompatibledc(x) CLASS HDC
 
-   RETURN ::Attach( hwg_Createcompatibledc(x) )
+   RETURN ::Attach(hwg_Createcompatibledc(x))
 
 METHOD Savedc() CLASS HDC
    LOCAL nRetVal := 0
@@ -297,7 +297,7 @@ METHOD NEW(nWnd) CLASS HCLIENTDC
 
    ::Super:new()
    ::m_hWnd := nWnd
-   ::Attach( hwg_Getdc(::m_hWnd) )
+   ::Attach(hwg_Getdc(::m_hWnd))
 
    RETURN Self
 

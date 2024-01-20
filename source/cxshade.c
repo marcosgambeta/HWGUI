@@ -59,8 +59,8 @@ void cxdib_Clear( PCXDIB pdib, BYTE bval );
 HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight,
       WORD wBitCount);
 long cxdib_Draw( PCXDIB pdib, HDC pDC, long xoffset, long yoffset );
-long cxdib_Stretch( PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
-      long xsize, long ysize );
+long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
+      long xsize, long ysize);
 void cxdib_SetPaletteIndex( PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b );
 void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc);
 void cxdib_SetPixelIndex( PCXDIB pdib, long x, long y, BYTE i );
@@ -81,7 +81,7 @@ void cxshade_Draw( PCXSHADE pshade, HDC pRealDC, short state );
 void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette,
       BYTE granularity, BYTE highlight, BYTE coloring, COLORREF color,
       RECT * prect);
-void cxshade_SetFlat( PCXSHADE pshade, BOOL bFlag );
+void cxshade_SetFlat(PCXSHADE pshade, BOOL bFlag);
 COLORREF cxshade_SetTextColor(PCXSHADE pshade, COLORREF new_color);
 
 void Draw3dRect(HDC hDC, RECT * lprect, COLORREF clrTopLeft,
@@ -241,8 +241,8 @@ long cxdib_Draw( PCXDIB pdib, HDC pDC, long xoffset, long yoffset )
    return 0;
 }
 
-long cxdib_Stretch( PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
-      long xsize, long ysize )
+long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset,
+      long xsize, long ysize)
 {
    if( ( pdib->hDib ) && ( pDC ) )
    {

@@ -95,8 +95,7 @@ METHOD Activate() CLASS HPanel
    LOCAL handle := ::oParent:handle
 
    IF !Empty(handle)
-      ::handle := hwg_Createpanel( handle, ::id, ;
-            ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_Createpanel(handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::ResizeOffSet(0)
       /*
       IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
@@ -132,7 +131,7 @@ METHOD Init() CLASS HPanel
       ::Super:Init()
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitWinCtrl( ::handle )
+      Hwg_InitWinCtrl(::handle)
       ::RedefineScrollbars()
       
    ENDIF
@@ -203,7 +202,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HPanel
                  RETURN 0
              ENDIF
          ENDIF
-         hwg_onTrackScroll( Self, msg, wParam, lParam )
+         hwg_onTrackScroll(Self, msg, wParam, lParam)
       ENDIF
       Return ::Super:onEvent( msg, wParam, lParam )
    ENDIF
@@ -274,7 +273,7 @@ METHOD Release() CLASS HPanel
    ::nHeight := 0
    ::nWidth := 0
    ::Super:Release()
-   //  ::oParent:DelControl( Self )
+   //  ::oParent:DelControl(Self)
 
    RETURN NIL
 

@@ -34,7 +34,7 @@ CLASS HSplitter INHERIT HControl
    METHOD Init()
    METHOD Paint()
    METHOD Drag(lParam)
-   METHOD DragAll( lScroll )
+   METHOD DragAll(lScroll)
 
 ENDCLASS
 
@@ -73,7 +73,7 @@ METHOD Init() CLASS HSplitter
       ::Super:Init()
       ::nHolder := 1
       hwg_Setwindowobject( ::handle, Self )
-      Hwg_InitWinCtrl( ::handle )
+      Hwg_InitWinCtrl(::handle)
    ENDIF
 
    RETURN NIL
@@ -90,7 +90,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
       IF ::lCaptured
          ::Drag(lParam)
          IF ::lScrolling
-            ::DragAll( .T. )
+            ::DragAll(.T.)
          ENDIF
       ENDIF
    ELSEIF msg == WM_PAINT
@@ -105,7 +105,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HSplitter
       hwg_Releasecapture()
       ::lCaptured := .F.
       ::lMoved := .F.
-      ::DragAll( .F. )
+      ::DragAll(.F.)
       IF ::bEndDrag != NIL
          // Eval(::bEndDrag, Self)
       ENDIF
@@ -173,7 +173,7 @@ METHOD Drag(lParam) CLASS HSplitter
 
    RETURN NIL
 
-METHOD DragAll( lScroll ) CLASS HSplitter
+METHOD DragAll(lScroll) CLASS HSplitter
    LOCAL i, oCtrl, xDiff := 0, yDiff := 0
 
    lScroll := IIF(Len(::aLeft) = 0 .OR. Len(::aRight) = 0, .F., lScroll)

@@ -56,7 +56,7 @@ METHOD AddFile(name) CLASS HFreeImage
       RETURN Nil
    ENDIF
    ::name := name
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
+   ::nWidth  := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight( ::handle )
    AAdd(::aImages, Self)
 
@@ -68,7 +68,7 @@ METHOD AddFromVar(cImage, cType) CLASS HFreeImage
       RETURN Nil
    ENDIF
    ::name := LTrim(Str(::handle))
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
+   ::nWidth  := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight( ::handle )
    AAdd(::aImages, Self)
 
@@ -76,10 +76,10 @@ METHOD AddFromVar(cImage, cType) CLASS HFreeImage
 
 METHOD FromBitmap( oBitmap ) CLASS HFreeImage
 
-   ::handle := hwg_Fi_bmp2fi( oBitmap:handle )
+   ::handle := hwg_Fi_bmp2fi(oBitmap:handle)
    ::name := LTrim(Str(oBitmap:handle))
-   ::nWidth  := hwg_Fi_getwidth( ::handle )
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
@@ -102,7 +102,7 @@ METHOD Release() CLASS HFreeImage
                IF ::hBitmap != Nil
                   hwg_Deleteobject( ::hBitmap )
                ENDIF
-               ADel( ::aImages, hB_enumIndex() )
+               ADel(::aImages, hB_enumIndex())
                ASize(::aImages, nlen - 1)
                EXIT
             ENDIF
@@ -114,7 +114,7 @@ METHOD Release() CLASS HFreeImage
                IF ::hBitmap != Nil
                   hwg_Deleteobject( ::hBitmap )
                ENDIF
-               ADel( ::aImages, i )
+               ADel(::aImages, i)
                ASize(::aImages, nlen - 1)
                EXIT
             ENDIF

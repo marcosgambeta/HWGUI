@@ -210,14 +210,14 @@ HB_FUNC( HWG_FILLRECT )
 
 HB_FUNC( HWG_ROUNDRECT )
 {
-   hb_parl( RoundRect(hwg_par_HDC(1),       // handle of device context
+   hb_parl(RoundRect(hwg_par_HDC(1),       // handle of device context
                hb_parni(2),   // x-coord. of bounding rectangle's upper-left corner
                hb_parni(3),   // y-coord. of bounding rectangle's upper-left corner
                hb_parni(4),   // x-coord. of bounding rectangle's lower-right corner
                hb_parni(5),   // y-coord. of bounding rectangle's lower-right corner
                hb_parni(6),   // width of ellipse used to draw rounded corners
                hb_parni(7)    // height of ellipse used to draw rounded corners
-          ) );
+          ));
 }
 /*
 HB_FUNC( HWG_REDRAWWINDOW )
@@ -309,7 +309,7 @@ HB_FUNC( HWG_DRAWEDGE )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   hb_retl( DrawEdge(hDC, &rc, edge, grfFlags) );
+   hb_retl(DrawEdge(hDC, &rc, edge, grfFlags));
 }
 
 HB_FUNC( HWG_LOADICON )
@@ -646,7 +646,7 @@ HB_FUNC( HWG_OPENBITMAP )
 
    hmem1 = GlobalAlloc(GHND, sizeof(BITMAPINFOHEADER) +
          ( ( 1 << bmih.biBitCount ) * sizeof(RGBQUAD) ));
-   lpbmi = ( LPBITMAPINFO ) GlobalLock( hmem1 );
+   lpbmi = ( LPBITMAPINFO ) GlobalLock(hmem1);
 
    /*  Load BITMAPINFOHEADER into the BITMAPINFO  structure. */
    lpbmi->bmiHeader.biSize = bmih.biSize;
@@ -688,7 +688,7 @@ HB_FUNC( HWG_OPENBITMAP )
 
    /* Allocate memory for the required number of  bytes. */
    hmem2 = GlobalAlloc(GHND, ( bmfh.bfSize - bmfh.bfOffBits ));
-   lpvBits = GlobalLock( hmem2 );
+   lpvBits = GlobalLock(hmem2);
 
    /* Retrieve the bitmap data. */
 
@@ -705,8 +705,8 @@ HB_FUNC( HWG_OPENBITMAP )
       ReleaseDC(0, hDC);
 
    /* Unlock the global memory objects and close the .BMP file. */
-   GlobalUnlock( hmem1 );
-   GlobalUnlock( hmem2 );
+   GlobalUnlock(hmem1);
+   GlobalUnlock(hmem2);
    GlobalFree(hmem1);
    GlobalFree(hmem2);
    CloseHandle(hfbm);
@@ -727,7 +727,7 @@ HB_FUNC( HWG_GETSYSCOLOR )
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
 {
-   HB_RETHANDLE(GetSysColorBrush(  hb_parni(1) ));
+   HB_RETHANDLE(GetSysColorBrush(hb_parni(1)));
 }
 
 HB_FUNC( HWG_CREATEPEN )
@@ -740,14 +740,12 @@ HB_FUNC( HWG_CREATEPEN )
 
 HB_FUNC( HWG_CREATESOLIDBRUSH )
 {
-   HB_RETHANDLE(CreateSolidBrush( hwg_par_COLORREF(1)   // brush color
-          ));
+   HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1) /* brush color */));
 }
 
 HB_FUNC( HWG_CREATEHATCHBRUSH )
 {
-   HB_RETHANDLE(CreateHatchBrush( hb_parni(1),
-               hwg_par_COLORREF(2) ));
+   HB_RETHANDLE(CreateHatchBrush(hb_parni(1), hwg_par_COLORREF(2)));
 }
 
 HB_FUNC( HWG_SELECTOBJECT )
@@ -862,7 +860,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    // Restore settings
    SelectObject( dcImage, pOldBitmapImage );
    SelectObject( dcTrans, pOldbitmapgray );
-   SetBkColor(hDC, GetPixel( hDC, 0, 0 ));
+   SetBkColor(hDC, GetPixel(hDC, 0, 0));
    SetTextColor(hDC, 0);
 
    DeleteObject( bitmapgray );
@@ -906,8 +904,8 @@ HB_FUNC( HWG_OPENIMAGE )
          return;
       }
 
-      fseek( fp, 0, SEEK_END );
-      iFileSize = ftell( fp );
+      fseek(fp, 0, SEEK_END);
+      iFileSize = ftell(fp);
       hG = GlobalAlloc(GPTR, iFileSize);
       if( !hG )
       {
@@ -915,12 +913,12 @@ HB_FUNC( HWG_OPENIMAGE )
          HB_RETHANDLE(0);
          return;
       }
-      fseek( fp, 0, SEEK_SET );
+      fseek(fp, 0, SEEK_SET);
       fread(( void * ) hG, 1, iFileSize, fp);
       fclose(fp);
    }
 
-   CreateStreamOnHGlobal( hG, 0, &pStream );
+   CreateStreamOnHGlobal(hG, 0, &pStream);
 
    if( !pStream )
    {
@@ -962,18 +960,17 @@ HB_FUNC( HWG_OPENIMAGE )
 
 HB_FUNC( HWG_PATBLT )
 {
-   hb_retl( PatBlt( hwg_par_HDC(1), hb_parni(2), hb_parni(3),
-               hb_parni(4), hb_parni(5), hb_parnl(6) ) );
+   hb_retl(PatBlt(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parnl(6)));
 }
 
 HB_FUNC( HWG_SAVEDC )
 {
-   hb_retl( SaveDC(hwg_par_HDC(1)) );
+   hb_retl(SaveDC(hwg_par_HDC(1)));
 }
 
 HB_FUNC( HWG_RESTOREDC )
 {
-   hb_retl( RestoreDC(hwg_par_HDC(1), hb_parni(2)) );
+   hb_retl(RestoreDC(hwg_par_HDC(1), hb_parni(2)));
 }
 
 HB_FUNC( HWG_CREATECOMPATIBLEDC )
@@ -1042,16 +1039,14 @@ HB_FUNC( HWG_BITBLT )
    HDC hDC = hwg_par_HDC(1);
    HDC hDC1 = hwg_par_HDC(6);
 
-   hb_retl( BitBlt( hDC, hb_parni(2), hb_parni(3), hb_parni(4),
-               hb_parni(5), hDC1, hb_parni(7), hb_parni(8),
-               hb_parnl(9) ) );
+   hb_retl(BitBlt(hDC, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hDC1, hb_parni(7), hb_parni(8), hb_parnl(9)));
 }
 
 HB_FUNC( HWG_CREATECOMPATIBLEBITMAP )
 {
    HDC hDC = hwg_par_HDC(1);
    HBITMAP hBitmap;
-   hBitmap = CreateCompatibleBitmap( hDC, hb_parni(2), hb_parni(3) );
+   hBitmap = CreateCompatibleBitmap(hDC, hb_parni(2), hb_parni(3));
 
    HB_RETHANDLE(hBitmap);
 }
@@ -1064,7 +1059,7 @@ HB_FUNC( HWG_INFLATERECT )
 
    if( HB_ISARRAY(1) )
       Array2Rect(hb_param(1, HB_IT_ARRAY), &pRect);
-   hb_retl( InflateRect(&pRect, x, y) );
+   hb_retl(InflateRect(&pRect, x, y));
 
    hb_storvni(pRect.left, 1, 1);
    hb_storvni(pRect.top, 1, 2);
@@ -1094,7 +1089,7 @@ HB_FUNC( HWG_DRAWFRAMECONTROL )
    if( HB_ISARRAY(2) )
       Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
 
-   hb_retl( DrawFrameControl( hdc, &pRect, uType, uState ) );
+   hb_retl(DrawFrameControl(hdc, &pRect, uType, uState));
 }
 
 HB_FUNC( HWG_OFFSETRECT )
@@ -1106,7 +1101,7 @@ HB_FUNC( HWG_OFFSETRECT )
    if( HB_ISARRAY(1) )
       Array2Rect(hb_param(1, HB_IT_ARRAY), &pRect);
 
-   hb_retl( OffsetRect(&pRect, x, y) );
+   hb_retl(OffsetRect(&pRect, x, y));
    hb_storvni(pRect.left, 1, 1);
    hb_storvni(pRect.top, 1, 2);
    hb_storvni(pRect.right, 1, 3);
@@ -1119,7 +1114,7 @@ HB_FUNC( HWG_DRAWFOCUSRECT )
    HDC hc = hwg_par_HDC(1);
    if( HB_ISARRAY(2) )
       Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
-   hb_retl( DrawFocusRect(hc, &pRect) );
+   hb_retl(DrawFocusRect(hc, &pRect));
 }
 
 BOOL Array2Point( PHB_ITEM aPoint, POINT * pt )
@@ -1140,7 +1135,7 @@ HB_FUNC( HWG_PTINRECT )
 
    Array2Rect(hb_param(1, HB_IT_ARRAY), &rect);
    Array2Point( hb_param(2, HB_IT_ARRAY), &pt );
-   hb_retl( PtInRect(&rect, pt) );
+   hb_retl(PtInRect(&rect, pt));
 }
 
 HB_FUNC( HWG_GETMEASUREITEMINFO )

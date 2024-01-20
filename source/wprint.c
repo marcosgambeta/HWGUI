@@ -639,6 +639,6 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
     }
     hb_strfree(hPrinterName);
   }
-  hb_retl( Result );
+  hb_retl(Result);
 }
 

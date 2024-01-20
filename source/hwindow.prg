@@ -29,7 +29,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    oWnd:nWidth  := aCoors[3] - aCoors[1]
    oWnd:nHeight := aCoors[4] - aCoors[2]
 
-   IF ISBLOCK( oWnd:bSize )
+   IF ISBLOCK(oWnd:bSize)
       Eval(oWnd:bSize, oWnd, hwg_Loword(lParam), hwg_Hiword(lParam))
    ENDIF
    IF oWnd:Type == WND_MDI .AND. Len(HWindow():aWindows) > 1
@@ -177,7 +177,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    END
 
    ::aOffset := Array(4)
-   AFill( ::aOffset, 0 )
+   AFill(::aOffset, 0)
 
    IF VALTYPE(cTitle) != "N"
       ::AddItem( Self )
@@ -199,7 +199,7 @@ METHOD AddItem( oWnd ) CLASS HWindow
 METHOD DelItem( oWnd ) CLASS HWindow
    LOCAL i, h := oWnd:handle
    IF ( i := AScan( ::aWindows, { | o | o:handle == h } ) ) > 0
-      ADel( ::aWindows, i )
+      ADel(::aWindows, i)
       ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
    RETURN Nil
@@ -235,7 +235,7 @@ CLASS VAR aMessages INIT { ;
         WM_NOTIFYICON, WM_ENTERIDLE, WM_ACTIVATEAPP, WM_CLOSE, WM_DESTROY, WM_ENDSESSION, WM_ACTIVATE, WM_HELP }, ;
       { ;
         {|o, w, l| onCommand(o, w, l) },        ;
-        {|o, w| onEraseBk( o, w ) },             ;
+        {|o, w| onEraseBk(o, w) },             ;
         {|o| hwg_onMove(o) },                 ;
         {|o, w, l| onSize(o, w, l) },           ;
         {|o, w, l| onSysCommand(o, w, l) },     ;
@@ -473,7 +473,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
          IF ::nScrollBars != -1
              hwg_ScrollHV( Self, msg, wParam, lParam )
          ENDIF
-         hwg_onTrackScroll( Self, msg, wParam, lParam )
+         hwg_onTrackScroll(Self, msg, wParam, lParam)
       ENDIF
       RETURN ::Super:onEvent( msg, wParam, lParam )
    ENDIF
@@ -499,7 +499,7 @@ CLASS VAR aMessages INIT { ;
         { ;
           {|o, w, l| HB_SYMBOL_UNUSED(w), onMdiCreate(o, l) }, ;
           {|o, w| onMdiCommand(o, w) },         ;
-          {|o, w| onEraseBk( o, w ) },            ;
+          {|o, w| onEraseBk(o, w) },            ;
           {|o| hwg_onMove(o) },                ;
           {|o, w, l| onSize(o, w, l) },          ;
           {|o, w| onMdiNcActivate(o, w) },      ;
@@ -647,9 +647,9 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
          IF ::nScrollBars != -1
              hwg_ScrollHV( Self, msg, wParam, lParam )
          ENDIF
-         hwg_onTrackScroll( Self, msg, wParam, lParam )
+         hwg_onTrackScroll(Self, msg, wParam, lParam)
       ELSEIF msg = WM_NOTIFY .AND.!::lSuspendMsgsHandling
-         IF ( oCtrl := ::FindControl( , hwg_Getfocus() ) ) != Nil .AND. oCtrl:ClassName != "HTAB"
+         IF ( oCtrl := ::FindControl(, hwg_Getfocus()) ) != Nil .AND. oCtrl:ClassName != "HTAB"
             hwg_Sendmessage(oCtrl:handle, msg, wParam, lParam)
          ENDIF
       ENDIF
@@ -769,9 +769,9 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HChildWindow
       RETURN Eval(HMainWindow():aMessages[2, i], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
-         hwg_onTrackScroll( Self, msg, wParam, lParam )
+         hwg_onTrackScroll(Self, msg, wParam, lParam)
       ELSEIF msg = WM_NOTIFY .AND. !::lSuspendMsgsHandling
-         IF ( oCtrl := ::FindControl( wParam ) ) != Nil .AND. oCtrl:className != "HTAB"
+         IF ( oCtrl := ::FindControl(wParam) ) != Nil .AND. oCtrl:className != "HTAB"
             ::nFocus := oCtrl:handle
             hwg_Sendmessage(oCtrl:handle, msg, wParam, lParam)
          ENDIF
@@ -816,7 +816,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
          IF oChild != Nil
             IF !oChild:Closable
                RETURN 0
-            ELSEIF  ISBLOCK( oChild:bDestroy )
+            ELSEIF  ISBLOCK(oChild:bDestroy)
                oChild:lSuspendMsgsHandling := .T.
                i := Eval(oChild:bDestroy, oChild)
                oChild:lSuspendMsgsHandling := .F.
@@ -892,7 +892,7 @@ FUNCTION hwg_onMove(oWnd)
    ENDIF
    RETURN - 1
 
-STATIC FUNCTION onEraseBk( oWnd, wParam )
+STATIC FUNCTION onEraseBk(oWnd, wParam)
    LOCAL oWndArea
 
    IF oWnd:oBmp != Nil .AND. oWnd:type != WND_MDI
@@ -918,7 +918,7 @@ STATIC FUNCTION onSysCommand(oWnd, wParam, lParam)
    Local i, ars, oChild, oCtrl
 
    IF wParam == SC_CLOSE
-      IF ISBLOCK( oWnd:bDestroy )
+      IF ISBLOCK(oWnd:bDestroy)
          oWnd:lSuspendMsgsHandling := .T.
          i := Eval(oWnd:bDestroy, oWnd)
          oWnd:lSuspendMsgsHandling := .F.
@@ -1007,7 +1007,7 @@ STATIC FUNCTION onEndSession( oWnd, wParam )
 
    HB_SYMBOL_UNUSED(wParam)
 
-   IF ISBLOCK( oWnd:bDestroy )
+   IF ISBLOCK(oWnd:bDestroy)
       i := Eval(oWnd:bDestroy, oWnd)
       i := IIf(ValType(i) == "L", i, .T.)
       IF !i
@@ -1022,7 +1022,7 @@ STATIC FUNCTION onNotifyIcon( oWnd, wParam, lParam )
 
    IF wParam == ID_NOTIFYICON
       IF hwg_Ptrtoulong(lParam) == WM_LBUTTONDOWN
-         IF ISBLOCK( oWnd:bNotify )
+         IF ISBLOCK(oWnd:bNotify)
             Eval(oWnd:bNotify)
          ENDIF
       ELSEIF hwg_Ptrtoulong(lParam) == WM_MOUSEMOVE
@@ -1039,7 +1039,7 @@ STATIC FUNCTION onMdiCreate(oWnd, lParam)
    LOCAL nReturn
    HB_SYMBOL_UNUSED(lParam)
 
-   IF ISBLOCK( oWnd:bSetForm )
+   IF ISBLOCK(oWnd:bSetForm)
       EVAL(oWnd:bSetForm, oWnd)
    ENDIF
    IF !EMPTY ( oWnd:oWndParent )
@@ -1079,7 +1079,7 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
    IF hwg_Iswindowvisible(oWnd:Handle)
-      oCtrl := oWnd:FindControl( iParLow )
+      oCtrl := oWnd:FindControl(iParLow)
    ENDIF
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
@@ -1109,7 +1109,7 @@ STATIC FUNCTION onMdiNcActivate(oWnd, wParam)
       ENDIF
       IF wParam == 1 .AND. !hwg_Selffocus( oWnd:Screen:Handle, oWnd:HANDLE )
          // triggered ON GETFOCUS MDI CHILD MAXIMIZED
-         IF ISBLOCK( oWnd:bSetForm )
+         IF ISBLOCK(oWnd:bSetForm)
             EVAL(oWnd:bSetForm, oWnd)
          ENDIF
          IF  !oWnd:lSuspendMsgsHandling .AND.;
@@ -1162,7 +1162,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
              hwg_Ptrtoulong(w:Handle) != hwg_Ptrtoulong(wParam), hwg_Enablewindow( w:Handle, .T. ),)})
       ENDIF
    ELSEIF hwg_Selffocus( oWnd:Handle, lParam ) //.AND. ownd:screen:handle != WPARAM
-      IF ISBLOCK( oWnd:bSetForm )
+      IF ISBLOCK(oWnd:bSetForm)
          EVAL(oWnd:bSetForm, oWnd)
       ENDIF
       IF oWnd:lModal
@@ -1185,7 +1185,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
 
 STATIC FUNCTION onEnterIdle(oDlg, wParam, lParam)
    LOCAL oItem
-   IF ( wParam == 0 .AND. ( oItem := Atail( HDialog():aModalDialogs ) ) != Nil ;
+   IF ( wParam == 0 .AND. ( oItem := Atail(HDialog():aModalDialogs) ) != Nil ;
          .AND. oItem:handle == lParam )
       oDlg := oItem
    ENDIF

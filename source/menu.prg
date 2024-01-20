@@ -91,7 +91,7 @@ FUNCTION Hwg_AddMenuItem( aMenu, cItem, nMenuId, lSubMenu, bItem, nPos )
       ELSE
          AAdd(aMenu[1], { bItem, cItem, nMenuId, 0 })
       ENDIF
-      RETURN ATail( aMenu[1] )
+      RETURN ATail(aMenu[1])
    ELSE
       AAdd(aMenu[1], Nil)
       AIns( aMenu[1], nPos )
@@ -198,7 +198,7 @@ FUNCTION Hwg_BeginMenu( oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp )
       nId   := IIf(nId == Nil, ++ _Id, nId)
       aMenu := _aMenuDef
       FOR i := 1 TO _nLevel
-         aMenu := ATail( aMenu )[1]
+         aMenu := ATail(aMenu)[1]
       NEXT
       _nLevel ++
       AAdd(aMenu, { { }, cTitle, nId, 0 })
@@ -240,7 +240,7 @@ FUNCTION Hwg_DefineMenuItem( cItem, nId, bItem, lDisabled, accFlag, accKey, lBit
 
    aMenu := _aMenuDef
    FOR i := 1 TO _nLevel
-      aMenu := ATail( aMenu )[1]
+      aMenu := ATail(aMenu)[1]
    NEXT
    IF !Empty(cItem)
       cItem := StrTran( cItem, "\t", Chr(9) )
@@ -269,7 +269,7 @@ FUNCTION Hwg_DefineAccelItem( nId, bItem, accFlag, accKey )
    LOCAL aMenu, i
    aMenu := _aMenuDef
    FOR i := 1 TO _nLevel
-      aMenu := ATail( aMenu )[1]
+      aMenu := ATail(aMenu)[1]
    NEXT
    nId := IIf(nId == Nil, ++ _Id, nId)
    AAdd(aMenu, { bItem, Nil, nId, 0 })
@@ -322,7 +322,7 @@ FUNCTION hwg_DeleteMenuItem( oWnd, nId )
    LOCAL aSubMenu, nPos
 
    IF ( aSubMenu := Hwg_FindMenuItem( oWnd:menu, nId, @nPos ) ) != Nil
-      ADel( aSubMenu[1], nPos )
+      ADel(aSubMenu[1], nPos)
       ASize(aSubMenu[1], Len(aSubMenu[1]) - 1)
 
       hwg_DeleteMenu( hwg_Getmenuhandle(oWnd:handle), nId )
