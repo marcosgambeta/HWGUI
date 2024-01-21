@@ -179,7 +179,7 @@ HB_FUNC( HWG_REGNICE )
    static LPCTSTR s_szAppName = TEXT("NICEBUTT");
    static BOOL s_bRegistered = 0;
 
-   s_pGradientfill = ( GRADIENTFILL )
+   s_pGradientfill = ( GRADIENTFILL ) (void *)
                      GetProcAddress( LoadLibrary( TEXT("MSIMG32.DLL") ),
                                      "GradientFill" );
 //    if (Gradientfill == NULL)
@@ -249,7 +249,7 @@ HB_FUNC( HWG_DRAW_GRADIENT )
 HB_FUNC( HWG_GRADIENT )
 {
    if( s_pGradientfill == NULL )
-      s_pGradientfill = ( GRADIENTFILL )
+      s_pGradientfill = ( GRADIENTFILL ) (void *) 
                      GetProcAddress( LoadLibrary( TEXT("MSIMG32.DLL") ),
                                      "GradientFill" );
    //void Gradient( HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode )
