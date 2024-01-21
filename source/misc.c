@@ -774,7 +774,7 @@ HB_FUNC( HWG_LASTKEY )
       {
          hb_retni(i);
          return;
-      }   
+      }
     hb_retni(0);
 }
 
@@ -792,22 +792,22 @@ HB_FUNC( HWG_ISWIN7 )
 
 HB_FUNC( HWG_RUNCONSOLEAPP )
 {
-   SECURITY_ATTRIBUTES sa; 
+   SECURITY_ATTRIBUTES sa;
    HANDLE g_hChildStd_OUT_Rd = NULL;
    HANDLE g_hChildStd_OUT_Wr = NULL;
    PROCESS_INFORMATION pi;
    STARTUPINFO si;
    BOOL bSuccess;
 
-   DWORD dwRead, dwWritten; 
-   CHAR chBuf[BUFSIZE]; 
-   HANDLE hOut;
+   DWORD dwRead, dwWritten;
+   CHAR chBuf[BUFSIZE];
+   HANDLE hOut = NULL;
 
-   sa.nLength = sizeof(SECURITY_ATTRIBUTES); 
-   sa.bInheritHandle = TRUE; 
-   sa.lpSecurityDescriptor = NULL; 
+   sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+   sa.bInheritHandle = TRUE;
+   sa.lpSecurityDescriptor = NULL;
 
-   // Create a pipe for the child process's STDOUT. 
+   // Create a pipe for the child process's STDOUT.
    if( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) )
    {
       hb_retl(0);
@@ -821,10 +821,10 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
       return;
    }
 
-   // Set up members of the PROCESS_INFORMATION structure. 
+   // Set up members of the PROCESS_INFORMATION structure.
    ZeroMemory( &pi, sizeof(PROCESS_INFORMATION) );
- 
-   // Set up members of the STARTUPINFO structure. 
+
+   // Set up members of the STARTUPINFO structure.
    // This structure specifies the STDIN and STDOUT handles for redirection.
    ZeroMemory( &si, sizeof(si) );
    si.cb = sizeof(si);
@@ -835,8 +835,8 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
    bSuccess = CreateProcess( NULL, (LPTSTR)hb_parc(1), NULL, NULL,
       TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
-   
-   if ( ! bSuccess ) 
+
+   if ( ! bSuccess )
    {
       hb_retl(0);
       return;
@@ -851,16 +851,16 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
       hOut = CreateFile(hb_parc(2), GENERIC_WRITE, 0, 0,
              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
    while( 1 )
-   { 
+   {
       bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL);
-      if( ! bSuccess || dwRead == 0 ) break; 
+      if( ! bSuccess || dwRead == 0 ) break;
 
       if( !HB_ISNIL(2) )
       {
          bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, NULL);
-         if( ! bSuccess ) break; 
+         if( ! bSuccess ) break;
       }
-   } 
+   }
 
    if( !HB_ISNIL(2) )
       CloseHandle(hOut);
