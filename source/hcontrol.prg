@@ -119,7 +119,7 @@ METHOD AddName(cName) CLASS HControl
    RETURN NIL
 
 METHOD INIT() CLASS HControl
-   LOCAL oForm := hwg_GetParentForm( Self )
+   LOCAL oForm := hwg_GetParentForm(Self)
 
    IF !::lInit
       ::oparent:lSuspendMsgsHandling := .T.
@@ -160,15 +160,15 @@ METHOD Setfocus( lValid ) CLASS HControl
       ::oParent:lSuspendMsgsHandling  := lSuspend
    ELSE
       ::oParent:lSuspendMsgsHandling  := !Empty(lValid)
-      IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
+      IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          hwg_Setfocus( ::handle )
       ELSE
          hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1)
       ENDIF
       ::oParent:lSuspendMsgsHandling  := lSuspend
    ENDIF
-   IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-      hwg_GetParentForm( Self ):nFocus := ::Handle
+   IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+      hwg_GetParentForm(Self):nFocus := ::Handle
    ENDIF
 
    RETURN NIL
@@ -218,7 +218,7 @@ METHOD SetFont( oFont ) CLASS HControl
 METHOD SetToolTip ( cToolTip ) CLASS HControl
 
    IF ValType(cToolTip) = "C"  .AND. cToolTip != ::ToolTip
-      hwg_Settooltiptitle(hwg_GetparentForm( Self ):handle, ::handle, ctooltip)
+      hwg_Settooltiptitle(hwg_GetparentForm(Self):handle, ::handle, ctooltip)
       ::Tooltip := cToolTip
    ENDIF
 

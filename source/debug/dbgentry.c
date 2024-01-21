@@ -248,7 +248,7 @@ static void hb_dbgActivate(HB_DEBUGINFO * info)
       aModules = hb_dbgActivateModuleArray();
       aBreak = hb_dbgActivateBreakArray( info );
 
-      hb_vmPushDynSym( pDynSym );
+      hb_vmPushDynSym(pDynSym);
       hb_vmPushNil();
       hb_vmPushLong(HB_DBG_ACTIVATE);
       hb_vmPushPointer( info );
@@ -1595,7 +1595,7 @@ static PHB_ITEM hb_dbgVarGet(HB_VARINFO * scope)
          pDyn = hb_dynsymFind(scope->szName);
          if( pDyn != NULL )
          {
-            PHB_ITEM pItem = hb_memvarGetValueBySym( pDyn );
+            PHB_ITEM pItem = hb_memvarGetValueBySym(pDyn);
             if( !pItem )
             {
                pItem = hb_itemNew(NULL);
@@ -1632,7 +1632,7 @@ static void hb_dbgVarSet( HB_VARINFO * scope, PHB_ITEM xNewValue )
 
          if( pDynSym && hb_dynsymIsFunction( pDynSym ) )
          {
-            hb_vmPushDynSym( pDynSym );
+            hb_vmPushDynSym(pDynSym);
             hb_vmPushNil();
             hb_vmPushString(scope->szName, ( HB_SIZE ) strlen(scope->szName));
             hb_vmPush(xNewValue);

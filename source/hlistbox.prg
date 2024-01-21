@@ -34,9 +34,9 @@ CLASS HListBox INHERIT HControl
    METHOD Init()
    METHOD Refresh()
    METHOD Requery()
-   METHOD Setitem( nPos )
+   METHOD Setitem(nPos)
    METHOD AddItems( p )
-   METHOD DeleteItem( nPos )
+   METHOD DeleteItem(nPos)
    METHOD Valid(oCtrl)
    METHOD When( oCtrl )
    METHOD onChange(oCtrl)
@@ -206,11 +206,11 @@ METHOD Refresh() CLASS HListBox
    ENDIF
 
    ::value := IIf(vari == Nil .OR. ValType(vari) != "N", 0, vari)
-   ::SetItem( ::value )
+   ::SetItem(::value)
 
    RETURN Nil
 
-METHOD SetItem( nPos ) CLASS HListBox
+METHOD SetItem(nPos) CLASS HListBox
 
    ::value := nPos
    hwg_Sendmessage(::handle, LB_SETCURSEL, nPos - 1, 0)
@@ -248,7 +248,7 @@ METHOD AddItems( p ) CLASS HListBox
 
    RETURN Self
 
-METHOD DeleteItem( nPos ) CLASS HListBox
+METHOD DeleteItem(nPos) CLASS HListBox
 
    IF hwg_Sendmessage(::handle, LB_DELETESTRING, nPos - 1, 0) >= 0 //<= LEN(ocombo:aitems)
       ADel(::Aitems, nPos)
@@ -278,7 +278,7 @@ METHOD onChange(oCtrl) CLASS HListBox
    HB_SYMBOL_UNUSED(oCtrl)
 
    nPos := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
-   ::SetItem( nPos )
+   ::SetItem(nPos)
 
    RETURN Nil
 
@@ -321,7 +321,7 @@ METHOD Valid(oCtrl) CLASS HListBox
       RETURN .T.
    ENDIF
    //nSkip := IIf(hwg_Getkeystate(VK_SHIFT) < 0, - 1, 1)
-   IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != 27
+   IF ( oDlg := hwg_GetParentForm(Self) ) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != Nil
          Eval(::bSetGet, ::value, Self)

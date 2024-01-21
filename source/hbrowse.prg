@@ -348,7 +348,7 @@ CLASS HBrowse INHERIT HControl
    METHOD LineUp()
    METHOD PageUp()
    METHOD PageDown()
-   METHOD Bottom( lPaint )
+   METHOD Bottom(lPaint)
    METHOD Top()
    METHOD Home()  INLINE ::DoHScroll(SB_LEFT)
    METHOD ButtonDown( lParam, lReturnRowCol )
@@ -357,7 +357,7 @@ CLASS HBrowse INHERIT HControl
    METHOD MouseMove(wParam, lParam)
    METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos)
    METHOD Edit( wParam, lParam )
-   METHOD APPEND() INLINE ( ::Bottom( .F. ), ::LineDown() )
+   METHOD APPEND() INLINE ( ::Bottom(.F.), ::LineDown() )
    METHOD onClick()
    METHOD RefreshLine()
    METHOD Refresh(lFull, lLineUp)
@@ -467,8 +467,8 @@ METHOD Init() CLASS HBrowse
       ::Super:Init()
       ::InitBrw( , .T. )
       //hwg_VScrollPos(Self, 0, .F.)
-      IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-         hwg_GetParentForm( Self ):lDisableCtrlTab := .T.
+      IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+         hwg_GetParentForm(Self):lDisableCtrlTab := .T.
       ENDIF
    ENDIF
 
@@ -602,16 +602,16 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
       ELSEIF msg == WM_GETDLGCODE
          ::isMouseOver := .F.
          IF wParam = VK_ESCAPE   .AND. ;          // DIALOG MODAL
-               ( oParent := hwg_GetParentForm( Self ):FindControl(IDCANCEL) ) != NIL .AND. !oParent:IsEnabled()
+               ( oParent := hwg_GetParentForm(Self):FindControl(IDCANCEL) ) != NIL .AND. !oParent:IsEnabled()
             RETURN DLGC_WANTMESSAGE
-         ELSEIF ( wParam = VK_ESCAPE .AND. hwg_GetParentForm( Self ):handle != ::oParent:Handle .AND. ::lEsc ) .OR. ; //!::lAutoEdit
-            ( wParam = VK_RETURN .AND. hwg_GetParentForm( Self ):FindControl(IDOK) != NIL )
+         ELSEIF ( wParam = VK_ESCAPE .AND. hwg_GetParentForm(Self):handle != ::oParent:Handle .AND. ::lEsc ) .OR. ; //!::lAutoEdit
+            ( wParam = VK_RETURN .AND. hwg_GetParentForm(Self):FindControl(IDOK) != NIL )
             RETURN - 1
          ENDIF
          RETURN DLGC_WANTALLKEYS
       ELSEIF msg == WM_COMMAND
-         IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-            hwg_GetParentForm( Self ):onEvent( msg, wparam, lparam )
+         IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+            hwg_GetParentForm(Self):onEvent( msg, wparam, lparam )
          ELSEIF ::aEvents != Nil
             iParHigh := hwg_Hiword(wParam)
             iParLow  := hwg_Loword(wParam)           
@@ -628,7 +628,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          IF wParam == 16
             ::lShiftPress := .F.
          ENDIF
-         IF wParam == VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
+         IF wParam == VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
             IF hwg_IsCtrlShift( .T., .F. )
                hwg_GetSkip( ::oParent, ::handle, , ;
                   iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
@@ -777,7 +777,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          ELSEIF wParam == VK_RETURN    // Enter
             ::Edit( VK_RETURN )
          ELSEIF wParam == VK_ESCAPE .AND. ::lESC
-            IF hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
+            IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
                hwg_Sendmessage(hwg_Getparent( ::handle ), WM_SYSCOMMAND, SC_CLOSE, 0)
             ELSE
                hwg_Sendmessage(hwg_Getparent( ::handle ), WM_CLOSE, 0, 0)
@@ -906,7 +906,7 @@ STATIC FUNCTION InitColumn( oBrw, oColumn, n )
    ENDIF
    IF oColumn:length == NIL
       IF oColumn:picture != NIL .AND. !Empty(oBrw:aArray)
-         oColumn:length := Len(Transform( Eval(oColumn:block, , oBrw, n), oColumn:picture ))
+         oColumn:length := Len(Transform(Eval(oColumn:block, , oBrw, n), oColumn:picture))
       ELSE
          oColumn:length := 10
          IF !Empty(oBrw:aArray)
@@ -998,7 +998,7 @@ METHOD ShowColToolTips( lParam ) CLASS HBrowse
       cTip := ::aColumns[pt[2]]:ToolTip
    ENDIF
    IF !Empty(cTip) .OR. !Empty(xToolTip)
-      hwg_Settooltiptitle(hwg_GetparentForm( Self ):handle, ::handle, cTip)
+      hwg_Settooltiptitle(hwg_GetparentForm(Self):handle, ::handle, cTip)
       xToolTip := iif(!Empty(cTip), cTip, iif(!Empty(xToolTip), NIL, xToolTip))
    ENDIF
 
@@ -1010,7 +1010,7 @@ METHOD SetRefresh(nSeconds) CLASS HBrowse
       IF ::oTimer != NIL
          ::oTimer:Interval := nSeconds * 1000
       ELSEIF nSeconds > 0
-         SET TIMER ::oTimer OF hwg_GetParentForm( Self ) VALUE ( nSeconds * 1000 )  ACTION { || iif(hwg_Iswindowvisible(::Handle), ;
+         SET TIMER ::oTimer OF hwg_GetParentForm(Self) VALUE ( nSeconds * 1000 )  ACTION { || iif(hwg_Iswindowvisible(::Handle), ;
             ( ::internal[1] := 12, hwg_Invalidaterect(::handle, 0,;
             ::x1, ;
             ::y1, ;
@@ -1031,7 +1031,7 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowse
    IF Empty(lInit)
       ::x1 := ::y1 := ::x2 := ::y2  := ::xAdjRight := 0
       ::height := ::width := 0
-      ::nyHeight := iif(hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE, 1, 0)
+      ::nyHeight := iif(hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE, 1, 0)
       ::lDeleteMark := .F.
       ::lShowMark := .T.
       ::nPaintCol := 0
@@ -1077,7 +1077,7 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowse
          ::rowCurrCount := 0
          ::bSkip     := { | o, n | aFltSkip( o, n, .F. )  }
          ::bGoTop    := { | o | aFltGoTop( o  ) }
-         ::bGoBot    := { | o | aFltGoBottom( o )  }
+         ::bGoBot    := { | o | aFltGoBottom(o)  }
       ENDIF
 
    ENDIF
@@ -1175,7 +1175,7 @@ METHOD FILTER( lFilter ) CLASS HBrowse
          ::rowCurrCount := 0
          ::bSkip     := { | o, n | aFltSkip( o, n, .F. )  }
          ::bGoTop    := { | o | aFltGoTop( o  ) }
-         ::bGoBot    := { | o | aFltGoBottom( o )  }
+         ::bGoBot    := { | o | aFltGoBottom(o)  }
       ELSE
          ::bSkip      := { | o, n | ARSKIP( o, n ) }
          ::bGoTop  := { | o | o:nCurrent := 1 }
@@ -2593,7 +2593,7 @@ METHOD PAGEDOWN() CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD BOTTOM( lPaint ) CLASS HBrowse
+METHOD BOTTOM(lPaint) CLASS HBrowse
 
    IF ::Type == BRW_ARRAY
       ::nCurrent := ::nRecords
@@ -2741,7 +2741,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
       ENDIF
    ENDIF
    IF ( hwg_Ptrtoulong(hwg_Getactivewindow()) = hwg_Ptrtoulong(hwg_GetParentForm(Self ):Handle)  .OR. ;
-         hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE )
+         hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE )
       ::Setfocus()
       ::RefreshLine()
    ENDIF
@@ -3467,7 +3467,7 @@ METHOD FldStr(oBrw, numf) CLASS HBrowse
          ELSE
             oBrw:nCurrent := iif(oBrw:nCurrent = 0, 1, oBrw:nCurrent)
             vartmp :=  Eval(oBrw:aColumns[numf]:block, , oBrw, numf)
-            cRes := iif(vartmp != NIL, Transform( vartmp, pict ), Space(oBrw:aColumns[numf]:length))
+            cRes := iif(vartmp != NIL, Transform(vartmp, pict), Space(oBrw:aColumns[numf]:length))
          ENDIF
       ELSE
          IF oBrw:Type == BRW_DATABASE
@@ -3711,7 +3711,7 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
             IF lDesc
                FltGoTop( oBrw )
             ELSE
-               FltGoBottom( oBrw )
+               FltGoBottom(oBrw)
             ENDIF
          ELSE
             // SKIP IF( lDesc, + 1, - 1 )
@@ -3748,7 +3748,7 @@ STATIC FUNCTION FltGoTop( oBrw )
 
    RETURN NIL
 
-STATIC FUNCTION FltGoBottom( oBrw )
+STATIC FUNCTION FltGoBottom(oBrw)
 
    IF oBrw:nLastRecordFilter == 0
       Eval(oBrw:bLast)
@@ -3800,11 +3800,11 @@ STATIC FUNCTION FltEOF( oBrw )
    ELSE
       nRecord := FltRecNo( oBrw )
       xValue := (oBrw:Alias)->(OrdKeyNo())
-      FltGoBottom( oBrw )
+      FltGoBottom(oBrw)
       xLastValue := (oBrw:Alias)->(OrdKeyNo())
       IF xValue > xLastValue
          lRet := .T.
-         FltGoBottom( oBrw )
+         FltGoBottom(oBrw)
          (oBrw:Alias)->(dbSkip())
       ELSE
          FltGoTo( oBrw, nRecord )
@@ -3842,7 +3842,7 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
    ELSEIF nLines < 0 .AND. n > 0
       FOR n := 1 TO ( nLines * ( - 1 ) )
          IF  Eval(oBrw:bEof, oBrw)
-            aFltGoBottom( oBrw )
+            aFltGoBottom(oBrw)
          ELSE
             Eval(abSkip, oBrw, -1) //IIF(lDesc, - 1, + 1) )
          ENDIF
@@ -3877,7 +3877,7 @@ STATIC FUNCTION aFltGoTop( oBrw )
 
    RETURN NIL
 
-STATIC FUNCTION aFltGoBottom( oBrw )
+STATIC FUNCTION aFltGoBottom(oBrw)
    LOCAL abSkip   := { | o, n | ARSKIP( o, n ) }
 
    IF oBrw:nLastRecordFilter == 0
@@ -3927,7 +3927,7 @@ STATIC FUNCTION LenVal(xVal, cType, cPict)
    CASE "C"
    CASE "D"
       IF !Empty(cPict)
-         nLen := Len(Transform( xVal, cPict ))
+         nLen := Len(Transform(xVal, cPict))
          EXIT
       ENDIF
 

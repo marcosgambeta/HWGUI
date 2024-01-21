@@ -106,7 +106,7 @@ CLASS HTreeNode INHERIT HObject
    METHOD Delete(lInternal)
    METHOD FindChild(h)
    METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
-   METHOD SetText(cText) INLINE hwg_Treesetitem( ::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText ), ::title := cText
+   METHOD SetText(cText) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText), ::title := cText
    METHOD Checked(lChecked)  SETGET
    METHOD GetLevel(h)
 
@@ -236,7 +236,7 @@ METHOD Checked(lChecked) CLASS HTreeNode
    LOCAL state
 
    IF lChecked != NIL
-      hwg_Treesetitem( ::oTree:handle, ::handle, TREE_SETITEM_CHECK, IIF(lChecked, 2, 1) )
+      hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_CHECK, IIF(lChecked, 2, 1))
       ::lChecked := lChecked
    ELSE
       state =  hwg_Sendmessage(::oTree:handle, TVM_GETITEMSTATE, ::handle,, TVIS_STATEIMAGEMASK) - 1
@@ -291,8 +291,8 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD ItemHeight( nHeight ) SETGET
    METHOD SearchString(cText, iNivel, oNode, inodo)
    METHOD Selecteds( oItem, aSels )
-   METHOD Top()    INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[1] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_TOP ), Nil) ),)
-   METHOD Bottom() INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[LEN(::aItems)] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam( 0, SB_BOTTOM ), Nil) ),)
+   METHOD Top()    INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[1] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam(0, SB_TOP), Nil) ),)
+   METHOD Bottom() INLINE IIF(!Empty(::aItems), ( ::Select( ::aItems[LEN(::aItems)] ), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam(0, SB_BOTTOM), Nil) ),)
 
 ENDCLASS
 
@@ -591,7 +591,7 @@ METHOD Notify( lParam )  CLASS HTree
          IF ValType(oItem) == "O"
             IF !cText ==  oItem:GetText()  .AND. ;
                ( oItem:oTree:bItemChange == Nil .OR. Eval(oItem:oTree:bItemChange, oItem, cText) )
-               hwg_Treesetitem( oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText )
+               hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
             ENDIF
          ENDIF
       ENDIF
@@ -717,13 +717,13 @@ STATIC PROCEDURE MarkCheckTree(oItem, state)
    LOCAL i, iLen := Len(oItem:aitems), oParent
 
    FOR i := 1 TO iLen
-      hwg_Treesetitem( oItem:oTree:handle, oItem:aitems[i]:handle, TREE_SETITEM_CHECK, state )
+      hwg_Treesetitem(oItem:oTree:handle, oItem:aitems[i]:handle, TREE_SETITEM_CHECK, state)
       MarkCheckTree(oItem:aItems[i], state)
    NEXT
    IF state = 1
       oParent = oItem:oParent
       DO WHILE oParent != Nil
-         hwg_Treesetitem( oItem:oTree:handle, oParent:handle, TREE_SETITEM_CHECK, state )
+         hwg_Treesetitem(oItem:oTree:handle, oParent:handle, TREE_SETITEM_CHECK, state)
          oParent := oParent:oParent
       ENDDO
    ENDIF

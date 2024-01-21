@@ -33,7 +33,7 @@ STATIC aCustomEvents := { ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCommand(o, w, l) }                                , ;
-         { | o, w, l | onDrawItem( o, w, l ) }                               , ;
+         { | o, w, l | onDrawItem(o, w, l) }                               , ;
          { | o, w, l | onSize(o, w, l) }                                   , ;
          { | o |     onDestroy( o ) }                                          ;
        } ;
@@ -360,9 +360,9 @@ METHOD Closable(lClosable) CLASS HCustomWindow
 
    IF lClosable != Nil
       IF !lClosable
-         hMenu := hwg_Enablemenusystemitem( ::Handle, SC_CLOSE, .F. )
+         hMenu := hwg_Enablemenusystemitem(::Handle, SC_CLOSE, .F.)
       ELSE
-         hMenu := hwg_Enablemenusystemitem( ::Handle, SC_CLOSE, .T. )
+         hMenu := hwg_Enablemenusystemitem(::Handle, SC_CLOSE, .T.)
       ENDIF
       IF !EMPTY(hMenu)
          ::lClosable := lClosable
@@ -453,7 +453,7 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
 
    RETURN - 1
 
-STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
+STATIC FUNCTION onDrawItem(oWnd, wParam, lParam)
    LOCAL oCtrl
    IF !EMPTY(wParam) .AND. ( oCtrl := oWnd:FindControl(wParam) ) != NIL .AND. ;
                  VALTYPE(oCtrl) != "N"  .AND. oCtrl:bPaint != NIL
@@ -466,7 +466,7 @@ STATIC FUNCTION onDrawItem( oWnd, wParam, lParam )
 
 STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    LOCAL iItem, iParHigh := hwg_Hiword(wParam), iParLow := hwg_Loword(wParam)
-   LOCAL oForm := hwg_GetParentForm( oWnd )
+   LOCAL oForm := hwg_GetParentForm(oWnd)
 
    HB_SYMBOL_UNUSED(lParam)
    IF oWnd:aEvents != NIL .AND. !oForm:lSuspendMsgsHandling .AND. !oWnd:lSuspendMsgsHandling .AND. ;

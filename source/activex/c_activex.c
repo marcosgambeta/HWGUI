@@ -120,7 +120,7 @@ HB_FUNC( HWG_ATLAXGETDISP )
 #endif
 
    //------------------------------------------------------------------------------
-HRESULT hb_oleVariantToItem( PHB_ITEM pItem, VARIANT * pVariant );
+HRESULT hb_oleVariantToItem(PHB_ITEM pItem, VARIANT * pVariant);
 
    //------------------------------------------------------------------------------
 static void HB_EXPORT hb_itemPushList( ULONG ulRefMask, ULONG ulPCount,
@@ -426,7 +426,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
          for( i = 1; i <= iArg; i++ )
          {
             pItem = hb_itemNew(NULL);
-            hb_oleVariantToItem( pItem, &( params->rgvarg[iArg - i] ) );
+            hb_oleVariantToItem(pItem, &(params->rgvarg[iArg - i]));
             pItemArray[i - 1] = pItem;
             // set bit i
             ulRefMask |= ( 1L << ( i - 1 ) );

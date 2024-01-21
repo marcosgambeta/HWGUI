@@ -122,7 +122,7 @@ RETURN Iif(( i := Rat('\', fname) ) = 0, ;
             Iif(( i := Rat('/', fname) ) = 0, fname, Substr(fname, i + 1)), ;
             Substr(fname, i + 1))
 
-FUNCTION NextItem( stroka, lFirst, cSep )
+FUNCTION NextItem(stroka, lFirst, cSep)
 
 STATIC nPos
 LOCAL i, oldPos

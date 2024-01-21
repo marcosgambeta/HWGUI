@@ -602,7 +602,7 @@ HB_FUNC( HWG_SETWINDOWFONT )
 {
    SendMessage(hwg_par_HWND(1), WM_SETFONT,
          ( WPARAM ) hb_parnl(2),
-         MAKELPARAM( ( HB_ISNIL(3) ) ? 0 : hb_parl(3), 0 ));
+         MAKELPARAM((HB_ISNIL(3)) ? 0 : hb_parl(3), 0));
 }
 
 HB_FUNC( HWG_ENABLEWINDOW )
@@ -738,7 +738,7 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -766,7 +766,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -815,7 +815,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1160,7 +1160,7 @@ HB_FUNC( HWG_MAKEWPARAM )
 {
    WPARAM p;
 
-   p = MAKEWPARAM( ( WORD ) hb_parnl(1), ( WORD ) hb_parnl(2) );
+   p = MAKEWPARAM((WORD) hb_parnl(1), (WORD) hb_parnl(2));
    hb_retnl(( LONG ) p);
 }
 
@@ -1168,7 +1168,7 @@ HB_FUNC( HWG_MAKELPARAM )
 {
    LPARAM p;
 
-   p = MAKELPARAM( ( WORD ) hb_parnl(1), ( WORD ) hb_parnl(2) );
+   p = MAKELPARAM((WORD) hb_parnl(1), (WORD) hb_parnl(2));
    HB_RETHANDLE(p);
 }
 

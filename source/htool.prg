@@ -313,7 +313,7 @@ METHOD CREATETOOL() CLASS hToolBar
 
          FOR n1 := 1 TO Len(aTemp)
             aTemp[n1, 1] := IIF(aTemp[n1, 1] = "-", NIL, aTemp[n1, 1])
-            hwg__AddMenuItem( ::aItem[n, 10], aTemp[n1, 1], - 1, .F., aTemp[n1, 2], , .F. )
+            hwg__AddMenuItem(::aItem[n, 10], aTemp[n1, 1], -1, .F., aTemp[n1, 2], , .F.)
             ::oParent:AddEvent( BN_CLICKED, aTemp[n1, 2], aTemp[n1, 3] )
          NEXT
       ENDIF
@@ -398,8 +398,8 @@ METHOD CREATETOOL() CLASS hToolBar
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETINDENT, ::nIndent, 0)
    IF !Empty(::BtnWidth)
-      hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, 0, hwg_Makelparam( ::BtnWidth -1, ::BtnWidth + 1  ))
-         //hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam( ::BtnWidth, ::BtnWidth ))
+      hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, 0, hwg_Makelparam(::BtnWidth -1, ::BtnWidth + 1))
+         //hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam(::BtnWidth, ::BtnWidth))
    ENDIF
    IF Len(::aItem) > 0
       hwg_Toolbaraddbuttons( ::handle, ::aItem, Len(::aItem) )
@@ -415,9 +415,9 @@ METHOD CREATETOOL() CLASS hToolBar
       ::BtnHeight := MAX( hwg_Hiword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)),;
                      ::nHeight - ::nDrop - IIF(!::lnoThemes .AND. Hwg_BitAnd(::Style, TBSTYLE_FLAT) > 0, 0, 2) )
       IF  !::lVertical
-         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam( ::BtnWidth, ::BtnHeight ))
+         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE
-         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam( ::nWidth - ::nDrop - 1, ::BtnWidth ))
+         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::nWidth - ::nDrop - 1, ::BtnWidth))
       ENDIF
    ENDIF
    ::BtnWidth := hwg_Loword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0))
@@ -518,12 +518,12 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
    ELSE
       ::BtnWidth :=  hwg_Loword(nSize) * xIncrSize
    ENDIF
-   hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam( ::BtnWidth - 1, ::BtnWidth + 1 ))
+   hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam(::BtnWidth - 1, ::BtnWidth + 1))
    IF ::BtnWidth != Nil
       IF  !::lVertical
-         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam( ::BtnWidth, ::BtnHeight ))
+         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE
-         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam( ::nWidth - ::nDrop - 1, ::BtnWidth ))
+         hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::nWidth - ::nDrop - 1, ::BtnWidth))
 		    ENDIF
 		    hwg_Sendmessage(::handle, WM_SIZE, 0, 0)
    ENDIF
@@ -557,7 +557,7 @@ METHOD init() CLASS htoolbarex
 METHOD ExecuteTool(nid) CLASS htoolbarex
 
    IF nid > 0
-      hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( nid, BN_CLICKED ), ::handle)
+      hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(nid, BN_CLICKED), ::handle)
       RETURN 0
    ENDIF
    RETURN - 200

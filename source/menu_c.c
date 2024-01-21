@@ -36,7 +36,7 @@ HB_FUNC( HWG__CREATEPOPUPMENU )
 }
 
 /*
- *  AddMenuItem( hMenu,cCaption,nPos,fByPosition,nId,fState,lSubMenu ) --> lResult
+ *  AddMenuItem(hMenu,cCaption,nPos,fByPosition,nId,fState,lSubMenu) --> lResult
  */
 
 HB_FUNC( HWG__ADDMENUITEM )
@@ -192,7 +192,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
       MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
    else
    {
-      CheckMenuItem( hMenu,     // handle to menu
+      CheckMenuItem(hMenu,     // handle to menu
             hb_parni(2),      // menu item to check or uncheck
             MF_BYCOMMAND | uCheck       // menu item flags
              );

@@ -178,7 +178,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HDialog
       /* triggered on activate the modal dialog is visible only when */
       // ::lActivated := .T.
       IF ::lModal .AND. ValType(::bOnActivate) == "B"
-         hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam( WA_ACTIVE, 0 ), ::handle)
+         hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam(WA_ACTIVE, 0), ::handle)
       ENDIF
    ENDIF
    IF ( i := AScan( aMessModalDlg, { | a | a[1] == msg } ) ) != 0
@@ -402,7 +402,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          IF oCtrl != Nil .AND. oCtrl:classname = "HTAB"
             RETURN 1
          ENDIF
-         IF oCtrl != Nil .AND. ( hwg_Getnextdlgtabitem( hwg_Getactivewindow(), hCtrl, 1 ) == hCtrl .OR. hwg_Selffocus( oCtrl:Handle, hCtrl ) ) .AND. !oDlg:lClipper
+         IF oCtrl != Nil .AND. ( hwg_Getnextdlgtabitem(hwg_Getactivewindow(), hCtrl, 1) == hCtrl .OR. hwg_Selffocus( oCtrl:Handle, hCtrl ) ) .AND. !oDlg:lClipper
             hwg_Sendmessage(oCtrl:Handle, WM_KILLFOCUS, 0, 0)
          ENDIF
          IF oCtrl != Nil .AND. oCtrl:id == IDOK .AND.  __ObjHasMsg(oCtrl, "BCLICK") .AND. oCtrl:bClick = Nil
@@ -479,15 +479,15 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          oDlg:nLastKey := 0
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oDlg:menu, iParLow, @i ) ) != Nil
+         ( aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i) ) != Nil
       IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
-         hwg_Checkmenuitem( , aMenu[1, i, 3], !hwg_Ischeckedmenuitem( , aMenu[1, i, 3] ) )
+         hwg_Checkmenuitem(, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(, aMenu[1, i, 3]) )
       ENDIF
       IF aMenu[1, i, 1] != Nil
          Eval(aMenu[1, i, 1], i, iParlow)
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != Nil .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oDlg:oPopup:aMenu, wParam, @i ) ) != Nil ;
+         ( aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, wParam, @i) ) != Nil ;
          .AND. aMenu[1, i, 1] != Nil
       Eval(aMenu[1, i, 1], i, wParam)
    ENDIF

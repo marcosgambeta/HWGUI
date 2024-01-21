@@ -45,9 +45,7 @@ HB_FUNC( HWG_DIALOGBOX )
    if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
 
-   DialogBoxParam( hModule, lpResource,
-                  hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc,
-                  ( LPARAM ) pObject );
+   DialogBoxParam(hModule, lpResource, hwg_par_HWND(1), (DLGPROC) s_ModalDlgProc, (LPARAM) pObject);
 
    hb_strfree(hResource);
 }
@@ -66,9 +64,7 @@ HB_FUNC( HWG_CREATEDIALOG )
    if( !lpResource && HB_IS_NUMERIC(pData) )
       lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
 
-   hDlg = CreateDialogParam( hModule, lpResource,
-                             hwg_par_HWND(1), ( DLGPROC ) s_DlgProc,
-                             ( LPARAM ) pObject );
+   hDlg = CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), (DLGPROC) s_DlgProc, (LPARAM) pObject);
    hb_strfree(hResource);
 
    ShowWindow( hDlg, SW_SHOW );
@@ -82,7 +78,7 @@ HB_FUNC( HWG__ENDDIALOG )
 
 HB_FUNC( HWG_GETDLGITEM )
 {
-   HWND hWnd = GetDlgItem( hwg_par_HWND(1),  // handle of dialog box
+   HWND hWnd = GetDlgItem(hwg_par_HWND(1),  // handle of dialog box
          hb_parni(2)          // identifier of control
           );
    HB_RETHANDLE(hWnd);
@@ -131,7 +127,7 @@ HB_FUNC( HWG_GETEDITTEXT )
    HWND hDlg = hwg_par_HWND(1);
    int id = hb_parni(2);
    USHORT uiLen =
-      ( USHORT ) SendMessage(GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0);
+      ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
    LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 2 ) * sizeof(TCHAR));
 
    GetDlgItemText(hDlg,      // handle of dialog box
@@ -488,9 +484,7 @@ HB_FUNC( HWG_CREATEDLGINDIRECT )
       fFree = TRUE;
    }
 
-   CreateDialogIndirectParam( hModule, pdlgtemplate,
-         hwg_par_HWND(1), ( DLGPROC ) s_DlgProc,
-         ( LPARAM ) pObject );
+   CreateDialogIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC) s_DlgProc, (LPARAM) pObject);
 
    if( fFree )
       s_ReleaseDlgTemplate(pdlgtemplate);
@@ -508,9 +502,7 @@ HB_FUNC( HWG_DLGBOXINDIRECT )
    LPDLGTEMPLATE pdlgtemplate =
          s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);
 
-   DialogBoxIndirectParam( hModule, pdlgtemplate,
-         hwg_par_HWND(1), ( DLGPROC ) s_ModalDlgProc,
-         ( LPARAM ) pObject );
+   DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC) s_ModalDlgProc, (LPARAM) pObject);
    s_ReleaseDlgTemplate(pdlgtemplate);
 }
 
@@ -551,7 +543,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
       hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
       if ( uMsg ==  WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
@@ -625,7 +617,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       hb_vmPush(pObject);
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
       if ( uMsg ==  WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
@@ -705,7 +697,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       hb_vmPushLong(( LONG ) uMsg);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )

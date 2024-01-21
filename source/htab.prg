@@ -254,7 +254,7 @@ METHOD Init() CLASS HTab
       IF ::himl != NIL
          hwg_Sendmessage(::handle, TCM_SETIMAGELIST, 0, ::himl)
       ENDIF
-      hwg_Addtooltip( hwg_GetParentForm( Self ):handle, ::handle, "" )
+      hwg_Addtooltip( hwg_GetParentForm(Self):handle, ::handle, "" )
       ::Super:Init()
 
       IF Len(::aPages) > 0
@@ -747,7 +747,7 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       IF hwg_Getfocus() = ::Handle
          hwg_Invalidaterect(::oPaint:handle, 1, 0, 0, ::nwidth, 30)
       ENDIF
-      IF hwg_GetParentForm( self ):Type < WND_DLG_RESOURCE
+      IF hwg_GetParentForm(self):Type < WND_DLG_RESOURCE
          RETURN ( ::oParent:onEvent( msg, wparam, lparam ) )
       ELSE
          RETURN ( ::super:onevent( msg, wparam, lparam ) )
@@ -776,12 +776,12 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS HTab
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
    IF !( ( msg = WM_COMMAND .OR. msg = WM_NOTIFY ) .AND. ::oParent:lSuspendMsgsHandling .AND. ::lSuspendMsgsHandling )
-      IF msg = WM_NCPAINT .AND. !Empty(hwg_GetParentForm( Self ):nInitFocus)  .AND. hwg_Ptrtoulong(hwg_Getparent(hwg_GetParentForm(Self):nInitFocus)) = hwg_Ptrtoulong(::Handle)
-         hwg_GetSkip( ::oParent, hwg_GetParentForm( Self ):nInitFocus, , 0 )
-         hwg_GetParentForm( Self ):nInitFocus := 0
+      IF msg = WM_NCPAINT .AND. !Empty(hwg_GetParentForm(Self):nInitFocus)  .AND. hwg_Ptrtoulong(hwg_Getparent(hwg_GetParentForm(Self):nInitFocus)) = hwg_Ptrtoulong(::Handle)
+         hwg_GetSkip( ::oParent, hwg_GetParentForm(Self):nInitFocus, , 0 )
+         hwg_GetParentForm(Self):nInitFocus := 0
       ENDIF
-      IF msg == WM_KILLFOCUS .AND. hwg_GetParentForm( Self ) != NIL  .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::id, 0 ), ::handle)
+      IF msg == WM_KILLFOCUS .AND. hwg_GetParentForm(Self) != NIL  .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, 0), ::handle)
          ::nPrevPage := 0
       ENDIF
       IF msg = WM_DRAWITEM

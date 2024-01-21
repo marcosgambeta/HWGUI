@@ -198,7 +198,7 @@ METHOD Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
 
 
    IF ::oAns2Oem
-      ::oText += HB_ANSITOOEM( oStr )
+      ::oText += HB_ANSITOOEM(oStr)
    ELSE
       ::oText += oStr
    ENDIF
@@ -210,8 +210,8 @@ METHOD gWrite(oText)  CLASS PrintDos
 
    //tracelog(otext)
    IF ::oAns2Oem
-      ::oText += HB_ANSITOOEM( oText )
-      ::nPcol += Len(HB_ANSITOOEM( oText ))
+      ::oText += HB_ANSITOOEM(oText)
+      ::nPcol += Len(HB_ANSITOOEM(oText))
    ELSE
       ::oText += oText
       ::nPcol += Len(oText)
@@ -226,8 +226,8 @@ METHOD Eject()   CLASS PrintDos
    FWrite(::gText, ::oText)
 
    IF ::oAns2Oem
-      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) + Chr( Val(::cEject) ) ))
-      FWrite(::gText, HB_ANSITOOEM( Chr(13) + Chr(10) ))
+      FWrite(::gText, HB_ANSITOOEM(Chr(13) + Chr(10) + Chr( Val(::cEject) )))
+      FWrite(::gText, HB_ANSITOOEM(Chr(13) + Chr(10)))
    ELSE
       FWrite(::gText, Chr(13) + Chr(10) + Chr( Val(::cEject) ))
       FWrite(::gText, Chr(13) + Chr(10))
@@ -275,7 +275,7 @@ METHOD UnBold() CLASS PrintDos
 METHOD NewLine() CLASS PrintDos
 
    IF ::oAns2Oem
-      ::oText += HB_ANSITOOEM( Chr(13) + Chr(10) )
+      ::oText += HB_ANSITOOEM(Chr(13) + Chr(10))
    ELSE
       ::oText += Chr(13) + Chr(10)
    ENDIF
@@ -287,7 +287,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
    IF ValType(oTexto) == "N"
 
       IF !Empty(oPicture) .OR. oPicture # Nil
-         oTexto := Transform( oTexto, oPicture )
+         oTexto := Transform(oTexto, oPicture)
       ELSE
          oTexto := Str(oTexto)
       ENDIF
@@ -296,7 +296,7 @@ METHOD Say( oProw, oPcol, oTexto, oPicture ) CLASS PrintDos
       oTexto := DToC(oTexto)
    ELSE
       IF !Empty(oPicture) .OR. oPicture # Nil
-         oTexto := Transform( oTexto, oPicture )
+         oTexto := Transform(oTexto, oPicture)
       ENDIF
    ENDIF
    //tracelog([antes     ::SetCols(oProw, oPcol)])
@@ -465,7 +465,7 @@ METHOD Preview( fName, cTitle ) CLASS PrintDos
             EXIT
          ENDIF
          IF ::oAns2Oem
-            oText[oPage] += HB_ANSITOOEM( stroka ) + Chr(13) + Chr(10)
+            oText[oPage] += HB_ANSITOOEM(stroka) + Chr(13) + Chr(10)
          ELSE
             oText[oPage] += stroka + Chr(13) + Chr(10)
          ENDIF

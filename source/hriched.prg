@@ -126,17 +126,17 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    IF msg = WM_SETFOCUS .AND. ::lSetFocus //.AND. hwg_Iswindowvisible(::handle)
       ::lSetFocus := .F.
       hwg_Postmessage(::handle, EM_SETSEL, 0, 0)
-   ELSEIF msg = WM_SETFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-        ::lctrltab := hwg_GetParentForm( Self ):lDisableCtrlTab
-        hwg_GetParentForm( Self ):lDisableCtrlTab := ::lAllowTabs
-   ELSEIF msg = WM_KILLFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-        hwg_GetParentForm( Self ):lDisableCtrlTab := ::lctrltab
+   ELSEIF msg = WM_SETFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+        ::lctrltab := hwg_GetParentForm(Self):lDisableCtrlTab
+        hwg_GetParentForm(Self):lDisableCtrlTab := ::lAllowTabs
+   ELSEIF msg = WM_KILLFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+        hwg_GetParentForm(Self):lDisableCtrlTab := ::lctrltab
    ENDIF
    IF msg == WM_KEYDOWN .AND. ( wParam = VK_DELETE .OR. wParam = VK_BACK )  //46Del
       ::lChanged := .T.
    ENDIF
    IF msg == WM_CHAR
-      IF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
+      IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          IF  ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
             RETURN 0
          ENDIF
@@ -151,7 +151,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
       ENDIF
    ENDIF
    IF msg == WM_KEYUP
-     IF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
+     IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          IF   hwg_IsCtrlShift(.T., .F.)
             hwg_GetSkip( ::oParent, ::handle, , ;
                       iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
@@ -163,11 +163,11 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
          hwg_GetSkip( ::oParent, ::handle, , ;
                       iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
          RETURN 0
-      ELSEIF wParam = VK_TAB .AND. hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE
+      ELSEIF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE
          hwg_Re_inserttext(::handle, CHR( VK_TAB ))
           RETURN 0
       ENDIF
-      IF wParam == VK_ESCAPE .AND. hwg_GetParentForm( Self ):Handle != ::oParent:handle
+      IF wParam == VK_ESCAPE .AND. hwg_GetParentForm(Self):Handle != ::oParent:handle
          IF hwg_Getparent(::oParent:handle) != Nil
             //hwg_Sendmessage(hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0)
          ENDIF

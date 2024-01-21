@@ -147,8 +147,7 @@ HB_FUNC( HWG_LISTVIEW_SETTEXTCOLOR )
 
 HB_FUNC( HWG_LISTVIEW_GETFIRSTITEM )
 {
-   hb_retni(ListView_GetNextItem( hwg_par_HWND(1), -1,
-                                   LVNI_ALL | LVNI_SELECTED ) + 1);
+   hb_retni(ListView_GetNextItem(hwg_par_HWND(1), -1, LVNI_ALL | LVNI_SELECTED) + 1);
 }
 
 HB_FUNC( HWG_LISTVIEW_GETDISPINFO )
@@ -448,7 +447,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    Item.pszText = Buffer;
    Item.cchTextMax = HB_SIZEOFARRAY( Buffer );
 
-   if( ListView_GetItem( hList, &Item ) )
+   if( ListView_GetItem(hList, &Item) )
       HB_RETSTR(Buffer);
    else
       hb_retc(NULL);

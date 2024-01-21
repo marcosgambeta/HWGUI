@@ -301,9 +301,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm( Self ):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
       ENDIF
-      IF hwg_GetParentForm( Self ):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
+      IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
          ::oParent:AddEvent( BN_CLICKED, Self, { || ::onClick() } )
       ENDIF
    ENDIF
@@ -323,9 +323,9 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
    ::bClick  := bClick
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm( Self ):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
       ENDIF
-      IF hwg_GetParentForm( Self ):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
+      IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
          ::oParent:AddEvent( BN_CLICKED, Self, { || ::onClick() } )
       ENDIF
    ENDIF
@@ -335,9 +335,9 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 METHOD Init() CLASS HButtonX
 
    IF !::lInit
-      IF !( hwg_GetParentForm( Self ):classname == ::oParent:classname .AND. ;
-            hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE ) .OR. ;
-            !hwg_GetParentForm( Self ):lModal  .OR. ::nHolder = 1
+      IF !( hwg_GetParentForm(Self):classname == ::oParent:classname .AND. ;
+            hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE ) .OR. ;
+            !hwg_GetParentForm(Self):lModal  .OR. ::nHolder = 1
          ::nHolder := 1
          hwg_Setwindowobject( ::handle, Self )
          HWG_INITBUTTONPROC(::handle)
@@ -351,13 +351,13 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
 
    IF msg = WM_SETFOCUS .AND. ::oParent:oParent = NIL
    ELSEIF msg = WM_KILLFOCUS
-      IF hwg_GetParentForm( Self ):handle != ::oParent:Handle
+      IF hwg_GetParentForm(Self):handle != ::oParent:Handle
          hwg_Invalidaterect(::handle, 0)
          hwg_Sendmessage(::handle, BM_SETSTYLE, BS_PUSHBUTTON, 1)
       ENDIF
    ELSEIF msg = WM_KEYDOWN
       IF ( wParam == VK_RETURN   .OR. wParam == VK_SPACE )
-         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam( 1, 1 ))
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
       IF !hwg_ProcKeyList( Self, wParam )
@@ -374,7 +374,7 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
       ENDIF
    ELSEIF msg == WM_KEYUP
       IF ( wParam == VK_RETURN .OR. wParam == VK_SPACE )
-         hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam( 1, 1 ))
+         hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
    ELSEIF  msg = WM_GETDLGCODE .AND. !Empty(lParam)
@@ -435,7 +435,7 @@ METHOD onLostFocus()  CLASS HButtonX
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
    ::lnoWhen := .F.
-   IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform( Self ):Handle )
+   IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform(Self):Handle )
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -668,7 +668,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          RETURN 0
       ENDIF
       IF ( ( wParam == VK_SPACE ) .OR. ( wParam == VK_RETURN ) )
-         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam( 1, 1 ))
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
       IF wParam == VK_LEFT .OR. wParam == VK_UP
@@ -688,13 +688,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ENDIF
       IF !Empty(::title) .AND. ( pos := At("&", ::title) ) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
          IF ValType(::bClick) == "B" .OR. ::id < 3
-            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::id, BN_CLICKED ), ::handle)
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
       ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif(ValType(o:title) = "C", ( pos := At("&", o:title) ) > 0 .AND. ;
             wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),) } ) ) > 0
          IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
                ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
-            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::oParent:aControls[nID]:id, BN_CLICKED ), ::oParent:aControls[nID]:handle)
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
          ENDIF
       ENDIF
       IF msg != WM_SYSKEYUP
@@ -703,7 +703,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
    ELSEIF msg == WM_KEYUP
       IF ( wParam == VK_SPACE .OR. wParam == VK_RETURN  )
          ::bMouseOverButton := .T.
-         hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam( 1, 1 ))
+         hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
          ::bMouseOverButton := .F.
          RETURN 0
       ENDIF
@@ -749,11 +749,11 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       RETURN 0
    ELSEIF msg == WM_GETDLGCODE
       IF wParam = VK_ESCAPE .AND. ( hwg_Getdlgmessage(lParam) = WM_KEYDOWN .OR. hwg_Getdlgmessage(lParam) = WM_KEYUP )
-         oParent := hwg_GetParentForm( Self )
+         oParent := hwg_GetParentForm(Self)
          IF !hwg_ProcKeyList( Self, wParam )  .AND. ( oParent:Type < WND_DLG_RESOURCE .OR. !oParent:lModal )
-            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), ::handle)
+            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
          ELSEIF oParent:FindControl(IDCANCEL) != NIL .AND. !oParent:FindControl(IDCANCEL):IsEnabled() .AND. oParent:lExitOnEsc
-            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), ::handle)
+            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
             RETURN 0
          ENDIF
       ENDIF
@@ -770,9 +770,9 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
             //::m_bSent := .T.
          ENDIF
          // remove because repet click  2 times
-         //hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( ::id, BN_CLICKED ), ::handle)
+         //hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
       ELSEIF wParam == VK_ESCAPE
-         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, BN_CLICKED ), ::handle)
+         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, BN_CLICKED), ::handle)
       ENDIF
       RETURN 0
    ENDIF

@@ -2016,8 +2016,7 @@ IHTMLElement *WINAPI GetWebElement( HWND hwnd, IHTMLDocument2 * htmlDoc2,
             varIndex.DEF_VT = VT_I4;
             varIndex.DEF_LVAL = nIndex;
 
-            htmlCollection->lpVtbl->item( htmlCollection, varName, varIndex,
-                  &lpDispatch );
+            htmlCollection->lpVtbl->item(htmlCollection, varName, varIndex, &lpDispatch);
 
             // We don't need the VARIENTs anymore. This frees the string that
             // SysAllocString() gave us

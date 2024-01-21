@@ -63,7 +63,7 @@ FUNCTION hwg_InitControls( oWnd, lNoActivate )
             pArray[i]:lInit := .T.
          ENDIF
          IF IIF(ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
-            pArray[i]:handle := hwg_Getdlgitem( oWnd:handle, pArray[i]:id )
+            pArray[i]:handle := hwg_Getdlgitem(oWnd:handle, pArray[i]:id)
 
             // writelog("InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname)
          ENDIF
@@ -490,7 +490,7 @@ FUNCTION hwg_TxtRect(cTxt, oWin, oFont)
    hwg_Releasedc(oWin:handle, hDC)
    RETURN ASize
 
-FUNCTION hwg_getParentForm( o )
+FUNCTION hwg_getParentForm(o)
    DO WHILE o:oParent != Nil .AND. !__ObjHasMsg(o, "GETLIST")
       o := o:oParent
    ENDDO
@@ -505,7 +505,7 @@ Luis Fernando Basso contribution
 */
 FUNCTION hwg_CheckFocus( oCtrl, lInside )
 
-   LOCAL oParent := hwg_GetParentForm( oCtrl )
+   LOCAL oParent := hwg_GetParentForm(oCtrl)
    LOCAL hGetFocus := hwg_Ptrtoulong(hwg_Getfocus()), lModal
 
    IF ( !EMPTY(oParent) .AND. !hwg_Iswindowvisible(oParent:handle) ) .OR. Empty(hwg_Getactivewindow()) // == 0
@@ -564,7 +564,7 @@ LOCAL oParent, nCtrl, nPos
       RETURN .F.
    ENDIF
    IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
-      oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm( oCtrl ))
+      oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm(oCtrl))
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
          nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ))
          IF ( nPos := AScan( oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam } ) ) > 0
@@ -595,11 +595,11 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
   	     oWin:lResult := .T.
   	     IF lForce
 	       ELSEIF ISBLOCK(oCtrl:bClick) .AND. !lForce
-	          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
+	          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam(oCtrl:id, BN_CLICKED), oCtrl:handle)
 	       ELSEIF oWin:lExitOnEnter
             oWin:close()
          ELSE
-            hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam( IDOK, 0 ), oCtrlFocu:handle)
+            hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam(IDOK, 0), oCtrlFocu:handle)
          ENDIF
          RETURN .T.
       ENDIF
@@ -607,7 +607,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
       IF ( oCtrl := oWin:FindControl(IDCANCEL) ) != Nil .AND. oCtrl:IsEnabled() 
          oCtrl:Setfocus()
          oWin:lResult := .F.
-         hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam( oCtrl:id, BN_CLICKED ), oCtrl:handle)
+         hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam(oCtrl:id, BN_CLICKED), oCtrl:handle)
       ELSEIF oWin:lGetSkiponEsc
          oCtrl := oCtrlFocu
          IF oCtrl  != Nil .AND.  __ObjHasMsg(oCtrl, "OGROUP")  .AND. oCtrl:oGroup:oHGroup != Nil
@@ -622,7 +622,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
           oWin:close()
       ELSEIF !oWin:lExitOnEsc
          oWin:nLastKey := 0
-         hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam( IDCANCEL, 0 ), oCtrlFocu:handle)
+         hwg_Sendmessage(oWin:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), oCtrlFocu:handle)
          RETURN .F.
       ENDIF
       RETURN .T.
@@ -697,7 +697,7 @@ Function  hwg_SetFontStyle(oWnd, lBold, lItalic, lUnderline)
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
       oWnd:oFont := oWnd:oFont:SetFontStyle(lBold,, lItalic, lUnderline)
-      hwg_Sendmessage(oWnd:handle, WM_SETFONT, oWnd:oFont:handle, hwg_Makelparam( 0, 1 ))
+      hwg_Sendmessage(oWnd:handle, WM_SETFONT, oWnd:oFont:handle, hwg_Makelparam(0, 1))
       hwg_Redrawwindow( oWnd:handle, RDW_NOERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT )
    ENDIF
 

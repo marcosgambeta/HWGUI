@@ -149,7 +149,7 @@ METHOD Init()  CLASS HUpDown
    IF !::lInit
       ::Super:Init()
       ::Createupdown()
-      hwg_Sendmessage(::oEditUpDown:Handle, EM_SETMARGINS, EC_RIGHTMARGIN, hwg_Makelparam( 0, 1 ))
+      hwg_Sendmessage(::oEditUpDown:Handle, EM_SETMARGINS, EC_RIGHTMARGIN, hwg_Makelparam(0, 1))
       ::DisableBackColor := ::DisablebColor
       ::Refresh()
    ENDIF
@@ -309,7 +309,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
 	     Return 0
    ENDIF
 
-   vari := Val(LTrim(::UnTransform( ::title )))
+   vari := Val(LTrim(::UnTransform(::title)))
 
    IF ( vari <= ::oUpDown:nLower .AND. iDelta < 0 ) .OR. ;
        ( vari >= ::oUpDown:nUpper .AND. iDelta > 0 ) .OR. ::oUpDown:Increment = 0
@@ -319,7 +319,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
    vari :=  vari + ( ::oUpDown:Increment * idelta )
    ::oUpDown:SetValue(vari)
    /*
-   ::Title := Transform( vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask )
+   ::Title := Transform(vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask)
    hwg_Setdlgitemtext(::oParent:handle, ::id, ::title)
    ::oUpDown:Title := ::Title
    ::oUpDown:SetValue(vari)
@@ -350,7 +350,7 @@ METHOD Notify( lParam ) CLASS HeditUpDown
 
    vari := IIF(::oUpDown != Nil, ::oUpDown:nValue, ::Value)
    IF  ::bSetGet != Nil  .AND. ::title != Nil
-      ::Title := Transform( vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask )
+      ::Title := Transform(vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask)
    ENDIF
    hwg_Setwindowtext(::Handle, ::Title)
 

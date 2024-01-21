@@ -445,8 +445,7 @@ HB_FUNC( HWG_WINHELP )
 
 HB_FUNC( HWG_GETNEXTDLGTABITEM )
 {
-   HB_RETHANDLE(GetNextDlgTabItem( hwg_par_HWND(1),
-               hwg_par_HWND(2), hb_parl(3) ));
+   HB_RETHANDLE(GetNextDlgTabItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
 }
 
 HB_FUNC( HWG_SLEEP )
@@ -740,8 +739,7 @@ HB_FUNC( HWG_GETKEYBOARDCOUNT )
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 {
-   HB_RETHANDLE(GetNextDlgGroupItem( hwg_par_HWND(1),
-                 hwg_par_HWND(2), hb_parl(3) ));
+   HB_RETHANDLE(GetNextDlgGroupItem(hwg_par_HWND(1), hwg_par_HWND(2), hb_parl(3)));
 }
 
 HB_FUNC( HWG_PTRTOULONG )

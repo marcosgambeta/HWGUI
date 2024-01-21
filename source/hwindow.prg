@@ -63,7 +63,7 @@ FUNCTION hwg_onDestroy( oWnd )
       oWnd:oEmbedded:END()
    ENDIF
    oWnd:Super:onEvent( WM_DESTROY )
-   oWnd:DelItem( oWnd )
+   oWnd:DelItem(oWnd)
 
    RETURN 0
 
@@ -108,8 +108,8 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
               cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild, lClipper,;
               lNoClosable, bSetForm, nBmpStretch)
-   METHOD AddItem( oWnd )
-   METHOD DelItem( oWnd )
+   METHOD AddItem(oWnd)
+   METHOD DelItem(oWnd)
    METHOD FindWindow( hWndTitle )
    METHOD GetMain()
    METHOD GetMdiMain() INLINE IIF(::GetMain() != Nil, ::aWindows[1], Nil)
@@ -180,7 +180,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    AFill(::aOffset, 0)
 
    IF VALTYPE(cTitle) != "N"
-      ::AddItem( Self )
+      ::AddItem(Self)
    ENDIF
    IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
       ::nScrollBars ++
@@ -192,11 +192,11 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
 
    RETURN Self
 
-METHOD AddItem( oWnd ) CLASS HWindow
+METHOD AddItem(oWnd) CLASS HWindow
    AAdd(::aWindows, oWnd)
    RETURN Nil
 
-METHOD DelItem( oWnd ) CLASS HWindow
+METHOD DelItem(oWnd) CLASS HWindow
    LOCAL i, h := oWnd:handle
    IF ( i := AScan( ::aWindows, { | o | o:handle == h } ) ) > 0
       ADel(::aWindows, i)
@@ -344,7 +344,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
       
       oWndClient:handle := handle
       /* recalculate area offset */
-      hwg_Sendmessage(::Handle, WM_SIZE, 0, hwg_Makelparam( ::nWidth, ::nHeight ))
+      hwg_Sendmessage(::Handle, WM_SIZE, 0, hwg_Makelparam(::nWidth, ::nHeight))
 
       IF ::Screen != Nil
          ::Screen:lExitOnEsc := .F.
@@ -849,20 +849,20 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF ValType(oWnd:menu) == "A" .AND. ;
-      ( aMenu := Hwg_FindMenuItem( oWnd:menu, iParLow, @iCont ) ) != Nil
+      ( aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont) ) != Nil
       IF Hwg_BitAnd(aMenu[1, iCont, 4], FLAG_CHECK) > 0
-         hwg_Checkmenuitem( , aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem( , aMenu[1, iCont, 3] ) )
+         hwg_Checkmenuitem(, aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem(, aMenu[1, iCont, 3]))
       ENDIF
       IF aMenu[1, iCont, 1] != Nil   // event from MENU
          oWnd:nFocus := 0
          Eval(aMenu[1, iCont, 1], iCont, iParLow)
       ENDIF
    ELSEIF oWnd:oPopup != Nil .AND. ;
-      ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu, wParam, @iCont ) ) != Nil ;
+      ( aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu, wParam, @iCont) ) != Nil ;
       .AND. aMenu[1, iCont, 1] != Nil
       Eval(aMenu[1, iCont, 1], iCont, wParam)
    ELSEIF oWnd:oNotifyMenu != Nil .AND. ;
-      ( aMenu := Hwg_FindMenuItem( oWnd:oNotifyMenu:aMenu, wParam, @iCont ) ) != Nil ;
+      ( aMenu := Hwg_FindMenuItem(oWnd:oNotifyMenu:aMenu, wParam, @iCont) ) != Nil ;
       .AND. aMenu[1, iCont, 1] != Nil
       Eval(aMenu[1, iCont, 1], iCont, wParam)
    ELSEIF  wParam != SC_CLOSE .AND. wParam != SC_MINIMIZE .AND. wParam != SC_MAXIMIZE .AND.;
@@ -1088,7 +1088,7 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
       ENDIF
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF __ObjHasMsg(oWnd, "OPOPUP") .AND. oWnd:oPopup != Nil .AND. ;
-         ( aMenu := Hwg_FindMenuItem( oWnd:oPopup:aMenu, wParam, @iItem ) ) != Nil ;
+         ( aMenu := Hwg_FindMenuItem(oWnd:oPopup:aMenu, wParam, @iItem) ) != Nil ;
          .AND. aMenu[1, iItem, 1] != Nil
           Eval(aMenu[1, iItem, 1],  wParam)
    ELSEIF iParHigh = 1  // acelerator

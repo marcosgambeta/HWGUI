@@ -77,11 +77,11 @@ CLASS HComboBox INHERIT HControl
    METHOD onEvent( msg, wParam, lParam )
    METHOD Requery( aItems, xValue )
    METHOD Refresh()
-   METHOD Setitem( nPos )
+   METHOD Setitem(nPos)
    METHOD SetValue(xItem)
    METHOD GetValue()
-   METHOD AddItem( cItem, cItemBound, nPos )
-   METHOD DeleteItem( xIndex )
+   METHOD AddItem(cItem, cItemBound, nPos)
+   METHOD DeleteItem(xIndex)
    METHOD Valid()
    METHOD When()
    METHOD onSelect()
@@ -335,16 +335,16 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
       ::ldropshow := iif(wParam = 1, .T., ::ldropshow)
    ENDIF
 
-   IF ::bSetGet != Nil .OR. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE
-      IF msg == WM_CHAR .AND. ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. ;
-            !hwg_GetParentForm( Self ) :lModal )
+   IF ::bSetGet != Nil .OR. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+      IF msg == WM_CHAR .AND. ( hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE .OR. ;
+            !hwg_GetParentForm(Self) :lModal )
          IF wParam = VK_TAB
             hwg_GetSkip( ::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
             RETURN 0
          ELSEIF wParam == VK_RETURN .AND. ;
-               !hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm( Self ):Type >= WND_DLG_RESOURCE) .AND. ;
-               ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. ;
-               !hwg_GetParentForm( Self ):lModal )
+               !hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE) .AND. ;
+               ( hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE .OR. ;
+               !hwg_GetParentForm(Self):lModal )
             hwg_GetSkip( ::oParent, ::handle, , 1 )
             RETURN 0
          ENDIF
@@ -352,7 +352,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
          IF wParam = VK_RETURN
             RETURN DLGC_WANTMESSAGE
          ELSEIF wParam = VK_ESCAPE  .AND. ;
-               ( oCtrl := hwg_GetParentForm( Self ):FindControl(IDCANCEL) ) != Nil .AND. !oCtrl:IsEnabled()
+               ( oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL) ) != Nil .AND. !oCtrl:IsEnabled()
             RETURN DLGC_WANTMESSAGE
          ENDIF
          RETURN  DLGC_WANTCHARS + DLGC_WANTARROWS
@@ -364,7 +364,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
          ELSEIF wparam =  VK_LEFT //.AND. !::lEdit
             hwg_GetSkip( ::oParent, ::handle, , - 1 )
             RETURN 0
-         ELSEIF wParam = VK_ESCAPE .AND. hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE //.OR.;
+         ELSEIF wParam = VK_ESCAPE .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE //.OR.;
             RETURN 0
          ENDIF
 
@@ -378,8 +378,8 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
          IF hwg_Getkeystate(VK_RETURN) < 0
             ::GetValue()
          ENDIF
-         IF ( hwg_Getkeystate(VK_RETURN) < 0 .OR. hwg_Getkeystate(VK_ESCAPE) < 0 ) .AND. ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. ;
-               !hwg_GetParentForm( Self ):lModal )
+         IF ( hwg_Getkeystate(VK_RETURN) < 0 .OR. hwg_Getkeystate(VK_ESCAPE) < 0 ) .AND. ( hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE .OR. ;
+               !hwg_GetParentForm(Self):lModal )
             hwg_ProcOkCancel(Self, iif(hwg_Getkeystate(VK_RETURN) < 0, VK_RETURN, VK_ESCAPE))
          ENDIF
          IF hwg_Getkeystate(VK_TAB) + hwg_Getkeystate(VK_DOWN) < 0 .AND. hwg_Getkeystate(VK_SHIFT) > 0
@@ -395,7 +395,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HComboBox
             hwg_GetSkip( ::oParent, ::handle, , - 1 )
             RETURN 0
          ENDIF
-         IF ( hwg_GetParentForm( Self ):Type < WND_DLG_RESOURCE .OR. !hwg_GetParentForm( Self ):lModal )
+         IF ( hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE .OR. !hwg_GetParentForm(Self):lModal )
             RETURN 1
          ENDIF
       ENDIF
@@ -457,7 +457,7 @@ METHOD Refresh() CLASS HComboBox
 
    RETURN Nil
 
-METHOD SetItem( nPos ) CLASS HComboBox
+METHOD SetItem(nPos) CLASS HComboBox
 
    IF ::lText
       IF nPos > 0
@@ -497,7 +497,7 @@ METHOD SetValue(xItem) CLASS HComboBox
    ELSE
       nPos := iif(::columnBound = 2, AScan(::aItemsBound, xItem), xItem)
    ENDIF
-   ::setItem( nPos )
+   ::setItem(nPos)
 
    RETURN Nil
 
@@ -539,7 +539,7 @@ METHOD GetValueBound(xItem) CLASS HComboBox
       ENDIF
    ELSE
       nPos := AScan( ::aItemsBound, xItem, , , .T. )
-      ::setItem( nPos )
+      ::setItem(nPos)
       RETURN iif(nPos > 0, ::aItems[nPos], xItem)
    ENDIF
    IF nPos > 0 .AND. nPos <=  Len(::aItemsBound)
@@ -559,7 +559,7 @@ METHOD DisplayValue(cValue) CLASS HComboBox
 
    RETURN iif(!::lEdit, hwg_Getwindowtext(::handle), ::cDisplayValue)
 
-METHOD DeleteItem( xIndex ) CLASS HComboBox
+METHOD DeleteItem(xIndex) CLASS HComboBox
    LOCAL nIndex
 
    IF ::lText .AND. ValType(xIndex) = "C"
@@ -579,7 +579,7 @@ METHOD DeleteItem( xIndex ) CLASS HComboBox
 
    RETURN .F.
 
-METHOD AddItem( cItem, cItemBound, nPos ) CLASS HComboBox
+METHOD AddItem(cItem, cItemBound, nPos) CLASS HComboBox
 
    LOCAL nCount
 
@@ -651,11 +651,11 @@ METHOD onChange(lForce) CLASS HComboBox
       RETURN Nil
    ENDIF
    IF  !hwg_Iswindowvisible(::handle)
-      ::SetItem( ::Value )
+      ::SetItem(::Value)
       RETURN Nil
    ENDIF
 
-   ::SetItem( hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1 )
+   ::SetItem(hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0) + 1)
    IF ::bChangeSel != Nil
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChangeSel, ::Value, Self)
@@ -690,7 +690,7 @@ METHOD When() CLASS HComboBox
       ::oParent:lSuspendMsgsHandling := .F.
       ::lnoValid                     := !res
       IF ValType(res) = "L" .AND. !res
-         oParent := hwg_GetParentForm( Self )
+         oParent := hwg_GetParentForm(Self)
          IF Self == ATail(oParent:GetList)
             nSkip := - 1
          ELSEIF Self == oParent:getList[1]
@@ -712,7 +712,7 @@ METHOD Valid() CLASS HComboBox
 
    nSkip := iif(hwg_Getkeystate(VK_SHIFT) < 0, - 1, 1)
 
-   IF ( oDlg := hwg_GetParentForm( Self ) ) == Nil .OR. oDlg:nLastKey != VK_ESCAPE
+   IF ( oDlg := hwg_GetParentForm(Self) ) == Nil .OR. oDlg:nLastKey != VK_ESCAPE
       // end by sauli
       // IF lESC // "if" by Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com.br) 03/06/2006
@@ -872,12 +872,12 @@ CLASS HCheckComboBox INHERIT HComboBox
    METHOD GetCheck(nIndex)
 
    METHOD SelectAll(bCheck)
-   METHOD MeasureItem( l )
+   METHOD MeasureItem(l)
 
    METHOD onEvent( msg, wParam, lParam )
    METHOD GetAllCheck()
 
-   METHOD EnabledItem( nItem, lEnabled )
+   METHOD EnabledItem(nItem, lEnabled)
    METHOD SkipItems( nNav )
 
 ENDCLASS
@@ -963,7 +963,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
       RETURN - 1
 
    ELSEIF msg == WM_MEASUREITEM
-      ::MeasureItem( lParam )
+      ::MeasureItem(lParam)
       RETURN 0
    ELSEIF msg == WM_GETTEXT
       RETURN ::OnGetText(wParam, lParam)
@@ -993,7 +993,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS hCheckComboBox
          ::SetCheck(nIndex, !::GetCheck(nIndex))
          hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)
       ENDIF
-      IF ( hwg_GetParentForm( Self ) :Type < WND_DLG_RESOURCE .OR. !hwg_GetParentForm( Self ) :lModal )
+      IF ( hwg_GetParentForm(Self) :Type < WND_DLG_RESOURCE .OR. !hwg_GetParentForm(Self) :lModal )
          IF wParam = VK_TAB
             hwg_GetSkip( ::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
             RETURN 0
@@ -1282,7 +1282,7 @@ METHOD Paint( lpDis ) CLASS hCheckComboBox
 
    RETURN Self
 
-METHOD MeasureItem( l ) CLASS hCheckComboBox
+METHOD MeasureItem(l) CLASS hCheckComboBox
    LOCAL dc                  := HCLIENTDC():new(::handle)
    LOCAL lpMeasureItemStruct := hwg_Getmeasureiteminfo( l )
    LOCAL metrics
@@ -1345,7 +1345,7 @@ METHOD GetAllCheck() CLASS hCheckComboBox
 
    RETURN aCheck
 
-METHOD EnabledItem( nItem, lEnabled ) CLASS hCheckComboBox
+METHOD EnabledItem(nItem, lEnabled) CLASS hCheckComboBox
    LOCAL cItem
 
    IF lEnabled != Nil

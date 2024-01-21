@@ -146,7 +146,7 @@ HB_FUNC( HWG_CREATEPROGRESSBAR )
          hParentWindow,         /* parent window    */
          ( HMENU ) NULL, GetModuleHandle(NULL), NULL );
 
-   SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM( 0, hb_parni(2) ));
+   SendMessage(hPBar, PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
    SendMessage(hPBar, PBM_SETSTEP, 1, 0);
 
    HB_RETHANDLE(hPBar);
@@ -169,7 +169,7 @@ HB_FUNC( HWG_SETPROGRESSBAR )
 HB_FUNC( HWG_SETRANGEPROGRESSBAR )
 {
 
-   SendMessage(hwg_par_HWND(1), PBM_SETRANGE, 0, MAKELPARAM( 0, hb_parni(2) ));
+   SendMessage(hwg_par_HWND(1), PBM_SETRANGE, 0, MAKELPARAM(0, hb_parni(2)));
    SendMessage(hwg_par_HWND(1), PBM_SETSTEP, 1 , 0);
 }   
 
@@ -459,7 +459,7 @@ HB_FUNC( HWG_ADDTOOLTIP )
    ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
    ti.hwnd = hWnd;
    ti.uId = ( UINT ) hb_parnl(2);
-   // ti.uId = (UINT) GetDlgItem( hWnd, hb_parni(2) );
+   // ti.uId = (UINT) GetDlgItem(hWnd, hb_parni(2));
    ti.hinst = GetModuleHandle(NULL);
    ti.lpszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
@@ -477,7 +477,7 @@ HB_FUNC( HWG_DELTOOLTIP )
       ti.uFlags = TTF_IDISHWND;
       ti.hwnd = hwg_par_HWND(1);
       ti.uId = ( UINT ) hb_parnl(2);
-      // ti.uId = (UINT) GetDlgItem( hWnd, hb_parni(2) );
+      // ti.uId = (UINT) GetDlgItem(hWnd, hb_parni(2));
       ti.hinst = GetModuleHandle(NULL);
 
       SendMessage(hWndTT, TTM_DELTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) & ti);
@@ -533,7 +533,7 @@ HB_FUNC( HWG_CREATEUPDOWNCONTROL32 )
                               ( HMENU ) hb_parni(2),       // control ID
                               GetModuleHandle(NULL), NULL );
 
-    SendMessage(hControl, UDM_SETRANGE, 0, MAKELPARAM( hb_parni(8), hb_parni(9) ));    // Sets the controls direction
+    SendMessage(hControl, UDM_SETRANGE, 0, MAKELPARAM(hb_parni(8), hb_parni(9)));    // Sets the controls direction
                                                                            // and range.
 
     HB_RETHANDLE(hControl);
@@ -719,7 +719,7 @@ HB_FUNC( HWG_INITTABCONTROL )
       if( tie.pszText == NULL )
          tie.pszText = ( LPTSTR ) TEXT("");
 
-      if( TabCtrl_InsertItem( hTab, ul - 1, &tie ) == -1 )
+      if( TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1 )
       {
          DestroyWindow( hTab );
          hTab = NULL;
@@ -739,7 +739,7 @@ HB_FUNC( HWG_ADDTAB )
    tie.mask = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = -1;
    tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
-   TabCtrl_InsertItem( hwg_par_HWND(1), hb_parni(2), &tie );
+   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
    hb_strfree(hStr);
 }
 
@@ -753,13 +753,13 @@ HB_FUNC( HWG_ADDTABDIALOG )
    tie.lParam = ( LPARAM ) pWnd;
    tie.iImage = -1;
    tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
-   TabCtrl_InsertItem( hwg_par_HWND(1), hb_parni(2), &tie );
+   TabCtrl_InsertItem(hwg_par_HWND(1), hb_parni(2), &tie);
    hb_strfree(hStr);
 }
 
 HB_FUNC( HWG_DELETETAB )
 {
-   TabCtrl_DeleteItem( hwg_par_HWND(1), hb_parni(2) );
+   TabCtrl_DeleteItem(hwg_par_HWND(1), hb_parni(2));
 }
 
 
@@ -770,8 +770,7 @@ HB_FUNC( HWG_GETCURRENTTAB )
 
 HB_FUNC( HWG_SETTABSIZE )
 {
-   SendMessage(hwg_par_HWND(1), TCM_SETITEMSIZE, 0,
-                MAKELPARAM( hb_parni(2), hb_parni(3) ));
+   SendMessage(hwg_par_HWND(1), TCM_SETITEMSIZE, 0, MAKELPARAM(hb_parni(2), hb_parni(3)));
 }
 
 HB_FUNC( HWG_SETTABNAME )
@@ -782,7 +781,7 @@ HB_FUNC( HWG_SETTABNAME )
    tie.mask = TCIF_TEXT;
    tie.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
 
-   TabCtrl_SetItem( hwg_par_HWND(1), hb_parni(2), &tie );
+   TabCtrl_SetItem(hwg_par_HWND(1), hb_parni(2), &tie);
    hb_strfree(hStr);
 }
 
@@ -1284,10 +1283,10 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
 
    if( hb_dynsymIsFunction( s_pSymTest ) )
    {
-      hb_vmPushDynSym( s_pSymTest );
+      hb_vmPushDynSym(s_pSymTest);
       hb_vmPushNil();   /* places NIL at self */
 //      hb_vmPushLong((LONG ) hWnd);    /* pushes parameters on to the hvm stack */
-      HB_PUSHITEM( hWnd );
+      HB_PUSHITEM(hWnd);
       hb_vmPushLong(( LONG ) idTimer);
       hb_vmPushLong(( LONG ) dwTime);
       hb_vmDo(3);             /* where iArgCount is the number of pushed parameters */
@@ -1333,7 +1332,7 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1369,7 +1368,7 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1403,7 +1402,7 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1440,7 +1439,7 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1479,7 +1478,7 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1509,7 +1508,7 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1546,7 +1545,7 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1589,7 +1588,7 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1626,7 +1625,7 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1662,7 +1661,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -1698,7 +1697,7 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       hb_vmPushLong(( LONG ) message);
       hb_vmPushLong(( LONG ) wParam);
 //      hb_vmPushLong((LONG ) lParam);
-      HB_PUSHITEM( lParam );
+      HB_PUSHITEM(lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -2270,8 +2269,7 @@ HB_FUNC( HWG_GETTABNAME )
    tie.mask = TCIF_TEXT;
    tie.cchTextMax = HB_SIZEOFARRAY( d ) - 1;
    tie.pszText = d;
-   TabCtrl_GetItem( hwg_par_HWND(1), hb_parni(2) - 1,
-                    ( LPTCITEM ) &tie );
+   TabCtrl_GetItem(hwg_par_HWND(1), hb_parni(2) - 1, ( LPTCITEM ) &tie);
    HB_RETSTR(tie.pszText);
 }
 

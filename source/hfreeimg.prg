@@ -64,7 +64,7 @@ METHOD AddFile(name) CLASS HFreeImage
 
 METHOD AddFromVar(cImage, cType) CLASS HFreeImage
 
-   IF Empty(::handle := hwg_Fi_loadfrommem( cImage, cType ))
+   IF Empty(::handle := hwg_Fi_loadfrommem(cImage, cType))
       RETURN Nil
    ENDIF
    ::name := LTrim(Str(::handle))
