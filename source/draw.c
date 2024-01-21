@@ -43,7 +43,7 @@ static TRANSPARENTBLT s_pTransparentBlt = NULL;
 void TransparentBmp( HDC hDC, int x, int  y, int nWidthDest, int nHeightDest, HDC dcImage, int bmWidth, int bmHeight, int trColor )
 {
    if( s_pTransparentBlt == NULL )
-       s_pTransparentBlt = ( TRANSPARENTBLT ) GetProcAddress( LoadLibrary( TEXT("MSIMG32.DLL") ),
+       s_pTransparentBlt = ( TRANSPARENTBLT ) (void *) GetProcAddress( LoadLibrary( TEXT("MSIMG32.DLL") ),
                              "TransparentBlt" );
    s_pTransparentBlt( hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor );
 }
