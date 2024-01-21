@@ -52,7 +52,7 @@ static BOOL s_qhtmInit( LPCTSTR lpLibname )
       if( s_hQhtmDll )
       {
          QHTM_INITIALIZE pFunc =
-               ( QHTM_INITIALIZE ) GetProcAddress( s_hQhtmDll,
+               ( QHTM_INITIALIZE ) (void *) GetProcAddress( s_hQhtmDll,
                "QHTM_Initialize" );
          if( pFunc )
             return ( pFunc( GetModuleHandle( NULL ) ) ) ? 1 : 0;
@@ -167,7 +167,7 @@ HB_FUNC( QHTM_MESSAGE )
    if( s_qhtmInit( NULL ) )
    {
       QHTM_MESSAGEBOX pFunc =
-            ( QHTM_MESSAGEBOX ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_MESSAGEBOX ) (void *) GetProcAddress( s_hQhtmDll,
                                                 "QHTM_MessageBox" );
 
       if( pFunc )
@@ -267,7 +267,7 @@ HB_FUNC( QHTM_ENABLECOOLTIPS )
    if( s_qhtmInit( NULL ) )
    {
       QHTM_ENABLECOOLTIPS pFunc =
-            ( QHTM_ENABLECOOLTIPS ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_ENABLECOOLTIPS ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_EnableCooltips" );
       if( pFunc )
          pFunc(  );
@@ -283,7 +283,7 @@ HB_FUNC( QHTM_SETHTMLBUTTON )
    if( s_qhtmInit( NULL ) )
    {
       QHTM_SETHTMLBUTTON pFunc =
-            ( QHTM_SETHTMLBUTTON ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_SETHTMLBUTTON ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_SetHTMLButton" );
       if( pFunc )
          hb_retl( pFunc( ( HWND ) hb_parnl( 1 ) ) );
@@ -299,7 +299,7 @@ HB_FUNC( QHTM_PRINTCREATECONTEXT )
    if( s_qhtmInit( NULL ) )
    {
       QHTM_PRINTCREATECONTEXT pFunc =
-            ( QHTM_PRINTCREATECONTEXT ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTCREATECONTEXT ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintCreateContext" );
       hb_retnl( ( LONG ) pFunc( ( hb_pcount(  ) ==
                         0 ) ? 1 : ( UINT ) hb_parni( 1 ) ) );
@@ -315,7 +315,7 @@ HB_FUNC( QHTM_PRINTSETTEXT )
       void * hText;
 
       QHTM_PRINTSETTEXT pFunc =
-            ( QHTM_PRINTSETTEXT ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTSETTEXT ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetText" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ),
                       HB_PARSTR( 2, &hText, NULL ) ) );
@@ -332,7 +332,7 @@ HB_FUNC( QHTM_PRINTSETTEXTFILE )
       void * hText;
 
       QHTM_PRINTSETTEXTFILE pFunc =
-            ( QHTM_PRINTSETTEXTFILE ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTSETTEXTFILE ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetTextFile" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ),
                       HB_PARSTR( 2, &hText, NULL ) ) );
@@ -349,7 +349,7 @@ HB_FUNC( QHTM_PRINTSETTEXTRESOURCE )
       void * hText;
 
       QHTM_PRINTSETTEXTRESOURCE pFunc =
-            ( QHTM_PRINTSETTEXTRESOURCE ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTSETTEXTRESOURCE ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintSetTextResource" );
       hb_retl( pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ), GetModuleHandle( NULL ),
                       HB_PARSTR( 2, &hText, NULL ) ) );
@@ -368,7 +368,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
       RECT rcPage;
       int nNumberOfPages;
       QHTM_PRINTLAYOUT pFunc =
-            ( QHTM_PRINTLAYOUT ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTLAYOUT ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintLayout" );
 
       rcPage.left = rcPage.top = 0;
@@ -390,7 +390,7 @@ HB_FUNC( QHTM_PRINTPAGE )
       QHTMCONTEXT qhtmCtx = ( QHTMCONTEXT ) hb_parnl( 2 );
       RECT rcPage;
       QHTM_PRINTPAGE pFunc =
-            ( QHTM_PRINTPAGE ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTPAGE ) (void *) GetProcAddress( s_hQhtmDll,
                                                "QHTM_PrintPage" );
 
       rcPage.left = rcPage.top = 0;
@@ -408,7 +408,7 @@ HB_FUNC( QHTM_PRINTDESTROYCONTEXT )
    if( s_qhtmInit( NULL ) )
    {
       QHTM_PRINTDESTROYCONTEXT pFunc =
-            ( QHTM_PRINTDESTROYCONTEXT ) GetProcAddress( s_hQhtmDll,
+            ( QHTM_PRINTDESTROYCONTEXT ) (void *) GetProcAddress( s_hQhtmDll,
             "QHTM_PrintDestroyContext" );
       pFunc( ( QHTMCONTEXT ) hb_parnl( 1 ) );
    }
