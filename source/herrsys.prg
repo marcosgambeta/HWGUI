@@ -37,14 +37,14 @@ STATIC FUNCTION DefError( oError )
    IF oError:genCode == EG_OPEN .AND. ;
       oError:osCode == 32 .AND. ;
       oError:canDefault
-      NetErr( .T. )
+      NetErr(.T.)
       RETURN .F.
    ENDIF
 
    // Set NetErr() if there was a lock error on dbAppend()
    IF oError:genCode == EG_APPENDLOCK .AND. ;
       oError:canDefault
-      NetErr( .T. )
+      NetErr(.T.)
       RETURN .F.
    ENDIF
 

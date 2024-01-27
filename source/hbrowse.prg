@@ -2355,7 +2355,7 @@ METHOD DoVScroll(wParam) CLASS HBrowse
    LOCAL nScrollCode := hwg_Loword(wParam)
 
    IF nScrollCode == SB_LINEDOWN
-      ::LINEDOWN( .T. )
+      ::LINEDOWN(.T.)
    ELSEIF nScrollCode == SB_LINEUP
       ::LINEUP()
    ELSEIF nScrollCode == SB_BOTTOM
@@ -2958,7 +2958,7 @@ METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos) CLASS HBrowse
       IF nDelta > 0
          ::LineUp()
       ELSE
-         ::LineDown( .T. )
+         ::LineDown(.T.)
       ENDIF
    ENDIF
 
@@ -3402,7 +3402,7 @@ METHOD Valid() CLASS HBrowse
       res := Eval(::bLostFocus, ::ColPos, Self)
       res := iif(ValType(res) = "L", res, .T.)
       IF ValType(res) = "L" .AND. !res
-         ::Setfocus( .T. )
+         ::Setfocus(.T.)
          ::oParent:lSuspendMsgsHandling := .F.
          RETURN .F.
       ENDIF

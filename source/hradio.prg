@@ -463,7 +463,7 @@ METHOD Valid(nKey) CLASS HRadioButton
          IF !::GetValue()
             ::oGroup:nValue  := iValue
             ::oGroup:SetValue(::oGroup:nValue)
-            ::Setfocus( .T. )
+            ::Setfocus(.T.)
          ENDIF
       ELSEIF nEnter = 0 .AND. !hwg_Getkeystate(VK_RETURN) < 0
          IF !::GetValue()

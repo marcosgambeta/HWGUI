@@ -504,7 +504,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
 #ifdef __WINDOWS__
          hwg_scrDebug(aScript, 0)
          IF lSetDebugger
-            SetDebugger( .F. )
+            SetDebugger(.F.)
          ENDIF
 #endif
       ELSE

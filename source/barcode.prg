@@ -205,9 +205,9 @@ METHOD ShowBarcode() CLASS BarCode
 
    DO CASE
    CASE ::nBCodeType = 1
-      cCode := ::InitCode39( .F. )
+      cCode := ::InitCode39(.F.)
    CASE ::nBCodeType = 2
-      cCode := ::InitCode39( .T. )
+      cCode := ::InitCode39(.T.)
    CASE ::nBCodeType = 3
       cCode := ::InitCode128( "" )
    CASE ::nBCodeType = 4
@@ -229,19 +229,19 @@ METHOD ShowBarcode() CLASS BarCode
    CASE ::nBCodeType = 11
       cCode  := ::InitSub5()
    CASE ::nBCodeType = 12
-      cCode  := ::InitIndustrial25( .F. )
+      cCode  := ::InitIndustrial25(.F.)
    CASE ::nBCodeType = 13
-      cCode  := ::InitIndustrial25( .T. )
+      cCode  := ::InitIndustrial25(.T.)
    CASE ::nBCodeType = 14
-      cCode  := ::InitInterleave25( .F. )
+      cCode  := ::InitInterleave25(.F.)
    CASE ::nBCodeType = 15
-      cCode  := ::InitInterleave25( .T. )
+      cCode  := ::InitInterleave25(.T.)
    CASE ::nBCodeType = 16
-      cCode  := ::InitMatrix25( .F. )
+      cCode  := ::InitMatrix25(.F.)
    CASE ::nBCodeType = 17
-      cCode  := ::InitMatrix25( .T. )
+      cCode  := ::InitMatrix25(.T.)
    OTHERWISE
-      cCode := ::InitCode39( .T. )
+      cCode := ::InitCode39(.T.)
    ENDCASE
 
    ::CreateBarcode(cCode)

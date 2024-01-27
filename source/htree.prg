@@ -440,7 +440,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
                RETURN 0
             ENDIF
          ENDDO
-         IF !hwg_IsCtrlShift( .T. )
+         IF !hwg_IsCtrlShift(.T.)
             IF ( ::hitemDrag:oParent = Nil .OR. ::hitemDrop:oParent = Nil ) .OR. ;
                ( ::hitemDrag:oParent:handle == ::hitemDrop:oParent:handle )
                IF ::FindChildPos(::hitemDrop:oParent, ::hitemDrag:Handle) > ::FindChildPos(::hitemDrop:oParent, ::hitemDrop:Handle)
@@ -452,7 +452,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTree
             ENDIF
          ENDIF
       ENDIF
-      IF  !hwg_IsCtrlShift( .T. )
+      IF  !hwg_IsCtrlShift(.T.)
          IF ::hitemDrop:oParent != Nil
             hitemNew := ::hitemDrop:oParent:AddNode(::hitemDrag:GetText(), htiPrev, htiNext, ::hitemDrag:bAction,, ::hitemDrag:lchecked, ::hitemDrag:bClick) //, ::hitemDrop:aImages)
          ELSE

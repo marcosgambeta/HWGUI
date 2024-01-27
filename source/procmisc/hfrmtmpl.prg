@@ -210,7 +210,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
                   AAdd(aProp, { Lower(o:GetAttribute("name")), o:aItems[1] })
                   IF Atail(aProp)[1] == "ldebug" .AND. hwg_hfrm_GetProperty( Atail(aProp)[2] )
                      ::lDebug := .T.
-                     SetDebugInfo( .T. )
+                     SetDebugInfo(.T.)
                   ENDIF
                ENDIF
             ENDIF
@@ -236,7 +236,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
          ReadCtrl(aItems[i], Self, Self)
       ENDIF
    NEXT
-   SetDebugInfo( .F. )
+   SetDebugInfo(.F.)
    ppScript( , .F. )
 
    RETURN Self
@@ -1286,7 +1286,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
                   AAdd(aProp, { Lower(o:GetAttribute("name")), hwg_hfrm_GetProperty( o:aItems[1] ) })
                   IF Atail(aProp)[1] == "ldebug" .AND. hwg_hfrm_GetProperty( Atail(aProp)[2] )
                      ::lDebug := .T.
-                     SetDebugInfo( .T. )
+                     SetDebugInfo(.T.)
                   ENDIF
                ENDIF
             ENDIF
@@ -1310,7 +1310,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
          ReadRepItem(aItems[i], Self)
       ENDIF
    NEXT
-   SetDebugInfo( .F. )
+   SetDebugInfo(.F.)
    ppScript( , .F. )
 
    RETURN Self

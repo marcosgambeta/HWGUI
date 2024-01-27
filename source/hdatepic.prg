@@ -295,7 +295,7 @@ METHOD Valid() CLASS HDatePicker
       ::oparent:lSuspendMsgsHandling := .F.
       IF !res
          hwg_Postmessage(::handle, WM_KEYDOWN, VK_RIGHT, 0)
-         ::Setfocus( .T. )
+         ::Setfocus(.T.)
       ENDIF
    ENDIF
 

@@ -161,7 +161,7 @@ Return .T.
 Static Function dlgDebugClose()
 
    oDlgDebug := Nil
-   SetDebugger( .F. )
+   SetDebugger(.F.)
    SetDebugRun()
    aBreakPoints := aScriptCurr := Nil
    aBreaks  := {}

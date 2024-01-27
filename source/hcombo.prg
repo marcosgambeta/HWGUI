@@ -721,7 +721,7 @@ METHOD Valid() CLASS HComboBox
          ::oparent:lSuspendMsgsHandling := .T.
          res := Eval(::bLostFocus, ::value, Self)
          IF ValType(res) = "L" .AND. !res
-            ::Setfocus( .T. )
+            ::Setfocus(.T.)
             IF oDlg != Nil
                oDlg:nLastKey := 0
             ENDIF

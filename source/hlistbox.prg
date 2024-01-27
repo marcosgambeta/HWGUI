@@ -334,7 +334,7 @@ METHOD Valid(oCtrl) CLASS HListBox
          res := Eval(::bLostFocus, ::value, Self)
          ::oparent:lSuspendMsgsHandling := .F.
          IF !res
-            ::Setfocus( .T. ) //( ::handle )
+            ::Setfocus(.T.) //( ::handle )
             IF oDlg != Nil
                oDlg:nLastKey := 0
             ENDIF

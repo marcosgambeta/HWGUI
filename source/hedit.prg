@@ -238,7 +238,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                ::lFirst := .F.
                ::lFocu := .F.
                ::SetGetUpdated()
-               ::DeleteChar( .T. )
+               ::DeleteChar(.T.)
                RETURN 0
             ELSEIF wParam == VK_RETURN
                IF !hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE) .AND. ;
@@ -351,7 +351,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
             ELSEIF wParam == 46     // Del
                ::lFirst := .F.
                ::SetGetUpdated()
-               ::DeleteChar( .F. )
+               ::DeleteChar(.F.)
                RETURN 0
             ELSEIF wParam == VK_TAB     // Tab
                hwg_GetSkip( oParent, ::handle, , ;
@@ -890,7 +890,7 @@ METHOD GetApplyKey( cKey ) CLASS HEdit
 
    x := hwg_Sendmessage(::handle, EM_GETSEL, 0, 0)
    IF hwg_Hiword(x) != hwg_Loword(x)
-      ::DeleteChar( .F. )
+      ::DeleteChar(.F.)
    ENDIF
    ::title := hwg_Getedittext(::oParent:handle, ::id)
    IF ::cType == "N" .AND. cKey $ ".," .AND. ;
@@ -1113,7 +1113,7 @@ METHOD Valid() CLASS HEdit
          IF ::cType == "D"
             IF ::IsBadDate(vari)
                hwg_Setfocus(0)
-               ::Setfocus( .T. )
+               ::Setfocus(.T.)
                hwg_Msgbeep()
                hwg_Sendmessage(::handle, EM_SETSEL, 0, 0)
                RETURN .F.
@@ -1151,7 +1151,7 @@ METHOD Valid() CLASS HEdit
                IF oDlg != Nil
                   oDlg:nLastKey := 0
                ENDIF
-               ::Setfocus( .T. )
+               ::Setfocus(.T.)
                ::oparent:lSuspendMsgsHandling := .F.
                RETURN .F.
             ENDIF
