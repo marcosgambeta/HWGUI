@@ -94,7 +94,7 @@ CLASS HTreeNode INHERIT HObject
 
    DATA handle
    DATA oTree, oParent
-   DATA aItems INIT { }
+   DATA aItems INIT {}
    DATA bAction, bClick
    DATA cargo
    DATA title
@@ -258,7 +258,7 @@ CLASS HTree INHERIT HControl
 
 CLASS VAR winclass   INIT "SysTreeView32"
 
-   DATA aItems INIT { }
+   DATA aItems INIT {}
    DATA oSelected
    DATA oItem, oItemOld
    DATA hIml, aImages, Image1, Image2
@@ -330,7 +330,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ::bOther  := bOther
 
    IF aImages != Nil .AND. !Empty(aImages)
-      ::aImages := { }
+      ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := IIf(lResour <> NIL.AND.lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
@@ -536,7 +536,7 @@ METHOD Clean() CLASS HTree
    ::lEmpty := .T.
    ReleaseTree(::aItems)
    hwg_Sendmessage(::handle, TVM_DELETEITEM, 0, TVI_ROOT)
-   ::aItems := { }
+   ::aItems := {}
 
    RETURN Nil
 

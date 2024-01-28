@@ -44,7 +44,7 @@ ENDCLASS
 METHOD New(vari, bSetGet, bInit, bClick, bGFocus, nStyle) CLASS HRadioGroup
 
    ::oGroupCurrent := Self
-   ::aButtons := { }
+   ::aButtons := {}
    ::oParent := IIF(HWindow():GetMain() != NIL, HWindow():GetMain():oDefaultParent, Nil)
    ::lEnabled :=  !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
 

@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::bSetGet := bSetGet
 
    IF aItems == Nil
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -114,7 +114,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    ::bOther := bOther
 
    IF aItems == Nil
-      ::aItems := { }
+      ::aItems := {}
    ELSE
       ::aItems  := aItems
    ENDIF
@@ -264,7 +264,7 @@ METHOD DeleteItem(nPos) CLASS HListBox
 
 METHOD Clear() CLASS HListBox
 
-   ::aItems := { }
+   ::aItems := {}
    ::value := 0
    hwg_Sendmessage(::handle, LB_RESETCONTENT, 0, 0)
    hwg_Listboxsetstring(::handle, ::value)

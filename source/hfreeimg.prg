@@ -19,7 +19,7 @@
 
 CLASS HFreeImage INHERIT HObject
 
-CLASS VAR aImages   INIT { }
+CLASS VAR aImages   INIT {}
    DATA handle
    DATA hBitmap
    DATA name

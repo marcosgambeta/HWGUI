@@ -121,7 +121,7 @@ CLASS HCtrlTmpl
    DATA cClass
    DATA oParent
    DATA nId
-   DATA aControls INIT { }
+   DATA aControls INIT {}
    DATA aProp, aMethods
 
    METHOD New(oParent)   INLINE ( ::oParent := oParent, AAdd(oParent:aControls, Self), Self )
@@ -143,15 +143,15 @@ METHOD F( nId ) CLASS HCtrlTmpl
 
 CLASS HFormTmpl
 
-CLASS VAR aForms   INIT { }
+CLASS VAR aForms   INIT {}
 CLASS VAR maxId    INIT 0
    DATA oDlg
-   DATA aControls     INIT { }
+   DATA aControls     INIT {}
    DATA oParent
    DATA aProp
    DATA aMethods
-   DATA aVars         INIT { }
-   DATA aNames        INIT { }
+   DATA aVars         INIT {}
+   DATA aNames        INIT {}
    DATA aFuncs
    DATA id
    DATA cId
@@ -172,7 +172,7 @@ ENDCLASS
 
 METHOD Read(fname, cId) CLASS HFormTmpl
    LOCAL oDoc
-   LOCAL i, j, nCtrl := 0, aItems, o, aProp := { }, aMethods := { }
+   LOCAL i, j, nCtrl := 0, aItems, o, aProp := {}, aMethods := {}
    LOCAL cPre, cName
 
    IF cId != NIL .AND. ( o := HFormTmpl():Find(cId) ) != NIL
@@ -458,7 +458,7 @@ METHOD Close() CLASS HFormTmpl
    RETURN NIL
 
 STATIC FUNCTION ReadTree(oForm, aParent, oDesc)
-   LOCAL i, aTree := { }, oNode, subarr
+   LOCAL i, aTree := {}, oNode, subarr
 
    FOR i := 1 TO Len(oDesc:aItems)
       oNode := oDesc:aItems[i]
@@ -478,7 +478,7 @@ STATIC FUNCTION ReadTree(oForm, aParent, oDesc)
    RETURN IIf(Empty(aTree), NIL, aTree)
 
 FUNCTION ParseMethod(cMethod)
-   LOCAL arr := { }, nPos1, nPos2, cLine
+   LOCAL arr := {}, nPos1, nPos2, cLine
 
    IF ( nPos1 := At(Chr(10), cMethod) ) == 0
       Aadd(arr, RTrim(cMethod))
@@ -591,7 +591,7 @@ STATIC PROCEDURE CompileErr( e, stroka )
 
 STATIC FUNCTION ReadCtrl(oCtrlDesc, oContainer, oForm)
    LOCAL oCtrl := HCtrlTmpl():New(oContainer)
-   LOCAL i, j, o, cName, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems
+   LOCAL i, j, o, cName, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems
 
    oCtrl:nId      := oForm:nCtrlId
    oForm:nCtrlId ++
@@ -709,14 +709,14 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    lNoVScroll := .F.
    // columns
    //cValType := "C"
-   caArray := { }
+   caArray := {}
    nLength := NIL
    nDec := 0
    nJusHead := 0
    nJusLine := 0
    lEdit    := .F.
    cPicture := NIL
-   Items := { }
+   Items := {}
    nInterval := 0
    onAction := NIL
    bWhen := NIL
@@ -849,7 +849,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
       //ELSEIF cPName == "brwtype"
       //   brwtype := xProperty
       ELSEIF cPName == "aarray"
-         caArray := IIf(xProperty != NIL .AND. !Empty(xProperty), &( xProperty ), { })
+         caArray := IIf(xProperty != NIL .AND. !Empty(xProperty), &( xProperty ), {})
       ELSEIF cPName == "childorder"
          cKey := IIf(xProperty != NIL .AND. !Empty(xProperty), Trim(xProperty), "")
       ELSEIF cPName == "relationalexpr"
@@ -997,7 +997,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          temp = StrTran( Upper(fBlock), Alias() + "->", "" )
          *- verificar se tem mais de um campo
          temp = SubStr(temp, 1, IIf(At('+', temp) > 0, At('+', temp) - 1, Len(temp)))
-         j := { }
+         j := {}
          AEval(&cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd(j, aField[1]) })
          IF m->nLength = NIL
             // m->nLength := &cTmpAlias->(fieldlen(ascan(j, temp)))
@@ -1023,7 +1023,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    ENDIF
    oCtrl := &stroka
    IF oCtrlTmpl:cClass == "browse"
-      oCtrl:aColumns := { }
+      oCtrl:aColumns := {}
       oCtrl:freeze := nfreeze
       oCtrl:nHeadRows := nHeadRows
       oCtrl:nFootRows := nFootRows
@@ -1103,7 +1103,7 @@ FUNCTION RadioNew(oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFo
 
 
 FUNCTION Font2XML(oFont)
-   LOCAL aAttr := { }
+   LOCAL aAttr := {}
 
    AAdd(aAttr, { "name", oFont:name })
    AAdd(aAttr, { "width", LTrim(Str(oFont:width, 5)) })
@@ -1154,7 +1154,7 @@ FUNCTION hwg_hfrm_FontFromXML(oXmlNode)
          width, height, weight, charset, ita, under)
 
 FUNCTION hwg_hfrm_Str2Arr( stroka )
-   LOCAL arr := { }, pos1 := 2, pos2 := 1
+   LOCAL arr := {}, pos1 := 2, pos2 := 1
 
    IF Len(stroka) > 2
       DO WHILE pos2 > 0
@@ -1208,7 +1208,7 @@ CLASS HRepItem
 
    DATA cClass
    DATA oParent
-   DATA aControls INIT { }
+   DATA aControls INIT {}
    DATA aProp, aMethods
    DATA oPen, obj
    DATA lPen INIT .F.
@@ -1220,12 +1220,12 @@ ENDCLASS
 
 CLASS HRepTmpl
 
-   CLASS VAR aReports INIT { }
+   CLASS VAR aReports INIT {}
    CLASS VAR maxId    INIT 0
-   DATA aControls     INIT { }
+   DATA aControls     INIT {}
    DATA aProp
    DATA aMethods
-   DATA aVars         INIT { }
+   DATA aVars         INIT {}
    DATA aFuncs
    DATA lDebug        INIT .F.
    DATA id
@@ -1247,7 +1247,7 @@ ENDCLASS
 
 METHOD Read(fname, cId) CLASS HRepTmpl
    LOCAL oDoc
-   LOCAL i, j, aItems, o, aProp := { }, aMethods := { }
+   LOCAL i, j, aItems, o, aProp := {}, aMethods := {}
    LOCAL cPre, cName
 
    IF cId != NIL .AND. ( o := HFormTmpl():Find(cId) ) != NIL
@@ -1630,7 +1630,7 @@ METHOD Close() CLASS HRepTmpl
 
 STATIC FUNCTION ReadRepItem(oCtrlDesc, oContainer)
    LOCAL oCtrl := HRepItem():New(oContainer)
-   LOCAL i, j, o, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems, xProperty, cName
+   LOCAL i, j, o, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems, xProperty, cName
 
    oCtrl:cClass   := oCtrlDesc:GetAttribute("class")
    oCtrl:aProp    := aProp

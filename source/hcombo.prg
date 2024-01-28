@@ -587,7 +587,7 @@ METHOD AddItem(cItem, cItemBound, nPos) CLASS HComboBox
    IF Len(::Aitems) == Len(::AitemsBound) .AND. cItemBound != NIL
       IF nCount = 1
          ::RowSource({ { cItem, cItemBound } })
-         ::Aitems := { }
+         ::Aitems := {}
       ENDIF
       IF nPos != Nil .AND. nPos > 0 .AND. nPos < nCount
          ASize(::AitemsBound, nCount + 1)
@@ -1334,7 +1334,7 @@ METHOD OnGetTextLength(WPARAM, LPARAM) CLASS hCheckComboBox
    RETURN iif(Empty(::m_strText), 0, Len(::m_strText))
 
 METHOD GetAllCheck() CLASS hCheckComboBox
-   LOCAL aCheck := { }
+   LOCAL aCheck := {}
    LOCAL n
 
    FOR n := 1 TO Len(::aItems)

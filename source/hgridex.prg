@@ -31,16 +31,16 @@
 CLASS HGridEX INHERIT HControl
 
 CLASS VAR winclass INIT "SYSLISTVIEW32"
-   DATA aBitMaps   INIT { }
-   DATA aItems     INIT { }
+   DATA aBitMaps   INIT {}
+   DATA aItems     INIT {}
    DATA ItemCount
    DATA color
    DATA bFlag      INIT .F.
    DATA bkcolor
-   DATA aColumns   INIT { }
+   DATA aColumns   INIT {}
    DATA nRow       INIT 0
    DATA nCol       INIT 0
-   DATA aColors    INIT { }
+   DATA aColors    INIT {}
    DATA hSort
    DATA oMenu
 
@@ -56,9 +56,9 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    DATA him
    DATA bGfocus
    DATA bLfocus
-   DATA aRow       INIT { }
-   DATA aRowBitMap INIT { }
-   DATA aRowStyle  INIT { }
+   DATA aRow       INIT {}
+   DATA aRowBitMap INIT {}
+   DATA aRowStyle  INIT {}
    DATA iRowSelect INIT  0
 
    METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter, ;
@@ -76,7 +76,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    METHOD Notify(lParam)
 
    METHOD DELETEROW()    INLINE IIF(::bFlag, (hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F.), .T.)
-   METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := { }, hwg_Sendmessage(::Handle, LVM_DELETEALLITEMS, 0, 0)
+   METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := {}, hwg_Sendmessage(::Handle, LVM_DELETEALLITEMS, 0, 0)
    METHOD SELECTALL()    INLINE hwg_Listviewselectall(::Handle)
    METHOD SELECTLAST()   INLINE hwg_Listviewselectlastitem(::handle)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
@@ -95,7 +95,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
    nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP + WS_BORDER)
    ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
               bSize, bPaint)
-   DEFAULT aBit TO { }
+   DEFAULT aBit TO {}
    ::aItems := aItems
    ::ItemCount := Len(aItems)
    ::aBitMaps := aBit
@@ -133,7 +133,7 @@ METHOD Activate() CLASS HGridEx
 
 METHOD Init() CLASS HGridEx
    LOCAL i, nPos
-   LOCAL aButton := { }
+   LOCAL aButton := {}
    LOCAL aBmpSize
    LOCAL n
    LOCAL n1
@@ -158,11 +158,11 @@ METHOD Init() CLASS HGridEx
 
 
          IF nmax == 4
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK)
          ELSEIF nmax == 8
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK)
          ELSEIF nmax == 24
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK)
          ENDIF
 
          FOR nPos := 1 TO Len(aButton)
@@ -223,9 +223,9 @@ METHOD Refresh() CLASS HGridEx
 METHOD AddRow(a, bupdate) CLASS HGRIDEX
    LOCAL nLen := Len(a)
    LOCAL n
-   LOCAL aTmp := { }
-   LOCAL aTmp1 := { }
-   LOCAL aTmp2 := { }
+   LOCAL aTmp := {}
+   LOCAL aTmp1 := {}
+   LOCAL aTmp2 := {}
 
 
    DEFAULT bupdate TO .F.
@@ -239,7 +239,7 @@ METHOD AddRow(a, bupdate) CLASS HGRIDEX
       AAdd(aTmp2, IIF(ValType(a[n + 3]) == "N", a[n + 3], hwg_Rgb(192, 192, 192)))
 
       AAdd(::aColors, aTmp2)
-      aTmp2 := { }
+      aTmp2 := {}
    NEXT
 
    AAdd(::aRowBitMap, aTmp)
@@ -300,7 +300,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)
 
-   DEFAULT  aItem TO { }
+   DEFAULT  aItem TO {}
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()

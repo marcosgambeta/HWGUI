@@ -224,7 +224,7 @@ CLASS HBrowse INHERIT HControl
    DATA lDispHead  INIT .T.                    // Should I display headers ?
    DATA lDispSep   INIT .T.                    // Should I display separators ?
    DATA aColumns                               // HColumn's array
-   DATA aColAlias  INIT { }
+   DATA aColAlias  INIT {}
    DATA aRelation  INIT .F.
    DATA rowCount   INIT 0                       // Number of visible data rows
    DATA rowPos     INIT 1                       // Current row position
@@ -419,7 +419,7 @@ METHOD New(lType, oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, 
    ::bPosChanged   := bPosChg
    ::bChangeRowCol := bChgRowCol
    IF lMultiSelect != NIL .AND. lMultiSelect
-      ::aSelected := { }
+      ::aSelected := {}
    ENDIF
    ::lDescend    := iif(lDescend == NIL, .F., lDescend)
    IF ISBLOCK(bFirst) .OR. ISBLOCK(bFor) .OR. ISBLOCK(bWhile)
@@ -1038,7 +1038,7 @@ METHOD InitBrw( nType, lInit )  CLASS HBrowse
       IF nType != NIL
          ::Type := nType
       ELSE
-         ::aColumns := { }
+         ::aColumns := {}
          ::rowPos  := ::nCurrent  := ::colpos := 1
          ::rowCurrCount := 0
          ::nLeftCol := 1
@@ -2783,7 +2783,7 @@ METHOD ButtonUp( lParam ) CLASS HBrowse
          ::refreshline()
       ELSE
          IF Len(::aSelected) > 0
-            ::aSelected := { }
+            ::aSelected := {}
             ::Refresh()
          ENDIF
       ENDIF
@@ -3584,7 +3584,7 @@ FUNCTION hwg_CreateList( oBrw, lEditable )
    LOCAL kolf := FCount()
 
    oBrw:Alias   := Alias()
-   oBrw:aColumns := { }
+   oBrw:aColumns := {}
    FOR i := 1 TO kolf
       oBrw:AddColumn( HColumn():New(FieldName(i),                      ;
          FieldWBlock(FieldName(i), nArea), ;

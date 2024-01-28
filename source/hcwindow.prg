@@ -41,7 +41,7 @@ STATIC aCustomEvents := { ;
 
 CLASS HObject
 
-   DATA aObjects     INIT { }
+   DATA aObjects     INIT {}
    METHOD AddObject(oCtrl) INLINE AAdd(::aObjects, oCtrl)
    METHOD DelObject(oCtrl)
    METHOD Release()  INLINE ::DelObject(Self)
@@ -82,11 +82,11 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST) ) SHARE
    DATA extStyle      INIT 0
    DATA lHide         INIT .F.
    DATA oFont
-   DATA aEvents       INIT { }
+   DATA aEvents       INIT {}
    DATA lSuspendMsgsHandling  INIT .F.
    DATA lGetSkipLostFocus     INIT .F.
-   DATA aNotify       INIT { }
-   DATA aControls     INIT { }
+   DATA aNotify       INIT {}
+   DATA aControls     INIT {}
    DATA bInit
    DATA bDestroy
    DATA bSize

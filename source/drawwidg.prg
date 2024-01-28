@@ -16,7 +16,7 @@
 
 CLASS HFont INHERIT HObject
 
-   CLASS VAR aFonts   INIT { }
+   CLASS VAR aFonts   INIT {}
    DATA handle
    DATA name, width, height, weight
    DATA charset, italic, Underline, StrikeOut
@@ -136,7 +136,7 @@ METHOD RELEASE() CLASS HFont
 
 CLASS HPen INHERIT HObject
 
-   CLASS VAR aPens   INIT { }
+   CLASS VAR aPens   INIT {}
    DATA handle
    DATA style, width, color
    DATA nCounter   INIT 1
@@ -245,7 +245,7 @@ METHOD RELEASE() CLASS HPen
 
 CLASS HBrush INHERIT HObject
 
-   CLASS VAR aBrushes   INIT { }
+   CLASS VAR aBrushes   INIT {}
    DATA handle
    DATA COLOR
    DATA nHatch   INIT 99
@@ -323,7 +323,7 @@ METHOD RELEASE() CLASS HBrush
 
 CLASS HBitmap INHERIT HObject
 
-   CLASS VAR aBitmaps   INIT { }
+   CLASS VAR aBitmaps   INIT {}
    CLASS VAR lSelFile   INIT .T.
    DATA handle
    DATA name
@@ -508,7 +508,7 @@ METHOD RELEASE() CLASS HBitmap
 
 CLASS HIcon INHERIT HObject
 
-   CLASS VAR aIcons   INIT { }
+   CLASS VAR aIcons   INIT {}
    CLASS VAR lSelFile   INIT .T.
    DATA handle
    DATA name

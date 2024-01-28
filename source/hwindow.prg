@@ -69,7 +69,7 @@ FUNCTION hwg_onDestroy( oWnd )
 
 CLASS HWindow INHERIT HCustomWindow, HScrollArea
 
-CLASS VAR aWindows   SHARED INIT { }
+CLASS VAR aWindows   SHARED INIT {}
 CLASS VAR szAppName  SHARED INIT "HwGUI_App"
 
    CLASS VAR Screen SHARED
@@ -81,8 +81,8 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
    DATA nBmpClr
    DATA lUpdated INIT .F.     // TRUE, if any GET is changed
    DATA lClipper INIT .F.
-   DATA GetList  INIT { }      // The array of GET items in the dialog
-   DATA KeyList  INIT { }      // The array of keys ( as Clipper's SET KEY )
+   DATA GetList  INIT {}      // The array of GET items in the dialog
+   DATA KeyList  INIT {}      // The array of keys ( as Clipper's SET KEY )
    DATA nLastKey INIT 0
    DATA bActivate
    DATA lActivated INIT .F.

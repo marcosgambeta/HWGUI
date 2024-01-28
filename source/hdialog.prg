@@ -33,8 +33,8 @@ STATIC aMessModalDlg := { ;
 
 CLASS HDialog INHERIT HWindow
 
-   CLASS VAR aDialogs       SHARED INIT { }
-   CLASS VAR aModalDialogs  SHARED INIT { }
+   CLASS VAR aDialogs       SHARED INIT {}
+   CLASS VAR aModalDialogs  SHARED INIT {}
 
    DATA lModal   INIT .T.
    DATA lResult  INIT .F.     // Becomes TRUE if the OK button is pressed

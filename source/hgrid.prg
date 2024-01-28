@@ -37,11 +37,11 @@ TODO: 1) In line edit
 CLASS HGrid INHERIT HControl
 
 CLASS VAR winclass INIT "SYSLISTVIEW32"
-   DATA aBitMaps   INIT { }
+   DATA aBitMaps   INIT {}
    DATA ItemCount
    DATA color
    DATA bkcolor
-   DATA aColumns   INIT { }
+   DATA aColumns   INIT {}
    DATA nRow       INIT 0
    DATA nCol       INIT 0
 
@@ -80,7 +80,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
    nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL)
    ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
               bSize, bPaint)
-   DEFAULT aBit TO { }
+   DEFAULT aBit TO {}
    ::ItemCount := nItemCount
    ::aBitMaps := aBit
    ::bGfocus := bGfocus
@@ -115,7 +115,7 @@ METHOD Activate() CLASS HGrid
 
 METHOD Init() CLASS HGrid
    LOCAL i, nPos
-   LOCAL aButton := { }
+   LOCAL aButton := {}
    LOCAL aBmpSize
    LOCAL n
 
@@ -130,11 +130,11 @@ METHOD Init() CLASS HGrid
          aBmpSize := hwg_Getbitmapsize(aButton[1])
 
          IF aBmpSize[3] == 4
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR4 + ILC_MASK)
          ELSEIF aBmpSize[3] == 8
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLOR8 + ILC_MASK)
          ELSEIF aBmpSize[3] == 24
-            ::hIm := hwg_Createimagelist({ }, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK)
+            ::hIm := hwg_Createimagelist({}, aBmpSize[1], aBmpSize[2], 1, ILC_COLORDDB + ILC_MASK)
          ENDIF
 
          FOR nPos := 1 TO Len(aButton)

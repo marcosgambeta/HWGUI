@@ -46,8 +46,8 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, ;
 
    ::title := ""
 
-   ::aLeft := IIf(aLeft == NIL, { }, aLeft)
-   ::aRight := IIf(aRight == NIL, { }, aRight)
+   ::aLeft := IIf(aLeft == NIL, {}, aLeft)
+   ::aRight := IIf(aRight == NIL, {}, aRight)
    ::lVertical := (::nHeight > ::nWidth)
    ::lScrolling := Iif(lScrolling == NIL, .F., lScrolling)
    IF (lTransp != NIL .AND. lTransp)

@@ -30,7 +30,7 @@ CLASS HPage INHERIT HObject
    DATA tcolor, bcolor
    DATA brush
    DATA oFont   // not implemented
-   DATA aItemPos       INIT { }
+   DATA aItemPos       INIT {}
    DATA Tooltip
 
    METHOD New(cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip)
@@ -121,8 +121,8 @@ CLASS HTab INHERIT HControl, HScrollArea
 
    CLASS VAR winclass   INIT "SysTabControl32"
    DATA  aTabs
-   DATA  aPages  INIT { }
-   DATA  Pages  INIT { }
+   DATA  aPages  INIT {}
+   DATA  Pages  INIT {}
    DATA  bChange, bChange2
    DATA  hIml, aImages, Image1, Image2
    DATA  aBmpSize INIT { 0, 0 }
@@ -179,7 +179,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       bSize, bPaint)
    ::title   := ""
    ::oFont   := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs   := iif(aTabs == NIL, { }, aTabs)
+   ::aTabs   := iif(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
    ::bGetFocus :=  bGetFocus
@@ -188,7 +188,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::bRClick   := bRClick
 
    IF aImages != NIL
-      ::aImages := { }
+      ::aImages := {}
       FOR i := 1 TO Len(aImages)
          //AAdd(::aImages, Upper(aImages[i]))
          aImages[i] := iif(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
@@ -228,7 +228,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
    ::lResourceTab := .T.
-   ::aTabs := { }
+   ::aTabs := {}
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::brush := hwg_GetBackColorParent(Self, .T.)
    ::oPaint := HPaintTab():New(Self, , 0, 0, 0, 0) //, ::oFont )
@@ -331,7 +331,7 @@ METHOD StartPage(cname, oDlg, lEnabled, tColor, bColor, cTooltip) CLASS HTab
    ::oDefaultParent := Self
 
    IF Len(::aTabs) > 0 .AND. Len(::aPages) == 0
-      ::aTabs := { }
+      ::aTabs := {}
    ENDIF
    AAdd(::aTabs, cname)
    IF ::lResourceTab

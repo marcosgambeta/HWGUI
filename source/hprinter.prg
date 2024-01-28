@@ -278,7 +278,7 @@ METHOD StartDoc(lPreview, cMetaName) CLASS HPrinter
    IF lPreview != NIL .AND. lPreview
       ::lPreview := .T.
       ::ReleaseMeta()
-      ::aMeta := { }
+      ::aMeta := {}
       ::cMetaName := cMetaName
    ELSE
       ::lPreview := .F.
@@ -340,7 +340,7 @@ METHOD ReleaseMeta() CLASS HPrinter
    RETURN NIL
 
 METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
-   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len(::aMeta), aPage := { }
+   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len(::aMeta), aPage := {}
    LOCAL oFont := HFont():Add("Times New Roman", 0, - 13, 700)
    LOCAL lTransp := (aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10])
 

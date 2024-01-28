@@ -53,7 +53,7 @@ FUNCTION Hwg_CreateMenu
       RETURN Nil
    ENDIF
 
-   RETURN { { },,, hMenu }
+   RETURN { {},,, hMenu }
 
 FUNCTION Hwg_SetMenu(oWnd, aMenu)
 
@@ -87,7 +87,7 @@ FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos)
 
    IF nPos > Len(aMenu[1])
       IF lSubMenu
-         AAdd(aMenu[1], { { }, cItem, nMenuId, 0, hSubMenu })
+         AAdd(aMenu[1], { {}, cItem, nMenuId, 0, hSubMenu })
       ELSE
          AAdd(aMenu[1], { bItem, cItem, nMenuId, 0 })
       ENDIF
@@ -96,7 +96,7 @@ FUNCTION Hwg_AddMenuItem(aMenu, cItem, nMenuId, lSubMenu, bItem, nPos)
       AAdd(aMenu[1], Nil)
       AIns(aMenu[1], nPos)
       IF lSubMenu
-         aMenu[1, nPos] := { { }, cItem, nMenuId, 0, hSubMenu }
+         aMenu[1, nPos] := { {}, cItem, nMenuId, 0, hSubMenu }
       ELSE
          aMenu[1, nPos] := { bItem, cItem, nMenuId, 0 }
       ENDIF
@@ -183,9 +183,9 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
 FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp)
    LOCAL aMenu, i
    IF oWnd != Nil
-      _aMenuDef := { }
-      _aAccel   := { }
-      _oBitmap  := { }
+      _aMenuDef := {}
+      _aAccel   := {}
+      _oBitmap  := {}
       _oWnd     := oWnd
       _oMenu    := Nil
       _nLevel   := 0
@@ -200,13 +200,13 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp)
          aMenu := ATail(aMenu)[1]
       NEXT
       _nLevel ++
-      AAdd(aMenu, { { }, cTitle, nId, 0 })
+      AAdd(aMenu, { {}, cTitle, nId, 0 })
    ENDIF
    RETURN .T.
 
 FUNCTION Hwg_ContextMenu()
-   _aMenuDef := { }
-   _oBitmap  := { }
+   _aMenuDef := {}
+   _oBitmap  := {}
    _oWnd := Nil
    _nLevel := 0
    _Id := CONTEXTMENU_FIRST_ID
