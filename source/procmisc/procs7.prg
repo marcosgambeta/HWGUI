@@ -51,17 +51,17 @@ LOCAL varName, iPosEnd, iPos3
    IF Empty(stroka)
       RETURN ""
    ELSE
-      IF ( iPosEnd := Find_Z( stroka ) ) == 0
+      IF (iPosEnd := Find_Z(stroka)) == 0
          iPosEnd := Iif(Right(stroka, 1) = ';', Len(stroka), Len(stroka) + 1)
       ENDIF
-      ipos3    := Find_Z( Left(stroka, iPosEnd - 1), ':' )
+      ipos3    := Find_Z(Left(stroka, iPosEnd - 1), ':')
       varName  := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
       varValue := Iif(iPos3 <> 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil)
       stroka   := Substr(stroka, iPosEnd + 1)
    ENDIF
 RETURN varName
 
-FUNCTION FIND_Z( stroka, symb )
+FUNCTION FIND_Z(stroka, symb)
 
 LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
@@ -74,7 +74,7 @@ LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0
          poz := poz + poz1 - 1
       ENDIF
       FOR i := poz1 TO poz - 1
-         IF ( j := At(Substr(stroka, i, 1), ms1) ) <> 0
+         IF (j := At(Substr(stroka, i, 1), ms1)) <> 0
             ms2[j] ++
          ENDIF
       NEXT
@@ -82,7 +82,7 @@ LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0
                  ms2[5] == ms2[6] .AND. ms2[7] % 2 == 0 .AND. ms2[8] % 2 == 0
          EXIT
       ELSE
-         IF ( j := At(Substr(stroka, poz, 1), ms1) ) <> 0
+         IF (j := At(Substr(stroka, poz, 1), ms1)) <> 0
             ms2[j] ++
          ENDIF
          poz1 := poz + 1
@@ -98,28 +98,28 @@ FUNCTION Fchoice()
 
 #endif
 
-FUNCTION CutExten( fname )
+FUNCTION CutExten(fname)
 
 LOCAL i
-RETURN Iif(( i := Rat('.', fname) ) = 0, fname, Substr(fname, 1, i - 1))
+RETURN Iif((i := Rat('.', fname)) = 0, fname, Substr(fname, 1, i - 1))
 
-FUNCTION FilExten( fname )
+FUNCTION FilExten(fname)
 
 LOCAL i
-RETURN Iif(( i := Rat('.', fname) ) = 0, "", Substr(fname, i + 1))
+RETURN Iif((i := Rat('.', fname)) = 0, "", Substr(fname, i + 1))
 
 FUNCTION FilePath(fname)
 
 LOCAL i
-RETURN Iif(( i := Rat('\', fname) ) = 0, ;
-           Iif(( i := Rat('/', fname)) = 0, "", Left(fname, i) ), ;
+RETURN Iif((i := Rat('\', fname)) = 0, ;
+           Iif((i := Rat('/', fname)) = 0, "", Left(fname, i) ), ;
            Left(fname, i))
 
 FUNCTION CutPath(fname)
 
 LOCAL i
-RETURN Iif(( i := Rat('\', fname) ) = 0, ;
-            Iif(( i := Rat('/', fname) ) = 0, fname, Substr(fname, i + 1)), ;
+RETURN Iif((i := Rat('\', fname)) = 0, ;
+            Iif((i := Rat('/', fname)) = 0, fname, Substr(fname, i + 1)), ;
             Substr(fname, i + 1))
 
 FUNCTION NextItem(stroka, lFirst, cSep)
@@ -127,7 +127,7 @@ FUNCTION NextItem(stroka, lFirst, cSep)
 STATIC nPos
 LOCAL i, oldPos
 
-   IF ( lFirst != Nil .AND. lFirst ) .OR. nPos == Nil
+   IF (lFirst != Nil .AND. lFirst) .OR. nPos == Nil
       nPos := 1
    ENDIF
    IF cSep == Nil 
@@ -135,7 +135,7 @@ LOCAL i, oldPos
    ENDIF
    IF nPos != 99999
       oldPos := nPos
-      IF ( i := At(cSep, Substr(stroka, nPos)) ) == 0
+      IF (i := At(cSep, Substr(stroka, nPos))) == 0
          nPos := 99999
          RETURN Ltrim(Rtrim(Substr(stroka, oldPos)))
       ELSE

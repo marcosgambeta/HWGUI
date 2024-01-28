@@ -28,19 +28,19 @@ CLASS HHtml // INHERIT HControl
    METHOD DisplayText(cText)  INLINE hwgax_DisplayHtmlStr(::oParent:handle, cText)
    METHOD Activate()
    METHOD Resize(width, height)
-   METHOD GoBack()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOBACK )
-   METHOD GoForward()  INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOFORWARD )
-   METHOD GoHome()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_GOHOME )
-   METHOD Search()     INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_SEARCH )
-   METHOD Refresh()    INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_REFRESH )
-   METHOD Stop()       INLINE hwgax_DoPageAction( ::oParent:handle, WEBPAGE_STOP )
+   METHOD GoBack()     INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_GOBACK)
+   METHOD GoForward()  INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_GOFORWARD)
+   METHOD GoHome()     INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_GOHOME)
+   METHOD Search()     INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_SEARCH)
+   METHOD Refresh()    INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_REFRESH)
+   METHOD Stop()       INLINE hwgax_DoPageAction(::oParent:handle, WEBPAGE_STOP)
    METHOD End()
 ENDCLASS
 
 METHOD New(oParent) CLASS HHtml
 
    IF !hwgax_OleInitialize()
-      hwg_Msgstop( "Can't open OLE!", "HHtml():New()" )
+      hwg_Msgstop("Can't open OLE!", "HHtml():New()")
       Return Nil
    ENDIF
 
@@ -54,8 +54,8 @@ METHOD Activate CLASS HHtml
 
    IF ::oParent:handle != 0
      ::oParent:oEmbedded := Self
-      IF !hwgax_EmbedBrowserObject( ::oParent:handle )
-         hwg_Msgstop( "Can't embed IE object!", "HHtml():New()" )
+      IF !hwgax_EmbedBrowserObject(::oParent:handle)
+         hwg_Msgstop("Can't embed IE object!", "HHtml():New()")
       ENDIF
    ENDIF
 Return Nil
@@ -68,7 +68,7 @@ Return Nil
 
 METHOD End() CLASS HHtml
 
-   hwgax_UnEmbedBrowserObject( ::oParent:handle )
+   hwgax_UnEmbedBrowserObject(::oParent:handle)
 Return Nil
 
 EXIT PROCEDURE EXITOLE

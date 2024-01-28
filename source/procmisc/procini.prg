@@ -56,7 +56,7 @@
 FUNCTION RDINI(fname, prm1, prm2, prm3, prm4)
 
 LOCAL han, stroka, strfull, kolstr, poz1, vname, prblo, lTruncAr
-LOCAL lWinIni  := ( VALTYPE(prm1) == "A" )
+LOCAL lWinIni  := (VALTYPE(prm1) == "A")
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
 LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
 
@@ -66,7 +66,7 @@ LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
       USE (fname) NEW
       han := Iif(NetErr(), -1, 0)
    ELSE
-      han    := FOPEN( fname, FO_READ + FO_SHARED )
+      han    := FOPEN(fname, FO_READ + FO_SHARED)
    ENDIF
    IF han <> - 1
       strfull := ""
@@ -101,7 +101,7 @@ LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
                ENDIF
                SET EXACT OFF
             ENDIF
-         ELSEIF ( prblo .OR. lWinIni ) .AND. Left(stroka, 1) <> ";"
+         ELSEIF (prblo .OR. lWinIni) .AND. Left(stroka, 1) <> ";"
             poz1 := AT("=", stroka)
             IF poz1 <> 0
                lTruncAr := IIF(SUBSTR(stroka, poz1 - 1, 1) == '+', .F., .T.)
@@ -137,7 +137,7 @@ LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
                   CASE stroka = "off" .OR. stroka = "OFF" .OR. stroka = "Off" .OR. EMPTY(stroka)
                      &vname := .F.
                   CASE ASC(stroka) = 123 .AND. SUBSTR(stroka, 2, 1) <> "|"  // {
-                     RDARR( vname, stroka )
+                     RDARR(vname, stroka)
                   OTHERWISE
                      &vname := RDZNACH(stroka)
                   ENDCASE
@@ -169,23 +169,23 @@ LOCAL poz, znc
    ENDIF
 RETURN znc
 
-STATIC FUNCTION RDARR( vname, stroka )
+STATIC FUNCTION RDARR(vname, stroka)
 
 LOCAL poz1, len1, strv, newname
-   poz1 := FIND_Z( SUBSTR(stroka, 2), "}" )
+   poz1 := FIND_Z(SUBSTR(stroka, 2), "}")
    IF poz1 != 0
       stroka := SUBSTR(stroka, 2, poz1 - 1)
       DO WHILE poz1 != 0
          IF EMPTY(stroka)
             EXIT
          ELSE
-            poz1 := FIND_Z( stroka )
+            poz1 := FIND_Z(stroka)
             strv := LTRIM(SUBSTR(stroka, 1, IIF(poz1 = 0, 9999, poz1 - 1)))
             IF ASC(strv) = 123 .AND. SUBSTR(strv, 2, 1) != "|"
                AADD(&vname, {})
                len1    := LEN(&vname)
                newname := vname + "[" + LTRIM(STR(len1, 3)) + "]"
-               RDARR( newname, strv )
+               RDARR(newname, strv)
             ELSE
                AADD(&vname, RDZNACH(strv))
             ENDIF
@@ -201,6 +201,6 @@ FIELD INICOND, INITEXT
    IF Eof()
       Return ""
    ENDIF
-   stroka := IIF(Empty(INICOND) .OR. &( INICOND ), Trim(INITEXT), "")
+   stroka := IIF(Empty(INICOND) .OR. &(INICOND), Trim(INITEXT), "")
    SKIP
 RETURN stroka

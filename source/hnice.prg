@@ -111,8 +111,8 @@ METHOD Redefine(oWndParent, nId, nStyleEx, ;
 METHOD Activate() CLASS HNiceButton
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createnicebtn( ::oParent:handle, ::id, ;
-                                 ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text )
+      ::handle := hwg_Createnicebtn(::oParent:handle, ::id, ;
+                                 ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text)
       ::Init()
    ENDIF
    RETURN Nil
@@ -130,8 +130,8 @@ FUNCTION hwg_NICEBUTTPROC(hBtn, msg, wParam, lParam)
 
    LOCAL oBtn
    IF msg != WM_CREATE
-      IF AScan( { WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE }, msg ) > 0
-         IF ( oBtn := hwg_FindSelf( hBtn ) ) == Nil
+      IF AScan({ WM_MOUSEMOVE, WM_PAINT, WM_LBUTTONDOWN, WM_LBUTTONUP, WM_LBUTTONDBLCLK, WM_DESTROY, WM_MOVING, WM_SIZE }, msg) > 0
+         IF (oBtn := hwg_FindSelf(hBtn)) == Nil
             RETURN .F.
          ENDIF
 
@@ -165,8 +165,8 @@ METHOD Create() CLASS HNICEButton
    Rct    := hwg_Getclientrect(::handle)
    w      := Rct[3] - Rct[1]
    h      := Rct[4] - Rct[2]
-   Region := hwg_Createroundrectrgn( 0, 0, w, h, h * 0.90, h * 0.90 )
-   hwg_Setwindowrgn( ::Handle, Region, .T. )
+   Region := hwg_Createroundrectrgn(0, 0, w, h, h * 0.90, h * 0.90)
+   hwg_Setwindowrgn(::Handle, Region, .T.)
    hwg_Invalidaterect(::Handle, 0, 0)
 
    RETURN Self
@@ -247,7 +247,7 @@ METHOD MDown() CLASS HNICEButton
 METHOD PAINT() CLASS HNICEButton
 
    LOCAL ps        := hwg_Definepaintstru()
-   LOCAL hDC       := hwg_Beginpaint( ::Handle, ps )
+   LOCAL hDC       := hwg_Beginpaint(::Handle, ps)
    LOCAL Rct
    LOCAL Size
    LOCAL T
@@ -264,8 +264,8 @@ METHOD PAINT() CLASS HNICEButton
    y    := Rct[2]
    w    := Rct[3] - Rct[1]
    h    := Rct[4] - Rct[2]
-   XCtr := ( Rct[1] + Rct[3] ) / 2
-   YCtr := ( Rct[2] + Rct[4] ) / 2
+   XCtr := (Rct[1] + Rct[3]) / 2
+   YCtr := (Rct[2] + Rct[4]) / 2
    T    := hwg_Getwindowtext(::Handle)
    // **********************************
    //         Draw our control
@@ -277,18 +277,18 @@ METHOD PAINT() CLASS HNICEButton
 
    Size := hwg_Gettextsize(hDC, T)
 
-   hwg_Draw_gradient( hDC, x, y, w, h, ::r, ::g, ::b )
+   hwg_Draw_gradient(hDC, x, y, w, h, ::r, ::g, ::b)
    hwg_Setbkmode(hDC, TRANSPARENT)
 
-   IF ( ::State == OBTN_MOUSOVER )
+   IF (::State == OBTN_MOUSOVER)
       hwg_Settextcolor(hDC, hwg_VColor("FF0000"))
-      hwg_Textout( hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T )
+      hwg_Textout(hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T)
    ELSE
       hwg_Settextcolor(hDC, hwg_VColor("0000FF"))
-      hwg_Textout( hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T )
+      hwg_Textout(hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T)
    ENDIF
 
-   hwg_Endpaint( ::Handle, ps )
+   hwg_Endpaint(::Handle, ps)
 
    RETURN Self
 

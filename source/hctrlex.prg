@@ -48,10 +48,10 @@ CLASS HStaticEx INHERIT HStatic
    METHOD SetValue(cValue)
    METHOD Auto_Size(cValue)  HIDDEN
    METHOD Init()
-   METHOD PAINT( lpDis )
+   METHOD PAINT(lpDis)
    METHOD onClick()
    METHOD onDblClick()
-   METHOD OnEvent( msg, wParam, lParam )
+   METHOD OnEvent(msg, wParam, lParam)
 
 ENDCLASS
 
@@ -66,13 +66,13 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    nStyle += SS_NOTIFY + WS_CLIPCHILDREN
 
    ::BackStyle := OPAQUE
-   IF ( lTransp != NIL .AND. lTransp )
+   IF (lTransp != NIL .AND. lTransp)
       ::BackStyle := TRANSPARENT
-      ::extStyle := Hwg_BitOr( ::extStyle, WS_EX_TRANSPARENT )
-      bPaint := { | o, p | o:paint( p ) }
+      ::extStyle := Hwg_BitOr(::extStyle, WS_EX_TRANSPARENT)
+      bPaint := { | o, p | o:paint(p) }
       nStyle += SS_OWNERDRAW - ::nStyleHS
    ELSEIF ::nStyleHS > 32 .OR. ::nStyleHS = 2
-      bPaint := { | o, p | o:paint( p ) }
+      bPaint := { | o, p | o:paint(p) }
       nStyle +=  SS_OWNERDRAW - ::nStyleHS
    ENDIF
 
@@ -87,19 +87,19 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent( STN_CLICKED, Self, { || ::onClick() } )
+      ::oParent:AddEvent(STN_CLICKED, Self, { || ::onClick() })
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent( STN_DBLCLK, Self, { || ::onDblClick() } )
+   ::oParent:AddEvent(STN_DBLCLK, Self, { || ::onDblClick() })
 
    RETURN Self
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor, lTransp, bClick, bDblClick, bOther) CLASS HStaticEx
 
-   IF ( lTransp != NIL .AND. lTransp )
-      ::extStyle := Hwg_BitOr( ::extStyle, WS_EX_TRANSPARENT )
-      bPaint := { | o, p | o:paint( p ) }
+   IF (lTransp != NIL .AND. lTransp)
+      ::extStyle := Hwg_BitOr(::extStyle, WS_EX_TRANSPARENT)
+      bPaint := { | o, p | o:paint(p) }
       ::BackStyle := TRANSPARENT
    ENDIF
 
@@ -112,10 +112,10 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    ::bOther := bOther
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent( STN_CLICKED, Self, { || ::onClick() } )
+      ::oParent:AddEvent(STN_CLICKED, Self, { || ::onClick() })
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent( STN_DBLCLK, Self, { || ::onDblClick() } )
+   ::oParent:AddEvent(STN_DBLCLK, Self, { || ::onDblClick() })
 
    RETURN Self
 
@@ -125,7 +125,7 @@ METHOD Init() CLASS HStaticEx
       ::Super:init()
       IF ::nHolder != 1
          ::nHolder := 1
-         hwg_Setwindowobject( ::handle, Self )
+         hwg_Setwindowobject(::handle, Self)
          Hwg_InitStaticProc(::handle)
       ENDIF
       IF ::classname == "HSTATIC"
@@ -138,11 +138,11 @@ METHOD Init() CLASS HStaticEx
 
    RETURN  NIL
 
-METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
+METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
    LOCAL nEval, pos
 
    IF ::bOther != NIL
-      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1 .AND. nEval != NIL
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF
@@ -150,16 +150,16 @@ METHOD OnEvent( msg, wParam, lParam ) CLASS  HStaticEx
       RETURN 0
    ELSEIF msg = WM_KEYUP
       IF wParam = VK_DOWN
-         hwg_GetSkip( ::oParent, ::handle, , 1 )
+         hwg_GetSkip(::oParent, ::handle, , 1)
       ELSEIF wParam = VK_UP
-         hwg_GetSkip( ::oParent, ::handle, , - 1 )
+         hwg_GetSkip(::oParent, ::handle, , - 1)
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip( ::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1))
       ENDIF
       RETURN 0
    ELSEIF msg == WM_SYSKEYUP
-      IF ( pos := At("&", ::title) ) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
-         hwg_GetSkip( ::oparent, ::handle, , 1 )
+      IF (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
+         hwg_GetSkip(::oparent, ::handle, , 1)
          RETURN  0
       ENDIF
    ELSEIF msg = WM_GETDLGCODE
@@ -174,8 +174,8 @@ METHOD SetValue(cValue)  CLASS HStaticEx
    IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible(::handle)
       hwg_Setdlgitemtext(::oParent:handle, ::id, cValue)
       IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible(::handle)
-         hwg_Redrawwindow( ::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_ERASENOW + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight )
-         hwg_Updatewindow( ::oParent:Handle )
+         hwg_Redrawwindow(::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_ERASENOW + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight)
+         hwg_Updatewindow(::oParent:Handle)
       ENDIF
    ELSEIF ::backstyle != TRANSPARENT
       hwg_Setdlgitemtext(::oParent:handle, ::id, cValue)
@@ -184,8 +184,8 @@ METHOD SetValue(cValue)  CLASS HStaticEx
 
    RETURN NIL
 
-METHOD Paint( lpDis ) CLASS HStaticEx
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
+METHOD Paint(lpDis) CLASS HStaticEx
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
    LOCAL client_rect, szText
    LOCAL dwtext, nstyle, brBackground
    LOCAL dc := drawInfo[3]
@@ -248,9 +248,9 @@ METHOD Auto_Size(cValue) CLASS HStaticEx
       ASize :=  hwg_TxtRect(cValue, Self)
       // ajust VCENTER
       IF nAlign == SS_RIGHT
-         nLeft := ::nLeft + ( ::nWidth - ASize[1] - 2 )
+         nLeft := ::nLeft + (::nWidth - ASize[1] - 2)
       ELSEIF nAlign == SS_CENTER
-         nLeft := ::nLeft + Int( ( ::nWidth - ASize[1] - 2 ) / 2 )
+         nLeft := ::nLeft + Int((::nWidth - ASize[1] - 2) / 2)
       ELSEIF nAlign == SS_LEFT
          nLeft := ::nLeft
       ENDIF
@@ -278,8 +278,8 @@ CLASS HButtonX INHERIT HButton
    METHOD onClick()
    METHOD onGetFocus()
    METHOD onLostFocus()
-   METHOD onEvent( msg, wParam, lParam )
-   METHOD NoteCaption( cNote )  SETGET
+   METHOD onEvent(msg, wParam, lParam)
+   METHOD NoteCaption(cNote)  SETGET
 
 ENDCLASS
 
@@ -287,7 +287,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
       tcolor, bColor, bGFocus) CLASS HButtonX
 
-   nStyle := Hwg_BitOr( iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + BS_NOTIFY )
+   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + BS_NOTIFY)
    ::lFlat := Hwg_BitAND(nStyle, BS_FLAT) != 0
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
@@ -296,15 +296,15 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent( BN_SETFOCUS, Self, { || ::onGetFocus() } )
-   ::oParent:AddEvent( BN_KILLFOCUS, self, { || ::onLostFocus() } )
+   ::oParent:AddEvent(BN_SETFOCUS, Self, { || ::onGetFocus() })
+   ::oParent:AddEvent(BN_KILLFOCUS, self, { || ::onLostFocus() })
 
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm(Self):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, { || ::onClick() })
       ENDIF
       IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         ::oParent:AddEvent(BN_CLICKED, Self, { || ::onClick() })
       ENDIF
    ENDIF
 
@@ -318,15 +318,15 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    ::title   := cCaption
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent( BN_SETFOCUS, Self, { || ::onGetFocus() } )
-   ::oParent:AddEvent( BN_KILLFOCUS, self, { || ::onLostFocus() } )
+   ::oParent:AddEvent(BN_SETFOCUS, Self, { || ::onGetFocus() })
+   ::oParent:AddEvent(BN_KILLFOCUS, self, { || ::onLostFocus() })
    ::bClick  := bClick
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm(Self):AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, { || ::onClick() })
       ENDIF
       IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent( BN_CLICKED, Self, { || ::onClick() } )
+         ::oParent:AddEvent(BN_CLICKED, Self, { || ::onClick() })
       ENDIF
    ENDIF
 
@@ -335,11 +335,11 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 METHOD Init() CLASS HButtonX
 
    IF !::lInit
-      IF !( hwg_GetParentForm(Self):classname == ::oParent:classname .AND. ;
-            hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE ) .OR. ;
+      IF !(hwg_GetParentForm(Self):classname == ::oParent:classname .AND. ;
+            hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE) .OR. ;
             !hwg_GetParentForm(Self):lModal  .OR. ::nHolder = 1
          ::nHolder := 1
-         hwg_Setwindowobject( ::handle, Self )
+         hwg_Setwindowobject(::handle, Self)
          HWG_INITBUTTONPROC(::handle)
       ENDIF
       ::Super:init()
@@ -347,7 +347,7 @@ METHOD Init() CLASS HButtonX
 
    RETURN  NIL
 
-METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
+METHOD onevent(msg, wParam, lParam) CLASS HButtonX
 
    IF msg = WM_SETFOCUS .AND. ::oParent:oParent = NIL
    ELSEIF msg = WM_KILLFOCUS
@@ -356,24 +356,24 @@ METHOD onevent( msg, wParam, lParam ) CLASS HButtonX
          hwg_Sendmessage(::handle, BM_SETSTYLE, BS_PUSHBUTTON, 1)
       ENDIF
    ELSEIF msg = WM_KEYDOWN
-      IF ( wParam == VK_RETURN   .OR. wParam == VK_SPACE )
+      IF (wParam == VK_RETURN   .OR. wParam == VK_SPACE)
          hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
-      IF !hwg_ProcKeyList( Self, wParam )
+      IF !hwg_ProcKeyList(Self, wParam)
          IF wParam = VK_TAB
-            hwg_GetSkip( ::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1)  )
+            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1))
             RETURN 0
          ELSEIF wParam = VK_LEFT .OR. wParam = VK_UP
-            hwg_GetSkip( ::oparent, ::handle, , - 1 )
+            hwg_GetSkip(::oparent, ::handle, , - 1)
             RETURN 0
          ELSEIF wParam = VK_RIGHT .OR. wParam = VK_DOWN
-            hwg_GetSkip( ::oparent, ::handle, , 1 )
+            hwg_GetSkip(::oparent, ::handle, , 1)
             RETURN 0
          ENDIF
       ENDIF
    ELSEIF msg == WM_KEYUP
-      IF ( wParam == VK_RETURN .OR. wParam == VK_SPACE )
+      IF (wParam == VK_RETURN .OR. wParam == VK_SPACE)
          hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
@@ -397,10 +397,10 @@ METHOD onClick()  CLASS HButtonX
 
    RETURN NIL
 
-METHOD NoteCaption( cNote )  CLASS HButtonX
+METHOD NoteCaption(cNote)  CLASS HButtonX
 
    IF cNote != NIL
-      IF Hwg_BitOr( ::Style, BS_COMMANDLINK ) > 0
+      IF Hwg_BitOr(::Style, BS_COMMANDLINK) > 0
          hwg_Sendmessage(::Handle, BCM_SETNOTE, 0, hwg_Ansitounicode(cNote))
       ENDIF
       ::cNote := cNote
@@ -411,16 +411,16 @@ METHOD NoteCaption( cNote )  CLASS HButtonX
 METHOD onGetFocus()  CLASS HButtonX
    LOCAL res := .T., nSkip
 
-   IF !hwg_CheckFocus( Self, .F. ) .OR. ::bGetFocus = NIL
+   IF !hwg_CheckFocus(Self, .F.) .OR. ::bGetFocus = NIL
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1)
+      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), - 1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
       ::oParent:lSuspendMsgsHandling := .F.
       IF res != NIL .AND.  Empty(res)
-         hwg_WhenSetFocus( Self, nSkip )
+         hwg_WhenSetFocus(Self, nSkip)
          IF ::lflat
             hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
          ENDIF
@@ -435,7 +435,7 @@ METHOD onLostFocus()  CLASS HButtonX
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
    ::lnoWhen := .F.
-   IF ::bLostFocus != NIL .AND. hwg_Selffocus( hwg_Getparent( hwg_Getfocus() ), hwg_getparentform(Self):Handle )
+   IF ::bLostFocus != NIL .AND. hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), hwg_getparentform(Self):Handle)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -474,11 +474,11 @@ CLASS HButtonEX INHERIT HButtonX
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
       tcolor, bColor, hBitmap, iStyle, hicon, Transp, bGFocus, nPictureMargin, lnoThemes, bOther)
-   METHOD Paint( lpDis )
-   METHOD SetBitmap( hBitMap )
-   METHOD SetIcon( hIcon )
+   METHOD Paint(lpDis)
+   METHOD SetBitmap(hBitMap)
+   METHOD SetIcon(hIcon)
    METHOD Init()
-   METHOD onevent( msg, wParam, lParam )
+   METHOD onevent(msg, wParam, lParam)
    METHOD CancelHover()
    METHOD END()
    METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
@@ -486,9 +486,9 @@ CLASS HButtonEX INHERIT HButtonX
    METHOD PaintBk(hdc)
    METHOD Setcolor(tcolor, bcolor) INLINE ::SetDefaultColor(tcolor, bcolor) //, ::SetDefaultColor(.T.)
    METHOD SetDefaultColor(tColor, bColor, lPaint)
-   METHOD SetColorEx( nIndex, nColor, lPaint )
+   METHOD SetColorEx(nIndex, nColor, lPaint)
    METHOD SetText(c) INLINE ::title := c, ;
-      hwg_Redrawwindow( ::Handle, RDW_NOERASE + RDW_INVALIDATE ), ;
+      hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE), ;
       iif(::oParent != NIL .AND. hwg_Iswindowvisible(::Handle), ;
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight),), ;
       hwg_Setwindowtext(::handle, ::title)
@@ -518,7 +518,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::PictureMargin       := nPictureMargin
    ::lnoThemes           := lnoThemes
    ::bOther := bOther
-   bPaint := { | o, p | o:paint( p ) }
+   bPaint := { | o, p | o:paint(p) }
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
@@ -531,7 +531,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    DEFAULT iStyle TO ST_ALIGN_HORIZ
    DEFAULT nPictureMargin TO 0
-   bPaint := { | o, p | o:paint( p ) }
+   bPaint := { | o, p | o:paint(p) }
    ::m_bLButtonDown := .F.
    ::m_bIsToggle := .F.
    ::m_bLButtonDown := .F.
@@ -556,24 +556,24 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    RETURN Self
 
-METHOD SetBitmap( hBitMap ) CLASS HButtonEX
+METHOD SetBitmap(hBitMap) CLASS HButtonEX
 
    DEFAULT hBitmap TO ::hBitmap
    IF ValType(hBitmap) == "N"
       ::hBitmap := hBitmap
       hwg_Sendmessage(::handle, BM_SETIMAGE, IMAGE_BITMAP, ::hBitmap)
-      hwg_Redrawwindow( ::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
+      hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT)
    ENDIF
 
    RETURN Self
 
-METHOD SetIcon( hIcon ) CLASS HButtonEX
+METHOD SetIcon(hIcon) CLASS HButtonEX
 
    DEFAULT hIcon TO ::hIcon
    IF ValType(::hIcon) == "N"
       ::hIcon := hIcon
       hwg_Sendmessage(::handle, BM_SETIMAGE, IMAGE_ICON, ::hIcon)
-      hwg_Redrawwindow( ::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT )
+      hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT)
    ENDIF
 
    RETURN Self
@@ -595,7 +595,7 @@ METHOD INIT() CLASS HButtonEx
 
          // Check if this is a checkbox
          // Set initial default state flag
-         IF ( ::m_nTypeStyle == BS_DEFPUSHBUTTON )
+         IF (::m_nTypeStyle == BS_DEFPUSHBUTTON)
             // Set default state for a default button
             ::m_bIsDefault := .T.
 
@@ -603,7 +603,7 @@ METHOD INIT() CLASS HButtonEx
             ::m_nTypeStyle := BS_PUSHBUTTON
          ENDIF
          nbs := hwg_Modstyle(nbs, BS_TYPEMASK, BS_OWNERDRAW)
-         HWG_SETWINDOWSTYLE ( ::handle, nbs )
+         HWG_SETWINDOWSTYLE(::handle, nbs)
       ENDIF
 
       ::Super:init()
@@ -612,7 +612,7 @@ METHOD INIT() CLASS HButtonEx
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
+METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
 
    LOCAL pt := { , }, rectButton, acoor
    LOCAL pos, nID, oParent, nEval
@@ -626,7 +626,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          ::Themed := .F.
       ENDIF
       ::m_bFirstTime := .T.
-      hwg_Redrawwindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
+      hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
       RETURN 0
    ELSEIF msg == WM_ERASEBKGND
       RETURN 0
@@ -636,18 +636,18 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       IF wParam = MK_LBUTTON
          pt[1] := hwg_Loword(lParam)
          pt[2] := hwg_Hiword(lParam)
-         acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
+         acoor := hwg_Clienttoscreen(::handle, pt[1], pt[2])
          rectButton := hwg_Getwindowrect(::handle)
-         IF ( !hwg_Ptinrect(rectButton, acoor) )
+         IF (!hwg_Ptinrect(rectButton, acoor))
             hwg_Sendmessage(::handle, BM_SETSTATE, ::m_bToggled, 0)
             ::bMouseOverButton := .F.
             RETURN 0
          ENDIF
       ENDIF
-      IF ( !::bMouseOverButton )
+      IF (!::bMouseOverButton)
          ::bMouseOverButton := .T.
          hwg_Invalidaterect(::handle, .F.)
-         hwg_Trackmousevent( ::handle )
+         hwg_Trackmousevent(::handle)
       ENDIF
       RETURN 0
    ELSEIF msg == WM_MOUSELEAVE
@@ -655,43 +655,43 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       RETURN 0
    ENDIF
    IF ::bOther != NIL
-      IF ( nEval := Eval(::bOther, Self, msg, wParam, lParam) ) != - 1 .AND. nEval != NIL
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
    ENDIF
    IF msg == WM_KEYDOWN
 #ifdef __XHARBOUR__
-      IF hb_BitIsSet( hwg_Ptrtoulong(lParam), 30 )  // the key was down before ?
+      IF hb_BitIsSet(hwg_Ptrtoulong(lParam), 30)  // the key was down before ?
 #else
-      IF hb_BitTest( lParam, 30 )   // the key was down before ?
+      IF hb_BitTest(lParam, 30)   // the key was down before ?
 #endif
          RETURN 0
       ENDIF
-      IF ( ( wParam == VK_SPACE ) .OR. ( wParam == VK_RETURN ) )
+      IF ((wParam == VK_SPACE) .OR. (wParam == VK_RETURN))
          hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
       IF wParam == VK_LEFT .OR. wParam == VK_UP
-         hwg_GetSkip( ::oParent, ::handle, , - 1 )
+         hwg_GetSkip(::oParent, ::handle, , - 1)
          RETURN 0
       ELSEIF wParam == VK_RIGHT .OR. wParam == VK_DOWN
-         hwg_GetSkip( ::oParent, ::handle, , 1 )
+         hwg_GetSkip(::oParent, ::handle, , 1)
          RETURN 0
       ELSEIF  wParam = VK_TAB
-         hwg_GetSkip( ::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1)  )
+         hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), - 1, 1))
       ENDIF
-      hwg_ProcKeyList( Self, wParam )
-   ELSEIF msg == WM_SYSKEYUP .OR. ( msg == WM_KEYUP .AND. ;
-         ASCAN( { VK_SPACE, VK_RETURN, VK_ESCAPE }, wParam ) = 0 )
-      IF hwg_Checkbit( lParam, 23 ) .AND. ( wParam > 95 .AND. wParam < 106 )
+      hwg_ProcKeyList(Self, wParam)
+   ELSEIF msg == WM_SYSKEYUP .OR. (msg == WM_KEYUP .AND. ;
+         ASCAN({ VK_SPACE, VK_RETURN, VK_ESCAPE }, wParam) = 0)
+      IF hwg_Checkbit(lParam, 23) .AND. (wParam > 95 .AND. wParam < 106)
          wParam -= 48
       ENDIF
-      IF !Empty(::title) .AND. ( pos := At("&", ::title) ) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
+      IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
          IF ValType(::bClick) == "B" .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
-      ELSEIF ( nID := Ascan( ::oparent:acontrols, { | o | iif(ValType(o:title) = "C", ( pos := At("&", o:title) ) > 0 .AND. ;
-            wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),) } ) ) > 0
+      ELSEIF (nID := Ascan(::oparent:acontrols, { | o | iif(ValType(o:title) = "C", (pos := At("&", o:title)) > 0 .AND. ;
+            wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),) })) > 0
          IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
                ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
@@ -701,7 +701,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
          RETURN 0
       ENDIF
    ELSEIF msg == WM_KEYUP
-      IF ( wParam == VK_SPACE .OR. wParam == VK_RETURN  )
+      IF (wParam == VK_SPACE .OR. wParam == VK_RETURN)
          ::bMouseOverButton := .T.
          hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
          ::bMouseOverButton := .F.
@@ -709,23 +709,23 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ENDIF
    ELSEIF msg == WM_LBUTTONUP
       ::m_bLButtonDown := .F.
-      IF ( ::m_bSent )
+      IF (::m_bSent)
          hwg_Sendmessage(::handle, BM_SETSTATE, 0, 0)
          ::m_bSent := .F.
       ENDIF
       IF ::m_bIsToggle
          pt[1] := hwg_Loword(lParam)
          pt[2] := hwg_Hiword(lParam)
-         acoor := hwg_Clienttoscreen( ::handle, pt[1], pt[2] )
+         acoor := hwg_Clienttoscreen(::handle, pt[1], pt[2])
          rectButton := hwg_Getwindowrect(::handle)
-         IF ( !hwg_Ptinrect(rectButton, acoor) )
+         IF (!hwg_Ptinrect(rectButton, acoor))
             ::m_bToggled := !::m_bToggled
             hwg_Invalidaterect(::handle, 0)
             hwg_Sendmessage(::handle, BM_SETSTATE, 0, 0)
             ::m_bLButtonDown := .T.
          ENDIF
       ENDIF
-      IF ( !::bMouseOverButton )
+      IF (!::bMouseOverButton)
          hwg_Setfocus(0)
          ::Setfocus()
          RETURN 0
@@ -733,13 +733,13 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       RETURN - 1
    ELSEIF msg == WM_LBUTTONDOWN
       ::m_bLButtonDown := .T.
-      IF ( ::m_bIsToggle )
+      IF (::m_bIsToggle)
          ::m_bToggled := !::m_bToggled
          hwg_Invalidaterect(::handle, 0)
       ENDIF
       RETURN - 1
    ELSEIF msg == WM_LBUTTONDBLCLK
-      IF ( ::m_bIsToggle )
+      IF (::m_bIsToggle)
          // for toggle buttons, treat doubleclick as singleclick
          hwg_Sendmessage(::handle, BM_SETSTATE, ::m_bToggled, 0)
       ELSE
@@ -748,9 +748,9 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ENDIF
       RETURN 0
    ELSEIF msg == WM_GETDLGCODE
-      IF wParam = VK_ESCAPE .AND. ( hwg_Getdlgmessage(lParam) = WM_KEYDOWN .OR. hwg_Getdlgmessage(lParam) = WM_KEYUP )
+      IF wParam = VK_ESCAPE .AND. (hwg_Getdlgmessage(lParam) = WM_KEYDOWN .OR. hwg_Getdlgmessage(lParam) = WM_KEYUP)
          oParent := hwg_GetParentForm(Self)
-         IF !hwg_ProcKeyList( Self, wParam )  .AND. ( oParent:Type < WND_DLG_RESOURCE .OR. !oParent:lModal )
+         IF !hwg_ProcKeyList(Self, wParam)  .AND. (oParent:Type < WND_DLG_RESOURCE .OR. !oParent:lModal)
             hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
          ELSEIF oParent:FindControl(IDCANCEL) != NIL .AND. !oParent:FindControl(IDCANCEL):IsEnabled() .AND. oParent:lExitOnEsc
             hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
@@ -762,7 +762,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
       ::SetDefaultColors()
    ELSEIF msg == WM_CHAR
       IF wParam == VK_RETURN .OR. wParam == VK_SPACE
-         IF ( ::m_bIsToggle )
+         IF (::m_bIsToggle)
             ::m_bToggled := !::m_bToggled
             hwg_Invalidaterect(::handle, 0)
          ELSE
@@ -781,7 +781,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HBUTTONEx
 
 METHOD CancelHover() CLASS HBUTTONEx
 
-   IF ( ::bMouseOverButton ) .AND. ::id != IDOK //NANDO
+   IF (::bMouseOverButton) .AND. ::id != IDOK //NANDO
       ::bMouseOverButton := .F.
       IF !::lflat
          hwg_Invalidaterect(::handle, .F.)
@@ -818,7 +818,7 @@ METHOD SetDefaultColor(tColor, bColor, lPaint) CLASS HBUTTONEx
 
    RETURN Self
 
-METHOD SetColorEx( nIndex, nColor, lPaint ) CLASS HBUTTONEx
+METHOD SetColorEx(nIndex, nColor, lPaint) CLASS HBUTTONEx
 
    DEFAULT lPaint TO .F.
    IF nIndex > BTNST_MAX_COLORS
@@ -831,8 +831,8 @@ METHOD SetColorEx( nIndex, nColor, lPaint ) CLASS HBUTTONEx
 
    RETURN 0
 
-METHOD Paint( lpDis ) CLASS HBUTTONEx
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpDis )
+METHOD Paint(lpDis) CLASS HBUTTONEx
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
    LOCAL dc := drawInfo[3]
    LOCAL bIsPressed     := HWG_BITAND(drawInfo[9], ODS_SELECTED) != 0
    LOCAL bIsFocused     := HWG_BITAND(drawInfo[9], ODS_FOCUS) != 0
@@ -858,9 +858,9 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    LOCAL itemRectOld, saveCaptionRect, bmpRect, itemRect1, captionRect1, fillRect
    LOCAL lMultiLine, nHeight := 0
 
-   IF ( ::m_bFirstTime )
+   IF (::m_bFirstTime)
       ::m_bFirstTime := .F.
-      IF ( hwg_Isthemedload() )
+      IF (hwg_Isthemedload())
          IF ValType(::hTheme) == "P"
             hwg_closethemedata(::htheme)
          ENDIF
@@ -874,7 +874,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       ::Themed := .T.
    ENDIF
    hwg_Setbkmode(dc, TRANSPARENT)
-   IF ( ::m_bDrawTransparent )
+   IF (::m_bDrawTransparent)
       // ::PaintBk(DC)
    ENDIF
 
@@ -909,20 +909,20 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       crColor := hwg_Getsyscolor(COLOR_BTNFACE)
       brBackground := HBRUSH():Add(crColor)
       hwg_Fillrect(dc, itemRect, brBackground:handle)
-      IF ( bIsPressed )
+      IF (bIsPressed)
          brBtnShadow := HBRUSH():Add(hwg_Getsyscolor(COLOR_BTNSHADOW))
          hwg_Framerect(dc, itemRect, brBtnShadow:handle)
       ELSE
          IF !::lFlat .OR. ::bMouseOverButton
             uState := HWG_BITOR( ;
-               HWG_BITOR( DFCS_BUTTONPUSH, ;
-               iif(::bMouseOverButton, DFCS_HOT, 0) ), ;
+               HWG_BITOR(DFCS_BUTTONPUSH, ;
+               iif(::bMouseOverButton, DFCS_HOT, 0)), ;
                iif(bIsPressed, DFCS_PUSHED, 0) )
             hwg_Drawframecontrol(dc, itemRect, DFC_BUTTON, uState)
          ELSEIF bIsFocused
             uState := HWG_BITOR( ;
-               HWG_BITOR( DFCS_BUTTONPUSH + DFCS_MONO, ; // DFCS_FLAT, ;
-            iif(::bMouseOverButton, DFCS_HOT, 0) ), ;
+               HWG_BITOR(DFCS_BUTTONPUSH + DFCS_MONO, ; // DFCS_FLAT, ;
+            iif(::bMouseOverButton, DFCS_HOT, 0)), ;
                iif(bIsPressed, DFCS_PUSHED, 0) )
             hwg_Drawframecontrol(dc, itemRect, DFC_BUTTON, uState)
          ENDIF
@@ -946,10 +946,10 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    uStyleTmp := HWG_GETWINDOWSTYLE(::handle)
    itemRectOld := AClone(itemRect)
    IF hb_BitAnd(uStyleTmp, BS_MULTILINE) != 0 .AND. !Empty(::caption) .AND. ;
-         Int( aTxtSize[2] ) !=  Int( hwg_Drawtext(dc, ::caption, itemRect[1], itemRect[2],;
+         Int(aTxtSize[2]) !=  Int(hwg_Drawtext(dc, ::caption, itemRect[1], itemRect[2],;
          itemRect[3] - iif(::iStyle = ST_ALIGN_VERT, 0, aBmpSize[1] + 8), ;
-         itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld) )
-      // *-INT( aTxtSize[2] ) !=  INT( hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK) )
+         itemRect[4], DT_CALCRECT + uAlign + DT_WORDBREAK, itemRectOld))
+      // *-INT(aTxtSize[2]) !=  INT(hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK))
       uAlign += DT_WORDBREAK
       lMultiline := .T.
       drawInfo[4] += 2
@@ -965,7 +965,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
    captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] }
    //
-   IF ( ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N" ) .AND. lMultiline
+   IF (ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N") .AND. lMultiline
       IF ::iStyle = ST_ALIGN_HORIZ
          captionRect := { drawInfo[4] + ::PictureMargin, drawInfo[5], drawInfo[6], drawInfo[7] }
       ELSEIF ::iStyle = ST_ALIGN_HORIZ_RIGHT
@@ -979,14 +979,14 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
    IF !Empty(::caption) .AND. !Empty(::hbitmap)  //.AND.!EMPTY(::hicon)
       nHeight :=  aTxtSize[2] //nHeight := IIF(lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + uAlign + DT_WORDBREAK), aTxtSize[2])
       IF ::iStyle = ST_ALIGN_HORIZ
-         itemRect[1] := iif(::PictureMargin = 0, ( ( ( ::nWidth - aTxtSize[1] - aBmpSize[1] / 2 ) / 2 ) ) / 2, ::PictureMargin)
+         itemRect[1] := iif(::PictureMargin = 0, (((::nWidth - aTxtSize[1] - aBmpSize[1] / 2) / 2)) / 2, ::PictureMargin)
          itemRect[1] := iif(itemRect[1] < 0, 0, itemRect[1])
       ELSEIF ::iStyle = ST_ALIGN_HORIZ_RIGHT
       ELSEIF ::iStyle = ST_ALIGN_VERT .OR. ::iStyle = ST_ALIGN_OVERLAP
          nHeight := iif(lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK), aTxtSize[2])
          ::iStyle := ST_ALIGN_OVERLAP
-         itemRect[1] := ( ::nWidth - aBmpSize[1] ) /  2
-         itemRect[2] := iif(::PictureMargin = 0, ( ( ( ::nHeight - ( nHeight + aBmpSize[2] + 1 ) ) / 2 ) ), ::PictureMargin)
+         itemRect[1] := (::nWidth - aBmpSize[1]) /  2
+         itemRect[2] := iif(::PictureMargin = 0, (((::nHeight - (nHeight + aBmpSize[2] + 1)) / 2)), ::PictureMargin)
       ENDIF
    ELSEIF !Empty(::caption)
       nHeight := aTxtSize[2] //nHeight := IIF(lMultiLine, hwg_Drawtext(dc, ::caption, itemRect, DT_CALCRECT + DT_WORDBREAK), aTxtSize[2])
@@ -994,34 +994,34 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
    bHasTitle := ValType(::caption) == "C" .AND. !Empty(::Caption)
 
-   //   hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
-   IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent .AND. ( !bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT )
+   //   hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
+   IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent .AND. (!bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT)
       bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, ::hIcon, ::hbitmap, ::iStyle)
       IF ::istyle = ST_ALIGN_HORIZ_RIGHT
          bmpRect[1]     -= ::PictureMargin
          captionRect[3] -= ::PictureMargin
       ENDIF
       IF !bIsDisabled
-         hwg_Drawtransparentbitmap( dc, ::hbitmap, bmpRect[1], bmpRect[2] )
+         hwg_Drawtransparentbitmap(dc, ::hbitmap, bmpRect[1], bmpRect[2])
       ELSE
-         hwg_Drawgraybitmap( dc, ::hbitmap, bmpRect[1], bmpRect[2] )
+         hwg_Drawgraybitmap(dc, ::hbitmap, bmpRect[1], bmpRect[2])
       ENDIF
    ELSEIF ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N"
       IF ::istyle = ST_ALIGN_HORIZ_RIGHT
          captionRect[3] -= ::PictureMargin
       ENDIF
-      hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
+      hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
    ELSE
       hwg_Inflaterect(@captionRect, - 3, - 3)
    ENDIF
-   captionRect[1] += iif(HWG_BITAND(::Style, BS_LEFT)  != 0, Max( ::PictureMargin, 2 ), 0)
-   captionRect[3] -= iif(HWG_BITAND(::Style, BS_RIGHT) != 0, Max( ::PictureMargin, 3 ), 0)
+   captionRect[1] += iif(HWG_BITAND(::Style, BS_LEFT)  != 0, Max(::PictureMargin, 2), 0)
+   captionRect[3] -= iif(HWG_BITAND(::Style, BS_RIGHT) != 0, Max(::PictureMargin, 3), 0)
 
    itemRect1    := AClone(itemRect)
    captionRect1 := AClone(captionRect)
    itemRect     := AClone(itemRectOld)
 
-   IF ( bHasTitle )
+   IF (bHasTitle)
       // If button is pressed then "press" title also
       IF bIsPressed .AND. !::Themed
          hwg_Offsetrect(@captionRect, 1, 1)
@@ -1037,7 +1037,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
                captionRect[2] :=  itemRect1[2] + aBmpSize[2] //+ 1
                uAlign -= ST_ALIGN_OVERLAP + 1
             ELSE
-               captionRect[2] :=  ( ::nHeight - nHeight ) / 2 + 2
+               captionRect[2] :=  (::nHeight - nHeight) / 2 + 2
             ENDIF
             savecaptionRect := AClone(captionRect)
             hwg_Drawtext(dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign, @captionRect)
@@ -1048,14 +1048,14 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
 
       captionRectHeight := captionRect[4] - captionRect[2]
       centerRectHeight  := centerRect[4] - centerRect[2]
-      hwg_Offsetrect(@captionRect, 0, ( centerRectHeight - captionRectHeight ) / 2)
+      hwg_Offsetrect(@captionRect, 0, (centerRectHeight - captionRectHeight) / 2)
       IF ::Themed
-         IF ( ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N" )
+         IF (ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N")
             IF lMultiLine  .OR. ::iStyle = ST_ALIGN_OVERLAP
                captionRect := AClone(savecaptionRect)
             ENDIF
          ELSEIF lMultiLine
-            captionRect[2] := ( ::nHeight  - nHeight ) / 2 + 2
+            captionRect[2] := (::nHeight  - nHeight) / 2 + 2
          ENDIF
          hwg_drawthemetext(::hTheme, dc, BP_PUSHBUTTON, iif(bIsDisabled, PBS_DISABLED, PBS_NORMAL), ;
             ::caption, ;
@@ -1063,7 +1063,7 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
             0, captionRect)
       ELSE
          hwg_Setbkmode(dc, TRANSPARENT)
-         IF ( bIsDisabled )
+         IF (bIsDisabled)
             hwg_Offsetrect(@captionRect, 1, 1)
             hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DHILIGHT))
             hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
@@ -1071,17 +1071,17 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
             hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DSHADOW))
             hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
          ELSE
-            IF ( ::bMouseOverButton .OR. bIsPressed )
+            IF (::bMouseOverButton .OR. bIsPressed)
                hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_IN])
                hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_IN])
                fillRect := hwg_Copyrect(itemRect)
                IF bIsPressed
-                  hwg_Drawbutton( dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], 6 )
+                  hwg_Drawbutton(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], 6)
                ENDIF
                hwg_Inflaterect(@fillRect, - 2, - 2)
                hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_IN]:handle)
             ELSE
-               IF ( bIsFocused )
+               IF (bIsFocused)
                   hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_FOCUS])
                   hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_FOCUS])
                   fillRect := hwg_Copyrect(itemRect)
@@ -1096,16 +1096,16 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
                ENDIF
             ENDIF
             IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent
-               hwg_Drawtransparentbitmap( dc, ::hbitmap, bmpRect[1], bmpRect[2] )
+               hwg_Drawtransparentbitmap(dc, ::hbitmap, bmpRect[1], bmpRect[2])
             ELSEIF ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N"
-               hwg_Drawtheicon( ::handle, dc, bHasTitle, @itemRect1, @captionRect1, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle )
+               hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect1, @captionRect1, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
             ENDIF
-            IF ( ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N" )
+            IF (ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N")
                IF lmultiline  .OR. ::iStyle = ST_ALIGN_OVERLAP
                   captionRect := AClone(savecaptionRect)
                ENDIF
             ELSEIF lMultiLine
-               captionRect[2] := ( ::nHeight  - nHeight ) / 2 + 2
+               captionRect[2] := (::nHeight  - nHeight) / 2 + 2
             ENDIF
             hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
          ENDIF
@@ -1118,9 +1118,9 @@ METHOD Paint( lpDis ) CLASS HBUTTONEx
       hwg_Inflaterect(@focusRect, - 3, - 3)
       hwg_Drawfocusrect(dc, focusRect)
    ENDIF
-   hwg_Deleteobject( br )
-   hwg_Deleteobject( brBackground )
-   hwg_Deleteobject( brBtnShadow )
+   hwg_Deleteobject(br)
+   hwg_Deleteobject(brBackground)
+   hwg_Deleteobject(brBtnShadow)
 
    RETURN NIL
 
@@ -1131,15 +1131,15 @@ METHOD PAINTBK(hdc) CLASS HBUTTONEx
 
    rect := hwg_Getclientrect(::handle)
    rect1 := hwg_Getwindowrect(::handle)
-   hwg_Screentoclient( ::oparent:handle, rect1 )
+   hwg_Screentoclient(::oparent:handle, rect1)
    IF ValType(::m_dcBk) == "U"
       ::m_dcBk := hdc():New()
       ::m_dcBk:Createcompatibledc(clDC:m_hDC)
-      ::m_bmpBk := hwg_Createcompatiblebitmap( clDC:m_hDC, rect[3] - rect[1], rect[4] - rect[2] )
-      ::m_pbmpOldBk := ::m_dcBk:Selectobject( ::m_bmpBk )
-      ::m_dcBk:Bitblt( 0, 0, rect[3] - rect[1], rect[4] - rect[4], clDC:m_hDc, rect1[1], rect1[2], SRCCOPY )
+      ::m_bmpBk := hwg_Createcompatiblebitmap(clDC:m_hDC, rect[3] - rect[1], rect[4] - rect[2])
+      ::m_pbmpOldBk := ::m_dcBk:Selectobject(::m_bmpBk)
+      ::m_dcBk:Bitblt(0, 0, rect[3] - rect[1], rect[4] - rect[4], clDC:m_hDc, rect1[1], rect1[2], SRCCOPY)
    ENDIF
-   hwg_Bitblt( hdc, 0, 0, rect[3] - rect[1], rect[4] - rect[4], ::m_dcBk:m_hDC, 0, 0, SRCCOPY )
+   hwg_Bitblt(hdc, 0, 0, rect[3] - rect[1], rect[4] - rect[4], ::m_dcBk:m_hDC, 0, 0, SRCCOPY)
 
    RETURN Self
 
@@ -1152,7 +1152,7 @@ CLASS HGroupEx INHERIT HGroup
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup)
    METHOD Init()
-   METHOD Paint( lpDis )
+   METHOD Paint(lpDis)
 
 ENDCLASS
 
@@ -1162,7 +1162,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
    ::oRGroup := oRGroup
    ::oBrush := iif(bColor != NIL, ::brush, NIL)
    ::lTransparent := iif(lTransp != NIL, lTransp, .F.)
-   ::backStyle := iif(( lTransp != NIL .AND. lTransp ) .OR. ::bColor != NIL, TRANSPARENT, OPAQUE)
+   ::backStyle := iif((lTransp != NIL .AND. lTransp) .OR. ::bColor != NIL, TRANSPARENT, OPAQUE)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
       oFont, bInit, bSize, bPaint, tcolor, bColor)
 
@@ -1177,8 +1177,8 @@ METHOD Init() CLASS HGroupEx
       IF ::oBrush != NIL .OR. ::backStyle = TRANSPARENT
          nbs := HWG_GETWINDOWSTYLE(::handle)
          nbs := hwg_Modstyle(nbs, BS_TYPEMASK, BS_OWNERDRAW + WS_DISABLED)
-         HWG_SETWINDOWSTYLE ( ::handle, nbs )
-         ::bPaint   := { | o, p | o:paint( p ) }
+         HWG_SETWINDOWSTYLE(::handle, nbs)
+         ::bPaint   := { | o, p | o:paint(p) }
       ENDIF
       IF ::oRGroup != NIL
          ::oRGroup:Handle := ::handle
@@ -1197,8 +1197,8 @@ METHOD Init() CLASS HGroupEx
 
    RETURN NIL
 
-METHOD PAINT( lpdis ) CLASS HGroupEx
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
+METHOD PAINT(lpdis) CLASS HGroupEx
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL DC := drawInfo[3]
    LOCAL ppnOldPen, pnFrmDark, pnFrmLight, iUpDist
    LOCAL szText, aSize, dwStyle
@@ -1209,7 +1209,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    szText := ::Title
    aSize := hwg_TxtRect(iif(Empty(szText), "A", szText), Self)
    // distance from window top to group rect
-   iUpDist := ( aSize[2] / 2 )
+   iUpDist := (aSize[2] / 2)
    dwStyle := ::Style //HWG_GETWINDOWSTYLE(::handle) //GetStyle();
    rcText := { 0, rc[2] + iUpDist, 0, rc[2] + iUpDist  }
    IF Empty(szText)
@@ -1217,7 +1217,7 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
       rcText[3] := rc[3] + 2 - OFS_X
       rcText[1] := rcText[3] - aSize[1]
    ELSEIF hb_BitAnd(dwStyle, BS_CENTER) == BS_CENTER  // text centered
-      rcText[1] := ( rc[3] - rc[1]  - aSize[1]  ) / 2
+      rcText[1] := (rc[3] - rc[1]  - aSize[1]) / 2
       rcText[3] := rcText[1] + aSize[1]
    ELSE //((!(dwStyle & BS_CENTER)) || ((dwStyle & BS_CENTER) == BS_LEFT))// left aligned   / default
       rcText[1] := rc[1] + OFS_X
@@ -1226,42 +1226,42 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
    hwg_Setbkmode(dc, TRANSPARENT)
 
    IF Hwg_BitAND(dwStyle, BS_FLAT) != 0  // "flat" frame
-      //pnFrmDark  := hwg_Createpen( PS_SOLID, 1, hwg_Rgb(0, 0, 0) ) )
+      //pnFrmDark  := hwg_Createpen(PS_SOLID, 1, hwg_Rgb(0, 0, 0)))
       pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Rgb(64, 64, 64))
       pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
-      ppnOldPen := hwg_Selectobject( dc, pnFrmDark:Handle )
-      hwg_Moveto( dc, rcText[1] - 2, rcText[2]  )
-      hwg_Lineto( dc, rc[1], rcText[2] )
-      hwg_Lineto( dc, rc[1], rc[4] )
-      hwg_Lineto( dc, rc[3], rc[4] )
-      hwg_Lineto( dc, rc[3], rcText[4] )
-      hwg_Lineto( dc, rcText[3], rcText[4] )
-      hwg_Selectobject( dc, pnFrmLight:handle )
-      hwg_Moveto( dc, rcText[1] - 2, rcText[2] + 1 )
-      hwg_Lineto( dc, rc[1] + 1, rcText[2] + 1 )
-      hwg_Lineto( dc, rc[1] + 1, rc[4] - 1 )
-      hwg_Lineto( dc, rc[3] - 1, rc[4] - 1 )
-      hwg_Lineto( dc, rc[3] - 1, rcText[4] + 1 )
-      hwg_Lineto( dc, rcText[3], rcText[4] + 1 )
+      ppnOldPen := hwg_Selectobject(dc, pnFrmDark:Handle)
+      hwg_Moveto(dc, rcText[1] - 2, rcText[2])
+      hwg_Lineto(dc, rc[1], rcText[2])
+      hwg_Lineto(dc, rc[1], rc[4])
+      hwg_Lineto(dc, rc[3], rc[4])
+      hwg_Lineto(dc, rc[3], rcText[4])
+      hwg_Lineto(dc, rcText[3], rcText[4])
+      hwg_Selectobject(dc, pnFrmLight:handle)
+      hwg_Moveto(dc, rcText[1] - 2, rcText[2] + 1)
+      hwg_Lineto(dc, rc[1] + 1, rcText[2] + 1)
+      hwg_Lineto(dc, rc[1] + 1, rc[4] - 1)
+      hwg_Lineto(dc, rc[3] - 1, rc[4] - 1)
+      hwg_Lineto(dc, rc[3] - 1, rcText[4] + 1)
+      hwg_Lineto(dc, rcText[3], rcText[4] + 1)
    ELSE // 3D frame
       pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
       pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
-      ppnOldPen := hwg_Selectobject( dc, pnFrmDark:handle )
-      hwg_Moveto( dc, rcText[1] - 2, rcText[2] )
-      hwg_Lineto( dc, rc[1], rcText[2] )
-      hwg_Lineto( dc, rc[1], rc[4] - 1 )
-      hwg_Lineto( dc, rc[3] - 1, rc[4] - 1 )
-      hwg_Lineto( dc, rc[3] - 1, rcText[4] )
-      hwg_Lineto( dc, rcText[3], rcText[4] )
-      hwg_Selectobject( dc, pnFrmLight:handle )
-      hwg_Moveto( dc, rcText[1] - 2, rcText[2] + 1 )
-      hwg_Lineto( dc, rc[1] + 1, rcText[2] + 1 )
-      hwg_Lineto( dc, rc[1] + 1, rc[4] - 1 )
-      hwg_Moveto( dc, rc[1], rc[4] )
-      hwg_Lineto( dc, rc[3], rc[4] )
-      hwg_Lineto( dc, rc[3], rcText[4] - 1 )
-      hwg_Moveto( dc, rc[3] - 2, rcText[4] + 1 )
-      hwg_Lineto( dc, rcText[3], rcText[4] + 1 )
+      ppnOldPen := hwg_Selectobject(dc, pnFrmDark:handle)
+      hwg_Moveto(dc, rcText[1] - 2, rcText[2])
+      hwg_Lineto(dc, rc[1], rcText[2])
+      hwg_Lineto(dc, rc[1], rc[4] - 1)
+      hwg_Lineto(dc, rc[3] - 1, rc[4] - 1)
+      hwg_Lineto(dc, rc[3] - 1, rcText[4])
+      hwg_Lineto(dc, rcText[3], rcText[4])
+      hwg_Selectobject(dc, pnFrmLight:handle)
+      hwg_Moveto(dc, rcText[1] - 2, rcText[2] + 1)
+      hwg_Lineto(dc, rc[1] + 1, rcText[2] + 1)
+      hwg_Lineto(dc, rc[1] + 1, rc[4] - 1)
+      hwg_Moveto(dc, rc[1], rc[4])
+      hwg_Lineto(dc, rc[3], rc[4])
+      hwg_Lineto(dc, rc[3], rcText[4] - 1)
+      hwg_Moveto(dc, rc[3] - 2, rcText[4] + 1)
+      hwg_Lineto(dc, rcText[3], rcText[4] + 1)
    ENDIF
    // draw text (if any)
    IF !Empty(szText) // !(dwExStyle & (BS_ICON|BS_BITMAP)))
@@ -1275,8 +1275,8 @@ METHOD PAINT( lpdis ) CLASS HGroupEx
       hwg_Drawtext(dc, szText, rcText, DT_VCENTER + DT_LEFT + DT_SINGLELINE + DT_NOCLIP)
    ENDIF
    // cleanup
-   hwg_Deleteobject( pnFrmLight )
-   hwg_Deleteobject( pnFrmDark )
-   hwg_Selectobject( dc, ppnOldPen )
+   hwg_Deleteobject(pnFrmLight)
+   hwg_Deleteobject(pnFrmDark)
+   hwg_Selectobject(dc, ppnOldPen)
 
    RETURN NIL

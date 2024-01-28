@@ -44,7 +44,7 @@ CLASS HActiveX FROM HControl
 
    DATA aAxEv        INIT {}              // oSkAr 20070829
    DATA aAxExec      INIT {}              // oSkAr 20070829
-   METHOD EventMap( nMsg, xExec, oSelf )  // oSkAr 20070829
+   METHOD EventMap(nMsg, xExec, oSelf)    // oSkAr 20070829
 
 ENDCLASS
 
@@ -60,32 +60,31 @@ METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
    ::Super:New(oWnd, , nStyle, nLeft, nTop, nWidth, nHeight)   // ,,,,bSize)
    ::title = cProgId
 
-   ::handle = hwg_Createactivex(  nExStyle, cClsName, cProgId, ::style, ;
+   ::handle = hwg_Createactivex(nExStyle, cClsName, cProgId, ::style, ;
                               ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-                              ::oParent:handle, ::Id     ;
-                            )
+                              ::oParent:handle, ::Id)
 
    ::Init()
 
-   ::hObj   := hwg_Atlaxgetdisp( ::handle )
+   ::hObj   := hwg_Atlaxgetdisp(::handle)
 
    bErrorBlock := ErrorBlock({|x|break(x)})
    #ifdef __XHARBOUR__
       TRY
          ::oOle := ToleAuto():New(::hObj)
       CATCH oError
-         hwg_Msginfo( oError:Description )
+         hwg_Msginfo(oError:Description)
       END
    #else
       BEGIN SEQUENCE
          ::oOle := ToleAuto():New(::hObj)
       RECOVER USING oError
-         hwg_Msginfo( oError:Description )
+         hwg_Msginfo(oError:Description)
       END
    #endif
    ErrorBlock(bErrorBlock)
 
-   hwg_Setupconnectionpoint( ::hObj, @hSink, ::aAxEv, ::aAxExec )
+   hwg_Setupconnectionpoint(::hObj, @hSink, ::aAxEv, ::aAxExec)
    ::hSink := hSink
 
    RETURN SELF
@@ -93,12 +92,12 @@ METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
 *-----------------------------------------------------------------------------*
 METHOD Release() CLASS HActiveX
 *-----------------------------------------------------------------------------*
-   hwg_Shutdownconnectionpoint( ::hSink )
+   hwg_Shutdownconnectionpoint(::hSink)
    hwg_Releasedispatch(::hObj)
 Return ::Super:Release()
 
 *-----------------------------------------------------------------------------* 
-METHOD __Error( ... ) CLASS HActiveX 
+METHOD __Error(...) CLASS HActiveX 
 *-----------------------------------------------------------------------------* 
 Local cMessage, uRet 
 cMessage := __GetMessage() 
@@ -107,12 +106,12 @@ cMessage := __GetMessage()
       cMessage := SubStr(cMessage, 2)
    ENDIF
 
-   RETURN HB_ExecFromArray( ::oOle, cMessage, HB_aParams() )
+   RETURN HB_ExecFromArray(::oOle, cMessage, HB_aParams())
 
 //-----------------------------------------------------------------------------------------------//
-METHOD EventMap( nMsg, xExec, oSelf ) CLASS HActiveX
+METHOD EventMap(nMsg, xExec, oSelf) CLASS HActiveX
    LOCAL nAt
-   nAt := AScan( ::aAxEv, nMsg )
+   nAt := AScan(::aAxEv, nMsg)
    IF nAt == 0
       AAdd(::aAxEv, nMsg)
       AAdd(::aAxExec, { NIL, NIL })

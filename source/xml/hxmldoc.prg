@@ -55,7 +55,7 @@ METHOD Add(xItem) CLASS HXMLNode
 Return xItem
 
 METHOD GetAttribute(cName, cType, xDefault) CLASS HXMLNode
-Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+Local i := Ascan(::aAttr,{|a|a[1]==cName})
 
    IF i != 0
       IF cType == Nil .OR. cType == "C"
@@ -63,13 +63,13 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
       ELSEIF cType == "N"
          Return Val(::aAttr[i, 2])
       ELSEIF cType == "L"
-         Return ( Lower(::aAttr[i, 2]) $ ".t.;on.yes" )
+         Return (Lower(::aAttr[i, 2]) $ ".t.;on.yes")
       ENDIF
    ENDIF
 Return xDefault
 
 METHOD SetAttribute(cName, cValue) CLASS HXMLNode
-Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+Local i := Ascan(::aAttr,{|a|a[1]==cName})
 
    IF i == 0
       Aadd(::aAttr,{ cName, cValue })
@@ -80,7 +80,7 @@ Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
 Return .T.
 
 METHOD DelAttribute(cName) CLASS HXMLNode
-Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+Local i := Ascan(::aAttr,{|a|a[1]==cName})
 
    IF i != 0
       Adel(::aAttr, i)
@@ -91,7 +91,7 @@ Return .T.
 METHOD Save(handle, level) CLASS HXMLNode
 Local i, s := Space(level*2)+'<', lNewLine
 
-   IF !__mvExist( "HXML_NEWLINE" )
+   IF !__mvExist("HXML_NEWLINE")
       __mvPrivate("HXML_NEWLINE")
       __mvPut("HXML_NEWLINE", .T.)
    ENDIF
@@ -118,8 +118,8 @@ Local i, s := Space(level*2)+'<', lNewLine
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_TAG
       s += '>'
-      IF Empty(::aItems) .OR. ( Len(::aItems) == 1 .AND. ;
-            Valtype(::aItems[1]) == "C" .AND. Len(::aItems[1]) + Len(s) < 80 )
+      IF Empty(::aItems) .OR. (Len(::aItems) == 1 .AND. ;
+            Valtype(::aItems[1]) == "C" .AND. Len(::aItems[1]) + Len(s) < 80)
          lNewLine := m->hxml_newline := .F.
       ELSE
          s += Chr(10)
@@ -184,7 +184,7 @@ Local i
       nStart := 1
    ENDIF
    DO WHILE .T.
-      i := Ascan( ::aItems,{|a|Valtype(a)!="C".AND.a:title==cTitle}, nStart )
+      i := Ascan(::aItems,{|a|Valtype(a)!="C".AND.a:title==cTitle}, nStart)
       IF i == 0
          EXIT
       ELSE
@@ -227,7 +227,7 @@ METHOD Read(fname, buffer) CLASS HXMLDoc
 Local han
 
    IF fname != Nil
-      han := FOpen( fname, FO_READ )
+      han := FOpen(fname, FO_READ)
       ::nLastErr := 0
       IF han != -1
          ::nLastErr := hbxml_GetDoc(Self, han)
@@ -249,7 +249,7 @@ Local cEncod, i, s
    ENDIF
    IF handle != -1
       IF lNoHeader == Nil .OR. !lNoHeader
-         IF ( cEncod := ::GetAttribute("encoding") ) == Nil
+         IF (cEncod := ::GetAttribute("encoding")) == Nil
             cEncod := "UTF-8"
          ENDIF
          s := '<?xml version="1.0" encoding="'+cEncod+'"?>'+Chr(10 )

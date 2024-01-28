@@ -42,7 +42,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
-   nStyle   := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP )
+   nStyle   := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
 
    ::title   := ""
@@ -61,12 +61,12 @@ METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeigh
       ::lnoValid := .T.
    ENDIF
    IF bKillFocus != Nil
-      ::oParent:AddEvent( IPN_FIELDCHANGED, Self, ::bKillFocus, .T., "onChange" )
+      ::oParent:AddEvent(IPN_FIELDCHANGED, Self, ::bKillFocus, .T., "onChange")
    ENDIF
 
    // Notificacoes de Ganho e perda de foco
-   ::oParent:AddEvent( EN_SETFOCUS, Self, { | o, id | __GetFocus( o:FindControl(id) ) },, "onGotFocus" )
-   ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o, id | __KillFocus( o:FindControl(id) ) },, "onLostFocus" )
+   ::oParent:AddEvent(EN_SETFOCUS, Self, { | o, id | __GetFocus( o:FindControl(id) ) },, "onGotFocus")
+   ::oParent:AddEvent(EN_KILLFOCUS, Self, { | o, id | __KillFocus( o:FindControl(id) ) },, "onLostFocus")
 
 
    RETURN Self
@@ -89,19 +89,19 @@ METHOD Init() CLASS HIPedit
    RETURN Nil
 
 METHOD SetValue(aValue) CLASS HIPedit
-   hwg_SetIpAddress( ::handle, aValue[1], aValue[2], aValue[3], aValue[4] )
+   hwg_SetIpAddress(::handle, aValue[1], aValue[2], aValue[3], aValue[4])
    ::aValue := aValue
    RETURN Nil
 
 
 METHOD GetValue() CLASS HIPedit
-   ::aValue := hwg_GetIpAddress( ::handle )
-   RETURN ( ::aValue )
+   ::aValue := hwg_GetIpAddress(::handle)
+   RETURN (::aValue)
 
 METHOD Clear() CLASS HIPedit
-   hwg_ClearIpAddress( ::handle )
+   hwg_ClearIpAddress(::handle)
    ::aValue := { 0, 0, 0, 0 }
-   RETURN ( ::aValue )
+   RETURN (::aValue)
 
 
 METHOD END() CLASS HIPedit
@@ -112,10 +112,10 @@ METHOD END() CLASS HIPedit
    RETURN Nil
 
 
-STATIC FUNCTION __GetFocus( oCtrl )
+STATIC FUNCTION __GetFocus(oCtrl)
    LOCAL xRet
 
-   IF !hwg_CheckFocus( oCtrl, .F. )
+   IF !hwg_CheckFocus(oCtrl, .F.)
       RETURN .T.
    ENDIF
 
@@ -130,10 +130,10 @@ STATIC FUNCTION __GetFocus( oCtrl )
    RETURN xRet
 
 
-STATIC FUNCTION __KillFocus( oCtrl )
+STATIC FUNCTION __KillFocus(oCtrl)
    LOCAL xRet
 
-   IF !hwg_CheckFocus( oCtrl, .T. ) .OR. oCtrl:lNoValid
+   IF !hwg_CheckFocus(oCtrl, .T.) .OR. oCtrl:lNoValid
       RETURN .T.
    ENDIF
 

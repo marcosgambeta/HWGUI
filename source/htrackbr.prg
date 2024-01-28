@@ -34,7 +34,7 @@ CLASS HTrackBar INHERIT HControl
          bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh, ;
          lVertical, TickStyle, TickMarks)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD SetValue(nValue)
    METHOD GetValue()
@@ -53,10 +53,10 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
       TickMarks := 0
    ENDIF
    IF bPaint != NIL
-      TickStyle := Hwg_BitOr( TickStyle, TBS_AUTOTICKS )
+      TickStyle := Hwg_BitOr(TickStyle, TBS_AUTOTICKS)
    ENDIF
-   nStyle := Hwg_BitOr( IIf(nStyle == NIL, 0, nStyle), ;
-         WS_CHILD + WS_VISIBLE + WS_TABSTOP )
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), ;
+         WS_CHILD + WS_VISIBLE + WS_TABSTOP)
    nStyle += IIf(lVertical != NIL .AND. lVertical, TBS_VERT, 0)
    nStyle += TickStyle + TickMarks
 
@@ -76,15 +76,15 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
 METHOD Activate() CLASS HTrackBar
    IF !Empty(::oParent:handle)
-      ::handle := hwg_InitTrackbar ( ::oParent:handle, ::id, ::style, ;
+      ::handle := hwg_InitTrackbar(::oParent:handle, ::id, ::style, ;
             ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-            ::nLow, ::nHigh )
+            ::nLow, ::nHigh)
       ::Init()
    ENDIF
 
    RETURN NIL
 
-METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
+METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    LOCAL aCoors
 
    IF msg == WM_PAINT
@@ -94,7 +94,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
       ENDIF
    ELSEIF msg == WM_MOUSEMOVE
       IF ::hCursor != NIL
-         Hwg_SetCursor( ::hCursor )
+         Hwg_SetCursor(::hCursor)
       ENDIF
    ELSEIF msg == WM_ERASEBKGND
       IF ::brush != NIL
@@ -107,12 +107,12 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HTrackBar
       ::END()
    ELSEIF msg == WM_CHAR
       IF wParam = VK_TAB
-         hwg_GetSkip( ::oParent, ::handle, , ;
-               iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
+         hwg_GetSkip(::oParent, ::handle, , ;
+               iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ENDIF
     ELSEIF msg = WM_KEYDOWN
-       IF hwg_ProcKeyList( Self, wParam )
+       IF hwg_ProcKeyList(Self, wParam)
           RETURN 0
       ENDIF
    ELSEIF ::bOther != NIL
@@ -128,7 +128,7 @@ METHOD Init() CLASS HTrackBar
       hwg_Sendmessage(::handle, TBM_SETPOS, 1, ::value)
       IF ::bPaint != NIL
          ::nHolder := 1
-         hwg_Setwindowobject( ::handle, Self )
+         hwg_Setwindowobject(::handle, Self)
          Hwg_InitTrackProc(::handle)
       ENDIF
    ENDIF
@@ -146,33 +146,33 @@ METHOD SetValue(nValue) CLASS HTrackBar
 METHOD GetValue() CLASS HTrackBar
    ::value := hwg_Sendmessage(::handle, TBM_GETPOS, 0, 0)
 
-   RETURN ( ::value )
+   RETURN (::value)
 
 #pragma BEGINDUMP
 
 #include "hwingui.h"
 #include <commctrl.h>
 
-HB_FUNC ( HWG_INITTRACKBAR )
+HB_FUNC( HWG_INITTRACKBAR )
 {
     HWND hTrackBar;
 
-    hTrackBar = CreateWindow( TRACKBAR_CLASS,
+    hTrackBar = CreateWindow(TRACKBAR_CLASS,
                              0,
-                             ( LONG )  hb_parnl(3),
-                                       hb_parni(4),
-                                       hb_parni(5),
-                                       hb_parni(6),
-                                       hb_parni(7),
+                             (LONG) hb_parnl(3),
+                                    hb_parni(4),
+                                    hb_parni(5),
+                                    hb_parni(6),
+                                    hb_parni(7),
                              hwg_par_HWND(1),
-                             ( HMENU ) hb_parni(2),
+                             (HMENU) hb_parni(2),
                              GetModuleHandle(NULL),
-                             NULL );
+                             NULL);
 
     HB_RETHANDLE(hTrackBar);
 }
 
-HB_FUNC ( HWG_TRACKBARSETRANGE )
+HB_FUNC( HWG_TRACKBARSETRANGE )
 {
     SendMessage(hwg_par_HWND(1), TBM_SETRANGE, TRUE, MAKELONG(hb_parni(2), hb_parni(3)));
 }

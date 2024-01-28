@@ -48,8 +48,8 @@ CLASS HPrinter INHERIT HObject
 
    METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn)
    METHOD SetMode(nOrientation)
-   METHOD AddFont( fontName, nHeight, lBold, lItalic, lUnderline, nCharSet )
-   METHOD SetFont( oFont )  INLINE hwg_Selectobject( ::hDC, oFont:handle )
+   METHOD AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharSet)
+   METHOD SetFont(oFont)  INLINE hwg_Selectobject(::hDC, oFont:handle)
    METHOD Settextcolor(nColor)  INLINE hwg_Settextcolor(::hDC, nColor)
    METHOD SetTBkColor(nColor)   INLINE hwg_Setbkcolor(::hDC, nColor)
    METHOD Setbkmode(lmode)   INLINE hwg_Setbkmode(::hDC, IIF(lmode, 1, 0))
@@ -60,12 +60,12 @@ CLASS HPrinter INHERIT HObject
    METHOD ReleaseMeta()
    METHOD PlayMeta(oWnd)
    METHOD PrintMeta(nPage)
-   METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser  )
+   METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser)
    METHOD END()
    METHOD Box(x1, y1, x2, y2, oPen, oBrush)
    METHOD Line(x1, y1, x2, y2, oPen)
-   METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor )
-   METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap )
+   METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor)
+   METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap)
    METHOD GetTextWidth(cString, oFont)
    METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) HIDDEN
    METHOD ChangePage(oSayPage, n, nPage) HIDDEN
@@ -103,14 +103,14 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
       ::cPrinterName := cPrinter
    ELSE
       IF cPrinter == NIL
-         ::hDCPrn := hwg_PrintSetup( @cPrinterName )
+         ::hDCPrn := hwg_PrintSetup(@cPrinterName)
          ::cPrinterName := cPrinterName
      ELSEIF Empty(cPrinter)
          cPrinterName := HWG_GETDEFAULTPRINTER()
-         ::hDCPrn := Hwg_OpenPrinter( cPrinterName )
+         ::hDCPrn := Hwg_OpenPrinter(cPrinterName)
          ::cPrinterName := cPrinterName
       ELSE
-         ::hDCPrn := Hwg_OpenPrinter( cPrinter )
+         ::hDCPrn := Hwg_OpenPrinter(cPrinter)
          ::cPrinterName := cPrinter
       ENDIF
    ENDIF
@@ -163,7 +163,7 @@ METHOD SetMode(nOrientation) CLASS HPrinter
 
    RETURN .F.
 
-METHOD AddFont( fontName, nHeight, lBold, lItalic, lUnderline, nCharset ) CLASS HPrinter
+METHOD AddFont(fontName, nHeight, lBold, lItalic, lUnderline, nCharset) CLASS HPrinter
    LOCAL oFont
 
    IF ::lmm .AND. nHeight != NIL
@@ -182,7 +182,7 @@ METHOD END() CLASS HPrinter
       ::hDCPrn := NIL
    ENDIF
    IF !empty(::hPrinter)
-      hwg_ClosePrinter( ::hPrinter )
+      hwg_ClosePrinter(::hPrinter)
    ENDIF
    ::ReleaseMeta()
 
@@ -191,10 +191,10 @@ METHOD END() CLASS HPrinter
 METHOD Box(x1, y1, x2, y2, oPen, oBrush) CLASS HPrinter
 
    IF oPen != NIL
-      hwg_Selectobject( ::hDC, oPen:handle )
+      hwg_Selectobject(::hDC, oPen:handle)
    ENDIF
    IF oBrush != NIL
-      hwg_Selectobject( ::hDC, oBrush:handle )
+      hwg_Selectobject(::hDC, oBrush:handle)
    ENDIF
    IF ::lmm
       hwg_Box(::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2)
@@ -207,7 +207,7 @@ METHOD Box(x1, y1, x2, y2, oPen, oBrush) CLASS HPrinter
 METHOD Line(x1, y1, x2, y2, oPen) CLASS HPrinter
 
    IF oPen != NIL
-      hwg_Selectobject( ::hDC, oPen:handle )
+      hwg_Selectobject(::hDC, oPen:handle)
    ENDIF
    IF ::lmm
       hwg_Drawline(::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2)
@@ -217,11 +217,11 @@ METHOD Line(x1, y1, x2, y2, oPen) CLASS HPrinter
 
    RETURN NIL
 
-METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS HPrinter
+METHOD Say(cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor) CLASS HPrinter
    LOCAL hFont, nOldTC, nOldBC
 
    IF oFont != NIL
-      hFont := hwg_Selectobject( ::hDC, oFont:handle )
+      hFont := hwg_Selectobject(::hDC, oFont:handle)
    ENDIF
    IF nTextColor != NIL
       nOldTC := hwg_Settextcolor(::hDC, nTextColor)
@@ -237,7 +237,7 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS H
    ENDIF
 
    IF oFont != NIL
-      hwg_Selectobject( ::hDC, hFont )
+      hwg_Selectobject(::hDC, hFont)
    ENDIF
 
    IF nTextColor != NIL
@@ -250,12 +250,12 @@ METHOD Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor ) CLASS H
 
    RETURN NIL
 
-METHOD Bitmap( x1, y1, x2, y2, nOpt, hBitmap ) CLASS HPrinter
+METHOD Bitmap(x1, y1, x2, y2, nOpt, hBitmap) CLASS HPrinter
 
    IF ::lmm
-      hwg_Drawbitmap( ::hDC, hBitmap, IIf(nOpt == NIL, SRCAND, nOpt), ::nHRes * x1, ::nVRes * y1, ::nHRes * ( x2 - x1 + 1 ), ::nVRes * ( y2 - y1 + 1 ) )
+      hwg_Drawbitmap(::hDC, hBitmap, IIf(nOpt == NIL, SRCAND, nOpt), ::nHRes * x1, ::nVRes * y1, ::nHRes * (x2 - x1 + 1), ::nVRes * (y2 - y1 + 1))
    ELSE
-      hwg_Drawbitmap( ::hDC, hBitmap, IIf(nOpt == NIL, SRCAND, nOpt), x1, y1, x2 - x1 + 1, y2 - y1 + 1 )
+      hwg_Drawbitmap(::hDC, hBitmap, IIf(nOpt == NIL, SRCAND, nOpt), x1, y1, x2 - x1 + 1, y2 - y1 + 1)
    ENDIF
 
    RETURN NIL
@@ -264,14 +264,14 @@ METHOD GetTextWidth(cString, oFont) CLASS HPrinter
    LOCAL arr, hFont
 
    IF oFont != NIL
-      hFont := hwg_Selectobject( ::hDC, oFont:handle )
+      hFont := hwg_Selectobject(::hDC, oFont:handle)
    ENDIF
    arr := hwg_Gettextsize(::hDC, cString)
    IF oFont != NIL
-      hwg_Selectobject( ::hDC, hFont )
+      hwg_Selectobject(::hDC, hFont)
    ENDIF
 
-   RETURN IIf(::lmm, Int( arr[1] / ::nHRes ), arr[1])
+   RETURN IIf(::lmm, Int(arr[1] / ::nHRes ), arr[1])
 
 METHOD StartDoc(lPreview, cMetaName) CLASS HPrinter
 
@@ -339,10 +339,10 @@ METHOD ReleaseMeta() CLASS HPrinter
 
    RETURN NIL
 
-METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
+METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
    LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len(::aMeta), aPage := { }
    LOCAL oFont := HFont():Add("Times New Roman", 0, - 13, 700)
-   LOCAL lTransp := ( aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10] )
+   LOCAL lTransp := (aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10])
 
    FOR i := 1 TO nLastPage
       AAdd(aPage, Str(i, 4) + ":" + Str(nLastPage, 4))
@@ -357,9 +357,9 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
 
    INIT DIALOG oDlg TITLE cTitle                  ;
          At 40, 10 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight()                        ;
-         STYLE hwg_multibitor( WS_POPUP, WS_VISIBLE, WS_CAPTION, WS_SYSMENU, WS_SIZEBOX, WS_MAXIMIZEBOX, WS_CLIPCHILDREN ) ;
+         STYLE hwg_multibitor(WS_POPUP, WS_VISIBLE, WS_CAPTION, WS_SYSMENU, WS_SIZEBOX, WS_MAXIMIZEBOX, WS_CLIPCHILDREN) ;
          ICON HIcon():AddResource("ICON_PRW");
-         ON INIT { | o | o:Maximize(), ::ResizePreviewDlg(oCanvas, 1), SetTimerPrinter( oCanvas, @oTimer ) } ;
+         ON INIT { | o | o:Maximize(), ::ResizePreviewDlg(oCanvas, 1), SetTimerPrinter(oCanvas, @oTimer) } ;
          ON EXIT { || oCanvas:brush := NIL, .T. }
 
    oDlg:bScroll := { | oWnd, msg, wParam, lParam | HB_SYMBOL_UNUSED(oWnd), ::ResizePreviewDlg(oCanvas,, msg, wParam, lParam) }
@@ -490,7 +490,7 @@ METHOD Preview( cTitle, aBitmaps, aTooltips, aBootUser ) CLASS HPrinter
 
    RETURN NIL
 
-STATIC FUNCTION SetTimerPrinter( oDlg, oTimer )
+STATIC FUNCTION SetTimerPrinter(oDlg, oTimer)
 
    SET TIMER oTimer OF oDlg VALUE 500 ACTION { || TimerFunc(oDlg) }
 
@@ -498,8 +498,8 @@ STATIC FUNCTION SetTimerPrinter( oDlg, oTimer )
 
 STATIC FUNCTION TimerFunc(o)
 
-   // hwg_Redrawwindow( o:handle, RDW_ERASE + RDW_INVALIDATE )
-   hwg_Redrawwindow( o:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE )  // Force a complete redraw
+   // hwg_Redrawwindow(o:handle, RDW_ERASE + RDW_INVALIDATE)
+   hwg_Redrawwindow(o:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE)  // Force a complete redraw
 
    RETURN NIL
 
@@ -657,7 +657,7 @@ METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
    IF nHeight > y
       nPos := nPosVert
       IF nPos > 0
-         ::yOffset := Round(( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0)
+         ::yOffset := Round(((nPos - 1) / 18) * (nHeight - y + 10), 0)
       ENDIF
    ELSE
       hwg_Setscrollpos(oCanvas:handle, SB_VERT, 0)
@@ -666,20 +666,20 @@ METHOD ResizePreviewDlg(oCanvas, nZoom, msg, wParam, lParam) CLASS hPrinter
    IF nWidth > x
       nPos := nPosHorz
       IF nPos > 0
-         nPos := ( nPos - 1 ) / 18
-         ::xOffset := Round(nPos * ( nWidth - x + 10 ), 0)
+         nPos := (nPos - 1) / 18
+         ::xOffset := Round(nPos * (nWidth - x + 10), 0)
       ENDIF
    ELSE
       hwg_Setscrollpos(oCanvas:handle, SB_HORZ, 0)
    ENDIF
 
-   ::x1 := IIf(nWidth < x, Round(( x - nWidth ) / 2, 0), 10) - ::xOffset
+   ::x1 := IIf(nWidth < x, Round((x - nWidth) / 2, 0), 10) - ::xOffset
    ::x2 := ::x1 + nWidth - 1
-   ::y1 := IIf(nHeight < y, Round(( y - nHeight ) / 2, 0), 10) - ::yOffset
+   ::y1 := IIf(nHeight < y, Round((y - nHeight) / 2, 0), 10) - ::yOffset
    ::y2 := ::y1 + nHeight - 1
 
    IF nZoom != NIL .OR. msg != NIL
-      hwg_Redrawwindow( oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE )  // Force a complete redraw
+      hwg_Redrawwindow(oCanvas:handle, RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW + RDW_INVALIDATE)  // Force a complete redraw
    ENDIF
 
    RETURN NIL
@@ -707,17 +707,17 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
    ENDIF
 
    pps := hwg_Definepaintstru()
-   hDC := hwg_Beginpaint( oWnd:handle, pps )
+   hDC := hwg_Beginpaint(oWnd:handle, pps)
    aArray = hwg_Getppsrect(pps)
    // tracelog("PPS"+str(aArray[1])+str(aArray[2])+str(aArray[3])+str(aArray[4]))
 
-   IF ( aArray[1] == 0 .AND. aArray[2] == 0 )  // IF WHOLE AREA
-      IF ( ::NeedsRedraw .OR. lRefreshVideo )
+   IF (aArray[1] == 0 .AND. aArray[2] == 0)  // IF WHOLE AREA
+      IF (::NeedsRedraw .OR. lRefreshVideo)
          IF ValType(::memDC) == "U"
             ::memDC := hDC():New()
             ::memDC:Createcompatibledc(hDC)
-            ::memBitmap := hwg_Createcompatiblebitmap( hDC, rect[3] - rect[1], rect[4] - rect[2] )
-            ::memDC:Selectobject( ::memBitmap )
+            ::memBitmap := hwg_Createcompatiblebitmap(hDC, rect[3] - rect[1], rect[4] - rect[2])
+            ::memDC:Selectobject(::memBitmap)
             Brush           := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
             BrushWhite      := HBrush():Add(hwg_Rgb(255, 255, 255)):handle
             BrushBlack      := HBrush():Add(hwg_Rgb(0, 0, 0)):handle
@@ -753,7 +753,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
          ENDIF
          // tracelog("bitblt")
          lRefreshVideo := .F.
-         hwg_Bitblt( hDC, rect[1], rect[2], rect[3], rect[4], ::memDC:m_hDC, 0, 0, SRCCOPY )
+         hwg_Bitblt(hDC, rect[1], rect[2], rect[3], rect[4], ::memDC:m_hDC, 0, 0, SRCCOPY)
       ELSE   // window fully uncovered... force a repaint
          lRefreshVideo := .T.
       ENDIF
@@ -768,7 +768,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
       hwg_Drawline(hDC, ::x1, ::y1, ::x2, ::y2)
    #endif
 
-   hwg_Endpaint( oWnd:handle, pps )
+   hwg_Endpaint(oWnd:handle, pps)
 
    RETURN NIL
 

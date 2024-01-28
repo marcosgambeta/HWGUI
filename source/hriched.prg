@@ -39,7 +39,7 @@ CLASS HRichEdit INHERIT HControl
               oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip,;
               tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder)
    METHOD Activate()
-   METHOD onEvent( msg, wParam, lParam )
+   METHOD onEvent(msg, wParam, lParam)
    METHOD Init()
    METHOD onGotFocus()
    METHOD onLostFocus()
@@ -47,7 +47,7 @@ CLASS HRichEdit INHERIT HControl
    METHOD Valid()
    METHOD UpdatePos()
    METHOD onChange()
-   METHOD ReadOnly( lreadOnly ) SETGET
+   METHOD ReadOnly(lreadOnly) SETGET
    METHOD SetColor(tColor, bColor, lRedraw)
    METHOD Savefile(cFile)
    METHOD OpenFile(cFile)
@@ -59,8 +59,8 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, ;
            tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
 
-   nStyle := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
-                        IIf(lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0) )
+   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
+                        IIf(lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, IIf(bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
@@ -75,22 +75,22 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Activate()
 
    IF bGfocus != Nil
-      //::oParent:AddEvent( EN_SETFOCUS, Self, bGfocus,, "onGotFocus" )
+      //::oParent:AddEvent(EN_SETFOCUS, Self, bGfocus,, "onGotFocus")
       ::bGetFocus := bGfocus
-      ::oParent:AddEvent( EN_SETFOCUS, Self, { | o | ::When( o ) }, , "onGotFocus" )
+      ::oParent:AddEvent(EN_SETFOCUS, Self, { | o | ::When(o) }, , "onGotFocus")
    ENDIF
    IF bLfocus != Nil
-      //::oParent:AddEvent( EN_KILLFOCUS, Self, bLfocus,, "onLostFocus" )
+      //::oParent:AddEvent(EN_KILLFOCUS, Self, bLfocus,, "onLostFocus")
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent( EN_KILLFOCUS, Self, { | o | ::Valid(o) }, , "onLostFocus" )
+      ::oParent:AddEvent(EN_KILLFOCUS, Self, { | o | ::Valid(o) }, , "onLostFocus")
    ENDIF
 
    RETURN Self
 
 METHOD Activate() CLASS HRichEdit
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createrichedit( ::oParent:handle, ::id, ;
-                                  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+      ::handle := hwg_Createrichedit(::oParent:handle, ::id, ;
+                                  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
    RETURN Nil
@@ -98,18 +98,18 @@ METHOD Activate() CLASS HRichEdit
 METHOD Init()  CLASS HRichEdit
    IF !::lInit
       ::nHolder := 1
-      hwg_Setwindowobject( ::handle, Self )
+      hwg_Setwindowobject(::handle, Self)
       Hwg_InitRichProc(::handle)
       ::Super:Init()
       ::SetColor(::tColor, ::bColor)
       IF ::bChange != Nil
          hwg_Sendmessage(::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE)
-         ::oParent:AddEvent( EN_CHANGE, ::id, {| | ::onChange()} )
+         ::oParent:AddEvent(EN_CHANGE, ::id, {| | ::onChange()})
       ENDIF
    ENDIF
    RETURN Nil
 
-METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
+METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
    LOCAL nDelta, nret
 
    //HWG_writelog('rich' + str(msg) + str(wParam) + str(lParam) + chr(13))
@@ -132,16 +132,16 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    ELSEIF msg = WM_KILLFOCUS .AND. ::lAllowTabs .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
         hwg_GetParentForm(Self):lDisableCtrlTab := ::lctrltab
    ENDIF
-   IF msg == WM_KEYDOWN .AND. ( wParam = VK_DELETE .OR. wParam = VK_BACK )  //46Del
+   IF msg == WM_KEYDOWN .AND. (wParam = VK_DELETE .OR. wParam = VK_BACK)  //46Del
       ::lChanged := .T.
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
-         IF  ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
+         IF  (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
             RETURN 0
          ENDIF
       ENDIF
-       IF !hwg_IsCtrlShift( .T., .F.)
+       IF !hwg_IsCtrlShift(.T., .F.)
          ::lChanged := .T.
       ENDIF
    ELSEIF ::bOther != Nil
@@ -153,18 +153,18 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
    IF msg == WM_KEYUP
      IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          IF   hwg_IsCtrlShift(.T., .F.)
-            hwg_GetSkip( ::oParent, ::handle, , ;
-                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
+            hwg_GetSkip(::oParent, ::handle, , ;
+                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0
          ENDIF
       ENDIF
    ELSEIF msg == WM_KEYDOWN
-      IF wParam = VK_TAB .AND. ( hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs )
-         hwg_GetSkip( ::oParent, ::handle, , ;
-                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1) )
+      IF wParam = VK_TAB .AND. (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
+         hwg_GetSkip(::oParent, ::handle, , ;
+                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE
-         hwg_Re_inserttext(::handle, CHR( VK_TAB ))
+         hwg_Re_inserttext(::handle, CHR(VK_TAB))
           RETURN 0
       ENDIF
       IF wParam == VK_ESCAPE .AND. hwg_GetParentForm(Self):Handle != ::oParent:handle
@@ -189,7 +189,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HRichEdit
 METHOD SetColor(tColor, bColor, lRedraw)  CLASS HRichEdit
 
    IF tcolor != NIL
-      hwg_Re_setdefault( ::handle, tColor ) //, ID_FONT,, ) // cor e fonte padrao
+      hwg_Re_setdefault(::handle, tColor) //, ID_FONT,, ) // cor e fonte padrao
    ENDIF
    IF bColor != NIL
       hwg_Sendmessage(::Handle, EM_SETBKGNDCOLOR, 0, bColor)  // cor de fundo
@@ -198,7 +198,7 @@ METHOD SetColor(tColor, bColor, lRedraw)  CLASS HRichEdit
 
    RETURN NIL
 
-METHOD ReadOnly( lreadOnly )
+METHOD ReadOnly(lreadOnly)
 
    IF lreadOnly != Nil
       IF !EMPTY(hwg_Sendmessage(::handle, EM_SETREADONLY, IIF(lReadOnly, 1, 0), 0))
@@ -238,7 +238,7 @@ METHOD onLostFocus() CLASS HRichEdit
 
 METHOD When() CLASS HRichEdit
 
-    IF !hwg_CheckFocus( Self, .F. )
+    IF !hwg_CheckFocus(Self, .F.)
        RETURN .T.
    ENDIF
    ::title := ::GetText()
@@ -250,7 +250,7 @@ METHOD When() CLASS HRichEdit
 
 METHOD Valid() CLASS HRichEdit
 
-   IF ::bLostFocus != Nil .AND. !hwg_CheckFocus( Self, .T. )
+   IF ::bLostFocus != Nil .AND. !hwg_CheckFocus(Self, .T.)
        RETURN .T.
    ENDIF
    ::title := ::GetText()
@@ -263,7 +263,7 @@ METHOD Valid() CLASS HRichEdit
 METHOD Savefile(cFile)  CLASS HRichEdit
 
    IF !EMPTY(cFile)
-      IF !EMPTY(hwg_Saverichedit( ::Handle, cFile ))
+      IF !EMPTY(hwg_Saverichedit(::Handle, cFile))
           RETURN .T.
       ENDIF
    ENDIF
@@ -272,7 +272,7 @@ METHOD Savefile(cFile)  CLASS HRichEdit
 METHOD OpenFile(cFile)  CLASS HRichEdit
 
    IF !EMPTY(cFile)
-      IF !EMPTY(hwg_Loadrichedit( ::Handle, cFile ))
+      IF !EMPTY(hwg_Loadrichedit(::Handle, cFile))
           RETURN .T.
       ENDIF
    ENDIF
@@ -284,7 +284,7 @@ METHOD Print()  CLASS HRichEdit
     //  ::hDCPrinter := hwg_Printsetup()
    ENDIF
    IF HWG_STARTDOC(::hDCPrinter) <> 0
-      IF hwg_Printrtf( ::Handle, ::hDCPrinter ) <> 0
+      IF hwg_Printrtf(::Handle, ::hDCPrinter) <> 0
           HWG_ENDDOC(::hDCPrinter)
       ELSE
          HWG_ABORTDOC(::hDCPrinter)
@@ -298,7 +298,7 @@ Function hwg_DefRichProc(hEdit, msg, wParam, lParam)
 
 Local oEdit
    // writelog("RichProc: " + Str(hEdit, 10)+"|"+Str(msg, 6)+"|"+Str(wParam, 10)+"|"+Str(lParam, 10))
-   oEdit := hwg_FindSelf( hEdit )
+   oEdit := hwg_FindSelf(hEdit)
    IF msg == WM_CHAR
       oEdit:lChanged := .T.
    ELSEIF msg == WM_KEYDOWN

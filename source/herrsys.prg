@@ -22,7 +22,7 @@ PROCEDURE hwg_ErrSys
 
    RETURN
 
-STATIC FUNCTION DefError( oError )
+STATIC FUNCTION DefError(oError)
    LOCAL cMessage
    LOCAL cDOSError
 
@@ -71,9 +71,9 @@ STATIC FUNCTION DefError( oError )
    cMessage += Chr(13) + Chr(10) + "Time:" + Time()
 
 
-   MemoWrit( LogInitialPath + "Error.log", cMessage )
+   MemoWrit(LogInitialPath + "Error.log", cMessage)
 
-   ErrorPreview( cMessage )
+   ErrorPreview(cMessage)
    hwg_EndWindow()
    hwg_Postquitmessage(0)
 
@@ -87,21 +87,21 @@ FUNCTION hwg_ErrMsg(oError)
    cMessage := IIf(oError:severity > ES_WARNING, "Error", "Warning") + " "
 
    // add subsystem name if available
-   IF ISCHARACTER( oError:subsystem )
+   IF ISCHARACTER(oError:subsystem)
       cMessage += oError:subsystem()
    ELSE
       cMessage += "???"
    ENDIF
 
    // add subsystem's error code if available
-   IF ISNUMBER( oError:subCode )
+   IF ISNUMBER(oError:subCode)
       cMessage += "/" + LTrim(Str(oError:subCode))
    ELSE
       cMessage += "/???"
    ENDIF
 
    // add error description if available
-   IF ISCHARACTER( oError:description )
+   IF ISCHARACTER(oError:description)
       cMessage += "  " + oError:description
    ENDIF
 
@@ -115,7 +115,7 @@ FUNCTION hwg_ErrMsg(oError)
 
    /*
    IF !Empty(oError:Args)
-      cMessage += "Arguments: " + ValToPrgExp( oError:Args )
+      cMessage += "Arguments: " + ValToPrgExp(oError:Args)
    ENDIF
    */
 
@@ -128,7 +128,7 @@ FUNCTION hwg_WriteLog(cText, fname)
    IF !File(fname)
       nHand := FCreate(fname)
    ELSE
-      nHand := FOpen( fname, 1 )
+      nHand := FOpen(fname, 1)
    ENDIF
    FSeek(nHand, 0, 2)
    FWrite(nHand, cText + Chr(10))
@@ -136,7 +136,7 @@ FUNCTION hwg_WriteLog(cText, fname)
 
    RETURN nil
 
-STATIC FUNCTION ErrorPreview( cMess )
+STATIC FUNCTION ErrorPreview(cMess)
    LOCAL oDlg, oEdit
 
    INIT DIALOG oDlg TITLE "Error.log" ;

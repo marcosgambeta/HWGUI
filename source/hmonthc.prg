@@ -49,7 +49,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
            lWeekNumbers, bSelect) CLASS HMonthCalendar
 
-   nStyle := Hwg_BitOr( IIf(nStyle == Nil, 0, nStyle), 0 ) //WS_TABSTOP )
+   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), 0) //WS_TABSTOP )
    nStyle   += IIf(lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY)
    nStyle   += IIf(lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
    nStyle   += IIf(lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
@@ -65,8 +65,8 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    /*
    IF bChange != Nil
-      ::oParent:AddEvent( MCN_SELECT, Self, bChange, .T., "onChange" )
-      ::oParent:AddEvent( MCN_SELCHANGE, Self, bChange, .T., "onChange" )
+      ::oParent:AddEvent(MCN_SELECT, Self, bChange, .T., "onChange")
+      ::oParent:AddEvent(MCN_SELCHANGE, Self, bChange, .T., "onChange")
    ENDIF
    */
 
@@ -78,8 +78,8 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 METHOD Activate() CLASS HMonthCalendar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_InitMonthCalendar ( ::oParent:handle, ::id, ::style, ;
-                                      ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::handle := hwg_InitMonthCalendar(::oParent:handle, ::id, ::style, ;
+                                      ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
 
@@ -94,8 +94,8 @@ METHOD Init() CLASS HMonthCalendar
       IF !Empty(::value)
          hwg_SetMonthCalendardate(::handle, ::value)
       ENDIF
-      ::oParent:AddEvent( MCN_SELECT, Self, { || ::onSelect() }, .T., "onSelect" )
-      ::oParent:AddEvent( MCN_SELCHANGE, Self, { || ::onChange() }, .T., "onChange" )
+      ::oParent:AddEvent(MCN_SELECT, Self, { || ::onSelect() }, .T., "onSelect")
+      ::oParent:AddEvent(MCN_SELCHANGE, Self, { || ::onChange() }, .T., "onChange")
 
    ENDIF
 
@@ -118,7 +118,7 @@ METHOD GetValue() CLASS HMonthCalendar
 
    ::value := hwg_GetMonthCalendardate(::handle)
 
-   RETURN ( ::value )
+   RETURN (::value)
 
 METHOD onChange() CLASS HMonthCalendar
 
@@ -153,21 +153,21 @@ METHOD onSelect() CLASS HMonthCalendar
 #include "missing.h"
 #endif
 
-HB_FUNC ( HWG_INITMONTHCALENDAR )
+HB_FUNC( HWG_INITMONTHCALENDAR )
 {
    HWND hMC;
    RECT rc;
 
-   hMC = CreateWindowEx( 0,
-                         MONTHCAL_CLASS,
-                         TEXT(""),
-                         (LONG) hb_parnl(3), /* 0, 0, 0, 0, */
-                         hb_parni(4), hb_parni(5),      /* x, y       */
-                         hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
-                         hwg_par_HWND(1),
-                         (HMENU) hb_parni(2),
-                         GetModuleHandle(NULL),
-                         NULL );
+   hMC = CreateWindowEx(0,
+                        MONTHCAL_CLASS,
+                        TEXT(""),
+                        (LONG) hb_parnl(3), /* 0, 0, 0, 0, */
+                        hb_parni(4), hb_parni(5),      /* x, y       */
+                        hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
+                        hwg_par_HWND(1),
+                        (HMENU) hb_parni(2),
+                        GetModuleHandle(NULL),
+                        NULL);
 
    MonthCal_GetMinReqRect(hMC, &rc);
 
@@ -176,7 +176,7 @@ HB_FUNC ( HWG_INITMONTHCALENDAR )
     HB_RETHANDLE(hMC);
 }
 
-HB_FUNC ( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of file Control.c
+HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of file Control.c
 {
    PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
 
@@ -205,7 +205,7 @@ HB_FUNC ( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of 
    }
 }
 
-HB_FUNC ( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of file Control.c
+HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of file Control.c
 {
    SYSTEMTIME st;
    char szDate[9];
@@ -214,7 +214,7 @@ HB_FUNC ( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of 
 
    hb_dateStrPut(szDate, st.wYear, st.wMonth, st.wDay);
    szDate[8] = 0;
-   hb_retds( szDate );
+   hb_retds(szDate);
 }
 
 #pragma ENDDUMP

@@ -27,9 +27,9 @@ CLASS HTimer INHERIT HObject
    DATA   xName          HIDDEN
    ACCESS Name           INLINE ::xName
    ASSIGN Name(cName)  INLINE IIF(!EMPTY(cName) .AND. VALTYPE(cName) == "C" .AND. !":" $ cName .AND. !"[" $ cName,;
-         ( ::xName := cName, __objAddData(::oParent, cName), ::oParent: & ( cName ) := Self), Nil)
+         (::xName := cName, __objAddData(::oParent, cName), ::oParent: &(cName) := Self), Nil)
    ACCESS Interval       INLINE ::value
-   ASSIGN Interval(x)  INLINE ::value := x, hwg_Settimer( ::oParent:handle, ::id, ::value )
+   ASSIGN Interval(x)  INLINE ::value := x, hwg_Settimer(::oParent:handle, ::id, ::value)
 
    METHOD New(oParent, nId, value, bAction)
    METHOD Init()
@@ -44,7 +44,7 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
    ::oParent := Iif(oParent==NIL, HWindow():GetMain():oDefaultParent, oParent)
    IF nId == NIL
       nId := TIMER_FIRST_ID
-      DO WHILE AScan( ::aTimers, { | o | o:id == nId } ) !=  0
+      DO WHILE AScan(::aTimers, { | o | o:id == nId }) !=  0
          nId ++
       ENDDO
    ENDIF
@@ -53,13 +53,13 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
    ::bAction := bAction
    /*
    IF ::value > 0
-      hwg_Settimer( oParent:handle, ::id, ::value )
+      hwg_Settimer(oParent:handle, ::id, ::value)
    ENDIF
    */
    
    ::Init()
    AAdd(::aTimers, Self)
-   ::oParent:AddObject( Self )
+   ::oParent:AddObject(Self)
 
    RETURN Self
 
@@ -67,7 +67,7 @@ METHOD Init() CLASS HTimer
 
    IF !::lInit .AND. !EMPTY(::oParent:handle)
       IF ::value > 0
-         hwg_Settimer( ::oParent:handle, ::id, ::value )
+         hwg_Settimer(::oParent:handle, ::id, ::value)
       ENDIF
       ::lInit := .T.
    ENDIF
@@ -77,9 +77,9 @@ METHOD Init() CLASS HTimer
 METHOD END() CLASS HTimer
    LOCAL i
 
-   IF ( i := AScan( ::aTimers, { | o | o:id == ::id } ) ) > 0
+   IF (i := AScan(::aTimers, { | o | o:id == ::id })) > 0
       IF ::oParent != NIL
-         hwg_Killtimer( ::oParent:handle, ::id )
+         hwg_Killtimer(::oParent:handle, ::id)
       ENDIF
       ADel(::aTimers, i)
       ASize(::aTimers, Len(::aTimers) - 1)
@@ -96,7 +96,7 @@ METHOD onAction()
 
 FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 
-   LOCAL i := AScan( HTimer():aTimers, { | o | o:id == idTimer } )
+   LOCAL i := AScan(HTimer():aTimers, { | o | o:id == idTimer })
 
    HB_SYMBOL_UNUSED(hWnd)
 
@@ -112,7 +112,7 @@ EXIT PROCEDURE CleanTimers
 
    FOR i := 1 TO Len(HTimer():aTimers)
       oTimer := HTimer():aTimers[i]
-      hwg_Killtimer( oTimer:oParent:handle, oTimer:id )
+      hwg_Killtimer(oTimer:oParent:handle, oTimer:id)
    NEXT
 
    RETURN

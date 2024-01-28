@@ -28,8 +28,8 @@ CLASS VAR aImages   INIT { }
 
    METHOD AddFile(name)
    METHOD AddFromVar(cImage, cType)
-   METHOD FromBitmap( oBitmap )
-   METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight )
+   METHOD FromBitmap(oBitmap)
+   METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight)
    METHOD Release()
 
 ENDCLASS
@@ -57,7 +57,7 @@ METHOD AddFile(name) CLASS HFreeImage
    ENDIF
    ::name := name
    ::nWidth  := hwg_Fi_getwidth(::handle)
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
@@ -69,12 +69,12 @@ METHOD AddFromVar(cImage, cType) CLASS HFreeImage
    ENDIF
    ::name := LTrim(Str(::handle))
    ::nWidth  := hwg_Fi_getwidth(::handle)
-   ::nHeight := hwg_Fi_getheight( ::handle )
+   ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
    RETURN Self
 
-METHOD FromBitmap( oBitmap ) CLASS HFreeImage
+METHOD FromBitmap(oBitmap) CLASS HFreeImage
 
    ::handle := hwg_Fi_bmp2fi(oBitmap:handle)
    ::name := LTrim(Str(oBitmap:handle))
@@ -84,10 +84,10 @@ METHOD FromBitmap( oBitmap ) CLASS HFreeImage
 
    RETURN Self
 
-METHOD Draw( hDC, nLeft, nTop, nWidth, nHeight ) CLASS HFreeImage
+METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight) CLASS HFreeImage
 
-   hwg_Fi_draw( ::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight )
-   // hwg_Drawbitmap( hDC, ::hBitmap,, nLeft, nTop, ::nWidth, ::nHeight )
+   hwg_Fi_draw(::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight)
+   // hwg_Drawbitmap(hDC, ::hBitmap,, nLeft, nTop, ::nWidth, ::nHeight)
    RETURN Nil
 
 METHOD Release() CLASS HFreeImage
@@ -100,7 +100,7 @@ METHOD Release() CLASS HFreeImage
             IF i:handle == ::handle
                hwg_Fi_unload(::handle)
                IF ::hBitmap != Nil
-                  hwg_Deleteobject( ::hBitmap )
+                  hwg_Deleteobject(::hBitmap)
                ENDIF
                ADel(::aImages, hB_enumIndex())
                ASize(::aImages, nlen - 1)
@@ -112,7 +112,7 @@ METHOD Release() CLASS HFreeImage
             IF ::aImages[i]:handle == ::handle
                hwg_Fi_unload(::handle)
                IF ::hBitmap != Nil
-                  hwg_Deleteobject( ::hBitmap )
+                  hwg_Deleteobject(::hBitmap)
                ENDIF
                ADel(::aImages, i)
                ASize(::aImages, nlen - 1)
@@ -135,7 +135,7 @@ CLASS HSayFImage INHERIT HSayImage
               bSize, ctooltip, cType)
    METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip)
    METHOD ReplaceImage(Image, cType)
-   METHOD Paint( lpdis )
+   METHOD Paint(lpdis)
 
 ENDCLASS
 
@@ -153,7 +153,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+   ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
 
    ::Activate()
 
@@ -165,7 +165,7 @@ METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip) CLASS HSayFImage
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
-   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+   ::bPaint  := { | o, lpdis | o:Paint(lpdis) }
 
    RETURN Self
 
@@ -179,15 +179,15 @@ METHOD ReplaceImage(Image, cType)
 
    RETURN Nil
 
-METHOD Paint( lpdis ) CLASS HSayFImage
-   LOCAL drawInfo := hwg_Getdrawiteminfo( lpdis )
+METHOD Paint(lpdis) CLASS HSayFImage
+   LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3] // , x1 := drawInfo[4], y1 := drawInfo[5], x2 := drawInfo[6], y2 := drawInfo[7]
 
    IF ::oImage != Nil
       IF ::nZoom == Nil
-         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight )
+         ::oImage:Draw(hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight)
       ELSE
-         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
+         ::oImage:Draw(hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom)
       ENDIF
    ENDIF
 
@@ -200,7 +200,7 @@ METHOD Paint( lpdis ) CLASS HSayFImage
    FOR i := 1 TO Len(HFreeImage():aImages)
       hwg_Fi_unload(HFreeImage():aImages[i]:handle)
       IF HFreeImage():aImages[i]:hBitmap != Nil
-         hwg_Deleteobject( HFreeImage():aImages[i]:hBitmap )
+         hwg_Deleteobject(HFreeImage():aImages[i]:hBitmap)
       ENDIF
    NEXT
    hwg_Fi_end()

@@ -30,13 +30,13 @@ CLASS HProgressBar INHERIT HControl
    METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent)
    METHOD Init()
    METHOD Activate()
-   METHOD Increment() INLINE hwg_Updateprogressbar( ::handle )
-   METHOD STEP( cTitle )
-   METHOD SET( cTitle, nPos )
+   METHOD Increment() INLINE hwg_Updateprogressbar(::handle)
+   METHOD STEP(cTitle)
+   METHOD SET(cTitle, nPos)
    METHOD SetLabel(cCaption)
-   METHOD SetAnimation( nAnimation ) SETGET
+   METHOD SetAnimation(nAnimation) SETGET
    METHOD Close()
-   METHOD End() INLINE hwg_Destroywindow( ::handle )
+   METHOD End() INLINE hwg_Destroywindow(::handle)
 
 ENDCLASS
 
@@ -51,7 +51,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit,
    ::maxPos  := Iif(maxPos != NIL .AND. maxPos != 0, maxPos, 20)
    ::lNewBox := .F.
    ::nRange := Iif(nRange != NIL .AND. nRange != 0, nRange, 100)
-   ::nLimit := Int( ::nRange/::maxPos )
+   ::nLimit := Int(::nRange/::maxPos)
 
    ::Activate()
 
@@ -73,7 +73,7 @@ METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPerc
    ::maxPos  := IIf(maxPos == NIL, 20, maxPos)
    ::lNewBox := .T.
    ::nRange := Iif(nRange != NIL .AND. nRange != 0, nRange, 100)
-   ::nLimit := IIf(nRange != NIL, Int( ::nRange / ::maxPos ), 1)
+   ::nLimit := IIf(nRange != NIL, Int(::nRange / ::maxPos), 1)
    ::lPercent := lPercent
 
    INIT DIALOG ::oParent TITLE cTitle       ;
@@ -99,8 +99,8 @@ METHOD NewBox(cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPerc
 METHOD Activate() CLASS HProgressBar
 
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createprogressbar( ::oParent:handle, ::maxPos, ::style, ;
-            ::nLeft, ::nTop, ::nWidth, IIF(::nHeight = 0, NIL, ::nHeight) )
+      ::handle := hwg_Createprogressbar(::oParent:handle, ::maxPos, ::style, ;
+            ::nLeft, ::nTop, ::nWidth, IIF(::nHeight = 0, NIL, ::nHeight))
       ::Init()
    ENDIF
 
@@ -117,13 +117,13 @@ METHOD Init()  CLASS HProgressBar
 
   RETURN NIL
 
-METHOD STEP( cTitle )
+METHOD STEP(cTitle)
 
    ::nCount ++
    IF ::nCount == ::nLimit
       ::nCount := 0
-      hwg_Updateprogressbar( ::handle )
-      ::SET( cTitle )
+      hwg_Updateprogressbar(::handle)
+      ::SET(cTitle)
       IF !EMPTY(::lPercent)
          ::nPercent += ::maxPos  //::nLimit
          ::setLabel(LTRIM(STR(::nPercent, 3)) + " %")
@@ -133,13 +133,13 @@ METHOD STEP( cTitle )
 
    RETURN .F.
 
-METHOD SET( cTitle, nPos ) CLASS HProgressBar
+METHOD SET(cTitle, nPos) CLASS HProgressBar
 
    IF cTitle != NIL
       hwg_Setwindowtext(::oParent:handle, cTitle)
    ENDIF
    IF nPos != NIL
-      hwg_Setprogressbar( ::handle, nPos )
+      hwg_Setprogressbar(::handle, nPos)
    ENDIF
 
    RETURN NIL
@@ -152,7 +152,7 @@ METHOD SetLabel(cCaption) CLASS HProgressBar
 
    RETURN NIL
 
-METHOD SetAnimation( nAnimation ) CLASS HProgressBar
+METHOD SetAnimation(nAnimation) CLASS HProgressBar
 
    IF nAnimation != NIL
        IF nAnimation <= 0
@@ -172,7 +172,7 @@ METHOD SetAnimation( nAnimation ) CLASS HProgressBar
 
 METHOD Close()
 
-   hwg_Destroywindow( ::handle )
+   hwg_Destroywindow(::handle)
    IF ::lNewBox
       hwg_EndDialog(::oParent:handle)
    ENDIF

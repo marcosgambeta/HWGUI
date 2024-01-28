@@ -35,14 +35,14 @@ CLASS HPager INHERIT HControl
    METHOD Activate()
    METHOD INIT()
 
-   METHOD Notify( lParam )
+   METHOD Notify(lParam)
    METHOD Pagersetchild(b) INLINE ::hTool := b, hwg_Pagersetchild(::handle, b)
    METHOD Pagerrecalcsize() INLINE hwg_Pagerrecalcsize(::handle)
    METHOD Pagerforwardmouse(b) INLINE hwg_Pagerforwardmouse(::handle, b)
    METHOD Pagersetbkcolor(b) INLINE hwg_Pagersetbkcolor(::handle, b)
    METHOD Pagergetbkcolor() INLINE hwg_Pagergetbkcolor(::handle)
-   METHOD Pagersetborder(  b ) INLINE hwg_Pagersetborder( ::handle, b )
-   METHOD Pagergetborder() INLINE hwg_Pagergetborder( ::handle )
+   METHOD Pagersetborder(b) INLINE hwg_Pagersetborder(::handle, b)
+   METHOD Pagergetborder() INLINE hwg_Pagergetborder(::handle)
    METHOD Pagersetpos(b) INLINE hwg_Pagersetpos(::handle, b)
    METHOD Pagergetpos() INLINE hwg_Pagergetpos(::handle)
    METHOD Pagersetbuttonsize(b) INLINE hwg_Pagersetbuttonsize(::handle, b)
@@ -59,8 +59,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
    DEFAULT  lvert  TO .F.
    ::lvert := lvert
-   nStyle   := Hwg_BitOr( IIf(nStyle == NIL, 0, nStyle), ;
-                          WS_VISIBLE + WS_CHILD + IIF(lvert, PGS_VERT, PGS_HORZ) )
+   nStyle   := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), ;
+                          WS_VISIBLE + WS_CHILD + IIF(lvert, PGS_VERT, PGS_HORZ))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor)
    HWG_InitCommonControlsEx()
@@ -91,8 +91,8 @@ METHOD Activate() CLASS HPager
 
    IF !Empty(::oParent:handle)
 
-      ::handle := hwg_Createpager( ::oParent:handle, ::id, ;
-                               ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, IIF(::lVert, PGS_VERT, PGS_HORZ) )
+      ::handle := hwg_Createpager(::oParent:handle, ::id, ;
+                               ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, IIF(::lVert, PGS_VERT, PGS_HORZ))
 
       ::Init()
    ENDIF
@@ -105,7 +105,7 @@ METHOD INIT() CLASS HPager
    ENDIF
    RETURN Nil
 
-METHOD Notify( lParam ) CLASS HPager
+METHOD Notify(lParam) CLASS HPager
 
    LOCAL nCode :=  hwg_Getnotifycode(lParam)
 

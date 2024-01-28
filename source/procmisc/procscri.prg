@@ -38,7 +38,7 @@ REQUEST HB_COMPILER
 REQUEST HB_VERSION
 #endif
 
-FUNCTION OpenScript( fname, scrkod )
+FUNCTION OpenScript(fname, scrkod)
 
 LOCAL han, stroka, scom, aScr, rejim := 0, i
 LOCAL strbuf := Space(STR_BUFLEN), poz := STR_BUFLEN+1
@@ -46,9 +46,9 @@ LOCAL aFormCode, aFormName
 
    scrkod := IIF(scrkod==Nil, "000", Upper(scrkod))
    IF DEF_CH_SEP $ fname
-      fname := StrTran( fname, DEF_CH_SEP, DEF_SEP )
+      fname := StrTran(fname, DEF_CH_SEP, DEF_SEP)
    ENDIF
-   han := FOPEN( fname, FO_READ + FO_SHARED )
+   han := FOPEN(fname, FO_READ + FO_SHARED)
    IF han != - 1
       DO WHILE .T.
          stroka := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
@@ -90,15 +90,15 @@ LOCAL aFormCode, aFormName
       FCLOSE(han)
    ELSE
 #ifdef __WINDOWS__
-      hwg_Msgstop( fname + " can't be opened " )
+      hwg_Msgstop(fname + " can't be opened ")
 #else
-      ALERT( fname + " can't be opened " )
+      ALERT(fname + " can't be opened ")
 #endif
       RETURN Nil
    ENDIF
 RETURN aScr
 
-FUNCTION RdScript( scrSource, strbuf, poz, lppNoInit, cTitle )
+FUNCTION RdScript(scrSource, strbuf, poz, lppNoInit, cTitle)
 
 LOCAL han
 LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
@@ -120,22 +120,22 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
       strbuf := Space(STR_BUFLEN)
       poz := STR_BUFLEN + 1
       IF DEF_CH_SEP $ scrSource
-         scrSource := StrTran( scrSource, DEF_CH_SEP, DEF_SEP )
+         scrSource := StrTran(scrSource, DEF_CH_SEP, DEF_SEP)
       ENDIF
-      han := Fopen( scrSource, FO_READ + FO_SHARED )
+      han := Fopen(scrSource, FO_READ + FO_SHARED)
    ELSE
       han := scrSource
    ENDIF
    IF han == Nil .OR. han != - 1
       IF !lppNoInit
-         ppScript( , .T. )
+         ppScript(, .T.)
       ENDIF
       IF Valtype(scrSource) == "C"
-         WndOut( "Compiling ..." )
-         WndOut( "" )
+         WndOut("Compiling ...")
+         WndOut("")
       ENDIF
       numlin := 0
-      IF !CompileScr( han, @strbuf, @poz, rezArray, scrSource )
+      IF !CompileScr(han, @strbuf, @poz, rezArray, scrSource)
          rezArray := Nil
       ENDIF
       IF scrSource != Nil .AND. Valtype(scrSource) == "C"
@@ -143,13 +143,13 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
          Fclose(han)
       ENDIF
       IF !lppNoInit
-         ppScript( , .F. )
+         ppScript(, .F.)
       ENDIF
    ELSE
 #ifdef __WINDOWS__
-      hwg_Msgstop( "Can't open " + scrSource )
+      hwg_Msgstop("Can't open " + scrSource)
 #else
-      WndOut( "Can't open " + scrSource )
+      WndOut("Can't open " + scrSource)
       WAIT ""
       WndOut()
 #endif
@@ -158,19 +158,19 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
    ENDIF
 RETURN rezArray
 
-FUNCTION ppScript( stroka, lNew )
+FUNCTION ppScript(stroka, lNew)
 STATIC s_pp
 
    IF lNew != Nil
       s_pp := Iif(lNew, __pp_init(), Nil)
       RETURN Nil
    ENDIF
-RETURN __pp_process( s_pp, stroka )
+RETURN __pp_process(s_pp, stroka)
 
-STATIC FUNCTION COMPILESCR( han, strbuf, poz, rezArray, scrSource )
+STATIC FUNCTION COMPILESCR(han, strbuf, poz, rezArray, scrSource)
 
 LOCAL scom, poz1, stroka, strfull := "", bOldError, i, tmpArray := {}
-Local cLine, lDebug := ( Len(rezArray) >= 3 )
+Local cLine, lDebug := (Len(rezArray) >= 3)
 
    DO WHILE .T.
       cLine := RDSTR(han, @strbuf, @poz, STR_BUFLEN)
@@ -188,7 +188,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          strfull := ""
       ENDIF
       stroka := RTRIM(LTRIM(cLine))
-      IF RIGHT(stroka, 1) == CHR( 26 )
+      IF RIGHT(stroka, 1) == CHR(26)
          stroka := LEFT(stroka, LEN(stroka) - 1)
       ENDIF
       IF !EMPTY(stroka) .AND. LEFT(stroka, 2) != "//"
@@ -209,13 +209,13 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
                LOOP
 #ifdef __HARBOUR__
             ELSE
-               ppScript( stroka )
+               ppScript(stroka)
                LOOP
 #endif
             ENDIF
 #ifdef __HARBOUR__
          ELSE
-            stroka := ppScript( stroka )
+            stroka := ppScript(stroka)
 #endif
          ENDIF
 
@@ -223,7 +223,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          scom := UPPER(SUBSTR(stroka, 1, IIF(poz1 <> 0, poz1 - 1, 999)))
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN(rezArray[2]) == 0 .OR. ( i := VALTYPE(ATAIL(rezArray[2])) ) == "C" ;
+            IF LEN(rezArray[2]) == 0 .OR. (i := VALTYPE(ATAIL(rezArray[2]))) == "C" ;
                     .OR. i == "A"
                IF Left(scom, 2) == "LO"
                   AADD(rezArray[2], " "+ALLTRIM(SUBSTR(stroka, 7)))
@@ -237,12 +237,12 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
                nLastError := 1
                RETURN .F.
             ENDIF
-         CASE ( scom == "DO" .AND. UPPER(SUBSTR(stroka, 4, 5)) == "WHILE" ) ;
+         CASE (scom == "DO" .AND. UPPER(SUBSTR(stroka, 4, 5)) == "WHILE") ;
                 .OR. scom == "WHILE"
             AADD(tmpArray, stroka)
             AADD(rezArray[2], .F.)
          CASE scom == "ENDDO"
-            IF !Fou_Do( rezArray[2], tmpArray )
+            IF !Fou_Do(rezArray[2], tmpArray)
                nLastError := 2
                RETURN .F.
             ENDIF
@@ -256,28 +256,28 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
             AADD(tmpArray, stroka)
             AADD(rezArray[2], .F.)
          CASE scom == "ELSEIF"
-            IF !Fou_If( rezArray, tmpArray, .T. )
+            IF !Fou_If(rezArray, tmpArray, .T.)
                nLastError := 3
                RETURN .F.
             ENDIF
             AADD(tmpArray, SUBSTR(stroka, 5))
             AADD(rezArray[2], .F.)
          CASE scom == "ELSE"
-            IF !Fou_If( rezArray, tmpArray, .T. )
+            IF !Fou_If(rezArray, tmpArray, .T.)
                nLastError := 1
                RETURN .F.
             ENDIF
             AADD(tmpArray, "IF .T.")
             AADD(rezArray[2], .F.)
          CASE scom == "ENDIF"
-            IF !Fou_If( rezArray, tmpArray, .F. )
+            IF !Fou_If(rezArray, tmpArray, .F.)
                nLastError := 1
                RETURN .F.
             ENDIF
          CASE scom == "RETURN"
             bOldError := ERRORBLOCK({|e|MacroError(1, e, stroka)})
             BEGIN SEQUENCE
-               AADD(rezArray[2], &( "{||EndScript("+Ltrim(Substr(stroka, 7))+")}" ))
+               AADD(rezArray[2], &("{||EndScript("+Ltrim(Substr(stroka, 7))+")}"))
             RECOVER
                IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
                   WndOut()
@@ -294,7 +294,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
             scom := UPPER(LEFT(stroka, IIF(poz1 != 0, poz1 - 1, 999)))
             AADD(rezArray[2], Iif(lDebug,{ scom,{},{} },{ scom,{} }))
             AADD(tmpArray, "")
-            IF !CompileScr( han, @strbuf, @poz, rezArray[2, Len(rezArray[2])] )
+            IF !CompileScr(han, @strbuf, @poz, rezArray[2, Len(rezArray[2])])
                RETURN .F.
             ENDIF
          CASE scom == "#ENDSCRIPT" .OR. Left(scom, 7) == "ENDFUNC"
@@ -302,7 +302,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
          OTHERWISE
             bOldError := ERRORBLOCK({|e|MacroError(1, e, stroka)})
             BEGIN SEQUENCE
-               AADD(rezArray[2], &( "{||" + ALLTRIM(stroka) + "}" ))
+               AADD(rezArray[2], &("{||" + ALLTRIM(stroka) + "}"))
             RECOVER
                IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
                   WndOut()
@@ -321,7 +321,7 @@ Local cLine, lDebug := ( Len(rezArray) >= 3 )
    ENDDO
 RETURN .T.
 
-STATIC FUNCTION MacroError( nm, e, stroka )
+STATIC FUNCTION MacroError(nm, e, stroka)
 
 Local n, cTitle
 
@@ -342,28 +342,28 @@ Local n, cTitle
       cTitle := "Script execution error"
    ENDIF
    stroka += Chr(13)+Chr(10) + Chr(13)+Chr(10) + "Continue ?"
-   IF !hwg_Msgyesno( stroka, cTitle )
+   IF !hwg_Msgyesno(stroka, cTitle)
       hwg_EndWindow()
       QUIT
    ENDIF
 #else
    IF nm == 1
-      ALERT( "Error in;" + AllTrim(stroka) )
+      ALERT("Error in;" + AllTrim(stroka))
    ELSEIF nm == 2
-      Alert( "Script variables error" )
+      Alert("Script variables error")
    ELSEIF nm == 3
       stroka += ";" + hwg_ErrMsg(e)
       n := 2
       DO WHILE !Empty(ProcName(n))
         stroka += ";Called from " + ProcName(n) + "(" + AllTrim(Str(ProcLine(n++))) + ")"
       ENDDO
-      Alert( "Script execution error:;"+stroka )
+      Alert("Script execution error:;" + stroka)
    ENDIF
 #endif
    BREAK
 RETURN .T.
 
-STATIC FUNCTION Fou_If( rezArray, tmpArray, prju )
+STATIC FUNCTION Fou_If(rezArray, tmpArray, prju)
 
 LOCAL i, j, bOldError
 
@@ -379,8 +379,8 @@ LOCAL i, j, bOldError
       IF UPPER(LEFT(tmpArray[i], 2)) == "IF"
          bOldError := ERRORBLOCK({|e|MacroError(1, e, tmpArray[i])})
          BEGIN SEQUENCE
-            rezArray[2, i] := &( "{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], 4)) + ;
-                 ",.T.,iscr:=" + LTRIM(STR(j, 5)) + ")}" )
+            rezArray[2, i] := &("{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], 4)) + ;
+                 ",.T.,iscr:=" + LTRIM(STR(j, 5)) + ")}")
          RECOVER
             ERRORBLOCK(bOldError)
             RETURN .F.
@@ -389,7 +389,7 @@ LOCAL i, j, bOldError
          tmpArray[i] := ""
          i --
          IF i > 0 .AND. tmpArray[i] == "JUMP"
-            rezArray[2, i] := &( "{||iscr:=" + LTRIM(STR(IIF(prju, j - 1, j), 5)) + "}" )
+            rezArray[2, i] := &("{||iscr:=" + LTRIM(STR(IIF(prju, j - 1, j), 5)) + "}")
             tmpArray[i] := ""
          ENDIF
          RETURN .T.
@@ -397,37 +397,37 @@ LOCAL i, j, bOldError
    NEXT
 RETURN .F.
 
-STATIC FUNCTION Fou_Do( rezArray, tmpArray )
+STATIC FUNCTION Fou_Do(rezArray, tmpArray)
 
 LOCAL i, j, iloop := 0, iPos, bOldError
 
    j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
       IF !EMPTY(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "EXIT"
-         rezArray[i] = &( "{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}" )
+         rezArray[i] = &("{||iscr:=" + LTRIM(STR(j + 1, 5)) + "}")
          tmpArray[i] = ""
       ENDIF
       IF !EMPTY(tmpArray[i]) .AND. LEFT(tmpArray[i], 4) == "LOOP"
          iloop := i
       ENDIF
       IF !EMPTY(tmpArray[i]) .AND. ;
-            ( UPPER(LEFT(tmpArray[i], 8)) = "DO WHILE" .OR. ;
-              UPPER(LEFT(tmpArray[i], 5)) = "WHILE" )
+            (UPPER(LEFT(tmpArray[i], 8)) = "DO WHILE" .OR. ;
+              UPPER(LEFT(tmpArray[i], 5)) = "WHILE")
          bOldError := ERRORBLOCK({|e|MacroError(1, e, tmpArray[i])})
          BEGIN SEQUENCE
-            rezArray[i] = &( "{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], ;
+            rezArray[i] = &("{||IIF(" + ALLTRIM(SUBSTR(tmpArray[i], ;
                  IIF(UPPER(LEFT(tmpArray[i], 1)) == "D", 10, 7))) + ;
-                 ",.T.,iscr:=" + LTRIM(STR(j + 1, 5)) + ")}" )
+                 ",.T.,iscr:=" + LTRIM(STR(j + 1, 5)) + ")}")
          RECOVER
             ERRORBLOCK(bOldError)
             RETURN .F.
          END SEQUENCE
          ERRORBLOCK(bOldError)
          tmpArray[i] = ""
-         AADD(rezArray, &( "{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}" ))
+         AADD(rezArray, &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}"))
          AADD(tmpArray, "")
          IF iloop > 0
-            rezArray[iloop] = &( "{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}" )
+            rezArray[iloop] = &("{||iscr:=" + LTRIM(STR(i - 1, 5)) + "}")
             tmpArray[iloop] = ""
          ENDIF
          RETURN .T.
@@ -435,7 +435,7 @@ LOCAL i, j, iloop := 0, iPos, bOldError
    NEXT
 RETURN .F.
 
-FUNCTION DoScript( aScript, aParams )
+FUNCTION DoScript(aScript, aParams)
 
 LOCAL arlen, stroka, varName, varValue, lDebug, lParam, j, lSetDebugger := .F.
 MEMVAR iscr, bOldError, aScriptt, doscr_RetValue
@@ -444,10 +444,10 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
    IF Type("aScriptt") != "A"
       PRIVATE aScriptt := aScript
    ENDIF
-   IF aScript == Nil .OR. ( arlen := Len(aScript[2]) ) == 0
+   IF aScript == Nil .OR. (arlen := Len(aScript[2])) == 0
       RETURN .T.
    ENDIF
-   lDebug := ( Len(aScript) >= 3 )
+   lDebug := (Len(aScript) >= 3)
    DO WHILE Valtype(aScript[2, iscr]) != "B"
       IF Valtype(aScript[2, iscr]) == "C"
          IF Left(aScript[2, iscr], 1) == "#"
@@ -457,8 +457,8 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
             ENDIF
          ELSE
             stroka    := Substr(aScript[2, iscr], 2)
-            lParam    := ( Left(aScript[2, iscr], 1) == "/" )
-            bOldError := Errorblock({|e|MacroError( 2, e )})
+            lParam    := (Left(aScript[2, iscr], 1) == "/")
+            bOldError := Errorblock({|e|MacroError(2, e)})
             BEGIN SEQUENCE
                j := 1
                DO WHILE !Empty(varName := getNextVar(@stroka, @varValue))
@@ -538,7 +538,7 @@ LOCAL i := 1, RetValue := Nil
    cProc := Upper(cProc)
    DO WHILE i <= Len(aScript[2]) .AND. Valtype(aScript[2, i]) == "A"
       IF aScript[2, i, 1] == cProc
-         RetValue := DoScript( aScript[2, i], aParams )
+         RetValue := DoScript(aScript[2, i], aParams)
          EXIT
       ENDIF
       i ++
@@ -546,13 +546,13 @@ LOCAL i := 1, RetValue := Nil
 
 RETURN RetValue
 
-FUNCTION EndScript( xRetValue )
+FUNCTION EndScript(xRetValue)
 
    m->doscr_RetValue := xRetValue
    iscr := - 99
 RETURN Nil
 
-FUNCTION CompileErr( nLine )
+FUNCTION CompileErr(nLine)
 
    nLine := numlin
 RETURN nLastError
@@ -560,16 +560,16 @@ RETURN nLastError
 FUNCTION Codeblock(string)
 
    IF Left(string, 2) == "{|"
-      Return &( string )
+      Return &(string)
    ENDIF
 RETURN &("{||"+string+"}")
 
-FUNCTION SetDebugInfo( lDebug )
+FUNCTION SetDebugInfo(lDebug)
 
    lDebugInfo := Iif(lDebug==Nil, .T., lDebug)
 RETURN .T.
 
-FUNCTION SetDebugger( lDebug )
+FUNCTION SetDebugger(lDebug)
 
    lDebugger := Iif(lDebug==Nil, .T., lDebug)
 RETURN .T.
@@ -579,9 +579,9 @@ FUNCTION SetDebugRun()
    lDebugRun := .T.
 RETURN .T.
 
-Function RunScript( fname, scrname, args )
-Local scr := OpenScript( fname, scrname )
-Return Iif(scr==Nil, Nil, DoScript( scr, args ))
+Function RunScript(fname, scrname, args)
+Local scr := OpenScript(fname, scrname)
+Return Iif(scr==Nil, Nil, DoScript(scr, args))
 
 #ifdef __WINDOWS__
 
@@ -591,7 +591,7 @@ STATIC FUNCTION WndOut()
 
 #else
 
-FUNCTION WndOut( sout, noscroll, prnew )
+FUNCTION WndOut(sout, noscroll, prnew)
 
 LOCAL y1, x1, y2, x2, oldc, ly__size := (y__size != 0)
 STATIC w__buf
@@ -605,17 +605,17 @@ STATIC w__buf
    ELSEIF prnew == Nil
       prnew := .F.
    ENDIF
-   y1 := 13 - INT( y__size / 2 )
-   x1 := 41 - INT( x__size / 2 )
+   y1 := 13 - INT(y__size / 2)
+   x1 := 41 - INT(x__size / 2)
    y2 := y1 + y__size
    x2 := x1 + x__size
    IF sout == Nil 
-      RESTSCREEN( y1, x1, y2, x2, w__buf )
+      RESTSCREEN(y1, x1, y2, x2, w__buf)
       y__size := 0
    ELSE
       oldc := SETCOLOR("N/W")
       IF prnew
-         w__buf := SAVESCREEN( y1, x1, y2, x2 )
+         w__buf := SAVESCREEN(y1, x1, y2, x2)
          @ y1, x1, y2, x2 BOX "ÚÄ¿³ÙÄÀ³ "
       ELSEIF noscroll = Nil
          SCROLL(y1 + 1, x1 + 1, y2 - 1, x2 - 1, 1)
@@ -629,9 +629,9 @@ FUNCTION WndGet(sout, varget, spict)
 
 LOCAL y1, x1, y2, x2, oldc
 LOCAL GetList := {}
-   WndOut( sout )
-   y1   := 13 - INT( y__size / 2 )
-   x1   := 41 - INT( x__size / 2 )
+   WndOut(sout)
+   y1   := 13 - INT(y__size / 2)
+   x1   := 41 - INT(x__size / 2)
    y2   := y1 + y__size
    x2   := x1 + x__size
    oldc := SETCOLOR("N/W")
@@ -645,10 +645,10 @@ LOCAL GetList := {}
    SETCOLOR(oldc)
 RETURN IIF(LASTKEY() = 27, Nil, varget)
 
-FUNCTION WndOpen( ysize, xsize )
+FUNCTION WndOpen(ysize, xsize)
 
    y__size := ysize
    x__size := xsize
-   WndOut( "",, .T. )
+   WndOut("",, .T.)
 RETURN Nil
 #endif

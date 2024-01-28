@@ -146,16 +146,16 @@ CLASS Barcode
               nColText, nColPane, lHorz, lTransparent, nPinWidth) CONSTRUCTOR
    METHOD ShowBarcode()
    METHOD CreateBarcode(cCode)
-   METHOD InitCode39( lCheck )
-   METHOD InitCode128( cMode )
+   METHOD InitCode39(lCheck)
+   METHOD InitCode128(cMode)
    METHOD InitEAN13()
    METHOD InitUPC(nLen)
    METHOD InitE13BL(nLen)
    METHOD InitCodabar()
    METHOD InitSub5()
-   METHOD InitIndustrial25( lCheck )
-   METHOD InitInterleave25( lMode )
-   METHOD InitMatrix25( lCheck )
+   METHOD InitIndustrial25(lCheck)
+   METHOD InitInterleave25(lMode)
+   METHOD InitMatrix25(lCheck)
 
 ENDCLASS
 
@@ -192,7 +192,7 @@ METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
    ::lTransparent := lTransparent
    ::nPinWidth    := nPinWidth
 
-   RETURN ( Self )
+   RETURN (Self)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -209,13 +209,13 @@ METHOD ShowBarcode() CLASS BarCode
    CASE ::nBCodeType = 2
       cCode := ::InitCode39(.T.)
    CASE ::nBCodeType = 3
-      cCode := ::InitCode128( "" )
+      cCode := ::InitCode128("")
    CASE ::nBCodeType = 4
-      cCode := ::InitCode128( "A" )
+      cCode := ::InitCode128("A")
    CASE ::nBCodeType = 5
-      cCode := ::InitCode128( "B" )
+      cCode := ::InitCode128("B")
    CASE ::nBCodeType = 6
-      cCode := ::InitCode128( "C" )
+      cCode := ::InitCode128("C")
    CASE ::nBCodeType = 7
       cCode  := ::InitUPC(7)
       cCode2 := ::InitE13BL(8)
@@ -250,7 +250,7 @@ METHOD ShowBarcode() CLASS BarCode
       ::CreateBarcode(cCode2)
    ENDIF
 
-   RETURN ( NIL )
+   RETURN (NIL)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -270,17 +270,17 @@ METHOD CreateBarcode(cCode) CLASS BarCode
    IF ::lTransparent = .F. .AND. ::nColPane <> hwg_Rgb(255, 255, 255)
 
       IF ::lHorizontal = .F.
-         RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, nY + Min( Len(cCode) * ::nPinWidth, ::nWidth ))
+         RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, nY + Min(Len(cCode) * ::nPinWidth, ::nWidth))
       ELSE
-         RICH_Rectangle(::hDC, nX, nY, nX +  Min( Len(cCode) * ::nPinWidth, ::nWidth ), nY +  ::nHeight)
+         RICH_Rectangle(::hDC, nX, nY, nX +  Min(Len(cCode) * ::nPinWidth, ::nWidth), nY +  ::nHeight)
       ENDIF
 
    ENDIF
 
-   hPen      := Rich_CreatePen( , , ::nColText )
-   hOldPen   := Rich_SelectObject( ::hDC, hPen )
+   hPen      := Rich_CreatePen(, , ::nColText)
+   hOldPen   := Rich_SelectObject(::hDC, hPen)
    hBrush    := Rich_CreateSolidBrush(::nColText)
-   hOldBrush := Rich_SelectObject( ::hDC, hBrush )
+   hOldBrush := Rich_SelectObject(::hDC, hBrush)
 
    IIf(::nPinWidth < 1, ::nPinWidth := 1,)
 
@@ -288,11 +288,11 @@ METHOD CreateBarcode(cCode) CLASS BarCode
 
       IF SubStr(cCode, i, 1) = "1"
          IF ::lHorizontal = .F.
-            RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, ( nY += ::nPinWidth ))
-        *RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, ( nY += ::nPinWidth ))
+            RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, (nY += ::nPinWidth))
+        *RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, (nY += ::nPinWidth))
          ELSE
-           *RICH_Rectangle(::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nWidth)
-            RICH_Rectangle(::hDC, nX, nY, ( nX += ::nPinWidth ), nY + ::nHeight)
+           *RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
+            RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nHeight)
          ENDIF
       ELSE
          IF ::lHorizontal = .F.
@@ -304,19 +304,19 @@ METHOD CreateBarcode(cCode) CLASS BarCode
 
    NEXT
 
-   Rich_SelectObject( ::hDC, hOldPen )
-   hwg_Deleteobject( hPen )
-   Rich_SelectObject( ::hDC, hOldBrush )
-   hwg_Deleteobject( hBrush )
+   Rich_SelectObject(::hDC, hOldPen)
+   hwg_Deleteobject(hPen)
+   Rich_SelectObject(::hDC, hOldBrush)
+   hwg_Deleteobject(hBrush)
 
-   RETURN ( NIL )
+   RETURN (NIL)
 
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitCode39
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitCode39( lCheck ) CLASS BarCode
+METHOD InitCode39(lCheck) CLASS BarCode
 
    LOCAL cCars   := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
    LOCAL aBarras := { '1110100010101110', ;
@@ -384,7 +384,7 @@ METHOD InitCode39( lCheck ) CLASS BarCode
       m    := At(cCar, cCars)
       IF n > 0
          cBarra := cBarra + aBarras[m]
-         nCheck += ( m - 1 )
+         nCheck += (m - 1)
       END
    NEXT
 
@@ -392,14 +392,14 @@ METHOD InitCode39( lCheck ) CLASS BarCode
       cBarra += aBarras[nCheck % 43 + 1]
    END
 
-   RETURN ( cBarra )
+   RETURN (cBarra)
 
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitCode128
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitCode128( cMode ) CLASS BarCode
+METHOD InitCode128(cMode) CLASS BarCode
 
    LOCAL aCode := { "212222", "222122", "222221", "121223", "121322", "131222", ;
          "122213", "122312", "132212", "221213", "221312", "231212", ;
@@ -429,7 +429,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
 
    // Errors
    IF ValType(cCode) <> "C"
-      hwg_Msginfo( "Barcode Code 128 requires a character value." )
+      hwg_Msginfo("Barcode Code 128 requires a character value.")
       RETURN NIL
    ENDIF
 
@@ -437,7 +437,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
       IF ValType(cMode) = "C" .AND. Upper(cMode) $ "ABC"
          cMode := Upper(cMode)
       ELSE
-         hwg_Msginfo( "Code 128 modes are A,B o C. Character values." )
+         hwg_Msginfo("Code 128 modes are A,B o C. Character values.")
       ENDIF
    ENDIF
 
@@ -509,7 +509,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
          ENDIF
       ENDIF
 
-      nSum += ( nCar - 1 ) * nCount
+      nSum += (nCar - 1) * nCount
       cTemp := cTemp + aCode[nCar]
 
    NEXT
@@ -523,7 +523,7 @@ METHOD InitCode128( cMode ) CLASS BarCode
       cBarra += Replicate('0', Val(SubStr(cTemp, n + 1, 1)))
    NEXT
 
-   RETURN ( cBarra )
+   RETURN (cBarra)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -554,7 +554,7 @@ METHOD InitEAN13() CLASS BarCode
       s2 := s2 + Val(SubStr(k, (n * 2), 1))
    NEXT
 
-   control := ( s2 * 3 ) + s1
+   control := (s2 * 3) + s1
    l := 10
    DO WHILE control > l
       l := l + 10
@@ -594,7 +594,7 @@ METHOD InitEAN13() CLASS BarCode
 
    cadena := cadena + [101]
 
-   RETURN ( cadena )
+   RETURN (cadena)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -623,7 +623,7 @@ METHOD InitUPC(nLen) CLASS BarCode
       s2 := s2 + Val(SubStr(k, n + 1, 1))
    NEXT
 
-   control := ( s1 * 3 ) + s2
+   control := (s1 * 3) + s2
    l := 10
    DO WHILE control > l
       l := l + 10
@@ -656,7 +656,7 @@ METHOD InitUPC(nLen) CLASS BarCode
 
    cadena := cadena + [101]
 
-   RETURN ( cadena )
+   RETURN (cadena)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -665,7 +665,7 @@ METHOD InitUPC(nLen) CLASS BarCode
 *-----------------------------------------------------------------------------
 METHOD InitE13BL(nLen) CLASS BarCode
 
-   nLen := Int( nLen / 2 )
+   nLen := Int(nLen / 2)
 
    RETURN "101" + Replicate("0", nLen * 7) + "01010" + Replicate("0", nLen * 7) + "101"
 
@@ -691,12 +691,12 @@ METHOD InitCodabar() CLASS BarCode
    LOCAL cCode := Upper(::cText)
 
    FOR n := 1 TO Len(cCode)
-      IF ( nCar := At(SubStr(cCode, n, 1), cChar) ) > 0
+      IF (nCar := At(SubStr(cCode, n, 1), cChar)) > 0
          cBarra += abar[nCar]
       ENDIF
    NEXT
 
-   RETURN ( cBarra )
+   RETURN (cBarra)
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -733,14 +733,14 @@ METHOD InitSub5() CLASS BarCode
       ENDIF
    NEXT
 
-   RETURN ( cBarras )
+   RETURN (cBarras)
 
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitIndustrial25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitIndustrial25( lCheck ) CLASS BarCode
+METHOD InitIndustrial25(lCheck) CLASS BarCode
 
    LOCAL n
    LOCAL aBar     := { "00110", "10001", "01001", "11000", "00101", ;
@@ -750,7 +750,7 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
    LOCAL cBar     := ""
    LOCAL cBarra   := ""
    LOCAL nCheck   := 0
-   LOCAL cCode    := trans( ::cText, "@9" ) // only digits
+   LOCAL cCode    := trans(::cText, "@9") // only digits
 
    DEFAULT lCheck := .F.
 
@@ -777,14 +777,14 @@ METHOD InitIndustrial25( lCheck ) CLASS BarCode
       ENDIF
    NEXT
 
-   RETURN ( cBarra )
+   RETURN (cBarra)
 
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitInterleave25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitInterleave25( lMode ) CLASS BarCode
+METHOD InitInterleave25(lMode) CLASS BarCode
 
    LOCAL n, m
    LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
@@ -797,12 +797,12 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
    LOCAL cDer
    LOCAL nLen
    LOCAL nCheck := 0
-   LOCAL cCode  := trans( ::cText, "@9" ) // only digits
+   LOCAL cCode  := trans(::cText, "@9") // only digits
 
    DEFAULT lMode := .F.
 
    nLen   := Len(cCode)
-   IF ( nLen % 2 = 1 .AND. !lMode )
+   IF (nLen % 2 = 1 .AND. !lMode)
       nLen ++
       cCode += "0"
    ENDIF
@@ -839,14 +839,14 @@ METHOD InitInterleave25( lMode ) CLASS BarCode
       ENDIF
    NEXT
 
-   RETURN ( cBar )
+   RETURN (cBar)
 
 
 *-- METHOD -------------------------------------------------------------------
 *         Name: InitIndust25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitMatrix25( lCheck ) CLASS BarCode
+METHOD InitMatrix25(lCheck) CLASS BarCode
 
    LOCAL n
    LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
@@ -855,7 +855,7 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
    LOCAL cBar   := ""
    LOCAL cBarra := ""
    LOCAL nCheck := 0
-   LOCAL cCode  := trans( ::cText, "@9" ) // only digits
+   LOCAL cCode  := trans(::cText, "@9") // only digits
 
    DEFAULT lCheck := .F.
 
@@ -887,7 +887,7 @@ METHOD InitMatrix25( lCheck ) CLASS BarCode
       ENDIF
    NEXT
 
-   RETURN ( cBarra )
+   RETURN (cBarra)
 
 #pragma BEGINDUMP
 
@@ -901,7 +901,7 @@ HB_FUNC_STATIC( RICH_RECTANGLE )
 
 HB_FUNC_STATIC( RICH_CREATEPEN )
 {
-   HB_RETHANDLE(CreatePen( hb_parni(1),   // pen style
+   HB_RETHANDLE(CreatePen(hb_parni(1),   // pen style
                             hb_parni(2),   // pen width
                             hwg_par_COLORREF(3)    // pen color
                            ));
@@ -910,7 +910,7 @@ HB_FUNC_STATIC( RICH_CREATEPEN )
 
 HB_FUNC_STATIC( RICH_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject( hwg_par_HDC(1), (HGDIOBJ) HB_PARHANDLE(2) ));
+   HB_RETHANDLE(SelectObject(hwg_par_HDC(1), (HGDIOBJ) HB_PARHANDLE(2)));
 }
 
 

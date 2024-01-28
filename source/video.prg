@@ -25,7 +25,7 @@ CLASS TVideo FROM hControl
 
    METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CONSTRUCTOR
    METHOD Initiate()
-   METHOD Play( nFrom, nTo ) INLINE  ::oMci:Play( nFrom, nTo, ::oparent:handle )
+   METHOD Play(nFrom, nTo) INLINE  ::oMci:Play(nFrom, nTo, ::oparent:handle)
 
 ENDCLASS
 
@@ -39,7 +39,7 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
    ::nLeft     := nCol * VID_CHARPIX_W   // 14
    ::nHeight   := ::nTop  + nHeight - 1
    ::nWidth    := ::nLeft + nWidth + 1
-   ::Style     := hwg_bitOR( WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0) )
+   ::Style     := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
 
    ::oParent   := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
    ::id        := IIf(nid == NIL, ::NewId(), nid)
@@ -49,7 +49,7 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
 
    IF !Empty(::oparent:handle)
       ::oMci:lOpen()
-      ::oMci:SetWindow( Self )
+      ::oMci:SetWindow(Self)
    ELSE
       ::oparent:AddControl(Self)
    ENDIF
@@ -75,6 +75,6 @@ METHOD Initiate() CLASS TVideo
 
    ::Super:Init()
    ::oMci:lOpen()
-   ::oMci:SetWindow( Self )
+   ::oMci:SetWindow(Self)
 
    RETURN NIL
