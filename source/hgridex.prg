@@ -184,7 +184,7 @@ METHOD Init() CLASS HGridEx
       hwg_Listview_init(::handle, ::ItemCount, ::lNoLines)
 
       FOR i := 1 TO Len(::aColumns)
-         hwg_Listview_addcolumnex(::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIF(::aColumns[i, 4] != NIL, ::aColumns[i, 4], - 1))
+         hwg_Listview_addcolumnex(::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIF(::aColumns[i, 4] != NIL, ::aColumns[i, 4], -1))
 
       NEXT
       IF Len(::aRow) > 0
@@ -231,7 +231,7 @@ METHOD AddRow(a, bupdate) CLASS HGRIDEX
    DEFAULT bupdate TO .F.
    FOR n := 1 TO nLen STEP 4
       AAdd(aTmp1, a[n])
-      AAdd(aTmp, IIF(ValType(a[n + 1]) == "N", a[n + 1], - 1))
+      AAdd(aTmp, IIF(ValType(a[n + 1]) == "N", a[n + 1], -1))
 
       AAdd(aTmp2, IIF(ValType(a[n + 2]) == "N", a[n + 2], hwg_Rgb(12, 15, 46)))
 

@@ -291,7 +291,7 @@ METHOD When(oCtrl) CLASS HListBox
    IF !hwg_CheckFocus(Self, .F.)
       RETURN .T.
    ENDIF
-    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), - 1, 1)
+    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
    IF ::bSetGet != Nil
       Eval(::bSetGet, ::value, Self)
    ENDIF
@@ -320,7 +320,7 @@ METHOD Valid(oCtrl) CLASS HListBox
    IF !hwg_CheckFocus(Self, .T.) .OR. ::lNoValid
       RETURN .T.
    ENDIF
-   //nSkip := IIf(hwg_Getkeystate(VK_SHIFT) < 0, - 1, 1)
+   //nSkip := IIf(hwg_Getkeystate(VK_SHIFT) < 0, -1, 1)
    IF (oDlg := hwg_GetParentForm(Self)) == Nil .OR. oDlg:nLastKey != 27
       ::value := hwg_Sendmessage(::handle, LB_GETCURSEL, 0, 0) + 1
       IF ::bSetGet != Nil

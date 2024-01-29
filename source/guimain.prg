@@ -159,7 +159,7 @@ FUNCTION hwg_VColor(cColor)
 
 FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
 
-   LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, - 13)
+   LOCAL oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
    LOCAL cRes := IIf(cResIni != Nil, Trim(cResIni), "")
    nStyle := IIf(nStyle == Nil, 0, nStyle)
    x := IIf(x == Nil, 210, x)
@@ -224,7 +224,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       nTop := 0
    ENDIF
    IF oFont == Nil
-      oFont := HFont():Add("MS Sans Serif", 0, - 13)
+      oFont := HFont():Add("MS Sans Serif", 0, -13)
       lNewFont := .T.
    ENDIF
    IF cOk != Nil
@@ -613,7 +613,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
          IF oCtrl  != Nil .AND.  __ObjHasMsg(oCtrl, "OGROUP")  .AND. oCtrl:oGroup:oHGroup != Nil
              oCtrl := oCtrl:oGroup:oHGroup
          ENDIF
-         IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, oCtrl:Handle, , - 1)
+         IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, oCtrl:Handle, , -1)
             IF AScan(oWin:GetList, { | o | o:handle == oCtrl:Handle }) > 1
                RETURN .T.
             ENDIF
@@ -750,7 +750,7 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
          Case SB_LINEDOWN
              nInc := Int(oForm:nVertInc * 0.05 + 0.49); EXIT
          Case SB_PAGEUP
-             nInc := min(- 1, - oForm:nVertInc / 2);  EXIT
+             nInc := min(- 1, -oForm:nVertInc / 2);  EXIT
          Case SB_PAGEDOWN
             nInc := max(1, oForm:nVertInc / 2);   EXIT
          Case SB_THUMBTRACK

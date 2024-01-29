@@ -398,7 +398,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
             RETURN 0
          ENDIF
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), - 1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1))
          RETURN 0
       ELSEIF ::bKeyDown != Nil
          RETURN 0

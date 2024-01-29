@@ -216,7 +216,7 @@ METHOD UpdatePos() CLASS HRichEdit
     ::SelText := hwg_Re_gettextrange(::handle, pos1, pos2)
     ::SelStart := pos1
     ::SelLength := pos2 - pos1
-   ::Col := pos1 - hwg_Sendmessage(::Handle, EM_LINEINDEX, - 1, 0)
+   ::Col := pos1 - hwg_Sendmessage(::Handle, EM_LINEINDEX, -1, 0)
 
    RETURN nPos
 

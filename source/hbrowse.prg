@@ -537,7 +537,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
       //
       IF ::bOther != NIL
          IF ValType(nRet := Eval(::bOther, Self, msg, wParam, lParam)) != "N"
-            nRet := iif(ValType(nRet) = "L" .AND. !nRet, 0, - 1)
+            nRet := iif(ValType(nRet) = "L" .AND. !nRet, 0, -1)
          ENDIF
          IF nRet >= 0
             RETURN - 1
@@ -631,7 +631,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          IF wParam == VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
             IF hwg_IsCtrlShift( .T., .F. )
                hwg_GetSkip( ::oParent, ::handle, , ;
-                  iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
+                  iif(hwg_IsCtrlShift( .F., .T. ), -1, 1) )
                RETURN 0
             ENDIF
          ENDIF
@@ -669,7 +669,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
          IF wParam == VK_TAB
             IF ::lCtrlPress
                hwg_GetSkip( ::oParent, ::handle, , ;
-                  iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
+                  iif(hwg_IsCtrlShift( .F., .T. ), -1, 1) )
                RETURN 0
             ELSE
                ::DoHScroll(iif(hwg_IsCtrlShift( .F., .T. ), SB_LINELEFT, SB_LINERIGHT))
@@ -1711,7 +1711,7 @@ METHOD HeaderOut( hDC ) CLASS HBrowse
                axPosMouseOver  := iif(::xPosMouseOver > x .AND. ::xPosMouseOver < x + xsize - 3, { x, x + xsize }, axPosMouseOver)
             ELSE
                state := iif(::hTheme != NIL, PBS_PRESSED, 6)
-               hwg_Inflaterect(@aItemRect, - 1, - 1)
+               hwg_Inflaterect(@aItemRect, -1, -1)
             ENDIF
             IF ::hTheme != NIL
                hwg_drawthemebackground(::hTheme, hDC, BP_PUSHBUTTON, state, aItemRect, NIL)
@@ -2680,7 +2680,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
    //nando
    fif := aColumns[fif, 2]
    IF lReturnRowCol != NIL .AND. lReturnRowCol
-      RETURN { iif(nLine <= ::rowCurrCount, nLine, - 1), fif }
+      RETURN { iif(nLine <= ::rowCurrCount, nLine, -1), fif }
    ENDIF
 
    IF nLine > 0 .AND. nLine <= ::rowCurrCount
@@ -3073,7 +3073,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
                nChoic := AScan( oColumn:aList, ::varbuf )
             ENDIF
             oComboFont := iif(ValType(::oFont) == "U", ;
-               HFont():Add("MS Sans Serif", 0, - 8), ;
+               HFont():Add("MS Sans Serif", 0, -8), ;
                HFont():Add(::oFont:name, ::oFont:width, ::oFont:height + 2))
             @ 0, 0 GET COMBOBOX oCombo VAR nChoic ;
                ITEMS oColumn:aList            ;
@@ -3099,7 +3099,7 @@ METHOD Edit( wParam, lParam ) CLASS HBrowse
                IF oColumn:bClick != NIL
                   IF Type != "D"
                      @ nWidth - 15, 0  OWNERBUTTON oBtn  SIZE 16, ::height - 0 ;
-                        TEXT '...'  FONT HFont():Add('MS Sans Serif', 0, - 10, 400, , ,) ;
+                        TEXT '...'  FONT HFont():Add('MS Sans Serif', 0, -10, 400, , ,) ;
                         COORDINATES 0, 1, 0, 0      ;
                         ON CLICK { | oColumn, oBtn | HB_SYMBOL_UNUSED(oColumn), ::onClickColumn( .T., oGet, oBtn ) }
                      oBtn:themed :=  ::hTheme != NIL
@@ -3372,7 +3372,7 @@ METHOD When() CLASS HBrowse
    ENDIF
 
    IF ::bGetFocus != NIL
-      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT ) < 0 ), - 1, 1)
+      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT ) < 0 ), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
       // ::Setfocus()
@@ -3697,11 +3697,11 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
    ENDIF
    IF nLines > 0
       FOR n := 1 TO nLines
-         (oBrw:Alias)->(dbSkip(iif(lDesc, - 1, + 1)))
+         (oBrw:Alias)->(dbSkip(iif(lDesc, -1, + 1)))
          IF Empty(oBrw:RelationalExpr)
             DO WHILE (oBrw:Alias)->(!Eof()) .AND. Eval(oBrw:bWhile, oBrw) .AND. !Eval(oBrw:bFor, oBrw)
-               // SKIP IF( lDesc, - 1, + 1 )
-               (oBrw:Alias)->(dbSkip(iif(lDesc, - 1, + 1)))
+               // SKIP IF( lDesc, -1, + 1 )
+               (oBrw:Alias)->(dbSkip(iif(lDesc, -1, + 1)))
             ENDDO
          ENDIF
       NEXT
@@ -3714,13 +3714,13 @@ STATIC FUNCTION FltSkip( oBrw, nLines, lDesc )
                FltGoBottom(oBrw)
             ENDIF
          ELSE
-            // SKIP IF( lDesc, + 1, - 1 )
-            (oBrw:Alias)->(dbSkip(iif(lDesc, + 1, - 1)))
+            // SKIP IF( lDesc, + 1, -1 )
+            (oBrw:Alias)->(dbSkip(iif(lDesc, + 1, -1)))
          ENDIF
          IF Empty(oBrw:RelationalExpr)
             DO WHILE !(oBrw:Alias)->(Bof()) .AND. Eval(oBrw:bWhile, oBrw) .AND. !Eval(oBrw:bFor, oBrw)
-               // SKIP IF( lDesc, + 1, - 1 )
-               (oBrw:Alias)->(dbSkip(iif(lDesc, + 1, - 1)))
+               // SKIP IF( lDesc, + 1, -1 )
+               (oBrw:Alias)->(dbSkip(iif(lDesc, + 1, -1)))
             ENDDO
          ENDIF
       NEXT
@@ -3834,9 +3834,9 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
    nLines := iif(nLines == NIL, 1, nLines)
    IF nLines > 0 .AND. n > 0
       FOR n := 1 TO nLines
-         Eval(abSkip, oBrw, 1)  //IIF(lDesc, - 1, + 1) )
+         Eval(abSkip, oBrw, 1)  //IIF(lDesc, -1, + 1) )
          DO WHILE !Eval(oBrw:bEof, oBrw) .AND. Eval(oBrw:bWhile, oBrw) .AND. !Eval(oBrw:bFor, oBrw)
-            Eval(abSkip, oBrw, 1) //IIF(lDesc, - 1, + 1) )
+            Eval(abSkip, oBrw, 1) //IIF(lDesc, -1, + 1) )
          ENDDO
       NEXT
    ELSEIF nLines < 0 .AND. n > 0
@@ -3844,10 +3844,10 @@ STATIC FUNCTION aFltSkip( oBrw, nLines )
          IF  Eval(oBrw:bEof, oBrw)
             aFltGoBottom(oBrw)
          ELSE
-            Eval(abSkip, oBrw, -1) //IIF(lDesc, - 1, + 1) )
+            Eval(abSkip, oBrw, -1) //IIF(lDesc, -1, + 1) )
          ENDIF
          DO WHILE !Eval(oBrw:bBof, oBrw) .AND. Eval(oBrw:bWhile, oBrw) .AND. !Eval(oBrw:bFor, oBrw)
-            Eval(abSkip, oBrw, -1) //IIF(lDesc, - 1, + 1) )
+            Eval(abSkip, oBrw, -1) //IIF(lDesc, -1, + 1) )
          ENDDO
          IF Eval(oBrw:bBof, oBrw)
             aFltGoTop( oBrw )

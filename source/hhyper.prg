@@ -107,7 +107,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
          ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
                                  ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add("Arial", 0, - 12, , , , IIF(::lAllUnderline, 1,),)
+         ::oFont := HFONT():Add("Arial", 0, -12, , , , IIF(::lAllUnderline, 1,),)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0 .AND. ::lAllUnderline
@@ -212,7 +212,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       ELSEIF wParam = VK_DOWN
          hwg_GetSkip(::oparent, ::handle,, 1)
       ELSEIF   wParam = VK_UP
-         hwg_GetSkip(::oparent, ::handle,, - 1)
+         hwg_GetSkip(::oparent, ::handle,, -1)
       ELSEIF wParam = VK_TAB
          hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1))
       ENDIF

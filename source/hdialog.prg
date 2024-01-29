@@ -437,7 +437,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
                oCtrl := oCtrl:oGroup:oHGroup
                hCtrl := oCtrl:handle
             ENDIF
-            IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, hCtrl, , - 1)
+            IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, hCtrl, , -1)
                IF AScan(oDlg:GetList, { | o | o:handle == hCtrl }) > 1
                   RETURN 1
                ENDIF

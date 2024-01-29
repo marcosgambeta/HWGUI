@@ -341,7 +341,7 @@ METHOD ReleaseMeta() CLASS HPrinter
 
 METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
    LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len(::aMeta), aPage := {}
-   LOCAL oFont := HFont():Add("Times New Roman", 0, - 13, 700)
+   LOCAL oFont := HFont():Add("Times New Roman", 0, -13, 700)
    LOCAL lTransp := (aBitmaps != NIL .AND. Len(aBitmaps) > 9 .AND. aBitmaps[10] != NIL .AND. aBitmaps[10])
 
    FOR i := 1 TO nLastPage
@@ -440,7 +440,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
 
    @ 1, 189 LINE LENGTH oToolBar:nWidth - 1
 
-   @ 3, 192 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, - 1) } ;
+   @ 3, 192 OWNERBUTTON oBtn OF oToolBar ON CLICK { || ::ResizePreviewDlg(oCanvas, -1) } ;
          SIZE oToolBar:nWidth - 6, 24 TEXT "(-)" FONT oFont   ;
          TOOLTIP IIf(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL

@@ -254,7 +254,7 @@ METHOD When() CLASS HCheckButton
    IF !hwg_CheckFocus(Self, .F.)
       RETURN .T.
    ENDIF
-   nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), - 1, 1)
+   nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
    IF ::bGetFocus != NIL
       ::lnoValid := .T.
       ::oParent:lSuspendMsgsHandling := .T.

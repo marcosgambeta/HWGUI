@@ -27,7 +27,7 @@ STATIC aCustomEvents := { ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
        { ;
          { | o, w, l | onNotify(o, w, l) }                                 , ;
-         { | o, w |   IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), - 1) }  , ;
+         { | o, w |   IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), -1) }  , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;
          { | o, w, l | onCtlColor(o, w, l) }                               , ;

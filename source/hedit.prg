@@ -312,7 +312,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                RETURN - 1
             ELSEIF wParam == 38 //.OR.( wParam == 377 .AND. ::oUpDown != Nil )   // KeyUp
                IF !hwg_IsCtrlShift()
-                  hwg_GetSkip( oParent, ::handle, , - 1 )
+                  hwg_GetSkip( oParent, ::handle, , -1 )
                   RETURN 0
                ENDIF
             ELSEIF wParam == 39     // KeyRight
@@ -355,7 +355,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                RETURN 0
             ELSEIF wParam == VK_TAB     // Tab
                hwg_GetSkip( oParent, ::handle, , ;
-                  iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
+                  iif(hwg_IsCtrlShift( .F., .T. ), -1, 1) )
                RETURN 0
             ELSEIF wParam == VK_RETURN  // Enter
                //hwg_GetSkip( oParent, ::handle, .T., 1 )
@@ -434,7 +434,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
       ELSEIF msg == WM_CHAR
          IF wParam == VK_TAB
             hwg_GetSkip( oParent, ::handle, , ;
-               iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1) )
+               iif(hwg_IsCtrlShift( .F., .T. ), -1, 1) )
             RETURN 0
          ELSEIF wParam == VK_ESCAPE
             RETURN 0
@@ -732,7 +732,7 @@ METHOD KeyLeft(nPos) CLASS HEdit
       ENDDO
    ENDIF
    IF nPos <= 1
-      hwg_GetSkip( ::oParent, ::handle, , - 1 )
+      hwg_GetSkip( ::oParent, ::handle, , -1 )
    ENDIF
 
    RETURN 0
@@ -1076,7 +1076,7 @@ METHOD When() CLASS HEdit
 
    ::lFirst := .T.
    nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. ( hwg_Getkeystate(VK_TAB) < 0 ;
-      .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), - 1, 1)
+      .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), -1, 1)
    IF ::bGetFocus != Nil
       ::lnoValid := .T.
       IF ::cType == "D"

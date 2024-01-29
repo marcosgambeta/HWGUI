@@ -262,7 +262,7 @@ METHOD When() CLASS HDatePicker
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), - 1, 1)
+      nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
       res :=  Eval(::bGetFocus, IIF(::lShowTime, ::tValue, ::dValue), Self)

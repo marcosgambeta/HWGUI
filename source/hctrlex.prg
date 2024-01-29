@@ -152,9 +152,9 @@ METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
       IF wParam = VK_DOWN
          hwg_GetSkip(::oParent, ::handle, , 1)
       ELSEIF wParam = VK_UP
-         hwg_GetSkip(::oParent, ::handle, , - 1)
+         hwg_GetSkip(::oParent, ::handle, , -1)
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1))
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), -1, 1))
       ENDIF
       RETURN 0
    ELSEIF msg == WM_SYSKEYUP
@@ -362,10 +362,10 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
       ENDIF
       IF !hwg_ProcKeyList(Self, wParam)
          IF wParam = VK_TAB
-            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), - 1, 1))
+            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), -1, 1))
             RETURN 0
          ELSEIF wParam = VK_LEFT .OR. wParam = VK_UP
-            hwg_GetSkip(::oparent, ::handle, , - 1)
+            hwg_GetSkip(::oparent, ::handle, , -1)
             RETURN 0
          ELSEIF wParam = VK_RIGHT .OR. wParam = VK_DOWN
             hwg_GetSkip(::oparent, ::handle, , 1)
@@ -415,7 +415,7 @@ METHOD onGetFocus()  CLASS HButtonX
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), - 1, 1)
+      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
       ::oParent:lSuspendMsgsHandling := .F.
@@ -672,13 +672,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
          RETURN 0
       ENDIF
       IF wParam == VK_LEFT .OR. wParam == VK_UP
-         hwg_GetSkip(::oParent, ::handle, , - 1)
+         hwg_GetSkip(::oParent, ::handle, , -1)
          RETURN 0
       ELSEIF wParam == VK_RIGHT .OR. wParam == VK_DOWN
          hwg_GetSkip(::oParent, ::handle, , 1)
          RETURN 0
       ELSEIF  wParam = VK_TAB
-         hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), - 1, 1))
+         hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
       hwg_ProcKeyList(Self, wParam)
    ELSEIF msg == WM_SYSKEYUP .OR. (msg == WM_KEYUP .AND. ;
@@ -757,7 +757,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
             RETURN 0
          ENDIF
       ENDIF
-      RETURN iif(wParam = VK_ESCAPE, - 1, hwg_Buttongetdlgcode(lParam))
+      RETURN iif(wParam = VK_ESCAPE, -1, hwg_Buttongetdlgcode(lParam))
    ELSEIF msg == WM_SYSCOLORCHANGE
       ::SetDefaultColors()
    ELSEIF msg == WM_CHAR
@@ -904,7 +904,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
       IF bIsFocused .OR. ::id = IDOK
          br := HBRUSH():Add(hwg_Rgb(1, 1, 1))
          hwg_Framerect(dc, itemRect, br:handle)
-         hwg_Inflaterect(@itemRect, - 1, - 1)
+         hwg_Inflaterect(@itemRect, -1, -1)
       ENDIF
       crColor := hwg_Getsyscolor(COLOR_BTNFACE)
       brBackground := HBRUSH():Add(crColor)
@@ -1012,7 +1012,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
       ENDIF
       hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
    ELSE
-      hwg_Inflaterect(@captionRect, - 3, - 3)
+      hwg_Inflaterect(@captionRect, -3, -3)
    ENDIF
    captionRect[1] += iif(HWG_BITAND(::Style, BS_LEFT)  != 0, Max(::PictureMargin, 2), 0)
    captionRect[3] -= iif(HWG_BITAND(::Style, BS_RIGHT) != 0, Max(::PictureMargin, 3), 0)
@@ -1067,7 +1067,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
             hwg_Offsetrect(@captionRect, 1, 1)
             hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DHILIGHT))
             hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
-            hwg_Offsetrect(@captionRect, - 1, - 1)
+            hwg_Offsetrect(@captionRect, -1, -1)
             hwg_Settextcolor(dc, hwg_Getsyscolor(COLOR_3DSHADOW))
             hwg_Drawtext(dc, ::caption, @captionRect[1], @captionRect[2], @captionRect[3], @captionRect[4], uAlign)
          ELSE
@@ -1078,20 +1078,20 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
                IF bIsPressed
                   hwg_Drawbutton(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], 6)
                ENDIF
-               hwg_Inflaterect(@fillRect, - 2, - 2)
+               hwg_Inflaterect(@fillRect, -2, -2)
                hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_IN]:handle)
             ELSE
                IF (bIsFocused)
                   hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_FOCUS])
                   hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_FOCUS])
                   fillRect := hwg_Copyrect(itemRect)
-                  hwg_Inflaterect(@fillRect, - 2, - 2)
+                  hwg_Inflaterect(@fillRect, -2, -2)
                   hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_FOCUS]:handle)
                ELSE
                   hwg_Settextcolor(dc, ::m_crColors[BTNST_COLOR_FG_OUT])
                   hwg_Setbkcolor(dc, ::m_crColors[BTNST_COLOR_BK_OUT])
                   fillRect := hwg_Copyrect(itemRect)
-                  hwg_Inflaterect(@fillRect, - 2, - 2)
+                  hwg_Inflaterect(@fillRect, -2, -2)
                   hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_OUT]:handle)
                ENDIF
             ENDIF
@@ -1115,7 +1115,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
    // Draw the focus rect
    IF bIsFocused .AND. bDrawFocusRect .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       focusRect := hwg_Copyrect(itemRect)
-      hwg_Inflaterect(@focusRect, - 3, - 3)
+      hwg_Inflaterect(@focusRect, -3, -3)
       hwg_Drawfocusrect(dc, focusRect)
    ENDIF
    hwg_Deleteobject(br)

@@ -304,7 +304,7 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
       clr := nil  // because error and WINDOW IS INVISIBLE
       ::handle := Hwg_InitMainWindow( Self, ::szAppName, cTitle, cMenu, ;
                       IIf(oIcon != Nil, oIcon:handle, Nil), ;
-                      IIf(oBmp != Nil, - 1, clr), nStyle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+                      IIf(oBmp != Nil, -1, clr), nStyle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
 
       IF cHelp != NIL
          hwg_SetHelpFileName(cHelp)
@@ -683,7 +683,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::rect := hwg_Getwindowrect(::handle)
    IF ISOBJECT( ::oParent )
       ::handle := Hwg_InitChildWindow( Self, ::szAppName, cTitle, cMenu, ;
-                                       IIf(oIcon != Nil, oIcon:handle, Nil), IIf(oBmp != Nil, - 1, clr), nStyle, ::nLeft, ;
+                                       IIf(oIcon != Nil, oIcon:handle, Nil), IIf(oBmp != Nil, -1, clr), nStyle, ::nLeft, ;
                                        ::nTop, ::nWidth, ::nHeight, ::oParent:handle )
    ELSE
       hwg_Msgstop( "Create Main window first !", "HChildWindow():New()" )

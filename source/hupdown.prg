@@ -301,7 +301,7 @@ METHOD Notify(lParam) CLASS HeditUpDown
    Local iDelta := hwg_Getnotifydeltapos(lParam, 2)
    Local vari, res
 
-   //iDelta := IIF(iDelta < 0, 1, - 1) // IIF(::oParent:oParent = Nil, - 1, 1)
+   //iDelta := IIF(iDelta < 0, 1, -1) // IIF(::oParent:oParent = Nil, -1, 1)
 
  	 IF ::oUpDown = Nil .OR. Hwg_BitAnd(hwg_Getwindowlong(::handle, GWL_STYLE), ES_READONLY) != 0 .OR. ;
  	     hwg_Getfocus() != ::Handle .OR. ;

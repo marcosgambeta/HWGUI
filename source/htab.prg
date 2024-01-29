@@ -72,7 +72,7 @@ METHOD Setcolor(tcolor, bColor) CLASS HPage
       RETURN NIL
    ENDIF
    hwg_Invalidaterect(::oParent:Handle, 1)
-   ::oParent:SetPaintSizePos(iif(bColor = NIL, 1, - 1))
+   ::oParent:SetPaintSizePos(iif(bColor = NIL, 1, -1))
 
    RETURN NIL
 
@@ -258,7 +258,7 @@ METHOD Init() CLASS HTab
       ::Super:Init()
 
       IF Len(::aPages) > 0
-         ::SetPaintSizePos(iif(ASCAN(::Pages, { | p | p:brush != NIL }) > 0, - 1, 1))
+         ::SetPaintSizePos(iif(ASCAN(::Pages, { | p | p:brush != NIL }) > 0, -1, 1))
          ::nActive := 0
          FOR i := 1 TO Len(::aPages)
             ::Pages[i]:aItemPos := hwg_Tabitempos(::handle, i - 1)
@@ -707,7 +707,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    ELSEIF  msg = WM_PRINTCLIENT .OR. msg = WM_NCHITTEST  .OR. msg = WM_UPDATEUISTATE
       RETURN - 1  // painted objects without METHOD PAINT
    ELSEIF  msg = WM_PRINT
-      ::SetPaintSizePos(iif(::nPaintHeight > 1, - 1, 1))
+      ::SetPaintSizePos(iif(::nPaintHeight > 1, -1, 1))
       IF ::nActive > 0
          ::ShowPage(::nActive)
          IF hwg_Sendmessage(::handle, TCM_GETROWCOUNT, 0, 0) > 1
@@ -737,10 +737,10 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
          hwg_GetSkip(Self, ::handle, , 1)
          RETURN 0
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), - 1, 1))
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wparam == VK_UP .AND. ::nActive > 0  //
-         hwg_GetSkip(::oParent, ::handle, , - 1)
+         hwg_GetSkip(::oParent, ::handle, , -1)
          RETURN 0
       ENDIF
    ELSEIF msg == WM_HSCROLL .OR. msg == WM_VSCROLL
@@ -841,7 +841,7 @@ STATIC FUNCTION SetTabFocus(oCtrl, nPage, nKeyDown)
 
    IF nKeyDown = VK_LEFT .OR. nKeyDown = VK_RIGHT  // 37,39
       nEnd := iif(nKeyDown = VK_LEFT, 1, Len(oCtrl:aPages))
-      nSkip := iif(nKeyDown = VK_LEFT, - 1, 1)
+      nSkip := iif(nKeyDown = VK_LEFT, -1, 1)
       nStart :=  nPage + nSkip
       FOR i = nStart TO nEnd STEP nSkip
          IF oCtrl:pages[i]:enabled
@@ -950,7 +950,7 @@ METHOD Paint(lpdis) CLASS HPaintTab
          IF nPage = oPage:PageOrder
             hwg_Fillrect(::hDC, client_rect[1], client_rect[2] + 1, client_rect[3], client_rect[4] + 2, oPage:brush:handle)
             IF hwg_Getfocus() = oPage:oParent:handle
-               hwg_Inflaterect(@client_rect, - 2, - 2)
+               hwg_Inflaterect(@client_rect, -2, -2)
                hwg_Drawfocusrect(::hDC, client_rect)
             ENDIF
          ELSE
