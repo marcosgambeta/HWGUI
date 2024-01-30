@@ -107,7 +107,7 @@ METHOD Enabled(lEnabled) CLASS HPage
             ::oParent:setTab(nActive)
          ENDIF
       ENDIF
-      IF Ascan(::oParent:Pages, { | p | p:lEnabled }) = 0
+      IF Ascan(::oParent:Pages, {|p|p:lEnabled}) = 0
          ::oParent:Disable()
          hwg_Sendmessage(::oParent:handle, TCM_SETCURSEL, -1, 0)
       ENDIF
@@ -258,7 +258,7 @@ METHOD Init() CLASS HTab
       ::Super:Init()
 
       IF Len(::aPages) > 0
-         ::SetPaintSizePos(iif(ASCAN(::Pages, { | p | p:brush != NIL }) > 0, -1, 1))
+         ::SetPaintSizePos(iif(ASCAN(::Pages, {|p|p:brush != NIL}) > 0, -1, 1))
          ::nActive := 0
          FOR i := 1 TO Len(::aPages)
             ::Pages[i]:aItemPos := hwg_Tabitempos(::handle, i - 1)
@@ -274,7 +274,7 @@ METHOD Init() CLASS HTab
          ENDIF
       ELSEIF (i := hwg_Sendmessage(::handle, TCM_GETITEMCOUNT, 0, 0)) > 0
          ASize(::aPages, i)
-         AEval(::aPages, { | a, i | HB_SYMBOL_UNUSED(a), ::AddPage(HPage():New("", i, .T.,), "") })
+         AEval(::aPages, {|a, i|HB_SYMBOL_UNUSED(a), ::AddPage(HPage():New("", i, .T.,), "")})
          ::nActive := 1
       ENDIF
       ::nHolder := 1
@@ -388,7 +388,7 @@ METHOD EndPage() CLASS HTab
       ::nActive := 1
       ::oDefaultParent := ::oTemp
       ::oTemp := NIL
-      ::bChange = { | n, o | o:ChangePage(n) }
+      ::bChange = {|n, o|o:ChangePage(n)}
    ELSE
       IF ::handle != NIL .AND. !Empty(::handle)
          hwg_Addtabdialog(::handle, ::nActive, ::aTabs[::nActive], ::aPages[::nactive, 1]:handle)
@@ -399,7 +399,7 @@ METHOD EndPage() CLASS HTab
       ::nActive := 1
       ::oDefaultParent := ::oTemp
       ::oTemp := NIL
-      ::bChange = { | n, o | o:ChangePage(n) }
+      ::bChange = {|n, o|o:ChangePage(n)}
    ENDIF
 
    RETURN NIL
@@ -469,7 +469,7 @@ METHOD ShowPage(nPage) CLASS HTab
       nFirst := ::aPages[nPage, 1] + 1
       nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
       IF ::oPaint:nHeight > 1 .AND. ::Pages[nPage]:brush != NIL .AND. ;
-            ASCAN(::aControls, { | o | o:winclass = ::winclass }, nFirst, nEnd - nFirst + 1) > 0
+            ASCAN(::aControls, {|o|o:winclass = ::winclass}, nFirst, nEnd - nFirst + 1) > 0
          ::SetPaintSizePos(-2)
       ENDIF
       FOR i := nFirst TO nEnd
@@ -715,7 +715,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
          ENDIF
       ENDIF
    ELSEIF msg = WM_SIZE
-      AEval(::Pages, { | p, i |  p:aItemPos := hwg_Tabitempos(::Handle, i - 1) })
+      AEval(::Pages, {|p, i|p:aItemPos := hwg_Tabitempos(::Handle, i - 1)})
       ::oPaint:nHeight := ::nPaintHeight
       ::oPaint:Anchor := iif(::nPaintHeight > 1, 15, 0)
       IF ::nPaintHeight > 1
@@ -796,7 +796,7 @@ METHOD ShowDisablePage(nPageEnable, nEvent) CLASS HTab
    LOCAL client_rect, i, pt := { , }
 
    DEFAULT nPageEnable := 0
-   IF !hwg_Iswindowvisible(::handle) .OR. (Ascan(::Pages, { | p | !p:lEnabled }) = 0  .AND. nPageEnable = NIL)
+   IF !hwg_Iswindowvisible(::handle) .OR. (Ascan(::Pages, {|p|!p:lEnabled}) = 0  .AND. nPageEnable = NIL)
       RETURN - 1
    ENDIF
    nPageEnable := iif(nPageEnable = NIL, 0, nPageEnable)
@@ -820,7 +820,7 @@ METHOD ShowDisablePage(nPageEnable, nEvent) CLASS HTab
 METHOD ShowToolTips(lParam) CLASS HTab
    LOCAL i, pt := { , }, client_rect
 
-   IF Ascan(::Pages, { | p | p:ToolTip != NIL }) = 0
+   IF Ascan(::Pages, {|p|p:ToolTip != NIL}) = 0
       RETURN NIL
    ENDIF
    pt[1] := hwg_Loword(lParam)
@@ -901,7 +901,7 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, tcolor, bColor) CLASS HPaintTab
 
-   ::bPaint   := { | o, p | o:paint(p) }
+   ::bPaint   := {|o, p|o:paint(p)}
    ::Super:New(oWndParent, nId, SS_OWNERDRAW + WS_DISABLED + WS_CLIPCHILDREN, nLeft, nTop, nWidth, nHeight, , ;
       , , ::bPaint, , tcolor, bColor)
    ::anchor := 15
@@ -971,7 +971,7 @@ METHOD showTextTabs(oPage, aItemPos) CLASS HPaintTab
    LOCAL nStyle, BmpSize := 0, size := 0, aTxtSize, aItemRect
    LOCAL nActive := oPage:oParent:GetActivePage(), hTheme
 
-   AEval(oPage:oParent:Pages, { | p | size += p:aItemPos[3] - p:aItemPos[1] })
+   AEval(oPage:oParent:Pages, {|p|size += p:aItemPos[3] - p:aItemPos[1]})
    nStyle := SS_CENTER + DT_VCENTER + DT_SINGLELINE + DT_END_ELLIPSIS
    ::hDC := iif(::hDC = NIL, hwg_Getdc(::oParent:handle), ::hDC)
    IF (hwg_Isthemedload())

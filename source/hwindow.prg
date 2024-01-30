@@ -102,7 +102,7 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
    DATA bSetForm
    DATA nInitFocus    INIT 0  // Keeps the ID of the object to receive focus when dialog is created
                               // you can change the object that receives focus adding
-                              // ON INIT {|| nInitFocus:=object:[handle] }  to the dialog definition
+                              // ON INIT {||nInitFocus:=object:[handle]}  to the dialog definition
 
    METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
               bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
@@ -198,7 +198,7 @@ METHOD AddItem(oWnd) CLASS HWindow
 
 METHOD DelItem(oWnd) CLASS HWindow
    LOCAL i, h := oWnd:handle
-   IF ( i := AScan( ::aWindows, { | o | o:handle == h } ) ) > 0
+   IF ( i := AScan( ::aWindows, {|o|o:handle == h} ) ) > 0
       ADel(::aWindows, i)
       ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
@@ -208,9 +208,9 @@ METHOD FindWindow( hWndTitle ) CLASS HWindow
    LOCAL cType := VALTYPE(hWndTitle), i
 
    IF cType != "C"
-      i := AScan( ::aWindows, { | o | hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle) } )
+      i := AScan( ::aWindows, {|o|hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle)} )
    ELSE
-      i := AScan( ::aWindows, { | o | VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle } )
+      i := AScan( ::aWindows, {|o|VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle} )
    ENDIF
    RETURN IIf(i == 0, Nil, ::aWindows[i])
 
@@ -234,19 +234,19 @@ CLASS VAR aMessages INIT { ;
       { WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_SYSCOMMAND, ;
         WM_NOTIFYICON, WM_ENTERIDLE, WM_ACTIVATEAPP, WM_CLOSE, WM_DESTROY, WM_ENDSESSION, WM_ACTIVATE, WM_HELP }, ;
       { ;
-        {|o, w, l| onCommand(o, w, l) },        ;
-        {|o, w| onEraseBk(o, w) },             ;
-        {|o| hwg_onMove(o) },                 ;
-        {|o, w, l| onSize(o, w, l) },           ;
-        {|o, w, l| onSysCommand(o, w, l) },     ;
-        {|o, w, l| onNotifyIcon( o, w, l ) },     ;
-        {|o, w, l| onEnterIdle(o, w, l) },      ;
-        {|o, w, l| onEnterIdle(o, w, l) },      ;
-        {|o| onCloseQuery( o ) },               ;
-        {|o| hwg_onDestroy( o ) },              ;
-        {|o, w| onEndSession( o, w ) },          ;
-        {|o, w, l| onActivate(o, w, l) },       ;
-        {|o, w, l| hwg_onHelp( o, w, l ) }        ;
+        {|o, w, l|onCommand(o, w, l)},        ;
+        {|o, w|onEraseBk(o, w)},             ;
+        {|o|hwg_onMove(o)},                 ;
+        {|o, w, l|onSize(o, w, l)},           ;
+        {|o, w, l|onSysCommand(o, w, l)},     ;
+        {|o, w, l|onNotifyIcon(o, w, l)},     ;
+        {|o, w, l|onEnterIdle(o, w, l)},      ;
+        {|o, w, l|onEnterIdle(o, w, l)},      ;
+        {|o|onCloseQuery(o)},               ;
+        {|o|hwg_onDestroy(o)},              ;
+        {|o, w|onEndSession(o, w)},          ;
+        {|o, w, l|onActivate(o, w, l)},       ;
+        {|o, w, l|hwg_onHelp(o, w, l)}        ;
       } ;
    }
 
@@ -322,7 +322,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
    lCentered  := ( !lMaximized .AND. !EMPTY(lCentered) .AND. lCentered ) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
    DEFAULT lShow := .T.
    hwg_CreateGetList( Self )
-   AEVAL(::aControls, { | o | o:lInit := .F. })
+   AEVAL(::aControls, {|o|o:lInit := .F.})
 
    IF ::Type == WND_MDI
 
@@ -497,16 +497,16 @@ CLASS VAR aMessages INIT { ;
         { WM_CREATE, WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_NCACTIVATE, ;
           WM_SYSCOMMAND, WM_ENTERIDLE, WM_MDIACTIVATE, WM_DESTROY }, ;
         { ;
-          {|o, w, l| HB_SYMBOL_UNUSED(w), onMdiCreate(o, l) }, ;
-          {|o, w| onMdiCommand(o, w) },         ;
-          {|o, w| onEraseBk(o, w) },            ;
-          {|o| hwg_onMove(o) },                ;
-          {|o, w, l| onSize(o, w, l) },          ;
-          {|o, w| onMdiNcActivate(o, w) },      ;
-          {|o, w, l| onSysCommand(o, w, l) },    ;
-          {|o, w, l| onEnterIdle(o, w, l) },     ;
-          {|o, w, l| onMdiActivate(o, w, l) },   ;
-          {|o| hwg_onDestroy( o ) }              ;
+          {|o, w, l|HB_SYMBOL_UNUSED(w), onMdiCreate(o, l)}, ;
+          {|o, w|onMdiCommand(o, w)},         ;
+          {|o, w|onEraseBk(o, w)},            ;
+          {|o|hwg_onMove(o)},                ;
+          {|o, w, l|onSize(o, w, l)},          ;
+          {|o, w|onMdiNcActivate(o, w)},      ;
+          {|o, w, l|onSysCommand(o, w, l)},    ;
+          {|o, w, l|onEnterIdle(o, w, l)},     ;
+          {|o, w, l|onMdiActivate(o, w, l)},   ;
+          {|o|hwg_onDestroy(o)}              ;
         } ;
    }
    DATA aRectSave
@@ -846,7 +846,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
+      ( iItem := AScan( oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow} ) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF ValType(oWnd:menu) == "A" .AND. ;
       ( aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont) ) != Nil
@@ -1082,7 +1082,7 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
       oCtrl := oWnd:FindControl(iParLow)
    ENDIF
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, { | a | a[1] == iParHigh.AND.a[2] == iParLow } ) ) > 0
+      ( iItem := AScan( oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow} ) ) > 0
       IF hwg_Ptrtoulong(hwg_Getparent(hwg_Getfocus())) = hwg_Ptrtoulong(oWnd:Handle)
          oWnd:nFocus := hwg_Getfocus()
       ENDIF
@@ -1158,7 +1158,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
       ENDIF
       IF oWnd:lModal
          aWndMain := oWnd:GETMAIN():aWindows
-         AEVAL(aWndMain,{| w | IIF(w:Type >= WND_MDICHILD .AND.;
+         AEVAL(aWndMain,{|w|IIF(w:Type >= WND_MDICHILD .AND.;
              hwg_Ptrtoulong(w:Handle) != hwg_Ptrtoulong(wParam), hwg_Enablewindow( w:Handle, .T. ),)})
       ENDIF
    ELSEIF hwg_Selffocus( oWnd:Handle, lParam ) //.AND. ownd:screen:handle != WPARAM
@@ -1167,9 +1167,9 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
       ENDIF
       IF oWnd:lModal
          aWndMain := oWnd:GETMAIN():aWindows
-         AEVAL(aWndMain,{| w | IIF(w:Type >= WND_MDICHILD .AND.;
+         AEVAL(aWndMain,{|w|IIF(w:Type >= WND_MDICHILD .AND.;
              hwg_Ptrtoulong(w:Handle) != hwg_Ptrtoulong(lParam), hwg_Enablewindow( w:Handle, .F. ),)})
-         AEVAL(oWnd:aChilds,{| wH | hwg_Enablewindow( wH, .T. )})
+         AEVAL(oWnd:aChilds,{|wH|hwg_Enablewindow( wH, .T. )})
      ENDIF
       IF oWnd:bGetFocus != Nil .AND. !oWnd:lSuspendMsgsHandling .AND. !oWnd:IsMaximized()
          oWnd:lSuspendMsgsHandling := .T.

@@ -156,29 +156,29 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF bSetGet != Nil
       IF bGFocus != Nil
          ::lnoValid := .T.
-         ::oParent:AddEvent(CBN_SETFOCUS, self, { | o, id | ::When(o:FindControl(id)) }, , "onGotFocus")
+         ::oParent:AddEvent(CBN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))}, , "onGotFocus")
       ENDIF
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 03/06/2006
-      ::oParent:AddEvent(CBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F. , "onLostFocus")
+      ::oParent:AddEvent(CBN_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .F. , "onLostFocus")
       //---------------------------------------------------------------------------
    ELSE
       IF bGFocus != Nil
          ::lnoValid := .T.
-         ::oParent:AddEvent(CBN_SETFOCUS, self, { | o, id | ::When(o:FindControl(id)) }, , "onGotFocus")
+         ::oParent:AddEvent(CBN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))}, , "onGotFocus")
       ENDIF
-      ::oParent:AddEvent(CBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F. , "onLostFocus")
+      ::oParent:AddEvent(CBN_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .F. , "onLostFocus")
    ENDIF
    IF bChange != Nil .OR. bSetGet != Nil
-      ::oParent:AddEvent(CBN_SELCHANGE, Self, { | o, id | ::onChange(o:FindControl(id)) }, , "onChange")
+      ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::onChange(o:FindControl(id))}, , "onChange")
    ENDIF
 
    IF bIChange != Nil .AND. ::lEdit
       ::bchangeInt := bIChange
-      ::oParent:AddEvent(CBN_EDITUPDATE, Self, { | o, id | ::InteractiveChange(o:FindControl(id)) }, , "interactiveChange" )
+      ::oParent:AddEvent(CBN_EDITUPDATE, Self, {|o, id|::InteractiveChange(o:FindControl(id))}, , "interactiveChange" )
    ENDIF
-   ::oParent:AddEvent(CBN_SELENDOK, Self, { | o, id | ::onSelect(o:FindControl(id)) }, , "onSelect")
-   ::oParent:AddEvent(CBN_DROPDOWN, Self, { | o, id | ::onDropDown(o:FindControl(id)) }, , "ondropdown")
-   ::oParent:AddEvent(CBN_CLOSEUP, Self, { || ::ldropshow := .F. }, ,)
+   ::oParent:AddEvent(CBN_SELENDOK, Self, {|o, id|::onSelect(o:FindControl(id))}, , "onSelect")
+   ::oParent:AddEvent(CBN_DROPDOWN, Self, {|o, id|::onDropDown(o:FindControl(id))}, , "ondropdown")
+   ::oParent:AddEvent(CBN_CLOSEUP, Self, {||::ldropshow := .F.}, ,)
 
    RETURN Self
 
@@ -235,30 +235,30 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
    IF bSetGet != Nil
       ::bChangeSel := bChange
       ::bGetFocus  := bGFocus
-      ::oParent:AddEvent(CBN_SETFOCUS, self, { | o, id | ::When(o:FindControl(id)) }, , "onGotFocus")
+      ::oParent:AddEvent(CBN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))}, , "onGotFocus")
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
       IF ::bSetGet <> nil
-         ::oParent:AddEvent(CBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl(id)) }, , "onChange")
+         ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, , "onChange")
       ELSEIF ::bChangeSel != NIL
-         ::oParent:AddEvent(CBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl(id)) }, , "onChange")
+         ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, , "onChange")
       ENDIF
    ELSEIF bChange != Nil .AND. ::lEdit
       ::bChangeSel := bChange
-      ::oParent:AddEvent(CBN_SELCHANGE, Self, { | o, id | ::onChange(o:FindControl(id)) }, , "onChange")
+      ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::onChange(o:FindControl(id))}, , "onChange")
    ENDIF
 
    IF bGFocus != Nil .AND. bSetGet == Nil
-      ::oParent:AddEvent(CBN_SETFOCUS, self, { | o, id | ::When(o:FindControl(id)) }, , "onGotFocus")
+      ::oParent:AddEvent(CBN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))}, , "onGotFocus")
    ENDIF
    IF bIChange != Nil .AND. ::lEdit
       ::bchangeInt := bIChange
-      ::oParent:AddEvent(CBN_EDITUPDATE, Self, { | o, id | ::InteractiveChange(o:FindControl(id)) }, , "interactiveChange")
+      ::oParent:AddEvent(CBN_EDITUPDATE, Self, {|o, id|::InteractiveChange(o:FindControl(id))}, , "interactiveChange")
    ENDIF
 
-   ::oParent:AddEvent(CBN_SELENDOK, Self, { | o, id | ::onSelect(o:FindControl(id)) }, , "onSelect")
+   ::oParent:AddEvent(CBN_SELENDOK, Self, {|o, id|::onSelect(o:FindControl(id))}, , "onSelect")
    //::Refresh() // By Luiz Henrique dos Santos
-   ::oParent:AddEvent(CBN_DROPDOWN, Self, { | o, id | ::onDropDown( o:FindControl(id) ) }, , "ondropdown")
-   ::oParent:AddEvent(CBN_CLOSEUP, Self, { || ::ldropshow := .F. }, ,)
+   ::oParent:AddEvent(CBN_DROPDOWN, Self, {|o, id|::onDropDown(o:FindControl(id))}, , "ondropdown")
+   ::oParent:AddEvent(CBN_CLOSEUP, Self, {||::ldropshow := .F.}, ,)
 
    RETURN Self
 
@@ -896,7 +896,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       nStyle := hwg_multibitor(CBS_DROPDOWNLIST, CBS_OWNERDRAWVARIABLE, CBS_HASSTRINGS)
    ENDIF
 
-   bPaint := { | o, p | o:paint(p) }
+   bPaint := {|o, p|o:paint(p)}
 
    ::Super:New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont, ;
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
@@ -920,7 +920,7 @@ METHOD INIT() CLASS hCheckComboBox
    IF !::lInit
       ::Super:Init()
       IF Len(::acheck) > 0
-         AEval(::aCheck, { | a | ::Setcheck(a, .T.) })
+         AEval(::aCheck, {|a|::Setcheck(a, .T.)})
       ENDIF
       IF !Empty(::aItems) .AND. !Empty(::nhItem)
          FOR i := 1 TO Len(::aItems)
@@ -1007,8 +1007,8 @@ METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
 
       IF wParam = VK_HOME .OR. wParam = VK_END
          nPos := iif(wParam = VK_HOME, ;
-            Ascan(::aItems, { | a | !Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ,) , ;
-            RAscan(::aItems, { | a | !Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ,))
+            Ascan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,) , ;
+            RAscan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,))
          IF nPos - 1 != ::nCurPos
             hwg_Setfocus(Nil)
             hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
@@ -1070,7 +1070,7 @@ METHOD Requery() CLASS hCheckComboBox
 
    ::Super:Requery()
    IF Len(::acheck) > 0
-      AEval(::aCheck, { | a | ::Setcheck(a, .T.) })
+      AEval(::aCheck, {|a|::Setcheck(a, .T.)})
    ENDIF
    IF !Empty(::aItems) .AND. !Empty(::nhItem)
       FOR i := 1 TO Len(::aItems)
@@ -1372,8 +1372,8 @@ METHOD SkipItems(nNav) CLASS hCheckComboBox
    hwg_Comboboxgetlbtext(::handle, ::nCurPos + nNav, @strText) // NEXT
    IF Left(strText, 2) == "\]" .OR. Left(strText, 2) == "\-"
       nPos := iif(nNav > 0, ;
-         Ascan(::aItems, { | a | !Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos + 2), ;
-         RAscan(::aItems, { | a | !Left(a[1], 2) $ "\-" + Chr(0) + "\]" }, ::nCurPos - 1,))
+         Ascan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos + 2), ;
+         RAscan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos - 1,))
       nPos := iif(nPos = 0, ::nCurPos, nPos - 1)
       hwg_Setfocus(Nil)
       hwg_Sendmessage(::handle, CB_SETCURSEL, nPos, 0)

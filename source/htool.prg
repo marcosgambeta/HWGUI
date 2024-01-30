@@ -63,7 +63,7 @@ METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMe
      __objAddData(::oParent, cName)
     ::oParent:&(cName) := Self
     
-  //  ::oParent:oParent:AddEvent(BN_CLICKED, Self, {|| ::ONCLICK()},, "click")
+  //  ::oParent:oParent:AddEvent(BN_CLICKED, Self, {||::ONCLICK()},, "click")
 
 RETURN Self
 
@@ -442,27 +442,27 @@ METHOD Notify(lParam) CLASS hToolBar
    IF nCode == TTN_GETDISPINFO
 
       nButton := hwg_Toolbar_getdispinfoid(lParam)
-      nPos := AScan(::aItem, { | x | x[2] == nButton })
+      nPos := AScan(::aItem, {|x|x[2] == nButton})
       hwg_Toolbar_setdispinfo(lParam, ::aItem[nPos, 8])
 
    ELSEIF nCode == TBN_GETINFOTIP
 
       nId := hwg_Toolbar_getinfotipid(lParam)
-      nPos := AScan(::aItem, { | x | x[2] == nId })
+      nPos := AScan(::aItem, {|x|x[2] == nId})
       hwg_Toolbar_getinfotip(lParam, ::aItem[nPos, 8])
 
    ELSEIF nCode == TBN_DROPDOWN
       nId := hwg_Toolbar_submenuexgetid(lParam)
       IF nId > 0 //valtype(::aItem[1, 9]) ="A"
 //       nid := hwg_Toolbar_submenuexgetid(lParam)
-         nPos := AScan(::aItem, { | x | x[2] == nId })
+         nPos := AScan(::aItem, {|x|x[2] == nId})
          hwg_Toolbar_submenuex(lParam, ::aItem[nPos, 10], ::oParent:handle)
       ELSE
          hwg_Toolbar_submenu(lParam, 1, ::oParent:handle)
       ENDIF
    elseif nCode == NM_CLICK
       nId := hwg_Toolbar_idclick(lParam)
-      nPos := AScan(::aItem, { | x | x[2] == nId })
+      nPos := AScan(::aItem, {|x|x[2] == nId})
       if nPos > 0 .AND. ::aItem[nPos, 7] != NIL
          Eval(::aItem[nPos, 7], ::aItem[nPos, 11], nId)
       endif

@@ -83,7 +83,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       Eval(bSetGet, vari)
    ENDIF
    IF bSetGet = Nil
-      bSetGet := {| v | IIF(v == Nil, ::nValue, ::nValue := v) }
+      bSetGet := {|v|IIF(v == Nil, ::nValue, ::nValue := v)}
    ENDIF
 
    ::nValue := Vari
@@ -290,7 +290,7 @@ METHOD Init() CLASS HEditUpDown
 
    IF !::lInit
       IF ::bChange != Nil
-         ::oParent:AddEvent(EN_CHANGE, self,{|| ::onChange()},, "onChange")
+         ::oParent:AddEvent(EN_CHANGE, self,{||::onChange()},, "onChange")
       ENDIF
    ENDIF
    RETURN Nil

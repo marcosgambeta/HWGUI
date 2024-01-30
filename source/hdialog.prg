@@ -17,16 +17,16 @@
 
 STATIC aSheet := Nil
 STATIC aMessModalDlg := { ;
-      { WM_COMMAND, { |o, w, l| onDlgCommand(o, w, l) } },       ;
-      { WM_SYSCOMMAND, { |o, w, l| onSysCommand(o, w, l) } },    ;
-      { WM_SIZE, { |o, w, l| onSize(o, w, l) } },                ;
-      { WM_INITDIALOG, { |o, w, l| InitModalDlg(o, w, l) } },    ;
-      { WM_ERASEBKGND, { |o, w| onEraseBk(o, w) } },            ;
-      { WM_DESTROY, { |o| hwg_onDestroy(o) } },                ;
-      { WM_ACTIVATE, { | o, w, l| onActivate(o, w, l) } },      ;
-      { WM_PSPNOTIFY, { |o, w, l| onPspNotify(o, w, l) } },      ;
-      { WM_HELP, { |o, w, l| hwg_onHelp(o, w, l) } },            ;
-      { WM_CTLCOLORDLG, { |o, w, l| onDlgColor(o, w, l) } }      ;
+      { WM_COMMAND, {|o, w, l|onDlgCommand(o, w, l)} },       ;
+      { WM_SYSCOMMAND, {|o, w, l|onSysCommand(o, w, l)} },    ;
+      { WM_SIZE, {|o, w, l|onSize(o, w, l)} },                ;
+      { WM_INITDIALOG, {|o, w, l|InitModalDlg(o, w, l)} },    ;
+      { WM_ERASEBKGND, {|o, w|onEraseBk(o, w)} },            ;
+      { WM_DESTROY, {|o|hwg_onDestroy(o)} },                ;
+      { WM_ACTIVATE, {| o, w, l|onActivate(o, w, l)} },      ;
+      { WM_PSPNOTIFY, {|o, w, l|onPspNotify(o, w, l)} },      ;
+      { WM_HELP, {|o, w, l|hwg_onHelp(o, w, l)} },            ;
+      { WM_CTLCOLORDLG, {|o, w, l|onDlgColor(o, w, l)} }      ;
       }
 
    // Class HDialog
@@ -45,7 +45,7 @@ CLASS HDialog INHERIT HWindow
    DATA lContainer   INIT .F.
    DATA nInitFocus    INIT 0  // Keeps the ID of the object to receive focus when dialog is created
    // you can change the object that receives focus adding
-   // ON INIT {|| nInitFocus:=object:[handle] }  to the dialog definition
+   // ON INIT {||nInitFocus:=object:[handle]}  to the dialog definition
 
    METHOD New(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSize, ;
       bPaint, bGfocus, bLfocus, bOther, lClipper, oBmp, oIcon, lExitOnEnter, nHelpId, ;
@@ -181,9 +181,9 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
          hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam(WA_ACTIVE, 0), ::handle)
       ENDIF
    ENDIF
-   IF (i := AScan(aMessModalDlg, { | a | a[1] == msg })) != 0
+   IF (i := AScan(aMessModalDlg, {|a|a[1] == msg})) != 0
       IF ::lRouteCommand .AND. (msg == WM_COMMAND .OR. msg == WM_NOTIFY)
-         nPos := AScan(::aControls, { | x | x:className() == "HTAB" })
+         nPos := AScan(::aControls, {|x|x:className() == "HTAB"})
          IF nPos > 0
             oTab := ::aControls[nPos]
             IF Len(oTab:aPages) > 0
@@ -215,12 +215,12 @@ METHOD DelItem() CLASS HDialog
    LOCAL i
 
    IF ::lModal
-      IF (i := AScan(::aModalDialogs, { | o | o == Self })) > 0
+      IF (i := AScan(::aModalDialogs, {|o|o == Self})) > 0
          ADel(::aModalDialogs, i)
          ASize(::aModalDialogs, Len(::aModalDialogs) - 1)
       ENDIF
    ELSE
-      IF (i := AScan(::aDialogs, { | o | o == Self })) > 0
+      IF (i := AScan(::aDialogs, {|o|o == Self})) > 0
          ADel(::aDialogs, i)
          ASize(::aDialogs, Len(::aDialogs) - 1)
       ENDIF
@@ -232,15 +232,15 @@ METHOD FindDialog(hWndTitle, lAll) CLASS HDialog
    LOCAL cType := ValType(hWndTitle), i
 
    IF cType != "C"
-      i := AScan(::aDialogs, { | o | hwg_Selffocus(o:handle, hWndTitle) })
+      i := AScan(::aDialogs, {|o|hwg_Selffocus(o:handle, hWndTitle)})
       IF i = 0 .AND. (lAll != Nil .AND. lAll)
-         i := AScan(::aModalDialogs, { | o | hwg_Selffocus(o:handle, hWndTitle) })
+         i := AScan(::aModalDialogs, {|o|hwg_Selffocus(o:handle, hWndTitle)})
          RETURN iif(i == 0, Nil, ::aModalDialogs[i])
       ENDIF
    ELSE
-      i := AScan(::aDialogs, { | o | ValType(o:Title) == "C" .AND. o:Title == hWndTitle })
+      i := AScan(::aDialogs, {|o|ValType(o:Title) == "C" .AND. o:Title == hWndTitle})
       IF i = 0 .AND. (lAll != Nil .AND. lAll)
-         i := AScan(::aModalDialogs, { | o | ValType(o:Title) = "C" .AND. o:Title == hWndTitle })
+         i := AScan(::aModalDialogs, {|o|ValType(o:Title) = "C" .AND. o:Title == hWndTitle})
          RETURN iif(i == 0, Nil, ::aModalDialogs[i])
       ENDIF
    ENDIF
@@ -249,7 +249,7 @@ METHOD FindDialog(hWndTitle, lAll) CLASS HDialog
 
 METHOD GetActive() CLASS HDialog
    LOCAL handle := hwg_Getfocus()
-   LOCAL i := AScan(::Getlist, { | o | o:handle == handle })
+   LOCAL i := AScan(::Getlist, {|o|o:handle == handle})
 
    RETURN iif(i == 0, Nil, ::Getlist[i])
 
@@ -349,8 +349,8 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
 
    oDlg:rect := hwg_Getclientrect(oDlg:handle)
    IF oDlg:nScrollBars > - 1
-      AEval(oDlg:aControls, { | o | oDlg:ncurHeight := Max(o:nTop + o:nHeight + VERT_PTS * 4, oDlg:ncurHeight) })
-      AEval(oDlg:aControls, { | o | oDlg:ncurWidth := Max(o:nLeft + o:nWidth  + HORZ_PTS * 4, oDlg:ncurWidth) })
+      AEval(oDlg:aControls, {|o|oDlg:ncurHeight := Max(o:nTop + o:nHeight + VERT_PTS * 4, oDlg:ncurHeight)})
+      AEval(oDlg:aControls, {|o|oDlg:ncurWidth := Max(o:nLeft + o:nWidth  + HORZ_PTS * 4, oDlg:ncurWidth)})
       oDlg:ResetScrollbars()
       oDlg:SetupScrollbars()
    ENDIF
@@ -438,7 +438,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
                hCtrl := oCtrl:handle
             ENDIF
             IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, hCtrl, , -1)
-               IF AScan(oDlg:GetList, { | o | o:handle == hCtrl }) > 1
+               IF AScan(oDlg:GetList, {|o|o:handle == hCtrl}) > 1
                   RETURN 1
                ENDIF
             ENDIF
@@ -456,7 +456,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
       oDlg:nInitFocus := 0
    ENDIF
    IF oDlg:aEvents != Nil .AND. ;
-         (i := AScan(oDlg:aEvents, { | a | a[1] == iParHigh .AND. a[2] == iParLow })) > 0
+         (i := AScan(oDlg:aEvents, {|a|a[1] == iParHigh .AND. a[2] == iParLow})) > 0
       IF !oDlg:lSuspendMsgsHandling
          Eval(oDlg:aEvents[i, 3], oDlg, iParLow)
       ENDIF
@@ -741,7 +741,7 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block)
       RETURN nil
    ENDIF
    aKeys := oDlg:KeyList
-   IF (i := AScan(aKeys, { | a | a[1] == nctrl .AND. a[2] == nkey })) > 0
+   IF (i := AScan(aKeys, {|a|a[1] == nctrl .AND. a[2] == nkey})) > 0
       bOldSet := aKeys[i, 3]
    ENDIF
    IF block == Nil

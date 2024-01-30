@@ -74,21 +74,21 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF bSetGet != Nil
       IF bGFocus != Nil
          ::lnoValid := .T.
-         ::oParent:AddEvent(LBN_SETFOCUS, Self, { | o, id | ::When(o:FindControl(id)) },, "onGotFocus")
+         ::oParent:AddEvent(LBN_SETFOCUS, Self, {|o, id|::When(o:FindControl(id))},, "onGotFocus")
       ENDIF
-      ::oParent:AddEvent(LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F., "onLostFocus")
-      ::bValid := { | o | ::Valid(o) }
+      ::oParent:AddEvent(LBN_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .F., "onLostFocus")
+      ::bValid := {|o|::Valid(o)}
    ELSE
       IF bGFocus != Nil
-         ::oParent:AddEvent(LBN_SETFOCUS, Self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus")
+         ::oParent:AddEvent(LBN_SETFOCUS, Self, {|o, id|::When(o:FindControl(id))},, "onGotFocus")
       ENDIF
-      ::oParent:AddEvent(LBN_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .F., "onLostFocus")
+      ::oParent:AddEvent(LBN_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .F., "onLostFocus")
    ENDIF
    IF bChange != Nil .OR. bSetGet != Nil
-      ::oParent:AddEvent(LBN_SELCHANGE, Self, { | o, id | ::onChange(o:FindControl(id)) },, "onChange")
+      ::oParent:AddEvent(LBN_SELCHANGE, Self, {|o, id|::onChange(o:FindControl(id))},, "onChange")
    ENDIF
    IF bDblclick != Nil
-      ::oParent:AddEvent(LBN_DBLCLK, self, {|| ::onDblClick() })
+      ::oParent:AddEvent(LBN_DBLCLK, self, {||::onDblClick()})
    ENDIF
 
    RETURN Self
@@ -121,7 +121,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
 
    IF bSetGet != Nil
       ::bChangeSel := bChange
-      ::oParent:AddEvent(LBN_SELCHANGE, Self, { | o, id | ::Valid(o:FindControl(id)) }, "onChange")
+      ::oParent:AddEvent(LBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, "onChange")
    ENDIF
 
    RETURN Self

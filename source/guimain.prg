@@ -84,7 +84,7 @@ FUNCTION hwg_FindParent(hCtrl, nLevel)
 
    LOCAL i, oParent, hParent := hwg_Getparent(hCtrl)
    IF hParent > 0
-      IF (i := AScan(HDialog():aModalDialogs, { | o | o:handle == hParent })) != 0
+      IF (i := AScan(HDialog():aModalDialogs, {|o|o:handle == hParent})) != 0
          RETURN HDialog():aModalDialogs[i]
       ELSEIF (oParent := HDialog():FindDialog(hParent)) != Nil
          RETURN oParent
@@ -118,7 +118,7 @@ FUNCTION hwg_WriteStatus(oWnd, nPart, cText, lRedraw)
 
    LOCAL aControls, i
    aControls := oWnd:aControls
-   IF (i := AScan(aControls, { | o | o:ClassName() == "HSTATUS" })) > 0
+   IF (i := AScan(aControls, {|o|o:ClassName() == "HSTATUS"})) > 0
       hwg_Writestatuswindow(aControls[i]:handle, nPart - 1, cText)
       IF lRedraw != Nil .AND. lRedraw
          hwg_Redrawwindow(aControls[i]:handle, RDW_ERASE + RDW_INVALIDATE)
@@ -130,7 +130,7 @@ FUNCTION hwg_ReadStatus(oWnd, nPart)
 
    LOCAL aControls, i, ntxtLen, cText := ""
    aControls := oWnd:aControls
-   IF (i := AScan(aControls, { | o | o:ClassName() == "HSTATUS" })) > 0
+   IF (i := AScan(aControls, {|o|o:ClassName() == "HSTATUS"})) > 0
       ntxtLen := hwg_Sendmessage(aControls[i]:handle, SB_GETTEXTLENGTH, nPart - 1, 0)
       cText := Replicate(Chr(0), ntxtLen)
       hwg_Sendmessage(aControls[i]:handle, SB_GETTEXT, nPart - 1, @cText)
@@ -176,7 +176,7 @@ FUNCTION hwg_MsgGet(cTitle, cText, nStyle, x, y, nDlgStyle, cResIni)
    @ 20, 95 BUTTON "Ok" ID IDOK SIZE 100, 32 ON SIZE ANCHOR_BOTTOMABS
    @ 180, 95 BUTTON "Cancel" ID IDCANCEL SIZE 100, 32 ON SIZE ANCHOR_RIGHTABS + ANCHOR_BOTTOMABS
 
-   ACTIVATE DIALOG oModDlg ON ACTIVATE { || IIF(!EMPTY(cRes), hwg_Keyb_event(VK_END), .T.) }
+   ACTIVATE DIALOG oModDlg ON ACTIVATE {||IIF(!EMPTY(cRes), hwg_Keyb_event(VK_END), .T.)}
 
    oFont:Release()
    IF oModDlg:lResult
@@ -272,24 +272,24 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
         SIZE width, height       ;
         STYLE nStyle            ;
         FONT oFont              ;
-        ON INIT { | o | hwg_Resetwindowpos(o:handle), o:nInitFocus := oBrw }
+        ON INIT {|o|hwg_Resetwindowpos(o:handle), o:nInitFocus := oBrw}
    IF lArray
       @ 0, 0 Browse oBrw Array
       oBrw:aArray := arr
       IF ValType(arr[1]) == "A"
-         oBrw:AddColumn(HColumn():New(, { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1] }, "C", nLen))
+         oBrw:AddColumn(HColumn():New(, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent, 1]}, "C", nLen))
       ELSE
-         oBrw:AddColumn(HColumn():New(, { | value, o | HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent] }, "C", nLen ))
+         oBrw:AddColumn(HColumn():New(, {|value, o|HB_SYMBOL_UNUSED(value), o:aArray[o:nCurrent]}, "C", nLen))
       ENDIF
    ELSE
       @ 0, 0 Browse oBrw DATABASE
-      oBrw:AddColumn(HColumn():New(, { | value, o | HB_SYMBOL_UNUSED(value), (o:Alias) ->(FieldGet(nField)) }, "C", nLen ))
+      oBrw:AddColumn(HColumn():New(, {|value, o|HB_SYMBOL_UNUSED(value), (o:Alias) ->(FieldGet(nField))}, "C", nLen))
    ENDIF
 
    oBrw:oFont  := oFont
-   oBrw:bSize  := { | o, x, y | hwg_Movewindow(o:handle, addX / 2, 10, x - addX, y - addY) }
-   oBrw:bEnter := { | o | nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle) }
-   oBrw:bKeyDown := {|o, key|HB_SYMBOL_UNUSED(o), Iif(key==27,(hwg_EndDialog(oDlg:handle), .F.), .T.)}
+   oBrw:bSize  := {|o, x, y|hwg_Movewindow(o:handle, addX / 2, 10, x - addX, y - addY)}
+   oBrw:bEnter := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
+   oBrw:bKeyDown := {|o, key|HB_SYMBOL_UNUSED(o), Iif(key==27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
    oBrw:lDispHead := .F.
    IF clrT != Nil
@@ -307,9 +307,9 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
 
    IF cOk != Nil
       x1 := Int(width / 2) - IIf(cCancel != Nil, 90, 40)
-      @ x1, height - 36 BUTTON cOk SIZE 80, 30 ON CLICK { || nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle) }
+      @ x1, height - 36 BUTTON cOk SIZE 80, 30 ON CLICK {||nChoice := oBrw:nCurrent, hwg_EndDialog(oDlg:handle)}
       IF cCancel != Nil
-         @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 30 ON CLICK { || nChoice := 0, hwg_EndDialog(oDlg:handle) }
+         @ x1 + 100, height - 36 BUTTON cCancel SIZE 80, 30 ON CLICK {||nChoice := 0, hwg_EndDialog(oDlg:handle)}
       ENDIF
    ENDIF
 
@@ -342,7 +342,7 @@ FUNCTION hwg_ShowProgress(nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, he
          INIT DIALOG oDlg TITLE cTitle   ;
               At x1, y1 SIZE width, height ;
               STYLE nStyle               ;
-              ON INIT { | o | hPBar := hwg_Createprogressbar(o:handle, maxPos, 20, 25, width - 40, 20) }
+              ON INIT {|o|hPBar := hwg_Createprogressbar(o:handle, maxPos, 20, 25, width - 40, 20)}
          ACTIVATE DIALOG oDlg NOMODAL
       ENDIF
    ELSEIF nStep == 1
@@ -402,7 +402,7 @@ FUNCTION hwg_SetHelpFileName(cNewName)
 FUNCTION hwg_RefreshAllGets(oDlg)
 
 
-   AEval(oDlg:GetList, { | o | o:Refresh() })
+   AEval(oDlg:GetList, {|o|o:Refresh()})
    RETURN Nil
 
 /*
@@ -567,7 +567,7 @@ LOCAL oParent, nCtrl, nPos
       oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm(oCtrl))
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
          nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ))
-         IF (nPos := AScan(oParent:KeyList, { | a | a[1] == nctrl.AND.a[2] == wParam })) > 0
+         IF (nPos := AScan(oParent:KeyList, {|a|a[1] == nctrl.AND.a[2] == wParam})) > 0
             Eval(oParent:KeyList[nPos, 3], oCtrl)
             RETURN .T.
          ENDIF
@@ -614,7 +614,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
              oCtrl := oCtrl:oGroup:oHGroup
          ENDIF
          IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, oCtrl:Handle, , -1)
-            IF AScan(oWin:GetList, { | o | o:handle == oCtrl:Handle }) > 1
+            IF AScan(oWin:GetList, {|o|o:handle == oCtrl:Handle}) > 1
                RETURN .T.
             ENDIF
          ENDIF                                               

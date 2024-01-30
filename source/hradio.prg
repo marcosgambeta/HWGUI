@@ -244,19 +244,19 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent(BN_SETFOCUS, self, { | o, id | ::When(o:FindControl(id)) },, "onGotFocus")
-      //::oParent:AddEvent(BN_SETFOCUS, Self, { | o, id | __When(o:FindControl(id)) },, "onGotFocus")
+      ::oParent:AddEvent(BN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))},, "onGotFocus")
+      //::oParent:AddEvent(BN_SETFOCUS, Self, {|o, id|__When(o:FindControl(id))},, "onGotFocus")
       ::lnoValid := .T.
    ENDIF
 
-   ::oParent:AddEvent(BN_KILLFOCUS, Self, { || hwg_CheckFocus( Self, .T. ) })
+   ::oParent:AddEvent(BN_KILLFOCUS, Self, {||hwg_CheckFocus(Self, .T.)})
 
    IF ::oGroup != NIL
       AAdd(::oGroup:aButtons, Self)
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
-      *- ::oParent:AddEvent(BN_CLICKED, self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick")
-      ::oParent:AddEvent(BN_CLICKED, self, { |  | ::onClick() },, "onClick")
+      *- ::oParent:AddEvent(BN_CLICKED, self, {|o, id|::Valid(o:FindControl(id))},, "onClick")
+      ::oParent:AddEvent(BN_CLICKED, self, {||::onClick()},, "onClick")
       // ENDIF
    ENDIF
 
@@ -316,17 +316,17 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent(BN_SETFOCUS, self, { | o, id | ::When( o:FindControl(id) ) },, "onGotFocus")
+      ::oParent:AddEvent(BN_SETFOCUS, self, {|o, id|::When( o:FindControl(id)) },, "onGotFocus")
       ::lnoValid := .T.
    ENDIF
-   //::oParent:AddEvent(BN_KILLFOCUS, Self, { || ::Notify(WM_KEYDOWN) })
-   ::oParent:AddEvent(BN_KILLFOCUS, Self, { || hwg_CheckFocus(Self, .T.) })
+   //::oParent:AddEvent(BN_KILLFOCUS, Self, {||::Notify(WM_KEYDOWN)})
+   ::oParent:AddEvent(BN_KILLFOCUS, Self, {||hwg_CheckFocus(Self, .T.)})
    IF ::oGroup != NIL
       AAdd(::oGroup:aButtons, Self)
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
-      //::oParent:AddEvent(BN_CLICKED, self, { | o, id | ::Valid(o:FindControl(id)) },, "onClick")
-      ::oParent:AddEvent(BN_CLICKED, self, { |  | ::onClick() },, "onClick")
+      //::oParent:AddEvent(BN_CLICKED, self, {|o, id|::Valid(o:FindControl(id))},, "onClick")
+      ::oParent:AddEvent(BN_CLICKED, self, {||::onClick()},, "onClick")
       // ENDIF
    ENDIF
 
@@ -457,9 +457,9 @@ METHOD Valid(nKey) CLASS HRadioButton
       RETURN .T.
    ELSE
       ::oParent:lSuspendMsgsHandling := .T.
-       iValue := Ascan(::oGroup:aButtons, {| o | o:id == ::id })
+       iValue := Ascan(::oGroup:aButtons, {|o|o:id == ::id})
       IF nEnter = VK_RETURN //< 0
-         *-iValue := Ascan(::oGroup:aButtons,{ | o | o:id == ::id })
+         *-iValue := Ascan(::oGroup:aButtons,{|o|o:id == ::id})
          IF !::GetValue()
             ::oGroup:nValue  := iValue
             ::oGroup:SetValue(::oGroup:nValue)
@@ -467,7 +467,7 @@ METHOD Valid(nKey) CLASS HRadioButton
          ENDIF
       ELSEIF nEnter = 0 .AND. !hwg_Getkeystate(VK_RETURN) < 0
          IF !::GetValue()
-            ::oGroup:nValue := Ascan(::oGroup:aButtons, {| o | o:id == ::id })
+            ::oGroup:nValue := Ascan(::oGroup:aButtons, {|o|o:id == ::id})
             ::oGroup:SetValue(::oGroup:nValue)
          ENDIF
       ENDIF

@@ -26,16 +26,16 @@ STATIC aCustomEvents := { ;
        { WM_NOTIFY, WM_PAINT, WM_CTLCOLORSTATIC, WM_CTLCOLOREDIT, WM_CTLCOLORBTN, WM_CTLCOLORLISTBOX, ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
        { ;
-         { | o, w, l | onNotify(o, w, l) }                                 , ;
-         { | o, w |   IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), -1) }  , ;
-         { | o, w, l | onCtlColor(o, w, l) }                               , ;
-         { | o, w, l | onCtlColor(o, w, l) }                               , ;
-         { | o, w, l | onCtlColor(o, w, l) }                               , ;
-         { | o, w, l | onCtlColor(o, w, l) }                               , ;
-         { | o, w, l | onCommand(o, w, l) }                                , ;
-         { | o, w, l | onDrawItem(o, w, l) }                               , ;
-         { | o, w, l | onSize(o, w, l) }                                   , ;
-         { | o |     onDestroy(o) }                                          ;
+         {|o, w, l|onNotify(o, w, l)}                                 , ;
+         {|o, w   |IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), -1)}  , ;
+         {|o, w, l|onCtlColor(o, w, l)}                               , ;
+         {|o, w, l|onCtlColor(o, w, l)}                               , ;
+         {|o, w, l|onCtlColor(o, w, l)}                               , ;
+         {|o, w, l|onCtlColor(o, w, l)}                               , ;
+         {|o, w, l|onCommand(o, w, l)}                                , ;
+         {|o, w, l|onDrawItem(o, w, l)}                               , ;
+         {|o, w, l|onSize(o, w, l)}                                   , ;
+         {|o      |onDestroy(o)}                                          ;
        } ;
      }
 
@@ -51,7 +51,7 @@ ENDCLASS
 METHOD DelObject(oCtrl) CLASS HObject
 
    LOCAL h := oCtrl:handle
-   LOCAL i := Ascan(::aObjects, {|o| o:handle == h })
+   LOCAL i := Ascan(::aObjects, {|o|o:handle == h})
 
    hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
@@ -133,7 +133,7 @@ METHOD AddEvent(nEvent, oCtrl, bAction, lNotify, cMethName) CLASS HCustomWindow
 
 METHOD FindControl(nId, nHandle) CLASS HCustomWindow
 
-   LOCAL bSearch := IIf(nId != NIL, { | o | o:id == nId }, { | o | hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(nHandle) })
+   LOCAL bSearch := IIf(nId != NIL, {|o|o:id == nId}, {|o|hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(nHandle)})
    LOCAL i := Len(::aControls)
    LOCAL oCtrl
 
@@ -151,7 +151,7 @@ METHOD FindControl(nId, nHandle) CLASS HCustomWindow
 
 METHOD DelControl(oCtrl) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
-   LOCAL i := AScan(::aControls, { | o | o:handle == h })
+   LOCAL i := AScan(::aControls, {|o|o:handle == h})
 
    hwg_Sendmessage(h, WM_CLOSE, 0, 0)
    IF i != 0
@@ -282,7 +282,7 @@ METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
             (!oCtrlTmp:lHide .OR.  __ObjHasMsg(oCtrlTmp, "BSETGET")) 
   	        IF LEN(oCtrlTmp:aControls) > 0
   	            ::Refresh(lAll, oCtrlTmp)
-		        ELSEIF  !Empty(lRefresh) .AND. (lAll .OR. ASCAN(::GetList, {| o | o:Handle == oCtrlTmp:handle }) > 0)
+		        ELSEIF  !Empty(lRefresh) .AND. (lAll .OR. ASCAN(::GetList, {|o|o:Handle == oCtrlTmp:handle}) > 0)
                oCtrlTmp:Refresh()
                IF oCtrlTmp:bRefresh != Nil  
                   EVAL(oCtrlTmp:bRefresh, oCtrlTmp)
@@ -338,7 +338,7 @@ METHOD Anchor(oCtrl, x, y, w, h) CLASS HCustomWindow
    LOCAL nlen, i, x1, y1
 
    IF oCtrl = Nil .OR.;
-       ASCAN(oCtrl:aControls, {| o | __ObjHasMsg(o, "ANCHOR") .AND. o:Anchor > 0 }) = 0
+       ASCAN(oCtrl:aControls, {|o|__ObjHasMsg(o, "ANCHOR") .AND. o:Anchor > 0}) = 0
       RETURN .F.
    ENDIF
 
@@ -392,8 +392,8 @@ STATIC FUNCTION onNotify(oWnd, wParam, lParam)
          IF nCode == EN_PROTECTED
             RETURN 1
          ELSEIF oWnd:aNotify != NIL .AND. !oWnd:lSuspendMsgsHandling .AND. ;
-            (iItem := AScan(oWnd:aNotify, { | a | a[1] == nCode .AND. ;
-                                              a[2] == wParam })) > 0
+            (iItem := AScan(oWnd:aNotify, {|a|a[1] == nCode .AND. ;
+                                              a[2] == wParam})) > 0
             IF (res := Eval(oWnd:aNotify[iItem, 3], oWnd, wParam)) != NIL
                RETURN res
             ENDIF
@@ -470,8 +470,8 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
 
    HB_SYMBOL_UNUSED(lParam)
    IF oWnd:aEvents != NIL .AND. !oForm:lSuspendMsgsHandling .AND. !oWnd:lSuspendMsgsHandling .AND. ;
-      (iItem := AScan(oWnd:aEvents, { | a | a[1] == iParHigh .AND. ;
-                                        a[2] == iParLow })) > 0
+      (iItem := AScan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. ;
+                                        a[2] == iParLow})) > 0
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
          oForm:nFocus := IIF(hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), oForm:Handle), hwg_Getfocus(), oForm:nFocus)
       ENDIF
@@ -580,13 +580,13 @@ METHOD RedefineScrollbars() CLASS HScrollArea
    IF ::nScrollBars > - 1 .AND. ::bScroll = Nil
       IF  ::nVscrollPos = 0
           ::ncurHeight := 0                                                              //* 4
-          AEval(::aControls, { | o | ::ncurHeight := INT(Max(o:nTop + o:nHeight + VERT_PTS * 1, ;
-                                      ::ncurHeight)) })
+          AEval(::aControls, {|o|::ncurHeight := INT(Max(o:nTop + o:nHeight + VERT_PTS * 1, ;
+                                      ::ncurHeight))})
       ENDIF
       IF  ::nHscrollPos = 0
           ::ncurWidth  := 0                                                           // * 4
-          AEval(::aControls, { | o | ::ncurWidth := INT(Max(o:nLeft + o:nWidth  + HORZ_PTS * 1, ;
-                                      ::ncurWidth)) })
+          AEval(::aControls, {|o|::ncurWidth := INT(Max(o:nLeft + o:nWidth  + HORZ_PTS * 1, ;
+                                      ::ncurWidth))})
       ENDIF
       ::ResetScrollbars()
       ::SetupScrollbars()

@@ -125,7 +125,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    ::lTransp := IIf(lTr != Nil, lTr, .F.)
    ::trColor := trColor
    IF bClick != Nil
-      ::oParent:AddEvent(0, Self, { || ::onClick() },,)
+      ::oParent:AddEvent(0, Self, {||::onClick()},,)
    ENDIF
    hwg_RegOwnBtn()
    ::Activate()

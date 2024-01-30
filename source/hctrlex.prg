@@ -69,10 +69,10 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF (lTransp != NIL .AND. lTransp)
       ::BackStyle := TRANSPARENT
       ::extStyle := Hwg_BitOr(::extStyle, WS_EX_TRANSPARENT)
-      bPaint := { | o, p | o:paint(p) }
+      bPaint := {|o, p|o:paint(p)}
       nStyle += SS_OWNERDRAW - ::nStyleHS
    ELSEIF ::nStyleHS > 32 .OR. ::nStyleHS = 2
-      bPaint := { | o, p | o:paint(p) }
+      bPaint := {|o, p|o:paint(p)}
       nStyle +=  SS_OWNERDRAW - ::nStyleHS
    ENDIF
 
@@ -87,10 +87,10 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent(STN_CLICKED, Self, { || ::onClick() })
+      ::oParent:AddEvent(STN_CLICKED, Self, {||::onClick()})
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent(STN_DBLCLK, Self, { || ::onDblClick() })
+   ::oParent:AddEvent(STN_DBLCLK, Self, {||::onDblClick()})
 
    RETURN Self
 
@@ -99,7 +99,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
 
    IF (lTransp != NIL .AND. lTransp)
       ::extStyle := Hwg_BitOr(::extStyle, WS_EX_TRANSPARENT)
-      bPaint := { | o, p | o:paint(p) }
+      bPaint := {|o, p|o:paint(p)}
       ::BackStyle := TRANSPARENT
    ENDIF
 
@@ -112,10 +112,10 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    ::bOther := bOther
    ::bClick := bClick
    IF ::id > 2
-      ::oParent:AddEvent(STN_CLICKED, Self, { || ::onClick() })
+      ::oParent:AddEvent(STN_CLICKED, Self, {||::onClick()})
    ENDIF
    ::bDblClick := bDblClick
-   ::oParent:AddEvent(STN_DBLCLK, Self, { || ::onDblClick() })
+   ::oParent:AddEvent(STN_DBLCLK, Self, {||::onDblClick()})
 
    RETURN Self
 
@@ -296,15 +296,15 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::bClick := bClick
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent(BN_SETFOCUS, Self, { || ::onGetFocus() })
-   ::oParent:AddEvent(BN_KILLFOCUS, self, { || ::onLostFocus() })
+   ::oParent:AddEvent(BN_SETFOCUS, Self, {||::onGetFocus()})
+   ::oParent:AddEvent(BN_KILLFOCUS, self, {||::onLostFocus()})
 
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, { || ::onClick() })
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, {||::onClick()})
       ENDIF
       IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent(BN_CLICKED, Self, { || ::onClick() })
+         ::oParent:AddEvent(BN_CLICKED, Self, {||::onClick()})
       ENDIF
    ENDIF
 
@@ -318,15 +318,15 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    ::title   := cCaption
    ::bGetFocus  := bGFocus
-   ::oParent:AddEvent(BN_SETFOCUS, Self, { || ::onGetFocus() })
-   ::oParent:AddEvent(BN_KILLFOCUS, self, { || ::onLostFocus() })
+   ::oParent:AddEvent(BN_SETFOCUS, Self, {||::onGetFocus()})
+   ::oParent:AddEvent(BN_KILLFOCUS, self, {||::onLostFocus()})
    ::bClick  := bClick
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
-         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, { || ::onClick() })
+         hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, {||::onClick()})
       ENDIF
       IF hwg_GetParentForm(Self):Classname != ::oParent:Classname  .OR. ::id > IDCANCEL
-         ::oParent:AddEvent(BN_CLICKED, Self, { || ::onClick() })
+         ::oParent:AddEvent(BN_CLICKED, Self, {||::onClick()})
       ENDIF
    ENDIF
 
@@ -518,7 +518,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::PictureMargin       := nPictureMargin
    ::lnoThemes           := lnoThemes
    ::bOther := bOther
-   bPaint := { | o, p | o:paint(p) }
+   bPaint := {|o, p|o:paint(p)}
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
@@ -531,7 +531,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 
    DEFAULT iStyle TO ST_ALIGN_HORIZ
    DEFAULT nPictureMargin TO 0
-   bPaint := { | o, p | o:paint(p) }
+   bPaint := {|o, p|o:paint(p)}
    ::m_bLButtonDown := .F.
    ::m_bIsToggle := .F.
    ::m_bLButtonDown := .F.
@@ -690,8 +690,8 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
          IF ValType(::bClick) == "B" .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
-      ELSEIF (nID := Ascan(::oparent:acontrols, { | o | iif(ValType(o:title) = "C", (pos := At("&", o:title)) > 0 .AND. ;
-            wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),) })) > 0
+      ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) = "C", (pos := At("&", o:title)) > 0 .AND. ;
+            wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
          IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
                ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
@@ -1178,7 +1178,7 @@ METHOD Init() CLASS HGroupEx
          nbs := HWG_GETWINDOWSTYLE(::handle)
          nbs := hwg_Modstyle(nbs, BS_TYPEMASK, BS_OWNERDRAW + WS_DISABLED)
          HWG_SETWINDOWSTYLE(::handle, nbs)
-         ::bPaint   := { | o, p | o:paint(p) }
+         ::bPaint   := {|o, p|o:paint(p)}
       ENDIF
       IF ::oRGroup != NIL
          ::oRGroup:Handle := ::handle

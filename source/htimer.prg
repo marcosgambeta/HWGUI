@@ -44,7 +44,7 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
    ::oParent := Iif(oParent==NIL, HWindow():GetMain():oDefaultParent, oParent)
    IF nId == NIL
       nId := TIMER_FIRST_ID
-      DO WHILE AScan(::aTimers, { | o | o:id == nId }) !=  0
+      DO WHILE AScan(::aTimers, {|o|o:id == nId}) !=  0
          nId ++
       ENDDO
    ENDIF
@@ -77,7 +77,7 @@ METHOD Init() CLASS HTimer
 METHOD END() CLASS HTimer
    LOCAL i
 
-   IF (i := AScan(::aTimers, { | o | o:id == ::id })) > 0
+   IF (i := AScan(::aTimers, {|o|o:id == ::id})) > 0
       IF ::oParent != NIL
          hwg_Killtimer(::oParent:handle, ::id)
       ENDIF
@@ -96,7 +96,7 @@ METHOD onAction()
 
 FUNCTION hwg_TimerProc(hWnd, idTimer, Time)
 
-   LOCAL i := AScan(HTimer():aTimers, { | o | o:id == idTimer })
+   LOCAL i := AScan(HTimer():aTimers, {|o|o:id == idTimer})
 
    HB_SYMBOL_UNUSED(hWnd)
 

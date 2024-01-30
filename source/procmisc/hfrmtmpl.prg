@@ -434,7 +434,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    RETURN NIL
 
 METHOD F( id, n ) CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, { | o | o:id == id } )
+   LOCAL i := AScan( ::aForms, {|o|o:id == id} )
 
    IF i != 0 .AND. n != NIL
       RETURN ::aForms[i]:aControls[n]
@@ -443,12 +443,12 @@ METHOD F( id, n ) CLASS HFormTmpl
    RETURN IIf(i == 0, NIL, ::aForms[i])
 
 METHOD Find(cId) CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, { | o | o:cId != NIL .AND. o:cId == cId } )
+   LOCAL i := AScan( ::aForms, {|o|o:cId != NIL .AND. o:cId == cId} )
 
    RETURN IIf(i == 0, NIL, ::aForms[i])
 
 METHOD Close() CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, { | o | o:id == ::id } )
+   LOCAL i := AScan( ::aForms, {|o|o:id == ::id} )
 
    IF i != 0
       ADel(::aForms, i)
@@ -957,7 +957,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    ENDIF
    //
    IF oCtrlTmpl:cClass == "combobox"
-      IF ( AScan( oCtrlTmpl:aProp, { | a | Lower(a[1]) == "nmaxlines" } ) ) > 0
+      IF ( AScan( oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"} ) ) > 0
          *-  nHeight := nHeight * nMaxLines
       ELSE
       *-  nHeight := nHeight * 4
@@ -987,7 +987,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
             aParts[i] := Val(aParts[i])
          NEXT
       ENDIF
-      onInit := { | o | o:Move(,, o:nWidth - 1 ) }
+      onInit := {|o|o:Move(,, o:nWidth - 1)}
    ENDIF
    // criacao
    IF oCtrlTmpl:cClass == "column"
@@ -998,7 +998,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          *- verificar se tem mais de um campo
          temp = SubStr(temp, 1, IIf(At('+', temp) > 0, At('+', temp) - 1, Len(temp)))
          j := {}
-         AEval(&cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd(j, aField[1]) })
+         AEval(&cAliasdbf->( ( DBStruct() ) ), {|aField|AAdd(j, aField[1])})
          IF m->nLength = NIL
             // m->nLength := &cTmpAlias->(fieldlen(ascan(j, temp)))
             // m->nLength := IIF(m->nLength = 0, IIF(type("&cCampo") = "C", LEN(&cCampo), 10), m->nLength)
@@ -1007,11 +1007,11 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          ENDIF
          m->nDec := &cAliasdbf->( FIELDDEC(AScan(j, temp)) )
          cHeader  := IIf(cHeader == NIL .OR. Empty(cHeader), temp, cHeader)
-         fBlock   := { || &fBlock }
+         fBlock   := {||&fBlock}
       ELSE  //IF brwtype = 1
          m->nLength := IIf(m->nLength = NIL, 10, m->nLength)
          fBlock := IIf(fBlock = NIL, ".T.", fBlock)
-         fBlock := IIf(cValType = "B", &fBlock, { || &fBlock })
+         fBlock := IIf(cValType = "B", &fBlock, {||&fBlock})
       ENDIF
       IF !Empty(cPicture) .AND. At(".9", cPicture) > 0 .AND. nDec = 0
          m->nDec := Len(SubStr(cPicture, At(".9", cPicture) + 1))
@@ -1046,14 +1046,14 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          ENDIF
          cRelexpr := IIf(!Empty(cRelexpr), cRelexpr, cKey)
          IF !Empty(cRelexpr + cLink)
-            &cLink->( DBSetRelation( oCtrl:Alias, { || &cRelexpr }, cRelexpr ) )
+            &cLink->( DBSetRelation( oCtrl:Alias, {||&cRelexpr}, cRelexpr ) )
             &( oCtrl:Alias ) ->( DBSetFilter( &( "{|| " + cRelexpr + " = " + cLink + "->(" + cRelexpr + ")}" ), "&crelexpr = &clink->(&crelexpr) " ) )
          ENDIF
          // fim dos relacionamentos
          IF Empty(oCtrlTmpl:aControls)
             Select ( oCtrl:Alias )
             j := ( DBStruct() )
-            //AEVAL(aStruct, {|aField| QOUT(aField[DBS_NAME])})
+            //AEVAL(aStruct, {|aField|QOUT(aField[DBS_NAME])})
             FOR i := 1 TO IIf(oCtrl:nColumns = 0, FCount(), oCtrl:nColumns)
                //"AddColumn(HColumn():New(cHeader, Fblock, cValType, nLength, nDec, lEdit, nJusHead, nJusLine, cPicture,bValid, bWhen, Items, bClrBlck, bHeadClick ))",;  //oBrw:AddColumn
                m->cHeader := FieldName(i)
@@ -1068,7 +1068,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          ENDIF
       ELSE
          oCtrl:aArray := caArray  //IIF(TYPE("caArray")="C",&(caArray), caArray)
-         oCtrl:AddColumn( HColumn():New(, { | v, o | IIf(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent]) }, 'C', 100, 0) )
+         oCtrl:AddColumn( HColumn():New(, {|v, o|IIf(v != NIL, o:aArray[o:nCurrent] := v, o:aArray[o:nCurrent])}, 'C', 100, 0) )
       ENDIF
    ENDIF
    IF cVarName != NIL
@@ -1614,12 +1614,12 @@ METHOD ReleaseObj(aControls) CLASS HRepTmpl
    RETURN NIL
 
 METHOD Find(cId) CLASS HRepTmpl
-   LOCAL i := AScan( ::aReports, { | o | o:cId != NIL .AND. o:cId == cId } )
+   LOCAL i := AScan( ::aReports, {|o|o:cId != NIL .AND. o:cId == cId} )
 
    RETURN IIf(i == 0, NIL, ::aReports[i])
 
 METHOD Close() CLASS HRepTmpl
-   LOCAL i := AScan( ::aReports, { | o | o:id == ::id } )
+   LOCAL i := AScan( ::aReports, {|o|o:id == ::id} )
 
    IF i != 0
       ADel(::aReports, i)
@@ -1658,7 +1658,7 @@ STATIC FUNCTION ReadRepItem(oCtrlDesc, oContainer)
    RETURN NIL
 
 STATIC FUNCTION aGetSecond(arr, xFirst)
-   LOCAL i := AScan( arr, { | a | a[1] == xFirst } )
+   LOCAL i := AScan( arr, {|a|a[1] == xFirst} )
 
    RETURN IIf(i == 0, NIL, arr[i, 2])
 

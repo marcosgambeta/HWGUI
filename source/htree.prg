@@ -179,7 +179,7 @@ METHOD New(oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bCl
    ELSE
       AAdd(aItems, Nil)
       h := oPrev:handle
-      IF (i := AScan(aItems, { | o | o:handle == h })) == 0
+      IF (i := AScan(aItems, {|o|o:handle == h})) == 0
          aItems[Len(aItems)] := Self
       ELSE
          AIns(aItems, i + 1)
@@ -211,7 +211,7 @@ METHOD Delete(lInternal) CLASS HTreeNode
    hwg_Sendmessage(::oTree:handle, TVM_DELETEITEM, 0, ::handle)
    IF lInternal == Nil
       aItems := IIf(::oParent == Nil, ::oTree:aItems, ::oParent:aItems)
-      j := AScan(aItems, { | o | o:handle == h })
+      j := AScan(aItems, {|o|o:handle == h})
       ADel(aItems, j)
       ASize(aItems, Len(aItems) - 1)
    ENDIF
@@ -280,9 +280,9 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD FindChild(h)
    METHOD FindChildPos(oNode, h)
    METHOD GetSelected() INLINE IIF(VALTYPE(::oItem := hwg_Treegetselected(::handle)) = "O", ::oItem, Nil)
-   METHOD EditLabel(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle) }
-   METHOD Expand(oNode, lAllNode)   //BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle), hwg_Redrawwindow(::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE)}
-   METHOD Select(oNode) BLOCK { | Self, o | hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle), ::oItem := hwg_Treegetselected(::handle) }
+   METHOD EditLabel(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
+   METHOD Expand(oNode, lAllNode)   //BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle), hwg_Redrawwindow(::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE)}
+   METHOD Select(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle), ::oItem := hwg_Treegetselected(::handle)}
    METHOD Clean()
    METHOD Notify(lParam)
    METHOD END()   INLINE (::Super:END(), ReleaseTree(::aItems))
@@ -580,8 +580,8 @@ METHOD Notify(lParam)  CLASS HTree
    ELSEIF nCode == TVN_BEGINLABELEDIT .OR. nCode == TVN_BEGINLABELEDITW
       ::hTreeEdit := hwg_Sendmessage(::Handle, TVM_GETEDITCONTROL, 0, 0)
       s_aEvents := aClone(::oParent:aEvents)
-      ::oParent:AddEvent(0, IDOK, { || hwg_Sendmessage(::handle, TVM_ENDEDITLABELNOW, 0, 0) })
-      ::oParent:AddEvent(0, IDCANCEL, { || hwg_Sendmessage(::handle, TVM_ENDEDITLABELNOW, 1, 0) })
+      ::oParent:AddEvent(0, IDOK, {||hwg_Sendmessage(::handle, TVM_ENDEDITLABELNOW, 0, 0)})
+      ::oParent:AddEvent(0, IDCANCEL, {||hwg_Sendmessage(::handle, TVM_ENDEDITLABELNOW, 1, 0)})
       hwg_Sendmessage(::hTreeEdit, WM_KEYDOWN, VK_END, 0)
 
    ELSEIF nCode == TVN_ENDLABELEDIT  .OR. nCode == TVN_ENDLABELEDITW

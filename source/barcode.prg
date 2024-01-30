@@ -73,7 +73,7 @@ FUNCTION main
         COLOR COLOR_3DLIGHT + 1                       ;
         At 200, 0 SIZE 420, 300                       ;
         FONT oFont ;
-        ON PAINT { || oBC:showBarcode() }
+        ON PAINT {||oBC:showBarcode()}
 
 
    @ 20, 113 EDITBOX oEdit2 CAPTION "Example"  SIZE 24, 130

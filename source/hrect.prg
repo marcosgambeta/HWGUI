@@ -76,7 +76,7 @@ ENDCLASS
 //---------------------------------------------------------------------------
 METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor) CLASS HRect_Line
 
-   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop,,,,, bSize, { | o, lp | o:Paint(lp) })
+   ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop,,,,, bSize, {|o, lp|o:Paint(lp)})
 
    //::title := ""
    ::lVert := IIf(lVert == NIL, .F., lVert)
@@ -180,7 +180,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor,
 
    HB_SYMBOL_UNUSED(ncStyle)
 
-   ::bPaint   := { | o, p | o:paint(p) }
+   ::bPaint   := {|o, p|o:paint(p)}
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ,;
          bInit, bSize, ::bPaint, , tcolor, bColor) //= NIL
 
@@ -321,7 +321,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainer  //, bClick, bDblClick)
 
    ::lTABSTOP :=  nStyle = WS_TABSTOP
-   ::bPaint   := { | o, p | o:paint(p) }
+   ::bPaint   := {|o, p|o:paint(p)}
    nStyle := SS_OWNERDRAW + IIF(nStyle = WS_TABSTOP, WS_TABSTOP, 0) + Hwg_Bitand(nStyle, SS_NOTIFY)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
          bInit, bSize, ::bPaint,, tcolor, bColor)

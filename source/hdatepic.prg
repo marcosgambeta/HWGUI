@@ -74,8 +74,8 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF bSetGet != NIL
       ::bGetFocus := bGfocus
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent(NM_SETFOCUS, Self, { | o, id | ::When(o:FindControl(id)) }, .T., "onGotFocus")
-      ::oParent:AddEvent(NM_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .T., "onLostFocus")
+      ::oParent:AddEvent(NM_SETFOCUS, Self, {|o, id|::When(o:FindControl(id))}, .T., "onGotFocus")
+      ::oParent:AddEvent(NM_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .T., "onLostFocus")
    ELSE
       IF bGfocus != NIL
          ::lnoValid := .T.
@@ -85,8 +85,8 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
          ::oParent:AddEvent(NM_KILLFOCUS, Self, bLfocus, .T., "onLostFocus")
       ENDIF
    ENDIF
-   ::oParent:AddEvent(DTN_DATETIMECHANGE, Self, { | | ::onChange(DTN_DATETIMECHANGE) }, .T., "onChange")
-   ::oParent:AddEvent(DTN_CLOSEUP, Self, { | | ::onChange(DTN_CLOSEUP) }, .T., "onClose")
+   ::oParent:AddEvent(DTN_DATETIMECHANGE, Self, {||::onChange(DTN_DATETIMECHANGE)}, .T., "onChange")
+   ::oParent:AddEvent(DTN_CLOSEUP, Self, {||::onChange(DTN_CLOSEUP)}, .T., "onClose")
 
    RETURN Self
 
@@ -104,11 +104,11 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
    IF bGfocus != NIL
       ::oParent:AddEvent(NM_SETFOCUS, Self, bGfocus, .T., "onGotFocus")
    ENDIF
-   ::oParent:AddEvent(DTN_DATETIMECHANGE, Self, { | | ::onChange(DTN_DATETIMECHANGE) }, .T., "onChange")
-   ::oParent:AddEvent(DTN_CLOSEUP, Self, { | | ::onChange(DTN_CLOSEUP) }, .T., "onClose")
+   ::oParent:AddEvent(DTN_DATETIMECHANGE, Self, {||::onChange(DTN_DATETIMECHANGE)}, .T., "onChange")
+   ::oParent:AddEvent(DTN_CLOSEUP, Self, {||::onChange(DTN_CLOSEUP)}, .T., "onClose")
    IF bSetGet != NIL
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent(NM_KILLFOCUS, Self, { | o, id | ::Valid(o:FindControl(id)) }, .T., "onLostFocus")
+      ::oParent:AddEvent(NM_KILLFOCUS, Self, {|o, id|::Valid(o:FindControl(id))}, .T., "onLostFocus")
    ELSE
       IF bLfocus != NIL
          ::oParent:AddEvent(NM_KILLFOCUS, Self, bLfocus, .T., "onLostFocus")

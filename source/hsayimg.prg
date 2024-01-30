@@ -43,9 +43,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
 
    ::title   := ""
    ::bClick := bClick
-   ::oParent:AddEvent(STN_CLICKED, Self, { || ::onClick() })
+   ::oParent:AddEvent(STN_CLICKED, Self, {||::onClick()})
    ::bDblClick := bDblClick
-   ::oParent:AddEvent(STN_DBLCLK, Self, { || ::onDblClick() })
+   ::oParent:AddEvent(STN_DBLCLK, Self, {||::onDblClick()})
 
    RETURN Self
 
@@ -109,7 +109,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    nStyle := IIF(nStyle = NIL, 0, nStyle)
    ::Super:New(oWndParent, nId, SS_OWNERDRAW + nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
-   ::bPaint := { | o, lpdis | o:Paint(lpdis) }
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
    ::nStretch := IIf(nStretch = NIL, 0, nStretch)
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
@@ -137,7 +137,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
 METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) CLASS HSayBmp
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
-   ::bPaint := { | o, lpdis | o:Paint(lpdis) }
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
       ::extStyle +=  WS_EX_TRANSPARENT

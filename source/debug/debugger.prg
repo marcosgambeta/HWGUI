@@ -291,7 +291,7 @@ METHOD GetExprValue(xExpr, lValid) CLASS HBDebugger
       xResult := oErr:operation + ": " + oErr:description
       IF HB_ISARRAY(oErr:args)
          xResult += "; arguments:"
-         AEval(oErr:args, {| x | xResult += " " + AllTrim(__dbgValToStr(x)) })
+         AEval(oErr:args, {|x|xResult += " " + AllTrim(__dbgValToStr(x))})
       ENDIF
       lValid := .F.
    END SEQUENCE
@@ -361,7 +361,7 @@ METHOD HandleEvent() CLASS HBDebugger
          ENDIF
 
       CASE nKey == CMD_BDEL
-         IF (nAt := AScan(::aBreakPoints, {|a|a[1]==p2 .AND. a[2]==p1 })) == 0
+         IF (nAt := AScan(::aBreakPoints, {|a|a[1]==p2 .AND. a[2]==p1})) == 0
             hwg_dbg_Answer("err")
          ELSE
             ADel(::aBreakPoints, nAt)
@@ -443,7 +443,7 @@ METHOD LoadCallStack() CLASS HBDebugger
 
    FOR i := nDebugLevel TO nCurrLevel
       nLevel := nCurrLevel - i + 1
-      nPos := AScan(::aCallStack, {| a | a[CSTACK_LEVEL] == nLevel })
+      nPos := AScan(::aCallStack, {|a|a[CSTACK_LEVEL] == nLevel})
       IF nPos > 0
          // a procedure with debug info
          ::aProcStack[i - nDebugLevel + 1] := ::aCallStack[nPos]

@@ -77,12 +77,12 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    IF bGfocus != Nil
       //::oParent:AddEvent(EN_SETFOCUS, Self, bGfocus,, "onGotFocus")
       ::bGetFocus := bGfocus
-      ::oParent:AddEvent(EN_SETFOCUS, Self, { | o | ::When(o) }, , "onGotFocus")
+      ::oParent:AddEvent(EN_SETFOCUS, Self, {|o|::When(o)}, , "onGotFocus")
    ENDIF
    IF bLfocus != Nil
       //::oParent:AddEvent(EN_KILLFOCUS, Self, bLfocus,, "onLostFocus")
       ::bLostFocus := bLfocus
-      ::oParent:AddEvent(EN_KILLFOCUS, Self, { | o | ::Valid(o) }, , "onLostFocus")
+      ::oParent:AddEvent(EN_KILLFOCUS, Self, {|o|::Valid(o)}, , "onLostFocus")
    ENDIF
 
    RETURN Self
@@ -104,7 +104,7 @@ METHOD Init()  CLASS HRichEdit
       ::SetColor(::tColor, ::bColor)
       IF ::bChange != Nil
          hwg_Sendmessage(::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE)
-         ::oParent:AddEvent(EN_CHANGE, ::id, {| | ::onChange()})
+         ::oParent:AddEvent(EN_CHANGE, ::id, {||::onChange()})
       ENDIF
    ENDIF
    RETURN Nil

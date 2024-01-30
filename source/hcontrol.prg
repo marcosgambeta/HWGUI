@@ -94,10 +94,10 @@ METHOD NewId() CLASS HControl
       oParent := oParent:oParent
       i ++
    ENDDO
-   IF AScan(::oParent:aControls, { | o | o:id == nId }) != 0
+   IF AScan(::oParent:aControls, {|o|o:id == nId}) != 0
       nId --
       DO WHILE nId >= CONTROL_FIRST_ID .AND. ;
-            AScan(::oParent:aControls, { | o | o:id == nId }) != 0
+            AScan(::oParent:aControls, {|o|o:id == nId}) != 0
          nId --
       ENDDO
    ENDIF
@@ -178,8 +178,8 @@ METHOD Enable() CLASS HControl
 
    hwg_Enablewindow(::handle, .T.)
    IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND(HWG_GETWINDOWSTYLE(::Handle), WS_TABSTOP) > 0
-      nNext := Ascan(::oParent:aControls, { | o | hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(hwg_Getfocus()) })
-      nPos  := Ascan(::oParent:acontrols, { | o | hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(::handle) })
+      nNext := Ascan(::oParent:aControls, {|o|hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(hwg_Getfocus())})
+      nPos  := Ascan(::oParent:acontrols, {|o|hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(::handle)})
       IF nPos < nNext
          hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1)
       ENDIF
@@ -424,7 +424,7 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatus
 
-   bSize  := iif(bSize != NIL, bSize, { | o, x, y | o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight) })
+   bSize  := iif(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight)})
    nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), ;
       WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
    ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, ;
@@ -788,7 +788,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, nHeight, cSlant, nBorder) CLASS HLine
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, , , , bInit, ;
-      bSize, { | o, lp | o:Paint(lp) } , , tcolor)
+      bSize, {|o, lp|o:Paint(lp)} , , tcolor)
 
    ::title := ""
    ::lVert := iif(lVert == NIL, .F., lVert)
