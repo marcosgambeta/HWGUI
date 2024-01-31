@@ -178,7 +178,7 @@ HB_FUNC( HWG_PIE )
          hb_parni(9)          // y-coord. of second radial's endpoint
           );
 
-   hb_retnl(res ? 0 : ( LONG ) GetLastError());
+   hb_retnl(res ? 0 : (LONG) GetLastError());
 }
 
 HB_FUNC( HWG_ELLIPSE )
@@ -190,7 +190,7 @@ HB_FUNC( HWG_ELLIPSE )
          hb_parni(5)          // y-coord. bounding rectangle's f lower-right corner
           );
 
-   hb_retnl(res ? 0 : ( LONG ) GetLastError());
+   hb_retnl(res ? 0 : (LONG) GetLastError());
 }
 
 HB_FUNC( HWG_FILLRECT )
@@ -202,7 +202,7 @@ HB_FUNC( HWG_FILLRECT )
    rc.right = hb_parni(4);
    rc.bottom = hb_parni(5);
 
-   FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1) /* TODO: pointer */,        // handle to device context
+   FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1) : (HDC) hb_parnl(1) /* TODO: pointer */,        // handle to device context
          &rc,                   // pointer to structure with rectangle
          hwg_par_HBRUSH(6)   // handle to brush
           );
@@ -225,7 +225,7 @@ HB_FUNC( HWG_REDRAWWINDOW )
    RedrawWindow( hwg_par_HWND(1),    // handle of window
          NULL,                  // address of structure with update rectangle
          NULL,                  // handle of update region
-         ( UINT ) hb_parni(2) // array of redraw flags
+         (UINT) hb_parni(2) // array of redraw flags
           );
 }
 */
@@ -248,7 +248,7 @@ HB_FUNC( HWG_REDRAWWINDOW )
     hwg_par_HWND(1),  // handle of window
     ( hb_pcount() > 3 )? &rc:NULL,  // address of structure with update rectangle
      NULL,   // handle of update region
-    ( UINT )hb_parni(2)     // array of redraw flags
+    (UINT) hb_parni(2)     // array of redraw flags
    );
 }
 
@@ -301,8 +301,8 @@ HB_FUNC( HWG_DRAWEDGE )
 {
    RECT rc;
    HDC hDC = hwg_par_HDC(1);
-   UINT edge = ( HB_ISNIL(6) ) ? EDGE_RAISED : ( UINT ) hb_parni(6);
-   UINT grfFlags = ( HB_ISNIL(7) ) ? BF_RECT : ( UINT ) hb_parni(7);
+   UINT edge = ( HB_ISNIL(6) ) ? EDGE_RAISED : (UINT) hb_parni(6);
+   UINT grfFlags = ( HB_ISNIL(7) ) ? BF_RECT : (UINT) hb_parni(7);
 
    rc.left = hb_parni(2);
    rc.top = hb_parni(3);
@@ -328,12 +328,12 @@ HB_FUNC( HWG_LOADIMAGE )
 {
    void * hString = NULL;
 
-   HB_RETHANDLE(LoadImage(HB_ISNIL(1) ? GetModuleHandle(NULL) : ( HINSTANCE ) hb_parnl(1), // handle of the instance that contains the image
+   HB_RETHANDLE(LoadImage(HB_ISNIL(1) ? GetModuleHandle(NULL) : (HINSTANCE) hb_parnl(1), // handle of the instance that contains the image
                HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR(2, &hString, NULL),  // name or identifier of image
-               ( UINT ) hb_parni(3),  // type of image
+               (UINT) hb_parni(3),  // type of image
                hb_parni(4),   // desired width
                hb_parni(5),   // desired height
-               ( UINT ) hb_parni(6)   // load flags
+               (UINT) hb_parni(6)   // load flags
           ));
    hb_strfree(hString);
 }
@@ -357,7 +357,7 @@ HB_FUNC( HWG_LOADBITMAP )
 }
 
 /*
- * Window2Bitmap( hWnd )
+ * Window2Bitmap(hWnd)
  */
 HB_FUNC( HWG_WINDOW2BITMAP )
 {
@@ -501,7 +501,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
 HB_FUNC( HWG_SPREADBITMAP )
 {
    HDC hDC =
-         HB_ISPOINTER(1) ? hwg_par_HDC(1) : ( HDC ) hb_parnl(1); // TODO: pointer
+         HB_ISPOINTER(1) ? hwg_par_HDC(1) : (HDC) hb_parnl(1); // TODO: pointer
    HDC hDCmem = CreateCompatibleDC(hDC);
    DWORD dwraster = ( HB_ISNIL(4) ) ? SRCCOPY : hwg_par_DWORD(4);
    HBITMAP hBitmap = hwg_par_HBITMAP(3);
@@ -722,7 +722,7 @@ HB_FUNC( HWG_DRAWICON )
 
 HB_FUNC( HWG_GETSYSCOLOR )
 {
-   hb_retnl(( LONG ) GetSysColor(hb_parni(1)));
+   hb_retnl((LONG) GetSysColor(hb_parni(1)));
 }
 
 HB_FUNC( HWG_GETSYSCOLORBRUSH )
@@ -807,11 +807,11 @@ HB_FUNC( HWG_GETDRAWITEMINFO )
    hb_itemArrayPut(aMetr, 7, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL(NULL, ( LONG ) lpdis->hwndItem);
+   temp = hb_itemPutNL(NULL, (LONG) lpdis->hwndItem);
    hb_itemArrayPut(aMetr, 8, temp);
    hb_itemRelease(temp);
 
-   temp = hb_itemPutNL(NULL, ( LONG ) lpdis->itemState);
+   temp = hb_itemPutNL(NULL, (LONG) lpdis->itemState);
    hb_itemArrayPut(aMetr, 9, temp);
    hb_itemRelease(temp);
 
@@ -1185,7 +1185,7 @@ HB_FUNC( HWG_GETWINDOWDC )
 HB_FUNC( HWG_MODIFYSTYLE )
 {
    HWND hWnd = hwg_par_HWND(1);
-   DWORD dwStyle = GetWindowLongPtr(( HWND ) hWnd, GWL_STYLE);
+   DWORD dwStyle = GetWindowLongPtr((HWND) hWnd, GWL_STYLE);
    DWORD a = hb_parnl(2);
    DWORD b = hb_parnl(3);
    DWORD dwNewStyle = ( dwStyle & ~a ) | b;

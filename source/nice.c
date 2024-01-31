@@ -143,10 +143,10 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();         /* places NIL at self */
-      hb_vmPushLong(( LONG ) hWnd);   /* pushes parameters on to the hvm stack */
-      hb_vmPushLong(( LONG ) message);
-      hb_vmPushLong(( LONG ) wParam);
-      hb_vmPushLong(( LONG ) lParam);
+      hb_vmPushLong((LONG) hWnd);   /* pushes parameters on to the hvm stack */
+      hb_vmPushLong((LONG) message);
+      hb_vmPushLong((LONG) wParam);
+      hb_vmPushLong((LONG) lParam);
       hb_vmDo(4);             /* where iArgCount is the number of pushed parameters */
       res = hb_parl(-1);
       if( res )
@@ -263,7 +263,7 @@ HB_FUNC( HWG_GRADIENT )
 
 HB_FUNC( HWG_MAKELONG )
 {
-   hb_retnl(( LONG ) MAKELONG(( WORD ) hb_parnl(1), ( WORD ) hb_parnl(2)));
+   hb_retnl((LONG) MAKELONG((WORD) hb_parnl(1), (WORD) hb_parnl(2)));
 }
 
 

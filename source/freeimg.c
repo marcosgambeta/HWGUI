@@ -216,7 +216,7 @@ HB_FUNC( HWG_FI_LOAD )
 
    if( pGetfiffromfile && pLoad ) {
       const char *name = hb_parc(1);
-      hb_retnl(( ULONG ) pLoad(pGetfiffromfile(name), name,
+      hb_retnl((ULONG) pLoad(pGetfiffromfile(name), name,
                   ( hb_pcount() > 1 ) ? hb_parni(2) : 0));
    } else {
       hb_retnl(0);
@@ -234,7 +234,7 @@ HB_FUNC( HWG_FI_LOADTYPE )
 
    if( pLoad ) {
       const char *name = hb_parc(2);
-      hb_retnl(( ULONG ) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
+      hb_retnl((ULONG) pLoad(( enum FREE_IMAGE_FORMAT ) hb_parni(1),
                   name, ( hb_pcount() > 2 ) ? hb_parni(3) : 0));
    } else {
       hb_retnl(0);
@@ -328,7 +328,7 @@ HB_FUNC( HWG_FI_2BITMAP )
          ( FREEIMAGE_GETINFOHEADER ) (void *) s_getFunction( ( FARPROC ) (void *) pGetinfoHead,
          "_FreeImage_GetInfoHeader@4" );
 
-   hb_retnl(( LONG ) CreateDIBitmap( hDC, pGetinfoHead(dib),
+   hb_retnl((LONG) CreateDIBitmap( hDC, pGetinfoHead(dib),
                CBM_INIT, pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS ));
 
    ReleaseDC(0, hDC);
@@ -444,7 +444,7 @@ HB_FUNC( HWG_FI_FI2DIB )
       memcpy( ( LPBYTE ) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
             pGetbits( dib ), lpbi->bmiHeader.biSizeImage );
       GlobalUnlock(hdib);
-      hb_retnl(( LONG ) hdib);
+      hb_retnl((LONG) hdib);
    } else {
       hb_retnl(0);
    }
@@ -542,14 +542,14 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       GlobalUnlock(hMem);
    }
 
-   hb_retnl(( LONG ) hMem);
+   hb_retnl((LONG) hMem);
 }
 
 HB_FUNC( HWG_FI_DRAW )
 {
    FIBITMAP *dib = hwg_par_FIBITMAP(1);
    HDC hDC = hwg_par_HDC(2);
-   int nWidth = ( int ) hb_parnl(3), nHeight = ( int ) hb_parnl(4);
+   int nWidth = (int) hb_parnl(3), nHeight = (int) hb_parnl(4);
    int nDestWidth, nDestHeight;
    POINT pp[2];
    // char cres[40];
@@ -617,7 +617,7 @@ HB_FUNC( HWG_FI_BMP2FI )
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
          ReleaseDC(NULL, hDC);
-         hb_retnl(( LONG ) dib);
+         hb_retnl((LONG) dib);
          return;
       }
    }
@@ -638,7 +638,7 @@ static int BmiColorCount( LPBITMAPINFOHEADER lpbi )
    } else if( lpbi->biClrUsed == 0 ) {
       return ColorCount( lpbi->biBitCount );
    } else {
-      return ( int ) lpbi->biClrUsed;
+      return (int) lpbi->biClrUsed;
    }
 }                               // BmiColorCount
 
@@ -651,7 +651,7 @@ static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
 // Given a pointer to a locked DIB, return a pointer to the actual bits (pixels)
 {
    DWORD dwColorTableSize =
-         ( DWORD ) ( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
+         (DWORD) ( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
    LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
@@ -709,7 +709,7 @@ HB_FUNC( HWG_FI_DIB2FI )
          }
 
          GlobalUnlock(hdib);
-         hb_retnl(( LONG ) dib);
+         hb_retnl((LONG) dib);
          return;
 
       } else {
@@ -725,7 +725,7 @@ HB_FUNC( HWG_FI_RESCALE )
          ( FREEIMAGE_RESCALE ) (void *) s_getFunction( ( FARPROC ) (void *) pRescale,
          "_FreeImage_Rescale@16" );
 
-   hb_retnl(( pRescale ) ? ( LONG ) pRescale(hwg_par_FIBITMAP(1),
+   hb_retnl(( pRescale ) ? (LONG) pRescale(hwg_par_FIBITMAP(1),
                hb_parnl(2), hb_parnl(3),
                ( FREE_IMAGE_FILTER ) hb_parni(4)) : 0);
 }
@@ -845,7 +845,7 @@ HB_FUNC( HWG_FI_LOADFROMMEM )
       }
 
       g_load_address = ( fi_handle ) image;
-      hb_retnl(( LONG ) pLoadFromHandle(fif, &io, ( fi_handle ) image,
+      hb_retnl((LONG) pLoadFromHandle(fif, &io, ( fi_handle ) image,
                   ( hb_pcount() > 2 ) ? hb_parni(3) : 0));
    } else {
       hb_retnl(0);
@@ -858,7 +858,7 @@ HB_FUNC( HWG_FI_ROTATECLASSIC )
          ( FREEIMAGE_ROTATECLASSIC ) (void *) s_getFunction( ( FARPROC ) (void *) pRotateClassic,
          "_FreeImage_RotateClassic@12" );
 
-   hb_retnl(( pRotateClassic ) ? ( LONG ) pRotateClassic(( FIBITMAP * )
+   hb_retnl(( pRotateClassic ) ? (LONG) pRotateClassic(( FIBITMAP * )
                hb_parnl(1), hb_parnd(2)) : 0);
 }
 
@@ -915,7 +915,7 @@ HB_FUNC( HWG_FI_ALLOCATE )
          "_FreeImage_Allocate@24" );
 
    // X, Y, DEPTH
-   hb_retnl(( ULONG ) pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3),
+   hb_retnl((ULONG) pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3),
                0, 0, 0));
 }
 
@@ -938,7 +938,7 @@ HB_FUNC( HWG_FI_COPY )
          ( FREEIMAGE_COPY ) (void *) s_getFunction( ( FARPROC ) (void *) pCopy,
          "_FreeImage_Copy@20" );
 
-   hb_retnl(( ULONG ) pCopy( hwg_par_FIBITMAP(1),     // dib
+   hb_retnl((ULONG) pCopy( hwg_par_FIBITMAP(1),     // dib
                hb_parnl(2),   // left
                hb_parnl(3),   // top
                hb_parnl(4),   // right
@@ -981,7 +981,7 @@ HB_FUNC( HWG_FI_CONVERTTO8BITS )
          ( FREEIMAGE_CONVERTTO8BITS ) (void *) s_getFunction( ( FARPROC ) (void *) 
          pConvertTo8Bits, "_FreeImage_ConvertTo8Bits@4" );
 
-   hb_retnl(( LONG ) pConvertTo8Bits( hwg_par_FIBITMAP(1) ));
+   hb_retnl((LONG) pConvertTo8Bits( hwg_par_FIBITMAP(1) ));
 }
 
 HB_FUNC( HWG_FI_CONVERTTOGREYSCALE )
@@ -990,7 +990,7 @@ HB_FUNC( HWG_FI_CONVERTTOGREYSCALE )
          ( FREEIMAGE_CONVERTTOGREYSCALE ) (void *) s_getFunction( ( FARPROC ) (void *) 
          pConvertToGreyscale, "_FreeImage_ConvertToGreyscale@4" );
 
-   hb_retnl(( LONG ) pConvertToGreyscale(hwg_par_FIBITMAP(1)));
+   hb_retnl((LONG) pConvertToGreyscale(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC( HWG_FI_THRESHOLD )
@@ -999,8 +999,8 @@ HB_FUNC( HWG_FI_THRESHOLD )
          ( FREEIMAGE_THRESHOLD ) (void *) s_getFunction( ( FARPROC ) (void *) pThreshold,
          "_FreeImage_Threshold@8" );
 
-   hb_retnl(( LONG ) pThreshold(hwg_par_FIBITMAP(1),
-               ( BYTE ) hb_parnl(2)));
+   hb_retnl((LONG) pThreshold(hwg_par_FIBITMAP(1),
+               (BYTE) hb_parnl(2)));
 }
 
 HB_FUNC( HWG_FI_FLIPVERTICAL )
@@ -1014,7 +1014,7 @@ HB_FUNC( HWG_FI_FLIPVERTICAL )
 
 HB_FUNC( HWG_FI_GETPIXELINDEX )
 {
-   BYTE value = ( BYTE ) - 1;
+   BYTE value = (BYTE) - 1;
    BOOL lRes;
    pGetPixelIndex =
          ( FREEIMAGE_GETPIXELINDEX ) (void *) s_getFunction( ( FARPROC ) (void *) pGetPixelIndex,
@@ -1024,7 +1024,7 @@ HB_FUNC( HWG_FI_GETPIXELINDEX )
          hb_parni(3), &value );
 
    if( lRes ) {
-      hb_stornl(( ULONG ) value, 4);
+      hb_stornl((ULONG) value, 4);
    }
 
    hb_retl(lRes);

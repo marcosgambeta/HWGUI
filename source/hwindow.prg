@@ -781,7 +781,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HChildWindow
 
    RETURN - 1
 
-FUNCTION hwg_ReleaseAllWindows( hWnd )
+FUNCTION hwg_ReleaseAllWindows(hWnd)
 
    LOCAL oItem
 
@@ -1134,7 +1134,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
    // added
 
    IF !Empty(wParam)
-      oWndDeact := oWnd:FindWindow( wParam )
+      oWndDeact := oWnd:FindWindow(wParam)
       IF oWnd:lChild .AND. oWnd:lmaximized .AND. oWnd:IsMaximized()
          oWnd:Restore()
       ENDIF

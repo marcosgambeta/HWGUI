@@ -260,7 +260,7 @@ HB_FUNC( HWG_SETTEXTCOLOR )
    COLORREF crColor = SetTextColor(hwg_par_HDC(1),  // handle of device context
          hwg_par_COLORREF(2)     // text color
           );
-   hb_retnl(( LONG ) crColor);
+   hb_retnl((LONG) crColor);
 }
 
 HB_FUNC( HWG_SETBKCOLOR )
@@ -268,7 +268,7 @@ HB_FUNC( HWG_SETBKCOLOR )
    COLORREF crColor = SetBkColor(hwg_par_HDC(1),    // handle of device context
          hwg_par_COLORREF(2)     // text color
           );
-   hb_retnl(( LONG ) crColor);
+   hb_retnl((LONG) crColor);
 }
 
 HB_FUNC( HWG_SETTRANSPARENTMODE )
@@ -280,12 +280,12 @@ HB_FUNC( HWG_SETTRANSPARENTMODE )
 
 HB_FUNC( HWG_GETTEXTCOLOR )
 {
-   hb_retnl(( LONG ) GetTextColor(hwg_par_HDC(1)));
+   hb_retnl((LONG) GetTextColor(hwg_par_HDC(1)));
 }
 
 HB_FUNC( HWG_GETBKCOLOR )
 {
-   hb_retnl(( LONG ) GetBkColor(hwg_par_HDC(1)));
+   hb_retnl((LONG) GetBkColor(hwg_par_HDC(1)));
 }
 
 /*
@@ -348,7 +348,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void * hString;
    SendMessage(hwg_par_HWND(1), SB_SETTEXT, hb_parni(2),
-                ( LPARAM ) HB_PARSTR(3, &hString, NULL));
+                (LPARAM) HB_PARSTR(3, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -395,7 +395,7 @@ HB_FUNC( HWG_CREATEFONT )
 HB_FUNC( HWG_SETCTRLFONT )
 {
    SendDlgItemMessage(hwg_par_HWND(1), hb_parni(2), WM_SETFONT,
-         ( WPARAM ) HB_PARHANDLE(3), 0L);
+         (WPARAM) HB_PARHANDLE(3), 0L);
 }
 
 HB_FUNC( HWG_OEMTOANSI )

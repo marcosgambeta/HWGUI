@@ -66,7 +66,7 @@ HB_FUNC( HWG_SELECTFOLDER )
    bi.lpszTitle = HB_PARSTRDEF( 1, &hTitle, NULL );
    bi.ulFlags = BIF_USENEWUI | BIF_NEWDIALOGSTYLE;
    bi.lpfn = BrowseCallbackProc; // = NULL;
-   bi.lParam = lpFolderName ? ( LPARAM ) lpFolderName : 0;
+   bi.lParam = lpFolderName ? (LPARAM) lpFolderName : 0;
    bi.iImage = 0;
 
    // Browse for a folder and return its PIDL. 
@@ -151,7 +151,7 @@ HB_FUNC( HWG_SHELLEXECUTE )
    if( lpDirectory == NULL )
       lpDirectory = TEXT("C:\\");
 
-   hb_retnl(( LONG ) ShellExecute(GetActiveWindow(),
+   hb_retnl((LONG) ShellExecute(GetActiveWindow(),
                   HB_PARSTRDEF( 2, &hOperation, NULL ),
                   HB_PARSTR(1, &hFile, NULL),
                   HB_PARSTR(3, &hParameters, NULL),

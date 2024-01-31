@@ -23,14 +23,14 @@ HB_FUNC( HWG_LISTBOXADDSTRING )
    void * hString;
 
    SendMessage(hwg_par_HWND(1), LB_ADDSTRING, 0,
-                ( LPARAM ) HB_PARSTR(2, &hString, NULL));
+                (LPARAM) HB_PARSTR(2, &hString, NULL));
    hb_strfree(hString);
 }
 
 HB_FUNC( HWG_LISTBOXSETSTRING )
 {
    SendMessage(hwg_par_HWND(1), LB_SETCURSEL,
-         ( WPARAM ) hb_parni(2) - 1, 0);
+         (WPARAM) hb_parni(2) - 1, 0);
 }
 
 /*

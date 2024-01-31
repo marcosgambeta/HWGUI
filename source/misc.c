@@ -43,7 +43,7 @@ HB_FUNC( HWG_SETDLGRESULT )
 
 HB_FUNC( HWG_SETCAPTURE )
 {
-   hb_retnl(( LONG ) SetCapture(hwg_par_HWND(1)));
+   hb_retnl((LONG) SetCapture(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_RELEASECAPTURE )
@@ -87,7 +87,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
 
 HB_FUNC( HWG_GETCLIPBOARDTEXT )
 {
-   HWND hWnd = ( HWND ) hb_parnl(1); // TODO: pointer
+   HWND hWnd = (HWND) hb_parnl(1); // TODO: pointer
    LPTSTR lpText = NULL;
 
    if( OpenClipboard(hWnd) )
@@ -126,32 +126,32 @@ HB_FUNC( HWG_GETSTOCKOBJECT )
 
 HB_FUNC( HWG_LOWORD )
 {
-   hb_retni(( int ) ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
-                              ( ULONG ) hb_parnl(1) ) & 0xFFFF ));
+   hb_retni((int) ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
+                              (ULONG) hb_parnl(1) ) & 0xFFFF ));
 }
 
 HB_FUNC( HWG_HIWORD )
 {
-   hb_retni(( int ) ( ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
-                              ( ULONG ) hb_parnl(1) ) >> 16 ) & 0xFFFF ));
+   hb_retni((int) ( ( ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
+                              (ULONG) hb_parnl(1) ) >> 16 ) & 0xFFFF ));
 }
 
 HB_FUNC( HWG_BITOR )
 {
    hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
-                              ( ULONG ) hb_parnl(1) ) | hb_parnl(2) );
+                              (ULONG) hb_parnl(1) ) | hb_parnl(2) );
 }
 
 HB_FUNC( HWG_BITAND )
 {
    hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
-                              ( ULONG ) hb_parnl(1) ) & hb_parnl(2));
+                              (ULONG) hb_parnl(1) ) & hb_parnl(2));
 }
 
 HB_FUNC( HWG_BITANDINVERSE )
 {
    hb_retnl(( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :
-                              ( ULONG ) hb_parnl(1) ) & ( ~hb_parnl(2) ));
+                              (ULONG) hb_parnl(1) ) & ( ~hb_parnl(2) ));
 }
 
 HB_FUNC( HWG_SETBIT )
@@ -164,7 +164,7 @@ HB_FUNC( HWG_SETBIT )
 
 HB_FUNC( HWG_CHECKBIT )
 {
-   hb_retl (    ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :( ULONG ) hb_parnl(1) ) & ( 1 << (  hb_parni(2) - 1 )   )    );
+   hb_retl (    ( HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) :(ULONG) hb_parnl(1) ) & ( 1 << (  hb_parni(2) - 1 )   )    );
 }
 
 HB_FUNC( HWG_SIN )
@@ -275,7 +275,7 @@ HB_FUNC( HWG_GETCURRENTDIR )
 
 HB_FUNC( HWG_WINEXEC )
 {
-   hb_retni(WinExec(hb_parc(1), ( UINT ) hb_parni(2)));
+   hb_retni(WinExec(hb_parc(1), (UINT) hb_parni(2)));
 }
 
 HB_FUNC( HWG_GETKEYBOARDSTATE )
@@ -408,7 +408,7 @@ HB_FUNC( HWG_GETDESKTOPHEIGHT )
 
 HB_FUNC( HWG_GETHELPDATA )
 {
-   hb_retnl(( LONG ) ( ( ( HELPINFO FAR * ) hb_parnl(1) )->hItemHandle ));
+   hb_retnl((LONG) ( ( ( HELPINFO FAR * ) hb_parnl(1) )->hItemHandle ));
 }
 
 HB_FUNC( HWG_WINHELP )
@@ -439,7 +439,7 @@ HB_FUNC( HWG_WINHELP )
          context = 0;
    }
 
-   hb_retni(WinHelp( ( HWND ) hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context )); // TODO: pointer
+   hb_retni(WinHelp( (HWND) hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context )); // TODO: pointer
    hb_strfree(hStr);
 }
 
@@ -615,7 +615,7 @@ HB_FUNC( HWG_DELETEFILE )
 HB_FUNC( HWG_GETFILEATTRIBUTES )
 {
    void * hStr;
-   hb_retnl(( LONG ) GetFileAttributes( HB_PARSTR(1, &hStr, NULL) ));
+   hb_retnl((LONG) GetFileAttributes( HB_PARSTR(1, &hStr, NULL) ));
    hb_strfree(hStr);
 }
 
@@ -697,7 +697,7 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 
    if( !pObject )
    {
-      hb_retnl(( LONG ) GetStockObject( HOLLOW_BRUSH ));
+      hb_retnl((LONG) GetStockObject( HOLLOW_BRUSH ));
       SetBkMode(hdc, TRANSPARENT);
       return;
    }
@@ -732,9 +732,9 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 
 HB_FUNC( HWG_GETKEYBOARDCOUNT )
 {
-   LPARAM lParam = ( LPARAM ) hb_parnl(1);
+   LPARAM lParam = (LPARAM) hb_parnl(1);
 
-   hb_retni(( WORD ) lParam);
+   hb_retni((WORD) lParam);
 }
 
 HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
@@ -744,7 +744,7 @@ HB_FUNC( HWG_GETNEXTDLGGROUPITEM )
 
 HB_FUNC( HWG_PTRTOULONG )
 {
-   hb_retnl(HB_ISPOINTER(1) ? ( LONG ) PtrToUlong(hb_parptr(1)) : hb_parnl(1));
+   hb_retnl(HB_ISPOINTER(1) ? (LONG) PtrToUlong(hb_parptr(1)) : hb_parnl(1));
 }
 
 HB_FUNC( HWG_OUTPUTDEBUGSTRING )
@@ -869,5 +869,5 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
 
 HB_FUNC( HWG_RUNAPP )
 {
-   hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : ( UINT ) hb_parni(2)));
+   hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2))? SW_SHOW : (UINT) hb_parni(2)));
 }

@@ -79,10 +79,10 @@ HB_FUNC( HWG_SETIPADDRESS )
 {
    BYTE v1, v2, v3, v4;
 
-   v1 = ( BYTE ) hb_parni(2);
-   v2 = ( BYTE ) hb_parni(3);
-   v3 = ( BYTE ) hb_parni(4);
-   v4 = ( BYTE ) hb_parni(5);
+   v1 = (BYTE) hb_parni(2);
+   v2 = (BYTE) hb_parni(3);
+   v3 = (BYTE) hb_parni(4);
+   v4 = (BYTE) hb_parni(5);
 
    SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0,
          MAKEIPADDRESS( v1, v2, v3, v4 ));
@@ -94,18 +94,18 @@ HB_FUNC( HWG_GETIPADDRESS )
    BYTE v1, v2, v3, v4;
 
    SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0,
-         ( LPARAM ) ( LPDWORD ) & pdwAddr);
+         (LPARAM) ( LPDWORD ) & pdwAddr);
 
-   v1 = ( BYTE ) FIRST_IPADDRESS( pdwAddr );
-   v2 = ( BYTE ) SECOND_IPADDRESS( pdwAddr );
-   v3 = ( BYTE ) THIRD_IPADDRESS( pdwAddr );
-   v4 = ( BYTE ) FOURTH_IPADDRESS( pdwAddr );
+   v1 = (BYTE) FIRST_IPADDRESS( pdwAddr );
+   v2 = (BYTE) SECOND_IPADDRESS( pdwAddr );
+   v3 = (BYTE) THIRD_IPADDRESS( pdwAddr );
+   v4 = (BYTE) FOURTH_IPADDRESS( pdwAddr );
 
    hb_reta(4);
-   hb_storvni(( INT ) v1, -1, 1);
-   hb_storvni(( INT ) v2, -1, 2);
-   hb_storvni(( INT ) v3, -1, 3);
-   hb_storvni(( INT ) v4, -1, 4);
+   hb_storvni((INT) v1, -1, 1);
+   hb_storvni((INT) v2, -1, 2);
+   hb_storvni((INT) v3, -1, 3);
+   hb_storvni((INT) v4, -1, 4);
 }
 
 HB_FUNC( HWG_CLEARIPADDRESS )

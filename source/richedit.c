@@ -60,7 +60,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
 
    lpText = HB_PARSTR(8, &hText, NULL);
    if( lpText )
-      SendMessage(hCtrl, WM_SETTEXT, 0, ( LPARAM ) lpText);
+      SendMessage(hCtrl, WM_SETTEXT, 0, (LPARAM) lpText);
    hb_strfree(hText);
 
    HB_RETHANDLE(hCtrl);
@@ -77,7 +77,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
 
-   SendMessage(hCtrl, EM_EXGETSEL, 0, ( LPARAM ) & chrOld);
+   SendMessage(hCtrl, EM_EXGETSEL, 0, (LPARAM) & chrOld);
    SendMessage(hCtrl, EM_HIDESELECTION, 1, 0);
 
    if( HB_ISARRAY(2) )
@@ -92,7 +92,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          ulLen1 = hb_arrayLen(pArr1);
          chrNew.cpMin = hb_arrayGetNL(pArr1, 1) - 1;
          chrNew.cpMax = hb_arrayGetNL(pArr1, 2) - 1;
-         SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
+         SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrNew);
 
          memset( &cf, 0, sizeof(CHARFORMAT2) );
          cf.cbSize = sizeof(CHARFORMAT2);
@@ -136,7 +136,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          if( ulLen1 > 8 &&
                hb_itemType(hb_arrayGetItemPtr(pArr1, 9)) != HB_IT_NIL )
          {
-            cf.bCharSet = ( BYTE ) hb_arrayGetNL(pArr1, 9);
+            cf.bCharSet = (BYTE) hb_arrayGetNL(pArr1, 9);
             cf.dwMask |= CFM_CHARSET;
          }
          if( ulLen1 > 9 &&
@@ -157,7 +157,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.dwMask |=
                ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_PROTECTED );
          SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION,
-               ( LPARAM ) & cf);
+               (LPARAM) & cf);
       }
    }
    else
@@ -165,7 +165,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       /*   Set new selection   */
       chrNew.cpMin = hb_parnl(2) - 1;
       chrNew.cpMax = hb_parnl(3) - 1;
-      SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrNew);
+      SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrNew);
 
       memset( &cf, 0, sizeof(CHARFORMAT2) );
       cf.cbSize = sizeof(CHARFORMAT2);
@@ -204,7 +204,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       }
       if( !HB_ISNIL(10) )
       {
-         cf.bCharSet = ( BYTE ) hb_parnl(10);
+         cf.bCharSet = (BYTE) hb_parnl(10);
          cf.dwMask |= CFM_CHARSET;
       }
       if( !HB_ISNIL(11) )
@@ -221,11 +221,11 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.dwMask |= CFM_PROTECTED;
       }
 
-      SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) & cf);
+      SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM) & cf);
    }
 
    /*   Restore selection   */
-   SendMessage(hCtrl, EM_EXSETSEL, 0, ( LPARAM ) & chrOld);
+   SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrOld);
    SendMessage(hCtrl, EM_HIDESELECTION, 0, 0);
 
 }
@@ -275,12 +275,12 @@ HB_FUNC( HWG_RE_SETDEFAULT )
 
    if( HB_ISNUM(8) )
    {
-      cf.bCharSet = ( BYTE ) hb_parnl(8);
+      cf.bCharSet = (BYTE) hb_parnl(8);
       cf.dwMask |= CFM_CHARSET;
    }
 
    cf.dwMask |= ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE );
-   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, ( LPARAM ) & cf);
+   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, (LPARAM) & cf);
 
 
 }
@@ -298,7 +298,7 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
 
    pp.x = x;
    pp.y = y;
-   ul = SendMessage(hCtrl, EM_CHARFROMPOS, 0, ( LPARAM ) & pp);
+   ul = SendMessage(hCtrl, EM_CHARFROMPOS, 0, (LPARAM) & pp);
    hb_retnl(ul);
 }
 
@@ -316,7 +316,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
                                        sizeof(TCHAR));
-   ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, ( LPARAM ) & tr);
+   ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, (LPARAM) & tr);
    HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);
 
@@ -329,12 +329,12 @@ HB_FUNC( HWG_RE_GETLINE )
 {
    HWND hCtrl = hwg_par_HWND(1);
    int nLine = hb_parni(2);
-   ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, ( WPARAM ) nLine, 0);
-   ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, ( WPARAM ) uLineIndex, 0);
+   ULONG uLineIndex = SendMessage(hCtrl, EM_LINEINDEX, (WPARAM) nLine, 0);
+   ULONG ul = SendMessage(hCtrl, EM_LINELENGTH, (WPARAM) uLineIndex, 0);
    LPTSTR lpBuf = ( LPTSTR ) hb_xgrab(( ul + 4 ) * sizeof(TCHAR));
 
    *( ( ULONG * ) lpBuf ) = ul;
-   ul = SendMessage(hCtrl, EM_GETLINE, nLine, ( LPARAM ) lpBuf);
+   ul = SendMessage(hCtrl, EM_GETLINE, nLine, (LPARAM) lpBuf);
    HB_RETSTRLEN(lpBuf, ul);
    hb_xfree(lpBuf);
 }
@@ -343,7 +343,7 @@ HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void * hString;
    SendMessage(hwg_par_HWND(1), EM_REPLACESEL, 0,
-                ( LPARAM ) HB_PARSTR(2, &hString, NULL));
+                (LPARAM) HB_PARSTR(2, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -364,8 +364,8 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, NULL);
 
-   lPos = ( LONG ) SendMessage(hCtrl, EM_FINDTEXTEX, ( WPARAM ) lFlag,
-                                ( LPARAM ) & ft);
+   lPos = (LONG) SendMessage(hCtrl, EM_FINDTEXTEX, (WPARAM) lFlag,
+                                (LPARAM) & ft);
    hb_strfree(hString);
    hb_retnl(lPos);
 }
@@ -433,7 +433,7 @@ HB_FUNC( HWG_PRINTRTF )
         fSuccess = EndPage(hdc) > 0;
     }
     SendMessage(hwnd, EM_FORMATRANGE, FALSE, 0);
-    SendMessage(hwnd, EM_EXSETSEL, 0, ( LPARAM ) &fr.chrg);
+    SendMessage(hwnd, EM_EXSETSEL, 0, (LPARAM) &fr.chrg);
     SendMessage(hwnd, EM_HIDESELECTION, 0, 0);
     hb_retnl((BOOL) fSuccess);
 }
@@ -448,7 +448,7 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
       LPARAM lParam)
 {
    long int res;
-   PHB_ITEM pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
+   PHB_ITEM pObject = (PHB_ITEM) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    if( !pSym_onEvent )
       pSym_onEvent = hb_dynsymFindName("ONEVENT");
@@ -457,9 +457,9 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
    {
       hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
       hb_vmPush(pObject);
-      hb_vmPushLong(( LONG ) message);
-      hb_vmPushLong(( LONG ) wParam);
-      hb_vmPushLong(( LONG ) lParam);
+      hb_vmPushLong((LONG) message);
+      hb_vmPushLong((LONG) wParam);
+      hb_vmPushLong((LONG) lParam);
       hb_vmSend(3);
       res = hb_parnl(-1);
       if( res == -1 )
@@ -509,10 +509,10 @@ HB_FUNC( HWG_SAVERICHEDIT )
       hb_retni(0);
       return;
    }   
-   es.dwCookie = ( DWORD ) hFile;
+   es.dwCookie = (DWORD) hFile;
    es.pfnCallback = RichStreamOutCallback; 
 
-   SendMessage(hWnd, EM_STREAMOUT, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
+   SendMessage(hWnd, EM_STREAMOUT, (WPARAM) SF_RTF, (LPARAM) &es);
    CloseHandle(hFile);
    HB_RETHANDLE(hFile);
   
@@ -535,9 +535,9 @@ HB_FUNC( HWG_LOADRICHEDIT )
       hb_retni(0);
       return;
    }
-   es.dwCookie = ( DWORD ) hFile;
+   es.dwCookie = (DWORD) hFile;
    es.pfnCallback = EditStreamCallback; 
-   SendMessage(hWnd, EM_STREAMIN, ( WPARAM ) SF_RTF, ( LPARAM ) &es);
+   SendMessage(hWnd, EM_STREAMIN, (WPARAM) SF_RTF, (LPARAM) &es);
    CloseHandle(hFile);
    HB_RETHANDLE(hFile);
 }

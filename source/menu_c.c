@@ -79,7 +79,7 @@ HB_FUNC( HWG__ADDMENUITEM )
 
       uFlags |= MF_POPUP;
       InsertMenu( hwg_par_HMENU(1), hb_parni(3), uFlags,   // menu item flags
-                  ( UINT ) hSubMenu,  // menu item identifier or handle of drop-down menu or submenu
+                  (UINT) hSubMenu,  // menu item identifier or handle of drop-down menu or submenu
                   lpNewItem           // menu item content
                 );
       HB_RETHANDLE(hSubMenu);
@@ -317,7 +317,7 @@ HB_FUNC( HWG_DELETEMENU )
 HB_FUNC( HWG_TRACKMENU )
 {
    HWND hWnd = hwg_par_HWND(4);
-   SetForegroundWindow( hWnd );
+   SetForegroundWindow(hWnd);
    hb_retl(TrackPopupMenu(hwg_par_HMENU(1),        // handle of shortcut menu
                HB_ISNIL(5) ? TPM_RIGHTALIGN : hb_parni(5),     // screen-position and mouse-button flags
                hb_parni(2),   // horizontal position, in screen coordinates
@@ -350,11 +350,11 @@ HB_FUNC( HWG_CREATEACCELERATORTABLE )
    {
       pSubArr = hb_arrayGetItemPtr(pArray, ul);
       lpaccl[ul - 1].fVirt =
-            ( BYTE ) hb_arrayGetNL(pSubArr, 1) | FNOINVERT | FVIRTKEY;
-      lpaccl[ul - 1].key = ( WORD ) hb_arrayGetNL(pSubArr, 2);
-      lpaccl[ul - 1].cmd = ( WORD ) hb_arrayGetNL(pSubArr, 3);
+            (BYTE) hb_arrayGetNL(pSubArr, 1) | FNOINVERT | FVIRTKEY;
+      lpaccl[ul - 1].key = (WORD) hb_arrayGetNL(pSubArr, 2);
+      lpaccl[ul - 1].cmd = (WORD) hb_arrayGetNL(pSubArr, 3);
    }
-   h = CreateAcceleratorTable(lpaccl, ( int ) ulEntries);
+   h = CreateAcceleratorTable(lpaccl, (int) ulEntries);
 
    hb_xfree(lpaccl);
    HB_RETHANDLE(h);
@@ -474,7 +474,7 @@ HB_FUNC( HWG__SETMENUITEMBITMAPS )
 
 HB_FUNC( HWG_GETMENUCHECKMARKDIMENSIONS )
 {
-   hb_retnl(( LONG ) GetMenuCheckMarkDimensions());
+   hb_retnl((LONG) GetMenuCheckMarkDimensions());
 }
 
 

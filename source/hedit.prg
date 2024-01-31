@@ -285,7 +285,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
             ENDIF
             //
             IF !hwg_IsCtrlShift( , .F. )
-               RETURN ::GetApplyKey( Chr( wParam ) )
+               RETURN ::GetApplyKey( Chr(wParam) )
             ENDIF
 
          ELSEIF msg == WM_KEYDOWN

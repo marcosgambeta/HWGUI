@@ -78,15 +78,15 @@ HB_FUNC( HWG_CREATEACTIVEX )
    HWND hWndCtrl;
 
    _Ax_Init();
-   hWndCtrl = CreateWindowEx( ( DWORD ) ISNIL(1) ? 0 : hb_parni(1), // nExStyle
-         ( LPCTSTR ) ISNIL(2) ? "A3434_CLASS" : hb_parc(2), // cClsName
-         ( LPCTSTR ) ISNIL(3) ? "" : hb_parc(3),    // cProgId
-         ( DWORD ) ISNIL(4) ? WS_OVERLAPPEDWINDOW : hb_parni(4),    // style
+   hWndCtrl = CreateWindowEx( (DWORD) ISNIL(1) ? 0 : hb_parni(1), // nExStyle
+         (LPCTSTR) ISNIL(2) ? "A3434_CLASS" : hb_parc(2), // cClsName
+         (LPCTSTR) ISNIL(3) ? "" : hb_parc(3),    // cProgId
+         (DWORD) ISNIL(4) ? WS_OVERLAPPEDWINDOW : hb_parni(4),    // style
          ISNIL(5) ? CW_USEDEFAULT : hb_parni(5),    // nLeft
          ISNIL(6) ? CW_USEDEFAULT : hb_parni(6),    // nTop
          ISNIL(7) ? 544 : hb_parni(7),      // nWidth
          ISNIL(8) ? 375 : hb_parni(8),      // nHeight
-         ISNIL(9) ? HWND_DESKTOP : ( HWND ) hb_parnl(9),    // oParent:handle /* TODO: pointer */
+         ISNIL(9) ? HWND_DESKTOP : (HWND) hb_parnl(9),    // oParent:handle /* TODO: pointer */
          // ISNIL(10) ? NULL                : (HMENU) hb_parnl(10),  // Id
          // GetModuleHandle(0),
          0, 0, NULL );
@@ -456,21 +456,21 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                      //   break;
                   case VT_I2 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.piVal ) =
-                           ( short ) hb_itemGetNI(pItemArray[i - 1]);
+                           (short) hb_itemGetNI(pItemArray[i - 1]);
                      break;
                   case VT_I4 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.plVal ) =
-                           ( long ) hb_itemGetNL(pItemArray[i - 1]);
+                           (long) hb_itemGetNL(pItemArray[i - 1]);
                      break;
                   case VT_R4 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
                                              i] ) )->n1.n2.n3.pfltVal ) =
-                           ( float ) hb_itemGetND(pItemArray[i - 1]);
+                           (float) hb_itemGetND(pItemArray[i - 1]);
                      break;
                   case VT_R8 | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
                                              i] ) )->n1.n2.n3.pdblVal ) =
-                           ( double ) hb_itemGetND(pItemArray[i - 1]);
+                           (double) hb_itemGetND(pItemArray[i - 1]);
                      break;
                   case VT_BOOL | VT_BYREF:
                      *( ( &( params->rgvarg[iArg -
@@ -482,7 +482,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * this, DISPID dispid,
                      //   break;
                   case VT_DATE | VT_BYREF:
                      *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdate ) =
-                           ( DATE ) ( double ) ( hb_itemGetDL(pItemArray[i - 1]) - 2415019 );
+                           ( DATE ) (double) ( hb_itemGetDL(pItemArray[i - 1]) - 2415019 );
                      break;
                      //case VT_CY|VT_BYREF:
                      //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pcyVal) = va_arg(argList, CY*);
@@ -667,7 +667,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
 #endif
 
       pThis->pEvents = hb_itemNew(hb_param(3, HB_IT_ANY));
-      hb_stornl(( LONG ) pThis, 2);
+      hb_stornl((LONG) pThis, 2);
 
    }
 

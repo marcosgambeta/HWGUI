@@ -338,9 +338,9 @@ CLASS HBrowse INHERIT HControl
    METHOD Paint( lLostFocus )
    METHOD LineOut( nRow, nCol, hDC, lSelected, lClear )
    METHOD SELECT()
-   METHOD HeaderOut( hDC )
+   METHOD HeaderOut(hDC)
    METHOD SeparatorOut( hDC, nRowsFill )
-   METHOD FooterOut( hDC )
+   METHOD FooterOut(hDC)
    METHOD SetColumn( nCol )
    METHOD DoHScroll(wParam)
    METHOD DoVScroll(wParam)
@@ -352,7 +352,7 @@ CLASS HBrowse INHERIT HControl
    METHOD Top()
    METHOD Home()  INLINE ::DoHScroll(SB_LEFT)
    METHOD ButtonDown( lParam, lReturnRowCol )
-   METHOD ButtonUp( lParam )
+   METHOD ButtonUp(lParam)
    METHOD ButtonDbl(lParam)
    METHOD MouseMove(wParam, lParam)
    METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos)
@@ -373,12 +373,12 @@ CLASS HBrowse INHERIT HControl
    METHOD ValidColumn( value, oGet, oBtn )
    METHOD onClickColumn( value, oGet, oBtn )
    METHOD EditEvent( oCtrl, msg, wParam, lParam )
-   METHOD ButtonRDown( lParam )
+   METHOD ButtonRDown(lParam)
    METHOD ShowMark(lShowMark) SETGET
    METHOD DeleteMark(lDeleteMark) SETGET
    // METHOD BrwScrollVPos()
    // new
-   METHOD ShowColToolTips( lParam )
+   METHOD ShowColToolTips(lParam)
    METHOD SetRefresh(nSeconds) SETGET
    METHOD When()
    METHOD Valid()
@@ -714,13 +714,13 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
             ::DoHScroll(SB_LINELEFT)
          ELSEIF wParam == VK_HOME //36    // Home
             IF !::lCtrlPress .AND. ( ::lAutoEdit .OR. ::aColumns[::SetColumn()]:lEditable )
-               ::Edit( wParam )
+               ::Edit(wParam)
             ELSE
                ::DoHScroll(SB_LEFT)
             ENDIF
          ELSEIF wParam == VK_END //35    // End
             IF !::lCtrlPress .AND. ( ::lAutoEdit .OR. ::aColumns[::SetColumn()]:lEditable )
-               ::Edit( wParam )
+               ::Edit(wParam)
             ELSE
                ::DoHScroll(SB_RIGHT)
             ENDIF
@@ -791,11 +791,11 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
       ELSEIF msg == WM_LBUTTONDBLCLK
          ::ButtonDbl(lParam)
       ELSEIF msg == WM_LBUTTONDOWN
-         ::ButtonDown( lParam )
+         ::ButtonDown(lParam)
       ELSEIF msg == WM_LBUTTONUP
-         ::ButtonUp( lParam )
+         ::ButtonUp(lParam)
       ELSEIF msg == WM_RBUTTONDOWN
-         ::ButtonRDown( lParam )
+         ::ButtonRDown(lParam)
       ELSEIF msg == WM_MOUSEMOVE .AND. !::oParent:lSuspendMsgsHandling
          IF ::nWheelPress > 0
             ::MouseWheel(hwg_Loword(wParam), ::nWheelPress - lParam)
@@ -814,7 +814,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HBrowse
             ENDIF
          ENDIF
       ELSEIF msg =  WM_MOUSEHOVER
-         ::ShowColToolTips( lParam )
+         ::ShowColToolTips(lParam)
       ELSEIF ( msg = WM_MOUSELEAVE .OR. msg = WM_NCMOUSELEAVE ) //.AND.!::oParent:lSuspendMsgsHandling
          IF ::allMouseOver
             //::MouseMove(0, 0)
@@ -983,7 +983,7 @@ METHOD DeleteMark(lDeleteMark) CLASS HBrowse
 
    RETURN ::lDeleteMark
 
-METHOD ShowColToolTips( lParam ) CLASS HBrowse
+METHOD ShowColToolTips(lParam) CLASS HBrowse
    LOCAL pt, cTip := ""
 
    IF Ascan( ::aColumns, {|c|c:Hint != .F. .OR. c:Tooltip != Nil} ) = 0
@@ -1305,7 +1305,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
       hDC := hwg_Beginpaint( ::handle, pps )
       IF ::lHeadClick .OR. ::isMouseOver
          ::oParent:lSuspendMsgsHandling := .T.
-         ::HeaderOut( hDC )
+         ::HeaderOut(hDC)
          ::oParent:lSuspendMsgsHandling := .F.
       ENDIF
       hwg_Endpaint( ::handle, pps )
@@ -1424,7 +1424,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
       ENDIF
    ELSEIF ::internal[1] == 2
       ::xAdjRight := ::x2
-      ::HeaderOut( hDC )
+      ::HeaderOut(hDC)
    ELSE
       IF !::lAppMode
          IF Eval(::bEof, Self) .OR. Eval(::bBof, Self) .OR. ::rowPos > ::nRecords
@@ -1561,10 +1561,10 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
    IF hwg_Checkbit( ::internal[1], 1 ) .OR. ::lAppMode
       ::SeparatorOut( hDC, nRowsFill  )
       IF ::nHeadRows > 0
-         ::HeaderOut( hDC )
+         ::HeaderOut(hDC)
       ENDIF
       IF ::nFootRows > 0
-         ::FooterOut( hDC )
+         ::FooterOut(hDC)
       ENDIF
    ENDIF
    IF ::lAppMode  .AND. ::nRecords != 0 .AND. ::rowPos = ::rowCount
@@ -1613,7 +1613,7 @@ METHOD Paint( lLostFocus )  CLASS HBrowse
    //----------------------------------------------------//
    // TODO: hb_tokenGet() can create problems.... can't have separator as first char
 
-METHOD HeaderOut( hDC ) CLASS HBrowse
+METHOD HeaderOut(hDC) CLASS HBrowse
    LOCAL x, oldc, fif, xSize, lFixed := .F., xSizeMax
    LOCAL oPen, oldBkColor
    LOCAL oColumn, nLine, cStr, cNWSE, oPenHdr, oPenLight
@@ -1926,7 +1926,7 @@ METHOD SeparatorOut( hDC, nRowsFill ) CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD FooterOut( hDC ) CLASS HBrowse
+METHOD FooterOut(hDC) CLASS HBrowse
    LOCAL x, fif, xSize, oPen, nLine, cStr
    LOCAL oColumn, aColorFoot, oldBkColor, oldTColor, oBrush
    LOCAL nPixelFooterHeight, nY, lFixed := .F.
@@ -2750,7 +2750,7 @@ METHOD ButtonDown( lParam, lReturnRowCol ) CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD ButtonUp( lParam ) CLASS HBrowse
+METHOD ButtonUp(lParam) CLASS HBrowse
 
    LOCAL xPos := hwg_Loword(lParam), x, x1, i
 
@@ -2811,7 +2811,7 @@ METHOD SELECT() CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD ButtonRDown( lParam ) CLASS HBrowse
+METHOD ButtonRDown(lParam) CLASS HBrowse
    LOCAL nLine
    LOCAL xm, x1, fif
    LOCAL acolumns := {}, nCols := 1, xSize := 0
@@ -2873,7 +2873,7 @@ METHOD ButtonDbl(lParam) CLASS HBrowse
       hwg_Hiword(lParam) / ( ::height + 1 ) + 1  ))
 
    IF nLine > 0 .AND. nLine <= ::rowCurrCount
-      ::ButtonDown( lParam )
+      ::ButtonDown(lParam)
       ::Edit()
    ENDIF
 

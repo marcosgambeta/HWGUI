@@ -1055,7 +1055,7 @@ HTHEME hb_GetWindowTheme(HWND hwnd)
    PFNGETWINDOWTHEME pfn =
          ( PFNGETWINDOWTHEME ) (void *) GetProc("GetWindowTheme",
          ( FARPROC ) (void *) GetWindowThemeFail);
-   return ( *pfn ) ( hwnd );
+   return ( *pfn ) (hwnd);
 }
 
 HRESULT hb_EnableThemeDialogTexture(HWND hwnd, DWORD dwFlags)
@@ -1071,7 +1071,7 @@ BOOL hb_IsThemeDialogTextureEnabled(HWND hwnd)
    PFNISTHEMEDIALOGTEXTUREENABLED pfn =
          ( PFNISTHEMEDIALOGTEXTUREENABLED ) (void *) GetProc("IsThemeDialogTextureEnabled",
          ( FARPROC ) (void *) IsThemeDialogTextureEnabledFail);
-   return ( *pfn ) ( hwnd );
+   return ( *pfn ) (hwnd);
 }
 
 DWORD hb_GetThemeAppProperties( void )
@@ -1131,7 +1131,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
 {
    LPNMCUSTOMDRAW pCustomDraw = ( LPNMCUSTOMDRAW ) pNotifyStruct;
    HWND m_hWnd = pCustomDraw->hdr.hwndFrom;
-   DWORD style = ( DWORD ) GetWindowLong(m_hWnd, GWL_STYLE);
+   DWORD style = (DWORD) GetWindowLong(m_hWnd, GWL_STYLE);
 
    if( ( style & ( BS_BITMAP | BS_ICON ) ) == 0 || !hb_IsAppThemed() ||
          !hb_IsThemeActive() )
@@ -1237,7 +1237,7 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    y = image_top( bmi.bmiHeader.biHeight, Rect, style );
 
    // Draw the bitmap
-   DrawState(hDC, NULL, NULL, ( LPARAM ) hBitmap, 0, x, y,
+   DrawState(hDC, NULL, NULL, (LPARAM) hBitmap, 0, x, y,
          bmi.bmiHeader.biWidth, bmi.bmiHeader.biHeight,
          ( style & WS_DISABLED ) !=
          0 ? ( DST_BITMAP | DSS_DISABLED ) : ( DST_BITMAP | DSS_NORMAL ));
@@ -1281,7 +1281,7 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
    x = image_left(cx, Rect, style);
    y = image_top( cy, Rect, style );
    // Draw the icon
-   DrawState(hDC, NULL, NULL, ( LPARAM ) hIcon, 0, x, y, cx, cy,
+   DrawState(hDC, NULL, NULL, (LPARAM) hIcon, 0, x, y, cx, cy,
          ( style & WS_DISABLED ) !=
          0 ? ( DST_ICON | DSS_DISABLED ) : ( DST_ICON | DSS_NORMAL ));
 }
@@ -1343,10 +1343,10 @@ HB_FUNC( HWG_ENDTHEMELIB )
 
 HB_FUNC( HWG_ONNOTIFYCUSTOMDRAW )
 {
-   // HWND hWnd = ( HWND ) hb_parnl(1);
-   LPARAM lParam = ( LPARAM ) hb_parnl(1);
+   // HWND hWnd = (HWND) hb_parnl(1);
+   LPARAM lParam = (LPARAM) hb_parnl(1);
    // PHB_ITEM pColor = hb_param(3, HB_IT_ARRAY);
-   hb_retnl(( LONG ) OnNotifyCustomDraw( lParam ));
+   hb_retnl((LONG) OnNotifyCustomDraw(lParam));
 }
 
 /*
@@ -1650,7 +1650,7 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT * rpItem,
             // Center image horizontally
             rpImage->left +=
                   ( ( ( rpImage->right - rpImage->left ) -
-                        ( long ) dwWidth ) / 2 );
+                        (long) dwWidth ) / 2 );
          }
          else
          {
@@ -1661,7 +1661,7 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT * rpItem,
          // Center image vertically
          rpImage->top +=
                ( ( ( rpImage->bottom - rpImage->top ) -
-                     ( long ) dwHeight ) / 2 );
+                     (long) dwHeight ) / 2 );
          break;
 
       case ST_ALIGN_HORIZ_RIGHT:
@@ -1671,7 +1671,7 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT * rpItem,
             // Center image horizontally
             rpImage->left +=
                   ( ( rpImage->right - rpImage->left ) -
-                  ( long ) dwWidth ) / 2;
+                  (long) dwWidth ) / 2;
          }
          else
          {
@@ -1682,7 +1682,7 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT * rpItem,
             // Center image vertically
             rpImage->top +=
                   ( ( rpImage->bottom - rpImage->top ) -
-                  ( long ) dwHeight ) / 2;
+                  (long) dwHeight ) / 2;
          }
          break;
 
@@ -1690,13 +1690,13 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT * rpItem,
          // Center image horizontally
          rpImage->left +=
                ( ( ( rpImage->right - rpImage->left ) -
-                     ( long ) dwWidth ) / 2 );
+                     (long) dwWidth ) / 2 );
          if( bHasTitle == FALSE )
          {
             // Center image vertically
             rpImage->top +=
                   ( ( ( rpImage->bottom - rpImage->top ) -
-                        ( long ) dwHeight ) / 2 );
+                        (long) dwHeight ) / 2 );
          }
          else
          {
@@ -1740,7 +1740,7 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
       DrawState(dc,
             NULL,
             NULL,
-            ( LPARAM ) hIco,
+            (LPARAM) hIco,
             0,
             rImage.left,
             rImage.top,
@@ -1752,7 +1752,7 @@ static void DrawTheIcon( HWND hButtonWnd, HDC dc, BOOL bHasTitle,
       DrawState(dc,
             NULL,
             NULL,
-            ( LPARAM ) hBitmap,
+            (LPARAM) hBitmap,
             0,
             rImage.left,
             rImage.top,
@@ -1928,8 +1928,8 @@ HB_FUNC( HWG_TRACKMOUSEVENT )
 
 HB_FUNC( HWG_BUTTONEXONSETSTYLE )
 {
-   WPARAM wParam = ( WPARAM ) hb_parnl(1);
-   LPARAM lParam = ( LPARAM ) hb_parnl(2);
+   WPARAM wParam = (WPARAM) hb_parnl(1);
+   LPARAM lParam = (LPARAM) hb_parnl(2);
    HWND h = hwg_par_HWND(3);
 
    UINT nNewType = ( wParam & BS_TYPEMASK );
@@ -1991,7 +1991,7 @@ HB_FUNC( HWG_ISTHEMEACTIVE )
 HB_FUNC( HWG_GETTHEMESYSCOLOR )
 {
    HWND hTheme = hwg_par_HWND(1);
-   int iColor = ( int ) hb_parnl(2);
+   int iColor = (int) hb_parnl(2);
 
    HB_RETHANDLE(hb_GetThemeSysColor(hTheme, iColor));
 }

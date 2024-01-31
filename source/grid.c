@@ -182,7 +182,7 @@ HB_FUNC( HWG_LISTVIEW_GETGRIDKEY )
 {
 #define pnm ((LV_KEYDOWN *) HB_PARHANDLE(1) )
 
-   hb_retnl(( LPARAM ) ( pnm->wVKey ));
+   hb_retnl((LPARAM) ( pnm->wVKey ));
 
 #undef pnm
 }
@@ -247,10 +247,10 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 // #ifdef __BORLANDC__
 #if 1
-   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_NORMAL);
-   SendMessage(hList, LVM_SETIMAGELIST, ( WPARAM ) p,
-         ( LPARAM ) LVSIL_SMALL);
+   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p,
+         (LPARAM) LVSIL_NORMAL);
+   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p,
+         (LPARAM) LVSIL_SMALL);
 #else
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_NORMAL );
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_SMALL );
@@ -296,8 +296,8 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-   if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_INSERTCOLUMN,
-               ( WPARAM ) ( int ) lCol, ( LPARAM ) & lvcolumn) == -1 )
+   if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTCOLUMN,
+               (WPARAM) (int) lCol, (LPARAM) & lvcolumn) == -1 )
       iResult = 0;
    else
       iResult = 1;
@@ -341,16 +341,16 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    switch ( iSubItemYesNo )
    {
       case 0:
-         if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_INSERTITEM,
-                          0, ( LPARAM ) & lvi) == -1 )
+         if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTITEM,
+                          0, (LPARAM) & lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
          break;
 
       case 1:
-         if( SendMessage(( HWND ) hwndListView, ( UINT ) LVM_SETITEM,
-                          0, ( LPARAM ) & lvi) == FALSE )
+         if( SendMessage((HWND) hwndListView, (UINT) LVM_SETITEM,
+                          0, (LPARAM) & lvi) == FALSE )
             iResult = 0;
          else
             iResult = 1;
@@ -381,7 +381,7 @@ HB_FUNC( HWG_LISTVIEWSELECTLASTITEM )
    items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
    items--;
    ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
-   SendMessage(hList, LVM_ENSUREVISIBLE, ( WPARAM ) items, FALSE);
+   SendMessage(hList, LVM_ENSUREVISIBLE, (WPARAM) items, FALSE);
    ListView_SetItemState(hList, items, LVIS_SELECTED, LVIS_SELECTED);
    ListView_SetItemState(hList, items, LVIS_FOCUSED, LVIS_FOCUSED);
    hb_retl(1);
@@ -425,10 +425,10 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
 HB_FUNC( HWG_PROCESSCUSTU )
 {
    /* HWND hWnd = hwg_par_HWND(1); */
-   LPARAM lParam = ( LPARAM ) HB_PARHANDLE(2);
+   LPARAM lParam = (LPARAM) HB_PARHANDLE(2);
    PHB_ITEM pColor = hb_param(3, HB_IT_ARRAY);
 
-   hb_retnl(( LONG ) ProcessCustomDraw( lParam, pColor ));
+   hb_retnl((LONG) ProcessCustomDraw( lParam, pColor ));
 }
 
 HB_FUNC( HWG_LISTVIEWGETITEM )
@@ -464,8 +464,8 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
    TCHAR szB[256] = { 0 };
    int rc;
 
-   ListView_GetItemText(pListControl, ( INT ) lParam1, nColumnNo, szA, HB_SIZEOFARRAY( szA ));
-   ListView_GetItemText(pListControl, ( INT ) lParam2, nColumnNo, szB, HB_SIZEOFARRAY( szB ));
+   ListView_GetItemText(pListControl, (INT) lParam1, nColumnNo, szA, HB_SIZEOFARRAY( szA ));
+   ListView_GetItemText(pListControl, (INT) lParam2, nColumnNo, szB, HB_SIZEOFARRAY( szB ));
 
    rc = lstrcmp( szA, szB );
    if( !nAscendingSortOrder )

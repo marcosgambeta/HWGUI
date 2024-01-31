@@ -471,9 +471,9 @@ void SetEmbedded(HWND handle, IOleObject ** obj)
    PHB_ITEM pObject, pEmbed;
    PHB_ITEM temp;
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
+   pObject = (PHB_ITEM) GetWindowLongPtr(handle, GWL_USERDATA);
    pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
-   temp = hb_itemPutNL(NULL, ( LONG ) obj);
+   temp = hb_itemPutNL(NULL, (LONG) obj);
    SetObjectVar(pEmbed, "_HANDLE", temp);
    hb_itemRelease(temp);
 }
@@ -482,7 +482,7 @@ IOleObject **GetEmbedded(HWND handle)
 {
    PHB_ITEM pObject, pEmbed;
 
-   pObject = ( PHB_ITEM ) GetWindowLongPtr(handle, GWL_USERDATA);
+   pObject = (PHB_ITEM) GetWindowLongPtr(handle, GWL_USERDATA);
    pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
    return ( IOleObject ** ) hb_itemGetNL(GetObjectVar(pEmbed, "HANDLE"));
 }
@@ -773,7 +773,7 @@ DWORD asciiToNumW( OLECHAR * val )
    while( *val )
    {
       chr = *( val )++ - '0';
-      if( ( DWORD ) chr > 9 )
+      if( (DWORD) chr > 9 )
          break;
       len += ( len + ( len << 3 ) + chr );
    }
@@ -831,7 +831,7 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler * This,
          // Post a message to this window using WM_APP, and pass the number converted above.
          // Do not SendMessage()!. Post instead, since the browser does not like us changing
          // the URL within this here callback.
-         PostMessage(hwnd, WM_APP, ( WPARAM ) len, 0);
+         PostMessage(hwnd, WM_APP, (WPARAM) len, 0);
 
          // Tell browser that we returned a URL
          return ( S_OK );
@@ -1503,7 +1503,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
             if( ( ( _IDispatchEx * ) This )->id < 0 )
             {
              user:webParams.eventStr =
-                     ( LPCTSTR ) ( ( _IDispatchEx * ) This )->
+                     (LPCTSTR) ( ( _IDispatchEx * ) This )->
                      userdata;
             }
 
@@ -1543,13 +1543,13 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
 
             // For UNICODE, we can use the BSTR as is. We can't free the BSTR yet.
             else
-               webParams.eventStr = ( LPCTSTR ) strType;
+               webParams.eventStr = (LPCTSTR) strType;
          }
          // Send a WM_NOTIFY message to the window with the _IDispatchEx as
          // WPARAM, and the WEBPARAMS as LPARAM.
          webParams.nmhdr.idFrom = 0;
-         SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, ( WPARAM ) This,
-               ( LPARAM ) & webParams);
+         SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, (WPARAM) This,
+               (LPARAM) & webParams);
 
          // Free anything allocated or gotten above
        bad:if( strType )
@@ -1650,7 +1650,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
          lpDispatchEx->dispatchObj.lpVtbl = &MyIDispatchVtbl;
          lpDispatchEx->hwnd = hwnd;
          lpDispatchEx->htmlWindow2 = htmlWindow2;
-         lpDispatchEx->id = ( short ) id;
+         lpDispatchEx->id = (short) id;
          lpDispatchEx->extraSize = ( unsigned short ) extraData;
          lpDispatchEx->object = obj;
          if( userdata )
@@ -1822,7 +1822,7 @@ HRESULT WINAPI GetWebPtrs( HWND hwnd, IWebBrowser2 ** webBrowser2Result,
    if( webBrowser2Result || htmlDoc2Result )
    {
       // Make sure he supplied a window
-      if( !IsWindow( hwnd ) ||
+      if( !IsWindow(hwnd) ||
             // Get the browser object stored in the window's USERDATA member
             // !(browserObject = *((IOleObject **)GetWindowLong(hwnd, GWL_USERDATA))) ||
             ( browserObject = *GetEmbedded(hwnd) ) == NULL ||
@@ -2130,11 +2130,11 @@ HRESULT WINAPI WaitOnReadyState(HWND hwnd, READYSTATE rs, DWORD timeout,
    do
    {
       // Empty out messages in the message queue.
-      doEvents( hwnd );
+      doEvents(hwnd);
 
       // Make sure our window with the browser object wasn't closed down in
       // while processing messages.
-      if( !IsWindow( hwnd ) )
+      if( !IsWindow(hwnd) )
       {
          // Oops! It was. Get out of here with WORS_DESTROYED.
        destroyed:rs = WORS_DESTROYED;
@@ -2693,7 +2693,7 @@ long WINAPI EmbedBrowserObject( HWND hwnd )
          webBrowser2->lpVtbl->Release(webBrowser2);
 
          // Something went wrong setting up the browser!
-         UnEmbedBrowserObject( hwnd );
+         UnEmbedBrowserObject(hwnd);
          return ( -4 );
       }
 

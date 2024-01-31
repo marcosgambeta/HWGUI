@@ -47,8 +47,8 @@ HB_FUNC( HWG_SELECTFONT )
    }
 
    cf.lStructSize = sizeof(CHOOSEFONT);
-   cf.hwndOwner = ( HWND ) NULL;
-   cf.hDC = ( HDC ) NULL;
+   cf.hwndOwner = (HWND) NULL;
+   cf.hDC = (HDC) NULL;
    cf.lpLogFont = &lf;
    cf.iPointSize = 0;
    cf.Flags = CF_SCREENFONTS | ( ( pObj ) ? CF_INITTOLOGFONTSTRUCT : 0 );
@@ -57,7 +57,7 @@ HB_FUNC( HWG_SELECTFONT )
    cf.lpfnHook = ( LPCFHOOKPROC ) NULL;
    cf.lpTemplateName = NULL;
 
-   cf.hInstance = ( HINSTANCE ) NULL;
+   cf.hInstance = (HINSTANCE) NULL;
    cf.lpszStyle = NULL;
    cf.nFontType = SCREEN_FONTTYPE;
    cf.nSizeMin = 0;
@@ -294,7 +294,7 @@ HB_FUNC( HWG_PRINTSETUP )
          if( hb_pcount() > 0 )
          {
             LPDEVNAMES lpdn = ( LPDEVNAMES ) GlobalLock(pd.hDevNames);
-            HB_STORSTR(( LPCTSTR ) lpdn + lpdn->wDeviceOffset, 1);
+            HB_STORSTR((LPCTSTR) lpdn + lpdn->wDeviceOffset, 1);
             GlobalUnlock(pd.hDevNames);
          }
          GlobalFree(pd.hDevNames);
@@ -325,7 +325,7 @@ HB_FUNC( HWG_CHOOSECOLOR )
    cc.Flags = nStyle;
 
    if( ChooseColor(&cc) )
-      hb_retnl(( LONG ) cc.rgbResult);
+      hb_retnl((LONG) cc.rgbResult);
    else
       hb_ret();
 }
@@ -432,7 +432,7 @@ HB_FUNC( HWG_PRINTPORTNAME )
 
       s_fPName = TRUE;
       lpDevNames = ( LPDEVNAMES ) GlobalLock(s_pd.hDevNames);
-      HB_RETSTR(( LPCTSTR ) lpDevNames + lpDevNames->wOutputOffset);
+      HB_RETSTR((LPCTSTR) lpDevNames + lpDevNames->wOutputOffset);
       GlobalUnlock(s_pd.hDevNames);
    }
 }
@@ -485,7 +485,7 @@ HB_FUNC( HWG_PRINTSETUPEX )
    if( PrintDlg(&pd) )
    {
       pDevMode = ( LPDEVMODE ) GlobalLock(pd.hDevMode);
-      HB_RETSTR(( LPCTSTR ) pDevMode->dmDeviceName);
+      HB_RETSTR((LPCTSTR) pDevMode->dmDeviceName);
       GlobalUnlock(pd.hDevMode);
    }
 }
