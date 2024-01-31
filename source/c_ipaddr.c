@@ -94,7 +94,7 @@ HB_FUNC( HWG_GETIPADDRESS )
    BYTE v1, v2, v3, v4;
 
    SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0,
-         (LPARAM) ( LPDWORD ) & pdwAddr);
+         (LPARAM) ( LPDWORD ) &pdwAddr);
 
    v1 = (BYTE) FIRST_IPADDRESS( pdwAddr );
    v2 = (BYTE) SECOND_IPADDRESS( pdwAddr );

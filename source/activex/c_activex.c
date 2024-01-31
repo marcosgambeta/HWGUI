@@ -569,7 +569,7 @@ HB_FUNC( HWG_SETUPCONNECTIONPOINT )
    else
    {
       // Store IEventHandler's VTable in the object
-      thisobj->lpVtbl = ( IEventHandlerVtbl * ) & IEventHandler_Vtbl;
+      thisobj->lpVtbl = ( IEventHandlerVtbl * ) &IEventHandler_Vtbl;
 
       // Increment the reference count so we can call Release() below and
       // it will deallocate only if there is an error with QueryInterface()

@@ -402,7 +402,7 @@ HB_FUNC( HWG_DRAWBITMAP )
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
    if( nWidthDest && ( nWidthDest != bitmap.bmWidth ||
                nHeightDest != bitmap.bmHeight ) )
    {
@@ -445,7 +445,7 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
    // Create the mask bitmap
    bitmapTrans = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc
@@ -509,7 +509,7 @@ HB_FUNC( HWG_SPREADBITMAP )
    RECT rc;
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
    GetClientRect(hwg_par_HWND(2), &rc);
 
    while( rc.top < rc.bottom )
@@ -544,7 +544,7 @@ HB_FUNC( HWG_CENTERBITMAP )
          1 ) : hwg_par_HBRUSH(5);
 
    SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
    GetClientRect(hwg_par_HWND(2), &rc);
 
    FillRect(hDC, &rc, hBrush);
@@ -564,7 +564,7 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    int nret;
 
    nret = GetObject( hwg_par_HBITMAP(1), sizeof(BITMAP),
-         ( LPVOID ) & bitmap );
+         ( LPVOID ) &bitmap );
 
    temp = hb_itemPutNL(NULL, bitmap.bmWidth);
    hb_itemArrayPut(aMetr, 1, temp);
@@ -841,7 +841,7 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
    pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) & bitmap );
+   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
    // Create the mask bitmap
    bitmapgray = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc
@@ -944,7 +944,7 @@ HB_FUNC( HWG_OPENIMAGE )
    }
 
 #if defined(__cplusplus)
-   pPic->get_Handle(( OLE_HANDLE * ) & hBitmap);
+   pPic->get_Handle(( OLE_HANDLE * ) &hBitmap);
 #else
    pPic->lpVtbl->get_Handle(pPic, ( OLE_HANDLE * ) ( void * ) &hBitmap);
 #endif

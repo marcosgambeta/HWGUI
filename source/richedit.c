@@ -77,7 +77,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
    CHARFORMAT2 cf;
    PHB_ITEM pArr;
 
-   SendMessage(hCtrl, EM_EXGETSEL, 0, (LPARAM) & chrOld);
+   SendMessage(hCtrl, EM_EXGETSEL, 0, (LPARAM) &chrOld);
    SendMessage(hCtrl, EM_HIDESELECTION, 1, 0);
 
    if( HB_ISARRAY(2) )
@@ -92,7 +92,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          ulLen1 = hb_arrayLen(pArr1);
          chrNew.cpMin = hb_arrayGetNL(pArr1, 1) - 1;
          chrNew.cpMax = hb_arrayGetNL(pArr1, 2) - 1;
-         SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrNew);
+         SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) &chrNew);
 
          memset( &cf, 0, sizeof(CHARFORMAT2) );
          cf.cbSize = sizeof(CHARFORMAT2);
@@ -157,7 +157,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.dwMask |=
                ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_PROTECTED );
          SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION,
-               (LPARAM) & cf);
+               (LPARAM) &cf);
       }
    }
    else
@@ -165,7 +165,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       /*   Set new selection   */
       chrNew.cpMin = hb_parnl(2) - 1;
       chrNew.cpMax = hb_parnl(3) - 1;
-      SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrNew);
+      SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) &chrNew);
 
       memset( &cf, 0, sizeof(CHARFORMAT2) );
       cf.cbSize = sizeof(CHARFORMAT2);
@@ -221,11 +221,11 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          cf.dwMask |= CFM_PROTECTED;
       }
 
-      SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM) & cf);
+      SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM) &cf);
    }
 
    /*   Restore selection   */
-   SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) & chrOld);
+   SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) &chrOld);
    SendMessage(hCtrl, EM_HIDESELECTION, 0, 0);
 
 }
@@ -280,7 +280,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    }
 
    cf.dwMask |= ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE );
-   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, (LPARAM) & cf);
+   SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_ALL, (LPARAM) &cf);
 
 
 }
@@ -298,7 +298,7 @@ HB_FUNC( HWG_RE_CHARFROMPOS )
 
    pp.x = x;
    pp.y = y;
-   ul = SendMessage(hCtrl, EM_CHARFROMPOS, 0, (LPARAM) & pp);
+   ul = SendMessage(hCtrl, EM_CHARFROMPOS, 0, (LPARAM) &pp);
    hb_retnl(ul);
 }
 
@@ -316,7 +316,7 @@ HB_FUNC( HWG_RE_GETTEXTRANGE )
 
    tr.lpstrText = ( LPTSTR ) hb_xgrab(( tr.chrg.cpMax - tr.chrg.cpMin + 2 ) *
                                        sizeof(TCHAR));
-   ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, (LPARAM) & tr);
+   ul = SendMessage(hCtrl, EM_GETTEXTRANGE, 0, (LPARAM) &tr);
    HB_RETSTRLEN(tr.lpstrText, ul);
    hb_xfree(tr.lpstrText);
 
@@ -365,7 +365,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, NULL);
 
    lPos = (LONG) SendMessage(hCtrl, EM_FINDTEXTEX, (WPARAM) lFlag,
-                                (LPARAM) & ft);
+                                (LPARAM) &ft);
    hb_strfree(hString);
    hb_retnl(lPos);
 }

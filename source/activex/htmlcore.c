@@ -809,7 +809,7 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler * This,
    // the app:. The application can then do anything it wants as a result of
    // this, for example, call DisplayHTMLStr to load some other string in
    // memory, or whatever.
-   if( len >= 4 && !_wcsnicmp( pchURLIn, ( WCHAR * ) & AppUrl[0], 4 ) )
+   if( len >= 4 && !_wcsnicmp( pchURLIn, ( WCHAR * ) &AppUrl[0], 4 ) )
    {
       // Allocate a new buffer to return an "about:blank" URL
       if( ( dest = ( OLECHAR * ) CoTaskMemAlloc(12 << 1) ) != NULL )
@@ -1142,7 +1142,7 @@ HRESULT STDMETHODCALLTYPE InPlace_GetWindowContext(IOleInPlaceSite * This,
    // the browser to pass a pointer to this _IOleInPlaceSiteEx wherever it
    // would pass a IOleInPlaceSite struct to our IOleInPlaceSite functions.
    *lplpFrame =
-         ( LPOLEINPLACEFRAME ) & ( ( _IOleInPlaceSiteEx * ) This )->frame;
+         ( LPOLEINPLACEFRAME ) &( ( _IOleInPlaceSiteEx * ) This )->frame;
 
    // We have no OLEINPLACEUIWINDOW
    *lplpDoc = 0;
@@ -1443,7 +1443,7 @@ static void webDetach(_IDispatchEx * lpDispatchEx)
    // Get the IHTMLWindow3 and call its detachEvent() to disconnect our
    // _IDispatchEx from the element on the web page.
    if( !lpDispatchEx->htmlWindow2->lpVtbl->QueryInterface(lpDispatchEx->
-               htmlWindow2, ( GUID * ) & _IID_IHTMLWindow3[0],
+               htmlWindow2, ( GUID * ) &_IID_IHTMLWindow3[0],
                ( void ** ) &htmlWindow3) && htmlWindow3 )
    {
       htmlWindow3->lpVtbl->detachEvent( htmlWindow3, OnBeforeOnLoad,
@@ -1549,7 +1549,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
          // WPARAM, and the WEBPARAMS as LPARAM.
          webParams.nmhdr.idFrom = 0;
          SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, (WPARAM) This,
-               (LPARAM) & webParams);
+               (LPARAM) &webParams);
 
          // Free anything allocated or gotten above
        bad:if( strType )
@@ -1665,7 +1665,7 @@ IDispatch *WINAPI CreateWebEvtHandler( HWND hwnd, IHTMLDocument2 * htmlDoc2,
          // We need to get the IHTMLWindow3 object (so we can call its
          // attachEvent() and pass it our IDispatch wrapped in a VARIANT).
          if( !htmlWindow2->lpVtbl->QueryInterface(htmlWindow2,
-                     ( GUID * ) & _IID_IHTMLWindow3[0],
+                     ( GUID * ) &_IID_IHTMLWindow3[0],
                      ( void ** ) &htmlWindow3) && htmlWindow3 )
          {
             varDisp.DEF_VT = VT_DISPATCH;
@@ -2269,7 +2269,7 @@ long WINAPI DisplayHTMLStr(HWND hwnd, const char * string)
             // to write() in an array of "VARIENT" structs. So let's create all that.
             if( ( sfArray =
                         SafeArrayCreate(VT_VARIANT, 1,
-                              ( SAFEARRAYBOUND * ) & ArrayBound) ) != NULL )
+                              ( SAFEARRAYBOUND * ) &ArrayBound) ) != NULL )
             {
                if( !SafeArrayAccessData(sfArray, ( void ** ) &pVar) )
                {

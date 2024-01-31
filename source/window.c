@@ -513,7 +513,7 @@ HB_FUNC( HWG_CREATEMDICHILDWINDOW )
                   height,                    // height of window
                   (HWND) aWindows[1],      // handle to parent window (MDI client)
                   GetModuleHandle(NULL),   // handle to application instance
-                  (LPARAM) & pObj          // application-defined value
+                  (LPARAM) &pObj          // application-defined value
              );
    }
    HB_RETHANDLE(hWnd);
@@ -1320,7 +1320,7 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
          }
 
          if( SendMessage(s_hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp,
-                     (LPARAM) & uId) != 0 && nId != -1 )
+                     (LPARAM) &uId) != 0 && nId != -1 )
          {
             LRESULT Res = -200;
             PHB_ITEM pObject =
@@ -1384,7 +1384,7 @@ HB_FUNC( HWG_GETTOOLBARID )
    UINT uId;
 
    if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp,
-               (LPARAM) & uId) != 0 )
+               (LPARAM) &uId) != 0 )
       hb_retnl(uId);
    else
       hb_retnl(-1);

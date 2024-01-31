@@ -134,7 +134,7 @@ HB_FUNC( HWG_NMCIWINDOW )
 
    hb_retnl(mciSendCommand(hb_parni(1), MCI_WINDOW,
                MCI_ANIM_WINDOW_HWND | MCI_ANIM_WINDOW_DISABLE_STRETCH,
-               (LONG) ( LPMCI_ANIM_WINDOW_PARMS ) & mciWindowParms));
+               (LONG) ( LPMCI_ANIM_WINDOW_PARMS ) &mciWindowParms));
 }
 
 

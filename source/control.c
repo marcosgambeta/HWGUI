@@ -480,7 +480,7 @@ HB_FUNC( HWG_DELTOOLTIP )
       // ti.uId = (UINT) GetDlgItem(hWnd, hb_parni(2));
       ti.hinst = GetModuleHandle(NULL);
 
-      SendMessage(hWndTT, TTM_DELTOOL, 0, (LPARAM) ( LPTOOLINFO ) & ti);
+      SendMessage(hWndTT, TTM_DELTOOL, 0, (LPARAM) ( LPTOOLINFO ) &ti);
    }
 }
 
@@ -646,7 +646,7 @@ HB_FUNC( HWG_SETDATEPICKER )
       sysTime.wMilliseconds = ( unsigned short ) lMilliseconds;
 
       SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID,
-                   (LPARAM) & sysTime);
+                   (LPARAM) &sysTime);
    }
 }
 
@@ -663,7 +663,7 @@ HB_FUNC( HWG_GETDATEPICKER )
    WPARAM wParam = ( hb_pcount() > 1 ) ? hb_parnl(2):GDT_VALID;
 
    iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME,
-                wParam, (LPARAM) & st);
+                wParam, (LPARAM) &st);
    if ( wParam == GDT_VALID )
      hb_retd(st.wYear, st.wMonth, st.wDay);
    else
@@ -677,7 +677,7 @@ HB_FUNC( HWG_GETTIMEPICKER )
    char szTime[9];
 
    SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, 0,
-                (LPARAM) & st);
+                (LPARAM) &st);
 
    #if __HARBOUR__ - 0 >= 0x010100
       hb_snprintf(szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
@@ -802,7 +802,7 @@ HB_FUNC( HWG_TAB_HITTEST )
       ScreenToClient( hTab, &( ht.pt ) );
    }
 
-   res = (int) SendMessage(hTab, TCM_HITTEST, 0, (LPARAM) & ht);
+   res = (int) SendMessage(hTab, TCM_HITTEST, 0, (LPARAM) &ht);
 
    hb_storni(ht.flags, 4);
    hb_retni(res);
@@ -1048,7 +1048,7 @@ HB_FUNC( HWG_TREEHITTEST )
       ScreenToClient( hTree, &( ht.pt ) );
    }
 
-   SendMessage(hTree, TVM_HITTEST, 0, (LPARAM) & ht);
+   SendMessage(hTree, TVM_HITTEST, 0, (LPARAM) &ht);
 
    if( ht.hItem )
    {
@@ -1820,7 +1820,7 @@ HB_FUNC( HWG_TOOLBAR_SETBUTTONINFO )
    tb.pszText = ( LPTSTR ) HB_PARSTR(3, &hStr, NULL);
    //tb.cchText = 1000;
    
-   SendMessage(hWndCtrl, TB_SETBUTTONINFO, iIDB, (LPARAM) & tb);
+   SendMessage(hWndCtrl, TB_SETBUTTONINFO, iIDB, (LPARAM) &tb);
 }
 
 HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
@@ -1832,7 +1832,7 @@ HB_FUNC( HWG_TOOLBAR_LOADIMAGE )
    tbab.hInst = NULL;
    tbab.nID = iIDB;
 
-   SendMessage(hWndCtrl, TB_ADDBITMAP, 0, (LPARAM) & tbab);
+   SendMessage(hWndCtrl, TB_ADDBITMAP, 0, (LPARAM) &tbab);
 }
 
 HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
@@ -1845,7 +1845,7 @@ HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
    tbab.hInst = HINST_COMMCTRL;
    tbab.nID = iIDB;             //IDB_HIST_SMALL_COLOR / IDB_VIEW_SMALL_COLOR / IDB_VIEW_SMALL_COLOR;
 
-   SendMessage(hWndCtrl, TB_ADDBITMAP, 0, (LPARAM) & tbab);
+   SendMessage(hWndCtrl, TB_ADDBITMAP, 0, (LPARAM) &tbab);
    himl = ( HIMAGELIST ) SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0);
    hb_retni((int) ImageList_GetImageCount( himl ));
 }
@@ -1920,7 +1920,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
    HANDLE g_hinst = GetModuleHandle(0);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT,
-         (WPARAM) lpnmTB->iItem, (LPARAM) & rc);
+         (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
@@ -1954,7 +1954,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    HWND g_hwndMain = hwg_par_HWND(3);
 
    SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT,
-         (WPARAM) lpnmTB->iItem, (LPARAM) & rc);
+         (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
@@ -2034,7 +2034,7 @@ HB_FUNC( HWG_REBARSETIMAGELIST )
    rbi.fMask = ( HB_ISNUM(2) || HB_ISPOINTER(2) ) ? RBIM_IMAGELIST : 0;
    rbi.himl = ( HB_ISNUM(2) ||
          HB_ISPOINTER(2) ) ? ( HIMAGELIST ) p : ( HIMAGELIST ) NULL;
-   SendMessage(hWnd, RB_SETBARINFO, 0, (LPARAM) & rbi);
+   SendMessage(hWnd, RB_SETBARINFO, 0, (LPARAM) &rbi);
 }
 
 
@@ -2140,7 +2140,7 @@ HB_FUNC( HWG_COMBOGETITEMRECT )
 
    int nIndex = hb_parnl(2);
    RECT rcItem;
-   SendMessage(hWnd, LB_GETITEMRECT, nIndex, (LONG) ( VOID * ) & rcItem);
+   SendMessage(hWnd, LB_GETITEMRECT, nIndex, (LONG) ( VOID * ) &rcItem);
    hb_itemRelease(hb_itemReturn( Rect2Array( &rcItem ) ));
 }
 

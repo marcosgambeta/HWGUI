@@ -297,7 +297,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
    if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTCOLUMN,
-               (WPARAM) (int) lCol, (LPARAM) & lvcolumn) == -1 )
+               (WPARAM) (int) lCol, (LPARAM) &lvcolumn) == -1 )
       iResult = 0;
    else
       iResult = 1;
@@ -342,7 +342,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    {
       case 0:
          if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTITEM,
-                          0, (LPARAM) & lvi) == -1 )
+                          0, (LPARAM) &lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
@@ -350,7 +350,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
       case 1:
          if( SendMessage((HWND) hwndListView, (UINT) LVM_SETITEM,
-                          0, (LPARAM) & lvi) == FALSE )
+                          0, (LPARAM) &lvi) == FALSE )
             iResult = 0;
          else
             iResult = 1;

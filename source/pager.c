@@ -156,7 +156,7 @@ HB_FUNC( HWG_PAGERONPAGERCALCSIZE )
    HWND hwndToolbar = hwg_par_HWND(2);
    SIZE size;
 
-   SendMessage(hwndToolbar, TB_GETMAXSIZE, 0, (LPARAM) & size);
+   SendMessage(hwndToolbar, TB_GETMAXSIZE, 0, (LPARAM) &size);
 
    switch ( pNMPGCalcSize->dwFlag )
    {
