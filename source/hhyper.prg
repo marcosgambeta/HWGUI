@@ -211,7 +211,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
          RETURN 0
       ELSEIF wParam = VK_DOWN
          hwg_GetSkip(::oparent, ::handle,, 1)
-      ELSEIF   wParam = VK_UP
+      ELSEIF wParam = VK_UP
          hwg_GetSkip(::oparent, ::handle,, -1)
       ELSEIF wParam = VK_TAB
          hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1))
@@ -388,7 +388,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
       ENDIF
    ENDIF
 
-   IF  ValType(::hbitmap) == "N"
+   IF ValType(::hbitmap) == "N"
       bHasTitle := ValType(strtext) == "C" .AND. !Empty(strtext)
       itemRect[4] := aBmpSize[2] + 1
       bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle)

@@ -239,7 +239,7 @@ Local i, i0, j, slen, c
             IF j < 3            // Horisontal line ÄÍ
                i0 := i
                DO WHILE i <= slen .AND. Substr(cLine, i, 1) == c
-                  i ++
+                  i++
                ENDDO
                ::oPrinter:Line(::x, ::y+(::nLineHeight/2), ::x + (i-i0)*::nCharW, ::y+(::nLineHeight/2))
                ::x += (i-i0) * ::nCharW
@@ -283,7 +283,7 @@ Local i, i0, j, slen, c
                i0 := i
             ENDIF
          ENDIF
-         i ++
+         i++
       ENDDO
       IF i0 != 0
          ::PrintText(Substr(cLine, i0, i-i0))

@@ -95,9 +95,9 @@ METHOD NEW(lType, nStyle, x, y, width, height, cTitle, oFont, bInit, bExit, bSiz
    END
    ::Setcolor(, bColor)
    IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
-      ::nScrollBars ++
+      ::nScrollBars++
    ENDIF
-   IF  Hwg_Bitand(nStyle, WS_VSCROLL) > 0
+   IF Hwg_Bitand(nStyle, WS_VSCROLL) > 0
       ::nScrollBars += 2
    ENDIF
    ::lContainer := Hwg_Bitand(nStyle, DS_CONTROL) > 0
@@ -142,7 +142,7 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
          ::lResult := .F.
          ::AddItem()
          Hwg_CreateDlgIndirect(hParent, Self, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style)
-         IF  ::WindowState > SW_HIDE
+         IF ::WindowState > SW_HIDE
             hwg_Setwindowpos(::Handle, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE + SWP_NOMOVE + SWP_FRAMECHANGED)
             hwg_Redrawwindow(::handle, RDW_UPDATENOW + RDW_NOCHILDREN)
          ENDIF
@@ -171,7 +171,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       aCoors := hwg_Getwindowrect(::handle)
       ::nLeft := aCoors[1]
       ::nTop  := aCoors[2]
-   ELSEIF  msg = WM_UPDATEUISTATE .AND. hwg_Hiword(wParam) != UISF_HIDEFOCUS
+   ELSEIF msg = WM_UPDATEUISTATE .AND. hwg_Hiword(wParam) != UISF_HIDEFOCUS
       // prevent the screen flicker
       RETURN 1
    ELSEIF !::lActivated .AND. msg = WM_NCPAINT
@@ -299,8 +299,8 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    oDlg:lSuspendMsgsHandling := .F.
 
    oDlg:nInitFocus := iif(ValType(oDlg:nInitFocus) = "O", oDlg:nInitFocus:Handle, oDlg:nInitFocus)
-   IF  !Empty(oDlg:nInitFocus)
-      IF  hwg_Ptrtoulong(oDlg:FindControl(, oDlg:nInitFocus):oParent:Handle) == hwg_Ptrtoulong(oDlg:Handle)
+   IF !Empty(oDlg:nInitFocus)
+      IF hwg_Ptrtoulong(oDlg:FindControl(, oDlg:nInitFocus):oParent:Handle) == hwg_Ptrtoulong(oDlg:Handle)
          hwg_Setfocus(oDlg:nInitFocus)
       ENDIF
       nReturn := 0
@@ -308,7 +308,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
 
    uis := hwg_Sendmessage(oDlg:handle, WM_QUERYUISTATE, 0, 0)
    // draw focus
-   IF  uis != 0
+   IF uis != 0
       // triggered to mouse
       hwg_Sendmessage(oDlg:handle, WM_CHANGEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEACCEL), 0)
    ELSE
@@ -552,7 +552,7 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
       hwg_Sendmessage(lParam, WM_NCACTIVATE, 1, Nil)
       RETURN 0
    ENDIF
-   IF  iParLow = WA_ACTIVE .AND. hwg_Selffocus(lParam, oDlg:Handle)
+   IF iParLow = WA_ACTIVE .AND. hwg_Selffocus(lParam, oDlg:Handle)
       IF ValType(oDlg:bOnActivate) == "B"
          //- oDlg:lSuspendMsgsHandling := .T.
          Eval(oDlg:bOnActivate, oDlg)

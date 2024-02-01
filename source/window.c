@@ -591,8 +591,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
    ULONG ulLen = (ULONG) SendMessage(hWnd, WM_GETTEXTLENGTH, 0, 0);
    LPTSTR cText = ( TCHAR * ) hb_xgrab(( ulLen + 1 ) * sizeof(TCHAR));
 
-   ulLen = (ULONG) SendMessage(hWnd, WM_GETTEXT, (WPARAM) ( ulLen + 1 ),
-                                  (LPARAM) cText);
+   ulLen = (ULONG) SendMessage(hWnd, WM_GETTEXT, (WPARAM) (ulLen + 1), (LPARAM) cText);
 
    HB_RETSTRLEN(cText, ulLen);
    hb_xfree(cText);
@@ -600,9 +599,7 @@ HB_FUNC( HWG_GETWINDOWTEXT )
 
 HB_FUNC( HWG_SETWINDOWFONT )
 {
-   SendMessage(hwg_par_HWND(1), WM_SETFONT,
-         (WPARAM) hb_parnl(2),
-         MAKELPARAM((HB_ISNIL(3)) ? 0 : hb_parl(3), 0));
+   SendMessage(hwg_par_HWND(1), WM_SETFONT, (WPARAM) hb_parnl(2), MAKELPARAM((HB_ISNIL(3)) ? 0 : hb_parl(3), 0));
 }
 
 HB_FUNC( HWG_ENABLEWINDOW )
@@ -1319,8 +1316,7 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
             break;
          }
 
-         if( SendMessage(s_hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp,
-                     (LPARAM) &uId) != 0 && nId != -1 )
+         if( SendMessage(s_hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp, (LPARAM) &uId) != 0 && nId != -1 )
          {
             LRESULT Res = -200;
             PHB_ITEM pObject =
@@ -1383,8 +1379,7 @@ HB_FUNC( HWG_GETTOOLBARID )
    WPARAM wp = (WPARAM) hb_parnl(2);
    UINT uId;
 
-   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp,
-               (LPARAM) &uId) != 0 )
+   if( SendMessage(hMytoolMenu, TB_MAPACCELERATOR, (WPARAM) wp, (LPARAM) &uId) != 0 )
       hb_retnl(uId);
    else
       hb_retnl(-1);
@@ -1458,7 +1453,7 @@ HB_FUNC( HWG_CLEARKEYBOARD )
    {
       GetKeyboardState(kbBuffer);
       lClear = FALSE;
-      for( i = 0; i < 256; i ++ )
+      for( i = 0; i < 256; i++ )
          if( kbBuffer[i] & 0x80 )
          {
             s_ClearKeyboard();

@@ -84,8 +84,7 @@ HB_FUNC( HWG_SETIPADDRESS )
    v3 = (BYTE) hb_parni(4);
    v4 = (BYTE) hb_parni(5);
 
-   SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0,
-         MAKEIPADDRESS( v1, v2, v3, v4 ));
+   SendMessage(hwg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
 }
 
 HB_FUNC( HWG_GETIPADDRESS )
@@ -93,8 +92,7 @@ HB_FUNC( HWG_GETIPADDRESS )
    DWORD pdwAddr;
    BYTE v1, v2, v3, v4;
 
-   SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0,
-         (LPARAM) ( LPDWORD ) &pdwAddr);
+   SendMessage(hwg_par_HWND(1), IPM_GETADDRESS, 0, (LPARAM) (LPDWORD) &pdwAddr);
 
    v1 = (BYTE) FIRST_IPADDRESS( pdwAddr );
    v2 = (BYTE) SECOND_IPADDRESS( pdwAddr );

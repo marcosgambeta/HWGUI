@@ -372,12 +372,12 @@ METHOD HandleEvent() CLASS HBDebugger
 
       CASE nKey == CMD_WADD
          __dbgAddWatch(::pInfo, p1, .F.)
-         ::nWatches ++
+         ::nWatches++
          hwg_dbg_Answer("valuewatch", SendWatch())
 
       CASE nKey == CMD_WDEL
          __dbgDelWatch(::pInfo, p1 - 1)
-         IF -- ::nWatches > 0
+         IF --::nWatches > 0
             hwg_dbg_Answer("valuewatch", SendWatch())
          ELSE
             hwg_dbg_Answer("ok")

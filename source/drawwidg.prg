@@ -51,7 +51,7 @@ METHOD Add(fontName, nWidth, nHeight, fnWeight, ;
             ::aFonts[i]:Underline == fdwUnderline .AND. ;
             ::aFonts[i]:StrikeOut == fdwStrikeOut
 
-         ::aFonts[i]:nCounter ++
+         ::aFonts[i]:nCounter++
          IF nHandle != Nil
             hwg_Deleteobject(nHandle)
          ENDIF
@@ -160,7 +160,7 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
             i:width == nWidth .AND. ;
             i:color == nColor
 
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
@@ -170,7 +170,7 @@ METHOD Add(nStyle, nWidth, nColor) CLASS HPen
             ::aPens[i]:width == nWidth .AND. ;
             ::aPens[i]:color == nColor
 
-         ::aPens[i]:nCounter ++
+         ::aPens[i]:nCounter++
          RETURN ::aPens[i]
       ENDIF
    NEXT
@@ -269,14 +269,14 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    FOR EACH i IN ::aBrushes
 
       IF i:color == nColor .AND. i:nHatch == nHatch
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
 #else
    FOR i := 1 TO Len(::aBrushes)
       IF ::aBrushes[i]:color == nColor .AND. ::aBrushes[i]:nHatch == nHatch
-         ::aBrushes[i]:nCounter ++
+         ::aBrushes[i]:nCounter++
          RETURN ::aBrushes[i]
       ENDIF
    NEXT
@@ -358,7 +358,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       IF i:name == name .AND. i:nFlags == nFlags .AND. ;
             ((nWidth == nil .OR. nHeight == nil) .OR. ;
             (i:nWidth == nWidth .AND. i:nHeight == nHeight))
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
@@ -367,7 +367,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
       IF ::aBitmaps[i]:name == name .AND. ::aBitmaps[i]:nFlags == nFlags .AND. ;
             ((nWidth == nil .OR. nHeight == nil) .OR. ;
             (::aBitmaps[i]:nWidth == nWidth .AND. ::aBitmaps[i]:nHeight == nHeight))
-         ::aBitmaps[i]:nCounter ++
+         ::aBitmaps[i]:nCounter++
          RETURN ::aBitmaps[i]
       ENDIF
    NEXT
@@ -394,14 +394,14 @@ METHOD AddStandard(nId) CLASS HBitmap
 
    FOR EACH i  IN  ::aBitmaps
       IF i:name == name
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
 #else
    FOR i := 1 TO Len(::aBitmaps)
       IF ::aBitmaps[i]:name == name
-         ::aBitmaps[i]:nCounter ++
+         ::aBitmaps[i]:nCounter++
          RETURN ::aBitmaps[i]
       ENDIF
    NEXT
@@ -421,14 +421,14 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aBitmaps
       IF i:name == cname .AND. (nWidth == nil .OR. nHeight == nil)
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
 #else
    FOR i := 1 TO Len(::aBitmaps)
       IF ::aBitmaps[i]:name == cname .AND. (nWidth == nil .OR. nHeight == nil)
-         ::aBitmaps[i]:nCounter ++
+         ::aBitmaps[i]:nCounter++
          RETURN ::aBitmaps[i]
       ENDIF
    NEXT
@@ -544,14 +544,14 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
 #ifdef __XHARBOUR__
    FOR EACH i IN ::aIcons
       IF i:name == name
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
 #else
    FOR i := 1 TO Len(::aIcons)
       IF ::aIcons[i]:name == name
-         ::aIcons[i]:nCounter ++
+         ::aIcons[i]:nCounter++
          RETURN ::aIcons[i]
       ENDIF
    NEXT
@@ -583,14 +583,14 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
 #ifdef __XHARBOUR__
    FOR EACH i IN  ::aIcons
       IF i:name == cname
-         i:nCounter ++
+         i:nCounter++
          RETURN i
       ENDIF
    NEXT
 #else
    FOR i := 1 TO Len(::aIcons)
       IF ::aIcons[i]:name == cname
-         ::aIcons[i]:nCounter ++
+         ::aIcons[i]:nCounter++
          RETURN ::aIcons[i]
       ENDIF
    NEXT

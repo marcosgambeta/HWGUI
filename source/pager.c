@@ -40,7 +40,7 @@ HB_FUNC( HWG_PAGERFORWARDMOUSE )
 #ifndef __GNUC__
    Pager_ForwardMouse(m_hWnd, bForward);
 #else
-   SendMessage(m_hWnd, PGM_FORWARDMOUSE, (WPARAM) ( bForward ), 0);
+   SendMessage(m_hWnd, PGM_FORWARDMOUSE, (WPARAM) (bForward), 0);
 #endif
 }
 
@@ -52,8 +52,7 @@ HB_FUNC( HWG_PAGERSETBKCOLOR )
 #ifndef __GNUC__
    hb_retnl((LONG) Pager_SetBkColor(m_hWnd, clr));
 #else
-   hb_retnl((LONG) SendMessage(( m_hWnd ), PGM_SETBKCOLOR, 0,
-               (LPARAM) clr));
+   hb_retnl((LONG) SendMessage((m_hWnd), PGM_SETBKCOLOR, 0, (LPARAM) clr));
 #endif
 }
 
@@ -145,8 +144,7 @@ HB_FUNC( HWG_PAGERGETBUTTONSTATE )
 #ifndef __GNUC__
    hb_retnl(Pager_GetButtonState(m_hWnd, iButton));
 #else
-   hb_retnl((LONG) SendMessage(m_hWnd, PGM_GETBUTTONSTATE, 0,
-               (LPARAM) iButton));
+   hb_retnl((LONG) SendMessage(m_hWnd, PGM_GETBUTTONSTATE, 0, (LPARAM) iButton));
 #endif
 }
 

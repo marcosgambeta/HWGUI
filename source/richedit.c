@@ -156,8 +156,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          }
          cf.dwMask |=
                ( CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_PROTECTED );
-         SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION,
-               (LPARAM) &cf);
+         SendMessage(hCtrl, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM) &cf);
       }
    }
    else
@@ -342,8 +341,7 @@ HB_FUNC( HWG_RE_GETLINE )
 HB_FUNC( HWG_RE_INSERTTEXT )
 {
    void * hString;
-   SendMessage(hwg_par_HWND(1), EM_REPLACESEL, 0,
-                (LPARAM) HB_PARSTR(2, &hString, NULL));
+   SendMessage(hwg_par_HWND(1), EM_REPLACESEL, 0, (LPARAM) HB_PARSTR(2, &hString, NULL));
    hb_strfree(hString);
 }
 
@@ -364,8 +362,7 @@ HB_FUNC( HWG_RE_FINDTEXT )
    ft.chrg.cpMax = -1;
    ft.lpstrText = ( LPTSTR ) HB_PARSTR(2, &hString, NULL);
 
-   lPos = (LONG) SendMessage(hCtrl, EM_FINDTEXTEX, (WPARAM) lFlag,
-                                (LPARAM) &ft);
+   lPos = (LONG) SendMessage(hCtrl, EM_FINDTEXTEX, (WPARAM) lFlag, (LPARAM) &ft);
    hb_strfree(hString);
    hb_retnl(lPos);
 }
@@ -382,15 +379,15 @@ HB_FUNC( HWG_RE_SETZOOM )
 HB_FUNC( HWG_RE_ZOOMOFF )
 {
    HWND hwnd = hwg_par_HWND(1);
-   hb_retnl((BOOL) SendMessage(hwnd, EM_SETZOOM, 0, 0L ));
+   hb_retnl((BOOL) SendMessage(hwnd, EM_SETZOOM, 0, 0L));
 }
 
 HB_FUNC( HWG_RE_GETZOOM )
 {
    HWND hwnd = hwg_par_HWND(1);
-   int nNum = hb_parni(2); 
-   int nDen = hb_parni(3); 
-   hb_retnl((BOOL) SendMessage(hwnd, EM_GETZOOM, (WPARAM)&nNum, (LPARAM)&nDen));
+   int nNum = hb_parni(2);
+   int nDen = hb_parni(3);
+   hb_retnl((BOOL) SendMessage(hwnd, EM_GETZOOM, (WPARAM) &nNum, (LPARAM) &nDen));
    hb_storni(nNum, 2);
    hb_storni(nDen, 3);
 }
@@ -409,7 +406,7 @@ HB_FUNC( HWG_PRINTRTF )
     int ppi_y = GetDeviceCaps(hdc,LOGPIXELSX);
     int cpMin;
 
-    SendMessage(hwnd, EM_SETTARGETDEVICE, (WPARAM)hdc, cxPhys/2);
+    SendMessage(hwnd, EM_SETTARGETDEVICE, (WPARAM) hdc, cxPhys / 2);
     fr.hdc = hdc;
     fr.hdcTarget = hdc;
     fr.rc.left = 1440 * cxPhysOffset/ppi_x;
@@ -417,13 +414,13 @@ HB_FUNC( HWG_PRINTRTF )
     fr.rc.top = 1440* cyPhysOffset/ppi_y;
     fr.rc.bottom = 1440 * (cyPhysOffset + cyPhys)/ppi_y;
 
-    SendMessage(hwnd, EM_SETSEL, 0, -1 );
-    SendMessage(hwnd, EM_EXGETSEL, 0, (LPARAM)&fr.chrg);
+    SendMessage(hwnd, EM_SETSEL, 0, -1);
+    SendMessage(hwnd, EM_EXGETSEL, 0, (LPARAM) &fr.chrg);
     while (fr.chrg.cpMin < fr.chrg.cpMax && fSuccess) 
     {
         fSuccess = StartPage(hdc) > 0;
         if (!fSuccess) break;
-        cpMin = SendMessage(hwnd, EM_FORMATRANGE, TRUE, (LPARAM)&fr);
+        cpMin = SendMessage(hwnd, EM_FORMATRANGE, TRUE, (LPARAM) &fr);
         if (cpMin <= fr.chrg.cpMin) 
         {
             fSuccess = FALSE;

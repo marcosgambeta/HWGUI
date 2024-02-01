@@ -355,7 +355,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRadioButton
       ENDIF
       RETURN DLGC_WANTMESSAGE
    ELSEIF msg = WM_KEYDOWN
-      //IF  hwg_ProcKeyList(Self, wParam)
+      //IF hwg_ProcKeyList(Self, wParam)
       IF wParam = VK_LEFT .OR. wParam = VK_UP
          hwg_GetSkip(::oparent, ::handle, , -1)
          RETURN 0
@@ -390,7 +390,7 @@ METHOD Notify(lParam) CLASS HRadioButton
    ENDIF
 
    IF hwg_Ptrtoulong(lParam)  = WM_KEYDOWN
-      IF  hwg_Getkeystate(VK_RETURN) < 0 //.AND. ::oGroup:value < Len(::oGroup:aButtons)
+      IF hwg_Getkeystate(VK_RETURN) < 0 //.AND. ::oGroup:value < Len(::oGroup:aButtons)
          ::oParent:lSuspendMsgsHandling := .T.
          __VALID(Self)
          ::oParent:lSuspendMsgsHandling := .F.

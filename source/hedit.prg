@@ -135,7 +135,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 
    ::DisableBackColor := bDisablecolor
    // defines the number of characters based on the size of control
-   IF  Empty(::nMaxLength) .AND. ::cType = "C" .AND. Empty(cPicture) .AND. Hwg_BitAnd(nStyle, ES_AUTOHSCROLL) = 0
+   IF Empty(::nMaxLength) .AND. ::cType = "C" .AND. Empty(cPicture) .AND. Hwg_BitAnd(nStyle, ES_AUTOHSCROLL) = 0
       nWidth := ( hwg_TxtRect(" ", Self) )[1]
       ::nMaxLength := Int( ( ::nWidth - nWidth ) / nWidth ) - 1
       ::nMaxLength := iif(::nMaxLength < 10, 10, ::nMaxLength)
@@ -246,7 +246,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
                      !hwg_GetParentForm(Self):lModal )
                   hwg_GetSkip( oParent, ::handle, , 1 )
                   RETURN 0
-               ELSEIF  hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+               ELSEIF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
                   RETURN 0
                ENDIF
                RETURN - 1
@@ -767,7 +767,7 @@ METHOD DeleteChar( lBack ) CLASS HEdit
             RETURN Nil
          ENDIF
       ENDIF
-      IF  ::lPicComplex .AND. ::cType != "N" .AND. ::FirstNotEditable(nPosStart) > 0 .AND. ;
+      IF ::lPicComplex .AND. ::cType != "N" .AND. ::FirstNotEditable(nPosStart) > 0 .AND. ;
             ( !lBack .OR. ( lBack .AND. nPosEnd - nPosStart - 1 < 2 ) )
          nPosEdit := ::FirstNotEditable(nPosStart)
          nGetLen := Len(Trim(Left(::title, nPosEdit - 1)))
@@ -786,7 +786,7 @@ METHOD DeleteChar( lBack ) CLASS HEdit
    ENDIF
    IF lBack .AND. ::lPicComplex .AND. ::cType != "N" .AND. ( nPosStart + nPosEnd > 0 )
       IF lBack .OR. nPosStart != ( nPosEnd - 2 )
-         IF  nPosStart != ( nPosEnd - 2 )
+         IF nPosStart != ( nPosEnd - 2 )
             cBuf := Left(::title, nPosStart) + Space(nPosEnd - nPosStart - 1) + SubStr(::title, nPosEnd)
          ENDIF
       ELSE
@@ -968,7 +968,7 @@ METHOD GetApplyKey( cKey ) CLASS HEdit
          ENDIF
          IF !Empty(hwg_Sendmessage(::handle, EM_GETPASSWORDCHAR, 0, 0))
             ::title := Left(::title, nPos - 1) + cKey + Trim(SubStr(::title, nPos + 1))
-            IF  !Empty(::nMaxLength) .AND. Len(Trim(::GetText())) = ::nMaxLength
+            IF !Empty(::nMaxLength) .AND. Len(Trim(::GetText())) = ::nMaxLength
                ::title := PadR( ::title, ::nMaxLength )
             ENDIF
             nLen := Len(Trim(::GetText()))
@@ -1320,7 +1320,7 @@ METHOD FirstEditable() CLASS HEdit
 METHOD FirstNotEditable(nPos) CLASS HEdit
    LOCAL nFor, nMaxLen := Len(::cPicMask)
 
-   FOR nFor := ++ nPos TO nMaxLen
+   FOR nFor := ++nPos TO nMaxLen
       IF !::IsEditable(nFor)
          RETURN nFor
       ENDIF
@@ -1430,7 +1430,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
       IF oForm:Type < WND_DLG_RESOURCE
          oForm:nFocus := NextHandle
       ENDIF
-      IF  oParent:nScrollBars > - 1 .OR. oForm:nScrollBars > - 1
+      IF oParent:nScrollBars > - 1 .OR. oForm:nScrollBars > - 1
          oForm := iif(oParent:nScrollBars > - 1, oParent, oForm)
          IF ( i := AScan(oparent:acontrols, {|o|o:handle == NEXTHANDLE}) ) = 0 .AND. oParent:oParent != Nil
             i := AScan(oParent:oParent:acontrols, {|o|o:handle == NEXTHANDLE})
@@ -1443,7 +1443,7 @@ FUNCTION hwg_GetSkip( oParent, hCtrl, lClipper, nSkip )
    ENDIF
    IF nSkip != 0 .AND. hwg_Selffocus( hctrl, nextHandle ) .AND. oCtrl != Nil
       // necessary when FORM have only one object and !CLIPPER
-      IF  __ObjHasMsg(oCtrl, "BLOSTFOCUS") .AND. oCtrl:blostfocus != Nil .AND. !oForm:lClipper
+      IF __ObjHasMsg(oCtrl, "BLOSTFOCUS") .AND. oCtrl:blostfocus != Nil .AND. !oForm:lClipper
          hwg_Sendmessage(nexthandle, WM_KILLFOCUS, 0, 0)
       ELSE
          hwg_Setfocus(0)
@@ -1457,7 +1457,7 @@ STATIC FUNCTION GetSkipScroll(oForm, oCtrl)
    LOCAL lScroll := .T.
    LOCAL nWidthScroll := 2
 
-   IF  oForm:nScrollBars > - 1 .AND. oForm:classname == oCtrl:oParent:classname
+   IF oForm:nScrollBars > - 1 .AND. oForm:classname == oCtrl:oParent:classname
       DO WHILE lScroll
          lScroll := .F.
          // SCROOLL HORIZONTAL
@@ -1486,13 +1486,13 @@ STATIC FUNCTION GetSkipScroll(oForm, oCtrl)
          IF oForm:nScrollBars >= 1
             IF oCtrl:nTop + oCtrl:nHeight + 12 >= oForm:nHeight - nWidthScroll + oForm:nVscrollPos * VERT_PTS .AND. ;
                   ( oCtrl:nHeight < oForm:nHeight )
-               IF  oForm:nVscrollMax / oForm:nVertInc > 1 .AND. .F.
+               IF oForm:nVscrollMax / oForm:nVertInc > 1 .AND. .F.
                   hwg_ScrollHV( oForm, WM_VSCROLL, SB_PAGEDOWN, 0 )
                ELSE
                   hwg_ScrollHV( oForm, WM_VSCROLL, SB_LINEDOWN, 0 )
                ENDIF
                lScroll := .T.
-            ELSEIF  oCtrl:nTop  <= ( oForm:nVscrollPos * VERT_PTS )
+            ELSEIF oCtrl:nTop  <= ( oForm:nVscrollPos * VERT_PTS )
                IF oForm:nVscrollMax / oForm:nVertInc > 1 .AND. .F.
                   hwg_ScrollHV( oForm, WM_VSCROLL, SB_PAGEUP, 0 )
                ELSE
@@ -1520,7 +1520,7 @@ STATIC FUNCTION NextFocusTab(oParent, hCtrl, nSkip)
          i += iif(i == 0, nFirst, nSkip) //nLast, nSkip)
          IF i >= nFirst .AND. i <= nLast
             nextHandle := hwg_Getnextdlgtabitem ( oParent:handle, hCtrl, ( nSkip < 0 ) )
-            IF  i != AScan(oParent:aControls, {|o|o:handle == nextHandle}) .AND. oParent:aControls[i]:CLASSNAME = "HRADIOB"
+            IF i != AScan(oParent:aControls, {|o|o:handle == nextHandle}) .AND. oParent:aControls[i]:CLASSNAME = "HRADIOB"
                nextHandle := hwg_Getnextdlggroupitem(oParent:handle, hCtrl, (nSkip < 0))
             ENDIF
             k := AScan(oParent:acontrols, {|o|o:Handle == nextHandle})
@@ -1574,7 +1574,7 @@ STATIC FUNCTION NextFocus( oParent, hCtrl, nSkip )
    ENDIF
    lHradio := i > 0 .AND. oParent:acontrols[i]:CLASSNAME = "HRADIOB"
    nextHandle := hwg_Getnextdlgtabitem(nWindow, hctrl, (nSkip < 0))
-   IF  lHradio .OR. lGroup
+   IF lHradio .OR. lGroup
       nexthandle := hwg_Getnextdlggroupitem(nWindow, hctrl, (nSkip < 0))
       i := AScan(oParent:aControls, {|o|hwg_Ptrtoulong(o:Handle) == hwg_Ptrtoulong(nextHandle)})
       lnoTabStop := !( i > 0 .AND. oParent:aControls[i]:CLASSNAME = "HRADIOB" )
@@ -1612,7 +1612,7 @@ STATIC FUNCTION NextFocusContainer( oParent, hCtrl, nSkip )
    IF oParent:Type = WND_DLG_RESOURCE
       nexthandle := hwg_Getnextdlggroupitem(oParent:handle, hctrl, (nSkip < 0))
    ELSE
-      IF  lHradio .OR. lGroup
+      IF lHradio .OR. lGroup
          nextHandle := hwg_Getnextdlggroupitem(nWindow, hCtrl, (nSkip < 0))
          i := AScan(oParent:aControls, {|o|o:Handle == nextHandle})
          lnoTabStop := !( i > 0 .AND. oParent:aControls[i]:CLASSNAME = "HRADIOB" )  //Hwg_BitAND(HWG_GETWINDOWSTYLE(nexthandle), WS_TABSTOP) = 0
@@ -1676,7 +1676,7 @@ FUNCTION hwg_SetDisableBackColor(lDef, bcolor)
       bDisablecolor := Nil
       RETURN .F.
    ENDIF
-   IF  Empty(bColor)
+   IF Empty(bColor)
       bDisablecolor := iif(Empty(bDisablecolor), hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bDisablecolor)
    ELSE
       bDisablecolor := bColor

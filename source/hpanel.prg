@@ -66,7 +66,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
    */
    ::nGetSkip := 1
    IF Hwg_Bitand(nStyle, WS_HSCROLL) > 0
-      ::nScrollBars ++
+      ::nScrollBars++
    ENDIF
    IF Hwg_Bitand(nStyle, WS_VSCROLL) > 0
       ::nScrollBars += 2
@@ -198,7 +198,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. (msg == WM_MOUSEWHEEL) //.AND. ::nScrollBars >= 2 )
          IF ::nScrollBars != -1 .AND. ::bScroll = NIL
              hwg_ScrollHV(Self, msg, wParam, lParam)
-             IF  msg == WM_MOUSEWHEEL
+             IF msg == WM_MOUSEWHEEL
                  RETURN 0
              ENDIF
          ENDIF
@@ -232,7 +232,7 @@ METHOD Paint() CLASS HPanel
    ENDIF
    ::nrePaint := -1
    IF ::nScrollBars = - 1
-      IF  !::lBorder
+      IF !::lBorder
          oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
          oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
          hwg_Selectobject(hDC, oPenLight:handle)

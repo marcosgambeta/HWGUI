@@ -377,7 +377,7 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
          hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
          RETURN 0
       ENDIF
-   ELSEIF  msg = WM_GETDLGCODE .AND. !Empty(lParam)
+   ELSEIF msg = WM_GETDLGCODE .AND. !Empty(lParam)
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
       ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE
@@ -677,7 +677,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
       ELSEIF wParam == VK_RIGHT .OR. wParam == VK_DOWN
          hwg_GetSkip(::oParent, ::handle, , 1)
          RETURN 0
-      ELSEIF  wParam = VK_TAB
+      ELSEIF wParam = VK_TAB
          hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
       hwg_ProcKeyList(Self, wParam)

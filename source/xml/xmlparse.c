@@ -607,15 +607,15 @@ HB_FUNC( HBXML_GETDOC )
          else if( !memcmp( ptr + 1, "?xml", 4 ) )
          {
             while( *ptr != '>' )
-               ptr ++;
-            ptr ++;
+               ptr++;
+            ptr++;
             HB_SKIPTABSPACES( ptr );
          }
          else if( !memcmp( ptr + 1, "!--", 3 ) )
          {
             while( (*ptr != '>') || (*(ptr-1) != '-') || (*(ptr-2) != '-') )
-               ptr ++;
-            ptr ++;
+               ptr++;
+            ptr++;
             HB_SKIPTABSPACES( ptr );
          }
          else

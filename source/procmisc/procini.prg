@@ -71,7 +71,7 @@ LOCAL iniDbf := (Upper(FilExten(fname)) == "DBF")
    IF han != - 1
       strfull := ""
       DO WHILE .T.
-         kolstr ++
+         kolstr++
          stroka := Iif(iniDbf, RDSTRDBF(), RDSTR(han, @strbuf, @poz, STR_BUFLEN))
          IF LEN(stroka) = 0
             EXIT

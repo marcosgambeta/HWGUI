@@ -126,8 +126,7 @@ HB_FUNC( HWG_GETEDITTEXT )
 {
    HWND hDlg = hwg_par_HWND(1);
    int id = hb_parni(2);
-   USHORT uiLen =
-      ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
+   USHORT uiLen = (USHORT) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
    LPTSTR lpText = ( LPTSTR ) hb_xgrab(( uiLen + 2 ) * sizeof(TCHAR));
 
    GetDlgItemText(hDlg,      // handle of dialog box
@@ -168,8 +167,7 @@ HB_FUNC( HWG_COMBOADDSTRING )
 {
    void * hText;
 
-   SendMessage(hwg_par_HWND(1), CB_ADDSTRING, 0,
-                (LPARAM) HB_PARSTR(2, &hText, NULL));
+   SendMessage(hwg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM) HB_PARSTR(2, &hText, NULL));
    hb_strfree(hText);
 }
 
@@ -177,16 +175,14 @@ HB_FUNC( HWG_COMBOINSERTSTRING )
 {
    void * hText;
 
-   SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, (WPARAM) hb_parni(2),
-                (LPARAM) HB_PARSTR(3, &hText, NULL));
+   SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, (WPARAM) hb_parni(2), (LPARAM) HB_PARSTR(3, &hText, NULL));
    hb_strfree(hText);
 }
 
 
 HB_FUNC( HWG_COMBOSETSTRING )
 {
-   SendMessage(hwg_par_HWND(1), CB_SETCURSEL,
-                (WPARAM) hb_parni(2) - 1, 0);
+   SendMessage(hwg_par_HWND(1), CB_SETCURSEL, (WPARAM) hb_parni(2) - 1, 0);
 }
 
 HB_FUNC( HWG_GETNOTIFYCODE )

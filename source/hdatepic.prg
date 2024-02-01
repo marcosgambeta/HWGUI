@@ -158,7 +158,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
       IF hwg_ProcKeyList(Self, wParam)
          RETURN 0
       ENDIF
-   ELSEIF  msg = WM_GETDLGCODE
+   ELSEIF msg = WM_GETDLGCODE
       IF WPARAM = VK_RETURN .OR. wParam = VK_TAB
           Return DLGC_WANTMESSAGE
           //RETURN DLGC_WANTTAB

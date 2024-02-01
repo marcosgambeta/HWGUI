@@ -45,7 +45,7 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
    IF nId == NIL
       nId := TIMER_FIRST_ID
       DO WHILE AScan(::aTimers, {|o|o:id == nId}) != 0
-         nId ++
+         nId++
       ENDDO
    ENDIF
    ::id      := nId

@@ -1548,8 +1548,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch * This,
          // Send a WM_NOTIFY message to the window with the _IDispatchEx as
          // WPARAM, and the WEBPARAMS as LPARAM.
          webParams.nmhdr.idFrom = 0;
-         SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, (WPARAM) This,
-               (LPARAM) &webParams);
+         SendMessage(webParams.nmhdr.hwndFrom, WM_NOTIFY, (WPARAM) This, (LPARAM) &webParams);
 
          // Free anything allocated or gotten above
        bad:if( strType )

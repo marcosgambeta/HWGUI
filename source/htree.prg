@@ -250,7 +250,7 @@ METHOD GetLevel(h) CLASS HTreeNode
    LOCAL oNode := IIF(EMPTY(h), Self, h)
    DO WHILE (oNode:oParent) != Nil 
 	    oNode := oNode:oParent
-	    iLevel ++
+	    iLevel++
    ENDDO
    RETURN iLevel
 
@@ -407,12 +407,12 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
    ELSEIF msg = WM_KEYDOWN
    
    ELSEIF msg = WM_KEYUP
-      IF  hwg_ProcKeyList(Self, wParam)
+      IF hwg_ProcKeyList(Self, wParam)
          RETURN 0
       ENDIF
 
    ELSEIF msg = WM_GETDLGCODE
-      IF  wParam = VK_RETURN .OR. ::bKeyDown != Nil // !.AND. ::lEditLabels
+      IF wParam = VK_RETURN .OR. ::bKeyDown != Nil // !.AND. ::lEditLabels
          RETURN DLGC_WANTMESSAGE
       ENDIF
 
@@ -452,7 +452,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
             ENDIF
          ENDIF
       ENDIF
-      IF  !hwg_IsCtrlShift(.T.)
+      IF !hwg_IsCtrlShift(.T.)
          IF ::hitemDrop:oParent != Nil
             hitemNew := ::hitemDrop:oParent:AddNode(::hitemDrag:GetText(), htiPrev, htiNext, ::hitemDrag:bAction,, ::hitemDrag:lchecked, ::hitemDrag:bClick) //, ::hitemDrop:aImages)
          ELSE
@@ -473,7 +473,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
          Eval(::bDrop, Self, hitemNew, ::hitemDrop)
       ENDIF
 
-   ELSEIF  ::lEditLabels .AND. ((msg = WM_LBUTTONDBLCLK .AND. ::bDblClick = Nil) .OR. msg = WM_CHAR)
+   ELSEIF ::lEditLabels .AND. ((msg = WM_LBUTTONDBLCLK .AND. ::bDblClick = Nil) .OR. msg = WM_CHAR)
       ::EditLabel(::oSelected)
       RETURN 0
    ENDIF
@@ -522,11 +522,11 @@ METHOD SearchString(cText, iNivel, oNode, inodo) CLASS HTree
          (oNodeRet := ::SearchString(cText, iNivel, aItems[i], iNodo)) != Nil
          RETURN oNodeRet
       ENDIF
-      IF  aItems[i]:Title = cText .AND. (iNivel == Nil .OR. aItems[i]:GetLevel() = iNivel)
-         iNodo ++ 
+      IF aItems[i]:Title = cText .AND. (iNivel == Nil .OR. aItems[i]:GetLevel() = iNivel)
+         iNodo++ 
          RETURN aItems[i]
       ELSE
-         iNodo ++   
+         iNodo++   
       ENDIF
    NEXT
    RETURN Nil 
@@ -685,7 +685,7 @@ METHOD Selecteds(oItem, aSels)  CLASS HTree
    FOR i := 1 TO iLen
       IF oItem:aItems[i]:checked
          AADD(aSelecteds, oItem:aItems[i])
-      ENDIF   
+      ENDIF
       ::Selecteds(oItem:aItems[i], aSelecteds)
    NEXT
    RETURN aSelecteds

@@ -218,7 +218,7 @@ METHOD Value(Value)  CLASS HUpDown
 
 METHOD SetValue(nValue)  CLASS HUpDown
 
-   IF  nValue < ::nLower .OR. nValue > ::nUpper
+   IF nValue < ::nLower .OR. nValue > ::nUpper
        nValue := ::nValue
    ENDIF
    ::nValue := nValue
@@ -253,7 +253,7 @@ METHOD Refresh()  CLASS HUpDown
 METHOD Valid() CLASS HUpDown
    LOCAL res
 
-   IF  ::oEditUpDown:lNoValid
+   IF ::oEditUpDown:lNoValid
       RETURN .T.
    ENDIF
 
@@ -349,7 +349,7 @@ METHOD Notify(lParam) CLASS HeditUpDown
    LOCAL vari
 
    vari := IIF(::oUpDown != Nil, ::oUpDown:nValue, ::Value)
-   IF  ::bSetGet != Nil .AND. ::title != Nil
+   IF ::bSetGet != Nil .AND. ::title != Nil
       ::Title := Transform(vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask)
    ENDIF
    hwg_Setwindowtext(::Handle, ::Title)

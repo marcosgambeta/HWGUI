@@ -192,7 +192,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
       RETURN NIL
    ENDIF
 
-   ::maxId ++
+   ::maxId++
    ::id := ::maxId
    ::cId := cId
    ::aProp := aProp
@@ -231,7 +231,7 @@ METHOD Read(fname, cId) CLASS HFormTmpl
             NEXT
          ENDIF
       ELSEIF aItems[i]:title == "part"
-         nCtrl ++
+         nCtrl++
          ::nContainer := nCtrl
          ReadCtrl(aItems[i], Self, Self)
       ENDIF
@@ -594,7 +594,7 @@ STATIC FUNCTION ReadCtrl(oCtrlDesc, oContainer, oForm)
    LOCAL i, j, o, cName, aProp := {}, aMethods := {}, aItems := oCtrlDesc:aItems
 
    oCtrl:nId      := oForm:nCtrlId
-   oForm:nCtrlId ++
+   oForm:nCtrlId++
    oCtrl:cClass   := oCtrlDesc:GetAttribute("class")
    oCtrl:aProp    := aProp
    oCtrl:aMethods := aMethods
@@ -661,7 +661,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    PUBLIC coName
    IF nCtrl == 0
       IF Lower(oCtrlTmpl:cClass) == "pagesheet"
-         tmp_nSheet ++
+         tmp_nSheet++
          oParent:StartPage(Tabs[tmp_nSheet])
          FOR i := 1 TO Len(oCtrlTmpl:aControls)
             CreateCtrl(oParent, oCtrlTmpl:aControls[i], oForm)
@@ -1158,7 +1158,7 @@ FUNCTION hwg_hfrm_Str2Arr( stroka )
 
    IF Len(stroka) > 2
       DO WHILE pos2 > 0
-         DO WHILE SubStr(stroka, pos1, 1) <= ' ' ; pos1 ++ ; ENDDO
+         DO WHILE SubStr(stroka, pos1, 1) <= ' ' ; pos1++ ; ENDDO
          pos2 := hb_At(',', stroka, pos1)
          AAdd(arr, Trim(SubStr(stroka, pos1, IIf(pos2 > 0, pos2 - pos1, hb_At('}', stroka, pos1) - pos1))))
          pos1 := pos2 + 1
@@ -1268,7 +1268,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
       RETURN NIL
    ENDIF
 
-   ::maxId ++
+   ::maxId++
    ::id := ::maxId
    ::cId := cId
    ::aProp := aProp
@@ -1547,15 +1547,15 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
                .AND. xProperty
                nLines := i := 1
                DO WHILE ( i := hb_At(";", cText, i) ) > 0
-                  i ++
-                  nLines ++
+                  i++
+                  nLines++
                ENDDO
                dy := ( y2 - y ) / nLines
                nFirst := i := 1
                ny := y
                DO WHILE ( i := hb_At(";", cText, i) ) > 0
                   ::oPrinter:Say( SubStr(cText, nFirst, i - nFirst), x, ny, x2, ny + dy, nJustify, oItem:obj )
-                  i ++
+                  i++
                   nFirst := i
                   ny += dy
                ENDDO

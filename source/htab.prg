@@ -696,7 +696,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
          ::nPrevPage := iif(::nPrevPage = 0, ::nActive, ::nPrevPage)
          ::lClick := ::nPrevPage != - 1
       ENDIF
-   ELSEIF  msg = WM_MOUSEMOVE //.OR. (::nPaintHeight = 0 .AND. msg = WM_NCHITTEST)
+   ELSEIF msg = WM_MOUSEMOVE //.OR. (::nPaintHeight = 0 .AND. msg = WM_NCHITTEST)
       ::ShowToolTips(lParam)
       RETURN ::ShowDisablePage(lParam)
    ELSEIF msg = WM_PAINT
@@ -704,9 +704,9 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    ELSEIF msg = WM_ERASEBKGND
       ::ShowDisablePage()
       RETURN - 1
-   ELSEIF  msg = WM_PRINTCLIENT .OR. msg = WM_NCHITTEST .OR. msg = WM_UPDATEUISTATE
+   ELSEIF msg = WM_PRINTCLIENT .OR. msg = WM_NCHITTEST .OR. msg = WM_UPDATEUISTATE
       RETURN - 1  // painted objects without METHOD PAINT
-   ELSEIF  msg = WM_PRINT
+   ELSEIF msg = WM_PRINT
       ::SetPaintSizePos(iif(::nPaintHeight > 1, -1, 1))
       IF ::nActive > 0
          ::ShowPage(::nActive)
@@ -721,7 +721,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
       IF ::nPaintHeight > 1
          hwg_Postmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
       ENDIF
-   ELSEIF  msg = WM_SETFONT .AND. ::oFont != NIL .AND. ::lInit
+   ELSEIF msg = WM_SETFONT .AND. ::oFont != NIL .AND. ::lInit
       hwg_Sendmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
    ELSEIF msg == WM_KEYDOWN .AND. hwg_Getfocus() = ::handle
       IF hwg_ProcKeyList(Self, wParam)

@@ -117,7 +117,7 @@ FUNCTION Hwg_FindMenuItem(aMenu, nId, nPos)
             RETURN aSubMenu
          ENDIF
       ENDIF
-      nPos ++
+      nPos++
    ENDDO
    RETURN Nil
 
@@ -167,13 +167,13 @@ FUNCTION hwg_BuildMenu(aMenuInit, hWnd, oWnd, nPosParent, lPopup)
 
          ENDIF
       ENDIF
-      nPos ++
+      nPos++
    ENDDO
    IF hWnd != Nil .AND. oWnd != Nil
       Hwg_SetMenu(oWnd, aMenu)
       IF s_nbkColor != Nil
          Hwg_SetMenuInfo(oWnd:Handle, s_nbkColor)
-      ENDIF   
+      ENDIF
    ELSEIF _oMenu != Nil
       _oMenu:handle := aMenu[5]
       _oMenu:aMenu := aMenu
@@ -194,12 +194,12 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp)
       s_nHeightBmp := IIF(nHeightBmp = Nil .OR. !HWG_ISWIN7(), hwg_Getsystemmetrics(SM_CYMENUCHECK), nHeightBmp)
       s_nbkColor   := nbkColor 
    ELSE
-      nId   := IIf(nId == Nil, ++ _Id, nId)
+      nId   := IIf(nId == Nil, ++_Id, nId)
       aMenu := _aMenuDef
       FOR i := 1 TO _nLevel
          aMenu := ATail(aMenu)[1]
       NEXT
-      _nLevel ++
+      _nLevel++
       AAdd(aMenu, { {}, cTitle, nId, 0 })
    ENDIF
    RETURN .T.
@@ -244,7 +244,7 @@ FUNCTION Hwg_DefineMenuItem(cItem, nId, bItem, lDisabled, accFlag, accKey, lBitm
    IF !Empty(cItem)
       cItem := StrTran(cItem, "\t", Chr(9))
    ENDIF
-   nId := IIf(nId == Nil .AND. cItem != Nil, ++ _Id, nId)
+   nId := IIf(nId == Nil .AND. cItem != Nil, ++_Id, nId)
    AAdd(aMenu, { bItem, cItem, nId, nFlag })
    IF lBitmap != Nil .OR. !Empty(lBitmap)
       IF lResource == Nil
@@ -270,7 +270,7 @@ FUNCTION Hwg_DefineAccelItem(nId, bItem, accFlag, accKey)
    FOR i := 1 TO _nLevel
       aMenu := ATail(aMenu)[1]
    NEXT
-   nId := IIf(nId == Nil, ++ _Id, nId)
+   nId := IIf(nId == Nil, ++_Id, nId)
    AAdd(aMenu, { bItem, Nil, nId, 0 })
    AAdd(_aAccel, { accFlag, accKey, nId })
    RETURN .T.
@@ -309,7 +309,7 @@ FUNCTION Hwg_SearchPosBitmap(nPos_Id)
             lBmp := { _oBitmap[nPos][1], _oBitmap[nPos][2], _oBitmap[nPos][3] }
          ENDIF
 
-         nPos ++
+         nPos++
 
       ENDDO
    ENDIF

@@ -40,14 +40,14 @@ METHOD AddFile(name) CLASS HFreeImage
    #ifdef __XHARBOUR__
       FOR EACH i IN ::aImages
          IF i:name == name
-            i:nCounter ++
+            i:nCounter++
             RETURN i
          ENDIF
       NEXT
    #else
       FOR i := 1 TO Len(::aImages)
          IF ::aImages[i]:name == name
-            ::aImages[i]:nCounter ++
+            ::aImages[i]:nCounter++
             RETURN ::aImages[i]
          ENDIF
       NEXT

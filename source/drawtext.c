@@ -347,8 +347,7 @@ HB_FUNC( HWG_EXTTEXTOUT )
 HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    void * hString;
-   SendMessage(hwg_par_HWND(1), SB_SETTEXT, hb_parni(2),
-                (LPARAM) HB_PARSTR(3, &hString, NULL));
+   SendMessage(hwg_par_HWND(1), SB_SETTEXT, hb_parni(2), (LPARAM) HB_PARSTR(3, &hString, NULL));
    hb_strfree(hString);
 }
 

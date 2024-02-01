@@ -480,7 +480,7 @@ METHOD InitCode128(cMode) CLASS BarCode
 
    FOR n := 1 TO Len(cCode)
 
-      nCount ++
+      nCount++
       cCar := SubStr(cCode, n, 1)
 
       IF lCodeC
@@ -489,7 +489,7 @@ METHOD InitCode128(cMode) CLASS BarCode
             nCar := Asc(cCar) - 31
          ELSE
             nCar := Val(SubStr(cCode, n, 2)) + 1
-            n ++
+            n++
          ENDIF
       ELSEIF lCodeA
          IF cCar > "_"                           // Shift Code B
@@ -631,7 +631,7 @@ METHOD InitUPC(nLen) CLASS BarCode
 
    control := l - control
    k := k + Str(control, 1, 0)
-   nLen ++
+   nLen++
 
    // preparacion de la cadena de impresion
    cadena := []
@@ -803,7 +803,7 @@ METHOD InitInterleave25(lMode) CLASS BarCode
 
    nLen   := Len(cCode)
    IF (nLen % 2 = 1 .AND. !lMode)
-      nLen ++
+      nLen++
       cCode += "0"
    ENDIF
    IF lMode

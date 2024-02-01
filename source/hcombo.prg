@@ -421,7 +421,7 @@ METHOD Requery(aItems, xValue) CLASS HComboBox
    ::Populate()
    IF xValue != Nil
       ::SetValue(xValue)
-   ELSEIF  Empty(::Value) .AND. Len(::aItems) > 0 .AND. ::bSetGet = Nil .AND. !::lEdit
+   ELSEIF Empty(::Value) .AND. Len(::aItems) > 0 .AND. ::bSetGet = Nil .AND. !::lEdit
       ::SetItem(1)
    ENDIF
 
@@ -435,7 +435,7 @@ METHOD Refresh() CLASS HComboBox
       IF ::columnBound = 2
          vari := ::GetValueBound(vari)
       ENDIF
-      IF  ::columnBound = 1
+      IF ::columnBound = 1
          IF ::lText
             ::value := iif(vari == Nil .OR. ValType(vari) != "C", "", vari)
          ELSE
@@ -615,8 +615,7 @@ METHOD SetCueBanner(cText, lShowFoco) CLASS HComboBox
    LOCAL lRet := .F.
 
    IF ::lEdit
-      lRet := hwg_Sendmessage(::Handle, CB_SETCUEBANNER, ;
-         iif(Empty(lShowFoco), 0, 1), hwg_Ansitounicode(cText))
+      lRet := hwg_Sendmessage(::Handle, CB_SETCUEBANNER, iif(Empty(lShowFoco), 0, 1), hwg_Ansitounicode(cText))
    ENDIF
 
    RETURN lRet
@@ -650,7 +649,7 @@ METHOD onChange(lForce) CLASS HComboBox
    IF !hwg_Selffocus(::handle) .AND. Empty(lForce)
       RETURN Nil
    ENDIF
-   IF  !hwg_Iswindowvisible(::handle)
+   IF !hwg_Iswindowvisible(::handle)
       ::SetItem(::Value)
       RETURN Nil
    ENDIF
@@ -706,7 +705,7 @@ METHOD Valid() CLASS HComboBox
    LOCAL oDlg, nSkip, res, hCtrl := hwg_Getfocus()
    LOCAL ltab := hwg_Getkeystate(VK_TAB) < 0
 
-   IF  ::lNoValid .OR. !hwg_CheckFocus(Self, .T.)
+   IF ::lNoValid .OR. !hwg_CheckFocus(Self, .T.)
       RETURN .T.
    ENDIF
 
@@ -804,11 +803,11 @@ METHOD Populate() CLASS HComboBox
          ENDIF
          hwg_Comboaddstring(::handle, ::aItems[i])
          numofchars := hwg_Sendmessage(::handle, CB_GETLBTEXTLEN, i - 1, 0)
-         IF  numofchars > LongComboWidth
+         IF numofchars > LongComboWidth
             LongComboWidth := numofchars
          ENDIF
          (cAlias)->(dbSkip())
-         i ++
+         i++
       ENDDO
       IF nRecno > 0
          (cAlias)->(dbGoto(nRecno))
@@ -827,7 +826,7 @@ METHOD Populate() CLASS HComboBox
             hwg_Comboaddstring(::handle, ::aItems[i])
          ENDIF
          numofchars := hwg_Sendmessage(::handle, CB_GETLBTEXTLEN, i - 1, 0)
-         IF  numofchars > LongComboWidth
+         IF numofchars > LongComboWidth
             LongComboWidth := numofchars
          ENDIF
       NEXT
@@ -1196,7 +1195,7 @@ METHOD Paint(lpDis) CLASS hCheckComboBox
    ELSE
       hwg_Comboboxgetlbtext(::handle, drawInfo[1], @strtext)
 
-      IF  ::lCheck
+      IF ::lCheck
          ncheck := 1 + (hwg_Comboboxgetitemdata(::handle, drawInfo[1]))
          metrics := hwg_Gettextmetric(dc)
          rcBitmap[1] := 0
@@ -1275,7 +1274,7 @@ METHOD Paint(lpDis) CLASS hCheckComboBox
       ENDIF
    ENDIF
    IF ((hwg_Bitand(DrawInfo[9], ODS_FOCUS + ODS_SELECTED)) == (ODS_FOCUS + ODS_SELECTED))
-      IF  cTmp != "\-" .AND. !lDroped
+      IF cTmp != "\-" .AND. !lDroped
          hwg_Drawfocusrect(dc, iif(::lCheck, rcText, rcBitmap))
       ENDIF
    ENDIF

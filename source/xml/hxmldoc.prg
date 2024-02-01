@@ -192,7 +192,7 @@ Local i
          IF block == Nil .OR. Eval(block,::aItems[i])
             Return ::aItems[i]
          ELSE
-            nStart ++
+            nStart++
          ENDIF
       ENDIF
    ENDDO

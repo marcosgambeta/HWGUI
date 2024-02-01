@@ -118,7 +118,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
    ELSEIF msg == WM_MOUSEACTIVATE .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
       ::Setfocus()
    ENDIF
-   IF  msg = EM_GETSEL .OR. msg = EM_LINEFROMCHAR .OR. msg = EM_LINEINDEX .OR. ;
+   IF msg = EM_GETSEL .OR. msg = EM_LINEFROMCHAR .OR. msg = EM_LINEINDEX .OR. ;
        msg = EM_GETLINECOUNT .OR. msg = EM_SETSEL .OR. msg = EM_SETCHARFORMAT .OR. ;
        msg = EM_HIDESELECTION .OR. msg = WM_GETTEXTLENGTH .OR. msg = EM_GETFIRSTVISIBLELINE
       Return - 1
@@ -137,7 +137,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
-         IF  (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
+         IF (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
             RETURN 0
          ENDIF
       ENDIF
@@ -152,7 +152,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
    ENDIF
    IF msg == WM_KEYUP
      IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
-         IF   hwg_IsCtrlShift(.T., .F.)
+         IF hwg_IsCtrlShift(.T., .F.)
             hwg_GetSkip(::oParent, ::handle, , ;
                       iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0

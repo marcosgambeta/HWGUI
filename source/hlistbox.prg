@@ -178,7 +178,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HListBox
          ENDIF
          ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
-   ELSEIF  msg = WM_GETDLGCODE .AND. (wParam = VK_RETURN .OR.wParam = VK_ESCAPE) .AND. ::bKeyDown != Nil
+   ELSEIF msg = WM_GETDLGCODE .AND. (wParam = VK_RETURN .OR.wParam = VK_ESCAPE) .AND. ::bKeyDown != Nil
       RETURN DLGC_WANTALLKEYS  //DLGC_WANTARROWS + DLGC_WANTTAB + DLGC_WANTCHARS
    ENDIF
 

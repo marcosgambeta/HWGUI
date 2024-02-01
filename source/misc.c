@@ -767,7 +767,7 @@ HB_FUNC( HWG_LASTKEY )
 
    GetKeyboardState(kbBuffer);
 
-   for( i = 0; i < 256; i ++ )  
+   for( i = 0; i < 256; i++ )  
       if( kbBuffer[i] & 0x80 )
       {
          hb_retni(i);

@@ -59,7 +59,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
             pArray[i]:lInit := .T.
             pArray[i]:Activate()
             pArray[i]:lInit := lInit
-         ELSEIF  !lNoActivate
+         ELSEIF !lNoActivate
             pArray[i]:lInit := .T.
          ENDIF
          IF IIF(ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
@@ -346,7 +346,7 @@ FUNCTION hwg_ShowProgress(nStep, maxPos, nRange, cTitle, oWnd, x1, y1, width, he
          ACTIVATE DIALOG oDlg NOMODAL
       ENDIF
    ELSEIF nStep == 1
-      iCou ++
+      iCou++
       IF iCou == nLimit
          iCou := 0
          hwg_Updateprogressbar(hPBar)
@@ -542,7 +542,7 @@ FUNCTION hwg_CheckFocus(oCtrl, lInside)
 FUNCTION hwg_WhenSetFocus(oCtrl, nSkip)
 
 
-   IF  hwg_Selffocus(oCtrl:Handle) .OR. EMPTY(hwg_Getfocus())
+   IF hwg_Selffocus(oCtrl:Handle) .OR. EMPTY(hwg_Getfocus())
        hwg_GetSkip(oCtrl:oParent, oCtrl:handle, , nSkip)
    ENDIF
    RETURN Nil
@@ -648,7 +648,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
 	   ENDIF
      IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
          !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
-        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(lParam)) == Upper(SubStr(oCtrl:aControls[i]:title, ++ pos, 1))
+        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(lParam)) == Upper(SubStr(oCtrl:aControls[i]:title, ++pos, 1))
            RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
@@ -664,7 +664,7 @@ FUNCTION hwg_GetBackColorParent(oCtrl, lSelf, lTransparent)
    IF lSelf == Nil .OR. !lSelf
       oCtrl := oCtrl:oParent
    ENDIF
-   IF  oCtrl != Nil .AND. oCtrl:Classname = "HTAB"
+   IF oCtrl != Nil .AND. oCtrl:Classname = "HTAB"
        IF Len(oCtrl:aPages) > 0 .AND. oCtrl:Pages[oCtrl:GETACTIVEPAGE()]:bColor != Nil
           bColor := oCtrl:Pages[oCtrl:GetActivePage()]:bColor
        ELSEIF hwg_Isthemeactive() .AND. oCtrl:WindowsManifest

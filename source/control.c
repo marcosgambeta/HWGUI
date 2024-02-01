@@ -162,8 +162,7 @@ HB_FUNC( HWG_UPDATEPROGRESSBAR )
 
 HB_FUNC( HWG_SETPROGRESSBAR )
 {
-   SendMessage(hwg_par_HWND(1), PBM_SETPOS,
-         (WPARAM) hb_parni(2), 0);
+   SendMessage(hwg_par_HWND(1), PBM_SETPOS, (WPARAM) hb_parni(2), 0);
 }
 
 HB_FUNC( HWG_SETRANGEPROGRESSBAR )
@@ -480,7 +479,7 @@ HB_FUNC( HWG_DELTOOLTIP )
       // ti.uId = (UINT) GetDlgItem(hWnd, hb_parni(2));
       ti.hinst = GetModuleHandle(NULL);
 
-      SendMessage(hWndTT, TTM_DELTOOL, 0, (LPARAM) ( LPTOOLINFO ) &ti);
+      SendMessage(hWndTT, TTM_DELTOOL, 0, (LPARAM) (LPTOOLINFO) &ti);
    }
 }
 
@@ -645,15 +644,13 @@ HB_FUNC( HWG_SETDATEPICKER )
       sysTime.wSecond = lSecond;
       sysTime.wMilliseconds = ( unsigned short ) lMilliseconds;
 
-      SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID,
-                   (LPARAM) &sysTime);
+      SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, (LPARAM) &sysTime);
    }
 }
 
 HB_FUNC( HWG_SETDATEPICKERNULL )
 {
-   SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE,
-                0);
+   SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE, 0);
 }
 
 HB_FUNC( HWG_GETDATEPICKER )
@@ -662,8 +659,7 @@ HB_FUNC( HWG_GETDATEPICKER )
    int iret;
    WPARAM wParam = ( hb_pcount() > 1 ) ? hb_parnl(2):GDT_VALID;
 
-   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME,
-                wParam, (LPARAM) &st);
+   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, wParam, (LPARAM) &st);
    if ( wParam == GDT_VALID )
      hb_retd(st.wYear, st.wMonth, st.wDay);
    else
@@ -676,8 +672,7 @@ HB_FUNC( HWG_GETTIMEPICKER )
    SYSTEMTIME st;
    char szTime[9];
 
-   SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, 0,
-                (LPARAM) &st);
+   SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, 0, (LPARAM) &st);
 
    #if __HARBOUR__ - 0 >= 0x010100
       hb_snprintf(szTime, 9, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
@@ -826,9 +821,9 @@ HB_FUNC( HWG_CREATETREE )
          GetModuleHandle(NULL), NULL);
 
    if( !HB_ISNIL(8) )
-      SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, (LPARAM) ( hb_parnl(8) ));
+      SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, (LPARAM) (hb_parnl(8)));
    if( !HB_ISNIL(9) )
-      SendMessage(hCtrl, TVM_SETBKCOLOR, 0, (LPARAM) ( hb_parnl(9) ));
+      SendMessage(hCtrl, TVM_SETBKCOLOR, 0, (LPARAM) (hb_parnl(9)));
 
    HB_RETHANDLE(hCtrl);
 }
@@ -873,8 +868,7 @@ HB_FUNC( HWG_TREEADDNODE )
    else if( nPos == 2 )
       is.hInsertAfter = TVI_LAST;
 
-   HB_RETHANDLE(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0,
-               (LPARAM) ( &is )));
+   HB_RETHANDLE(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, (LPARAM) (&is)));
 
    if( tvi.mask & TVIF_IMAGE )
       if ( tvi.iImage )
@@ -911,8 +905,7 @@ HB_FUNC( HWG_TREEGETSELECTED )
    if( TreeItem.hItem )
    {
       PHB_ITEM oNode;           // = hb_itemNew(NULL);
-      SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0,
-            (LPARAM) ( &TreeItem ));
+      SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM) (&TreeItem));
       oNode = (PHB_ITEM) TreeItem.lParam;
       hb_itemReturn( oNode );
    }
@@ -928,7 +921,7 @@ HB_FUNC( HWG_TREENODEHASCHILDREN )
    TreeItem.mask = TVIF_HANDLE | TVIF_CHILDREN;
    TreeItem.hItem = (HTREEITEM) HB_PARHANDLE(2);
 
-   SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM)(&TreeItem));
+   SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM) (&TreeItem));
    hb_retni(TreeItem.cChildren);
 }
 
@@ -945,8 +938,7 @@ HB_FUNC( HWG_TREEGETNODETEXT )
    TreeItem.pszText = ItemText;
    TreeItem.cchTextMax = 256;
 
-   SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0,
-                (LPARAM) ( &TreeItem ));
+   SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM) (&TreeItem));
    HB_RETSTR(TreeItem.pszText);
 }
 
@@ -976,8 +968,7 @@ HB_FUNC( HWG_TREESETITEM )
       TreeItem.state = TreeItem.state << 12;
    }
 
-   SendMessage(hwg_par_HWND(1), TVM_SETITEM, 0,
-                (LPARAM) ( &TreeItem ));
+   SendMessage(hwg_par_HWND(1), TVM_SETITEM, 0, (LPARAM) (&TreeItem));
    hb_strfree(hStr);
 }
 
@@ -1059,7 +1050,7 @@ HB_FUNC( HWG_TREEHITTEST )
       TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
       TreeItem.hItem = ht.hItem;
 
-      SendMessage(hTree, TVM_GETITEM, 0, (LPARAM) ( &TreeItem ));
+      SendMessage(hTree, TVM_GETITEM, 0, (LPARAM) (&TreeItem));
       oNode = (PHB_ITEM) TreeItem.lParam;
       hb_itemReturn( oNode );
       if( hb_pcount() > 3 )
@@ -1079,12 +1070,10 @@ HB_FUNC( HWG_TREERELEASENODE )
 
    if( TreeItem.hItem )
    {
-      SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0,
-            (LPARAM) ( &TreeItem ));
+      SendMessage(hwg_par_HWND(1), TVM_GETITEM, 0, (LPARAM) (&TreeItem));
       hb_itemRelease((PHB_ITEM) TreeItem.lParam);
       TreeItem.lParam = 0;
-      SendMessage(hwg_par_HWND(1), TVM_SETITEM, 0,
-            (LPARAM) ( &TreeItem ));
+      SendMessage(hwg_par_HWND(1), TVM_SETITEM, 0, (LPARAM) (&TreeItem));
    }
 
 }
@@ -1800,8 +1789,7 @@ HB_FUNC( HWG_TOOLBARADDBUTTONS )
 
    }
 
-   SendMessage(hWndCtrl, TB_ADDBUTTONS, (WPARAM) iButtons,
-         (LPARAM) ( LPTBBUTTON ) tb);
+   SendMessage(hWndCtrl, TB_ADDBUTTONS, (WPARAM) iButtons, (LPARAM) (LPTBBUTTON) tb);
    SendMessage(hWndCtrl, TB_AUTOSIZE, 0, 0);
 
    hb_xfree(tb);
@@ -1846,7 +1834,7 @@ HB_FUNC( HWG_TOOLBAR_LOADSTANDARTIMAGE )
    tbab.nID = iIDB;             //IDB_HIST_SMALL_COLOR / IDB_VIEW_SMALL_COLOR / IDB_VIEW_SMALL_COLOR;
 
    SendMessage(hWndCtrl, TB_ADDBITMAP, 0, (LPARAM) &tbab);
-   himl = ( HIMAGELIST ) SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0);
+   himl = (HIMAGELIST) SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0);
    hb_retni((int) ImageList_GetImageCount( himl ));
 }
 
@@ -1919,8 +1907,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENU )
    HWND g_hwndMain = hwg_par_HWND(3);
    HANDLE g_hinst = GetModuleHandle(0);
 
-   SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT,
-         (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
+   SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
@@ -1953,8 +1940,7 @@ HB_FUNC( HWG_TOOLBAR_SUBMENUEX )
    HMENU hPopupMenu = hwg_par_HMENU(2);
    HWND g_hwndMain = hwg_par_HWND(3);
 
-   SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT,
-         (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
+   SendMessage(lpnmTB->hdr.hwndFrom, TB_GETRECT, (WPARAM) lpnmTB->iItem, (LPARAM) &rc);
 
    MapWindowPoints( lpnmTB->hdr.hwndFrom, HWND_DESKTOP, ( LPPOINT ) ( void * ) &rc, 2 );
 
@@ -2055,9 +2041,7 @@ static BOOL _AddBar( HWND pParent, HWND pBar, REBARBANDINFO * pRBBI )
 
    pRBBI->cxMinChild = size.cx;
    pRBBI->cyMinChild = size.cy;
-   bResult =
-         SendMessage(pParent, RB_INSERTBAND, -1,
-         (LPARAM) pRBBI);
+   bResult = SendMessage(pParent, RB_INSERTBAND, -1, (LPARAM) pRBBI);
 
    return bResult;
 }
@@ -2140,7 +2124,7 @@ HB_FUNC( HWG_COMBOGETITEMRECT )
 
    int nIndex = hb_parnl(2);
    RECT rcItem;
-   SendMessage(hWnd, LB_GETITEMRECT, nIndex, (LONG) ( VOID * ) &rcItem);
+   SendMessage(hWnd, LB_GETITEMRECT, nIndex, (LONG) (VOID *) &rcItem);
    hb_itemRelease(hb_itemReturn( Rect2Array( &rcItem ) ));
 }
 
@@ -2149,7 +2133,7 @@ HB_FUNC( HWG_COMBOBOXGETITEMDATA )
    HWND hWnd = hwg_par_HWND(1);
    int nIndex = hb_parnl(2);
    DWORD_PTR p;
-   p = ( DWORD_PTR ) SendMessage((HWND) hWnd, CB_GETITEMDATA, nIndex, 0);
+   p = (DWORD_PTR) SendMessage((HWND) hWnd, CB_GETITEMDATA, nIndex, 0);
    hb_retnl(p);
 
 }
@@ -2159,8 +2143,7 @@ HB_FUNC( HWG_COMBOBOXSETITEMDATA )
    HWND hWnd = hwg_par_HWND(1);
    int nIndex = hb_parnl(2);
    DWORD_PTR dwItemData = ( DWORD_PTR ) hb_parnl(3);
-   hb_retnl(SendMessage((HWND) hWnd, CB_SETITEMDATA, nIndex,
-               (LPARAM) dwItemData));
+   hb_retnl(SendMessage((HWND) hWnd, CB_SETITEMDATA, nIndex, (LPARAM) dwItemData));
 }
 
 HB_FUNC( HWG_GETLOCALEINFO )
@@ -2177,8 +2160,7 @@ HB_FUNC( HWG_COMBOBOXGETLBTEXT )
    HWND hWnd = hwg_par_HWND(1);
    int nIndex = hb_parnl(2);
    TCHAR lpszText[255] = { 0 };
-   hb_retni(SendMessage(hWnd, CB_GETLBTEXT, nIndex,
-                          (LPARAM) lpszText));
+   hb_retni(SendMessage(hWnd, CB_GETLBTEXT, nIndex, (LPARAM) lpszText));
    HB_STORSTR(lpszText, 3);
 }
 

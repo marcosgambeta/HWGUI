@@ -177,7 +177,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
       IF LEN(cLine) = 0
          EXIT
       ENDIF
-      numlin ++
+      numlin++
       IF Right(cLine, 1) == ';'
          strfull += Left(cLine, Len(cLine) - 1)
          LOOP
@@ -469,7 +469,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
                   IF lParam .AND. aParams != Nil .AND. Len(aParams) >= j
                      &varname := aParams[j]
                   ENDIF
-                  j ++
+                  j++
                ENDDO
             RECOVER
                WndOut()
@@ -479,7 +479,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
             Errorblock(bOldError)
          ENDIF
       ENDIF
-      iscr ++
+      iscr++
    ENDDO
    IF lDebug
       bOldError := Errorblock({|e|MacroError(3, e, aScript[3, iscr])})
@@ -499,7 +499,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
             ENDIF
 #endif
             Eval(aScript[2, iscr])
-            iscr ++
+            iscr++
          ENDDO
 #ifdef __WINDOWS__
          hwg_scrDebug(aScript, 0)
@@ -510,7 +510,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
       ELSE
          DO WHILE iscr > 0 .AND. iscr <= arlen
             Eval(aScript[2, iscr])
-            iscr ++
+            iscr++
          ENDDO
       ENDIF
    RECOVER
@@ -541,7 +541,7 @@ LOCAL i := 1, RetValue := Nil
          RetValue := DoScript(aScript[2, i], aParams)
          EXIT
       ENDIF
-      i ++
+      i++
    ENDDO
 
 RETURN RetValue

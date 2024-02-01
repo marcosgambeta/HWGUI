@@ -80,9 +80,9 @@ HB_FUNC( HWG_LISTVIEW_INIT )
    }
 
    SendMessage(hwg_par_HWND(1),
-                LVM_SETEXTENDEDLISTVIEWSTYLE, 0,
-                LVS_EX_FULLROWSELECT |
-                LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style);
+               LVM_SETEXTENDEDLISTVIEWSTYLE, 0,
+               LVS_EX_FULLROWSELECT |
+               LVS_EX_HEADERDRAGDROP | LVS_EX_FLATSB | style);
 
    ListView_SetItemCount( hwg_par_HWND(1), hb_parnl(2) );
 }
@@ -247,10 +247,8 @@ HB_FUNC( HWG_LISTVIEW_SETIMAGELIST )
 
 // #ifdef __BORLANDC__
 #if 1
-   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p,
-         (LPARAM) LVSIL_NORMAL);
-   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p,
-         (LPARAM) LVSIL_SMALL);
+   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p, (LPARAM) LVSIL_NORMAL);
+   SendMessage(hList, LVM_SETIMAGELIST, (WPARAM) p, (LPARAM) LVSIL_SMALL);
 #else
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_NORMAL );
    ListView_SetImageList( hList, ( HIMAGELIST ) p, LVSIL_SMALL );
@@ -296,8 +294,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    lvcolumn.fmt = hb_parni(5);
    lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-   if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTCOLUMN,
-               (WPARAM) (int) lCol, (LPARAM) &lvcolumn) == -1 )
+   if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTCOLUMN, (WPARAM) (int) lCol, (LPARAM) &lvcolumn) == -1 )
       iResult = 0;
    else
       iResult = 1;
@@ -341,16 +338,14 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
    switch ( iSubItemYesNo )
    {
       case 0:
-         if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTITEM,
-                          0, (LPARAM) &lvi) == -1 )
+         if( SendMessage((HWND) hwndListView, (UINT) LVM_INSERTITEM, 0, (LPARAM) &lvi) == -1 )
             iResult = 0;
          else
             iResult = 1;
          break;
 
       case 1:
-         if( SendMessage((HWND) hwndListView, (UINT) LVM_SETITEM,
-                          0, (LPARAM) &lvi) == FALSE )
+         if( SendMessage((HWND) hwndListView, (UINT) LVM_SETITEM, 0, (LPARAM) &lvi) == FALSE )
             iResult = 0;
          else
             iResult = 1;

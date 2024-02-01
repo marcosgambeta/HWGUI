@@ -92,7 +92,7 @@ METHOD NewId() CLASS HControl
    DO WHILE oParent != NIL
       nId := CONTROL_FIRST_ID + 1000 * i + Len(::oParent:aControls)
       oParent := oParent:oParent
-      i ++
+      i++
    ENDDO
    IF AScan(::oParent:aControls, {|o|o:id == nId}) != 0
       nId --

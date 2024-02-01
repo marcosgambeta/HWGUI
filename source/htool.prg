@@ -414,7 +414,7 @@ METHOD CREATETOOL() CLASS hToolBar
       ::ndrop := nMax + IIF(!::WindowsManifest, 0, nDrop)
       ::BtnHeight := MAX(hwg_Hiword(hwg_Sendmessage(::handle, TB_GETBUTTONSIZE, 0, 0)),;
                      ::nHeight - ::nDrop - IIF(!::lnoThemes .AND. Hwg_BitAnd(::Style, TBSTYLE_FLAT) > 0, 0, 2))
-      IF  !::lVertical
+      IF !::lVertical
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::nWidth - ::nDrop - 1, ::BtnWidth))
@@ -520,7 +520,7 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam(::BtnWidth - 1, ::BtnWidth + 1))
    IF ::BtnWidth != Nil
-      IF  !::lVertical
+      IF !::lVertical
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::BtnWidth, ::BtnHeight))
       ELSE
          hwg_Sendmessage(::handle, TB_SETBUTTONSIZE, 0, hwg_Makelparam(::nWidth - ::nDrop - 1, ::BtnWidth))
