@@ -44,7 +44,7 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
    ::oParent := Iif(oParent==NIL, HWindow():GetMain():oDefaultParent, oParent)
    IF nId == NIL
       nId := TIMER_FIRST_ID
-      DO WHILE AScan(::aTimers, {|o|o:id == nId}) !=  0
+      DO WHILE AScan(::aTimers, {|o|o:id == nId}) != 0
          nId ++
       ENDDO
    ENDIF

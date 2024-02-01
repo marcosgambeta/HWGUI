@@ -108,25 +108,25 @@ HB_FUNC( HWG_INITMAINWINDOW )
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
       wndclass.hbrBackground = ( ( ( hb_pcount() > 5 &&
                         !HB_ISNIL(6) ) ? ( ( hb_parnl(6) ==
-                              -1 ) ? ( HBRUSH ) NULL :
-                        hwg_par_HBRUSH(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
+                              -1 ) ? (HBRUSH) NULL :
+                        hwg_par_HBRUSH(6) ) : (HBRUSH) ( COLOR_WINDOW +
                         1 ) ) );
       wndclass.lpszMenuName = lpMenu;
       wndclass.lpszClassName = lpAppName;
 
       if( RegisterClass( &wndclass ) )
       {
-         hWnd = CreateWindowEx( ExStyle, lpAppName, lpTitle,
+         hWnd = CreateWindowEx(ExStyle, lpAppName, lpTitle,
                WS_OVERLAPPEDWINDOW | nStyle,
                x, y,
                ( !width ) ? (LONG) CW_USEDEFAULT : width,
                ( !height ) ? (LONG) CW_USEDEFAULT : height,
-               NULL, NULL, (HINSTANCE) hInstance, NULL );
+               NULL, NULL, (HINSTANCE) hInstance, NULL);
 
          temp = hb_itemPutNL(NULL, 1);
          SetObjectVar(pObject, "_NHOLDER", temp);
          hb_itemRelease(temp);
-         SetWindowObject( hWnd, pObject );
+         SetWindowObject(hWnd, pObject);
 
          aWindows[0] = hWnd;
       }
@@ -145,7 +145,7 @@ HB_FUNC( HWG_CENTERWINDOW )
 
    GetWindowRect(hwg_par_HWND(1), &rect);
    
-   if ( hb_parni(2) ==  WND_MDICHILD ) 
+   if ( hb_parni(2) == WND_MDICHILD ) 
    { 
       GetWindowRect((HWND) aWindows[1], &rectcli);
       x = rectcli.right - rectcli.left;
@@ -233,7 +233,7 @@ HB_FUNC( HWG_PROCESSMESSAGE )
       ProcessMessage(msg, 0, lMdi);
    }
 
-   SleepEx( nSleep, TRUE );
+   SleepEx(nSleep, TRUE);
 }
 
 /* 22/09/2005 - <maurilio.longo@libero.it>
@@ -281,8 +281,8 @@ HB_FUNC( HWG_INITCHILDWINDOW )
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
       wndclass.hbrBackground = ( ( ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
                   ( ( hb_parnl(6) ==
-                              -1 ) ? ( HBRUSH ) NULL :
-                        hwg_par_HBRUSH(6) ) : ( HBRUSH ) ( COLOR_WINDOW +
+                              -1 ) ? (HBRUSH) NULL :
+                        hwg_par_HBRUSH(6) ) : (HBRUSH) ( COLOR_WINDOW +
                         1 ) ) );
       /*
          wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
@@ -305,16 +305,16 @@ HB_FUNC( HWG_INITCHILDWINDOW )
 
    if( fRegistered )
    {
-      hWnd = CreateWindowEx( WS_EX_MDICHILD, lpAppName, lpTitle,
+      hWnd = CreateWindowEx(WS_EX_MDICHILD, lpAppName, lpTitle,
             WS_OVERLAPPEDWINDOW | nStyle, x, y,
             ( !width ) ? (LONG) CW_USEDEFAULT : width,
             ( !height ) ? (LONG) CW_USEDEFAULT : height,
-            hParent, NULL, (HINSTANCE) hInstance, NULL );
+            hParent, NULL, (HINSTANCE) hInstance, NULL);
 
       temp = hb_itemPutNL(NULL, 1);
       SetObjectVar(pObject, "_NHOLDER", temp);
       hb_itemRelease(temp);
-      SetWindowObject( hWnd, pObject );
+      SetWindowObject(hWnd, pObject);
    }
 
    HB_RETHANDLE(hWnd);
@@ -366,7 +366,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
             !HB_ISNIL(5) ) ? hwg_par_HICON(5) :
                             LoadIcon( (HINSTANCE) hInstance, TEXT("") );
       wndclass.hCursor = LoadCursor( NULL, IDC_ARROW );
-      wndclass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
+      wndclass.hbrBackground = (HBRUSH) ( COLOR_WINDOW + 1 );
       wndclass.lpszMenuName = lpMenu;
       wndclass.lpszClassName = lpAppName;
 
@@ -377,12 +377,12 @@ HB_FUNC( HWG_INITMDIWINDOW )
       else
       {
          // Register client window
-         wc.lpfnWndProc = ( WNDPROC ) s_MDIChildWndProc;
+         wc.lpfnWndProc = (WNDPROC) s_MDIChildWndProc;
          wc.hIcon = ( hb_pcount() > 4 && !HB_ISNIL(5) ) ?
                     hwg_par_HICON(5) :
                     LoadIcon( (HINSTANCE) hInstance, TEXT("") );
          wc.hbrBackground = ( hb_pcount() > 5 && !HB_ISNIL(6) ) ?
-             hwg_par_HBRUSH(6) : ( HBRUSH ) ( COLOR_WINDOW + 1 );
+             hwg_par_HBRUSH(6) : (HBRUSH) ( COLOR_WINDOW + 1 );
          wc.lpszMenuName = NULL;
          wc.cbWndExtra = 0;
          wc.lpszClassName = s_szChild;
@@ -413,7 +413,7 @@ HB_FUNC( HWG_INITMDIWINDOW )
                temp = hb_itemPutNL(NULL, 1);
                SetObjectVar(pObject, "_NHOLDER", temp);
                hb_itemRelease(temp);
-               SetWindowObject( hWnd, pObject );
+               SetWindowObject(hWnd, pObject);
 
                aWindows[0] = hWnd;
                HB_RETHANDLE(hWnd);
@@ -443,7 +443,7 @@ HB_FUNC( HWG_INITCLIENTWINDOW )
    hWnd = CreateWindow( TEXT("MDICLIENT"), NULL,
          WS_CHILD | WS_CLIPCHILDREN | MDIS_ALLCHILDSTYLES,
          x, y, width, height,
-         aWindows[0], NULL, GetModuleHandle(NULL), ( LPVOID ) &ccs );
+         aWindows[0], NULL, GetModuleHandle(NULL), (LPVOID) &ccs );
 
    aWindows[1] = hWnd;
    HB_RETHANDLE(hWnd);
@@ -562,10 +562,10 @@ HB_FUNC( HWG_SELFFOCUS )
 
 HB_FUNC( HWG_SETWINDOWOBJECT )
 {
-   SetWindowObject( hwg_par_HWND(1), hb_param(2, HB_IT_OBJECT) );
+   SetWindowObject(hwg_par_HWND(1), hb_param(2, HB_IT_OBJECT));
 }
 
-void SetWindowObject( HWND hWnd, PHB_ITEM pObject )
+void SetWindowObject(HWND hWnd, PHB_ITEM pObject)
 {
    SetWindowLongPtr(hWnd, GWLP_USERDATA,
          pObject ? (LPARAM) hb_itemNew(pObject) : 0);
@@ -800,7 +800,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message,
       SetObjectVar(*pObj, "_HANDLE", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject( hWnd, *pObj );
+      SetWindowObject(hWnd, *pObj);
    }
 
    pObject = (PHB_ITEM) GetWindowLongPtr(hWnd, GWLP_USERDATA);
@@ -889,7 +889,7 @@ HB_SIZE hwg_strcopy( PHB_ITEM pItem, char * pStr, HB_SIZE nLen )
          if( size > nLen )
             size = nLen;
          if( size )
-            memcpy( pStr, hb_itemGetCPtr(pItem), size );
+            memcpy(pStr, hb_itemGetCPtr(pItem), size);
          if( size < nLen )
             pStr[size] = '\0';
       }
@@ -911,7 +911,7 @@ char * hwg_strunshare(void ** phStr, const char * pStr, HB_SIZE nLen)
    if( *phStr == ( void * ) s_szConstStr && nLen > 0 )
    {
       char * pszDest = ( char * ) hb_xgrab(( nLen + 1 ) * sizeof(char));
-      memcpy( pszDest, pStr, nLen * sizeof(char) );
+      memcpy(pszDest, pStr, nLen * sizeof(char));
       pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
@@ -928,7 +928,7 @@ void hwg_strfree(void * hString)
 }
 #endif /* !HB_HAS_STR_FUNC */
 
-#if ! defined(HB_EMULATE_STR_API)
+#if !defined(HB_EMULATE_STR_API)
 
 static int s_iVM_CP = CP_ACP; /* CP_OEMCP */
 
@@ -1054,7 +1054,7 @@ wchar_t * hwg_wstrunshare(void ** phStr, const wchar_t * pStr, HB_SIZE nLen)
    if( *phStr == ( void * ) s_wszConstStr && nLen > 0 )
    {
       wchar_t * pszDest = ( wchar_t * ) hb_xgrab(( nLen + 1 ) * sizeof(wchar_t));
-      memcpy( pszDest, pStr, nLen * sizeof(wchar_t) );
+      memcpy(pszDest, pStr, nLen * sizeof(wchar_t));
       pszDest[nLen] = 0;
       * phStr = ( void * ) pszDest;
 
@@ -1076,7 +1076,7 @@ HB_FUNC( HWG_SETUTF8 )
 {
 #if defined(HB_EMULATE_STR_API)
    s_iVM_CP = CP_UTF8;
-#elif ! defined(__XHARBOUR__)
+#elif !defined(__XHARBOUR__)
    PHB_CODEPAGE cdp = hb_cdpFindExt( "UTF8" );
 
    if( cdp )
@@ -1262,8 +1262,8 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
 
    //with the current font attributes, select the font
    //hFont = f;//GetStockObject(ANSI_VAR_FONT);
-   hFont = ( HFONT ) GetStockObject( ANSI_VAR_FONT );
-   hFontOld = ( HFONT ) SelectObject( hDc, hFont );
+   hFont = (HFONT) GetStockObject(ANSI_VAR_FONT);
+   hFontOld = (HFONT) SelectObject(hDc, hFont);
 
    //get its length, then calculate the average character width
 
@@ -1271,8 +1271,8 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
    avgWidth = ( sz.cx / 52 );
 
    //re-select the previous font & delete the hDc
-   SelectObject( hDc, hFontOld );
-   DeleteObject( hFont );
+   SelectObject(hDc, hFontOld);
+   DeleteObject(hFont);
    ReleaseDC(h, hDc);
 
    return avgWidth;
@@ -1281,7 +1281,7 @@ LONG GetFontDialogUnits( HWND h, HFONT f )
 HB_FUNC( HWG_GETFONTDIALOGUNITS )
 {
    hb_retnl(GetFontDialogUnits( hwg_par_HWND(1),
-               ( HFONT ) HB_PARHANDLE(2) ));
+               (HFONT) HB_PARHANDLE(2) ));
 }
 
 LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
@@ -1291,7 +1291,7 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
    BOOL bPressed;
 
    if( code < 0 )
-      return CallNextHookEx( s_OrigDockHookProc, code, wp, lp );
+      return CallNextHookEx(s_OrigDockHookProc, code, wp, lp);
 
    switch ( code )
    {
@@ -1349,7 +1349,7 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
       default:
          break;
    }
-   return CallNextHookEx( s_OrigDockHookProc, code, wp, lp );
+   return CallNextHookEx(s_OrigDockHookProc, code, wp, lp);
 }
 
 
@@ -1363,7 +1363,7 @@ HB_FUNC( HWG_SETTOOLHANDLE )
 HB_FUNC( HWG_SETHOOK )
 {
    s_OrigDockHookProc =
-         SetWindowsHookEx( WH_KEYBOARD, KbdHook, GetModuleHandle(0), 0 );
+         SetWindowsHookEx(WH_KEYBOARD, KbdHook, GetModuleHandle(0), 0);
 }
 
 
@@ -1371,7 +1371,7 @@ HB_FUNC( HWG_UNSETHOOK )
 {
    if( s_OrigDockHookProc )
    {
-      UnhookWindowsHookEx( s_OrigDockHookProc );
+      UnhookWindowsHookEx(s_OrigDockHookProc);
       s_OrigDockHookProc = 0;
    }
 }
@@ -1473,7 +1473,7 @@ HB_FUNC( HWG_PAINTWINDOW )
    HDC hDC = BeginPaint( hwg_par_HWND(1), pps );
    BOOL fErase = pps->fErase;
    RECT rc = pps->rcPaint;
-   HBRUSH hBrush =   ( HB_ISNIL(2) ) ? ( HBRUSH )
+   HBRUSH hBrush = ( HB_ISNIL(2) ) ? (HBRUSH)
                      ( COLOR_3DFACE +  1 ) : hwg_par_HBRUSH(2);
    if ( fErase == 1 )
      FillRect(hDC, &rc, hBrush);

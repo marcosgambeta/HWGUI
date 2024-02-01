@@ -224,7 +224,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
             IF LEN(rezArray[2]) == 0 .OR. (i := VALTYPE(ATAIL(rezArray[2]))) == "C" ;
-                    .OR. i == "A"
+               .OR. i == "A"
                IF Left(scom, 2) == "LO"
                   AADD(rezArray[2], " "+ALLTRIM(SUBSTR(stroka, 7)))
                ELSEIF Left(scom, 2) == "PR"
@@ -238,7 +238,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
                RETURN .F.
             ENDIF
          CASE (scom == "DO" .AND. UPPER(SUBSTR(stroka, 4, 5)) == "WHILE") ;
-                .OR. scom == "WHILE"
+            .OR. scom == "WHILE"
             AADD(tmpArray, stroka)
             AADD(rezArray[2], .F.)
          CASE scom == "ENDDO"

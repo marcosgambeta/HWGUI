@@ -125,7 +125,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
 
 METHOD Activate() CLASS HGridEx
    IF !Empty(::oParent:handle)
-      ::Style :=  ::Style - WS_BORDER
+      ::Style := ::Style - WS_BORDER
       ::handle := hwg_Listview_create(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll)
       ::Init()
    ENDIF

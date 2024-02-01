@@ -99,7 +99,7 @@ HB_FUNC( HWG_GETUPDATERECT )
 {
    HWND hWnd = hwg_par_HWND(1);
    BOOL fErase;
-   fErase =  GetUpdateRect(hWnd, NULL, 0);
+   fErase = GetUpdateRect(hWnd, NULL, 0);
    hb_retni(fErase);
 }
 
@@ -125,7 +125,7 @@ HB_FUNC( HWG_MOVETO )
 {
    HDC hDC = hwg_par_HDC(1);
    int x1 = hb_parni(2), y1 = hb_parni(3);
-   MoveToEx( hDC, x1, y1, NULL );
+   MoveToEx(hDC, x1, y1, NULL);
 }
 
 HB_FUNC( HWG_LINETO )
@@ -140,7 +140,7 @@ HB_FUNC( HWG_RECTANGLE )
    HDC hDC = hwg_par_HDC(1);
    int x1 = hb_parni(2), y1 = hb_parni(3), x2 = hb_parni(4), y2 =
          hb_parni(5);
-   MoveToEx( hDC, x1, y1, NULL );
+   MoveToEx(hDC, x1, y1, NULL);
    LineTo( hDC, x2, y1 );
    LineTo( hDC, x2, y2 );
    LineTo( hDC, x1, y2 );
@@ -161,7 +161,7 @@ HB_FUNC( HWG_BOX )
 
 HB_FUNC( HWG_DRAWLINE )
 {
-   MoveToEx( hwg_par_HDC(1), hb_parni(2), hb_parni(3), NULL );
+   MoveToEx(hwg_par_HDC(1), hb_parni(2), hb_parni(3), NULL);
    LineTo( hwg_par_HDC(1), hb_parni(4), hb_parni(5) );
 }
 
@@ -264,33 +264,33 @@ HB_FUNC( HWG_DRAWBUTTON )
    rc.bottom = hb_parni(5);
 
    if( iType == 0 )
-      FillRect(hDC, &rc, ( HBRUSH ) ( COLOR_3DFACE + 1 ));
+      FillRect(hDC, &rc, (HBRUSH) ( COLOR_3DFACE + 1 ));
    else
    {
       FillRect(hDC, &rc,
-            ( HBRUSH ) ( ( ( iType & 2 ) ? COLOR_3DSHADOW : COLOR_3DHILIGHT )
+            (HBRUSH) ( ( ( iType & 2 ) ? COLOR_3DSHADOW : COLOR_3DHILIGHT )
                   + 1 ));
       rc.left++;
       rc.top++;
       FillRect(hDC, &rc,
-            ( HBRUSH ) ( ( ( iType & 2 ) ? COLOR_3DHILIGHT : ( iType & 4 ) ?
+            (HBRUSH) ( ( ( iType & 2 ) ? COLOR_3DHILIGHT : ( iType & 4 ) ?
                         COLOR_3DDKSHADOW : COLOR_3DSHADOW ) + 1 ));
       rc.right--;
       rc.bottom--;
       if( iType & 4 )
       {
          FillRect(hDC, &rc,
-               ( HBRUSH ) ( ( ( iType & 2 ) ? COLOR_3DSHADOW : COLOR_3DLIGHT )
+               (HBRUSH) ( ( ( iType & 2 ) ? COLOR_3DSHADOW : COLOR_3DLIGHT )
                      + 1 ));
          rc.left++;
          rc.top++;
          FillRect(hDC, &rc,
-               ( HBRUSH ) ( ( ( iType & 2 ) ? COLOR_3DLIGHT : COLOR_3DSHADOW )
+               (HBRUSH) ( ( ( iType & 2 ) ? COLOR_3DLIGHT : COLOR_3DSHADOW )
                      + 1 ));
          rc.right--;
          rc.bottom--;
       }
-      FillRect(hDC, &rc, ( HBRUSH ) ( COLOR_3DFACE + 1 ));
+      FillRect(hDC, &rc, (HBRUSH) ( COLOR_3DFACE + 1 ));
    }
 }
 
@@ -376,7 +376,7 @@ HB_FUNC( HWG_WINDOW2BITMAP )
    hBitmap =
          CreateCompatibleBitmap( hDC, rc.right - rc.left,
          rc.bottom - rc.top );
-   SelectObject( hDCmem, hBitmap );
+   SelectObject(hDCmem, hBitmap);
 
    BitBlt( hDCmem, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0,
          SRCCOPY );
@@ -401,8 +401,8 @@ HB_FUNC( HWG_DRAWBITMAP )
    int nHeightDest = ( hb_pcount() >= 6 &&
          !HB_ISNIL(7) ) ? hb_parni(7) : 0;
 
-   SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
+   SelectObject(hDCmem, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
    if( nWidthDest && ( nWidthDest != bitmap.bmWidth ||
                nHeightDest != bitmap.bmHeight ) )
    {
@@ -444,12 +444,12 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
    dcImage = CreateCompatibleDC(hDC);
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
-   pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
+   pOldBitmapImage = (HBITMAP) SelectObject(dcImage, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
    // Create the mask bitmap
    bitmapTrans = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc
-   pOldBitmapTrans = ( HBITMAP ) SelectObject( dcTrans, bitmapTrans );
+   pOldBitmapTrans = (HBITMAP) SelectObject(dcTrans, bitmapTrans);
    // Build mask based on transparent colour
    SetBkColor(dcImage, trColor);
    if( nWidthDest && ( nWidthDest != bitmap.bmWidth ||
@@ -486,12 +486,12 @@ HB_FUNC( HWG_DRAWTRANSPARENTBITMAP )
      TransparentBmp( hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor );
    }
    // Restore settings
-   SelectObject( dcImage, pOldBitmapImage );
-   SelectObject( dcTrans, pOldBitmapTrans );
+   SelectObject(dcImage, pOldBitmapImage);
+   SelectObject(dcTrans, pOldBitmapTrans);
    SetBkColor(hDC, crOldBack);
    SetTextColor(hDC, crOldText);
 
-   DeleteObject( bitmapTrans );
+   DeleteObject(bitmapTrans);
    DeleteDC(dcImage);
    DeleteDC(dcTrans);
 }
@@ -508,8 +508,8 @@ HB_FUNC( HWG_SPREADBITMAP )
    BITMAP bitmap;
    RECT rc;
 
-   SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
+   SelectObject(hDCmem, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
    GetClientRect(hwg_par_HWND(2), &rc);
 
    while( rc.top < rc.bottom )
@@ -540,11 +540,11 @@ HB_FUNC( HWG_CENTERBITMAP )
    BITMAP bitmap;
    RECT rc;
    HBRUSH hBrush =
-         ( HB_ISNIL(5) ) ? ( HBRUSH ) ( COLOR_WINDOW +
+         ( HB_ISNIL(5) ) ? (HBRUSH) ( COLOR_WINDOW +
          1 ) : hwg_par_HBRUSH(5);
 
-   SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
+   SelectObject(hDCmem, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
    GetClientRect(hwg_par_HWND(2), &rc);
 
    FillRect(hDC, &rc, hBrush);
@@ -563,8 +563,8 @@ HB_FUNC( HWG_GETBITMAPSIZE )
    PHB_ITEM temp;
    int nret;
 
-   nret = GetObject( hwg_par_HBITMAP(1), sizeof(BITMAP),
-         ( LPVOID ) &bitmap );
+   nret = GetObject(hwg_par_HBITMAP(1), sizeof(BITMAP),
+         (LPVOID) &bitmap);
 
    temp = hb_itemPutNL(NULL, bitmap.bmWidth);
    hb_itemArrayPut(aMetr, 1, temp);
@@ -750,14 +750,14 @@ HB_FUNC( HWG_CREATEHATCHBRUSH )
 
 HB_FUNC( HWG_SELECTOBJECT )
 {
-   HB_RETHANDLE(SelectObject( hwg_par_HDC(1),       // handle of device context
-               ( HGDIOBJ ) HB_PARHANDLE(2)    // handle of object
+   HB_RETHANDLE(SelectObject(hwg_par_HDC(1),       // handle of device context
+               (HGDIOBJ) HB_PARHANDLE(2)    // handle of object
           ));
 }
 
 HB_FUNC( HWG_DELETEOBJECT )
 {
-   DeleteObject( ( HGDIOBJ ) HB_PARHANDLE(1)  // handle of object
+   DeleteObject((HGDIOBJ) HB_PARHANDLE(1)  // handle of object
           );
 }
 
@@ -840,12 +840,12 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    dcImage = CreateCompatibleDC(hDC);
    dcTrans = CreateCompatibleDC(hDC);
    // Select the image into the appropriate dc
-   pOldBitmapImage = ( HBITMAP ) SelectObject( dcImage, hBitmap );
-   GetObject( hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap );
+   pOldBitmapImage = (HBITMAP) SelectObject(dcImage, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
    // Create the mask bitmap
    bitmapgray = CreateBitmap( bitmap.bmWidth, bitmap.bmHeight, 1, 1, NULL );
    // Select the mask bitmap into the appropriate dc
-   pOldbitmapgray = ( HBITMAP ) SelectObject( dcTrans, bitmapgray );
+   pOldbitmapgray = (HBITMAP) SelectObject(dcTrans, bitmapgray);
    // Build mask based on transparent colour
    SetBkColor(dcImage, RGB(255, 255, 255));
    BitBlt( dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
@@ -858,12 +858,12 @@ HB_FUNC( HWG_DRAWGRAYBITMAP )
    BitBlt( hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
          SRCINVERT );
    // Restore settings
-   SelectObject( dcImage, pOldBitmapImage );
-   SelectObject( dcTrans, pOldbitmapgray );
+   SelectObject(dcImage, pOldBitmapImage);
+   SelectObject(dcTrans, pOldbitmapgray);
    SetBkColor(hDC, GetPixel(hDC, 0, 0));
    SetTextColor(hDC, 0);
 
-   DeleteObject( bitmapgray );
+   DeleteObject(bitmapgray);
    DeleteDC(dcImage);
    DeleteDC(dcTrans);
 }
@@ -893,7 +893,7 @@ HB_FUNC( HWG_OPENIMAGE )
          HB_RETHANDLE(0);
          return;
       }
-      memcpy( ( void * ) hG, ( void * ) cFileName, iFileSize );
+      memcpy(( void * ) hG, ( void * ) cFileName, iFileSize);
    }
    else
    {
@@ -992,7 +992,7 @@ HB_FUNC( HWG_SETWINDOWORGEX )
 {
    HDC hDC = hwg_par_HDC(1);
 
-   SetWindowOrgEx( hDC, hb_parni(2), hb_parni(3), NULL );
+   SetWindowOrgEx(hDC, hb_parni(2), hb_parni(3), NULL);
    hb_stornl(0, 4);
 }
 
@@ -1000,7 +1000,7 @@ HB_FUNC( HWG_SETWINDOWEXTEX )
 {
    HDC hDC = hwg_par_HDC(1);
 
-   SetWindowExtEx( hDC, hb_parni(2), hb_parni(3), NULL );
+   SetWindowExtEx(hDC, hb_parni(2), hb_parni(3), NULL);
    hb_stornl(0, 4);
 }
 
@@ -1008,7 +1008,7 @@ HB_FUNC( HWG_SETVIEWPORTORGEX )
 {
    HDC hDC = hwg_par_HDC(1);
 
-   SetViewportOrgEx( hDC, hb_parni(2), hb_parni(3), NULL );
+   SetViewportOrgEx(hDC, hb_parni(2), hb_parni(3), NULL);
    hb_stornl(0, 4);
 }
 
@@ -1016,7 +1016,7 @@ HB_FUNC( HWG_SETVIEWPORTEXTEX )
 {
    HDC hDC = hwg_par_HDC(1);
 
-   SetViewportExtEx( hDC, hb_parni(2), hb_parni(3), NULL );
+   SetViewportExtEx(hDC, hb_parni(2), hb_parni(3), NULL);
    hb_stornl(0, 4);
 }
 
@@ -1195,7 +1195,7 @@ HB_FUNC( HWG_MODIFYSTYLE )
 /*
 HB_FUNC( HWG_PTRRECT2ARRAY )
 {
-   RECT *rect =   (RECT *) HB_PARHANDLE(1);
+   RECT *rect = (RECT *) HB_PARHANDLE(1);
    hb_itemRelease(hb_itemReturn(Rect2Array(&rect)));
 } 
 */

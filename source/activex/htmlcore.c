@@ -121,8 +121,8 @@ HRESULT STDMETHODCALLTYPE Frame_RequestBorderSpace(IOleInPlaceFrame *,
       LPCBORDERWIDTHS);
 HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame *,
       LPCBORDERWIDTHS);
-HRESULT STDMETHODCALLTYPE Frame_SetActiveObject( IOleInPlaceFrame *,
-      IOleInPlaceActiveObject *, LPCOLESTR );
+HRESULT STDMETHODCALLTYPE Frame_SetActiveObject(IOleInPlaceFrame *,
+      IOleInPlaceActiveObject *, LPCOLESTR);
 HRESULT STDMETHODCALLTYPE Frame_InsertMenus( IOleInPlaceFrame *, HMENU,
       LPOLEMENUGROUPWIDTHS );
 HRESULT STDMETHODCALLTYPE Frame_SetMenu( IOleInPlaceFrame *, HMENU, HOLEMENU,
@@ -197,12 +197,12 @@ HRESULT STDMETHODCALLTYPE Site_QueryInterface(IOleClientSite *, REFIID,
       void **);
 ULONG STDMETHODCALLTYPE Site_AddRef( IOleClientSite * );
 ULONG STDMETHODCALLTYPE Site_Release(IOleClientSite *);
-HRESULT STDMETHODCALLTYPE Site_SaveObject( IOleClientSite * );
+HRESULT STDMETHODCALLTYPE Site_SaveObject(IOleClientSite *);
 HRESULT STDMETHODCALLTYPE Site_GetMoniker( IOleClientSite *, DWORD, DWORD,
       IMoniker ** );
 HRESULT STDMETHODCALLTYPE Site_GetContainer( IOleClientSite *,
       LPOLECONTAINER * );
-HRESULT STDMETHODCALLTYPE Site_ShowObject( IOleClientSite * );
+HRESULT STDMETHODCALLTYPE Site_ShowObject(IOleClientSite *);
 HRESULT STDMETHODCALLTYPE Site_OnShowWindow( IOleClientSite *, BOOL );
 HRESULT STDMETHODCALLTYPE Site_RequestNewObjectLayout( IOleClientSite * );
 
@@ -254,8 +254,8 @@ HRESULT STDMETHODCALLTYPE UI_GetDropTarget(IDocHostUIHandler *,
 HRESULT STDMETHODCALLTYPE UI_GetExternal(IDocHostUIHandler *, IDispatch **);
 HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler *, DWORD,
       OLECHAR *, OLECHAR **);
-HRESULT STDMETHODCALLTYPE UI_FilterDataObject( IDocHostUIHandler *,
-      IDataObject *, IDataObject ** );
+HRESULT STDMETHODCALLTYPE UI_FilterDataObject(IDocHostUIHandler *,
+      IDataObject *, IDataObject **);
 
 // Our IDocHostUIHandler VTable. This is the array of pointers to the above functions in our C
 // program that the browser may call in order to replace/set certain user interface considerations
@@ -846,8 +846,8 @@ HRESULT STDMETHODCALLTYPE UI_TranslateUrl(IDocHostUIHandler * This,
 
 // Called by the browser when it does cut/paste to the clipboard. This allows us to block certain clipboard
 // formats or support additional clipboard formats.
-HRESULT STDMETHODCALLTYPE UI_FilterDataObject( IDocHostUIHandler * This,
-      IDataObject * pDO, IDataObject ** ppDORet )
+HRESULT STDMETHODCALLTYPE UI_FilterDataObject(IDocHostUIHandler * This,
+      IDataObject * pDO, IDataObject ** ppDORet)
 {
    ( void ) This;
    ( void ) pDO;
@@ -988,7 +988,7 @@ ULONG STDMETHODCALLTYPE Site_Release(IOleClientSite * This)
    return (1);
 }
 
-HRESULT STDMETHODCALLTYPE Site_SaveObject( IOleClientSite * This )
+HRESULT STDMETHODCALLTYPE Site_SaveObject(IOleClientSite * This)
 {
    ( void ) This;
    NOTIMPLEMENTED;
@@ -1014,7 +1014,7 @@ HRESULT STDMETHODCALLTYPE Site_GetContainer( IOleClientSite * This,
    return ( E_NOINTERFACE );
 }
 
-HRESULT STDMETHODCALLTYPE Site_ShowObject( IOleClientSite * This )
+HRESULT STDMETHODCALLTYPE Site_ShowObject(IOleClientSite * This)
 {
    ( void ) This;
    return ( NOERROR );
@@ -1292,8 +1292,8 @@ HRESULT STDMETHODCALLTYPE Frame_SetBorderSpace(IOleInPlaceFrame * This,
    NOTIMPLEMENTED;
 }
 
-HRESULT STDMETHODCALLTYPE Frame_SetActiveObject( IOleInPlaceFrame * This,
-      IOleInPlaceActiveObject * pActiveObject, LPCOLESTR pszObjName )
+HRESULT STDMETHODCALLTYPE Frame_SetActiveObject(IOleInPlaceFrame * This,
+      IOleInPlaceActiveObject * pActiveObject, LPCOLESTR pszObjName)
 {
    ( void ) This;
    ( void ) pActiveObject;
@@ -2170,7 +2170,7 @@ HRESULT WINAPI WaitOnReadyState(HWND hwnd, READYSTATE rs, DWORD timeout,
  * with a HWND that wasn't successfully passed to EmbedBrowserObject().
  */
 
-void WINAPI UnEmbedBrowserObject( HWND hwnd )
+void WINAPI UnEmbedBrowserObject(HWND hwnd)
 {
    IOleObject **browserHandle;
    IOleObject *browserObject;
@@ -2535,7 +2535,7 @@ void WINAPI ResizeBrowser( HWND hwnd, DWORD width, DWORD height )
  * call our functions in our struct's VTable.
  */
 
-long WINAPI EmbedBrowserObject( HWND hwnd )
+long WINAPI EmbedBrowserObject(HWND hwnd)
 {
    IOleObject *browserObject;
    IWebBrowser2 *webBrowser2;

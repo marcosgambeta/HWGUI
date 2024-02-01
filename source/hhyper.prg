@@ -195,7 +195,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
      hwg_Invalidaterect(::handle, 0)
      hwg_Redrawwindow(::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight)
 
-   ELSEIF msg =  WM_MOUSEHOVER
+   ELSEIF msg = WM_MOUSEHOVER
    ELSEIF msg == WM_SETCURSOR
       ::OnSetCursor(msg, wParam, lParam)
 
@@ -398,8 +398,8 @@ METHOD PAint(lpDis) CLASS HStaticLink
       ELSE
          hwg_Drawbitmap(dc, ::hbitmap, , bmpRect[1], bmpRect[2] + 1)
       ENDIF
-      rcclient[1] +=  IIF(::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1)
-      rcclient[2] +=  2
+      rcclient[1] += IIF(::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1)
+      rcclient[2] += 2
    ELSEIF Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       rcclient[1] += 3
       rcclient[2] += 1

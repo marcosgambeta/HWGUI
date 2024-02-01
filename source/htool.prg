@@ -174,14 +174,14 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
 
    ::lTransp := IIF(lTransp != NIL, lTransp, .F.)
    ::lVertical := IIF(lVertical != NIL .AND. VALTYPE(lVertical) = "L", lVertical, ::lVertical)
-   IF ::lTransp  .OR. ::lVertical
+   IF ::lTransp .OR. ::lVertical
       nStyle += IIF(::lTransp, TBSTYLE_TRANSPARENT, IIF(::lVertical, CCS_VERT, 0))
    ENDIF
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::BtnWidth :=  BtnWidth //!= Nil, BtnWidth, 32 )
+   ::BtnWidth := BtnWidth //!= Nil, BtnWidth, 32 )
    ::nIDB := nIDB
    ::aItem := aItem
    ::nIndent := IIF(nIndent != NIL, nIndent, 1)
@@ -433,7 +433,7 @@ METHOD CREATETOOL() CLASS hToolBar
 
 METHOD Notify(lParam) CLASS hToolBar
 
-   LOCAL nCode :=  hwg_Getnotifycode(lParam)
+   LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL nId
 
    LOCAL nButton
@@ -488,7 +488,7 @@ METHOD AddButton(nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nI
       DEFAULT cName to "oToolButton" + LTRIM(STR(LEN(::aButtons) + 1))
       AAdd(::aButtons,{ Alltrim(cName), nid })
    ELSE
-      bstate :=  IIF(!(::lVertical .AND. LEN(::aButtons) = 0), bState, 8) //TBSTATE_HIDE
+      bstate := IIF(!(::lVertical .AND. LEN(::aButtons) = 0), bState, 8) //TBSTATE_HIDE
       DEFAULT nBitIp to 0
       DEFAULT cName to "oSeparator"+LTRIM(STR(LEN(::aSeparators) + 1))
       AAdd(::aSeparators,{ cName, nid })
@@ -514,9 +514,9 @@ METHOD RESIZE(xIncrSize, lWidth, lHeight) CLASS hToolBar
       ::Move(::nLeft, ::nTop, ::nWidth, ::nHeight, 0)
    ENDIF
    IF xIncrSize < 1 .OR. hwg_Loword(nSize) <= ::BtnWidth
-      ::BtnWidth :=  ::BtnWidth  * xIncrSize
+      ::BtnWidth := ::BtnWidth  * xIncrSize
    ELSE
-      ::BtnWidth :=  hwg_Loword(nSize) * xIncrSize
+      ::BtnWidth := hwg_Loword(nSize) * xIncrSize
    ENDIF
    hwg_Sendmessage(::Handle, TB_SETBUTTONWIDTH, hwg_Makelparam(::BtnWidth - 1, ::BtnWidth + 1))
    IF ::BtnWidth != Nil

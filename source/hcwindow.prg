@@ -239,7 +239,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
       ENDIF
    ENDIF
 
-   IF (i := AScan( aCustomEvents[EVENTS_MESSAGES], msg )) != 0
+   IF (i := AScan(aCustomEvents[EVENTS_MESSAGES], msg)) != 0
       RETURN Eval(aCustomEvents[EVENTS_ACTIONS, i], Self, wParam, lParam)
 
    ELSEIF ::bOther != NIL
@@ -276,10 +276,10 @@ METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
-         oCtrlTmp :=  oCtrl:aControls[i]
-         lRefresh :=  !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
-         IF ((oCtrlTmp:Handle != hCtrl .OR. LEN(oCtrlTmp:aControls) = 0) .OR.  lAll) .AND. ;
-            (!oCtrlTmp:lHide .OR.  __ObjHasMsg(oCtrlTmp, "BSETGET")) 
+         oCtrlTmp := oCtrl:aControls[i]
+         lRefresh := !Empty(__ObjHasMethod(oCtrlTmp, "REFRESH"))
+         IF ((oCtrlTmp:Handle != hCtrl .OR. LEN(oCtrlTmp:aControls) = 0) .OR. lAll) .AND. ;
+            (!oCtrlTmp:lHide .OR. __ObjHasMsg(oCtrlTmp, "BSETGET"))
   	        IF LEN(oCtrlTmp:aControls) > 0
   	            ::Refresh(lAll, oCtrlTmp)
 		        ELSEIF  !Empty(lRefresh) .AND. (lAll .OR. ASCAN(::GetList, {|o|o:Handle == oCtrlTmp:handle}) > 0)
@@ -287,7 +287,7 @@ METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
                IF oCtrlTmp:bRefresh != Nil  
                   EVAL(oCtrlTmp:bRefresh, oCtrlTmp)
                ENDIF   
-            ELSEIF  hwg_Iswindowenabled(oCtrlTmp:Handle) .AND. !oCtrlTmp:lHide .AND.  !lRefresh
+            ELSEIF  hwg_Iswindowenabled(oCtrlTmp:Handle) .AND. !oCtrlTmp:lHide .AND. !lRefresh
                oCtrlTmp:SHOW(SW_SHOWNOACTIVATE)
 				    ENDIF  
          ENDIF
@@ -383,7 +383,7 @@ STATIC FUNCTION onNotify(oWnd, wParam, lParam)
       NEXT
    ENDIF
 
-   IF oCtrl != NIL  .AND. VALTYPE(oCtrl) != "N"
+   IF oCtrl != NIL .AND. VALTYPE(oCtrl) != "N"
 
       IF __ObjHasMsg(oCtrl, "NOTIFY")
          RETURN oCtrl:Notify(lParam)
@@ -434,7 +434,7 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
          hwg_Setbkmode(wParam, TRANSPARENT)
          hwg_Setbkcolor(wParam, oCtrl:DisablebColor)
          RETURN oCtrl:disablebrush:handle
-      ELSEIF oCtrl:bcolor != NIL  .AND. oCtrl:BackStyle = OPAQUE
+      ELSEIF oCtrl:bcolor != NIL .AND. oCtrl:BackStyle = OPAQUE
          hwg_Setbkcolor(wParam, oCtrl:bcolor)
          IF oCtrl:brush != Nil
             RETURN oCtrl:brush:handle
@@ -442,11 +442,11 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
             RETURN oCtrl:oParent:brush:handle
          ENDIF
       ELSEIF oCtrl:BackStyle = TRANSPARENT
-         IF  __ObjHasMsg(oCtrl, "PAINT") .OR. oCtrl:lnoThemes .OR. (oCtrl:winClass == "BUTTON"  .AND. oCtrl:classname != "HCHECKBUTTON")
+         IF  __ObjHasMsg(oCtrl, "PAINT") .OR. oCtrl:lnoThemes .OR. (oCtrl:winClass == "BUTTON" .AND. oCtrl:classname != "HCHECKBUTTON")
             RETURN hwg_Getstockobject(NULL_BRUSH)
          ENDIF
          RETURN hwg_GetBackColorParent(oCtrl, , .T.):handle
-      ELSEIF oCtrl:winClass == "BUTTON"  .AND. (hwg_Isthemeactive() .AND. oCtrl:WindowsManifest)
+      ELSEIF oCtrl:winClass == "BUTTON" .AND. (hwg_Isthemeactive() .AND. oCtrl:WindowsManifest)
          RETURN hwg_GetBackColorParent(oCtrl, , .T.):handle
       ENDIF
    ENDIF
@@ -456,7 +456,7 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
 STATIC FUNCTION onDrawItem(oWnd, wParam, lParam)
    LOCAL oCtrl
    IF !EMPTY(wParam) .AND. (oCtrl := oWnd:FindControl(wParam)) != NIL .AND. ;
-                 VALTYPE(oCtrl) != "N"  .AND. oCtrl:bPaint != NIL
+                 VALTYPE(oCtrl) != "N" .AND. oCtrl:bPaint != NIL
       Eval(oCtrl:bPaint, oCtrl, lParam)
       RETURN 1
 
@@ -510,7 +510,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
       oWnd:SetupScrollbars()
    ENDIF
    IF  wParam != 1 .AND. nWindowState != 2
-      IF !EMPTY(oWnd:Type) .AND. oWnd:Type = WND_MDI  .AND. !EMPTY(oWnd:Screen)
+      IF !EMPTY(oWnd:Type) .AND. oWnd:Type = WND_MDI .AND. !EMPTY(oWnd:Screen)
          oWnd:Anchor(oWnd:Screen, nw1, nh1, oWnd:nWidth, oWnd:nHeight)
       ENDIF
       IF !EMPTY(oWnd:Type)
@@ -537,7 +537,7 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
             RETURN 0
          ENDIF
       ELSEIF msg == TB_THUMBTRACK .OR. ;
-         msg == TB_PAGEUP     .OR. ;
+         msg == TB_PAGEUP .OR. ;
          msg == TB_PAGEDOWN
 
          IF __ObjHasMsg(oCtrl, "BTHUMBDRAG") .AND. ISBLOCK(oCtrl:bThumbDrag)

@@ -239,7 +239,7 @@ METHOD Checked(lChecked) CLASS HTreeNode
       hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_CHECK, IIF(lChecked, 2, 1))
       ::lChecked := lChecked
    ELSE
-      state =  hwg_Sendmessage(::oTree:handle, TVM_GETITEMSTATE, ::handle,, TVIS_STATEIMAGEMASK) - 1
+      state = hwg_Sendmessage(::oTree:handle, TVM_GETITEMSTATE, ::handle,, TVIS_STATEIMAGEMASK) - 1
       ::lChecked := int(state/4092) = 2
    ENDIF
    RETURN ::lChecked
@@ -315,16 +315,16 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize,,, color, bcolor)
 
-   ::lEditLabels :=  lEditLabels
-   ::lCheckBox   :=  lCheckBox
-   ::lDragDrop   :=  lDragDrop
+   ::lEditLabels := lEditLabels
+   ::lCheckBox   := lCheckBox
+   ::lDragDrop   := lDragDrop
 
    ::title   := ""
    ::Type    := IIf(lResour == Nil, .F., lResour)
    ::bAction := bAction
    ::bRClick := bRClick
    ::bDblClick := bDblClick
-   ::bCheck  :=  bCheck
+   ::bCheck  := bCheck
    ::bDrag   := bDrag
    ::bDrop   := bDrop
    ::bOther  := bOther
@@ -423,7 +423,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
       hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_DROPHILITE, Nil)
 
       IF ::bDrag != Nil
-         nEval :=  Eval(::bDrag, Self, ::hitemDrag, ::hitemDrop)
+         nEval := Eval(::bDrag, Self, ::hitemDrag, ::hitemDrop)
          nEval := IIF(VALTYPE(nEval) = "L", nEval, .T.)
          IF !nEval
             RETURN 0
@@ -584,12 +584,12 @@ METHOD Notify(lParam)  CLASS HTree
       ::oParent:AddEvent(0, IDCANCEL, {||hwg_Sendmessage(::handle, TVM_ENDEDITLABELNOW, 1, 0)})
       hwg_Sendmessage(::hTreeEdit, WM_KEYDOWN, VK_END, 0)
 
-   ELSEIF nCode == TVN_ENDLABELEDIT  .OR. nCode == TVN_ENDLABELEDITW
+   ELSEIF nCode == TVN_ENDLABELEDIT .OR. nCode == TVN_ENDLABELEDITW
       ::hTreeEdit := Nil
       IF !Empty(cText := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDIT))
          oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
          IF ValType(oItem) == "O"
-            IF !cText ==  oItem:GetText()  .AND. ;
+            IF !cText == oItem:GetText() .AND. ;
                (oItem:oTree:bItemChange == Nil .OR. Eval(oItem:oTree:bItemChange, oItem, cText))
                hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
             ENDIF
@@ -617,8 +617,8 @@ METHOD Notify(lParam)  CLASS HTree
       ENDIF
 
 	 ELSEIF nCode = NM_CLICK  //.AND. ::oitem != Nil // .AND. !::lEditLabels
-	    nHitem :=  hwg_Treegetnotify(lParam, 1)
-	    //nHitem :=  hwg_Getnotifycode(lParam)
+	    nHitem := hwg_Treegetnotify(lParam, 1)
+	    //nHitem := hwg_Getnotifycode(lParam)
 	    oItem  := hwg_Treehittest(::handle,,, @nAct)
 	    IF nAct = TVHT_ONITEMSTATEICON
 	       IF ::oItem == Nil .OR. oItem:Handle != ::oitem:Handle 
@@ -680,7 +680,7 @@ METHOD Selecteds(oItem, aSels)  CLASS HTree
    LOCAL aSelecteds := IIF(aSels = Nil, {}, aSels)
    
    oItem := IIF(oItem = Nil, Self, oItem)
-   iLen :=  Len(oItem:aitems)
+   iLen := Len(oItem:aitems)
    
    FOR i := 1 TO iLen
       IF oItem:aItems[i]:checked

@@ -109,7 +109,7 @@ FUNCTION hwg_FindSelf(hCtrl)
    IF oParent == Nil
       oParent := hwg_Getancestor(hCtrl, GA_PARENT)
    ENDIF
-   IF oParent != Nil  .AND. VALTYPE(oParent) != "N"
+   IF oParent != Nil .AND. VALTYPE(oParent) != "N"
       RETURN oParent:FindControl(, hCtrl)
    ENDIF
    RETURN Nil
@@ -377,8 +377,8 @@ FUNCTION hwg_EndWindow()
 FUNCTION hwg_HdSerial(cDrive)
 
 
-   LOCAL n       :=  hwg_HDGETSERIAL(cDrive)
-   LOCAL cHex    :=  HB_NUMTOHEX(n)
+   LOCAL n       := hwg_HDGETSERIAL(cDrive)
+   LOCAL cHex    := HB_NUMTOHEX(n)
    LOCAL cResult
    cResult := SubStr(cHex, 1, 4) + '-' + SubStr(cHex, 5, 4)
 
@@ -524,7 +524,7 @@ FUNCTION hwg_CheckFocus(oCtrl, lInside)
       RETURN .F.
    ENDIF
    IF oParent  != Nil .AND. lInside   // valid
-      lModal :=  oParent:lModal .AND.  oParent:Type >  WND_DLG_RESOURCE
+      lModal := oParent:lModal .AND. oParent:Type >  WND_DLG_RESOURCE
 
       IF ((!Empty(hGetFocus) .AND. lModal .AND. ;
          !hwg_Selffocus(hwg_GetWindowParent(hGetFocus), hwg_Ptrtoulong(oParent:Handle))) .OR. ;
@@ -563,7 +563,7 @@ LOCAL oParent, nCtrl, nPos
    IF (wParam = VK_RETURN .OR. wParam = VK_ESCAPE) .AND. hwg_ProcOkCancel(oCtrl, wParam)
       RETURN .F.
    ENDIF
-   IF wParam != VK_SHIFT  .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
+   IF wParam != VK_SHIFT .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
       oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm(oCtrl))
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
          nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ))
@@ -586,7 +586,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
 
    lForce := !Empty(lForce)
    lEscape := nKey = VK_ESCAPE .AND. (oCtrl := oWin:FindControl(IDCANCEL)) != Nil .AND. !oCtrl:IsEnabled()
-   IF ((oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. !lForce .AND. !lEscape)  .OR. (nKey != VK_RETURN .AND. nKey != VK_ESCAPE)
+   IF ((oWin:Type >= WND_DLG_RESOURCE .AND. oWin:lModal) .AND. !lForce .AND. !lEscape) .OR. (nKey != VK_RETURN .AND. nKey != VK_ESCAPE)
       Return .F.
 	 ENDIF
    IF iParHigh == IDOK
@@ -610,7 +610,7 @@ FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
          hwg_Sendmessage(oCtrl:oParent:handle, WM_COMMAND, hwg_Makewparam(oCtrl:id, BN_CLICKED), oCtrl:handle)
       ELSEIF oWin:lGetSkiponEsc
          oCtrl := oCtrlFocu
-         IF oCtrl  != Nil .AND.  __ObjHasMsg(oCtrl, "OGROUP")  .AND. oCtrl:oGroup:oHGroup != Nil
+         IF oCtrl  != Nil .AND. __ObjHasMsg(oCtrl, "OGROUP") .AND. oCtrl:oGroup:oHGroup != Nil
              oCtrl := oCtrl:oGroup:oHGroup
          ENDIF
          IF oCtrl  != Nil .AND. hwg_GetSkip(oCtrl:oParent, oCtrl:Handle, , -1)
@@ -648,7 +648,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
 	   ENDIF
      IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
          !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
-        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND.  Upper(Chr(lParam)) ==  Upper(SubStr(oCtrl:aControls[i]:title, ++ pos, 1))
+        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(lParam)) == Upper(SubStr(oCtrl:aControls[i]:title, ++ pos, 1))
            RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF

@@ -190,7 +190,7 @@ HB_FUNC( HWG_REGNICE )
 
       wc.style = CS_HREDRAW | CS_VREDRAW | CS_GLOBALCLASS;
       wc.hInstance = GetModuleHandle(0);
-      wc.hbrBackground = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+      wc.hbrBackground = (HBRUSH) ( COLOR_BTNFACE + 1 );
       wc.lpszClassName = s_szAppName;
       wc.lpfnWndProc = NiceButtProc;
       wc.cbClsExtra = 0;
@@ -211,14 +211,14 @@ HB_FUNC( HWG_CREATENICEBTN )
    ULONG ulStyle = HB_ISNUM(3) ? hb_parnl(3) : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
    void * hTitle;
 
-   hWndPanel = CreateWindowEx( hb_parni(8), TEXT("NICEBUTT"), /* predefined class  */
+   hWndPanel = CreateWindowEx(hb_parni(8), TEXT("NICEBUTT"), /* predefined class  */
          HB_PARSTR(9, &hTitle, NULL),   /* no window title   */
          WS_CHILD | WS_VISIBLE | ulStyle, /* style  */
          hb_parni(4), hb_parni(5),  /* x, y       */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
-         ( HMENU ) hb_parni(2),       /* control ID  */
-         GetModuleHandle(NULL), NULL );
+         (HMENU) hb_parni(2),       /* control ID  */
+         GetModuleHandle(NULL), NULL);
    hb_strfree(hTitle);
 
    HB_RETHANDLE(hWndPanel);
@@ -256,9 +256,9 @@ HB_FUNC( HWG_GRADIENT )
 
    Gradient( hwg_par_HDC(1), hb_parni(2), hb_parni(3),
             hb_parni(4), hb_parni(5),
-           ( hb_pcount() > 5 && ! HB_ISNIL(6) ) ? hb_parni(6): 16777215  ,
-           ( hb_pcount() > 6 && ! HB_ISNIL(7) ) ? hb_parni(7): 16777215  ,
-           ( hb_pcount() > 7 && ! HB_ISNIL(8) ) ? hb_parni(8): 0 );
+           ( hb_pcount() > 5 && !HB_ISNIL(6) ) ? hb_parni(6): 16777215  ,
+           ( hb_pcount() > 6 && !HB_ISNIL(7) ) ? hb_parni(7): 16777215  ,
+           ( hb_pcount() > 7 && !HB_ISNIL(8) ) ? hb_parni(8): 0 );
 }
 
 HB_FUNC( HWG_MAKELONG )

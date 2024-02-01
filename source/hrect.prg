@@ -320,7 +320,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize,;
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainer  //, bClick, bDblClick)
 
-   ::lTABSTOP :=  nStyle = WS_TABSTOP
+   ::lTABSTOP := nStyle = WS_TABSTOP
    ::bPaint   := {|o, p|o:paint(p)}
    nStyle := SS_OWNERDRAW + IIF(nStyle = WS_TABSTOP, WS_TABSTOP, 0) + Hwg_Bitand(nStyle, SS_NOTIFY)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;

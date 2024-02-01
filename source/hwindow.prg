@@ -198,7 +198,7 @@ METHOD AddItem(oWnd) CLASS HWindow
 
 METHOD DelItem(oWnd) CLASS HWindow
    LOCAL i, h := oWnd:handle
-   IF ( i := AScan( ::aWindows, {|o|o:handle == h} ) ) > 0
+   IF ( i := AScan(::aWindows, {|o|o:handle == h}) ) > 0
       ADel(::aWindows, i)
       ASize(::aWindows, Len(::aWindows) - 1)
    ENDIF
@@ -208,9 +208,9 @@ METHOD FindWindow( hWndTitle ) CLASS HWindow
    LOCAL cType := VALTYPE(hWndTitle), i
 
    IF cType != "C"
-      i := AScan( ::aWindows, {|o|hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle)} )
+      i := AScan(::aWindows, {|o|hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle)})
    ELSE
-      i := AScan( ::aWindows, {|o|VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle} )
+      i := AScan(::aWindows, {|o|VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle})
    ENDIF
    RETURN IIf(i == 0, Nil, ::aWindows[i])
 
@@ -321,7 +321,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
    DEFAULT lMinimized := .F.
    lCentered  := ( !lMaximized .AND. !EMPTY(lCentered) .AND. lCentered ) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
    DEFAULT lShow := .T.
-   hwg_CreateGetList( Self )
+   hwg_CreateGetList(Self)
    AEVAL(::aControls, {|o|o:lInit := .F.})
 
    IF ::Type == WND_MDI
@@ -352,7 +352,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
          ::Screen:Activate(.T., .T.)
       ENDIF
 
-      hwg_InitControls( Self )
+      hwg_InitControls(Self)
       IF ::bInit != Nil
          lres := Eval(::bInit, Self)
          IF ValType(lres) = "L" .AND. !lres
@@ -439,7 +439,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
       // PROCESS ACCELERATOR IN CONTROLS
       RETURN onSysCommand(Self, SC_KEYMENU, hwg_Loword(wParam))
    ELSEIF msg = WM_PAINT .AND. ::Type == WND_MAIN
-      RETURN ::Paint( self )
+      RETURN ::Paint(self)
    ENDIF
    // added control MDICHILD MODAL
    IF msg = WM_PARENTNOTIFY
@@ -465,7 +465,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMainWindow
    ELSEIF msg = WM_SETFOCUS .AND. !Empty(nFocus) .AND. !hwg_Selffocus( nFocus )
       hwg_Setfocus( nFocus )
    ENDIF
-   IF ( i := Ascan( ::aMessages[1], msg ) ) != 0 .AND. ;
+   IF ( i := Ascan(::aMessages[1], msg) ) != 0 .AND. ;
        ( !::lSuspendMsgsHandling .OR. msg = WM_ERASEBKGND .OR. msg = WM_SIZE )
       Return Eval(::aMessages[2, i], Self, wParam, lParam)
    ELSE
@@ -534,14 +534,14 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    DEFAULT lShow := .T.
    lMinimized := !EMPTY(lMinimized) .AND. lMinimized .AND. Hwg_BitAnd(::style, WS_MINIMIZE) != 0
    lMaximized := !EMPTY(lMaximized) .AND. lMaximized .AND. ;
-                 ( Hwg_BitAnd(::style, WS_MAXIMIZE) != 0 .OR.  Hwg_BitAnd(::style, WS_SIZEBOX) != 0 )
+                 ( Hwg_BitAnd(::style, WS_MAXIMIZE) != 0 .OR. Hwg_BitAnd(::style, WS_SIZEBOX) != 0 )
    lCentered  := ( !lMaximized .AND. !EMPTY(lCentered) .AND. lCentered ) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
    ::lModal   := !EMPTY(lModal) .AND. lModal
    ::lChild   := ::lModal .OR. ::lChild .OR. ::minWidth  > -1 .OR. ::maxWidth  > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
    ::lSizeBox := Hwg_BitAnd(::style, WS_SIZEBOX) != 0
    ::WindowState := IIF(lMinimized, SW_SHOWMINIMIZED, IIF(lMaximized, SW_SHOWMAXIMIZED, IIF(lShow, SW_SHOWNORMAL, 0)))
 
-   hwg_CreateGetList( Self )
+   hwg_CreateGetList(Self)
 
    ::Type := WND_MDICHILD
    ::rect := hwg_Getwindowrect(::handle)
@@ -555,13 +555,13 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    ::aRectSave := { ::nLeft, ::nTop, ::nwidth, ::nHeight }
    IF Hwg_BitAND(::Style, DS_3DLOOK) > 0
        *- efect  border 3d in mdichilds with no sizebox
-      ::Style -=  DS_3DLOOK
+      ::Style -= DS_3DLOOK
       l3d := .T.
     ENDIF
    ::Style := Hwg_BitOr( ::Style, WS_VISIBLE ) - IIF(!lshow .OR. ( lMaximized .AND. ( ::lChild .OR. ::lModal ) ), WS_VISIBLE, 0) + ;
                         IIF(lMaximized .AND. !::lChild .AND. !::lModal, WS_MAXIMIZE, 0)
 
-   ::handle := Hwg_CreateMdiChildWindow( Self )
+   ::handle := Hwg_CreateMdiChildWindow(Self)
    
    ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus )
    ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus( ::aControls ), ::nInitFocus)
@@ -589,7 +589,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    IF lShow
       *-hwg_onMove(Self)
-      IF lMinimized  .OR. ::WindowState = SW_SHOWMINIMIZED
+      IF lMinimized .OR. ::WindowState = SW_SHOWMINIMIZED
          ::Minimize()
       ELSEIF  ::WindowState = SW_SHOWMAXIMIZED .AND. !::IsMaximized()
          ::Maximize()
@@ -625,7 +625,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
 
       ENDIF
    ELSEIF msg = WM_PAINT
-      RETURN ::Paint( self )
+      RETURN ::Paint(self)
 
    ELSEIF msg = WM_MOVING .AND. ::lMaximized
       ::Maximize()
@@ -640,7 +640,7 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HMDIChildWindow
       ::GETMDIMAIN():lSuspendMsgsHandling := .F.
    ENDIF
 
-   IF ( i := AScan( ::aMessages[1], msg ) ) != 0
+   IF ( i := AScan(::aMessages[1], msg) ) != 0
       RETURN Eval(::aMessages[2, i], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
@@ -681,7 +681,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    ::oParent := HWindow():GetMain()
    ::Type := WND_CHILD
    ::rect := hwg_Getwindowrect(::handle)
-   IF ISOBJECT( ::oParent )
+   IF ISOBJECT(::oParent)
       ::handle := Hwg_InitChildWindow( Self, ::szAppName, cTitle, cMenu, ;
                                        IIf(oIcon != Nil, oIcon:handle, Nil), IIf(oBmp != Nil, -1, clr), nStyle, ::nLeft, ;
                                        ::nTop, ::nWidth, ::nHeight, ::oParent:handle )
@@ -707,8 +707,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    ::Type := WND_CHILD
 
-   hwg_CreateGetList( Self )
-   hwg_InitControls( SELF )
+   hwg_CreateGetList(Self)
+   hwg_InitControls(SELF)
    hwg_InitObjects( Self, .T. )
 
    IF ::bInit != Nil
@@ -757,15 +757,15 @@ METHOD onEvent( msg, wParam, lParam )  CLASS HChildWindow
    LOCAL i, oCtrl
 
    IF msg = WM_PAINT
-      RETURN ::Paint( self )
+      RETURN ::Paint(self)
 
    ELSEIF msg == WM_DESTROY
-      RETURN hwg_onDestroy( Self )
+      RETURN hwg_onDestroy(Self)
    ELSEIF msg == WM_SIZE
       RETURN onSize(Self, wParam, lParam)
    ELSEIF msg = WM_SETFOCUS .AND. !Empty(::nFocus)
       hwg_Setfocus( ::nFocus )
-   ELSEIF ( i := AScan( HMainWindow():aMessages[1], msg ) ) != 0
+   ELSEIF ( i := AScan(HMainWindow():aMessages[1], msg) ) != 0
       RETURN Eval(HMainWindow():aMessages[2, i], Self, wParam, lParam)
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
@@ -845,8 +845,8 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    ENDIF
    iParHigh := hwg_Hiword(wParam)
    iParLow := hwg_Loword(wParam)
-   IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow} ) ) > 0
+   IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling .AND. ;
+      ( iItem := AScan(oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow}) ) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
    ELSEIF ValType(oWnd:menu) == "A" .AND. ;
       ( aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont) ) != Nil
@@ -878,7 +878,7 @@ FUNCTION hwg_onMove(oWnd)
 
    oWnd:nLeft := aControls[1]
    oWnd:nTop  := aControls[2]
-   IF oWnd:type == WND_MDICHILD  .AND. !oWnd:lMaximized
+   IF oWnd:type == WND_MDICHILD .AND. !oWnd:lMaximized
       //oWnd:aRectSave := { oWnd:nLeft, oWnd:nTop, oWnd:nWidth, oWnd:nHeight }
       IF oWnd:nHeight > hwg_Getsystemmetrics( SM_CYCAPTION ) + 6
           oWnd:aRectSave := { oWnd:nLeft, oWnd:nTop, oWnd:nWidth, oWnd:nHeight }
@@ -1081,8 +1081,8 @@ STATIC FUNCTION onMdiCommand(oWnd, wParam)
    IF hwg_Iswindowvisible(oWnd:Handle)
       oCtrl := oWnd:FindControl(iParLow)
    ENDIF
-   IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling  .AND. ;
-      ( iItem := AScan( oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow} ) ) > 0
+   IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling .AND. ;
+      ( iItem := AScan(oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow}) ) > 0
       IF hwg_Ptrtoulong(hwg_Getparent(hwg_Getfocus())) = hwg_Ptrtoulong(oWnd:Handle)
          oWnd:nFocus := hwg_Getfocus()
       ENDIF
@@ -1186,7 +1186,7 @@ Static Function onMdiActivate(oWnd, wParam, lParam)
 STATIC FUNCTION onEnterIdle(oDlg, wParam, lParam)
    LOCAL oItem
    IF ( wParam == 0 .AND. ( oItem := Atail(HDialog():aModalDialogs) ) != Nil ;
-         .AND. oItem:handle == lParam )
+      .AND. oItem:handle == lParam )
       oDlg := oItem
    ENDIF
    IF __ObjHasMsg(oDlg, "LACTIVATED")
@@ -1249,7 +1249,7 @@ STATIC FUNCTION FindInitFocus( aControls )
 			        Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[i]:handle), WS_DISABLED) = 0 .AND. !aControls[i]:lHide
          RETURN aControls[i]:Handle
       ENDIF
-      IF Len(aControls[i]:aControls) > 0 .AND. !aControls[i]:lHide .AND.  ;
+      IF Len(aControls[i]:aControls) > 0 .AND. !aControls[i]:lHide .AND. ;
          Hwg_BitaND(HWG_GETWINDOWSTYLE(aControls[i]:handle), WS_DISABLED) = 0
          RETURN FindInitFocus( aControls[i]:aControls )
       ENDIF

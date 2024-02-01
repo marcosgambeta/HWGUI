@@ -351,17 +351,17 @@ METHOD onEvent(msg, wParam, lParam) CLASS HComboBox
       ELSEIF msg == WM_GETDLGCODE
          IF wParam = VK_RETURN
             RETURN DLGC_WANTMESSAGE
-         ELSEIF wParam = VK_ESCAPE  .AND. ;
+         ELSEIF wParam = VK_ESCAPE .AND. ;
                (oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != Nil .AND. !oCtrl:IsEnabled()
             RETURN DLGC_WANTMESSAGE
          ENDIF
          RETURN  DLGC_WANTCHARS + DLGC_WANTARROWS
 
       ELSEIF msg = WM_KEYDOWN
-         IF wparam =  VK_RIGHT .OR. wParam == VK_RETURN //.AND. !::lEdit
+         IF wparam = VK_RIGHT .OR. wParam == VK_RETURN //.AND. !::lEdit
             hwg_GetSkip(::oParent, ::handle, , 1)
             RETURN 0
-         ELSEIF wparam =  VK_LEFT //.AND. !::lEdit
+         ELSEIF wparam = VK_LEFT //.AND. !::lEdit
             hwg_GetSkip(::oParent, ::handle, , -1)
             RETURN 0
          ELSEIF wParam = VK_ESCAPE .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE //.OR.;
@@ -370,11 +370,11 @@ METHOD onEvent(msg, wParam, lParam) CLASS HComboBox
 
       ELSEIF msg = WM_KEYUP
          hwg_ProcKeyList(Self, wParam)        //working in MDICHILD AND DIALOG
-      ELSEIF msg =  WM_COMMAND  .AND. ::lEdit  .AND. !::ldropshow
+      ELSEIF msg = WM_COMMAND .AND. ::lEdit .AND. !::ldropshow
          IF hwg_Getkeystate(VK_DOWN) + hwg_Getkeystate(VK_UP) < 0 .AND. hwg_Getkeystate(VK_SHIFT) > 0 .AND. hwg_Hiword(wParam) = 1
             RETURN 0
          ENDIF
-      ELSEIF msg = CB_GETDROPPEDSTATE  .AND. !::ldropshow
+      ELSEIF msg = CB_GETDROPPEDSTATE .AND. !::ldropshow
          IF hwg_Getkeystate(VK_RETURN) < 0
             ::GetValue()
          ENDIF
@@ -388,7 +388,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HComboBox
             ENDIF
             hwg_GetSkip(::oParent, ::handle, , 1)
             RETURN 0
-         ELSEIF hwg_Getkeystate(VK_UP) < 0 .AND.  hwg_Getkeystate(VK_SHIFT) > 0
+         ELSEIF hwg_Getkeystate(VK_UP) < 0 .AND. hwg_Getkeystate(VK_SHIFT) > 0
             IF ::oParent:oParent = Nil
                //  hwg_GetSkip(::oParent, hwg_Getancestor(::handle, GA_PARENT),, 1)
             ENDIF
@@ -421,7 +421,7 @@ METHOD Requery(aItems, xValue) CLASS HComboBox
    ::Populate()
    IF xValue != Nil
       ::SetValue(xValue)
-   ELSEIF  Empty(::Value) .AND. Len(::aItems) > 0 .AND. ::bSetGet = Nil  .AND. !::lEdit
+   ELSEIF  Empty(::Value) .AND. Len(::aItems) > 0 .AND. ::bSetGet = Nil .AND. !::lEdit
       ::SetItem(1)
    ENDIF
 
@@ -542,7 +542,7 @@ METHOD GetValueBound(xItem) CLASS HComboBox
       ::setItem(nPos)
       RETURN iif(nPos > 0, ::aItems[nPos], xItem)
    ENDIF
-   IF nPos > 0 .AND. nPos <=  Len(::aItemsBound)
+   IF nPos > 0 .AND. nPos <= Len(::aItemsBound)
       ::ValueBound := ::aItemsBound[nPos]
    ENDIF
 
@@ -626,7 +626,7 @@ METHOD InteractiveChange() CLASS HComboBox
    LOCAL npos := hwg_Sendmessage(::handle, CB_GETEDITSEL, 0, 0)
 
    ::SelStart                     := nPos
-   ::cDisplayValue :=   hwg_Getwindowtext(::handle)
+   ::cDisplayValue := hwg_Getwindowtext(::handle)
    ::oparent:lSuspendMsgsHandling := .T.
    Eval(::bChangeInt, ::value, Self)
    ::oparent:lSuspendMsgsHandling := .F.
@@ -776,7 +776,7 @@ METHOD Populate() CLASS HComboBox
       ENDIF
       value  := StrTran(xRowSource, calias + "->", , , 1, 1)
       cAlias := iif(ValType(xRowSource) == "U", Nil, cAlias)
-      cValueBound := iif(::xrowsource[2]  != Nil  .AND. cAlias != Nil, StrTran(::xrowsource[2], calias + "->"), Nil)
+      cValueBound := iif(::xrowsource[2]  != Nil .AND. cAlias != Nil, StrTran(::xrowsource[2], calias + "->"), Nil)
    ELSE
       cValueBound := iif(ValType(::aItems[1]) == "A" .AND. Len(::aItems[1]) > 1, ::aItems[1, 2], NIL)
    ENDIF
@@ -1214,7 +1214,7 @@ METHOD Paint(lpDis) CLASS hCheckComboBox
          hbitmap := ::aHImages[DrawInfo[1] + 1]
          rcBitmap[1] := nIndent
          bmpRect := hwg_Prepareimagerect(::handle, dc, .T., @rcBitmap, @rcText, , , hbitmap, iStyle)
-         rcText[1] :=  iif(iStyle = ST_ALIGN_HORIZ, nIndent + hwg_Getbitmapsize(hbitmap)[1] + iif(lDroped, 3, 4), 1)
+         rcText[1] := iif(iStyle = ST_ALIGN_HORIZ, nIndent + hwg_Getbitmapsize(hbitmap)[1] + iif(lDroped, 3, 4), 1)
       ENDIF
 
    ENDIF
@@ -1275,7 +1275,7 @@ METHOD Paint(lpDis) CLASS hCheckComboBox
       ENDIF
    ENDIF
    IF ((hwg_Bitand(DrawInfo[9], ODS_FOCUS + ODS_SELECTED)) == (ODS_FOCUS + ODS_SELECTED))
-      IF  cTmp != "\-"  .AND. !lDroped
+      IF  cTmp != "\-" .AND. !lDroped
          hwg_Drawfocusrect(dc, iif(::lCheck, rcText, rcBitmap))
       ENDIF
    ENDIF

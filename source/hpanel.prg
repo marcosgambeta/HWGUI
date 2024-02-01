@@ -340,7 +340,7 @@ METHOD Resize() CLASS HPanel
    Local nHeight := aCoors[4] - aCoors[2]
    Local nWidth  := aCoors[3] - aCoors[1]
 
-   IF !hwg_Iswindowvisible(::handle) .OR.  (::nHeight = nHeight .AND. ::nWidth = nWidth)
+   IF !hwg_Iswindowvisible(::handle) .OR. (::nHeight = nHeight .AND. ::nWidth = nWidth)
       Return NIL
    ENDIF
 
@@ -374,8 +374,8 @@ METHOD ResizeOffSet(nMode) CLASS HPanel
    LOCAL aCoors := hwg_Getwindowrect(::handle)
    LOCAL nHeight := aCoors[4] - aCoors[2]
    LOCAL nWidth  := aCoors[3] - aCoors[1]
-   LOCAL nWinc :=  nWidth  - ::nWidth
-   LOCAL nHinc :=  nHeight - ::nHeight
+   LOCAL nWinc := nWidth  - ::nWidth
+   LOCAL nHinc := nHeight - ::nHeight
    LOCAL lres := .F.
 
    nWinc := IIF(nMode = 1, nWinc, IIF(nMode = 2, ::nWidth, nWidth))

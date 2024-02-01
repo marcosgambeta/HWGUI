@@ -46,7 +46,7 @@ METHOD New(vari, bSetGet, bInit, bClick, bGFocus, nStyle) CLASS HRadioGroup
    ::oGroupCurrent := Self
    ::aButtons := {}
    ::oParent := IIF(HWindow():GetMain() != NIL, HWindow():GetMain():oDefaultParent, Nil)
-   ::lEnabled :=  !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
+   ::lEnabled := !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
 
    ::Super:New(::oParent, ,, ,,,,, bInit)
 
@@ -70,7 +70,7 @@ METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeigh
 
    ::oGroupCurrent := Self
    ::aButtons := {}
-   ::lEnabled :=  !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
+   ::lEnabled := !Hwg_BitAnd(nStyle, WS_DISABLED) > 0
 
    ::Super:New(::oParent,,, nLeft, nTop, nWidth, nHeight, oFont, bInit)
    ::oHGroup := HGroup():New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
@@ -104,7 +104,7 @@ METHOD EndGroup(nSelected)  CLASS HRadioGroup
                   ::oGroupCurrent:aButtons[nLen]:id, ;
                   ::oGroupCurrent:aButtons[nSelected]:id)
          ELSE
-            ::oGroupCurrent:aButtons[nLen]:bInit :=                     ;
+            ::oGroupCurrent:aButtons[nLen]:bInit :=                    ;
                   &("{|o|hwg_Checkradiobutton(o:oParent:handle," +           ;
                   LTrim(Str(::oGroupCurrent:aButtons[1]:id)) + "," +    ;
                   LTrim(Str(::oGroupCurrent:aButtons[nLen]:id)) + "," + ;
@@ -229,7 +229,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
          IIf(::oGroup != NIL .AND. Empty(::oGroup:aButtons), WS_GROUP, 0))
    ::Super:New(oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight, ;
          oFont, bInit, bSize, bPaint, ctooltip, tcolor, bColor)
-   ::backStyle :=  IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
+   ::backStyle := IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
 
    ::Activate()
    //::SetColor(tcolor, bColor, .T.)
@@ -278,7 +278,7 @@ METHOD Init() CLASS HRadioButton
       ::nHolder := 1
       hwg_Setwindowobject(::handle, Self)
       HWG_INITBUTTONPROC(::handle)
-      ::Enabled :=  ::oGroup:lEnabled .AND. ::Enabled
+      ::Enabled := ::oGroup:lEnabled .AND. ::Enabled
       ::Super:Init()
    ENDIF
 
@@ -305,7 +305,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
       bColor := hwg_Getsyscolor(COLOR_3DFACE)
    ENDIF
    */
-   ::backStyle :=  IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
+   ::backStyle := IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
    ::setcolor(tColor, bColor, .T.)
    ::oParent:AddControl(Self)
 
@@ -340,10 +340,10 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRadioButton
          RETURN 0
       ENDIF
    ENDIF
-   IF msg = WM_GETDLGCODE //.AND.  !EMPTY(wParam)
+   IF msg = WM_GETDLGCODE //.AND. !EMPTY(wParam)
       IF wParam = VK_RETURN .AND. hwg_ProcOkCancel(Self, wParam, hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE)
          RETURN 0
-      ELSEIF wParam = VK_ESCAPE  .AND. ;
+      ELSEIF wParam = VK_ESCAPE .AND. ;
             (oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != Nil .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF (wParam != VK_TAB .AND. hwg_Getdlgmessage(lParam) = WM_CHAR) .OR. hwg_Getdlgmessage(lParam) = WM_SYSCHAR .OR. ;

@@ -88,7 +88,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
    ZeroMemory( &osvi, sizeof(OSVERSIONINFO) );
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )        // Windows 98
    {
@@ -97,7 +97,7 @@ HB_FUNC( HWG_GETDEFAULTPRINTER )
 
       pinfo5 = ( PRINTER_INFO_5 * ) hb_xgrab(dwNeeded);
 
-      EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) pinfo5,
+      EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, (LPBYTE) pinfo5,
             dwNeeded, &dwNeeded, &dwReturned );
 
       HB_RETSTR(pinfo5->pPrinterName);
@@ -527,7 +527,7 @@ HB_FUNC( HWG_SETDOCUMENTPROPERTIES )
 
                 if( lpFormName && len && len < CCHFORMNAME )
                 {
-                  memcpy( pDevMode->dmFormName, lpFormName, ( len + 1 ) * sizeof(TCHAR) );
+                  memcpy(pDevMode->dmFormName, lpFormName, (len + 1) * sizeof(TCHAR));
                   dInit |= DM_FORMNAME;
                 }
                 hb_strfree(hFormName);

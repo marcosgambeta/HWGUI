@@ -1219,7 +1219,7 @@ LRESULT OnNotifyCustomDraw( LPARAM pNotifyStruct )
 void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 {
    HBITMAP hBitmap =
-         ( HBITMAP ) SendMessage(m_hWnd, BM_GETIMAGE, IMAGE_BITMAP, 0L);
+         (HBITMAP) SendMessage(m_hWnd, BM_GETIMAGE, IMAGE_BITMAP, 0L);
    int x, y;
    BITMAPINFO bmi;
 
@@ -1228,7 +1228,7 @@ void draw_bitmap( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 
    // determine size of bitmap image
 
-   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   memset(&bmi, 0, sizeof(BITMAPINFO));
    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
    GetDIBits( hDC, hBitmap, 0, 0, NULL, &bmi, DIB_RGB_COLORS );
 
@@ -1259,7 +1259,7 @@ void draw_icon( HDC hDC, const RECT * Rect, DWORD style, HWND m_hWnd )
 
    // determine size of icon image
    GetIconInfo( hIcon, &ii );
-   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   memset(&bmi, 0, sizeof(BITMAPINFO));
    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
    if( ii.hbmColor != NULL )
@@ -1530,7 +1530,7 @@ void Calc_iconWidthHeight( HWND m_hWnd, DWORD * ccx, DWORD * ccy, HDC hDC,
 
    // determine size of icon image
    GetIconInfo( hIcon, &ii );
-   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   memset(&bmi, 0, sizeof(BITMAPINFO));
    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
    if( ii.hbmColor != NULL )
@@ -1568,7 +1568,7 @@ void Calc_bitmapWidthHeight( HWND m_hWnd, DWORD * ccx, DWORD * ccy, HDC hDC,
       return;
    }
 
-   memset( &bmi, 0, sizeof(BITMAPINFO) );
+   memset(&bmi, 0, sizeof(BITMAPINFO));
    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
    GetDIBits( hDC, hBitmap, 0, 0, NULL, &bmi, DIB_RGB_COLORS );
 

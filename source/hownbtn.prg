@@ -191,7 +191,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HOwnButton
          ::release()
       ENDIF
       ::onLostFocus()
-   ELSEIF msg = WM_CHAR  .OR. msg = WM_KEYDOWN .OR. msg = WM_KEYUP
+   ELSEIF msg = WM_CHAR .OR. msg = WM_KEYDOWN .OR. msg = WM_KEYUP
       IF wParam = VK_SPACE
 			::Press()
          ::onClick()
@@ -294,7 +294,7 @@ METHOD Paint() CLASS HOwnButton
    ENDIF
    IF ::Themed
       IF !::lEnabled
-         state :=  PBS_DISABLED
+         state := PBS_DISABLED
       ELSE
          state := IIF(::state == OBTN_PRESSED, PBS_PRESSED, PBS_NORMAL)
       ENDIF

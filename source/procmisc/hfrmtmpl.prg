@@ -434,7 +434,7 @@ METHOD Show( nMode, p1, p2, p3 ) CLASS HFormTmpl
    RETURN NIL
 
 METHOD F( id, n ) CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, {|o|o:id == id} )
+   LOCAL i := AScan(::aForms, {|o|o:id == id})
 
    IF i != 0 .AND. n != NIL
       RETURN ::aForms[i]:aControls[n]
@@ -443,12 +443,12 @@ METHOD F( id, n ) CLASS HFormTmpl
    RETURN IIf(i == 0, NIL, ::aForms[i])
 
 METHOD Find(cId) CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, {|o|o:cId != NIL .AND. o:cId == cId} )
+   LOCAL i := AScan(::aForms, {|o|o:cId != NIL .AND. o:cId == cId})
 
    RETURN IIf(i == 0, NIL, ::aForms[i])
 
 METHOD Close() CLASS HFormTmpl
-   LOCAL i := AScan( ::aForms, {|o|o:id == ::id} )
+   LOCAL i := AScan(::aForms, {|o|o:id == ::id})
 
    IF i != 0
       ADel(::aForms, i)
@@ -556,7 +556,7 @@ STATIC FUNCTION CompileMethod(cMethod, oForm, oCtrl, cName)
                "F("+Ltrim(Str(oCtrl:nId))+")")
          arrExe := Array(2)
          arrExe[2] := RdScript( , cMethod, 1, .T., cName )
-         cCode :=  "{|" + cParam + ;
+         cCode := "{|" + cParam + ;
                "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer!=0, ","+Ltrim(Str(nContainer)), "")+"):" + ;
                Iif(oCtrl == NIL, "aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2],{", ;
                cCode1+":aMethods["+ ;
@@ -632,7 +632,7 @@ STATIC FUNCTION ReadCtrl(oCtrlDesc, oContainer, oForm)
 
 STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    LOCAL i, j, temp, oCtrl, stroka, varname, xProperty, cType, cPName
-   LOCAL nCtrl := AScan( aClass, oCtrlTmpl:cClass ), xInitValue, cInitName, cVarName
+   LOCAL nCtrl := AScan(aClass, oCtrlTmpl:cClass), xInitValue, cInitName, cVarName
    // LOCAL DE NANDO BROWSE
    LOCAL cAliasdbf, caArray, nHeadRows := 1, nFootRows := 0, lDispHead := .T., lDispSep := .T., lSep3d := .F., ladjright := .T.
    LOCAL nheadColor := 0, nsepColor := 12632256, nLeftCol := 0, nfreeze := 0, nColumns := 0
@@ -731,7 +731,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    ctoolTip := ""
    amenu := ""
    //
-   palette :=  PAL_METAL
+   palette := PAL_METAL
    granularity := 0
    highlight := 0
    coloring := 0
@@ -789,9 +789,9 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
             ENDIF
          ENDIF
       ELSEIF cPName == "effect"
-         shadeID := AScan( aShadeID, xProperty ) - 1
+         shadeID := AScan(aShadeID, xProperty) - 1
       ELSEIF cPName == "palette"
-         palette := AScan( aPalette, xProperty ) - 1
+         palette := AScan(aPalette, xProperty) - 1
       ELSEIF cPName == "vscroll"
          IF xProperty
             nStyle += WS_VSCROLL
@@ -867,7 +867,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          ENDIF
       */
       ELSEIF cPName == "columnscount"
-         nColumns :=  xProperty
+         nColumns := xProperty
       ELSEIF cPName == "columnsfreeze"
          nfreeze := xProperty
       ELSEIF cPName == "headrows"
@@ -899,7 +899,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          //  cCampo := STRTRAN(cCampo, cTmpAlias, cAlias)
          //ENDIF
       ELSEIF cPName == "length"
-         nLength :=   xProperty  //iif(xProperty != NIL, xProperty, 10)
+         nLength := xProperty  //iif(xProperty != NIL, xProperty, 10)
       ELSEIF cPName == "picture"
          cPicture := IIf(Empty(xProperty), NIL, xProperty)
       ELSEIF cPName == "editable"
@@ -957,7 +957,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
    ENDIF
    //
    IF oCtrlTmpl:cClass == "combobox"
-      IF ( AScan( oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"} ) ) > 0
+      IF ( AScan(oCtrlTmpl:aProp, {|a|Lower(a[1]) == "nmaxlines"}) ) > 0
          *-  nHeight := nHeight * nMaxLines
       ELSE
       *-  nHeight := nHeight * 4
@@ -1002,7 +1002,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
          IF m->nLength = NIL
             // m->nLength := &cTmpAlias->(fieldlen(ascan(j, temp)))
             // m->nLength := IIF(m->nLength = 0, IIF(type("&cCampo") = "C", LEN(&cCampo), 10), m->nLength)
-            m->nLength := &cAliasdbf->( fieldlen(AScan( j, temp )) )
+            m->nLength := &cAliasdbf->( fieldlen(AScan(j, temp)) )
             m->nLength := IIf(m->nLength = 0, IIf(Type("&fblock") = "C", Len(&fBlock), 10), m->nLength)
          ENDIF
          m->nDec := &cAliasdbf->( FIELDDEC(AScan(j, temp)) )
@@ -1443,7 +1443,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
          oItem:y2 := y2
          // writelog("Area: "+cText+" "+Iif(::lNextPage, "T", "F"))
          IF ( xProperty := aGetSecond(oItem:aProp, "varoffset") ) == NIL ;
-              .OR. !xProperty
+            .OR. !xProperty
             ::nTOffset := ::nAOffSet := 0
          ENDIF
          IF cText == "Table"
@@ -1503,7 +1503,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
       ENDIF
       IF oItem:lPen .AND. oItem:oPen == NIL
          IF ( xProperty := aGetSecond(oItem:aProp, "pentype") ) != NIL
-            nPenType := AScan( aPenType, xProperty ) - 1
+            nPenType := AScan(aPenType, xProperty) - 1
          ELSE
             nPenType := 0
          ENDIF
@@ -1527,7 +1527,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
          ENDIF
          IF ValType(cText) == "C"
             IF ( xProperty := aGetSecond(oItem:aProp, "border") ) != NIL ;
-                  .AND. xProperty
+               .AND. xProperty
                ::oPrinter:Box(x, y, x2, y2)
                x += 0.5
                y += 0.5
@@ -1535,7 +1535,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
             IF ( xProperty := aGetSecond(oItem:aProp, "justify") ) == NIL
                nJustify := 0
             ELSE
-               nJustify := AScan( aJustify, xProperty ) - 1
+               nJustify := AScan(aJustify, xProperty) - 1
             ENDIF
             IF oItem:obj == NIL
                IF ( xProperty := aGetSecond(oItem:aProp, "font") ) != NIL
@@ -1544,7 +1544,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
             ENDIF
             hwg_Settransparentmode(::oPrinter:hDC, .T.)
             IF ( xProperty := aGetSecond(oItem:aProp, "multiline") ) != NIL ;
-                  .AND. xProperty
+               .AND. xProperty
                nLines := i := 1
                DO WHILE ( i := hb_At(";", cText, i) ) > 0
                   i ++
@@ -1579,7 +1579,7 @@ METHOD PrintItem(oItem) CLASS HRepTmpl
          ENDIF
          ::oPrinter:Bitmap( x, y, x2, y2,, oItem:obj )
       ENDIF
-      ::ny := Max( ::ny, y2 + ::nAOffSet )
+      ::ny := Max(::ny, y2 + ::nAOffSet)
    ENDIF
 
    IF ( aMethod := aGetSecond(oItem:aMethods, "onend") ) != NIL
@@ -1597,7 +1597,7 @@ METHOD ReleaseObj(aControls) CLASS HRepTmpl
       ELSE
          IF aControls[i]:obj != NIL
             IF aControls[i]:cClass == "bitmap"
-               hwg_Deleteobject( aControls[i]:obj )
+               hwg_Deleteobject(aControls[i]:obj)
                aControls[i]:obj := NIL
             ELSEIF aControls[i]:cClass == "label"
                aControls[i]:obj:Release()
@@ -1614,12 +1614,12 @@ METHOD ReleaseObj(aControls) CLASS HRepTmpl
    RETURN NIL
 
 METHOD Find(cId) CLASS HRepTmpl
-   LOCAL i := AScan( ::aReports, {|o|o:cId != NIL .AND. o:cId == cId} )
+   LOCAL i := AScan(::aReports, {|o|o:cId != NIL .AND. o:cId == cId})
 
    RETURN IIf(i == 0, NIL, ::aReports[i])
 
 METHOD Close() CLASS HRepTmpl
-   LOCAL i := AScan( ::aReports, {|o|o:id == ::id} )
+   LOCAL i := AScan(::aReports, {|o|o:id == ::id})
 
    IF i != 0
       ADel(::aReports, i)
@@ -1658,7 +1658,7 @@ STATIC FUNCTION ReadRepItem(oCtrlDesc, oContainer)
    RETURN NIL
 
 STATIC FUNCTION aGetSecond(arr, xFirst)
-   LOCAL i := AScan( arr, {|a|a[1] == xFirst} )
+   LOCAL i := AScan(arr, {|a|a[1] == xFirst})
 
    RETURN IIf(i == 0, NIL, arr[i, 2])
 

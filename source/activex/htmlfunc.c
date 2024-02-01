@@ -47,7 +47,7 @@ HB_FUNC( HWGAX_EMBEDBROWSEROBJECT )
 
 HB_FUNC( HWGAX_UNEMBEDBROWSEROBJECT )
 {
-   UnEmbedBrowserObject( hwg_par_HWND(1) );
+   UnEmbedBrowserObject(hwg_par_HWND(1));
 }
 
 HB_FUNC( HWGAX_DISPLAYHTMLPAGE )

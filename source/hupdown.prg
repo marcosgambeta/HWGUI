@@ -107,7 +107,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF nUpDWidth != Nil
       ::nUpDownWidth := nUpDWidth
    ENDIF
-   ::nMaxLength :=  nMaxLength //= Nil, 4, nMaxLength )
+   ::nMaxLength := nMaxLength //= Nil, 4, nMaxLength )
    ::cPicture := IIF(cPicture = Nil, Replicate("9", 4), cPicture)
    ::lNoBorder := lNoBorder
    ::bkeydown := bkeydown
@@ -211,7 +211,7 @@ METHOD Value(Value)  CLASS HUpDown
 
    IF Value != Nil .AND. ::oEditUpDown != Nil
        ::SetValue(Value)
-       ::oEditUpDown:Title :=  ::Title
+       ::oEditUpDown:Title := ::Title
        ::oEditUpDown:Refresh()
    ENDIF
    RETURN ::nValue
@@ -242,7 +242,7 @@ METHOD Refresh()  CLASS HUpDown
    ELSE
       hwg_Setupdown(::hwndUpDown, Val(::title))
    ENDIF
-   ::oEditUpDown:Title :=  ::Title
+   ::oEditUpDown:Title := ::Title
    ::oEditUpDown:Refresh()
    IF hwg_Selffocus(::handle)
       hwg_Invalidaterect(::hwndUpDown, 0)
@@ -264,7 +264,7 @@ METHOD Valid() CLASS HUpDown
       Eval(::bSetGet, ::nValue)
    ENDIF
    */
-   res :=  ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
+   res := ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
    IF !res
       ::nValue := IIF(::nValue > ::nUpper, Min(::nValue, ::nUpper), Max(::nValue, ::nLower))
       ::SetValue(::nValue)
@@ -316,7 +316,7 @@ METHOD Notify(lParam) CLASS HeditUpDown
        ::Setfocus()
        RETURN 0
    ENDIF
-   vari :=  vari + (::oUpDown:Increment * idelta)
+   vari := vari + (::oUpDown:Increment * idelta)
    ::oUpDown:SetValue(vari)
    /*
    ::Title := Transform(vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask)
@@ -349,7 +349,7 @@ METHOD Notify(lParam) CLASS HeditUpDown
    LOCAL vari
 
    vari := IIF(::oUpDown != Nil, ::oUpDown:nValue, ::Value)
-   IF  ::bSetGet != Nil  .AND. ::title != Nil
+   IF  ::bSetGet != Nil .AND. ::title != Nil
       ::Title := Transform(vari, ::cPicFunc + IIf(Empty(::cPicFunc), "", " ") + ::cPicMask)
    ENDIF
    hwg_Setwindowtext(::Handle, ::Title)

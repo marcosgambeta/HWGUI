@@ -69,7 +69,7 @@ HB_FUNC( HWG_COPYSTRINGTOCLIPBOARD )
       {
          // Lock the handle and copy the text to the buffer.
          lptstrCopy = ( char * ) GlobalLock(hglbCopy);
-         memcpy( lptstrCopy, lpStr, nLen * sizeof(TCHAR) );
+         memcpy(lptstrCopy, lpStr, nLen * sizeof(TCHAR));
          lptstrCopy[nLen] = 0;       // null character
          GlobalUnlock(hglbCopy);
          hb_strfree(hStr);
@@ -106,7 +106,7 @@ HB_FUNC( HWG_GETCLIPBOARDTEXT )
             if( nSize )
             {
                lpText = ( LPTSTR ) hb_xgrab(nSize + 1);
-               memcpy( lpText, lpMem, nSize );
+               memcpy(lpText, lpMem, nSize);
                lpText[nSize] = 0;
             }
             ( void ) GlobalUnlock(hglb);
@@ -325,7 +325,7 @@ HB_FUNC( HWG_ACTIVATEKEYBOARDLAYOUT )
 }
 
 /*
- * Pts2Pix( nPoints [,hDC] ) --> nPixels
+ * Pts2Pix(nPoints [,hDC]) --> nPixels
  * Conversion from points to pixels, provided by Vic McClung.
  */
 
@@ -697,29 +697,29 @@ HB_FUNC( HWG_HEDITEX_CTLCOLOR )
 
    if( !pObject )
    {
-      hb_retnl((LONG) GetStockObject( HOLLOW_BRUSH ));
+      hb_retnl((LONG) GetStockObject(HOLLOW_BRUSH));
       SetBkMode(hdc, TRANSPARENT);
       return;
    }
 
    p = GetObjectVar(pObject, "M_BRUSH");
    p2 = GetObjectVar(pObject, "M_TEXTCOLOR");
-   cColor = ( COLORREF ) hb_itemGetNL(p2);
-   hBrush = ( HBRUSH ) HB_GETHANDLE(p);
+   cColor = (COLORREF) hb_itemGetNL(p2);
+   hBrush = (HBRUSH) HB_GETHANDLE(p);
 
-   DeleteObject( hBrush );
+   DeleteObject(hBrush);
 
    p1 = GetObjectVar(pObject, "M_BACKCOLOR");
    i = hb_itemGetNL(p1);
    if( i == -1 )
    {
-      hBrush = ( HBRUSH ) GetStockObject( HOLLOW_BRUSH );
+      hBrush = (HBRUSH) GetStockObject(HOLLOW_BRUSH);
       SetBkMode(hdc, TRANSPARENT);
    }
    else
    {
       hBrush = CreateSolidBrush((COLORREF) i);
-      SetBkColor(hdc, ( COLORREF ) i);
+      SetBkColor(hdc, (COLORREF) i);
    }
 
    temp = HB_PUTHANDLE(NULL, hBrush);
@@ -806,14 +806,14 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    sa.lpSecurityDescriptor = NULL;
 
    // Create a pipe for the child process's STDOUT.
-   if( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) )
+   if( !CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &sa, 0) )
    {
       hb_retl(0);
       return;
    }
 
    // Ensure the read handle to the pipe for STDOUT is not inherited.
-   if( ! SetHandleInformation( g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0 ) )
+   if( !SetHandleInformation( g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0 ) )
    {
       hb_retl(0);
       return;
@@ -834,13 +834,13 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    bSuccess = CreateProcess( NULL, (LPTSTR)hb_parc(1), NULL, NULL,
       TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
 
-   if ( ! bSuccess )
+   if ( !bSuccess )
    {
       hb_retl(0);
       return;
    }
 
-   WaitForSingleObject( pi.hProcess, INFINITE );
+   WaitForSingleObject(pi.hProcess, INFINITE);
    CloseHandle(pi.hProcess);
    CloseHandle(pi.hThread);
    CloseHandle(g_hChildStd_OUT_Wr);
@@ -851,12 +851,12 @@ HB_FUNC( HWG_RUNCONSOLEAPP )
    while( 1 )
    {
       bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL);
-      if( ! bSuccess || dwRead == 0 ) break;
+      if( !bSuccess || dwRead == 0 ) break;
 
       if( !HB_ISNIL(2) )
       {
          bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, NULL);
-         if( ! bSuccess ) break;
+         if( !bSuccess ) break;
       }
    }
 

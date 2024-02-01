@@ -370,7 +370,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
       if( !info )
       {
          info = *infoPtr = ( HB_DEBUGINFO * ) hb_xgrab(sizeof(HB_DEBUGINFO));
-         memset( info, 0, sizeof(HB_DEBUGINFO) );
+         memset(info, 0, sizeof(HB_DEBUGINFO));
          info->bCBTrace = HB_TRUE;
       }
       else if( info->bInside || info->bQuit )
@@ -651,7 +651,7 @@ static void hb_dbgAddStack(HB_DEBUGINFO * info, const char * szName, int nProcLe
    top = ARRAY_ADD(HB_CALLSTACKINFO, info->aCallStack, info->nCallStackLen);
    if( info->bCodeBlock )
    {
-      memcpy( szBuff, "(b)", 3 );
+      memcpy(szBuff, "(b)", 3);
       hb_strncpy( szBuff + 3, szFunction, sizeof(szBuff) - 4 );
       top->szFunction = hb_strdup( szBuff );
    }
@@ -749,16 +749,16 @@ static void hb_dbgAddStopLines( PHB_ITEM pItem )
                int nNewMin = hb_arrayGetNL(pEntry, 2);
                int nOrigLen = hb_arrayGetCLen(pLines, 3);
                int nNewLen = hb_arrayGetCLen(pEntry, 3);
-               int nMin = HB_MIN( nNewMin, nOrigMin );
-               int nMax = HB_MAX( nNewMin + ( nNewLen << 3 ) - 1,
-                                  nOrigMin + ( nOrigLen << 3 ) - 1 );
+               int nMin = HB_MIN(nNewMin, nOrigMin);
+               int nMax = HB_MAX(nNewMin + ( nNewLen << 3 ) - 1,
+                                  nOrigMin + ( nOrigLen << 3 ) - 1);
                const char * pOrigBuffer = hb_arrayGetCPtr(pLines, 3);
                const char * pNewBuffer = hb_arrayGetCPtr(pEntry, 3);
                int nLen = ( ( nMax - nMin ) >> 3 ) + 1;
                int k;
                char * pBuffer = ( char * ) hb_xgrab(nLen + 1);
 
-               hb_xmemset( pBuffer, 0, nLen );
+               hb_xmemset(pBuffer, 0, nLen);
 
                /* the bitfields with line numbers should use
                 * 8bit alignment so it's safe to use byte copy
@@ -1190,7 +1190,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT * watch)
    hb_strncat(s, "}", buffsize);
    pBlock = hb_itemNew(NULL);
 
-   if( ! hb_dbgEvalMacro( s, pBlock ) )
+   if( !hb_dbgEvalMacro( s, pBlock ) )
    {
       hb_itemRelease(pBlock);
       pBlock = NULL;

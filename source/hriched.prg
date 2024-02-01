@@ -115,7 +115,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
    //HWG_writelog('rich' + str(msg) + str(wParam) + str(lParam) + chr(13))
    IF msg = WM_KEYUP .OR. msg == WM_LBUTTONDOWN .OR. msg == WM_LBUTTONUP // msg = WM_NOTIFY .OR.
       ::updatePos()
-   ELSEIF msg == WM_MOUSEACTIVATE  .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+   ELSEIF msg == WM_MOUSEACTIVATE .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
       ::Setfocus()
    ENDIF
    IF  msg = EM_GETSEL .OR. msg = EM_LINEFROMCHAR .OR. msg = EM_LINEINDEX .OR. ;

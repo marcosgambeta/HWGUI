@@ -113,7 +113,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
    ::nStretch := IIf(nStretch = NIL, 0, nStretch)
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
-      ::extStyle +=  WS_EX_TRANSPARENT
+      ::extStyle += WS_EX_TRANSPARENT
    ENDIF
 
    IF Image != NIL .AND. !Empty(Image)
@@ -140,7 +140,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
    ::bPaint := {|o, lpdis|o:Paint(lpdis)}
    IF lTransp != NIL .AND. lTransp
       ::BackStyle := TRANSPARENT
-      ::extStyle +=  WS_EX_TRANSPARENT
+      ::extStyle += WS_EX_TRANSPARENT
    ENDIF
    IF lRes == NIL
       lRes := .F.

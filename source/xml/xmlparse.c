@@ -105,7 +105,7 @@ HB_FUNC( HBXML_SETENTITY )
          ulItemLen = hb_arrayGetCLen(pArr, 1);
          pEntity1[ul-1] = (unsigned char *) hb_xgrab(ulItemLen+1);
          // hwg_writelog(NULL, "set-12 %lu %lu %lu \r\n",ul, pEntity1[ul-1], ulItemLen);
-         memcpy( pEntity1[ul-1], hb_arrayGetCPtr(pArr, 1), ulItemLen );
+         memcpy(pEntity1[ul-1], hb_arrayGetCPtr(pArr, 1), ulItemLen);
          pEntity1[ul-1][ulItemLen] = '\0';
          pEntity2[ul-1] = * hb_arrayGetCPtr(pArr,2);
       }
@@ -152,7 +152,7 @@ HB_FUNC( HBXML_TRANSFORM )
                {
                   iLen = strlen(( char * ) pEntity1[ptrs - pEntity2]);
                   *ptr1++ = '&';
-                  memcpy( ptr1, pEntity1[ptrs - pEntity2], iLen );
+                  memcpy(ptr1, pEntity1[ptrs - pEntity2], iLen);
                   ptr1 += iLen - 1;
                   break;
                }
@@ -434,7 +434,7 @@ HB_BOOL hbxml_readElement( PHB_ITEM pParent, unsigned char **pBuffer )
    ptr = *pBuffer;
    HB_SKIPCHARS( ptr );
    nLenNodeName = ptr - *pBuffer - ( ( *( ptr - 1 ) == '/' ) ? 1 : 0 );
-   memcpy( cNodeName, *pBuffer, nLenNodeName );
+   memcpy(cNodeName, *pBuffer, nLenNodeName);
    cNodeName[nLenNodeName] = '\0';
 
    pTemp = hb_itemPutC(NULL, ( char * ) cNodeName);

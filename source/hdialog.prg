@@ -201,7 +201,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       RETURN 1
    ELSE
       IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. msg == WM_MOUSEWHEEL
-         IF ::nScrollBars != - 1  .AND. ::bScroll = Nil
+         IF ::nScrollBars != - 1 .AND. ::bScroll = Nil
             hwg_ScrollHV(Self, msg, wParam, lParam)
          ENDIF
          hwg_onTrackScroll(Self, msg, wParam, lParam)
@@ -362,7 +362,7 @@ STATIC FUNCTION onDlgColor(oDlg, wParam, lParam)
    HB_SYMBOL_UNUSED(lParam)
 
    hwg_Setbkmode(wParam, 1) // Transparent mode
-   IF oDlg:bcolor != NIL  .AND. ValType(oDlg:brush) != "N"
+   IF oDlg:bcolor != NIL .AND. ValType(oDlg:brush) != "N"
       RETURN oDlg:brush:Handle
    ENDIF
 
@@ -405,7 +405,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          IF oCtrl != Nil .AND. (hwg_Getnextdlgtabitem(hwg_Getactivewindow(), hCtrl, 1) == hCtrl .OR. hwg_Selffocus(oCtrl:Handle, hCtrl)) .AND. !oDlg:lClipper
             hwg_Sendmessage(oCtrl:Handle, WM_KILLFOCUS, 0, 0)
          ENDIF
-         IF oCtrl != Nil .AND. oCtrl:id == IDOK .AND.  __ObjHasMsg(oCtrl, "BCLICK") .AND. oCtrl:bClick = Nil
+         IF oCtrl != Nil .AND. oCtrl:id == IDOK .AND. __ObjHasMsg(oCtrl, "BCLICK") .AND. oCtrl:bClick = Nil
             oDlg:lResult := .T.
             hwg_EndDialog(oDlg:handle)
             RETURN 1
@@ -433,7 +433,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          ELSEIF oDlg:lGetSkiponEsc
             hCtrl := hwg_Getfocus()
             oCtrl := oDlg:FindControl(, hctrl)
-            IF oCtrl  != Nil .AND. __ObjHasMsg(oCtrl, "OGROUP")  .AND. oCtrl:oGroup:oHGroup != Nil
+            IF oCtrl  != Nil .AND. __ObjHasMsg(oCtrl, "OGROUP") .AND. oCtrl:oGroup:oHGroup != Nil
                oCtrl := oCtrl:oGroup:oHGroup
                hCtrl := oCtrl:handle
             ENDIF
@@ -467,7 +467,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          oDlg:lResult := .T.
          IF (oCtrl := oDlg:FindControl(IDOK)) != Nil .AND. __ObjHasMsg(oCtrl, "BCLICK") .AND. oCtrl:bClick != Nil
             RETURN 1
-         ELSEIF oDlg:lExitOnEnter  .OR. oCtrl  != Nil
+         ELSEIF oDlg:lExitOnEnter .OR. oCtrl  != Nil
             hwg_EndDialog(oDlg:handle)
          ENDIF
       ENDIF
@@ -487,8 +487,8 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
          Eval(aMenu[1, i, 1], i, iParlow)
       ENDIF
    ELSEIF __ObjHasMsg(oDlg, "OPOPUP") .AND. oDlg:oPopup != Nil .AND. ;
-         (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, wParam, @i)) != Nil ;
-         .AND. aMenu[1, i, 1] != Nil
+      (aMenu := Hwg_FindMenuItem(oDlg:oPopup:aMenu, wParam, @i)) != Nil ;
+      .AND. aMenu[1, i, 1] != Nil
       Eval(aMenu[1, i, 1], i, wParam)
    ENDIF
 
@@ -552,7 +552,7 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
       hwg_Sendmessage(lParam, WM_NCACTIVATE, 1, Nil)
       RETURN 0
    ENDIF
-   IF  iParLow = WA_ACTIVE  .AND. hwg_Selffocus(lParam, oDlg:Handle)
+   IF  iParLow = WA_ACTIVE .AND. hwg_Selffocus(lParam, oDlg:Handle)
       IF ValType(oDlg:bOnActivate) == "B"
          //- oDlg:lSuspendMsgsHandling := .T.
          Eval(oDlg:bOnActivate, oDlg)
@@ -568,7 +568,7 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
          Eval(oDlg:bGetFocus, oDlg, lParam)
          oDlg:lSuspendMsgsHandling := .F.
       ENDIF
-   ELSEIF iParLow = WA_INACTIVE  .AND. oDlg:bLostFocus != Nil
+   ELSEIF iParLow = WA_INACTIVE .AND. oDlg:bLostFocus != Nil
       oDlg:lSuspendMsgsHandling := .T.
       Eval(oDlg:bLostFocus, oDlg, lParam)
       oDlg:lSuspendMsgsHandling := .F.

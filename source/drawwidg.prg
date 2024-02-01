@@ -382,7 +382,7 @@ METHOD AddResource(name, nFlags, lOEM, nWidth, nHeight) CLASS HBitmap
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]
-   ::nFlags  :=  nFlags
+   ::nFlags  := nFlags
    AAdd(::aBitmaps, Self)
 
    RETURN Self
@@ -406,8 +406,8 @@ METHOD AddStandard(nId) CLASS HBitmap
       ENDIF
    NEXT
 #endif
-   ::handle :=   hwg_Loadbitmap(nId, .T.)
-   ::name   := name
+   ::handle  := hwg_Loadbitmap(nId, .T.)
+   ::name    := name
    aBmpSize  := hwg_Getbitmapsize(::handle)
    ::nWidth  := aBmpSize[1]
    ::nHeight := aBmpSize[2]

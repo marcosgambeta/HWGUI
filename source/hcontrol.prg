@@ -108,7 +108,7 @@ METHOD AddName(cName) CLASS HControl
    LOCAL nPos
 
    IF !Empty(cName) .AND. ValType(cName) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
-      IF (nPos :=  RAt(":", cName)) > 0 .OR. (nPos :=  RAt(">", cName)) > 0
+      IF (nPos := RAt(":", cName)) > 0 .OR. (nPos := RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
       ::xName := cName
@@ -129,12 +129,12 @@ METHOD INIT() CLASS HControl
       ::oparent:lSuspendMsgsHandling := .F.
       IF ::oFont != NIL .AND. ValType(::oFont) != "N" .AND. ::oParent != NIL
          hwg_Setctrlfont(::oParent:handle, ::id, ::oFont:handle)
-      ELSEIF oForm != NIL  .AND. ValType(oForm) != "N" .AND. oForm:oFont != NIL
+      ELSEIF oForm != NIL .AND. ValType(oForm) != "N" .AND. oForm:oFont != NIL
          hwg_Setctrlfont(::oParent:handle, ::id, oForm:oFont:handle)
       ELSEIF ::oParent != NIL .AND. ::oParent:oFont != NIL
          hwg_Setctrlfont(::handle, ::id, ::oParent:oFont:handle)
       ENDIF
-      IF oForm != NIL .AND. oForm:Type != WND_DLG_RESOURCE  .AND. (::nLeft + ::nTop + ::nWidth + ::nHeight  != 0)
+      IF oForm != NIL .AND. oForm:Type != WND_DLG_RESOURCE .AND. (::nLeft + ::nTop + ::nWidth + ::nHeight  != 0)
          // fix init position in FORM reduce  flickering
          hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME )
       ENDIF
@@ -217,7 +217,7 @@ METHOD SetFont(oFont) CLASS HControl
 
 METHOD SetToolTip(cToolTip) CLASS HControl
 
-   IF ValType(cToolTip) = "C"  .AND. cToolTip != ::ToolTip
+   IF ValType(cToolTip) = "C" .AND. cToolTip != ::ToolTip
       hwg_Settooltiptitle(hwg_GetparentForm(Self):handle, ::handle, ctooltip)
       ::Tooltip := cToolTip
    ENDIF
@@ -369,7 +369,7 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
          IF ((x1 != x9 .OR. y1 != y9) .AND. (ISBLOCK(::bPaint) .OR. ;
                x9 + w9 > ::oParent:nWidth)) .OR. (::backstyle = TRANSPARENT .AND. ;
                (::Title != NIL .AND. !Empty(::Title))) .OR. __ObjHasMsg(Self, "oImage")
-            IF __ObjHasMsg(Self, "oImage") .OR.  ::backstyle = TRANSPARENT //.OR. w9 != w1
+            IF __ObjHasMsg(Self, "oImage") .OR. ::backstyle = TRANSPARENT //.OR. w9 != w1
                hwg_Invalidaterect(::oParent:handle, 1, Max(x1 - 1, 0), Max(y1 - 1, 0), x1 + w1 + 1, y1 + h1 + 1)
             ELSE
                hwg_Redrawwindow(::handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT)

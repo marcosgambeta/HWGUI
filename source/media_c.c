@@ -85,7 +85,7 @@ HB_FUNC( HWG_NMCIOPEN )
    DWORD dwFlags = MCI_OPEN_ELEMENT;
    void * hDevice, * hName;
 
-   memset( &mciOpenParms, 0, sizeof(mciOpenParms) );
+   memset(&mciOpenParms, 0, sizeof(mciOpenParms));
 
    mciOpenParms.lpstrDeviceType = HB_PARSTR(1, &hDevice, NULL);
    mciOpenParms.lpstrElementName = HB_PARSTR(2, &hName, NULL);
@@ -107,7 +107,7 @@ HB_FUNC( HWG_NMCIPLAY )
    MCI_PLAY_PARMS mciPlayParms;
    DWORD dwFlags = 0;
 
-   memset( &mciPlayParms, 0, sizeof(mciPlayParms) );
+   memset(&mciPlayParms, 0, sizeof(mciPlayParms));
 
    if( ( mciPlayParms.dwFrom = hb_parnl(2) ) != 0 )
       dwFlags |= MCI_FROM;

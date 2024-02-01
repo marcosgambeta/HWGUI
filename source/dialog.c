@@ -366,7 +366,7 @@ HB_FUNC( HWG__CREATEPROPERTYSHEETPAGE )
    LPDLGTEMPLATE pdlgtemplate;
    HPROPSHEETPAGE h;
 
-   memset( ( void * ) &psp, 0, sizeof(PROPSHEETPAGE) );
+   memset(( void * ) &psp, 0, sizeof(PROPSHEETPAGE));
 
    psp.dwSize = sizeof(PROPSHEETPAGE);
    psp.hInstance = (HINSTANCE) NULL;
@@ -530,7 +530,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
       SetObjectVar((PHB_ITEM) lParam, "_HANDLE", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject( hDlg, (PHB_ITEM) lParam );
+      SetWindowObject(hDlg, (PHB_ITEM) lParam);
    }
    pObject = (PHB_ITEM) GetWindowLongPtr(hDlg, GWLP_USERDATA);
 
@@ -546,7 +546,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam,
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
-      if ( uMsg ==  WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
+      if ( uMsg == WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
       {
          return (INT_PTR) hb_parptr(-1);
       }
@@ -581,7 +581,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       SetObjectVar((PHB_ITEM) lParam, "_HANDLE", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject( hDlg, (PHB_ITEM) lParam );
+      SetWindowObject(hDlg, (PHB_ITEM) lParam);
 
       if( iDialogs == s_nDialogs )
       {
@@ -620,7 +620,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       HB_PUSHITEM(lParam);
       hb_vmSend(3);
       #ifdef HWG_USE_POINTER_ITEM
-      if ( uMsg ==  WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
+      if ( uMsg == WM_CTLCOLORSTATIC  || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG) 
       {
          return (INT_PTR)hb_parptr(-1);
       }
@@ -657,7 +657,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
       SetObjectVar(pObj, "_HANDLE", temp);
       hb_itemRelease(temp);
 
-      SetWindowObject( hDlg, pObj );
+      SetWindowObject(hDlg, pObj);
 
       if( iDialogs == s_nDialogs )
       {

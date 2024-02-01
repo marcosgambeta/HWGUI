@@ -319,7 +319,7 @@ METHOD SetCols(nProw, nPcol) CLASS PrintDos
       ENDDO
    ENDIF
 
-   IF nProw == ::nProw  .AND. nPcol < ::nPcol
+   IF nProw == ::nProw .AND. nPcol < ::nPcol
       ::Eject()
    ENDIF
 

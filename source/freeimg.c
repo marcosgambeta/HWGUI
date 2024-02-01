@@ -441,8 +441,8 @@ HB_FUNC( HWG_FI_FI2DIB )
    if( hdib ) {
       /* int scan_width = pGetPitch(dib); unused */
       LPBITMAPINFO lpbi = ( LPBITMAPINFO ) GlobalLock(hdib);
-      memcpy( ( LPBYTE ) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
-            pGetbits( dib ), lpbi->bmiHeader.biSizeImage );
+      memcpy((LPBYTE) ( ( BYTE * ) lpbi ) + lpbi->bmiHeader.biSize,
+            pGetbits( dib ), lpbi->bmiHeader.biSizeImage);
       GlobalUnlock(hdib);
       hb_retnl((LONG) hdib);
    } else {
@@ -516,13 +516,13 @@ HB_FUNC( HWG_FI_FI2DIBEX )
       hMem = GlobalAlloc(GHND, dib_size);
       dib = ( BYTE * ) GlobalLock(hMem);
 
-      memset( dib, 0, dib_size );
+      memset(dib, 0, dib_size);
 
       p_dib = ( BYTE * ) dib;
 
       // Copy the BITMAPINFOHEADER
       bih = pGetinfoHead(_dib);
-      memcpy( p_dib, bih, sizeof(BITMAPINFOHEADER) );
+      memcpy(p_dib, bih, sizeof(BITMAPINFOHEADER));
 
       if( pGetImageType(_dib) != 1 /*FIT_BITMAP */  ) {
          // this hack is used to store the bitmap type in the biCompression member of the BITMAPINFOHEADER
@@ -532,12 +532,12 @@ HB_FUNC( HWG_FI_FI2DIBEX )
 
       // Copy the palette
       pal = pGetPalette(_dib);
-      memcpy( p_dib, pal, pGetColorsUsed(_dib) * sizeof(RGBQUAD) );
+      memcpy(p_dib, pal, pGetColorsUsed(_dib) * sizeof(RGBQUAD));
       p_dib += pGetColorsUsed(_dib) * sizeof(RGBQUAD);
 
       // Copy the bitmap
       bits = pGetbits( _dib );
-      memcpy( p_dib, bits, pGetPitch(_dib) * pGetheight( _dib ) );
+      memcpy(p_dib, bits, pGetPitch(_dib) * pGetheight(_dib));
 
       GlobalUnlock(hMem);
    }
@@ -612,7 +612,7 @@ HB_FUNC( HWG_FI_BMP2FI )
       if( pAllocate && pGetbits && pGetinfo && pGetheight ) {
          HDC hDC = GetDC(NULL);
 
-         GetObject( hbmp, sizeof(BITMAP), ( LPVOID ) &bm );
+         GetObject(hbmp, sizeof(BITMAP), (LPVOID) &bm);
          dib = pAllocate(bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0);
          GetDIBits( hDC, hbmp, 0, pGetheight( dib ),
                pGetbits( dib ), pGetinfo( dib ), DIB_RGB_COLORS );
@@ -652,7 +652,7 @@ static LPBYTE DibBits( LPBITMAPINFOHEADER lpdib )
 {
    DWORD dwColorTableSize =
          (DWORD) ( DibNumColors( lpdib ) * sizeof(RGBQUAD) );
-   LPBYTE lpBits = ( LPBYTE ) lpdib + lpdib->biSize + dwColorTableSize;
+   LPBYTE lpBits = (LPBYTE) lpdib + lpdib->biSize + dwColorTableSize;
 
    return lpBits;
 }                               // end DibBits
@@ -697,7 +697,7 @@ HB_FUNC( HWG_FI_DIB2FI )
             // Convert palette entries
             RGBQUAD *pal = pGetPalette(dib);
             RGBQUAD *dibpal =
-                  ( RGBQUAD * ) ( ( ( LPBYTE ) lpbi ) + lpbi->biSize );
+                  ( RGBQUAD * ) ( ( (LPBYTE) lpbi ) + lpbi->biSize );
 
             for( i = 0; i < BmiColorCount( lpbi ); i++ )
             {
@@ -775,7 +775,7 @@ unsigned DLL_CALLCONV _ReadProc(void *buffer, unsigned size, unsigned count,
 
    for( u = 0; u < count; u++ )
    {
-      memcpy( tmp, g_load_address, size );
+      memcpy(tmp, g_load_address, size);
       g_load_address = ( BYTE * ) g_load_address + size;
       tmp += size;
    }
@@ -868,8 +868,8 @@ HB_FUNC( HWG_FI_GETDOTSPERMETERX )
          ( FREEIMAGE_GETDOTSPERMETERX ) (void *) s_getFunction( ( FARPROC ) (void *) 
          pGetDotsPerMeterX, "_FreeImage_GetDotsPerMeterX@4" );
 
-   hb_retnl(( pGetDotsPerMeterX ) ? pGetDotsPerMeterX( ( FIBITMAP * )
-               hb_parnl(1) ) : 0);
+   hb_retnl(( pGetDotsPerMeterX ) ? pGetDotsPerMeterX(( FIBITMAP * )
+               hb_parnl(1)) : 0);
 }
 
 HB_FUNC( HWG_FI_GETDOTSPERMETERY )
@@ -889,7 +889,7 @@ HB_FUNC( HWG_FI_SETDOTSPERMETERX )
          pSetDotsPerMeterX, "_FreeImage_SetDotsPerMeterX@8" );
 
    if( pSetDotsPerMeterX ) {
-      pSetDotsPerMeterX( hwg_par_FIBITMAP(1), hb_parnl(2) );
+      pSetDotsPerMeterX(hwg_par_FIBITMAP(1), hb_parnl(2));
    }
 
    hb_ret();
@@ -1020,8 +1020,8 @@ HB_FUNC( HWG_FI_GETPIXELINDEX )
          ( FREEIMAGE_GETPIXELINDEX ) (void *) s_getFunction( ( FARPROC ) (void *) pGetPixelIndex,
          "_FreeImage_GetPixelIndex@16" );
 
-   lRes = pGetPixelIndex( hwg_par_FIBITMAP(1), hb_parni(2),
-         hb_parni(3), &value );
+   lRes = pGetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2),
+         hb_parni(3), &value);
 
    if( lRes ) {
       hb_stornl((ULONG) value, 4);

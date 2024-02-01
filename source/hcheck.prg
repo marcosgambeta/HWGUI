@@ -52,7 +52,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::title   := cCaption
    ::lValue   := IIf(vari == NIL .OR. ValType(vari) != "L", .F., vari)
    ::bSetGet := bSetGet
-   ::backStyle :=  IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
+   ::backStyle := IIF(lTransp != NIL .AND. lTransp, TRANSPARENT, OPAQUE)
 
    ::Activate()
 
@@ -132,7 +132,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
       ELSEIF wParam = VK_RIGHT .OR. wParam = VK_DOWN
          hwg_GetSkip(::oparent, ::handle, , 1)
          RETURN 0
-      ELSEIF (wParam == VK_RETURN) //  .OR. wParam == VK_SPACE )
+      ELSEIF (wParam == VK_RETURN) // .OR. wParam == VK_SPACE )
          IF ::lEnter
             ::SetValue(!::GetValue())
             ::VALID()
@@ -147,7 +147,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
    ELSEIF msg = WM_GETDLGCODE .AND. !EMPTY(lParam)
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
          RETURN -1
-      ELSEIF wParam = VK_ESCAPE  .AND. ;
+      ELSEIF wParam = VK_ESCAPE .AND. ;
             (oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != NIL .AND. !oCtrl:IsEnabled()
          RETURN DLGC_WANTMESSAGE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
@@ -183,7 +183,7 @@ METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
    IF ::bSetGet != NIL
-      var :=  Eval(::bSetGet,, Self)
+      var := Eval(::bSetGet,, Self)
       IF var = NIL .OR. Valtype(var) != "L"
          var := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1
       ENDIF
@@ -275,7 +275,7 @@ METHOD When() CLASS HCheckButton
 METHOD Valid() CLASS HCheckButton
    LOCAL l := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0)
 
-   IF !hwg_CheckFocus(Self, .T.)  .OR. ::lnoValid
+   IF !hwg_CheckFocus(Self, .T.) .OR. ::lnoValid
       RETURN .T.
    ENDIF
    IF l == BST_INDETERMINATE

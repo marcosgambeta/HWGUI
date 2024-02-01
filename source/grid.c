@@ -62,10 +62,10 @@ HB_FUNC( HWG_LISTVIEW_CREATE )
       style = style | LVS_NOSCROLL;
    }
 
-   handle = CreateWindowEx( WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL,
+   handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL,
          style,
          hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-         hwnd, ( HMENU ) hb_parni(2), GetModuleHandle(NULL), NULL );
+         hwnd, (HMENU) hb_parni(2), GetModuleHandle(NULL), NULL);
 
    HB_RETHANDLE(handle);
 }
@@ -189,7 +189,7 @@ HB_FUNC( HWG_LISTVIEW_GETGRIDKEY )
 
 HB_FUNC( HWG_LISTVIEW_GETTOPINDEX )
 {
-   hb_retnl(ListView_GetTopIndex( hwg_par_HWND(1) ));
+   hb_retnl(ListView_GetTopIndex(hwg_par_HWND(1)));
 }
 
 HB_FUNC( HWG_LISTVIEW_REDRAWITEMS )
@@ -282,7 +282,7 @@ HB_FUNC( HWG_LISTVIEW_ADDCOLUMNEX )
    LVCOLUMN lvcolumn;
    int iResult;
 
-   memset( &lvcolumn, 0, sizeof(lvcolumn) );
+   memset(&lvcolumn, 0, sizeof(lvcolumn));
 
    if( iImage > 0 )
       lvcolumn.mask =
@@ -324,7 +324,7 @@ HB_FUNC( HWG_LISTVIEW_INSERTITEMEX )
 
    GetClientRect(hwndListView, &rect);
 
-   memset( &lvi, 0, sizeof(lvi) );
+   memset(&lvi, 0, sizeof(lvi));
 
    if( iBitMap >= 0 )
       lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
@@ -411,8 +411,8 @@ LRESULT ProcessCustomDraw( LPARAM lParam, PHB_ITEM pArray )
          COLORREF ColorBack;
 
          pColor = hb_arrayGetItemPtr(pArray, lplvcd->iSubItem + 1);
-         ColorText = ( COLORREF ) hb_arrayGetNL(pColor, 1);
-         ColorBack = ( COLORREF ) hb_arrayGetNL(pColor, 2);
+         ColorText = (COLORREF) hb_arrayGetNL(pColor, 1);
+         ColorBack = (COLORREF) hb_arrayGetNL(pColor, 2);
          lplvcd->clrText = ColorText;
          lplvcd->clrTextBk = ColorBack;
 
@@ -439,7 +439,7 @@ HB_FUNC( HWG_LISTVIEWGETITEM )
    LVITEM Item;
    TCHAR Buffer[256] = { 0 };
 
-   memset( &Item, '\0', sizeof(Item) );
+   memset(&Item, '\0', sizeof(Item));
 
    Item.mask = LVIF_TEXT | LVIF_PARAM;
    Item.iItem = Index;
@@ -517,6 +517,6 @@ HB_FUNC( HWG_LISTVIEWSORT )
 // p->nColumnNo = phdNotify->iItem;
    p->nColumnNo = phdNotify->iSubItem;
    p->pListControl = hwg_par_HWND(1);
-   ListView_SortItemsEx( hwg_par_HWND(1), CompareFunc, p );
+   ListView_SortItemsEx(hwg_par_HWND(1), CompareFunc, p);
 }
 

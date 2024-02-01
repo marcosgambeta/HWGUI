@@ -44,7 +44,7 @@ HB_FUNC( HWG_CREATERICHEDIT )
    if( !hRichEd )
       hRichEd = LoadLibrary( TEXT("riched20.dll") );
 
-   hCtrl = CreateWindowEx( 0,   /* extended style    */
+   hCtrl = CreateWindowEx(0,   /* extended style    */
 #ifdef UNICODE
          TEXT("RichEdit20W"), /* predefined class  */
 #else
@@ -55,8 +55,8 @@ HB_FUNC( HWG_CREATERICHEDIT )
          hb_parni(4), hb_parni(5),  /* x, y   */
          hb_parni(6), hb_parni(7),  /* nWidth, nHeight */
          hwg_par_HWND(1),    /* parent window    */
-         ( HMENU ) hb_parni(2),       /* control ID  */
-         GetModuleHandle(NULL), NULL );
+         (HMENU) hb_parni(2),       /* control ID  */
+         GetModuleHandle(NULL), NULL);
 
    lpText = HB_PARSTR(8, &hText, NULL);
    if( lpText )
@@ -94,11 +94,11 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
          chrNew.cpMax = hb_arrayGetNL(pArr1, 2) - 1;
          SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) &chrNew);
 
-         memset( &cf, 0, sizeof(CHARFORMAT2) );
+         memset(&cf, 0, sizeof(CHARFORMAT2));
          cf.cbSize = sizeof(CHARFORMAT2);
          if( hb_itemType(hb_arrayGetItemPtr(pArr1, 3)) != HB_IT_NIL )
          {
-            cf.crTextColor = ( COLORREF ) hb_arrayGetNL(pArr1, 3);
+            cf.crTextColor = (COLORREF) hb_arrayGetNL(pArr1, 3);
             cf.dwMask |= CFM_COLOR;
          }
          if( ulLen1 > 3 &&
@@ -167,7 +167,7 @@ HB_FUNC( HWG_RE_SETCHARFORMAT )
       chrNew.cpMax = hb_parnl(3) - 1;
       SendMessage(hCtrl, EM_EXSETSEL, 0, (LPARAM) &chrNew);
 
-      memset( &cf, 0, sizeof(CHARFORMAT2) );
+      memset(&cf, 0, sizeof(CHARFORMAT2));
       cf.cbSize = sizeof(CHARFORMAT2);
 
       if( !HB_ISNIL(4) )
@@ -238,7 +238,7 @@ HB_FUNC( HWG_RE_SETDEFAULT )
    HWND hCtrl = hwg_par_HWND(1);
    CHARFORMAT2 cf;
 
-   memset( &cf, 0, sizeof(CHARFORMAT2) );
+   memset(&cf, 0, sizeof(CHARFORMAT2));
    cf.cbSize = sizeof(CHARFORMAT2);
 
    if( HB_ISNUM(2) )
@@ -440,8 +440,8 @@ HB_FUNC( HWG_PRINTRTF )
 
 HB_FUNC( HWG_INITRICHPROC )
 {
-   wpOrigRichProc = ( WNDPROC ) SetWindowLongPtr(hwg_par_HWND(1),
-         GWLP_WNDPROC, ( LONG_PTR ) RichSubclassProc);
+   wpOrigRichProc = (WNDPROC) SetWindowLongPtr(hwg_par_HWND(1),
+         GWLP_WNDPROC, (LONG_PTR) RichSubclassProc);
 }
 
 LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam,
@@ -489,7 +489,7 @@ static DWORD CALLBACK RichStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG 
 static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, PLONG pcb)
 {
  HANDLE hFile = (HANDLE)dwCookie;
- return ! ReadFile(hFile, lpBuff, cb, ( DWORD * ) pcb, NULL );
+ return !ReadFile(hFile, lpBuff, cb, ( DWORD * ) pcb, NULL );
 }
 
 HB_FUNC( HWG_SAVERICHEDIT )

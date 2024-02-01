@@ -177,7 +177,7 @@ HB_FUNC( HWG_CHECKMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -207,7 +207,7 @@ HB_FUNC( HWG_ISCHECKEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -241,7 +241,7 @@ HB_FUNC( HWG_ENABLEMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -276,7 +276,7 @@ HB_FUNC( HWG_ISENABLEDMENUITEM )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -384,7 +384,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -405,7 +405,7 @@ HB_FUNC( HWG_GETMENUCAPTION )
       MENUITEMINFO mii;
       LPTSTR lpBuffer;
 
-      memset( &mii.cbSize, 0, sizeof(MENUITEMINFO) );
+      memset(&mii.cbSize, 0, sizeof(MENUITEMINFO));
       mii.cbSize = sizeof(MENUITEMINFO);
       mii.fMask = MIIM_TYPE;
       mii.fType = MFT_STRING;
@@ -432,7 +432,7 @@ HB_FUNC( HWG_SETMENUCAPTION )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
@@ -548,7 +548,7 @@ HB_FUNC( HWG_ENABLEMENUSYSTEMITEM )
    UINT  uEnable = ( hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3) )? MF_ENABLED:MF_GRAYED;
    UINT  uFlag = ( hb_pcount() < 4 || !HB_ISLOG(4) || hb_parl(4) )? MF_BYCOMMAND:MF_BYPOSITION;
 
-   hMenu = ( HMENU ) GetSystemMenu( hwg_par_HWND(1), 0 );
+   hMenu = (HMENU) GetSystemMenu( hwg_par_HWND(1), 0 );
    if( !hMenu )
    {
       HB_RETHANDLE(NULL);
@@ -574,19 +574,19 @@ HB_FUNC( HWG_SETMENUINFO )
    if( HB_ISOBJECT(1) )
    {
       PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
-      hMenu = ( HMENU ) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
+      hMenu = (HMENU) HB_GETHANDLE(GetObjectVar(pObject, "HANDLE"));
    }
    else
    {
       HWND handle = ( hb_pcount() > 0 &&
-            ! HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
+            !HB_ISNIL(1) ) ? ( hwg_par_HWND(1) ) : aWindows[0];
       hMenu = GetMenu( handle );
    }
    if( !hMenu )
       hMenu = hwg_par_HMENU(1);
    if( hMenu )
    {
-      hbrush = hb_pcount() > 1 && ! HB_ISNIL(2) ? CreateSolidBrush(hwg_par_COLORREF(2)) : NULL;
+      hbrush = hb_pcount() > 1 && !HB_ISNIL(2) ? CreateSolidBrush(hwg_par_COLORREF(2)) : NULL;
       mi.cbSize          = sizeof(mi);
       mi.fMask           = MIM_APPLYTOSUBMENUS | MIM_BACKGROUND;
       mi.hbrBack         = hbrush;
