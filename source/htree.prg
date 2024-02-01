@@ -333,7 +333,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
          AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := IIf(lResour <> NIL.AND.lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
+         aImages[i] := IIf(lResour != NIL.AND.lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
       NEXT
       aBmpSize := hwg_Getbitmapsize(aImages[1])
       ::himl := hwg_Createimagelist(aImages, aBmpSize[1], aBmpSize[2], 12, nBC)

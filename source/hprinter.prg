@@ -88,7 +88,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
          ::Copies := nCopies
       ENDIF
    ENDIF
-   IF valtype(lProprierties) <> "L"
+   IF valtype(lProprierties) != "L"
       lProprierties := .T.
    ENDIF
 
@@ -98,7 +98,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
    IF hDCPrn = NIL
       hDCPrn := 0
    ENDIF
-   IF hDCPrn <> 0
+   IF hDCPrn != 0
       ::hDCPrn := hDCPrn
       ::cPrinterName := cPrinter
    ELSE

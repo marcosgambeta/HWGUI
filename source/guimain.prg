@@ -394,7 +394,7 @@ FUNCTION hwg_SetHelpFileName(cNewName)
 
    STATIC cName := ""
    LOCAL cOldName := cName
-   IF cNewName <> Nil
+   IF cNewName != Nil
       cName := cNewName
    ENDIF
    RETURN cOldName

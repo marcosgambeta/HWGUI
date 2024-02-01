@@ -283,8 +283,8 @@ METHOD Print()  CLASS HRichEdit
    IF ::hDCPrinter = Nil
     //  ::hDCPrinter := hwg_Printsetup()
    ENDIF
-   IF HWG_STARTDOC(::hDCPrinter) <> 0
-      IF hwg_Printrtf(::Handle, ::hDCPrinter) <> 0
+   IF HWG_STARTDOC(::hDCPrinter) != 0
+      IF hwg_Printrtf(::Handle, ::hDCPrinter) != 0
           HWG_ENDDOC(::hDCPrinter)
       ELSE
          HWG_ABORTDOC(::hDCPrinter)

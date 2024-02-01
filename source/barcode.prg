@@ -267,7 +267,7 @@ METHOD CreateBarcode(cCode) CLASS BarCode
    //nX    := ::nLeft
    //nY    := ::nTop
 
-   IF ::lTransparent = .F. .AND. ::nColPane <> hwg_Rgb(255, 255, 255)
+   IF ::lTransparent = .F. .AND. ::nColPane != hwg_Rgb(255, 255, 255)
 
       IF ::lHorizontal = .F.
          RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, nY + Min(Len(cCode) * ::nPinWidth, ::nWidth))
@@ -428,7 +428,7 @@ METHOD InitCode128(cMode) CLASS BarCode
    LOCAL nCount := 0
 
    // Errors
-   IF ValType(cCode) <> "C"
+   IF ValType(cCode) != "C"
       hwg_Msginfo("Barcode Code 128 requires a character value.")
       RETURN NIL
    ENDIF

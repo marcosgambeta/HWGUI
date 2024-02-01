@@ -27,7 +27,7 @@ CLASS HSayImage INHERIT HControl
          bSize, ctooltip, bClick, bDblClick)
    METHOD Redefine(oWndParent, nId, bInit, bSize, ctooltip)
    METHOD Activate()
-   METHOD END()  INLINE (::Super:END(), IIf(::oImage <> NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
+   METHOD END()  INLINE (::Super:END(), IIf(::oImage != NIL, ::oImage:Release(), ::oImage := NIL), ::oImage := NIL)
    METHOD onClick()
    METHOD onDblClick()
 

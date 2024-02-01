@@ -14,7 +14,7 @@ LOCAL stro := "", rez, oldpoz, poz1
    oldpoz := poz
    poz    := At(Chr(10), Substr(strbuf, poz))
    IF poz = 0
-      IF han <> Nil
+      IF han != Nil
          stro += Substr(strbuf, oldpoz)
          rez  := Fread(han, @strbuf, buflen)
          IF rez = 0
@@ -56,7 +56,7 @@ LOCAL varName, iPosEnd, iPos3
       ENDIF
       ipos3    := Find_Z(Left(stroka, iPosEnd - 1), ':')
       varName  := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
-      varValue := Iif(iPos3 <> 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil)
+      varValue := Iif(iPos3 != 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil)
       stroka   := Substr(stroka, iPosEnd + 1)
    ENDIF
 RETURN varName
@@ -74,7 +74,7 @@ LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0
          poz := poz + poz1 - 1
       ENDIF
       FOR i := poz1 TO poz - 1
-         IF (j := At(Substr(stroka, i, 1), ms1)) <> 0
+         IF (j := At(Substr(stroka, i, 1), ms1)) != 0
             ms2[j] ++
          ENDIF
       NEXT
@@ -82,7 +82,7 @@ LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0
                  ms2[5] == ms2[6] .AND. ms2[7] % 2 == 0 .AND. ms2[8] % 2 == 0
          EXIT
       ELSE
-         IF (j := At(Substr(stroka, poz, 1), ms1)) <> 0
+         IF (j := At(Substr(stroka, poz, 1), ms1)) != 0
             ms2[j] ++
          ENDIF
          poz1 := poz + 1

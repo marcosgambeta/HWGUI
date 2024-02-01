@@ -419,7 +419,7 @@ METHOD onEvent( msg, wParam, lParam ) CLASS HEdit
          ELSEIF ::selstart = 0 .AND. "R" $ ::cPicFunc
             hwg_Sendmessage(::handle, EM_SETSEL, ::FirstEditable() - 1, ::FirstEditable() - 1)
          ENDIF
-         IF ::lPicComplex .AND. ::cType <> "N" .AND. !::lFirst
+         IF ::lPicComplex .AND. ::cType != "N" .AND. !::lFirst
             ::Title := Transform(::Title, ::cPicFunc + " " + ::cPicMask)
          ENDIF
       ENDIF
@@ -757,17 +757,17 @@ METHOD DeleteChar( lBack ) CLASS HEdit
       nPosEnd += 1
    ENDIF
    /* NEW */
-   IF nPosEnd - nPosStart - 1 > 1 .AND. ::lPicComplex .AND. ::cType <> "N"
+   IF nPosEnd - nPosStart - 1 > 1 .AND. ::lPicComplex .AND. ::cType != "N"
       lBack := .T.
    ELSE
       IF lBack .AND. !::IsEditable(nPosStart + 1, .T.)
-         nPosStart -= iif(::cType <> "N", 1, 0)
+         nPosStart -= iif(::cType != "N", 1, 0)
          IF nPosStart < 0
             hwg_Sendmessage(::handle, EM_SETSEL, ::FirstEditable() - 1, ::FirstEditable() - 1)
             RETURN Nil
          ENDIF
       ENDIF
-      IF  ::lPicComplex .AND. ::cType <> "N" .AND. ::FirstNotEditable(nPosStart) > 0 .AND. ;
+      IF  ::lPicComplex .AND. ::cType != "N" .AND. ::FirstNotEditable(nPosStart) > 0 .AND. ;
             ( !lBack .OR. ( lBack .AND. nPosEnd - nPosStart - 1 < 2 ) )
          nPosEdit := ::FirstNotEditable(nPosStart)
          nGetLen := Len(Trim(Left(::title, nPosEdit - 1)))
@@ -784,9 +784,9 @@ METHOD DeleteChar( lBack ) CLASS HEdit
          ENDIF
       ENDIF
    ENDIF
-   IF lBack .AND. ::lPicComplex .AND. ::cType <> "N" .AND. ( nPosStart + nPosEnd > 0 )
-      IF lBack .OR. nPosStart <> ( nPosEnd - 2 )
-         IF  nPosStart <> ( nPosEnd - 2 )
+   IF lBack .AND. ::lPicComplex .AND. ::cType != "N" .AND. ( nPosStart + nPosEnd > 0 )
+      IF lBack .OR. nPosStart != ( nPosEnd - 2 )
+         IF  nPosStart != ( nPosEnd - 2 )
             cBuf := Left(::title, nPosStart) + Space(nPosEnd - nPosStart - 1) + SubStr(::title, nPosEnd)
          ENDIF
       ELSE
@@ -1652,7 +1652,7 @@ STATIC FUNCTION NextFocusContainer( oParent, hCtrl, nSkip )
 FUNCTION hwg_SetColorinFocus( lDef, tcolor, bcolor, lFixed, lPersist )
 
 
-   IF ValType(lDef) <> "L"
+   IF ValType(lDef) != "L"
       lDef := ( ValType(lDef) = "C" .AND. Upper(lDef) = "ON" )
    ENDIF
    lColorinFocus := lDef
@@ -1669,7 +1669,7 @@ FUNCTION hwg_SetColorinFocus( lDef, tcolor, bcolor, lFixed, lPersist )
 FUNCTION hwg_SetDisableBackColor(lDef, bcolor)
 
 
-   IF ValType(lDef) <> "L"
+   IF ValType(lDef) != "L"
       lDef := ( ValType(lDef) = "C" .AND. Upper(lDef) = "ON" )
    ENDIF
    IF !lDef

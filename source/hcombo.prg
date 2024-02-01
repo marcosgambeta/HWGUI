@@ -237,7 +237,7 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPa
       ::bGetFocus  := bGFocus
       ::oParent:AddEvent(CBN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))}, , "onGotFocus")
       // By Luiz Henrique dos Santos (luizhsantos@gmail.com) 04/06/2006
-      IF ::bSetGet <> nil
+      IF ::bSetGet != nil
          ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, , "onChange")
       ELSEIF ::bChangeSel != NIL
          ::oParent:AddEvent(CBN_SELCHANGE, Self, {|o, id|::Valid(o:FindControl(id))}, , "onChange")
