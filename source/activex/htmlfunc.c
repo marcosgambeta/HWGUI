@@ -6,14 +6,14 @@
  *
  * Copyright 2006 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
-*/
+ */
 
 #define HB_OS_WIN_32_USED
 
 #define _WIN32_WINNT 0x0400
 
 #include <windows.h>
-#include "htmlcore.h"           /* Declarations of the functions in DLL.c */
+#include "htmlcore.h" /* Declarations of the functions in DLL.c */
 
 #include "hbapi.h"
 #include "hbapiitm.h"
@@ -21,52 +21,51 @@
 #include "guilib.h"
 static short int bOleInitialized = 0;
 
-HB_FUNC( HWGAX_OLEINITIALIZE )
+HB_FUNC(HWGAX_OLEINITIALIZE)
 {
-   if( !bOleInitialized )
-   {
-      if( OleInitialize(NULL) == S_OK )
-         bOleInitialized = 1;
-   }
-   hb_retl(bOleInitialized);
+  if (!bOleInitialized)
+  {
+    if (OleInitialize(NULL) == S_OK)
+      bOleInitialized = 1;
+  }
+  hb_retl(bOleInitialized);
 }
 
-HB_FUNC( HWGAX_OLEUNINITIALIZE )
+HB_FUNC(HWGAX_OLEUNINITIALIZE)
 {
-   if( bOleInitialized )
-   {
-      OleUninitialize();
-      bOleInitialized = 0;
-   }
+  if (bOleInitialized)
+  {
+    OleUninitialize();
+    bOleInitialized = 0;
+  }
 }
 
-HB_FUNC( HWGAX_EMBEDBROWSEROBJECT )
+HB_FUNC(HWGAX_EMBEDBROWSEROBJECT)
 {
-   hb_retl(!EmbedBrowserObject(hwg_par_HWND(1)));
+  hb_retl(!EmbedBrowserObject(hwg_par_HWND(1)));
 }
 
-HB_FUNC( HWGAX_UNEMBEDBROWSEROBJECT )
+HB_FUNC(HWGAX_UNEMBEDBROWSEROBJECT)
 {
-   UnEmbedBrowserObject(hwg_par_HWND(1));
+  UnEmbedBrowserObject(hwg_par_HWND(1));
 }
 
-HB_FUNC( HWGAX_DISPLAYHTMLPAGE )
+HB_FUNC(HWGAX_DISPLAYHTMLPAGE)
 {
-   DisplayHTMLPage(hwg_par_HWND(1), hb_parc(2));
+  DisplayHTMLPage(hwg_par_HWND(1), hb_parc(2));
 }
 
-HB_FUNC( HWGAX_DISPLAYHTMLSTR )
+HB_FUNC(HWGAX_DISPLAYHTMLSTR)
 {
-   DisplayHTMLStr(hwg_par_HWND(1), hb_parc(2));
+  DisplayHTMLStr(hwg_par_HWND(1), hb_parc(2));
 }
 
-HB_FUNC( HWGAX_RESIZEBROWSER )
+HB_FUNC(HWGAX_RESIZEBROWSER)
 {
-   ResizeBrowser( hwg_par_HWND(1), hwg_par_DWORD(2),
-         hwg_par_DWORD(3) );
+  ResizeBrowser(hwg_par_HWND(1), hwg_par_DWORD(2), hwg_par_DWORD(3));
 }
 
-HB_FUNC( HWGAX_DOPAGEACTION )
+HB_FUNC(HWGAX_DOPAGEACTION)
 {
-   DoPageAction( hwg_par_HWND(1), hwg_par_DWORD(2) );
+  DoPageAction(hwg_par_HWND(1), hwg_par_DWORD(2));
 }

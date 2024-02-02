@@ -6,69 +6,66 @@
  *
  * Copyright 2004 Marcos Antonio Gambeta <marcos_gambeta@hotmail.com>
  * www - http://geocities.yahoo.com.br/marcosgambeta/
-*/
+ */
 
 #include "hwingui.h"
 #include <commctrl.h>
 
-HB_FUNC( HWG_ANIMATE_CREATE )
+HB_FUNC(HWG_ANIMATE_CREATE)
 {
-   HWND hwnd;
+  HWND hwnd;
 
-   hwnd = Animate_Create(hwg_par_HWND(1), (LONG) hb_parnl(2),
-         (LONG) hb_parnl(3), GetModuleHandle(NULL));
-   MoveWindow( hwnd, hb_parnl(4), hb_parnl(5), hb_parnl(6),
-         hb_parnl(7), TRUE );
-   HB_RETHANDLE(hwnd);
+  hwnd =
+      Animate_Create(hwg_par_HWND(1), (LONG)hb_parnl(2), (LONG)hb_parnl(3), GetModuleHandle(NULL));
+  MoveWindow(hwnd, hb_parnl(4), hb_parnl(5), hb_parnl(6), hb_parnl(7), TRUE);
+  HB_RETHANDLE(hwnd);
 }
 
-HB_FUNC( HWG_ANIMATE_OPEN )
+HB_FUNC(HWG_ANIMATE_OPEN)
 {
-   void * hStr;
-   Animate_Open( hwg_par_HWND(1), HB_PARSTR(2, &hStr, NULL) );
-   hb_strfree(hStr);
+  void *hStr;
+  Animate_Open(hwg_par_HWND(1), HB_PARSTR(2, &hStr, NULL));
+  hb_strfree(hStr);
 }
 
-HB_FUNC( HWG_ANIMATE_PLAY )
+HB_FUNC(HWG_ANIMATE_PLAY)
 {
-   Animate_Play( hwg_par_HWND(1), hb_parni(2), hb_parni(3),
-         hb_parni(4) );
+  Animate_Play(hwg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4));
 }
 
-HB_FUNC( HWG_ANIMATE_SEEK )
+HB_FUNC(HWG_ANIMATE_SEEK)
 {
-   Animate_Seek(hwg_par_HWND(1), hb_parni(2));
+  Animate_Seek(hwg_par_HWND(1), hb_parni(2));
 }
 
-HB_FUNC( HWG_ANIMATE_STOP )
+HB_FUNC(HWG_ANIMATE_STOP)
 {
-   Animate_Stop( hwg_par_HWND(1) );
+  Animate_Stop(hwg_par_HWND(1));
 }
 
-HB_FUNC( HWG_ANIMATE_CLOSE )
+HB_FUNC(HWG_ANIMATE_CLOSE)
 {
-   Animate_Close(hwg_par_HWND(1));
+  Animate_Close(hwg_par_HWND(1));
 }
 
-HB_FUNC( HWG_ANIMATE_DESTROY )
+HB_FUNC(HWG_ANIMATE_DESTROY)
 {
-   DestroyWindow( hwg_par_HWND(1) );
+  DestroyWindow(hwg_par_HWND(1));
 }
 
-HB_FUNC( HWG_ANIMATE_OPENEX )
+HB_FUNC(HWG_ANIMATE_OPENEX)
 {
 #if defined(__DMC__)
-   #define Animate_OpenEx(hwnd, hInst, szName) (BOOL)SNDMSG(hwnd, ACM_OPEN, (WPARAM)hInst, (LPARAM)(LPTSTR)(szName))
+#define Animate_OpenEx(hwnd, hInst, szName)                                                        \
+  (BOOL) SNDMSG(hwnd, ACM_OPEN, (WPARAM)hInst, (LPARAM)(LPTSTR)(szName))
 #endif
-   void * hResource;
-   LPCTSTR lpResource = HB_PARSTR(3, &hResource, NULL);
+  void *hResource;
+  LPCTSTR lpResource = HB_PARSTR(3, &hResource, NULL);
 
-   if( !lpResource && HB_ISNUM(3) )
-      lpResource = MAKEINTRESOURCE(hb_parni(3));
+  if (!lpResource && HB_ISNUM(3))
+    lpResource = MAKEINTRESOURCE(hb_parni(3));
 
-   Animate_OpenEx(hwg_par_HWND(1),
-                  (HINSTANCE) hb_parnl(2),
-                  lpResource);
+  Animate_OpenEx(hwg_par_HWND(1), (HINSTANCE)hb_parnl(2), lpResource);
 
-   hb_strfree(hResource);
+  hb_strfree(hResource);
 }
