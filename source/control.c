@@ -793,9 +793,9 @@ HB_FUNC(HWG_CREATETREE)
                          GetModuleHandle(NULL), NULL);
 
   if (!HB_ISNIL(8))
-    SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, (LPARAM)(hb_parnl(8)));
+    SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, hwg_par_LPARAM(8));
   if (!HB_ISNIL(9))
-    SendMessage(hCtrl, TVM_SETBKCOLOR, 0, (LPARAM)(hb_parnl(9)));
+    SendMessage(hCtrl, TVM_SETBKCOLOR, 0, hwg_par_LPARAM(9));
 
   HB_RETHANDLE(hCtrl);
 }
@@ -2061,7 +2061,7 @@ HB_FUNC(HWG_DEFWINDOWPROC)
   HWND hWnd = hwg_par_HWND(1);
   LONG message = hb_parnl(2);
   WPARAM wParam = hwg_par_WPARAM(3);
-  LPARAM lParam = (LPARAM)hb_parnl(4);
+  LPARAM lParam = hwg_par_LPARAM(4);
 
   hb_retnl(DefWindowProc(hWnd, message, wParam, lParam));
 }
@@ -2072,7 +2072,7 @@ HB_FUNC(HWG_CALLWINDOWPROC)
   HWND hWnd = hwg_par_HWND(2);
   LONG message = hb_parnl(3);
   WPARAM wParam = hwg_par_WPARAM(4);
-  LPARAM lParam = (LPARAM)hb_parnl(5);
+  LPARAM lParam = hwg_par_LPARAM(5);
 
   hb_retnl(CallWindowProc(wpProc, hWnd, message, wParam, lParam));
 }

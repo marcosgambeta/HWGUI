@@ -517,7 +517,7 @@ HB_FUNC(HWG_SENDMESSAGE)
                              hwg_par_WPARAM(3), // first message parameter
                              lpText            ? (LPARAM)lpText
                              : HB_ISPOINTER(4) ? (LPARAM)HB_PARHANDLE(4)
-                                               : (LPARAM)hb_parnl(4) // second message parameter
+                                               : hwg_par_LPARAM(4) // second message parameter
                              ));
   hb_strfree(hText);
 }
@@ -529,7 +529,7 @@ HB_FUNC(HWG_POSTMESSAGE)
                              (UINT)hb_parni(2), // message to send
                              HB_ISPOINTER(3) ? (WPARAM)HB_PARHANDLE(3)
                                              : hwg_par_WPARAM(3), // first message parameter
-                             (LPARAM)hb_parnl(4)                    // second message parameter
+                             hwg_par_LPARAM(4)                    // second message parameter
                              ));
 }
 

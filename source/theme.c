@@ -1248,7 +1248,7 @@ HB_FUNC(HWG_ENDTHEMELIB)
 HB_FUNC(HWG_ONNOTIFYCUSTOMDRAW)
 {
   // HWND hWnd = (HWND) hb_parnl(1);
-  LPARAM lParam = (LPARAM)hb_parnl(1);
+  LPARAM lParam = hwg_par_LPARAM(1);
   // PHB_ITEM pColor = hb_param(3, HB_IT_ARRAY);
   hb_retnl((LONG)OnNotifyCustomDraw(lParam));
 }
@@ -1798,7 +1798,7 @@ HB_FUNC(HWG_TRACKMOUSEVENT)
 HB_FUNC(HWG_BUTTONEXONSETSTYLE)
 {
   WPARAM wParam = hwg_par_WPARAM(1);
-  LPARAM lParam = (LPARAM)hb_parnl(2);
+  LPARAM lParam = hwg_par_LPARAM(2);
   HWND h = hwg_par_HWND(3);
 
   UINT nNewType = (wParam & BS_TYPEMASK);
