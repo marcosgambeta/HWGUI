@@ -514,7 +514,7 @@ HB_FUNC(HWG_SENDMESSAGE)
 
   hb_retnl((LONG)SendMessage(hwg_par_HWND(1),     // handle of destination window
                              (UINT)hb_parni(2),   // message to send
-                             (WPARAM)hb_parnl(3), // first message parameter
+                             hwg_par_WPARAM(3), // first message parameter
                              lpText            ? (LPARAM)lpText
                              : HB_ISPOINTER(4) ? (LPARAM)HB_PARHANDLE(4)
                                                : (LPARAM)hb_parnl(4) // second message parameter
@@ -528,7 +528,7 @@ HB_FUNC(HWG_POSTMESSAGE)
   hb_retnl((LONG)PostMessage(hwg_par_HWND(1),   // handle of destination window
                              (UINT)hb_parni(2), // message to send
                              HB_ISPOINTER(3) ? (WPARAM)HB_PARHANDLE(3)
-                                             : (WPARAM)hb_parnl(3), // first message parameter
+                                             : hwg_par_WPARAM(3), // first message parameter
                              (LPARAM)hb_parnl(4)                    // second message parameter
                              ));
 }
@@ -586,7 +586,7 @@ HB_FUNC(HWG_GETWINDOWTEXT)
 
 HB_FUNC(HWG_SETWINDOWFONT)
 {
-  SendMessage(hwg_par_HWND(1), WM_SETFONT, (WPARAM)hb_parnl(2),
+  SendMessage(hwg_par_HWND(1), WM_SETFONT, hwg_par_WPARAM(2),
               MAKELPARAM((HB_ISNIL(3)) ? 0 : hb_parl(3), 0));
 }
 
@@ -1346,7 +1346,7 @@ HB_FUNC(HWG_UNSETHOOK)
 HB_FUNC(HWG_GETTOOLBARID)
 {
   HWND hMytoolMenu = hwg_par_HWND(1);
-  WPARAM wp = (WPARAM)hb_parnl(2);
+  WPARAM wp = hwg_par_WPARAM(2);
   UINT uId;
 
   if (SendMessage(hMytoolMenu, TB_MAPACCELERATOR, (WPARAM)wp, (LPARAM)&uId) != 0)

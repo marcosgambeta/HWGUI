@@ -142,5 +142,5 @@ HB_EXTERN_END
 #define hwg_par_HBRUSH(n)     (HBRUSH) HB_PARHANDLE(n)
 #define hwg_par_COLORREF(n)   (COLORREF) hb_parnl(n)
 #define hwg_par_HRGN(n)       (HRGN) HB_PARHANDLE(n)
-
-#define hwg_par_DWORD(n)     (DWORD) hb_parnl(n)
+#define hwg_par_DWORD(n)      (DWORD) hb_parnl(n)
+#define hwg_par_WPARAM(n)     (WPARAM) hb_parnl(n)
