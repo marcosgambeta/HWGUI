@@ -1509,11 +1509,13 @@ HB_FUNC(HWG_CLEARKEYBOARD)
     GetKeyboardState(kbBuffer);
     lClear = FALSE;
     for (i = 0; i < 256; i++)
+    {
       if (kbBuffer[i] & 0x80)
       {
         s_ClearKeyboard();
         lClear = TRUE;
       }
+    }  
   }
 }
 

@@ -715,8 +715,10 @@ DWORD asciiToNumW(OLECHAR *val)
 
   // Skip leading spaces
   while (*val == ' ' || *val == 0x09)
+  {
     val++;
-
+  }
+  
   // Convert next digit
   while (*val)
   {

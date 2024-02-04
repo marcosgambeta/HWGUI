@@ -324,9 +324,8 @@ HB_FUNC(HWG_ACTIVATEKEYBOARDLAYOUT)
     }
     ActivateKeyboardLayout(0, 0);
     i++;
-  }
+  } while (i < num);
 
-  while (i < num);
   if (i >= num)
   {
     ActivateKeyboardLayout(curr, 0);
@@ -784,11 +783,13 @@ HB_FUNC(HWG_LASTKEY)
   GetKeyboardState(kbBuffer);
 
   for (i = 0; i < 256; i++)
+  {
     if (kbBuffer[i] & 0x80)
     {
       hb_retni(i);
       return;
     }
+  }
   hb_retni(0);
 }
 

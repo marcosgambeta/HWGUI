@@ -803,8 +803,10 @@ static void hb_dbgAddStopLines(PHB_ITEM pItem)
           memmove(&pBuffer[(nNewMin - nMin) >> 3], pNewBuffer, nNewLen);
           nOrigMin = (nOrigMin - nMin) >> 3;
           for (k = 0; k < nOrigLen; k++)
+          {
             pBuffer[nOrigMin + k] |= pOrigBuffer[k];
-
+          }
+          
           hb_arraySetNL(pLines, 2, nMin);
           if (!hb_arraySetCLPtr(pLines, 3, pBuffer, nLen))
           {
@@ -894,8 +896,10 @@ static void hb_dbgClearWatch(HB_WATCHPOINT *pWatch)
     int i;
 
     for (i = 0; i < pWatch->nVars; i++)
+    {
       hb_xfree(pWatch->aVars[i]);
-
+    }
+    
     hb_xfree(pWatch->aVars);
   }
 }
@@ -1159,8 +1163,10 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       if (c)
       {
         while (watch->szExpr[i] && watch->szExpr[i] == ' ')
+        {
           i++;
-
+        }
+        
         if (watch->szExpr[i] == '(')
         {
           hb_xfree(szWord);
@@ -1172,8 +1178,10 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
           i += 2;
 
           while ((c = watch->szExpr[i]) != '\0' && IS_IDENT_CHAR(c))
+          {
             i++;
-
+          }
+          
           hb_xfree(szWord);
           continue;
         }
@@ -1224,8 +1232,10 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       i++;
 
       while (watch->szExpr[i] && IS_IDENT_CHAR(watch->szExpr[i]))
+      {
         i++;
-
+      }
+      
       bAfterId = HB_TRUE;
       continue;
     }
@@ -1240,8 +1250,10 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       i++;
 
       while (watch->szExpr[i] && watch->szExpr[i] != c)
+      {
         i++;
-
+      }
+      
       if (watch->szExpr[i])
       {
         i++;
@@ -1260,8 +1272,10 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       else
       {
         while (watch->szExpr[i] && watch->szExpr[i] != ']')
+        {
           i++;
-
+        }
+        
         if (watch->szExpr[i])
         {
           i++;
@@ -1467,7 +1481,9 @@ PHB_ITEM hb_dbgGetSourceFiles(void *handle)
   nModules = hb_itemSize(s_common.pStopLines);
   ret = hb_itemArrayNew(nModules);
   for (i = 1; i <= nModules; i++)
+  {
     hb_arraySet(ret, i, hb_arrayGetItemPtr(hb_arrayGetItemPtr(s_common.pStopLines, i), 1));
+  }
   HB_DBGCOMMON_UNLOCK
 
   return ret;
