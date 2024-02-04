@@ -87,9 +87,13 @@ HB_FUNC(HWG_BITANDINVERSE)
 HB_FUNC(HWG_SETBIT)
 {
   if (hb_pcount() < 3 || hb_parni(3))
+  {
     hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
+  }
   else
+  {
     hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
+  }  
 }
 
 HB_FUNC(HWG_CHECKBIT)
@@ -201,19 +205,25 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   }
 
   if (!HB_ISNIL(2))
+  {
     hOut = fopen(hb_parc(2), "w");
+  }
 
   do
   {
     bytes_read = fread(buf, sizeof(char), CHUNK_LEN, cmd_file);
     if (hOut != -1)
+    {
       fwrite(buf, 1, bytes_read, hOut);
+    }  
   } while (bytes_read == CHUNK_LEN);
 
   pclose(cmd_file);
   if (hOut != -1)
+  {
     fclose(hOut);
-
+  }
+  
   hb_retl(1);
 }
 

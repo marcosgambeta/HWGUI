@@ -135,8 +135,10 @@ HB_FUNC(HWG_SELECTFILE)
                            G_CALLBACK(cancel_filedlg), (gpointer)file_selector);
 
   if (cMask)
+  {
     gtk_file_selection_complete((GtkFileSelection *)file_selector, cMask);
-
+  }
+  
   gtk_widget_show(file_selector);
   gtk_main();
 }

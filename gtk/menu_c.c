@@ -54,8 +54,11 @@ HB_FUNC(HWG__ADDMENUITEM)
     lpNewItem = hb_parc(2);
     ptr = lpNewItem;
     if (*ptr == '%')
+    {
       lStock = TRUE;
+    }
     else
+    {
       while (*ptr)
       {
         if (*ptr != ' ' && *ptr != '-')
@@ -65,10 +68,13 @@ HB_FUNC(HWG__ADDMENUITEM)
         }
         ptr++;
       }
+    }  
   }
   if (!HB_ISNIL(6) && (hb_parni(6) & FLAG_CHECK))
+  {
     lCheck = TRUE;
-
+  }
+  
   if (lCheck)
   {
     gchar *gcptr = hwg_convert_to_utf8(lpNewItem);
@@ -86,8 +92,10 @@ HB_FUNC(HWG__ADDMENUITEM)
     g_free(gcptr);
   }
   else
+  {
     hMenu = (GtkWidget *)gtk_separator_menu_item_new();
-
+  }
+  
   if (hb_parl(7))
   {
     GtkWidget *hSubMenu = gtk_menu_new();

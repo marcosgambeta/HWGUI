@@ -75,7 +75,9 @@ HB_FUNC(HWG_CREATESTATIC)
   HB_ULONG ulExtStyle = hb_parnl(8);
 
   if ((ulStyle & SS_OWNERDRAW) == SS_OWNERDRAW)
+  {
     hCtrl = gtk_drawing_area_new();
+  }
   else
   {
     gchar *gcTitle = hwg_convert_to_utf8(cTitle);
@@ -90,11 +92,15 @@ HB_FUNC(HWG_CREATESTATIC)
     }
 
     if (!(ulStyle & SS_CENTER))
+    {
       gtk_misc_set_alignment(GTK_MISC(hLabel), (ulStyle & SS_RIGHT) ? 1 : 0, 0);
+    }  
   }
   box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(4), hb_parni(5));
+  }  
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
   if ((ulStyle & SS_OWNERDRAW) == SS_OWNERDRAW)
@@ -133,12 +139,18 @@ HB_FUNC(HWG_CREATEBUTTON)
     HB_STOREHANDLE(group, 2);
   }
   else if ((ulStyle & 0xf) == BS_AUTO3STATE)
+  {
     hCtrl = gtk_check_button_new_with_label(gcTitle);
+  }
   else if ((ulStyle & 0xf) == BS_GROUPBOX)
+  {
     hCtrl = gtk_frame_new(gcTitle);
+  }
   else
+  {
     hCtrl = gtk_button_new_with_mnemonic(gcTitle);
-
+  }
+  
 #if GTK_CHECK_VERSION(2, 4, 1)
   if (szFile)
   {
@@ -149,7 +161,9 @@ HB_FUNC(HWG_CREATEBUTTON)
   g_free(gcTitle);
   box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(4), hb_parni(5));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
   HB_RETHANDLE(hCtrl);
@@ -180,16 +194,24 @@ HB_FUNC(HWG_CREATEEDIT)
     hCtrl = gtk_text_view_new();
     g_object_set_data((GObject *)hCtrl, "multi", (gpointer)1);
     if (ulStyle & ES_READONLY)
+    {
       gtk_text_view_set_editable((GtkTextView *)hCtrl, 0);
+    }
   }
   else
+  {
     hCtrl = gtk_entry_new();
+  }
   if (ulStyle & ES_PASSWORD)
+  {
     gtk_entry_set_visibility((GtkEntry *)hCtrl, FALSE);
+  }
 
   GtkFixed *box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(4), hb_parni(5));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
   if (*cTitle)
@@ -201,7 +223,9 @@ HB_FUNC(HWG_CREATEEDIT)
       gtk_text_buffer_set_text(buffer, gcTitle, -1);
     }
     else
+    {
       gtk_entry_set_text((GtkEntry *)hCtrl, gcTitle);
+    }  
     g_free(gcTitle);
   }
 
@@ -220,7 +244,9 @@ HB_FUNC(HWG_EDIT_SETTEXT)
     gtk_text_buffer_set_text(buffer, gcTitle, -1);
   }
   else
+  {
     gtk_entry_set_text((GtkEntry *)hCtrl, gcTitle);
+  }  
   g_free(gcTitle);
 }
 
@@ -239,8 +265,10 @@ HB_FUNC(HWG_EDIT_GETTEXT)
     cptr = gtk_text_buffer_get_text(buffer, &iterStart, &iterEnd, 1);
   }
   else
+  {
     cptr = (char *)gtk_entry_get_text((GtkEntry *)hCtrl);
-
+  }
+  
   if (*cptr)
   {
     cptr = hwg_convert_from_utf8(cptr);
@@ -248,7 +276,9 @@ HB_FUNC(HWG_EDIT_GETTEXT)
     g_free(cptr);
   }
   else
+  {
     hb_retc("");
+  }  
 }
 
 HB_FUNC(HWG_EDIT_SETPOS)
@@ -269,7 +299,9 @@ HB_FUNC(HWG_CREATECOMBO)
   GtkWidget *hCtrl = gtk_combo_new();
   GtkFixed *box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(4), hb_parni(5));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
   HB_RETHANDLE(hCtrl);
@@ -323,7 +355,9 @@ HB_FUNC(HWG_CREATEUPDOWNCONTROL)
 
   GtkFixed *box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(2), hb_parni(3));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(4), hb_parni(5));
 
   HB_RETHANDLE(hCtrl);
@@ -398,7 +432,9 @@ HB_FUNC(HWG_CREATEBROWSE)
 
   box = getFixedBox(handle);
   if (box)
+  {
     gtk_fixed_put(box, hbox, nLeft, nTop);
+  }
   gtk_widget_set_size_request(hbox, nWidth, nHeight);
 
   temp = HB_PUTHANDLE(NULL, area);
@@ -430,17 +466,29 @@ HB_FUNC(HWG_GETADJVALUE)
   int iOption = (HB_ISNIL(2)) ? 0 : hb_parni(2);
 
   if (iOption == 0)
+  {
     hb_retnl((HB_LONG)adj->value);
+  }
   else if (iOption == 1)
+  {
     hb_retnl((HB_LONG)adj->upper);
+  }
   else if (iOption == 2)
+  {
     hb_retnl((HB_LONG)adj->step_increment);
+  }
   else if (iOption == 3)
+  {
     hb_retnl((HB_LONG)adj->page_increment);
+  }
   else if (iOption == 4)
+  {
     hb_retnl((HB_LONG)adj->page_size);
+  }
   else
+  {
     hb_retnl(0);
+  }
 }
 
 /*
@@ -478,7 +526,9 @@ HB_FUNC(HWG_SETADJOPTIONS)
     lChanged = 1;
   }
   if (lChanged)
+  {
     gtk_adjustment_changed(adj);
+  }
 }
 
 HB_FUNC(HWG_CREATETABCONTROL)
@@ -487,7 +537,9 @@ HB_FUNC(HWG_CREATETABCONTROL)
 
   GtkFixed *box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(4), hb_parni(5));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
 
   HB_RETHANDLE(hCtrl);
@@ -541,12 +593,18 @@ HB_FUNC(HWG_CREATESEP)
   GtkFixed *box;
 
   if (lVert)
+  {
     hCtrl = gtk_vseparator_new();
+  }
   else
+  {
     hCtrl = gtk_hseparator_new();
+  }
   box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
 
   HB_RETHANDLE(hCtrl);
@@ -590,7 +648,9 @@ HB_FUNC(HWG_DESTROYPANEL)
 {
   GtkFixed *box = getFixedBox((GObject *)HB_PARHANDLE(1));
   if (box)
+  {
     gtk_widget_destroy((GtkWidget *)box);
+  }  
 }
 
 /*
@@ -624,7 +684,9 @@ HB_FUNC(HWG_CREATEOWNBTN)
 HB_FUNC(HWG_ADDTOOLTIP)
 {
   if (!pTooltip)
+  {
     pTooltip = gtk_tooltips_new();
+  }
   gtk_tooltips_set_tip(pTooltip, (GtkWidget *)HB_PARHANDLE(2), hb_parc(3), NULL);
 }
 
@@ -635,8 +697,10 @@ static gint cb_timer(gchar *data)
   sscanf((char *)data, "%ld", &p1);
 
   if (!pSymTimerProc)
+  {
     pSymTimerProc = hb_dynsymFind("HWG_TIMERPROC");
-
+  }
+  
   if (pSymTimerProc)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSymTimerProc));
@@ -679,7 +743,9 @@ HB_FUNC(HWG_LOADCURSOR)
     // hb_retnl( (HB_LONG) LoadCursor( GetModuleHandle( NULL ), hb_parc( 1 )  ) );
   }
   else
+  {
     HB_RETHANDLE(gdk_cursor_new((GdkCursorType)hb_parni(1)));
+  }  
 }
 
 HB_FUNC(HWG_SETCURSOR)
@@ -714,7 +780,9 @@ HB_FUNC(HWG_MOVEWIDGET)
     {
       gtk_widget_set_size_request(widget, w1, h1);
       if (ch_widget)
+      {
         gtk_widget_set_size_request(ch_widget, w1, h1);
+      }  
     }
   }
 }
@@ -726,7 +794,9 @@ HB_FUNC(HWG_CREATEPROGRESSBAR)
   hCtrl = gtk_progress_bar_new();
 
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
   HB_RETHANDLE(hCtrl);
 }
@@ -876,7 +946,9 @@ HB_FUNC(HWG_INITMONTHCALENDAR)
   hCtrl = gtk_calendar_new();
 
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
   HB_RETHANDLE(hCtrl);
 }
@@ -929,7 +1001,9 @@ HB_FUNC(HWG_CREATEIMAGE)
   hCtrl = gtk_image_new_from_pixbuf(pHandle);
 
   if (box)
+  {
     gtk_fixed_put(box, hCtrl, hb_parni(3), hb_parni(4));
+  }
   gtk_widget_set_size_request(hCtrl, hb_parni(5), hb_parni(6));
   HB_RETHANDLE(hCtrl);
 }
@@ -956,7 +1030,9 @@ HB_FUNC(HWG_SETFGCOLOR)
     label = gtk_bin_get_child(GTK_BIN(hCtrl));
   }
   else if (GTK_IS_EVENT_BOX(hCtrl))
+  {
     label = gtk_bin_get_child(GTK_BIN(hCtrl));
+  }
   else
   {
     label = hCtrl; // g_object_get_data( ( GObject * ) hCtrl, "label" );

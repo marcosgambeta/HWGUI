@@ -149,7 +149,6 @@ HB_FUNC(HWG_CREATEDLG)
   hWnd = (GtkWidget *)gtk_window_new(GTK_WINDOW_TOPLEVEL);
   if (szFile)
   {
-
     gtk_window_set_icon(GTK_WINDOW(hWnd), szFile->handle);
   }
 
@@ -204,7 +203,9 @@ HB_FUNC(HWG_ACTIVATEDIALOG)
 {
   // gtk_widget_show_all( (GtkWidget*) HB_PARHANDLE(1) );
   if (HB_ISNIL(2) || !hb_parl(2))
+  {
     gtk_main();
+  }  
 }
 
 void ProcessMessage(void)
@@ -224,8 +225,10 @@ gint cb_signal_size(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
   HB_SYMBOL_UNUSED(data);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
-
+  }
+  
   if (pSym_onEvent && gObject)
   {
     HB_LONG p3 = ((HB_ULONG)(allocation->width) & 0xFFFF) | (((HB_ULONG)(allocation->height) << 16) & 0xFFFF0000);
@@ -262,8 +265,10 @@ void cb_signal(GtkWidget *widget, gchar *data)
   gObject = g_object_get_data((GObject *)widget, "obj");
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
-
+  }
+  
   if (pSym_onEvent && gObject)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
@@ -280,7 +285,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
 
   if (a == GDK_asciitilde || a == GDK_dead_tilde)
   {
-    if (b == GDK_A)
+    if (b == GDK_A) // TODO: switch
       return (HB_LONG)GDK_Atilde;
     else if (b == GDK_a)
       return (HB_LONG)GDK_atilde;
@@ -295,7 +300,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
   }
   if (a == GDK_asciicircum || a == GDK_dead_circumflex)
   {
-    if (b == GDK_A)
+    if (b == GDK_A) // TODO: switch
       return (HB_LONG)GDK_Acircumflex;
     else if (b == GDK_a)
       return (HB_LONG)GDK_acircumflex;
@@ -339,7 +344,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
 
   if (a == GDK_grave || a == GDK_dead_grave)
   {
-    if (b == GDK_A)
+    if (b == GDK_A) // TODO: switch
       return (HB_LONG)GDK_Agrave;
     else if (b == GDK_a)
       return (HB_LONG)GDK_agrave;
@@ -367,7 +372,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
 
   if (a == GDK_acute || a == GDK_dead_acute)
   {
-    if (b == GDK_A)
+    if (b == GDK_A) // TODO: switch
       return (HB_LONG)GDK_Aacute;
     else if (b == GDK_a)
       return (HB_LONG)GDK_aacute;
@@ -418,7 +423,7 @@ static HB_LONG ToKey(HB_LONG a, HB_LONG b)
   }
   if (a == GDK_diaeresis || a == GDK_dead_diaeresis)
   {
-    if (b == GDK_A)
+    if (b == GDK_A) // TODO: switch
       return (HB_LONG)GDK_Adiaeresis;
     else if (b == GDK_a)
       return (HB_LONG)GDK_adiaeresis;
@@ -455,7 +460,9 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
   gchar *res = NULL;
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   // if( !gObject )
   //    gObject = g_object_get_data( (GObject*) (widget->parent->parent), "obj" );
@@ -538,7 +545,9 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
            ((((HB_ULONG)(((GdkEventMotion *)event)->y)) << 16) & 0xFFFF0000);
     }
     else
+    {
       sscanf((char *)data, "%ld %ld %ld", &p1, &p2, &p3);
+    }
 
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush((PHB_ITEM)gObject);
@@ -671,26 +680,27 @@ HB_FUNC(HWG_MOVEWINDOW)
   GtkWidget *hWnd = (GtkWidget *)HB_PARHANDLE(1);
 
   if (!HB_ISNIL(2) || !HB_ISNIL(3))
+  {
     gtk_window_move(GTK_WINDOW(hWnd), hb_parni(2), hb_parni(3));
+  }
   if (!HB_ISNIL(4) || !HB_ISNIL(5))
+  {
     gtk_window_resize(GTK_WINDOW(hWnd), hb_parni(4), hb_parni(5));
+  }
 }
 
 HB_FUNC(HWG_WINDOWMAXIMIZE)
 {
-
   gtk_window_maximize((GtkWindow *)HB_PARHANDLE(1));
 }
 
 HB_FUNC(HWG_WINDOWRESTORE)
 {
-
   gtk_window_unmaximize((GtkWindow *)HB_PARHANDLE(1));
 }
 
 HB_FUNC(HWG_WINDOWMINIMIZE)
 {
-
   gtk_window_iconify((GtkWindow *)HB_PARHANDLE(1));
 }
 
@@ -744,7 +754,9 @@ HB_FUNC(HWG_SET_MODAL)
 {
   gtk_window_set_modal((GtkWindow *)HB_PARHANDLE(1), 1);
   if (!HB_ISNIL(2))
+  {
     gtk_window_set_transient_for((GtkWindow *)HB_PARHANDLE(1), (GtkWindow *)HB_PARHANDLE(2));
+  }
 }
 
 HB_FUNC(HWG_WINDOWSETRESIZE)
@@ -755,17 +767,25 @@ HB_FUNC(HWG_WINDOWSETRESIZE)
 gchar *hwg_convert_to_utf8(const char *szText)
 {
   if (*szAppLocale)
+  {
     return g_convert(szText, -1, "UTF-8", szAppLocale, NULL, NULL, NULL);
+  }
   else
+  {
     return g_locale_to_utf8(szText, -1, NULL, NULL, NULL);
+  }
 }
 
 gchar *hwg_convert_from_utf8(const char *szText)
 {
   if (*szAppLocale)
+  {
     return g_convert(szText, -1, szAppLocale, "UTF-8", NULL, NULL, NULL);
+  }
   else
+  {
     return g_locale_from_utf8(szText, -1, NULL, NULL, NULL);
+  }
 }
 
 HB_FUNC(HWG_SETAPPLOCALE)

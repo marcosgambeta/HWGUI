@@ -125,7 +125,9 @@ HB_FUNC(HWG_GETTEXTSIZE)
   PHB_ITEM aMetr = hb_itemArrayNew(2);
 
   if (HB_ISCHAR(2))
+  {
     pango_layout_set_text(hDC->layout, cText, -1);
+  }
   pango_layout_get_pixel_extents(hDC->layout, &rc, NULL);
 
   hb_itemPutNL(hb_arrayGetItemPtr(aMetr, 1), rc.width);
@@ -197,12 +199,16 @@ HB_FUNC(HWG_CREATEFONT)
   hFont = pango_font_description_new();
   pango_font_description_set_family(hFont, hb_parc(1));
   if (!HB_ISNIL(6))
+  {
     pango_font_description_set_style(hFont, (hb_parni(6)) ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
+  }
   // pango_font_description_set_size( hFont, hb_parni(3) * PANGO_SCALE );
   pango_font_description_set_size(hFont, hb_parni(3));
   if (!HB_ISNIL(4))
+  {
     pango_font_description_set_weight(hFont, hb_parni(4));
-
+  }
+  
   h->type = HWGUI_OBJECT_FONT;
   h->hFont = hFont;
 
@@ -219,11 +225,17 @@ HB_FUNC(HWG_SETCTRLFONT)
   GtkStyle *style;
 
   if (GTK_IS_BUTTON(hCtrl))
+  {
     hCtrl = gtk_bin_get_child(GTK_BIN(hCtrl));
+  }
   else if (GTK_IS_EVENT_BOX(hCtrl))
+  {
     hCtrl = gtk_bin_get_child(GTK_BIN(hCtrl));
+  }
   else if (hLabel)
+  {
     hCtrl = (GtkWidget *)hLabel;
+  }
 
   style = gtk_style_copy(gtk_widget_get_style(hCtrl));
 

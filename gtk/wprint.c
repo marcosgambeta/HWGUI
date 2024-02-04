@@ -28,17 +28,25 @@ static gchar szAppLocale[] = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 gchar *hwg_convert_to_utf8(const char *szText)
 {
   if (*szAppLocale)
+  {
     return g_convert(szText, -1, "UTF-8", szAppLocale, NULL, NULL, NULL);
+  }
   else
+  {
     return g_locale_to_utf8(szText, -1, NULL, NULL, NULL);
+  }
 }
 
 gchar *hwg_convert_from_utf8(const char *szText)
 {
   if (*szAppLocale)
+  {
     return g_convert(szText, -1, szAppLocale, "UTF-8", NULL, NULL, NULL);
+  }
   else
+  {
     return g_locale_from_utf8(szText, -1, NULL, NULL, NULL);
+  }
 }
 
 HB_FUNC(HWG_SETAPPLOCALE)
@@ -86,7 +94,6 @@ PHWGUI_PRINT hwg_openprinter(void)
 
 HB_FUNC(HWG_OPENPRINTER)
 {
-
   hb_retnl((HB_LONG)hwg_openprinter());
 }
 
@@ -109,32 +116,48 @@ HB_FUNC(HWG_GETPRINTERS)
     while (1)
     {
       while (*ptr && (*ptr == ' ' || *ptr == 0x9 || *ptr == 0x0a))
+      {
         ptr++;
+      }
       if (*ptr)
       {
         if (*ptr == '#')
         {
           while (*ptr && *ptr != 0x0a)
+          {
             ptr++;
+          }
           if (*ptr)
+          {
             ptr++;
+          }
           continue;
         }
         if (!aMetr)
+        {
           aMetr = hb_itemArrayNew(0);
+        }
         ptr1 = ptr;
         while (*ptr && *ptr != 0x0a && *ptr != '|')
+        {
           ptr++;
+        }
         temp = hb_itemPutCL(NULL, (char *)ptr1, ptr - ptr1);
         hb_arrayAdd(aMetr, temp);
         hb_itemRelease(temp);
         while (*ptr && *ptr != 0x0a)
+        {
           ptr++;
+        }
         if (*ptr)
+        {
           ptr++;
+        }
       }
       else
+      {
         break;
+      }
     }
     hb_xfree(cBuffer);
   }
@@ -144,7 +167,9 @@ HB_FUNC(HWG_GETPRINTERS)
     hb_itemRelease(aMetr);
   }
   else
+  {
     hb_ret();
+  }
 }
 
 /*
@@ -165,7 +190,9 @@ HB_FUNC(HWG_CLOSEPRINTER)
 
   g_object_unref(G_OBJECT(print->page_setup));
   if (print->cName)
+  {
     hb_xfree(print->cName);
+  }
   hb_xfree(print);
 }
 
@@ -225,16 +252,24 @@ static void draw_page(cairo_t *cr, char *cpage)
       if (exten.height < (y2 - y1))
       {
         if (iOpt & DT_VCENTER)
+        {
           y2 = y2 - (y2 - y1 - exten.height) / 2;
+        }
         else
+        {
           y2 = y1 + 1 + exten.height;
+        }
       }
       if (exten.width < (x2 - x1))
       {
         if (iOpt & DT_RIGHT)
+        {
           x1 = x2 - exten.width - 1;
+        }
         else if (iOpt & DT_CENTER)
+        {
           x1 += (x2 - x1 - exten.width) / 2;
+        }
       }
       cairo_move_to(cr, (gdouble)x1, (gdouble)y2);
       cairo_show_text(cr, cBuf);
@@ -278,7 +313,6 @@ static void draw_page(cairo_t *cr, char *cpage)
     }
     else if (!strncmp(ptr, "fnt", 3))
     {
-
       if (iPathExist)
       {
         cairo_stroke(cr);
@@ -361,9 +395,13 @@ static void draw_page(cairo_t *cr, char *cpage)
     }
 
     while (*ptr != '\r')
+    {
       ptr++;
+    }
     while (*ptr == '\r' || *ptr == '\n')
+    {
       ptr++;
+    }  
   }
   if (iPathExist)
   {
@@ -411,7 +449,9 @@ static int print_time(GtkWidget *widget)
   gint x = 240 + (print->count % 100);
 
   if (print->count >= 9999)
+  {
     x = 240;
+  }
   else
   {
 #if defined(__RUSSIAN__)
@@ -430,7 +470,9 @@ static int print_time(GtkWidget *widget)
     return 0;
   }
   else
+  {
     return 1;
+  }
 }
 
 static void print_run(GtkWidget *widget)
@@ -534,7 +576,9 @@ HB_FUNC(HWG_GP_PRINT)
   int iOper = hb_parni(4);
 
   if (print->cName)
+  {
     hb_xfree(print->cName);
+  }
   print->cName = NULL;
 
   if (HB_ISCHAR(5))
@@ -604,7 +648,9 @@ HB_FUNC(HWG_GP_PRINT)
       memcpy(sfile, print->cName, iLen);
       sfile[iLen] = '\0';
       if (i > 1)
+      {
         sprintf(sfile + iLen - 4, "_%d%s", i, ".png");
+      }
       cairo_surface_write_to_png(surface, sfile);
       cairo_destroy(cr);
       cairo_surface_destroy(surface);

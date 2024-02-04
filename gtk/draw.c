@@ -464,7 +464,9 @@ HB_FUNC(HWG_ENDPAINT)
   PHWGUI_HDC hDC = pps->hDC;
 
   if (hDC->layout)
+  {
     g_object_unref((GObject *)hDC->layout);
+  }
   g_object_unref((GObject *)hDC->gc);
   hb_xfree(hDC);
   hb_xfree(pps);
@@ -492,8 +494,10 @@ HB_FUNC(HWG_RELEASEDC)
   PHWGUI_HDC hDC = (PHWGUI_HDC)HB_PARHANDLE(2);
 
   if (hDC->layout)
+  {
     g_object_unref((GObject *)hDC->layout);
-
+  }
+  
   cairo_destroy(hDC->cr);
   hb_xfree(hDC);
 }
