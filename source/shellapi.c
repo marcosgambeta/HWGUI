@@ -73,7 +73,9 @@ HB_FUNC(HWG_SELECTFOLDER)
   if (pidlBrowse != NULL)
   {
     if (SHGetPathFromIDList(pidlBrowse, lpBuffer))
+    {
       lpResult = lpBuffer;
+    }
     CoTaskMemFree(pidlBrowse);
   }
   HB_RETSTR(lpResult);
@@ -100,9 +102,13 @@ HB_FUNC(HWG_SHELLNOTIFYICON)
   HB_ITEMCOPYSTR(hb_param(4, HB_IT_ANY), tnid.szTip, HB_SIZEOFARRAY(tnid.szTip));
 
   if ((BOOL)hb_parl(1))
+  {
     Shell_NotifyIcon(NIM_ADD, &tnid);
+  }
   else
+  {
     Shell_NotifyIcon(NIM_DELETE, &tnid);
+  }
 }
 
 /*
@@ -147,7 +153,9 @@ HB_FUNC(HWG_SHELLEXECUTE)
 
   lpDirectory = HB_PARSTR(4, &hDirectory, NULL);
   if (lpDirectory == NULL)
+  {
     lpDirectory = TEXT("C:\\");
+  }
 
   hb_retnl((LONG)ShellExecute(GetActiveWindow(), HB_PARSTRDEF(2, &hOperation, NULL),
                               HB_PARSTR(1, &hFile, NULL), HB_PARSTR(3, &hParameters, NULL),

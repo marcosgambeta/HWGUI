@@ -170,13 +170,17 @@ void ProcessMessage(MSG msg, HACCEL hAcceler, BOOL lMdi)
   {
     hwndGoto = aDialogs[i];
     if (IsWindow(hwndGoto) && IsDialogMessage(hwndGoto, &msg))
+    {
       break;
+    }  
   }
 
   if (i == iDialogs)
   {
     if (lMdi && TranslateMDISysAccel(aWindows[1], &msg))
+    {
       return;
+    }
 
     if (!hAcceler || !TranslateAccelerator(aWindows[0], hAcceler, &msg))
     {
@@ -478,10 +482,14 @@ HB_FUNC(HWG_CREATEMDICHILDWINDOW)
   //    style = WS_VISIBLE | WS_OVERLAPPEDWINDOW | WS_MAXIMIZE;
 
   if (!style)
+  {
     style = WS_CHILD | WS_OVERLAPPEDWINDOW | (int)hb_parnl(2); // WS_VISIBLE | WS_MAXIMIZE;
+  }
   else
+  {
     style = style | (int)hb_parnl(2);
-
+  }
+  
   if (aWindows[0])
   {
     hWnd = CreateMDIWindow(
@@ -708,11 +716,12 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
-
+  }
+  
   if (pSym_onEvent && pObject)
   {
-
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
@@ -722,12 +731,18 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return DefWindowProc(hWnd, message, wParam, lParam);
+    }
     else
+    {
       return res;
+    }  
   }
   else
+  {
     return DefWindowProc(hWnd, message, wParam, lParam);
+  }  
 }
 
 static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -736,7 +751,9 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -749,12 +766,18 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
+    }
     else
+    {
       return res;
+    }  
   }
   else
+  {
     return DefFrameProc(hWnd, aWindows[1], message, wParam, lParam);
+  }  
 }
 
 static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -782,8 +805,10 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
   pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
-
+  }
+  
   if (pSym_onEvent && pObject)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
@@ -795,12 +820,18 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return DefMDIChildProc(hWnd, message, wParam, lParam);
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return DefMDIChildProc(hWnd, message, wParam, lParam);
+  }  
 }
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
@@ -841,14 +872,18 @@ const char *hwg_strget(PHB_ITEM pItem, void **phStr, HB_SIZE *pnLen)
     *phStr = (void *)s_szConstStr;
     pStr = hb_itemGetCPtr(pItem);
     if (pnLen)
+    {
       *pnLen = hb_itemGetCLen(pItem);
+    }
   }
   else
   {
     *phStr = NULL;
     pStr = NULL;
     if (pnLen)
+    {
       *pnLen = 0;
+    }
   }
   return pStr;
 }
@@ -862,18 +897,28 @@ HB_SIZE hwg_strcopy(PHB_ITEM pItem, char *pStr, HB_SIZE nLen)
     if (pStr)
     {
       if (size > nLen)
+      {
         size = nLen;
+      }
       if (size)
+      {
         memcpy(pStr, hb_itemGetCPtr(pItem), size);
+      }
       if (size < nLen)
+      {
         pStr[size] = '\0';
+      }
     }
     else if (nLen && size > nLen)
+    {
       size = nLen;
+    }
     return size;
   }
   else if (pStr && nLen)
+  {
     pStr[0] = '\0';
+  }
 
   return 0;
 }
@@ -881,7 +926,9 @@ HB_SIZE hwg_strcopy(PHB_ITEM pItem, char *pStr, HB_SIZE nLen)
 char *hwg_strunshare(void **phStr, const char *pStr, HB_SIZE nLen)
 {
   if (pStr == NULL || phStr == NULL || *phStr == NULL)
+  {
     return NULL;
+  }
 
   if (*phStr == (void *)s_szConstStr && nLen > 0)
   {
@@ -899,7 +946,9 @@ char *hwg_strunshare(void **phStr, const char *pStr, HB_SIZE nLen)
 void hwg_strfree(void *hString)
 {
   if (hString && hString != (void *)s_szConstStr)
+  {
     hb_xfree(hString);
+  }
 }
 #endif /* !HB_HAS_STR_FUNC */
 
@@ -924,7 +973,9 @@ const wchar_t *hwg_wstrget(PHB_ITEM pItem, void **phStr, HB_SIZE *pnLen)
     const char *pszText = hb_itemGetCPtr(pItem);
 
     if (nLen)
+    {
       nDest = MultiByteToWideChar(s_iVM_CP, 0, pszText, nLen, NULL, 0);
+    }
 
     if (nDest == 0)
     {
@@ -941,14 +992,18 @@ const wchar_t *hwg_wstrget(PHB_ITEM pItem, void **phStr, HB_SIZE *pnLen)
       pStr = pResult;
     }
     if (pnLen)
+    {
       *pnLen = nDest;
+    }
   }
   else
   {
     *phStr = NULL;
     pStr = NULL;
     if (pnLen)
+    {
       *pnLen = 0;
+    }
   }
   return pStr;
 }
@@ -960,7 +1015,9 @@ void hwg_wstrlenset(PHB_ITEM pItem, const wchar_t *pStr, HB_SIZE nLen)
     HB_SIZE nDest = 0;
 
     if (pStr != NULL && nLen > 0)
+    {
       nDest = WideCharToMultiByte(s_iVM_CP, 0, pStr, nLen, NULL, 0, NULL, NULL);
+    }
 
     if (nDest)
     {
@@ -970,14 +1027,18 @@ void hwg_wstrlenset(PHB_ITEM pItem, const wchar_t *pStr, HB_SIZE nLen)
       hb_itemPutCLPtr(pItem, pResult, nDest);
     }
     else
+    {
       hb_itemPutC(pItem, NULL);
+    }
   }
 }
 
 PHB_ITEM hwg_wstrlenput(PHB_ITEM pItem, const wchar_t *pStr, HB_SIZE nLen)
 {
   if (pItem == NULL)
+  {
     pItem = hb_itemNew(NULL);
+  }
 
   hwg_wstrlenset(pItem, pStr, nLen);
 
@@ -1005,18 +1066,24 @@ HB_SIZE hwg_wstrcopy(PHB_ITEM pItem, wchar_t *pStr, HB_SIZE nLen)
     {
       size = MultiByteToWideChar(s_iVM_CP, 0, text, size, pStr, nLen);
       if (size < nLen)
+      {
         pStr[size] = '\0';
+      }
     }
     else
     {
       size = MultiByteToWideChar(s_iVM_CP, 0, text, size, NULL, 0);
       if (nLen && size > nLen)
+      {
         size = nLen;
+      }
     }
     return size;
   }
   else if (pStr && nLen)
+  {
     pStr[0] = '\0';
+  }
 
   return 0;
 }
@@ -1024,7 +1091,9 @@ HB_SIZE hwg_wstrcopy(PHB_ITEM pItem, wchar_t *pStr, HB_SIZE nLen)
 wchar_t *hwg_wstrunshare(void **phStr, const wchar_t *pStr, HB_SIZE nLen)
 {
   if (pStr == NULL || phStr == NULL || *phStr == NULL)
+  {
     return NULL;
+  }
 
   if (*phStr == (void *)s_wszConstStr && nLen > 0)
   {
@@ -1042,7 +1111,9 @@ wchar_t *hwg_wstrunshare(void **phStr, const wchar_t *pStr, HB_SIZE nLen)
 void hwg_wstrfree(void *hString)
 {
   if (hString && hString != (void *)s_wszConstStr)
+  {
     hb_xfree(hString);
+  }
 }
 
 #endif /* HB_EMULATE_STR_API */
@@ -1055,7 +1126,9 @@ HB_FUNC(HWG_SETUTF8)
   PHB_CODEPAGE cdp = hb_cdpFindExt("UTF8");
 
   if (cdp)
+  {
     hb_vmSetCDP(cdp);
+  }
 #endif
 }
 
@@ -1263,7 +1336,9 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
   BOOL bPressed;
 
   if (code < 0)
+  {
     return CallNextHookEx(s_OrigDockHookProc, code, wp, lp);
+  }
 
   switch (code)
   {
@@ -1297,7 +1372,9 @@ LRESULT CALLBACK KbdHook(int code, WPARAM wp, LPARAM lp)
       PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(s_hMytoolMenu, GWLP_USERDATA);
 
       if (!pSym_onEven_Tool)
+      {
         pSym_onEven_Tool = hb_dynsymFindName("EXECUTETOOL");
+      }
 
       if (pSym_onEven_Tool && pObject)
       {
@@ -1350,9 +1427,13 @@ HB_FUNC(HWG_GETTOOLBARID)
   UINT uId;
 
   if (SendMessage(hMytoolMenu, TB_MAPACCELERATOR, (WPARAM)wp, (LPARAM)&uId) != 0)
+  {
     hb_retnl(uId);
+  }
   else
+  {
     hb_retnl(-1);
+  }
 }
 
 HB_FUNC(HWG_ISWINDOW)
@@ -1389,9 +1470,13 @@ HB_FUNC(HWG_GETWINDOWPLACEMENT)
   wp.length = sizeof(WINDOWPLACEMENT);
 
   if (GetWindowPlacement(hWnd, &wp))
+  {
     hb_retnl(wp.showCmd);
+  }
   else
+  {
     hb_retnl(-1);
+  }
 }
 
 HB_FUNC(HWG_FLASHWINDOW)
@@ -1440,7 +1525,9 @@ HB_FUNC(HWG_PAINTWINDOW)
   RECT rc = pps->rcPaint;
   HBRUSH hBrush = (HB_ISNIL(2)) ? (HBRUSH)(COLOR_3DFACE + 1) : hwg_par_HBRUSH(2);
   if (fErase == 1)
+  {
     FillRect(hDC, &rc, hBrush);
+  }
 
   EndPaint(hwg_par_HWND(1), pps);
   hb_xfree(pps);

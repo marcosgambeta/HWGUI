@@ -283,8 +283,10 @@ static PHB_ITEM hb_dbgActivateBreakArray(HB_DEBUGINFO *info)
       hb_arraySetC(pBreak, 2, info->aBreak[i].szModule);
     }
     else
+    {
       hb_arraySetC(pBreak, 3, info->aBreak[i].szFunction);
-
+    }
+    
     hb_arraySet(pArray, i + 1, pBreak);
     hb_itemRelease(pBreak);
   }
@@ -342,10 +344,14 @@ static PHB_ITEM hb_dbgActivateVarArray(int nVars, HB_VARINFO *aVars)
     hb_arraySetNL(aVar, 2, aVars[i].nIndex);
     hb_arraySetCL(aVar, 3, &aVars[i].cType, 1);
     if (aVars[i].cType == 'S')
+    {
       hb_arraySet(aVar, 4, aVars[i].frame.ptr);
+    }
     else
+    {
       hb_arraySetNL(aVar, 4, aVars[i].frame.num);
-
+    }
+    
     hb_arraySet(pArray, i + 1, aVar);
     hb_itemRelease(aVar);
   }
@@ -361,7 +367,9 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
   HB_DEBUGINFO *info = *infoPtr;
 
   if (info == HB_DBGINFO_DISABLE)
+  {
     return;
+  }
   else if (nMode != HB_DBG_VMQUIT)
   {
     if (!info)
@@ -371,7 +379,9 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
       info->bCBTrace = HB_TRUE;
     }
     else if (info->bInside || info->bQuit)
+    {
       return;
+    }
   }
 
   switch (nMode)
@@ -380,22 +390,36 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
     HB_TRACE(HB_TR_DEBUG, ("MODULENAME %s", szName));
 
     if (szName[strlen(szName) - 1] == ':')
+    {
       return;
+    }
 
     hb_procinfo(0, szProcName, NULL, NULL);
     if (!strncmp(szProcName, "(_INITSTATICS", 13))
+    {
       info->bInitStatics = HB_TRUE;
+    }
     else if (!strncmp(szProcName, "(_INITGLOBALS", 13))
+    {
       info->bInitGlobals = HB_TRUE;
+    }
     else if (!strncmp(szProcName, "(_INITLINES", 11))
+    {
       info->bInitLines = HB_TRUE;
+    }
 
     if (info->bInitStatics || info->bInitGlobals)
+    {
       hb_dbgAddModule(szName);
+    }
     else if (!strncmp(szProcName, "(b)", 3))
+    {
       info->bCodeBlock = HB_TRUE;
+    }
     else if (info->bNextRoutine)
+    {
       info->bNextRoutine = HB_FALSE;
+    }
 
     hb_dbgAddStack(info, szName, hb_dbg_ProcLevel());
     for (i = 0; i < info->nBreakPoints; i++)
@@ -437,8 +461,10 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
 
       xValue = hb_dbgEval(info, &info->aWatch[tp->nIndex]);
       if (!xValue)
+      {
         xValue = hb_itemNew(NULL);
-
+      }
+      
       if (HB_ITEM_TYPE(xValue) != HB_ITEM_TYPE(tp->xValue) || !hb_dbgEqual(xValue, tp->xValue))
       {
         hb_itemCopy(tp->xValue, xValue);
@@ -480,7 +506,9 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
     if (info->bTraceOver)
     {
       if (info->nTraceLevel < info->nCallStackLen)
+      {
         return;
+      }
       info->bTraceOver = HB_FALSE;
     }
 
@@ -493,18 +521,24 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
         info->bToCursor = HB_FALSE;
       }
       else
+      {
         return;
+      }
     }
 
     /* Check if'we skipping to the end of current routine */
     if (info->bNextRoutine)
+    {
       return;
+    }
 
     if (info->bCodeBlock)
     {
       info->bCodeBlock = HB_FALSE;
       if (!info->bCBTrace)
+      {
         return;
+      }
     }
 
     pTop->nLine = nLine;
@@ -518,13 +552,17 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
 
   case HB_DBG_ENDPROC:
     if (info->bQuit)
+    {
       return;
-
+    }
+    
     HB_TRACE(HB_TR_DEBUG, ("ENDPROC %d", nLine));
 
     if (info->bInitLines)
+    {
       hb_dbgAddStopLines(hb_stackReturnItem());
-
+    }
+    
     info->bCodeBlock = HB_FALSE;
     info->bInitStatics = HB_FALSE;
     info->bInitGlobals = HB_FALSE;
@@ -553,11 +591,15 @@ static const char *hb_dbgStripModuleName(const char *szName)
   const char *ptr;
 
   if ((ptr = strrchr(szName, '/')) != NULL)
+  {
     szName = ptr + 1;
+  }
 
   if ((ptr = strrchr(szName, '\\')) != NULL)
+  {
     szName = ptr + 1;
-
+  }
+  
   return szName;
 }
 
@@ -571,9 +613,13 @@ void hb_dbgAddBreak(void *handle, const char *szModule, int nLine, const char *s
   pBreak->nLine = nLine;
 
   if (szFunction)
+  {
     pBreak->szFunction = hb_strdup(szFunction);
+  }
   else
+  {
     pBreak->szFunction = NULL;
+  }
 }
 
 static void hb_dbgAddLocal(HB_DEBUGINFO *info, const char *szName, int nIndex, int nFrame)
@@ -623,7 +669,9 @@ static void hb_dbgAddModule(const char *szName)
   HB_DBGCOMMON_UNLOCK
 
   if (szModuleName)
+  {
     hb_xfree(szModuleName);
+  }
 }
 
 static void hb_dbgAddStack(HB_DEBUGINFO *info, const char *szName, int nProcLevel)
@@ -633,7 +681,9 @@ static void hb_dbgAddStack(HB_DEBUGINFO *info, const char *szName, int nProcLeve
   const char *szFunction = strrchr(szName, ':');
 
   if (szFunction)
+  {
     szFunction++;
+  }
 
   top = ARRAY_ADD(HB_CALLSTACKINFO, info->aCallStack, info->nCallStackLen);
   if (info->bCodeBlock)
@@ -659,10 +709,14 @@ static void hb_dbgAddStack(HB_DEBUGINFO *info, const char *szName, int nProcLeve
   szName = hb_dbgStripModuleName(szName);
 
   if (szFunction)
+  {
     top->szModule = hb_strndup(szName, szFunction - szName - 1);
+  }
   else
+  {
     top->szModule = hb_strdup(szName);
-
+  }
+  
   top->nProcLevel = nProcLevel;
   top->nLine = 0;
   top->nLocals = 0;
@@ -753,14 +807,18 @@ static void hb_dbgAddStopLines(PHB_ITEM pItem)
 
           hb_arraySetNL(pLines, 2, nMin);
           if (!hb_arraySetCLPtr(pLines, 3, pBuffer, nLen))
+          {
             hb_xfree(pBuffer);
+          }
           bFound = HB_TRUE;
           break;
         }
       }
 
       if (!bFound)
+      {
         hb_arrayAddForward(s_common.pStopLines, pEntry);
+      }
     }
   }
   nLinesLen = hb_itemSize(s_common.pStopLines);
@@ -774,7 +832,9 @@ static void hb_dbgAddStopLines(PHB_ITEM pItem)
       const char *szName = hb_dbgStripModuleName(szModule);
 
       if (szName != szModule)
+      {
         hb_arraySetCLPtr(pEntry, 1, hb_strdup(szName), (HB_SIZE)strlen(szName));
+      }
     }
   }
 
@@ -792,9 +852,13 @@ static void hb_dbgAddVar(int *nVars, HB_VARINFO **aVars, const char *szName, cha
   var->cType = cType;
   var->nIndex = nIndex;
   if (cType == 'S')
+  {
     var->frame.ptr = pFrame;
+  }
   else
+  {
     var->frame.num = nFrame;
+  }
 }
 
 void hb_dbgAddWatch(void *handle, const char *szExpr, HB_BOOL bTrace)
@@ -821,7 +885,9 @@ static void hb_dbgClearWatch(HB_WATCHPOINT *pWatch)
   hb_xfree(pWatch->szExpr);
 
   if (pWatch->pBlock)
+  {
     hb_itemRelease(pWatch->pBlock);
+  }
 
   if (pWatch->nVars)
   {
@@ -841,8 +907,10 @@ void hb_dbgDelBreak(void *handle, int nBreak)
 
   hb_xfree(pBreak->szModule);
   if (pBreak->szFunction)
+  {
     hb_xfree(pBreak->szFunction);
-
+  }
+  
   ARRAY_DEL(HB_BREAKPOINT, info->aBreak, info->nBreakPoints, nBreak);
 }
 
@@ -862,13 +930,17 @@ void hb_dbgDelWatch(void *handle, int nWatch)
     if (pTrace->nIndex == nWatch)
     {
       if (pTrace->xValue)
+      {
         hb_itemRelease(pTrace->xValue);
+      }
 
       ARRAY_DEL(HB_TRACEPOINT, info->aTrace, info->nTracePoints, i);
       i--;
     }
     else if (pTrace->nIndex > nWatch)
+    {
       pTrace->nIndex--;
+    }
   }
 }
 
@@ -877,17 +949,23 @@ static void hb_dbgEndProc(HB_DEBUGINFO *info)
   HB_CALLSTACKINFO *top;
 
   if (!info->nCallStackLen)
+  {
     return;
-
+  }
+  
   top = &info->aCallStack[--info->nCallStackLen];
   hb_xfree(top->szFunction);
   hb_xfree(top->szModule);
 
   if (top->nLocals)
+  {
     hb_xfree(top->aLocals);
+  }
 
   if (top->nStatics)
+  {
     hb_xfree(top->aStatics);
+  }
 
   if (!info->nCallStackLen)
   {
@@ -899,23 +977,41 @@ static void hb_dbgEndProc(HB_DEBUGINFO *info)
 static HB_BOOL hb_dbgEqual(PHB_ITEM pItem1, PHB_ITEM pItem2)
 {
   if (HB_ITEM_TYPE(pItem1) != HB_ITEM_TYPE(pItem2))
+  {
     return HB_FALSE;
+  }
   if (HB_IS_NIL(pItem1))
+  {
     return HB_IS_NIL(pItem2);
+  }
   if (HB_IS_LOGICAL(pItem1))
+  {
     return (hb_itemGetL(pItem1) == hb_itemGetL(pItem2));
+  }
   if (HB_IS_POINTER(pItem1))
+  {
     return (hb_itemGetPtr(pItem1) == hb_itemGetPtr(pItem2));
+  }
   if (HB_IS_STRING(pItem1))
+  {
     return !hb_itemStrCmp(pItem1, pItem2, HB_TRUE);
+  }
   if (HB_IS_NUMINT(pItem1))
+  {
     return (hb_itemGetNInt(pItem1) == hb_itemGetNInt(pItem2));
+  }
   if (HB_IS_NUMERIC(pItem1))
+  {
     return (hb_itemGetND(pItem1) == hb_itemGetND(pItem2));
+  }
   if (HB_IS_ARRAY(pItem1))
+  {
     return (hb_arrayId(pItem1) == hb_arrayId(pItem2));
+  }
   if (HB_IS_HASH(pItem1))
+  {
     return (hb_hashId(pItem1) == hb_hashId(pItem2));
+  }
   return HB_FALSE;
 }
 
@@ -927,7 +1023,9 @@ static PHB_ITEM hb_dbgEval(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
 
   /* Check if we have a cached pBlock */
   if (!watch->pBlock)
+  {
     watch->pBlock = hb_dbgEvalMakeBlock(watch);
+  }
 
   if (watch->pBlock)
   {
@@ -947,7 +1045,9 @@ static PHB_ITEM hb_dbgEval(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
       PHB_ITEM xNewValue = hb_itemArrayGet(aNewVars, i + 1);
 
       if (!hb_dbgEqual(xOldValue, xNewValue))
+      {
         hb_dbgVarSet(&watch->aScopes[i], xNewValue);
+      }
 
       hb_itemRelease(xOldValue);
       hb_itemRelease(xNewValue);
@@ -958,10 +1058,14 @@ static PHB_ITEM hb_dbgEval(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
     for (i = 0; i < watch->nVars; i++)
     {
       if (watch->aScopes[i].cType == 'M')
+      {
         hb_xfree(watch->aScopes[i].szName);
+      }
     }
     if (watch->nVars)
+    {
       hb_xfree(watch->aScopes);
+    }
   }
   return xResult;
 }
@@ -975,7 +1079,9 @@ static PHB_ITEM hb_dbgEvalMacro(const char *szExpr, PHB_ITEM pItem)
   type = hb_macroGetType(pStr);
   hb_itemRelease(pStr);
   if ((!strcmp(type, "U") || !strcmp(type, "UE")))
+  {
     return NULL;
+  }
 
   hb_vmPushString(szExpr, (HB_SIZE)strlen(szExpr));
   hb_macroGetValue(hb_stackItemFromTop(-1), 0, HB_SM_RT_MACRO);
@@ -996,13 +1102,19 @@ static int hb_dbgEvalSubstituteVar(HB_WATCHPOINT *watch, char *szWord, int nStar
   for (j = 0; j < watch->nVars; j++)
   {
     if (!strcmp(szWord, watch->aVars[j]))
+    {
       break;
+    }
   }
 
   if (j == watch->nVars)
+  {
     *ARRAY_ADD(char *, watch->aVars, watch->nVars) = szWord;
+  }
   else
+  {
     hb_xfree(szWord);
+  }
 
   t = (char *)hb_xgrab((HB_SIZE)strlen(watch->szExpr) - nLen + 9 + 1);
   memmove(t, watch->szExpr, nStart);
@@ -1105,7 +1217,9 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       }
 
       if (c == '-')
+      {
         i++;
+      }
 
       i++;
 
@@ -1129,7 +1243,9 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
         i++;
 
       if (watch->szExpr[i])
+      {
         i++;
+      }
 
       bAfterId = HB_TRUE;
       continue;
@@ -1138,14 +1254,18 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
     {
       i++;
       if (bAfterId)
+      {
         bAfterId = HB_FALSE;
+      }
       else
       {
         while (watch->szExpr[i] && watch->szExpr[i] != ']')
           i++;
 
         if (watch->szExpr[i])
+        {
           i++;
+        }
 
         bAfterId = HB_TRUE;
       }
@@ -1182,7 +1302,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
   int nProcLevel;
 
   if (!watch->nVars)
+  {
     return aVars;
+  }
 
   scopes = (HB_VARINFO *)hb_xgrab(watch->nVars * sizeof(HB_VARINFO));
   nProcLevel = hb_dbg_ProcLevel();
@@ -1218,7 +1340,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
       }
     }
     if (j < top->nLocals)
+    {
       continue;
+    }
 
     for (j = 0; j < top->nStatics; j++)
     {
@@ -1233,7 +1357,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
       }
     }
     if (j < top->nStatics)
+    {
       continue;
+    }
 
     if (module)
     {
@@ -1250,7 +1376,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
         }
       }
       if (j < module->nStatics)
+      {
         continue;
+      }
 
       for (j = 0; j < module->nGlobals; j++)
       {
@@ -1265,7 +1393,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
         }
       }
       if (j < module->nGlobals)
+      {
         continue;
+      }
 
       for (j = 0; j < module->nExternGlobals; j++)
       {
@@ -1280,7 +1410,9 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
         }
       }
       if (j < module->nExternGlobals)
+      {
         continue;
+      }
     }
 
     scopes[i].cType = 'M';
@@ -1289,10 +1421,14 @@ static PHB_ITEM hb_dbgEvalResolve(HB_DEBUGINFO *info, HB_WATCHPOINT *watch)
     pItem = hb_dbgVarGet(&scopes[i]);
 
     if (pItem)
+    {
       hb_itemArrayPut(aVars, i + 1, pItem);
+    }
 
     if (scopes[i].cType == 'F')
+    {
       hb_itemRelease(pItem);
+    }
   }
   watch->aScopes = scopes;
 
@@ -1361,7 +1497,9 @@ static HB_BOOL hb_dbgIsBreakPoint(HB_DEBUGINFO *info, const char *szModule, int 
     HB_BREAKPOINT *point = &info->aBreak[i];
 
     if (point->nLine == nLine && FILENAME_EQUAL(szModule, point->szModule))
+    {
       return HB_TRUE;
+    }
   }
   return HB_FALSE;
 }
@@ -1387,7 +1525,9 @@ HB_BOOL hb_dbgIsValidStopLine(void *handle, const char *szModule, int nLine)
       int nOfs = nLine - nMin;
 
       if (nOfs >= 0 && (HB_SIZE)(nOfs >> 3) < hb_arrayGetCLen(pEntry, 3))
+      {
         fResult = (hb_arrayGetCPtr(pEntry, 3)[nOfs >> 3] & (1 << (nOfs & 0x07))) != 0;
+      }
 
       break;
     }
@@ -1516,7 +1656,9 @@ void hb_dbgSetWatch(void *handle, int nWatch, const char *szExpr, HB_BOOL bTrace
     if (pTrace->nIndex == nWatch)
     {
       if (pTrace->xValue)
+      {
         hb_itemRelease(pTrace->xValue);
+      }
 
       ARRAY_DEL(HB_TRACEPOINT, info->aTrace, info->nTracePoints, i);
       break;
@@ -1605,42 +1747,54 @@ HB_FUNC(__DBGSETGO)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetGo(ptr);
+  }
 }
 
 HB_FUNC(__DBGSETTRACE)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetTrace(ptr);
+  }
 }
 
 HB_FUNC(__DBGSETCBTRACE)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetCBTrace(ptr, hb_parl(2));
+  }
 }
 
 HB_FUNC(__DBGSETNEXTROUTINE)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetNextRoutine(ptr);
+  }
 }
 
 HB_FUNC(__DBGSETQUIT)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetQuit(ptr);
+  }
 }
 
 HB_FUNC(__DBGSETTOCURSOR)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetToCursor(ptr, hb_parc(2), hb_parni(3));
+  }
 }
 
 HB_FUNC(__DBGGETEXPRVALUE)
@@ -1651,9 +1805,13 @@ HB_FUNC(__DBGGETEXPRVALUE)
     PHB_ITEM pItem;
 
     if (HB_ISCHAR(2))
+    {
       pItem = hb_dbgGetExpressionValue(hb_parptr(1), hb_parc(2));
+    }
     else
+    {
       pItem = hb_dbgGetWatchValue(hb_parptr(1), hb_parni(2) - 1);
+    }
 
     if (pItem)
     {
@@ -1661,7 +1819,9 @@ HB_FUNC(__DBGGETEXPRVALUE)
       hb_itemReturnRelease(pItem);
     }
     else
+    {
       hb_storl(HB_FALSE, 3);
+    }
   }
 }
 
@@ -1669,49 +1829,63 @@ HB_FUNC(__DBGGETSOURCEFILES)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_itemReturnRelease(hb_dbgGetSourceFiles(ptr));
+  }
 }
 
 HB_FUNC(__DBGISVALIDSTOPLINE)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_retl(hb_dbgIsValidStopLine(ptr, hb_parc(2), hb_parni(3)));
+  }
 }
 
 HB_FUNC(__DBGADDBREAK)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgAddBreak(ptr, hb_parc(2), hb_parni(3), NULL);
+  }
 }
 
 HB_FUNC(__DBGDELBREAK)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgDelBreak(ptr, hb_parni(2));
+  }
 }
 
 HB_FUNC(__DBGADDWATCH)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgAddWatch(ptr, hb_parc(2), hb_parl(3));
+  }
 }
 
 HB_FUNC(__DBGDELWATCH)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgDelWatch(ptr, hb_parni(2));
+  }
 }
 
 HB_FUNC(__DBGSETWATCH)
 {
   void *ptr = hb_parptr(1);
   if (ptr)
+  {
     hb_dbgSetWatch(ptr, hb_parni(2), hb_parc(3), hb_parl(4));
+  }
 }
 
 HB_FUNC(__DBGSENDMSG)

@@ -25,10 +25,14 @@ void writelog(char *s)
   HB_FHANDLE handle;
 
   if (hb_fsFile("ac.log"))
+  {
     handle = hb_fsOpen("ac.log", FO_WRITE);
+  }
   else
+  {
     handle = hb_fsCreate("ac.log", 0);
-
+  }
+  
   hb_fsSeek(handle, 0, SEEK_END);
   hb_fsWrite(handle, (const char *)s, (USHORT)strlen(s));
   hb_fsWrite(handle, "\n\r", 2);
@@ -116,7 +120,9 @@ HB_FUNC(HWG_GETCLIPBOARDTEXT)
   }
   HB_RETSTR(lpText);
   if (lpText)
+  {
     hb_xfree(lpText);
+  }  
 }
 
 HB_FUNC(HWG_GETSTOCKOBJECT)
@@ -153,9 +159,13 @@ HB_FUNC(HWG_BITANDINVERSE)
 HB_FUNC(HWG_SETBIT)
 {
   if (hb_pcount() < 3 || hb_parni(3))
+  {
     hb_retnl(hb_parnl(1) | (1 << (hb_parni(2) - 1)));
+  }
   else
+  {
     hb_retnl(hb_parnl(1) & ~(1 << (hb_parni(2) - 1)));
+  }
 }
 
 HB_FUNC(HWG_CHECKBIT)
@@ -292,7 +302,9 @@ HB_FUNC(HWG_GETKEYNAMETEXT)
   int iRet = GetKeyNameText(hb_parnl(1), cText, MAX_PATH);
 
   if (iRet)
+  {
     HB_RETSTRLEN(cText, iRet);
+  }
 }
 
 HB_FUNC(HWG_ACTIVATEKEYBOARDLAYOUT)
@@ -307,14 +319,18 @@ HB_FUNC(HWG_ACTIVATEKEYBOARDLAYOUT)
   {
     GetKeyboardLayoutName(sBuff);
     if (!lstrcmp(sBuff, lpLayout))
+    {
       break;
+    }
     ActivateKeyboardLayout(0, 0);
     i++;
   }
 
   while (i < num);
   if (i >= num)
+  {
     ActivateKeyboardLayout(curr, 0);
+  }
 
   hb_strfree(hLayout);
 }
@@ -326,7 +342,6 @@ HB_FUNC(HWG_ACTIVATEKEYBOARDLAYOUT)
 
 HB_FUNC(HWG_PTS2PIX)
 {
-
   HDC hDC;
   BOOL lDC = 1;
 
@@ -336,11 +351,15 @@ HB_FUNC(HWG_PTS2PIX)
     lDC = 0;
   }
   else
+  {
     hDC = CreateDC(TEXT("DISPLAY"), NULL, NULL, NULL);
+  }
 
   hb_retni(MulDiv(hb_parni(1), GetDeviceCaps(hDC, LOGPIXELSY), 72));
   if (lDC)
+  {
     DeleteDC(hDC);
+  }
 }
 
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes( culikr@uol.com.br) */
@@ -348,7 +367,6 @@ HB_FUNC(HWG_PTS2PIX)
 HB_FUNC(HWG_GETWINDOWSDIR)
 {
   TCHAR szBuffer[MAX_PATH + 1] = {0};
-
   GetWindowsDirectory(szBuffer, MAX_PATH);
   HB_RETSTR(szBuffer);
 }
@@ -356,7 +374,6 @@ HB_FUNC(HWG_GETWINDOWSDIR)
 HB_FUNC(HWG_GETSYSTEMDIR)
 {
   TCHAR szBuffer[MAX_PATH + 1] = {0};
-
   GetSystemDirectory(szBuffer, MAX_PATH);
   HB_RETSTR(szBuffer);
 }
@@ -364,7 +381,6 @@ HB_FUNC(HWG_GETSYSTEMDIR)
 HB_FUNC(HWG_GETTEMPDIR)
 {
   TCHAR szBuffer[MAX_PATH + 1] = {0};
-
   GetTempPath(MAX_PATH, szBuffer);
   HB_RETSTR(szBuffer);
 }
@@ -443,7 +459,9 @@ HB_FUNC(HWG_GETNEXTDLGTABITEM)
 HB_FUNC(HWG_SLEEP)
 {
   if (hb_parinfo(1))
+  {
     Sleep(hb_parnl(1));
+  }
 }
 
 HB_FUNC(HWG_KEYB_EVENT)
@@ -454,21 +472,33 @@ HB_FUNC(HWG_KEYB_EVENT)
   int bAlt = (!(HB_ISNIL(5)) && hb_parl(5)) ? TRUE : FALSE;
 
   if (bShift)
+  {
     keybd_event(VK_SHIFT, 0, 0, 0);
+  }
   if (bCtrl)
+  {
     keybd_event(VK_CONTROL, 0, 0, 0);
+  }
   if (bAlt)
+  {
     keybd_event(VK_MENU, 0, 0, 0);
+  }
 
   keybd_event((BYTE)hb_parni(1), 0, dwFlags, 0);
   keybd_event((BYTE)hb_parni(1), 0, dwFlags | KEYEVENTF_KEYUP, 0);
 
   if (bShift)
+  {
     keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
+  }
   if (bCtrl)
+  {
     keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
+  }
   if (bAlt)
+  {
     keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, 0);
+  }
 }
 
 /* SetScrollInfo( hWnd, nType, nRedraw, nPos, nPage, nmax )
@@ -832,23 +862,31 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   CloseHandle(g_hChildStd_OUT_Wr);
 
   if (!HB_ISNIL(2))
+  {
     hOut = CreateFile(hb_parc(2), GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+  }
   while (1)
   {
     bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, BUFSIZE, &dwRead, NULL);
     if (!bSuccess || dwRead == 0)
+    {
       break;
+    }
 
     if (!HB_ISNIL(2))
     {
       bSuccess = WriteFile(hOut, chBuf, dwRead, &dwWritten, NULL);
       if (!bSuccess)
+      {
         break;
+      }
     }
   }
 
   if (!HB_ISNIL(2))
+  {
     CloseHandle(hOut);
+  }
   CloseHandle(g_hChildStd_OUT_Rd);
 
   hb_retl(1);

@@ -149,12 +149,18 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
     hb_vmDo(4); /* where iArgCount is the number of pushed parameters */
     res = hb_parl(-1);
     if (res)
+    {
       return 0;
+    }
     else
+    {
       return (DefWindowProc(hWnd, message, wParam, lParam));
+    }
   }
   else
+  {
     return (DefWindowProc(hWnd, message, wParam, lParam));
+  }  
 }
 
 HB_FUNC(HWG_CREATEROUNDRECTRGN)

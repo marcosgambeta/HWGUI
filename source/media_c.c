@@ -26,14 +26,22 @@ HB_FUNC(HWG_PLAYSOUND)
   DWORD fdwSound = SND_NODEFAULT | SND_FILENAME;
 
   if (hb_parl(2))
+  {
     fdwSound |= SND_SYNC;
+  }
   else
+  {
     fdwSound |= SND_ASYNC;
+  }
 
   if (hb_parl(3))
+  {
     fdwSound |= SND_LOOP;
+  }
   if (!lpSound)
+  {
     fdwSound |= SND_PURGE;
+  }
 
   hb_retl(PlaySound(lpSound, hmod, fdwSound) != 0);
   hb_strfree(hSound);
@@ -47,7 +55,9 @@ HB_FUNC(HWG_MCISENDSTRING)
   hb_retnl((LONG)mciSendString(HB_PARSTR(1, &hCommand, NULL), cBuffer, HB_SIZEOFARRAY(cBuffer),
                                (HB_ISNIL(3)) ? GetActiveWindow() : hwg_par_HWND(3)));
   if (!HB_ISNIL(2))
+  {
     HB_STORSTR(cBuffer, 2);
+  }
   hb_strfree(hCommand);
 }
 
@@ -85,7 +95,9 @@ HB_FUNC(HWG_NMCIOPEN)
   mciOpenParms.lpstrDeviceType = HB_PARSTR(1, &hDevice, NULL);
   mciOpenParms.lpstrElementName = HB_PARSTR(2, &hName, NULL);
   if (mciOpenParms.lpstrElementName)
+  {
     dwFlags |= MCI_OPEN_TYPE;
+  }
 
   hb_retnl(mciSendCommand(0, MCI_OPEN, dwFlags, (DWORD)(LPMCI_OPEN_PARMS)&mciOpenParms));
 
@@ -104,10 +116,14 @@ HB_FUNC(HWG_NMCIPLAY)
   memset(&mciPlayParms, 0, sizeof(mciPlayParms));
 
   if ((mciPlayParms.dwFrom = hb_parnl(2)) != 0)
+  {
     dwFlags |= MCI_FROM;
+  }
 
   if ((mciPlayParms.dwTo = hb_parnl(3)) != 0)
+  {
     dwFlags |= MCI_TO;
+  }
 
   //   if( ( mciPlayParms.dwCallback = ( DWORD_PTR ) hb_parnint(4) ) != 0 )
   //      dwFlags |= MCI_NOTIFY;

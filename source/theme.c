@@ -679,7 +679,9 @@ static FARPROC GetProc(LPCSTR lpProc, FARPROC pfnFail)
     FARPROC pProcAddr = GetProcAddress(m_hThemeDll, lpProc);
 
     if (pProcAddr)
+    {
       return pProcAddr;
+    }
   }
   return pfnFail;
 }
@@ -1076,13 +1078,21 @@ LRESULT OnNotifyCustomDraw(LPARAM pNotifyStruct)
     state_id = PBS_NORMAL;
 
     if (style & WS_DISABLED)
+    {
       state_id = PBS_DISABLED;
+    }
     else if (pCustomDraw->uItemState & CDIS_SELECTED)
+    {
       state_id = PBS_PRESSED;
+    }
     else if (pCustomDraw->uItemState & CDIS_HOT)
+    {
       state_id = PBS_HOT;
+    }
     else if (style & BS_DEFPUSHBUTTON)
+    {
       state_id = PBS_DEFAULTED;
+    }
 
     // draw themed button background appropriate to button state
     hb_DrawThemeBackground(hTheme, pCustomDraw->hdc, BP_PUSHBUTTON, state_id, &pCustomDraw->rc,
@@ -1130,7 +1140,9 @@ void draw_bitmap(HDC hDC, const RECT *Rect, DWORD style, HWND m_hWnd)
   BITMAPINFO bmi;
 
   if (!hBitmap)
+  {
     return;
+  }
 
   // determine size of bitmap image
 
@@ -1160,7 +1172,9 @@ void draw_icon(HDC hDC, const RECT *Rect, DWORD style, HWND m_hWnd)
   int y;
 
   if (!hIcon)
+  {
     return;
+  }
 
   // determine size of icon image
   GetIconInfo(hIcon, &ii);
@@ -1197,14 +1211,22 @@ static int image_left(int cx, const RECT *Rect, DWORD style)
   int x;
 
   if (cx > Rect->right - Rect->left)
+  {
     cx = Rect->right - Rect->left;
+  }
 
   if ((style & BS_CENTER) == BS_LEFT)
+  {
     x = Rect->left;
+  }
   else if ((style & BS_CENTER) == BS_RIGHT)
+  {
     x = Rect->right - cx;
+  }
   else
+  {
     x = Rect->left + ((Rect->right - Rect->left) - cx) / 2;
+  }
 
   return (x);
 }
@@ -1216,14 +1238,22 @@ static int image_top(int cy, const RECT *Rect, DWORD style)
   int y;
 
   if (cy > Rect->bottom - Rect->top)
+  {
     cy = Rect->bottom - Rect->top;
+  }
 
   if ((style & BS_VCENTER) == BS_TOP)
+  {
     y = Rect->top;
+  }
   else if ((style & BS_VCENTER) == BS_BOTTOM)
+  {
     y = Rect->bottom - cy;
+  }
   else
+  {
     y = Rect->top + ((Rect->bottom - Rect->top) - cy) / 2;
+  }
 
   return (y);
 }
@@ -1233,13 +1263,17 @@ HB_FUNC(HWG_INITTHEMELIB)
   m_hThemeDll = LoadLibrary(TEXT("UxTheme.dll"));
 
   if (m_hThemeDll)
+  {
     ThemeLibLoaded = TRUE;
+  }
 }
 
 HB_FUNC(HWG_ENDTHEMELIB)
 {
   if (m_hThemeDll != NULL)
+  {
     FreeLibrary(m_hThemeDll);
+  }
 
   m_hThemeDll = NULL;
   ThemeLibLoaded = FALSE;
@@ -1603,7 +1637,9 @@ static void PrepareImageRect(HWND hButtonWnd, BOOL bHasTitle, RECT *rpItem, RECT
 
   // If button is pressed then press image also
   if (bIsPressed && !Themed)
+  {
     OffsetRect(rpImage, 1, 1);
+  }
   //    rpItem=rpImage;
 
 } // End of PrepareImageRect
@@ -1616,7 +1652,9 @@ static void DrawTheIcon(HWND hButtonWnd, HDC dc, BOOL bHasTitle, RECT *rpItem, R
   DWORD cy = 0;
 
   if (hIco)
+  {
     Calc_iconWidthHeight(hButtonWnd, &cx, &cy, dc, hIco);
+  }
 
   if (hBitmap)
   {
@@ -1627,14 +1665,18 @@ static void DrawTheIcon(HWND hButtonWnd, HDC dc, BOOL bHasTitle, RECT *rpItem, R
   PrepareImageRect(hButtonWnd, bHasTitle, rpItem, rpTitle, bIsPressed, cx, cy, &rImage, iStyle);
 
   if (hIco)
+  {
     DrawState(dc, NULL, NULL, (LPARAM)hIco, 0, rImage.left, rImage.top,
               (rImage.right - rImage.left), (rImage.bottom - rImage.top),
               (bIsDisabled ? DSS_DISABLED : DSS_NORMAL) | DST_ICON);
+  }
 
   if (hBitmap)
+  {
     DrawState(dc, NULL, NULL, (LPARAM)hBitmap, 0, rImage.left, rImage.top,
               (rImage.right - rImage.left), (rImage.bottom - rImage.top),
               (bIsDisabled ? DSS_DISABLED : DSS_NORMAL) | DST_BITMAP);
+  }
 
 } // End of DrawTheIcon
 
@@ -1650,7 +1692,9 @@ HB_FUNC(HWG_OPENTHEMEDATA)
   p = hb_OpenThemeData(hwnd, output);
   hb_xfree(output);
   if (p)
+  {
     Themed = TRUE;
+  }
   hb_retptr((void *)p);
 }
 
@@ -1669,9 +1713,13 @@ HB_FUNC(HWG_DRAWTHEMEBACKGROUND)
   RECT pClipRect;
 
   if (HB_ISARRAY(5))
+  {
     Array2Rect(hb_param(5, HB_IT_ARRAY), &pRect);
+  }
   if (HB_ISARRAY(6))
+  {
     Array2Rect(hb_param(6, HB_IT_ARRAY), &pClipRect);
+  }
 
   hb_retnl(hb_DrawThemeBackground(hTheme, hdc, iPartId, iStateId, &pRect, NULL));
 }
@@ -1690,9 +1738,13 @@ HB_FUNC(HWG_DRAWTHEICON)
   int iStyle = hb_parni(10);
 
   if (HB_ISARRAY(4))
+  {
     Array2Rect(hb_param(4, HB_IT_ARRAY), &rpItem);
+  }
   if (HB_ISARRAY(5))
+  {
     Array2Rect(hb_param(5, HB_IT_ARRAY), &rpTitle);
+  }
 
   DrawTheIcon(hButtonWnd, dc, bHasTitle, &rpItem, &rpTitle, bIsPressed, bIsDisabled, hIco, hBit,
               iStyle);
@@ -1730,12 +1782,18 @@ HB_FUNC(HWG_PREPAREIMAGERECT)
   int iStyle = hb_parni(9);
 
   if (HB_ISARRAY(4))
+  {
     Array2Rect(hb_param(4, HB_IT_ARRAY), &rpItem);
+  }
   if (HB_ISARRAY(5))
+  {
     Array2Rect(hb_param(5, HB_IT_ARRAY), &rpTitle);
+  }
 
   if (hIco)
+  {
     Calc_iconWidthHeight(hButtonWnd, &cx, &cy, dc, hIco);
+  }
   if (hBitmap)
   {
     Calc_bitmapWidthHeight(hButtonWnd, &cx, &cy, dc, hBitmap);
@@ -1768,7 +1826,9 @@ HB_FUNC(HWG_DRAWTHEMETEXT)
   WCHAR *output = (WCHAR *)hb_xgrab(mlen * sizeof(WCHAR));
 
   if (HB_ISARRAY(8))
+  {
     Array2Rect(hb_param(8, HB_IT_ARRAY), &pRect);
+  }
   MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pText, -1, output, mlen);
   hb_DrawThemeText(hTheme, hdc, iPartId, iStateId, output, mlen - 1, dwTextFlags, dwTextFlags2,
                    &pRect);
@@ -1844,7 +1904,9 @@ HB_FUNC(HWG_DRAWTHEMEPARENTBACKGROUND)
   RECT pRect;
 
   if (HB_ISARRAY(3))
+  {
     Array2Rect(hb_param(3, HB_IT_ARRAY), &pRect);
+  }
 
   hb_retnl(hb_DrawThemeParentBackground(hTheme, hdc, &pRect));
 }
@@ -1881,9 +1943,13 @@ HB_FUNC(HWG_SETWINDOWTHEME)
   {
     // Windows XP detected
     if (ienable == 0)
+    {
       hb_SetWindowTheme(hwnd, L" ", L" "); // pszSubAppName,L pszSubIdList);
+    }
     else
+    {
       hb_SetWindowTheme(hwnd, NULL, NULL);
+    }
   }
 }
 
@@ -1903,5 +1969,7 @@ HB_FUNC(HWG_GETWINDOWTHEME)
     HB_RETHANDLE(hTheme);
   }
   else
+  {
     HB_RETHANDLE(0);
+  }
 }

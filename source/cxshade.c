@@ -111,7 +111,9 @@ void Draw3dRect(HDC hDC, RECT *lprect, COLORREF clrTopLeft, COLORREF clrBottomRi
 void cxdib_Release(PCXDIB pdib)
 {
   if (pdib->hDib)
+  {
     hb_xfree(pdib->hDib);
+  }  
 }
 
 WORD cxdib_GetPaletteSize(PCXDIB pdib)
@@ -122,7 +124,9 @@ WORD cxdib_GetPaletteSize(PCXDIB pdib)
 BYTE *cxdib_GetBits(PCXDIB pdib)
 {
   if (pdib->hDib)
+  {
     return ((BYTE *)pdib->hDib + *(LPDWORD)pdib->hDib + cxdib_GetPaletteSize(pdib));
+  }
   return NULL;
 }
 
@@ -140,13 +144,17 @@ void cxdib_Clone(PCXDIB pdib, PCXDIB src)
 {
   cxdib_Create(pdib, src->m_bi.biWidth, src->m_bi.biHeight, src->m_bi.biBitCount);
   if (pdib->hDib)
+  {
     memcpy(pdib->hDib, src->hDib, cxdib_GetSize(pdib));
+  }  
 }
 
 void cxdib_Clear(PCXDIB pdib, BYTE bval)
 {
   if (pdib->hDib)
+  {
     memset(cxdib_GetBits(pdib), bval, pdib->m_bi.biSizeImage);
+  }  
 }
 
 HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
@@ -155,18 +163,28 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   DWORD dwLen;             // size of memory block
 
   if (pdib->hDib)
+  {
     hb_xfree(pdib->hDib);
+  }
   pdib->hDib = NULL;
 
   // Make sure bits per pixel is valid
   if (wBitCount <= 1)
+  {
     wBitCount = 1;
+  }
   else if (wBitCount <= 4)
+  {
     wBitCount = 4;
+  }
   else if (wBitCount <= 8)
+  {
     wBitCount = 8;
+  }
   else
+  {
     wBitCount = 24;
+  }
 
   switch (wBitCount)
   {
@@ -206,8 +224,10 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   pdib->hDib = hb_xgrab(dwLen); // alloc memory block to store our bitmap
   // hDib = new (HDIB[dwLen]); //fixes allocation problem under Win2k
   if (!pdib->hDib)
+  {
     return NULL;
-
+  }
+  
   // use our bitmap info structure to fill in first part of
   // our DIB with the BITMAPINFOHEADER
   lpbi = (LPBITMAPINFOHEADER)(pdib->hDib);
@@ -263,7 +283,9 @@ void cxdib_SetPaletteIndex(PCXDIB pdib, BYTE idx, BYTE r, BYTE g, BYTE b)
 void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
 {
   if ((pdib->hDib == NULL) || (pdib->m_nColors == 0))
+  {
     return;
+  }
   else
   {
     BYTE *iDst = (BYTE *)(pdib->hDib) + sizeof(BITMAPINFOHEADER);
@@ -274,7 +296,9 @@ void cxdib_BlendPalette(PCXDIB pdib, COLORREF cr, long perc)
     g = GetGValue(cr);
     b = GetBValue(cr);
     if (perc > 100)
+    {
       perc = 100;
+    }
     for (i = 0; i < pdib->m_nColors; i++)
     {
       pPal[i].rgbBlue = (BYTE)((pPal[i].rgbBlue * (100 - perc) + b * perc) / 100);
@@ -290,7 +314,9 @@ void cxdib_SetPixelIndex(PCXDIB pdib, long x, long y, BYTE i)
 
   if ((pdib->hDib == NULL) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) ||
       (x >= pdib->m_bi.biWidth) || (y >= pdib->m_bi.biHeight))
+  {
     return;
+  }
   iDst = cxdib_GetBits(pdib);
   iDst[(pdib->m_bi.biHeight - y - 1) * pdib->m_LineWidth + x] = i;
 }
@@ -348,10 +374,14 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
   if (state & STATE_DISABLED)
   {                                            // DISABLED BUTTON
     if (cxdib_IsValid(&(pshade->m_dDisabled))) // paint the skin
+    {
       cxdib_Draw(&(pshade->m_dDisabled), pDC, 0, 0);
+    }
     // if needed, draw the standard 3D rectangular border
     if ((pshade->m_Border) && (pshade->m_flat == FALSE))
+    {
       DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
+    }
   }
   else
   {
@@ -366,9 +396,13 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
       if (pshade->m_Border)
       {
         if (pshade->m_flat)
+        {
           Draw3dRect(pDC, &r, GetSysColor(COLOR_BTNSHADOW), GetSysColor(COLOR_BTNHILIGHT));
+        }
         else
+        {
           DrawEdge(pDC, &r, EDGE_SUNKEN, BF_RECT);
+        }
       }
     }
     else
@@ -397,9 +431,13 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
         else
         {
           if (pshade->m_flat)
+          {
             Draw3dRect(pDC, &r, GetSysColor(COLOR_BTNHILIGHT), GetSysColor(COLOR_BTNSHADOW));
+          }
           else
+          {
             DrawEdge(pDC, &r, EDGE_RAISED, BF_RECT);
+          }
         }
       }
     }
@@ -420,7 +458,9 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
   BitBlt(pRealDC, 0, 0, cx, cy, hdcMem, 0, 0, SRCCOPY);
 
   if (holdBitmap)
+  {
     SelectObject(hdcMem, holdBitmap);
+  }
   DeleteDC(hdcMem);
   DeleteObject(hBitmap);
 }
@@ -441,7 +481,9 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
   int grainx2;
 
   if (prect)
+  {
     SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);
+  }
   sYSize = pshade->m_rect.bottom - pshade->m_rect.top;
   sXSize = pshade->m_rect.right - pshade->m_rect.left;
 
@@ -513,9 +555,13 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
       for (i = 0; i < xs; i++)
       {
         if (((x - i) > 0) && ((y + i) < sYSize))
+        {
           cxdib_SetPixelIndex(&(pshade->m_dNormal), x - i, y + i, (BYTE)d);
+        }
         if (((x + i) < sXSize) && ((y - i) > 0))
+        {
           cxdib_SetPixelIndex(&(pshade->m_dNormal), sXSize - x + i, y - i, (BYTE)d);
+        }
       }
     }
     // blend strokes with SHS_DIAGONAL
@@ -559,9 +605,13 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
         x = j - sXSize / 2;
         xs = sXSize / 2 - d + (y * y * d) / a;
         if (x > xs)
+        {
           posDst[j] = (BYTE)idxmin + (BYTE)(((sXSize - j) * 128) / d);
+        }
         if ((x + xs) < 0)
+        {
           posDst[j] = (BYTE)idxmax - (BYTE)((j * 128) / d);
+        }
         posDst[j] += rand() / grainx2 - granularity;
       }
       posDst += bytes;
@@ -578,9 +628,13 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
         k = (h * (h * h) / 128) / 128 + (k * (k * k) / 128) / 128;
         k = k * (128 - granularity) / 128 + 128;
         if (k < idxmin)
+        {
           k = idxmin;
+        }
         if (k > idxmax)
+        {
           k = idxmax;
+        }
         posDst[j] = (BYTE)k;
         posDst[j] += rand() / grainx2 - granularity;
       }
@@ -716,7 +770,9 @@ HB_FUNC(HWG_SHADE_SET)
   RECT rect;
 
   if (!HB_ISNIL(7))
+  {
     SetRect(&rect, hb_parni(7), hb_parni(8), hb_parni(9), hb_parni(10));
+  }
 
   cxshade_SetShade(pshade, shadeID, palette, granularity, highlight, coloring, color,
                    (HB_ISNIL(8)) ? NULL : &rect);

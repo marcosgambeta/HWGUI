@@ -53,7 +53,9 @@ HB_FUNC(HWG_OPENDEFAULTPRINTER)
 
     hDC = CreateDC(NULL, pinfo5->pPrinterName, NULL, NULL);
     if (hb_pcount() > 0)
+    {
       HB_STORSTR(pinfo5->pPrinterName, 1);
+    }
 
     hb_xfree(pinfo5);
   }
@@ -66,7 +68,9 @@ HB_FUNC(HWG_OPENDEFAULTPRINTER)
     EnumPrinters(PRINTER_ENUM_LOCAL, NULL, 4, (PBYTE)pinfo4, dwNeeded, &dwNeeded, &dwReturned);
     hDC = CreateDC(NULL, pinfo4->pPrinterName, NULL, NULL);
     if (hb_pcount() > 0)
+    {
       HB_STORSTR(pinfo4->pPrinterName, 1);
+    }
 
     hb_xfree(pinfo4);
   }
@@ -175,10 +179,14 @@ HB_FUNC(HWG_GETPRINTERS)
     hb_itemRelease(aMetr);
   }
   else
+  {
     hb_ret();
+  }
 
   if (pBuffer)
+  {
     hb_xfree(pBuffer);
+  }
 }
 
 HB_FUNC(HWG_SETPRINTERMODE)
@@ -190,7 +198,9 @@ HB_FUNC(HWG_SETPRINTERMODE)
   PDEVMODE pdm;
 
   if (!hPrinter)
+  {
     OpenPrinter((LPTSTR)lpPrinterName, &hPrinter, NULL);
+  }
 
   if (hPrinter)
   {
@@ -433,7 +443,9 @@ HB_FUNC(HWG_PLAYENHMETAFILE)
     rc.bottom = hb_parni(6);
   }
   else
+  {
     GetClientRect(WindowFromDC(hDC), &rc);
+  }
   hb_retnl((LONG)PlayEnhMetaFile(hDC, (HENHMETAFILE)HB_PARHANDLE(2), &rc));
 }
 

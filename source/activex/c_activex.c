@@ -332,8 +332,10 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
 
   // We implement only a "default" interface
   if (!IsEqualIID(riid, &IID_NULL))
+  {
     return (DISP_E_UNKNOWNINTERFACE);
-
+  }
+  
   HB_SYMBOL_UNUSED(lcid);
   HB_SYMBOL_UNUSED(wFlags);
   HB_SYMBOL_UNUSED(result);
@@ -386,9 +388,13 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
         hb_vmPushSymbol(hb_dynsymSymbol(hb_dynsymFindName(hb_itemGetCPtr(pExec))));
 
         if (HB_IS_OBJECT(pObject))
+        {
           hb_vmPush(pObject);
+        }
         else
+        {
           hb_vmPushNil();
+        }
         break;
       }
 
@@ -599,7 +605,9 @@ HB_FUNC(HWG_SETUPCONNECTIONPOINT)
           ((MyRealIEventHandler *)thisobj)->device_event_interface_iid = rriid;
         }
         else
+        {
           OutputDebugString("error getting iid");
+        }
 
         // OutputDebugString("calling advise");
         hr = m_pIConnectionPoint->lpVtbl->Advise(m_pIConnectionPoint, pIUnknown, &dwCookie);

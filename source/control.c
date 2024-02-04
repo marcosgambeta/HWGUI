@@ -263,7 +263,9 @@ HB_FUNC(HWG_CREATEEDIT)
   HWND hWndEdit;
 
   if ((ulStyle & WS_BORDER)) //&& ( ulStyle & WS_DLGFRAME ) )
+  {
     ulStyle &= ~WS_BORDER;
+  }
   hWndEdit = CreateWindowEx(ulStyleEx, TEXT("EDIT"), NULL, WS_CHILD | WS_VISIBLE | ulStyle,
                             hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7), hwg_par_HWND(1),
                             (HMENU)hb_parni(2), GetModuleHandle(NULL), NULL);
@@ -273,7 +275,9 @@ HB_FUNC(HWG_CREATEEDIT)
     void *hStr;
     LPCTSTR lpText = HB_PARSTR(8, &hStr, NULL);
     if (lpText)
+    {
       SendMessage(hWndEdit, WM_SETTEXT, 0, (LPARAM)lpText);
+    }
     hb_strfree(hStr);
   }
 
@@ -389,9 +393,13 @@ HB_FUNC(HWG_INITSTATUS)
     {
       j = hb_arrayGetNI(pArray, ul);
       if (ul == (ULONG)nParts && j == 0)
+      {
         nWidth = -1;
+      }
       else
+      {
         nWidth += j;
+      }
       lpParts[ul - 1] = nWidth;
     }
   }
@@ -422,9 +430,11 @@ HB_FUNC(HWG_ADDTOOLTIP)
   }
 
   if (!hWndTT)
+  {
     hWndTT = CreateWindow(TOOLTIPS_CLASS, NULL, WS_POPUP | TTS_ALWAYSTIP | iStyle, CW_USEDEFAULT,
                           CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL,
                           GetModuleHandle(NULL), NULL);
+  }
   if (!hWndTT)
   {
     hb_retnl(0);
@@ -538,9 +548,13 @@ HB_FUNC(HWG_GETNOTIFYDELTAPOS)
 {
   int iItem = hb_parnl(2);
   if (iItem < 2)
+  {
     hb_retni((LONG)(((NMUPDOWN *)HB_PARHANDLE(1))->iPos));
+  }
   else
+  {
     hb_retni((LONG)(((NMUPDOWN *)HB_PARHANDLE(1))->iDelta));
+  }
 }
 
 HB_FUNC(HWG_CREATEDATEPICKER)
@@ -635,9 +649,13 @@ HB_FUNC(HWG_GETDATEPICKER)
 
   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, wParam, (LPARAM)&st);
   if (wParam == GDT_VALID)
+  {
     hb_retd(st.wYear, st.wMonth, st.wDay);
+  }
   else
+  {
     hb_retni(iret);
+  }  
 }
 
 HB_FUNC(HWG_GETTIMEPICKER)
@@ -685,7 +703,9 @@ HB_FUNC(HWG_INITTABCONTROL)
 
     tie.pszText = (LPTSTR)HB_ARRAYGETSTR(pArr, ul, &hStr, NULL);
     if (tie.pszText == NULL)
+    {
       tie.pszText = (LPTSTR)TEXT("");
+    }
 
     if (TabCtrl_InsertItem(hTab, ul - 1, &tie) == -1)
     {
@@ -695,7 +715,9 @@ HB_FUNC(HWG_INITTABCONTROL)
     hb_strfree(hStr);
 
     if (tie.iImage > -1)
+    {
       tie.iImage++;
+    }
   }
 }
 
@@ -793,9 +815,13 @@ HB_FUNC(HWG_CREATETREE)
                          GetModuleHandle(NULL), NULL);
 
   if (!HB_ISNIL(8))
+  {
     SendMessage(hCtrl, TVM_SETTEXTCOLOR, 0, hwg_par_LPARAM(8));
+  }
   if (!HB_ISNIL(9))
+  {
     SendMessage(hCtrl, TVM_SETBKCOLOR, 0, hwg_par_LPARAM(9));
+  }
 
   HB_RETHANDLE(hCtrl);
 }
@@ -834,20 +860,34 @@ HB_FUNC(HWG_TREEADDNODE)
 
   is.hParent = (HB_ISNIL(3) ? NULL : (HTREEITEM)HB_PARHANDLE(3));
   if (nPos == 0)
+  {
     is.hInsertAfter = (HTREEITEM)HB_PARHANDLE(4);
+  }
   else if (nPos == 1)
+  {
     is.hInsertAfter = TVI_FIRST;
+  }
   else if (nPos == 2)
+  {
     is.hInsertAfter = TVI_LAST;
+  }
 
   HB_RETHANDLE(SendMessage(hwg_par_HWND(2), TVM_INSERTITEM, 0, (LPARAM)(&is)));
 
   if (tvi.mask & TVIF_IMAGE)
+  {
     if (tvi.iImage)
+    {
       DeleteObject((HGDIOBJ)tvi.iImage);
+    }
+  }
   if (tvi.mask & TVIF_SELECTEDIMAGE)
+  {
     if (tvi.iSelectedImage)
+    {
       DeleteObject((HGDIOBJ)tvi.iSelectedImage);
+    }  
+  }
 
   hb_strfree(hStr);
 }
@@ -956,21 +996,30 @@ HB_FUNC(HWG_TREEGETNOTIFY)
   int iType = hb_parni(2);
 
   if (iType == TREE_GETNOTIFY_HANDLE)
+  {
     hb_retnl((LONG)(((NM_TREEVIEW *)HB_PARHANDLE(1))->itemNew.hItem));
+  }
 
   if (iType == TREE_GETNOTIFY_ACTION)
+  {
     hb_retnl((LONG)(((NM_TREEVIEW *)HB_PARHANDLE(1))->action));
-
+  }
   else if (iType == TREE_GETNOTIFY_PARAM || iType == TREE_GETNOTIFY_EDITPARAM ||
            iType == TREE_GETNOTIFY_OLDPARAM)
   {
     PHB_ITEM oNode; // = hb_itemNew(NULL);
     if (iType == TREE_GETNOTIFY_EDITPARAM)
+    {
       oNode = (PHB_ITEM)(((TV_DISPINFO *)HB_PARHANDLE(1))->item.lParam);
+    }
     else if (iType == TREE_GETNOTIFY_OLDPARAM)
+    {
       oNode = (PHB_ITEM)(((NM_TREEVIEW *)HB_PARHANDLE(1))->itemOld.lParam);
+    }
     else
+    {
       oNode = (PHB_ITEM)(((NM_TREEVIEW *)HB_PARHANDLE(1))->itemNew.lParam);
+    }
 
     hb_itemReturn(oNode);
   }
@@ -1020,7 +1069,9 @@ HB_FUNC(HWG_TREEHITTEST)
       hb_storni((int)ht.flags, 4);
   }
   else
+  {
     hb_ret();
+  }
 }
 
 HB_FUNC(HWG_TREERELEASENODE)
@@ -1114,9 +1165,13 @@ HB_FUNC(HWG_LOADCURSOR)
   LPCTSTR lpStr = HB_PARSTR(1, &hStr, NULL);
 
   if (lpStr)
+  {
     HB_RETHANDLE(LoadCursor(GetModuleHandle(NULL), lpStr));
+  }
   else
+  {
     HB_RETHANDLE(LoadCursor(NULL, MAKEINTRESOURCE(hb_parni(1))));
+  }
   hb_strfree(hStr);
 }
 
@@ -1227,7 +1282,9 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
   HB_SYMBOL_UNUSED(message);
 
   if (s_pSymTest == NULL)
+  {
     s_pSymTest = hb_dynsymGetCase("HWG_TIMERPROC");
+  }
 
   if (hb_dynsymIsFunction(s_pSymTest))
   {
@@ -1270,7 +1327,9 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1283,12 +1342,18 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigTreeViewProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITWINCTRL)
@@ -1302,7 +1367,9 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1315,12 +1382,18 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (DefWindowProc(hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (DefWindowProc(hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITSTATICPROC)
@@ -1335,7 +1408,9 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1348,12 +1423,18 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigStaticProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITEDITPROC)
@@ -1368,7 +1449,9 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1381,12 +1464,18 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigEditProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITBUTTONPROC)
@@ -1403,7 +1492,9 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1416,12 +1507,18 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc((WNDPROC)wpOrigButtonProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc((WNDPROC)wpOrigButtonProc, hWnd, message, wParam, lParam));
+  }
 }
 
 LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -1430,7 +1527,9 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1443,12 +1542,18 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigComboProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigComboProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITCOMBOPROC)
@@ -1463,7 +1568,9 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1476,12 +1583,18 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigListProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigListProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITLISTPROC)
@@ -1502,7 +1615,9 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1515,12 +1630,18 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigUpDownProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITDATEPICKERPROC)
@@ -1535,7 +1656,9 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, 
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1548,12 +1671,18 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, 
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigDatePickerProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITTRACKPROC)
@@ -1568,7 +1697,9 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1581,12 +1712,18 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigTrackProc, hWnd, message, wParam, lParam));
+  }
 }
 
 HB_FUNC(HWG_INITTABPROC)
@@ -1601,7 +1738,9 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -1614,12 +1753,18 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigTabProc, hWnd, message, wParam, lParam));
+  }
 }
 
 #if defined(__MINGW32__) && !defined(LPNMTBGETINFOTIP)
@@ -1697,9 +1842,13 @@ HB_FUNC(HWG_TOOLBARADDBUTTONS)
     pTemp = hb_arrayGetItemPtr(pArray, ulCount + 1);
     ulID = hb_arrayGetNI(pTemp, 1);
     if (hb_arrayGetNI(pTemp, 4) == TBSTYLE_SEP)
+    {
       tb[ulCount].iBitmap = 8;
+    }
     else
+    {
       tb[ulCount].iBitmap = ulID - 1; // ulID > 0 ? (int) ulCount : -1;
+    }
     tb[ulCount].idCommand = hb_arrayGetNI(pTemp, 2);
     tb[ulCount].fsState = hb_arrayGetNI(pTemp, 3);
     tb[ulCount].fsStyle = hb_arrayGetNI(pTemp, 4);
@@ -1773,7 +1922,9 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
 #if 0
       /* is it necessary? */
       if( !pDispInfo->hinst )
+      {
          pDispInfo->lpszText = pDispInfo->szText;
+      }
 #endif
   }
 }

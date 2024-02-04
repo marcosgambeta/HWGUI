@@ -145,9 +145,13 @@ HB_FUNC(HWG__CREATESUBMENU)
   mii.hSubMenu = hSubMenu;
 
   if (SetMenuItemInfo(hwg_par_HMENU(1), hb_parni(2), 0, &mii))
+  {
     HB_RETHANDLE(hSubMenu);
+  }
   else
+  {
     HB_RETHANDLE(NULL);
+  }
 }
 
 /*
@@ -180,10 +184,14 @@ HB_FUNC(HWG_CHECKMENUITEM)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
+  {
     MessageBox(GetActiveWindow(), TEXT(""), TEXT("No Menu!"), MB_OK | MB_ICONINFORMATION);
+  }
   else
   {
     CheckMenuItem(hMenu,                // handle to menu
@@ -209,10 +217,14 @@ HB_FUNC(HWG_ISCHECKEDMENUITEM)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
+  {
     hb_retl(0);
+  }
   else
   {
     uCheck = GetMenuState(hMenu,       // handle to menu
@@ -240,7 +252,9 @@ HB_FUNC(HWG_ENABLEMENUITEM)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
   {
@@ -273,10 +287,14 @@ HB_FUNC(HWG_ISENABLEDMENUITEM)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
+  {
     hb_retl(0);
+  }
   else
   {
     uCheck = GetMenuState(hMenu,       // handle to menu
@@ -377,7 +395,9 @@ HB_FUNC(HWG_GETMENUCAPTION)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
   {
@@ -399,9 +419,13 @@ HB_FUNC(HWG_GETMENUCAPTION)
     lpBuffer[0] = '\0';
     mii.dwTypeData = lpBuffer;
     if (GetMenuItemInfo(hMenu, hb_parni(2), 0, &mii))
+    {
       HB_RETSTR(mii.dwTypeData);
+    }
     else
+    {
       hb_retc("Error");
+    }
     hb_xfree(lpBuffer);
   }
 }
@@ -424,7 +448,9 @@ HB_FUNC(HWG_SETMENUCAPTION)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
 
   if (!hMenu)
   {
@@ -441,9 +467,13 @@ HB_FUNC(HWG_SETMENUCAPTION)
     mii.dwTypeData = (LPTSTR)HB_PARSTR(3, &hData, NULL);
 
     if (SetMenuItemInfo(hMenu, hb_parni(2), 0, &mii))
+    {
       hb_retl(1);
+    }
     else
+    {
       hb_retl(0);
+    }
     hb_strfree(hData);
   }
 }
@@ -535,7 +565,6 @@ HB_FUNC(HWG_ENABLEMENUSYSTEMITEM)
 
 HB_FUNC(HWG_SETMENUINFO)
 {
-
   HMENU hMenu;
   MENUINFO mi;
   HBRUSH hbrush;
@@ -551,7 +580,9 @@ HB_FUNC(HWG_SETMENUINFO)
     hMenu = GetMenu(handle);
   }
   if (!hMenu)
+  {
     hMenu = hwg_par_HMENU(1);
+  }
   if (hMenu)
   {
     hbrush = hb_pcount() > 1 && !HB_ISNIL(2) ? CreateSolidBrush(hwg_par_COLORREF(2)) : NULL;

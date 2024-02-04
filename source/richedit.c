@@ -31,7 +31,9 @@ static WNDPROC wpOrigRichProc;
 HB_FUNC(HWG_INITRICHEDIT)
 {
   if (!hRichEd)
+  {
     hRichEd = LoadLibrary(TEXT("riched20.dll"));
+  }
 }
 
 HB_FUNC(HWG_CREATERICHEDIT)
@@ -41,7 +43,9 @@ HB_FUNC(HWG_CREATERICHEDIT)
   LPCTSTR lpText;
 
   if (!hRichEd)
+  {
     hRichEd = LoadLibrary(TEXT("riched20.dll"));
+  }
 
   hCtrl = CreateWindowEx(0, /* extended style    */
 #ifdef UNICODE
@@ -59,7 +63,9 @@ HB_FUNC(HWG_CREATERICHEDIT)
 
   lpText = HB_PARSTR(8, &hText, NULL);
   if (lpText)
+  {
     SendMessage(hCtrl, WM_SETTEXT, 0, (LPARAM)lpText);
+  }
   hb_strfree(hText);
 
   HB_RETHANDLE(hCtrl);
@@ -134,9 +140,13 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
       if (ulLen1 > 9 && hb_itemType(hb_arrayGetItemPtr(pArr1, 10)) != HB_IT_NIL)
       {
         if (hb_arrayGetL(pArr1, 10))
+        {
           cf.dwEffects |= CFE_SUPERSCRIPT;
+        }
         else
+        {
           cf.dwEffects |= CFE_SUBSCRIPT;
+        }
         cf.dwMask |= CFM_SUPERSCRIPT;
       }
       if (ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL &&
@@ -197,9 +207,13 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
     if (!HB_ISNIL(11))
     {
       if (hb_parl(9))
+      {
         cf.dwEffects |= CFE_SUPERSCRIPT;
+      }
       else
+      {
         cf.dwEffects |= CFE_SUBSCRIPT;
+      }
       cf.dwMask |= CFM_SUPERSCRIPT;
     }
     if (!HB_ISNIL(12))
@@ -401,7 +415,9 @@ HB_FUNC(HWG_PRINTRTF)
   {
     fSuccess = StartPage(hdc) > 0;
     if (!fSuccess)
+    {
       break;
+    }
     cpMin = SendMessage(hwnd, EM_FORMATRANGE, TRUE, (LPARAM)&fr);
     if (cpMin <= fr.chrg.cpMin)
     {
@@ -429,7 +445,9 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
   PHB_ITEM pObject = (PHB_ITEM)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
   if (!pSym_onEvent)
+  {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
+  }
 
   if (pSym_onEvent && pObject)
   {
@@ -441,12 +459,18 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hb_vmSend(3);
     res = hb_parnl(-1);
     if (res == -1)
+    {
       return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
+    }
     else
+    {
       return res;
+    }
   }
   else
+  {
     return (CallWindowProc(wpOrigRichProc, hWnd, message, wParam, lParam));
+  }
 }
 
 static DWORD CALLBACK RichStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
@@ -456,7 +480,9 @@ static DWORD CALLBACK RichStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG 
   HB_SYMBOL_UNUSED(pcb);
 
   if (pFile == INVALID_HANDLE_VALUE)
+  {
     return 0;
+  }
 
   WriteFile(pFile, pbBuff, cb, &dwW, NULL);
   return 0;
@@ -470,7 +496,6 @@ static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG
 
 HB_FUNC(HWG_SAVERICHEDIT)
 {
-
   HWND hWnd = hwg_par_HWND(1);
   HANDLE hFile;
   EDITSTREAM es;
@@ -496,7 +521,6 @@ HB_FUNC(HWG_SAVERICHEDIT)
 
 HB_FUNC(HWG_LOADRICHEDIT)
 {
-
   HWND hWnd = hwg_par_HWND(1);
   HANDLE hFile;
   EDITSTREAM es;
