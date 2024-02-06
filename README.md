@@ -7,6 +7,7 @@ Harbour
 xHarbour  
 Harbour++  
 C and C++ compilers  
+32-bit and 64-bit  
 
 ## Notes
 
