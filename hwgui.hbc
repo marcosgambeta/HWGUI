@@ -6,7 +6,7 @@
 #   'hbmk2 hwgui.hbc test.prg'
 
 incpaths=include
-libpaths=lib
+libpaths=lib/${hb_plat}/${hb_comp}
 
 {win}gt=gtgui
 
