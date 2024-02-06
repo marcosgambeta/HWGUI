@@ -52,13 +52,13 @@ CLASS HUpDown INHERIT HControl
    METHOD SetValue(nValue)
    METHOD Value(Value) SETGET
    METHOD Refresh()
-   METHOD SetColor(tColor, bColor, lRedraw) INLINE ::super:SetColor(tColor, bColor, lRedraw ), IIF(::oEditUpDown != Nil, ;
+   METHOD SetColor(tColor, bColor, lRedraw) INLINE ::super:SetColor(tColor, bColor, lRedraw), IIF(::oEditUpDown != Nil, ;
                                              ::oEditUpDown:SetColor(tColor, bColor, lRedraw),)
    METHOD DisableBackColor(DisableBColor) SETGET
    METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle), hwg_Hidewindow(::hwndUpDown))
    METHOD Show() INLINE (::lHide := .F., hwg_Showwindow(::handle), hwg_Showwindow(::hwndUpDown))
    METHOD Enable()  INLINE (::Super:Enable(), hwg_Enablewindow(::hwndUpDown, .T.), hwg_Invalidaterect(::hwndUpDown, 0))
-                          //  hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight) )
+                          //  hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight))
    METHOD Disable() INLINE (::Super:Disable(), hwg_Enablewindow(::hwndUpDown, .F.))
    METHOD Valid()
    METHOD SetRange(nLower, nUpper)
@@ -107,7 +107,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    IF nUpDWidth != Nil
       ::nUpDownWidth := nUpDWidth
    ENDIF
-   ::nMaxLength := nMaxLength //= Nil, 4, nMaxLength )
+   ::nMaxLength := nMaxLength //= Nil, 4, nMaxLength)
    ::cPicture := IIF(cPicture = Nil, Replicate("9", 4), cPicture)
    ::lNoBorder := lNoBorder
    ::bkeydown := bkeydown
@@ -179,7 +179,7 @@ METHOD CREATEUPDOWN() CLASS Hupdown
    ::handle := ::oEditUpDown:handle
    ::hwndUpDown := hwg_Createupdowncontrol(::oParent:handle, ::idUpDown, ;
                                      ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, -2147483647, 2147483647, Val(::title))
-                                    // ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nLower, ::nUpper, Val(::title) )
+                                    // ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, ::nLower, ::nUpper, Val(::title))
    ::oEditUpDown:oUpDown := Self
    ::oEditUpDown:lInit := .T.
    IF ::nHolder = 0

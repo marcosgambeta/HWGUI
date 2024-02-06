@@ -106,20 +106,20 @@ HB_FUNC(HWG__ADDMENUITEM)
 }
 
 /*
-HB_FUNC( HWG__ADDMENUITEM )
+HB_FUNC(HWG__ADDMENUITEM)
 {
 
    MENUITEMINFO mii;
-   BOOL fByPosition = ( HB_ISNIL(4) )? 0:(BOOL) hb_parl(4);
+   BOOL fByPosition = (HB_ISNIL(4))? 0:(BOOL) hb_parl(4);
    void * hData;
 
    mii.cbSize = sizeof(MENUITEMINFO);
    mii.fMask = MIIM_TYPE | MIIM_STATE | MIIM_ID;
-   mii.fState = ( HB_ISNIL(6) || hb_parl(6) )? 0:MFS_DISABLED;
+   mii.fState = (HB_ISNIL(6) || hb_parl(6))? 0:MFS_DISABLED;
    mii.wID = hb_parni(5);
-   if( HB_ISCHAR(2) )
+   if (HB_ISCHAR(2))
    {
-      mii.dwTypeData = ( LPTSTR ) HB_PARSTR(2, &hData, NULL);
+      mii.dwTypeData = (LPTSTR) HB_PARSTR(2, &hData, NULL);
       mii.cch = strlen(mii.dwTypeData);
       mii.fType = MFT_STRING;
    }
@@ -132,7 +132,7 @@ HB_FUNC( HWG__ADDMENUITEM )
 */
 
 /*
- *  CreateSubMenu( hMenu, nMenuId ) --> hSubMenu
+ *  CreateSubMenu(hMenu, nMenuId) --> hSubMenu
  */
 HB_FUNC(HWG__CREATESUBMENU)
 {
@@ -155,7 +155,7 @@ HB_FUNC(HWG__CREATESUBMENU)
 }
 
 /*
- *  SetMenu( hWnd, hMenu ) --> lResult
+ *  SetMenu(hWnd, hMenu) --> lResult
  */
 HB_FUNC(HWG__SETMENU)
 {
@@ -237,7 +237,7 @@ HB_FUNC(HWG_ISCHECKEDMENUITEM)
 
 HB_FUNC(HWG_ENABLEMENUITEM)
 {
-  HMENU hMenu; // = ( hb_pcount()>0 && !HB_ISNIL(1) )? (hwg_par_HMENU(1)) : GetMenu(aWindows[0]);
+  HMENU hMenu; // = (hb_pcount()>0 && !HB_ISNIL(1))? (hwg_par_HMENU(1)) : GetMenu(aWindows[0]);
   UINT uEnable = (hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3)) ? MF_ENABLED : MF_GRAYED;
   UINT uFlag = (hb_pcount() < 4 || !HB_ISLOG(4) || hb_parl(4)) ? MF_BYCOMMAND : MF_BYPOSITION;
 
@@ -272,7 +272,7 @@ HB_FUNC(HWG_ENABLEMENUITEM)
 
 HB_FUNC(HWG_ISENABLEDMENUITEM)
 {
-  HMENU hMenu; // = ( hb_pcount()>0 && !HB_ISNIL(1) )? (hwg_par_HMENU(1)):GetMenu(aWindows[0]);
+  HMENU hMenu; // = (hb_pcount()>0 && !HB_ISNIL(1))? (hwg_par_HMENU(1)):GetMenu(aWindows[0]);
   UINT uCheck;
   UINT uFlag = (hb_pcount() < 3 || !HB_ISLOG(3) || hb_parl(3)) ? MF_BYCOMMAND : MF_BYPOSITION;
 
@@ -377,7 +377,7 @@ HB_FUNC(HWG_DRAWMENUBAR)
 }
 
 /*
- *  GetMenuCaption( hWnd | oWnd, nMenuId )
+ *  GetMenuCaption(hWnd | oWnd, nMenuId)
  */
 
 HB_FUNC(HWG_GETMENUCAPTION)
@@ -431,7 +431,7 @@ HB_FUNC(HWG_GETMENUCAPTION)
 }
 
 /*
- *  SetMenuCaption( hWnd | oWnd, nMenuId, cCaption )
+ *  SetMenuCaption(hWnd | oWnd, nMenuId, cCaption)
  */
 HB_FUNC(HWG_SETMENUCAPTION)
 {

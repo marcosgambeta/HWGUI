@@ -492,7 +492,7 @@ METHOD onGetFocus()  CLASS HOwnButton
    IF ::bGetFocus == Nil .OR. !hwg_CheckFocus(Self, .F.)
       RETURN .T.
    ENDIF
-   nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0 ), -1, 1)
+   nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
    IF ::bGetFocus != Nil
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)

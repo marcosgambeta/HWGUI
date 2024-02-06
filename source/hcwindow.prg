@@ -64,7 +64,7 @@ METHOD DelObject(oCtrl) CLASS HObject
 CLASS HCustomWindow INHERIT HObject
 
 CLASS VAR oDefaultParent SHARED
-CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST) ) SHARED
+CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST)) SHARED
 
    DATA handle        INIT 0
    DATA oParent
@@ -256,7 +256,7 @@ LOCAL aControls, i, nLen
    IF ::nHolder != 0
 
       ::nHolder := 0
-      hwg_DecreaseHolders(::handle) // Self )
+      hwg_DecreaseHolders(::handle) // Self)
       aControls := ::aControls
       nLen := Len(aControls)
       FOR i := 1 TO nLen

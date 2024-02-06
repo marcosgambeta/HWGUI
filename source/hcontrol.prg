@@ -42,7 +42,7 @@ CLASS HControl INHERIT HCustomWindow
    METHOD AddName(cName) HIDDEN
    METHOD NewId()
    METHOD Show(nShow) INLINE ::Super:Show(nShow), iif(::oParent:lGetSkipLostFocus, ;
-      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, iif(::oParent:FindControl(, hwg_Getfocus() ) != NIL, 0, ::handle), 1), .T.)
+      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, iif(::oParent:FindControl(, hwg_Getfocus()) != NIL, 0, ::handle), 1), .T.)
    METHOD Hide() INLINE (::oParent:lGetSkipLostFocus := .F., ::Super:Hide())
    METHOD Disable() INLINE (iif(hwg_Selffocus(::Handle), hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0),), hwg_Enablewindow(::handle, .F.))
    METHOD Enable()
@@ -136,7 +136,7 @@ METHOD INIT() CLASS HControl
       ENDIF
       IF oForm != NIL .AND. oForm:Type != WND_DLG_RESOURCE .AND. (::nLeft + ::nTop + ::nWidth + ::nHeight  != 0)
          // fix init position in FORM reduce  flickering
-         hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME )
+         hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME)
       ENDIF
       IF ISBLOCK(::bInit)
          ::oparent:lSuspendMsgsHandling := .T.

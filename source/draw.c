@@ -224,9 +224,9 @@ HB_FUNC(HWG_ROUNDRECT)
                     ));
 }
 /*
-HB_FUNC( HWG_REDRAWWINDOW )
+HB_FUNC(HWG_REDRAWWINDOW)
 {
-   RedrawWindow( hwg_par_HWND(1),    // handle of window
+   RedrawWindow(hwg_par_HWND(1),    // handle of window
          NULL,                  // address of structure with update rectangle
          NULL,                  // handle of update region
          (UINT) hb_parni(2) // array of redraw flags
@@ -394,7 +394,7 @@ HB_FUNC(HWG_WINDOW2BITMAP)
 }
 
 /*
- * DrawBitmap( hDC, hBitmap, style, x, y, width, height )
+ * DrawBitmap(hDC, hBitmap, style, x, y, width, height)
  */
 HB_FUNC(HWG_DRAWBITMAP)
 {
@@ -423,7 +423,7 @@ HB_FUNC(HWG_DRAWBITMAP)
 }
 
 /*
- * DrawTransparentBitmap( hDC, hBitmap, x, y [,trColor] )
+ * DrawTransparentBitmap(hDC, hBitmap, x, y [,trColor])
  */
 HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
 {
@@ -456,15 +456,15 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight))
   {
     /*
-    BitBlt( dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
-          SRCCOPY );
+    BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
+          SRCCOPY);
     SetStretchBltMode(hDC, COLORONCOLOR);
-    StretchBlt( hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0,
-          bitmap.bmWidth, bitmap.bmHeight, SRCINVERT );
-    StretchBlt( hDC, 0, 0, nWidthDest, nHeightDest, dcTrans, 0, 0,
-          bitmap.bmWidth, bitmap.bmHeight, SRCAND );
-    StretchBlt( hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0,
-          bitmap.bmWidth, bitmap.bmHeight, SRCINVERT );
+    StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0,
+          bitmap.bmWidth, bitmap.bmHeight, SRCINVERT);
+    StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcTrans, 0, 0,
+          bitmap.bmWidth, bitmap.bmHeight, SRCAND);
+    StretchBlt(hDC, 0, 0, nWidthDest, nHeightDest, dcImage, 0, 0,
+          bitmap.bmWidth, bitmap.bmHeight, SRCINVERT);
     */
     SetStretchBltMode(hDC, COLORONCOLOR);
     TransparentBmp(hDC, x, y, nWidthDest, nHeightDest, dcImage, bitmap.bmWidth, bitmap.bmHeight,
@@ -473,15 +473,15 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   else
   {
     /*
-    BitBlt( dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
-          SRCCOPY );
+    BitBlt(dcTrans, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
+          SRCCOPY);
     // Do the work - True Mask method - cool if not actual display
-    BitBlt( hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
-          SRCINVERT );
-    BitBlt( hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcTrans, 0, 0,
-          SRCAND );
-    BitBlt( hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
-          SRCINVERT );
+    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
+          SRCINVERT);
+    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcTrans, 0, 0,
+          SRCAND);
+    BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
+          SRCINVERT);
    */
     TransparentBmp(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, bitmap.bmWidth,
                    bitmap.bmHeight, trColor);
@@ -497,7 +497,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   DeleteDC(dcTrans);
 }
 
-/*  SpreadBitmap( hDC, hWnd, hBitmap, style )
+/*  SpreadBitmap(hDC, hWnd, hBitmap, style)
  */
 HB_FUNC(HWG_SPREADBITMAP)
 {
@@ -526,7 +526,7 @@ HB_FUNC(HWG_SPREADBITMAP)
   DeleteDC(hDCmem);
 }
 
-/*  CenterBitmap( hDC, hWnd, hBitmap, style, brush )
+/*  CenterBitmap(hDC, hWnd, hBitmap, style, brush)
  */
 
 HB_FUNC(HWG_CENTERBITMAP)
@@ -810,7 +810,7 @@ HB_FUNC(HWG_GETDRAWITEMINFO)
 }
 
 /*
- * DrawGrayBitmap( hDC, hBitmap, x, y )
+ * DrawGrayBitmap(hDC, hBitmap, x, y)
  */
 HB_FUNC(HWG_DRAWGRAYBITMAP)
 {
@@ -1190,7 +1190,7 @@ HB_FUNC(HWG_MODIFYSTYLE)
 }
 
 /*
-HB_FUNC( HWG_PTRRECT2ARRAY )
+HB_FUNC(HWG_PTRRECT2ARRAY)
 {
    RECT *rect = (RECT *) HB_PARHANDLE(1);
    hb_itemRelease(hb_itemReturn(Rect2Array(&rect)));

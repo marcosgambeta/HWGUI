@@ -125,7 +125,7 @@ HB_FUNC(HWG_NMCIPLAY)
     dwFlags |= MCI_TO;
   }
 
-  //   if( ( mciPlayParms.dwCallback = ( DWORD_PTR ) hb_parnint(4) ) != 0 )
+  //   if ((mciPlayParms.dwCallback = (DWORD_PTR) hb_parnint(4)) != 0)
   //      dwFlags |= MCI_NOTIFY;
 
   hb_retnl(mciSendCommand(hb_parni(1), // Device ID

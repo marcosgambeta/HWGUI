@@ -153,7 +153,7 @@ METHOD GetValue() CLASS HTrackBar
 #include "hwingui.h"
 #include <commctrl.h>
 
-HB_FUNC( HWG_INITTRACKBAR )
+HB_FUNC(HWG_INITTRACKBAR)
 {
     HWND hTrackBar;
 
@@ -172,7 +172,7 @@ HB_FUNC( HWG_INITTRACKBAR )
     HB_RETHANDLE(hTrackBar);
 }
 
-HB_FUNC( HWG_TRACKBARSETRANGE )
+HB_FUNC(HWG_TRACKBARSETRANGE)
 {
     SendMessage(hwg_par_HWND(1), TBM_SETRANGE, TRUE, MAKELONG(hb_parni(2), hb_parni(3)));
 }

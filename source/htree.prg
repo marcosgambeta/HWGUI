@@ -398,7 +398,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
             RETURN 0
          ENDIF
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF ::bKeyDown != Nil
          RETURN 0
@@ -526,7 +526,7 @@ METHOD SearchString(cText, iNivel, oNode, inodo) CLASS HTree
          iNodo++ 
          RETURN aItems[i]
       ELSE
-         iNodo++   
+         iNodo++
       ENDIF
    NEXT
    RETURN Nil 
@@ -602,7 +602,7 @@ METHOD Notify(lParam)  CLASS HTree
       IF ValType(oItem) == "O"
          IF ::bExpand != Nil
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, ;
-                              hwg_Checkbit(hwg_Treegetnotify( lParam, TREE_GETNOTIFY_ACTION ), TVE_EXPAND)), ;
+                              hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), ;
                         0, 1)
          ENDIF
       ENDIF

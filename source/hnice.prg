@@ -282,7 +282,7 @@ METHOD PAINT() CLASS HNICEButton
 
    IF (::State == OBTN_MOUSOVER)
       hwg_Settextcolor(hDC, hwg_VColor("FF0000"))
-      hwg_Textout(hDC, XCtr - ( Size[1] / 2 ) + 1, YCtr - ( Size[2] / 2 ) + 1, T)
+      hwg_Textout(hDC, XCtr - (Size[1] / 2) + 1, YCtr - (Size[2] / 2) + 1, T)
    ELSE
       hwg_Settextcolor(hDC, hwg_VColor("0000FF"))
       hwg_Textout(hDC, XCtr - Size[1] / 2, YCtr - Size[2] / 2, T)

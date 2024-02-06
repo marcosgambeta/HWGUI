@@ -180,8 +180,8 @@ HB_FUNC(HBXML_TRANSFORM)
 }
 
 /*
- * hbxml_pp( unsigned char * ptr, HB_ULONG ulLen )
- * Translation of the predefined entities ( &lt;, etc. )
+ * hbxml_pp(unsigned char * ptr, HB_ULONG ulLen)
+ * Translation of the predefined entities (&lt;, etc.)
  */
 PHB_ITEM hbxml_pp(unsigned char *ptr, HB_ULONG ulLen)
 {

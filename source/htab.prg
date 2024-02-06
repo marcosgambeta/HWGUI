@@ -152,7 +152,7 @@ CLASS HTab INHERIT HControl, HScrollArea
    METHOD OnEvent(msg, wParam, lParam)
    METHOD Refresh(lAll)
    METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem )
+      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)
    METHOD ShowDisablePage(nPageEnable, nEvent)
    METHOD DisablePage(nPage) INLINE ::Pages[nPage]:disable()
    METHOD EnablePage(nPage) INLINE ::Pages[nPage]:enable()
@@ -231,7 +231,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    ::aTabs := {}
    ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::brush := hwg_GetBackColorParent(Self, .T.)
-   ::oPaint := HPaintTab():New(Self, , 0, 0, 0, 0) //, ::oFont )
+   ::oPaint := HPaintTab():New(Self, , 0, 0, 0, 0) //, ::oFont)
 
    RETURN Self
 
@@ -287,7 +287,7 @@ METHOD Init() CLASS HTab
 METHOD SetPaintSizePos(nFlag) CLASS HTab
    LOCAL aItemPos
 
-   ::Pages[::nActive]:aItemPos := hwg_Tabitempos(::Handle, ::nActive - 1) //0 )
+   ::Pages[::nActive]:aItemPos := hwg_Tabitempos(::Handle, ::nActive - 1) //0)
    aItemPos := ::Pages[::nActive]:aItemPos
    IF nFlag = - 1
       ::oPaint:nLeft := 1
@@ -1018,7 +1018,7 @@ METHOD showTextTabs(oPage, aItemPos) CLASS HPaintTab
       IF hTheme != NIL .AND. oPage:brush = NIL
          hwg_drawthemebackground(hTheme, ::hDC, BP_PUSHBUTTON, 0, aItemRect, NIL)
       ELSE
-         hwg_Fillrect(::hDC, aItemPos[1] + 3, aItemPos[2] + 3, aItemPos[3] - 4, aItemPos[4] - 5, iif(oPage:brush != NIL, oPage:brush:Handle, hwg_Getstockobject(NULL_BRUSH))) // oPage:oParent:brush:Handle ))
+         hwg_Fillrect(::hDC, aItemPos[1] + 3, aItemPos[2] + 3, aItemPos[3] - 4, aItemPos[4] - 5, iif(oPage:brush != NIL, oPage:brush:Handle, hwg_Getstockobject(NULL_BRUSH))) // oPage:oParent:brush:Handle))
       ENDIF
       IF nActive = oPage:PageOrder                       // 4
          hwg_Drawtext(::hDC, oPage:caption, aItemPos[1], aItemPos[2] + 2, aItemPos[3], aItemPos[4] + 2, nstyle)

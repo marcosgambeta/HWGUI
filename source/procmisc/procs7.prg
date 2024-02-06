@@ -112,7 +112,7 @@ FUNCTION FilePath(fname)
 
 LOCAL i
 RETURN Iif((i := Rat('\', fname)) = 0, ;
-           Iif((i := Rat('/', fname)) = 0, "", Left(fname, i) ), ;
+           Iif((i := Rat('/', fname)) = 0, "", Left(fname, i)), ;
            Left(fname, i))
 
 FUNCTION CutPath(fname)

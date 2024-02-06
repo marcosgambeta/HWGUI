@@ -566,7 +566,7 @@ LOCAL oParent, nCtrl, nPos
    IF wParam != VK_SHIFT .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
       oParent := IIF(oMain != Nil, oMain, hwg_GetParentForm(oCtrl))
       IF oParent != Nil .AND. !Empty(oParent:KeyList)
-         nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0 ))
+         nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0))
          IF (nPos := AScan(oParent:KeyList, {|a|a[1] == nctrl.AND.a[2] == wParam})) > 0
             Eval(oParent:KeyList[nPos, 3], oCtrl)
             RETURN .T.
@@ -643,7 +643,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
             RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
-     IF LEN(oCtrl:aControls[i]:aControls ) > 0
+     IF LEN(oCtrl:aControls[i]:aControls) > 0
          RETURN hwg_FindAccelerator(oCtrl:aControls[i], lParam)
 	   ENDIF
      IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;

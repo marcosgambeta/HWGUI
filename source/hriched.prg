@@ -59,7 +59,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, ;
            tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
 
-   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER )
+   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER)
                         IIf(lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, IIf(bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
@@ -189,7 +189,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HRichEdit
 METHOD SetColor(tColor, bColor, lRedraw)  CLASS HRichEdit
 
    IF tcolor != NIL
-      hwg_Re_setdefault(::handle, tColor) //, ID_FONT,, ) // cor e fonte padrao
+      hwg_Re_setdefault(::handle, tColor) //, ID_FONT,,) // cor e fonte padrao
    ENDIF
    IF bColor != NIL
       hwg_Sendmessage(::Handle, EM_SETBKGNDCOLOR, 0, bColor)  // cor de fundo

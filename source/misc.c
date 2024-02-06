@@ -361,7 +361,7 @@ HB_FUNC(HWG_PTS2PIX)
   }
 }
 
-/* Functions Contributed  By Luiz Rafael Culik Guimaraes( culikr@uol.com.br) */
+/* Functions Contributed  By Luiz Rafael Culik Guimaraes (culikr@uol.com.br) */
 
 HB_FUNC(HWG_GETWINDOWSDIR)
 {
@@ -500,7 +500,7 @@ HB_FUNC(HWG_KEYB_EVENT)
   }
 }
 
-/* SetScrollInfo( hWnd, nType, nRedraw, nPos, nPage, nmax )
+/* SetScrollInfo(hWnd, nType, nRedraw, nPos, nPage, nmax)
  */
 HB_FUNC(HWG_SETSCROLLINFO)
 {

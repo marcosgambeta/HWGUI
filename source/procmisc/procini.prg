@@ -43,8 +43,8 @@
 
     var_name={ ... { ... } ... }
 
- Syntax: Rdini ( ini_file_name, [section1_name], [section2_name],;
-                 [section3_name], [section4_name] ),
+ Syntax: Rdini (ini_file_name, [section1_name], [section2_name],;
+                [section3_name], [section4_name]),
    where ini_file_name - name of .ini - file you want to read,
    section1_name, ..., section4_name - names of sections in .ini - file
     which you want to read.

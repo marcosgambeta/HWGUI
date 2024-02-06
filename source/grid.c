@@ -260,8 +260,8 @@ HB_FUNC(HWG_LISTVIEW_SETVIEW)
   if ((dwStyle & LVS_TYPEMASK) != dwView)
   {
     SetWindowLongPtr(hWndListView, GWL_STYLE, (dwStyle & ~LVS_TYPEMASK) | dwView);
-    //  RedrawWindow( hwg_par_HWND(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN |
-    //  RDW_ERASENOW | RDW_UPDATENOW );
+    //  RedrawWindow(hwg_par_HWND(1), NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN |
+    //  RDW_ERASENOW | RDW_UPDATENOW);
   }
 }
 
@@ -365,8 +365,8 @@ HB_FUNC(HWG_LISTVIEW_INSERTITEMEX)
     break;
   }
 
-  // RedrawWindow( hwndListView, NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN |
-  // RDW_ERASENOW | RDW_UPDATENOW );
+  // RedrawWindow(hwndListView, NULL , NULL , RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN |
+  // RDW_ERASENOW | RDW_UPDATENOW);
   InvalidateRect(hwndListView, &rect, TRUE);
   hb_retni(iResult);
   hb_strfree(hText);
@@ -489,7 +489,7 @@ int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 HB_FUNC(HWG_LISTVIEWSORTINFONEW)
 {
   // PSORTINFO p = (PSORTINFO) hb_xgrab(sizeof(SortInfo));
-  // LPNMLISTVIEW phdNotify = ( LPNMLISTVIEW ) hb_parnl(1);
+  // LPNMLISTVIEW phdNotify = (LPNMLISTVIEW) hb_parnl(1);
   PSORTINFO p;
 
   if (HB_ISPOINTER(2))

@@ -30,7 +30,7 @@ CLASS HPanel INHERIT HControl, HScrollArea
    METHOD Init()
    METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor)
    METHOD Paint()
-   METHOD BackColor(bcolor) INLINE ::SetColor(, bcolor, .T. )
+   METHOD BackColor(bcolor) INLINE ::SetColor(, bcolor, .T.)
    METHOD Hide()
    METHOD Show()
    METHOD Release()
@@ -195,7 +195,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
       hwg_GetSkip(::oParent, ::handle, , ::nGetSkip)
 
    ELSE
-      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. (msg == WM_MOUSEWHEEL) //.AND. ::nScrollBars >= 2 )
+      IF msg == WM_HSCROLL .OR. msg == WM_VSCROLL .OR. (msg == WM_MOUSEWHEEL) //.AND. ::nScrollBars >= 2)
          IF ::nScrollBars != -1 .AND. ::bScroll = NIL
              hwg_ScrollHV(Self, msg, wParam, lParam)
              IF msg == WM_MOUSEWHEEL
@@ -253,7 +253,7 @@ METHOD Release() CLASS HPanel
    ::ResizeOffSet(3)
    /*
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
-      IF (::nWidth > ::nHeight .OR. ::nWidth == 0 ).AND. ::oParent:aOffset[2] > 0
+      IF (::nWidth > ::nHeight .OR. ::nWidth == 0).AND. ::oParent:aOffset[2] > 0
          ::oParent:aOffset[2] -= ::nHeight
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
@@ -383,7 +383,7 @@ METHOD ResizeOffSet(nMode) CLASS HPanel
    DEFAULT nMode := 0
 
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
-      IF (::nWidth > ::nHeight .OR. ::nWidth == 0) //.AND. ::oParent:aOffset[2] > 0 //::nWidth = ::oParent:nWidth )
+      IF (::nWidth > ::nHeight .OR. ::nWidth == 0) //.AND. ::oParent:aOffset[2] > 0 //::nWidth = ::oParent:nWidth)
          ::oParent:aOffset[2] += IIF(nMode != 3, nHinc, - nHinc)
          lRes := .T.
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0

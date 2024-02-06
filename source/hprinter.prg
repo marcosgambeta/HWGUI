@@ -23,7 +23,7 @@ CLASS HPrinter INHERIT HObject
    DATA lPreview
    DATA cMetaName
    DATA nWidth, nHeight, nPWidth, nPHeight
-   DATA nHRes, nVRes                     // Resolution ( pixels/mm )
+   DATA nHRes, nVRes                     // Resolution (pixels/mm)
    DATA nPage
    DATA lmm  INIT .F.
    DATA nCurrPage, oTrackV, oTrackH
@@ -118,7 +118,7 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
       RETURN NIL
    ELSE
       IF lProprierties
-         IF !Hwg_SetDocumentProperties(::hDCPrn, ::cPrinterName, @::FormType, @::Landscape, @::Copies, @::BinNumber, @::fDuplexType, @::fPrintQuality, @::PaperLength, @::PaperWidth )
+         IF !Hwg_SetDocumentProperties(::hDCPrn, ::cPrinterName, @::FormType, @::Landscape, @::Copies, @::BinNumber, @::fDuplexType, @::fPrintQuality, @::PaperLength, @::PaperWidth)
            RETURN NIL
          ENDIF
       ENDIF
@@ -271,7 +271,7 @@ METHOD GetTextWidth(cString, oFont) CLASS HPrinter
       hwg_Selectobject(::hDC, hFont)
    ENDIF
 
-   RETURN IIf(::lmm, Int(arr[1] / ::nHRes ), arr[1])
+   RETURN IIf(::lmm, Int(arr[1] / ::nHRes), arr[1])
 
 METHOD StartDoc(lPreview, cMetaName) CLASS HPrinter
 
@@ -699,7 +699,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
 
    rect := hwg_Getclientrect(oWnd:handle)
 
-   // WriteLog(stR(rect[1])+ stR(rect[2])+ stR(rect[3])+ stR(rect[4]) )
+   // WriteLog(stR(rect[1])+ stR(rect[2])+ stR(rect[3])+ stR(rect[4]))
    // offscreen canvas must be THE WHOLE CANVAS !
 
    IF ::xOffset == NIL
@@ -758,7 +758,7 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
          lRefreshVideo := .T.
       ENDIF
    ELSE
-      // tracelog("no refresh video" )
+      // tracelog("no refresh video")
       lRefreshVideo := .T.   // request a repaint
    ENDIF
 

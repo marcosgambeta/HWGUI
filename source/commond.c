@@ -361,8 +361,8 @@ HB_FUNC(HWG_HDGETSERIAL)
  The functions added by extract for the Minigui Lib Open Source project
  Copyright 2002 Roberto Lopez <roblez@ciudad.com.ar>
  http://www.geocities.com/harbour_minigui/
- HB_FUNC( GETPRIVATEPROFILESTRING )
- HB_FUNC( WRITEPRIVATEPROFILESTRING )
+ HB_FUNC(GETPRIVATEPROFILESTRING)
+ HB_FUNC(WRITEPRIVATEPROFILESTRING)
 */
 
 HB_FUNC(HWG_GETPRIVATEPROFILESTRING)

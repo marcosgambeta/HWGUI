@@ -596,7 +596,7 @@ HB_FUNC(HWG_FI_DRAW)
   pp[1].y = pp[0].y + nDestHeight;
   // sprintf(cres, "\n %d %d %d %d", pp[0].x, pp[0].y, pp[1].x, pp[1].y);
   // writelog(cres);
-  // l = DPtoLP( hDC, pp, 2 );
+  // l = DPtoLP(hDC, pp, 2);
   // sprintf(cres, "\n %d %d %d %d %d", pp[0].x, pp[0].y, pp[1].x, pp[1].y, l);
   // writelog(cres);
 
@@ -646,7 +646,7 @@ HB_FUNC(HWG_FI_BMP2FI)
   hb_retnl(0);
 }
 
-/* Next three from EZTwain.c ( http://www.twain.org ) */
+/* Next three from EZTwain.c (http://www.twain.org) */
 static int ColorCount(int bpp)
 {
   return 0xFFF & (1 << bpp);
@@ -705,7 +705,7 @@ HB_FUNC(HWG_FI_DIB2FI)
 
     if (pConvertFromRawBits && lpbi)
     {
-      // int pitch = (((( lpbi->biWidth * lpbi->biBitCount) + 31) &~31) >> 3);
+      // int pitch = ((((lpbi->biWidth * lpbi->biBitCount) + 31) &~31) >> 3);
       int pitch = ((((lpbi->biBitCount * lpbi->biWidth) + 31) / 32) * 4);
 
       dib =
@@ -810,7 +810,7 @@ unsigned DLL_CALLCONV _WriteProc(void *buffer, unsigned size, unsigned count, fi
 
 int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 {
-  /* assert( origin != SEEK_END ); */
+  /* assert(origin != SEEK_END); */
 
   g_load_address = ((origin == SEEK_SET) ? (BYTE *)handle : (BYTE *)g_load_address) + offset;
   return 0;
@@ -818,7 +818,7 @@ int DLL_CALLCONV _SeekProc(fi_handle handle, long offset, int origin)
 
 long DLL_CALLCONV _TellProc(fi_handle handle)
 {
-  /* assert( (long int)handle >= (long int)g_load_address ); */
+  /* assert((long int)handle >= (long int)g_load_address); */
 
   return ((long int)g_load_address - (long int)handle);
 }
@@ -1046,7 +1046,7 @@ HB_FUNC(HWG_FI_SETPIXELINDEX)
 }
 
 /* todo
-typedef BOOL ( WINAPI *FREEIMAGE_GETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD
-*value); typedef BOOL ( WINAPI *FREEIMAGE_SETPIXELCOLOR )(FIBITMAP *dib, unsigned x, unsigned y,
+typedef BOOL (WINAPI *FREEIMAGE_GETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD
+*value); typedef BOOL (WINAPI *FREEIMAGE_SETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y,
 RGBQUAD *value);
 */

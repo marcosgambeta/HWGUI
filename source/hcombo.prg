@@ -21,7 +21,7 @@
 
 #pragma begindump
 #include "hwingui.h"
-HB_FUNC( COPYDATA )
+HB_FUNC(COPYDATA)
 {
    LPARAM lParam = (LPARAM) hb_parnl(1);
    void * hText;
@@ -174,7 +174,7 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
 
    IF bIChange != Nil .AND. ::lEdit
       ::bchangeInt := bIChange
-      ::oParent:AddEvent(CBN_EDITUPDATE, Self, {|o, id|::InteractiveChange(o:FindControl(id))}, , "interactiveChange" )
+      ::oParent:AddEvent(CBN_EDITUPDATE, Self, {|o, id|::InteractiveChange(o:FindControl(id))}, , "interactiveChange")
    ENDIF
    ::oParent:AddEvent(CBN_SELENDOK, Self, {|o, id|::onSelect(o:FindControl(id))}, , "onSelect")
    ::oParent:AddEvent(CBN_DROPDOWN, Self, {|o, id|::onDropDown(o:FindControl(id))}, , "ondropdown")
@@ -516,7 +516,7 @@ METHOD GetValue() CLASS HComboBox
    ELSE
       ::value := nPos
    ENDIF
-   ::ValueBound := iif(nPos > 0, ::GetValueBound(), ::ValueBound) // IIF(::lText, "", 0) )
+   ::ValueBound := iif(nPos > 0, ::GetValueBound(), ::ValueBound) // IIF(::lText, "", 0))
    IF ::bSetGet != Nil
       IF ::columnBound = 1
          Eval(::bSetGet, ::value, Self)
@@ -604,9 +604,9 @@ METHOD AddItem(cItem, cItemBound, nPos) CLASS HComboBox
       AAdd(::Aitems, cItem)
    ENDIF
    IF nPos != Nil .AND. nPos > 0 .AND. nPos < nCount
-      hwg_Comboinsertstring(::handle, nPos - 1, cItem)  //::aItems[i] )
+      hwg_Comboinsertstring(::handle, nPos - 1, cItem)  //::aItems[i])
    ELSE
-      hwg_Comboaddstring(::handle, cItem)  //::aItems[i] )
+      hwg_Comboaddstring(::handle, cItem)  //::aItems[i])
    ENDIF
 
    RETURN nCount

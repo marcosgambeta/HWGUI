@@ -214,7 +214,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       ELSEIF wParam = VK_UP
          hwg_GetSkip(::oparent, ::handle,, -1)
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift( .F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
       RETURN 0
    ELSEIF msg == WM_KEYUP
@@ -407,7 +407,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
    hwg_Setbkmode(DC, ::backstyle)
    IF ::backstyle != TRANSPARENT
       hwg_Setbkcolor(DC, IIF(::bColor = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::bcolor))
-      hwg_Fillrect(dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4]) //, ::brush:handle )
+      hwg_Fillrect(dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4]) //, ::brush:handle)
    ENDIF
    dwFlags    := DT_LEFT + DT_WORDBREAK
    //dwstyle    := ::style

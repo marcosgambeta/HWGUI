@@ -310,7 +310,7 @@ Static aCodes := {   ;
    { Chr(15),, .T.,,,, },      ;     /* Cond */
    { Chr(18),, .F.,,,, },      ;     /* Cancel Cond */
    { Chr(27)+'0',,, 8,,, },    ;     /* 8 lines per inch */
-   { Chr(27)+'2',,, 6,,, },    ;     /* 6 lines per inch ( standard ) */
+   { Chr(27)+'2',,, 6,,, },    ;     /* 6 lines per inch (standard) */
    { Chr(27)+'-1',,,,,, .T. }, ;     /* underline */
    { Chr(27)+'-0',,,,,, .F. }, ;     /* cancel underline */
    { Chr(27)+'4',,,,, .T., },  ;     /* italic */

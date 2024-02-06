@@ -76,8 +76,7 @@ HB_FUNC(HWG_DOEVENTS)
 }
 
 /*  Creates main application window
-    InitMainWindow( szAppName, cTitle, cMenu, hIcon, nBkColor, nStyle, nLeft, nTop, nWidth, nHeight
-   )
+    InitMainWindow(szAppName, cTitle, cMenu, hIcon, nBkColor, nStyle, nLeft, nTop, nWidth, nHeight)
 */
 
 HB_FUNC(HWG_INITMAINWINDOW)
@@ -200,7 +199,7 @@ void ProcessMdiMessage(HWND hJanBase, HWND hJanClient, MSG msg, HACCEL hAcceler)
 }
 
 /*
- *  HWG_ACTIVATEMAINWINDOW( lShow, hAccel, lMaximize, lMinimize )
+ *  HWG_ACTIVATEMAINWINDOW(lShow, hAccel, lMaximize, lMinimize)
  */
 HB_FUNC(HWG_ACTIVATEMAINWINDOW)
 {
@@ -281,15 +280,15 @@ HB_FUNC(HWG_INITCHILDWINDOW)
                                    ? ((hb_parnl(6) == -1) ? (HBRUSH)NULL : hwg_par_HBRUSH(6))
                                    : (HBRUSH)(COLOR_WINDOW + 1)));
     /*
-       wndclass.hbrBackground = ( ( (hb_pcount()>5 && !HB_ISNIL(6))?
-       ( (hb_parnl(6)==-1)? (HBRUSH)(COLOR_WINDOW+1) :
+       wndclass.hbrBackground = (((hb_pcount()>5 && !HB_ISNIL(6))?
+       ((hb_parnl(6)==-1)? (HBRUSH)(COLOR_WINDOW+1) :
        CreateSolidBrush(hb_parnl(6)))
-       : (HBRUSH)(COLOR_WINDOW+1) ) );
+       : (HBRUSH)(COLOR_WINDOW+1)));
      */
     wndclass.lpszMenuName = lpMenu;
     wndclass.lpszClassName = lpAppName;
 
-    // UnregisterClass( lpAppName, (HINSTANCE)hInstance );
+    // UnregisterClass(lpAppName, (HINSTANCE)hInstance);
     if (!RegisterClass(&wndclass))
     {
       fRegistered = FALSE;
@@ -322,7 +321,7 @@ HB_FUNC(HWG_INITCHILDWINDOW)
 
 HB_FUNC(HWG_ACTIVATECHILDWINDOW)
 {
-  // ShowWindow( hwg_par_HWND(2), hb_parl(1) ? SW_SHOWNORMAL : SW_HIDE );
+  // ShowWindow(hwg_par_HWND(2), hb_parl(1) ? SW_SHOWNORMAL : SW_HIDE);
   ShowWindow(hwg_par_HWND(2),
              (HB_ISLOG(3) && hb_parl(3))
                  ? SW_SHOWMAXIMIZED
@@ -330,7 +329,7 @@ HB_FUNC(HWG_ACTIVATECHILDWINDOW)
 }
 
 /*  Creates frame MDI and client window
-    InitMainWindow( cTitle, cMenu, cBitmap, hIcon, nBkColor, nStyle, nLeft, nTop, nWidth, nHeight )
+    InitMainWindow(cTitle, cMenu, cBitmap, hIcon, nBkColor, nStyle, nLeft, nTop, nWidth, nHeight)
 */
 HB_FUNC(HWG_INITMDIWINDOW)
 {
@@ -460,7 +459,7 @@ HB_FUNC(HWG_ACTIVATEMDIWINDOW)
 }
 
 /*  Creates child MDI window
-    CreateMdiChildWindow( aChildWindow )
+    CreateMdiChildWindow(aChildWindow)
     aChildWindow = { cWindowTitle, Nil, aActions, Nil,
                     nStatusWindowID, bStatusWrite }
     aActions = { { nMenuItemID, bAction }, ... }
@@ -478,7 +477,7 @@ HB_FUNC(HWG_CREATEMDICHILDWINDOW)
   void *hTitle;
   LPCTSTR lpTitle = HB_ITEMGETSTR(GetObjectVar(pObj, "TITLE"), &hTitle, NULL);
 
-  // if( !style )
+  // if (!style)
   //    style = WS_VISIBLE | WS_OVERLAPPEDWINDOW | WS_MAXIMIZE;
 
   if (!style)
@@ -603,7 +602,7 @@ HB_FUNC(HWG_ENABLEWINDOW)
   HWND hWnd = hwg_par_HWND(1);
   BOOL lEnable = hb_parl(2);
 
-  // ShowWindow( hWnd, (lEnable)? SW_SHOWNORMAL:SW_HIDE );
+  // ShowWindow(hWnd, (lEnable)? SW_SHOWNORMAL:SW_HIDE);
   EnableWindow(hWnd,   // handle to window
                lEnable // flag for enabling or disabling input
   );
@@ -693,9 +692,9 @@ HB_FUNC(HWG_BRINGWINDOWTOTOP)
   hb_retl(BringWindowToTop(hwg_par_HWND(1)));
 }
 
-// HB_FUNC( HWG_SETACTIVEWINDOW )
+// HB_FUNC(HWG_SETACTIVEWINDOW)
 //{
-//    hb_retnl(SetActiveWindow( hwg_par_HWND(1) ));
+//    hb_retnl(SetActiveWindow(hwg_par_HWND(1)));
 // }
 
 HB_FUNC(HWG_RESETWINDOWPOS)
@@ -726,7 +725,7 @@ static LRESULT CALLBACK s_MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LP
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -761,7 +760,7 @@ static LRESULT CALLBACK s_FrameWndProc(HWND hWnd, UINT message, WPARAM wParam, L
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -815,7 +814,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -836,7 +835,7 @@ static LRESULT CALLBACK s_MDIChildWndProc(HWND hWnd, UINT message, WPARAM wParam
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
 {
-  /* ( char * ) casting is a hack for old [x]Harbour versions
+  /* (char *) casting is a hack for old [x]Harbour versions
    * which used wrong hb_objSendMsg() declaration
    */
   return hb_objSendMsg(pObject, (char *)varname, 0);
@@ -844,7 +843,7 @@ PHB_ITEM GetObjectVar(PHB_ITEM pObject, const char *varname)
 
 void SetObjectVar(PHB_ITEM pObject, const char *varname, PHB_ITEM pValue)
 {
-  /* ( char * ) casting is a hack for old [x]Harbour versions
+  /* (char *) casting is a hack for old [x]Harbour versions
    * which used wrong hb_objSendMsg() declaration
    */
   hb_objSendMsg(pObject, (char *)varname, 1, pValue);
@@ -1142,10 +1141,10 @@ HB_FUNC(HWG_DECREASEHOLDERS)
   /*
      PHB_ITEM pObject = hb_param(1, HB_IT_OBJECT);
      #ifndef  UIHOLDERS
-     if( pObject->item.asArray.value->ulHolders )
+     if (pObject->item.asArray.value->ulHolders)
         pObject->item.asArray.value->ulHolders--;
      #else
-     if( pObject->item.asArray.value->uiHolders )
+     if (pObject->item.asArray.value->uiHolders)
         pObject->item.asArray.value->uiHolders--;
      #endif
   */
@@ -1275,7 +1274,7 @@ HB_FUNC(HWG_BRINGTOTOP)
 
   // ForegroundThreadID = GetWindowThreadProcessID(GetForegroundWindow(),NULL);
   // ThisThreadID = GetWindowThreadPRocessId(hWnd, NULL);
-  //    if (AttachThreadInput(ThisThreadID, ForegroundThreadID, TRUE) )
+  //    if (AttachThreadInput(ThisThreadID, ForegroundThreadID, TRUE))
   //     {
 
   BringWindowToTop(hWnd); // IE 5.5 related hack

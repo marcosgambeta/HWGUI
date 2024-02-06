@@ -142,7 +142,7 @@ METHOD Paint() CLASS HSplitter
             hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, IIf(::lVertical, BF_LEFT, BF_TOP))
          ENDIF
       ELSEIF !::lMoved .AND. ::BackStyle = OPAQUE
-         hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif(::lVertical, BF_RECT, BF_TOP)) //+ BF_MIDDLE )
+         hwg_Drawedge(hDC, x1, y1, x2, y2, EDGE_ETCHED, Iif(::lVertical, BF_RECT, BF_TOP)) //+ BF_MIDDLE)
       ENDIF
    ENDIF
    hwg_Endpaint(::handle, pps)

@@ -231,7 +231,7 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
 }
 
 /*
- * re_SetDefault( hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset )
+ * re_SetDefault(hCtrl, nColor, cName, nHeight, lBold, lItalic, lUnderline, nCharset)
  */
 HB_FUNC(HWG_RE_SETDEFAULT)
 {

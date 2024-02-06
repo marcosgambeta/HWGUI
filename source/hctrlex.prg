@@ -154,7 +154,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
       ELSEIF wParam = VK_UP
          hwg_GetSkip(::oParent, ::handle, , -1)
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
       RETURN 0
    ELSEIF msg == WM_SYSKEYUP
@@ -362,7 +362,7 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
       ENDIF
       IF !hwg_ProcKeyList(Self, wParam)
          IF wParam = VK_TAB
-            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift( .F., .T. ), -1, 1))
+            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0
          ELSEIF wParam = VK_LEFT .OR. wParam = VK_UP
             hwg_GetSkip(::oparent, ::handle, , -1)
@@ -917,13 +917,13 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
             uState := HWG_BITOR( ;
                HWG_BITOR(DFCS_BUTTONPUSH, ;
                iif(::bMouseOverButton, DFCS_HOT, 0)), ;
-               iif(bIsPressed, DFCS_PUSHED, 0) )
+               iif(bIsPressed, DFCS_PUSHED, 0))
             hwg_Drawframecontrol(dc, itemRect, DFC_BUTTON, uState)
          ELSEIF bIsFocused
             uState := HWG_BITOR( ;
                HWG_BITOR(DFCS_BUTTONPUSH + DFCS_MONO, ; // DFCS_FLAT, ;
             iif(::bMouseOverButton, DFCS_HOT, 0)), ;
-               iif(bIsPressed, DFCS_PUSHED, 0) )
+               iif(bIsPressed, DFCS_PUSHED, 0))
             hwg_Drawframecontrol(dc, itemRect, DFC_BUTTON, uState)
          ENDIF
       ENDIF

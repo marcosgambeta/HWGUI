@@ -441,7 +441,7 @@ Return
 #include "hbapi.h"
 #include "hbapiitm.h"
 
-HB_FUNC( HB_RELEASECPU )
+HB_FUNC(HB_RELEASECPU)
 {
    hb_releaseCPU(0);
 }

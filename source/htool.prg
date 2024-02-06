@@ -35,7 +35,7 @@ CLASS HToolButton INHERIT HObject
    DATA oParent
    //DATA oFont   // not implemented
 
-   METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu )
+   METHOD New(oParent, cName, nBitIp, nId, bState, bStyle, cText, bClick, ctip, aMenu)
    METHOD Enable() INLINE ::oParent:EnableButton(::id, .T.)
    METHOD Disable() INLINE ::oParent:EnableButton(::id, .F.)
    METHOD Show() INLINE hwg_Sendmessage(::oParent:handle, TB_HIDEBUTTON, INT(::id), hwg_Makelong(0, 0))
@@ -181,7 +181,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, bcolor)
 
-   ::BtnWidth := BtnWidth //!= Nil, BtnWidth, 32 )
+   ::BtnWidth := BtnWidth //!= Nil, BtnWidth, 32)
    ::nIDB := nIDB
    ::aItem := aItem
    ::nIndent := IIF(nIndent != NIL, nIndent, 1)
@@ -193,7 +193,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFon
          ::Line := HLine():New(oWndParent,,, nLeft, nTop + nHeight + ;
                    IIF(::lnoThemes .AND. Hwg_BitAnd(nStyle, TBSTYLE_FLAT) > 0, 2, 1), nWidth)
       ELSE
-         ::Line := HLine():New(oWndParent,,::lVertical, nLeft + nWidth + 1, nTop, nHeight )
+         ::Line := HLine():New(oWndParent,,::lVertical, nLeft + nWidth + 1, nTop, nHeight)
       ENDIF
    ENDIF
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI .AND. ;
@@ -281,7 +281,7 @@ METHOD CREATETOOL() CLASS hToolBar
 		    ENDIF
    ELSE
       FOR n = 1 TO Len(::aitem)
-         ::AddButton(::aitem[n, 1],::aitem[n, 2],::aitem[n, 3],::aitem[n, 4],::aitem[n, 6], ::aitem[n, 7], ::aitem[n, 8], ::aitem[n, 9], , n )
+         ::AddButton(::aitem[n, 1],::aitem[n, 2],::aitem[n, 3],::aitem[n, 4],::aitem[n, 6], ::aitem[n, 7], ::aitem[n, 8], ::aitem[n, 9], , n)
          //::aItem[n, 11] := oButton
       NEXT
    ENDIF
@@ -321,14 +321,14 @@ METHOD CREATETOOL() CLASS hToolBar
 				     LOOP
 				  ENDIF
 				  nDrop := Max(nDrop, IIF(Hwg_Bitand(::aItem[n, 4], BTNS_WHOLEDROPDOWN) != 0, 0, ;
-               IIF(Hwg_Bitand(::aItem[n, 4], BTNS_DROPDOWN ) != 0, 8, 0)))
+               IIF(Hwg_Bitand(::aItem[n, 4], BTNS_DROPDOWN) != 0, 8, 0)))
 				 /*
 				 IF ::nSize != Nil
 				    hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(::nSize, ::nSize))
 				 ENDIF
          */
       IF ValType(::aItem[n, 1])  == "C" .OR. ::aItem[n, 1] > 1
-         IF ValType(::aItem[n, 1])  == "C" .AND. At(".", ::aitem[n, 1] ) != 0
+         IF ValType(::aItem[n, 1])  == "C" .AND. At(".", ::aitem[n, 1]) != 0
             IF !File(::aitem[n, 1])
                Loop
             ENDIF
@@ -392,7 +392,7 @@ METHOD CREATETOOL() CLASS hToolBar
          hwg_Imagelist_add(hIm, aButton[nPos])
       NEXT
       hwg_Sendmessage(::Handle, TB_SETIMAGELIST, 0, hIm)
-   ELSEIF Len(aButton ) = 0
+   ELSEIF Len(aButton) = 0
       hwg_Sendmessage(::HANDLE, TB_SETBITMAPSIZE, 0, hwg_Makelong(0, 0))
           //hwg_Sendmessage(::handle, TB_SETDRAWTEXTFLAGS, DT_CENTER+DT_VCENTER, DT_CENTER+DT_VCENTER)
    ENDIF

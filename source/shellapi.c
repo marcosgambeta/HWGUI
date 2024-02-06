@@ -45,7 +45,7 @@ static int(CALLBACK BrowseCallbackProc)(HWND hwnd, UINT uMsg, LPARAM lParam, LPA
 }
 
 /*
- *  SelectFolder( cTitle )
+ *  SelectFolder(cTitle)
  */
 
 HB_FUNC(HWG_SELECTFOLDER)
@@ -84,7 +84,7 @@ HB_FUNC(HWG_SELECTFOLDER)
 }
 
 /*
- *  ShellNotifyIcon( lAdd, hWnd, hIcon, cTooltip )
+ *  ShellNotifyIcon(lAdd, hWnd, hIcon, cTooltip)
  */
 
 HB_FUNC(HWG_SHELLNOTIFYICON)
@@ -112,7 +112,7 @@ HB_FUNC(HWG_SHELLNOTIFYICON)
 }
 
 /*
- *  ShellModifyIcon( hWnd, hIcon, cTooltip )
+ *  ShellModifyIcon(hWnd, hIcon, cTooltip)
  */
 
 HB_FUNC(HWG_SHELLMODIFYICON)

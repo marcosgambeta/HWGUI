@@ -418,14 +418,14 @@ HB_FUNC(HWG__CREATEPROPERTYSHEETPAGE)
 
   h = CreatePropertySheetPage(&psp);
   HB_RETHANDLE(h);
-  // if( pdlgtemplate )
+  // if (pdlgtemplate)
   //    s_ReleaseDlgTemplate(pdlgtemplate);
   hb_strfree(hTitle);
 }
 
 /*
- * _PropertySheet( hWndParent, aPageHandles, nPageHandles, cTitle,
- *                [lModeless], [lNoApply], [lWizard] ) --> hPropertySheet
+ * _PropertySheet(hWndParent, aPageHandles, nPageHandles, cTitle,
+ *                [lModeless], [lNoApply], [lWizard]) --> hPropertySheet
  */
 HB_FUNC(HWG__PROPERTYSHEET)
 {
@@ -747,7 +747,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)uMsg);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);

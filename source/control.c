@@ -101,7 +101,7 @@ HB_FUNC(HWG_MOVEWINDOW)
 }
 
 /*
-   CreateProgressBar( hParentWindow, nRange )
+   CreateProgressBar(hParentWindow, nRange)
 */
 HB_FUNC(HWG_CREATEPROGRESSBAR)
 {
@@ -143,7 +143,7 @@ HB_FUNC(HWG_CREATEPROGRESSBAR)
 }
 
 /*
-   UpdateProgressBar( hPBar )
+   UpdateProgressBar(hPBar)
 */
 HB_FUNC(HWG_UPDATEPROGRESSBAR)
 {
@@ -183,7 +183,7 @@ HB_FUNC(HWG_CREATEPANEL)
 }
 
 /*
-   CreateOwnBtn( hParentWIndow, nBtnControlID, x, y, nWidth, nHeight )
+   CreateOwnBtn(hParentWIndow, nBtnControlID, x, y, nWidth, nHeight)
 */
 HB_FUNC(HWG_CREATEOWNBTN)
 {
@@ -219,11 +219,11 @@ HB_FUNC(HWG_CREATESTATIC)
                                  GetModuleHandle(NULL), NULL);
 
   /*
-     if( hb_pcount() > 7 )
+     if (hb_pcount() > 7)
      {
         void * hStr;
         LPCTSTR lpText = HB_PARSTR(8, &hStr, NULL);
-        if( lpText )
+        if (lpText)
            SendMessage(hWndEdit, WM_SETTEXT, 0, (LPARAM) lpText);
         hb_strfree(hStr);
      }
@@ -233,8 +233,8 @@ HB_FUNC(HWG_CREATESTATIC)
 }
 
 /*
-   CreateButton( hParentWIndow, nButtonID, nStyle, x, y, nWidth, nHeight,
-                 cCaption )
+   CreateButton(hParentWIndow, nButtonID, nStyle, x, y, nWidth, nHeight,
+                 cCaption)
 */
 HB_FUNC(HWG_CREATEBUTTON)
 {
@@ -253,8 +253,8 @@ HB_FUNC(HWG_CREATEBUTTON)
 }
 
 /*
-   CreateEdit( hParentWIndow, nEditControlID, nStyle, x, y, nWidth, nHeight,
-               cInitialString )
+   CreateEdit(hParentWIndow, nEditControlID, nStyle, x, y, nWidth, nHeight,
+              cInitialString)
 */
 HB_FUNC(HWG_CREATEEDIT)
 {
@@ -262,7 +262,7 @@ HB_FUNC(HWG_CREATEEDIT)
   ULONG ulStyleEx = (ulStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0;
   HWND hWndEdit;
 
-  if ((ulStyle & WS_BORDER)) //&& ( ulStyle & WS_DLGFRAME ) )
+  if ((ulStyle & WS_BORDER)) //&& (ulStyle & WS_DLGFRAME))
   {
     ulStyle &= ~WS_BORDER;
   }
@@ -285,8 +285,8 @@ HB_FUNC(HWG_CREATEEDIT)
 }
 
 /*
-   CreateCombo( hParentWIndow, nComboID, nStyle, x, y, nWidth, nHeight,
-                cInitialString )
+   CreateCombo(hParentWIndow, nComboID, nStyle, x, y, nWidth, nHeight,
+               cInitialString)
 */
 HB_FUNC(HWG_CREATECOMBO)
 {
@@ -490,7 +490,7 @@ HB_FUNC(HWG_SETTOOLTIPTITLE)
 }
 
 /*
-HB_FUNC( HWG_SHOWTOOLTIP )
+HB_FUNC(HWG_SHOWTOOLTIP)
 {
    MSG msg;
 
@@ -503,7 +503,7 @@ HB_FUNC( HWG_SHOWTOOLTIP )
 */
 
 /*   no used
-HB_FUNC( HWG_CREATEUPDOWNCONTROL32 )
+HB_FUNC(HWG_CREATEUPDOWNCONTROL32)
 {
    HWND hControl;
    LONG nStyle = hb_parnl(7) | WS_CHILDWINDOW | WS_VISIBLE | UDS_ALIGNRIGHT | UDS_ARROWKEYS |
@@ -893,16 +893,16 @@ HB_FUNC(HWG_TREEADDNODE)
 }
 
 /*
-HB_FUNC( HWG_TREEDELNODE )
+HB_FUNC(HWG_TREEDELNODE)
 {
 
    hb_parl(TreeView_DeleteItem(hwg_par_HWND(1), (HTREEITEM) HB_PARHANDLE(2)));
 }
 
-HB_FUNC( HWG_TREEDELALLNODES )
+HB_FUNC(HWG_TREEDELALLNODES)
 {
 
-   TreeView_DeleteAllItems( hwg_par_HWND(1) );
+   TreeView_DeleteAllItems(hwg_par_HWND(1));
 }
 */
 
@@ -924,7 +924,7 @@ HB_FUNC(HWG_TREEGETSELECTED)
 }
 
 /*
-HB_FUNC( HWG_TREENODEHASCHILDREN )
+HB_FUNC(HWG_TREENODEHASCHILDREN)
 {
 
    TV_ITEM TreeItem;
@@ -1033,7 +1033,7 @@ HB_FUNC(HWG_TREEGETNOTIFY)
 }
 
 /*
- * Tree_Hittest( hTree, x, y ) --> oNode
+ * Tree_Hittest(hTree, x, y) --> oNode
  */
 HB_FUNC(HWG_TREEHITTEST)
 {
@@ -1092,7 +1092,7 @@ HB_FUNC(HWG_TREERELEASENODE)
 }
 
 /*
- * CreateImagelist( array, cx, cy, nGrow, flags )
+ * CreateImagelist(array, cx, cy, nGrow, flags)
  */
 HB_FUNC(HWG_CREATEIMAGELIST)
 {
@@ -1126,7 +1126,7 @@ HB_FUNC(HWG_IMAGELIST_ADDMASKED)
 }
 
 /*
- *  SetTimer( hWnd, idTimer, i_MilliSeconds )
+ *  SetTimer(hWnd, idTimer, i_MilliSeconds)
  */
 
 /* 22/09/2005 - <maurilio.longo@libero.it>
@@ -1141,7 +1141,7 @@ HB_FUNC(HWG_SETTIMER)
 }
 
 /*
- *  KillTimer( hWnd, idTimer )
+ *  KillTimer(hWnd, idTimer)
  */
 
 HB_FUNC(HWG_KILLTIMER)
@@ -1290,7 +1290,7 @@ static void CALLBACK s_timerProc(HWND hWnd, UINT message, UINT idTimer, DWORD dw
   {
     hb_vmPushDynSym(s_pSymTest);
     hb_vmPushNil(); /* places NIL at self */
-    //      hb_vmPushLong((LONG ) hWnd);    /* pushes parameters on to the hvm stack */
+    //      hb_vmPushLong((LONG) hWnd);    /* pushes parameters on to the hvm stack */
     HB_PUSHITEM(hWnd);
     hb_vmPushLong((LONG)idTimer);
     hb_vmPushLong((LONG)dwTime);
@@ -1337,7 +1337,7 @@ LRESULT APIENTRY TreeViewSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LP
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1377,7 +1377,7 @@ LRESULT CALLBACK WinCtrlProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1418,7 +1418,7 @@ LRESULT APIENTRY StaticSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1459,7 +1459,7 @@ LRESULT APIENTRY EditSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1502,7 +1502,7 @@ LRESULT APIENTRY ButtonSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1537,7 +1537,7 @@ LRESULT APIENTRY ComboSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1578,7 +1578,7 @@ LRESULT APIENTRY ListSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1625,7 +1625,7 @@ LRESULT APIENTRY UpDownSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1666,7 +1666,7 @@ LRESULT APIENTRY DatePickerSubclassProc(HWND hWnd, UINT message, WPARAM wParam, 
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1707,7 +1707,7 @@ LRESULT APIENTRY TrackSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1748,7 +1748,7 @@ LRESULT APIENTRY TabSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG ) lParam);
+    //      hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
@@ -1912,7 +1912,7 @@ HB_FUNC(HWG_IMAGELIST_GETIMAGECOUNT)
 
 HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
 {
-  // LPTOOLTIPTEXT pDispInfo = ( LPTOOLTIPTEXT ) HB_PARHANDLE(1);
+  // LPTOOLTIPTEXT pDispInfo = (LPTOOLTIPTEXT) HB_PARHANDLE(1);
   LPNMTTDISPINFO pDispInfo = (LPNMTTDISPINFO)HB_PARHANDLE(1);
 
   if (pDispInfo)
@@ -1921,7 +1921,7 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
     pDispInfo->szText[HB_SIZEOFARRAY(pDispInfo->szText) - 1] = 0;
 #if 0
       /* is it necessary? */
-      if( !pDispInfo->hinst )
+      if (!pDispInfo->hinst)
       {
          pDispInfo->lpszText = pDispInfo->szText;
       }
@@ -1931,7 +1931,7 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
 
 HB_FUNC(HWG_TOOLBAR_GETDISPINFOID)
 {
-  // LPTOOLTIPTEXT pDispInfo = ( LPTOOLTIPTEXT ) hb_parnl(1);
+  // LPTOOLTIPTEXT pDispInfo = (LPTOOLTIPTEXT) hb_parnl(1);
   LPNMTTDISPINFO pDispInfo = (LPNMTTDISPINFO)HB_PARHANDLE(1);
   DWORD idButton = pDispInfo->hdr.idFrom;
   hb_retnl(idButton);

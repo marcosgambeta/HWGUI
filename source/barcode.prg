@@ -756,7 +756,7 @@ METHOD InitIndustrial25(lCheck) CLASS BarCode
 
    IF lCheck
       FOR n := 1 TO Len(cCode) STEP 2
-         nCheck += Val(SubStr(cCode, n, 1) ) * 3 + Val(SubStr(cCode, n + 1, 1))
+         nCheck += Val(SubStr(cCode, n, 1)) * 3 + Val(SubStr(cCode, n + 1, 1))
       NEXT
       cCode += Right(Str(nCheck, 10, 0), 1)
    ENDIF
@@ -893,13 +893,13 @@ METHOD InitMatrix25(lCheck) CLASS BarCode
 
 #include "hwingui.h"
 
-HB_FUNC_STATIC( RICH_RECTANGLE )
+HB_FUNC_STATIC(RICH_RECTANGLE)
 {
    hb_retl(Rectangle(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5)));
 }
 
 
-HB_FUNC_STATIC( RICH_CREATEPEN )
+HB_FUNC_STATIC(RICH_CREATEPEN)
 {
    HB_RETHANDLE(CreatePen(hb_parni(1),   // pen style
                             hb_parni(2),   // pen width
@@ -908,14 +908,14 @@ HB_FUNC_STATIC( RICH_CREATEPEN )
 }
 
 
-HB_FUNC_STATIC( RICH_SELECTOBJECT )
+HB_FUNC_STATIC(RICH_SELECTOBJECT)
 {
    HB_RETHANDLE(SelectObject(hwg_par_HDC(1), (HGDIOBJ) HB_PARHANDLE(2)));
 }
 
 
 
-HB_FUNC_STATIC( RICH_CREATESOLIDBRUSH )
+HB_FUNC_STATIC(RICH_CREATESOLIDBRUSH)
 {
    HB_RETHANDLE(CreateSolidBrush(hwg_par_COLORREF(1)));    // brush color
 }

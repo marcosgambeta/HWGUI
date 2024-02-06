@@ -316,7 +316,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ENDIF
    ::bGetFocus  := bGFocus
    IF bGFocus != NIL
-      ::oParent:AddEvent(BN_SETFOCUS, self, {|o, id|::When( o:FindControl(id)) },, "onGotFocus")
+      ::oParent:AddEvent(BN_SETFOCUS, self, {|o, id|::When(o:FindControl(id))},, "onGotFocus")
       ::lnoValid := .T.
    ENDIF
    //::oParent:AddEvent(BN_KILLFOCUS, Self, {||::Notify(WM_KEYDOWN)})

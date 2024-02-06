@@ -462,7 +462,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
       ENDIF
    ELSEIF iParHigh == 0 .AND. ( ;
          (iParLow == IDOK .AND. oDlg:FindControl(IDOK) != nil) .OR. ;
-         iParLow == IDCANCEL )
+         iParLow == IDCANCEL)
       IF iParLow == IDOK
          oDlg:lResult := .T.
          IF (oCtrl := oDlg:FindControl(IDOK)) != Nil .AND. __ObjHasMsg(oCtrl, "BCLICK") .AND. oCtrl:bClick != Nil
@@ -481,7 +481,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
    ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. ;
          (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != Nil
       IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
-         hwg_Checkmenuitem(, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(, aMenu[1, i, 3]) )
+         hwg_Checkmenuitem(, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(, aMenu[1, i, 3]))
       ENDIF
       IF aMenu[1, i, 1] != Nil
          Eval(aMenu[1, i, 1], i, iParlow)

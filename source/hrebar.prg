@@ -36,7 +36,7 @@ CLASS hrebar INHERIT HControl
    METHOD INIT()
    METHOD ADDBARColor(pBar, clrFore, clrBack, pszText, dwStyle) INLINE hwg_Addbarcolors(::handle, pBar, clrFore, clrBack, pszText, dwStyle)
    METHOD Addbarbitmap(pBar, pszText, pbmp, dwStyle) INLINE hwg_Addbarbitmap(::handle, pBar, pszText, pbmp, dwStyle)
-   METHOD RebarBandNew(pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) INLINE ::CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle)
+   METHOD RebarBandNew(pBar, pszText, clrFore, clrBack, pbmp, dwStyle) INLINE ::CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle)
    METHOD CreateBands(pBar, pszText, clrFore, clrBack, pbmp, dwStyle)
 
 ENDCLASS

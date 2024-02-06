@@ -132,7 +132,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
       ELSEIF wParam = VK_RIGHT .OR. wParam = VK_DOWN
          hwg_GetSkip(::oparent, ::handle, , 1)
          RETURN 0
-      ELSEIF (wParam == VK_RETURN) // .OR. wParam == VK_SPACE )
+      ELSEIF (wParam == VK_RETURN) // .OR. wParam == VK_SPACE)
          IF ::lEnter
             ::SetValue(!::GetValue())
             ::VALID()

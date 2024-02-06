@@ -250,7 +250,7 @@ FUNCTION Hwg_DefineMenuItem(cItem, nId, bItem, lDisabled, accFlag, accKey, lBitm
       IF lResource == Nil
          lResource := .F.
       ENDIF
-      IF lResource .OR. AT(".", lBitmap ) = 0
+      IF lResource .OR. AT(".", lBitmap) = 0
          oBmp := HBitmap():AddResource(lBitmap, LR_LOADMAP3DCOLORS + LR_SHARED + LR_LOADTRANSPARENT, , s_nWidthBmp, s_nHeightBmp)
       ELSE
          oBmp := HBitmap():AddFile(lBitmap, , .T., s_nWidthBmp, s_nHeightBmp)

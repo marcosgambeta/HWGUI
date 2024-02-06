@@ -49,7 +49,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle, ;
            lWeekNumbers, bSelect) CLASS HMonthCalendar
 
-   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), 0) //WS_TABSTOP )
+   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), 0) //WS_TABSTOP)
    nStyle   += IIf(lNoToday == Nil.OR. !lNoToday, 0, MCS_NOTODAY)
    nStyle   += IIf(lNoTodayCircle == Nil.OR. !lNoTodayCircle, 0, MCS_NOTODAYCIRCLE)
    nStyle   += IIf(lWeekNumbers == Nil.OR. !lWeekNumbers, 0, MCS_WEEKNUMBERS)
@@ -153,7 +153,7 @@ METHOD onSelect() CLASS HMonthCalendar
 #include "missing.h"
 #endif
 
-HB_FUNC( HWG_INITMONTHCALENDAR )
+HB_FUNC(HWG_INITMONTHCALENDAR)
 {
    HWND hMC;
    RECT rc;
@@ -176,11 +176,11 @@ HB_FUNC( HWG_INITMONTHCALENDAR )
     HB_RETHANDLE(hMC);
 }
 
-HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of file Control.c
+HB_FUNC(HWG_SETMONTHCALENDARDATE) // adaptation of function SetDatePicker of file Control.c
 {
    PHB_ITEM pDate = hb_param(2, HB_IT_DATE);
 
-   if( pDate )
+   if (pDate)
    {
       SYSTEMTIME sysTime;
       #ifndef HARBOUR_OLD_VERSION
@@ -205,7 +205,7 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of f
    }
 }
 
-HB_FUNC( HWG_GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of file Control.c
+HB_FUNC(HWG_GETMONTHCALENDARDATE) // adaptation of function GetDatePicker of file Control.c
 {
    SYSTEMTIME st;
    char szDate[9];
