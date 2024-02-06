@@ -1137,7 +1137,7 @@ HB_FUNC(HWG_IMAGELIST_ADDMASKED)
 */
 HB_FUNC(HWG_SETTIMER)
 {
-  SetTimer(hwg_par_HWND(1), (UINT)hb_parni(2), (UINT)hb_parni(3),
+  SetTimer(hwg_par_HWND(1), hwg_par_UINT(2), hwg_par_UINT(3),
            hb_pcount() == 3 ? (TIMERPROC)s_timerProc : (TIMERPROC)NULL);
 }
 
@@ -1147,7 +1147,7 @@ HB_FUNC(HWG_SETTIMER)
 
 HB_FUNC(HWG_KILLTIMER)
 {
-  hb_retl(KillTimer(hwg_par_HWND(1), (UINT)hb_parni(2)));
+  hb_retl(KillTimer(hwg_par_HWND(1), hwg_par_UINT(2)));
 }
 
 HB_FUNC(HWG_GETPARENT)

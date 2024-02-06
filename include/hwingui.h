@@ -145,3 +145,4 @@ HB_EXTERN_END
 #define hwg_par_DWORD(n)      (DWORD) hb_parnl(n)
 #define hwg_par_WPARAM(n)     (WPARAM) hb_parnl(n)
 #define hwg_par_LPARAM(n)     (LPARAM) hb_parnl(n)
+#define hwg_par_UINT(n)       (UINT) hb_parni(n)

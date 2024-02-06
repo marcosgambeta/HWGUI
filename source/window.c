@@ -244,8 +244,8 @@ HB_FUNC(HWG_PEEKMESSAGE)
 
   hb_retl(PeekMessage(&msg,
                       hwg_par_HWND(1),   // handle of window whose message queue will be searched
-                      (UINT)hb_parni(2), // wMsgFilterMin,
-                      (UINT)hb_parni(3), // wMsgFilterMax,
+                      hwg_par_UINT(2), // wMsgFilterMin,
+                      hwg_par_UINT(3), // wMsgFilterMax,
                       PM_NOREMOVE));
 }
 
@@ -521,7 +521,7 @@ HB_FUNC(HWG_SENDMESSAGE)
   LPCTSTR lpText = HB_PARSTR(4, &hText, NULL);
 
   hb_retnl((LONG)SendMessage(hwg_par_HWND(1),     // handle of destination window
-                             (UINT)hb_parni(2),   // message to send
+                             hwg_par_UINT(2),   // message to send
                              hwg_par_WPARAM(3), // first message parameter
                              lpText            ? (LPARAM)lpText
                              : HB_ISPOINTER(4) ? (LPARAM)HB_PARHANDLE(4)
@@ -534,7 +534,7 @@ HB_FUNC(HWG_POSTMESSAGE)
 {
 
   hb_retnl((LONG)PostMessage(hwg_par_HWND(1),   // handle of destination window
-                             (UINT)hb_parni(2), // message to send
+                             hwg_par_UINT(2), // message to send
                              HB_ISPOINTER(3) ? (WPARAM)HB_PARHANDLE(3)
                                              : hwg_par_WPARAM(3), // first message parameter
                              hwg_par_LPARAM(4)                    // second message parameter

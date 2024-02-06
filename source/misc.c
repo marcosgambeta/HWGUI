@@ -281,7 +281,7 @@ HB_FUNC(HWG_GETCURRENTDIR)
 
 HB_FUNC(HWG_WINEXEC)
 {
-  hb_retni(WinExec(hb_parc(1), (UINT)hb_parni(2)));
+  hb_retni(WinExec(hb_parc(1), hwg_par_UINT(2)));
 }
 
 HB_FUNC(HWG_GETKEYBOARDSTATE)
@@ -896,5 +896,5 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
 
 HB_FUNC(HWG_RUNAPP)
 {
-  hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2)) ? SW_SHOW : (UINT)hb_parni(2)));
+  hb_retni(WinExec(hb_parc(1), (HB_ISNIL(2)) ? SW_SHOW : hwg_par_UINT(2)));
 }
