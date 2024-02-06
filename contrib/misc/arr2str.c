@@ -118,8 +118,12 @@ static HB_ULONG ArrayMemoSize( PHB_ITEM pArray )
             if( HB_DBL_LIM_INT32( dVal ) )
             {
                ulMemoSize += 5;
-               break;
             }
+            else
+            {
+               ulMemoSize += 9;
+            }
+            break;
 
          case HB_IT_DOUBLE:
             ulMemoSize += 11;
@@ -139,6 +143,14 @@ static char *WriteArray( char *ptr, PHB_ITEM pArray )
    HB_ULONG ulArrLen = hb_arrayLen( pArray ), ulVal, ul;
    int iDec, iWidth;
    double dVal;
+
+#ifndef HB_LONG_LONG_OFF
+#if  defined(__XHARBOUR__)
+   LONGLONG ullVal;
+#else
+   HB_LONGLONG ullVal;
+#endif
+#endif
 
    if( ulArrLen > 0xFFFF )
       ulArrLen = 0xFFFF;
@@ -195,8 +207,17 @@ static char *WriteArray( char *ptr, PHB_ITEM pArray )
                ulVal = hb_arrayGetNL( pArray, ul );
                HB_PUT_LE_UINT32( ptr, ulVal );
                ptr += 4;
-               break;
             }
+#ifndef HB_LONG_LONG_OFF
+            else
+            {
+               *ptr++ = '\10';
+               ullVal = hb_arrayGetNLL( pArray, ul );
+               HB_PUT_LE_UINT64( ptr, ullVal );
+               ptr += 9;
+            }
+#endif
+            break;
 
          case HB_IT_DOUBLE:
             *ptr++ = '\3';
