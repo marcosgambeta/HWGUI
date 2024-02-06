@@ -5,7 +5,7 @@
 -inc
 
 -hblib
--olib/hwgdebug
+-olib/${hb_plat}/${hb_comp}/hwgdebug
 
 -n -q0 -w -es2
 

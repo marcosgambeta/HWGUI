@@ -5,7 +5,7 @@
 -inc
 
 -hblib
--olib/hbxml
+-olib/${hb_plat}/${hb_comp}/hbxml
 
 -n -q0 -w -es2
 

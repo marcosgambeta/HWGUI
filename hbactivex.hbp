@@ -5,7 +5,7 @@
 -inc
 
 -hblib
--olib/hbactivex
+-olib/${hb_plat}/${hb_comp}/hbactivex
 
 -n -q0 -w -es2
 

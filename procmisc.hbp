@@ -5,7 +5,7 @@
 -inc
 
 -hblib
--olib/procmisc
+-olib/${hb_plat}/${hb_comp}/procmisc
 
 -n -q0 -w -es2
 

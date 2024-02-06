@@ -6,11 +6,11 @@
 
 -hbdynvm
 -shared
--o{bcc}lib/hwguidyn-bcc
--o{!bcc}lib/hwguidyn
+-o{bcc}lib/${hb_plat}/${hb_comp}/hwguidyn-bcc
+-o{!bcc}lib/${hb_plat}/${hb_comp}/hwguidyn
 -lhbxml
 -lprocmisc
--Llib
+-Llib/${hb_plat}/${hb_comp}
 
 -n1 -q0 -w -es2
 

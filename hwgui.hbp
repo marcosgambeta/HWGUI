@@ -9,7 +9,7 @@
 
 -inc
 -hblib
--olib/hwgui
+-olib/${hb_plat}/${hb_comp}/hwgui
 -n
 -q0
 -w
