@@ -17,8 +17,7 @@ static int s_msgbox(UINT uType)
   void *hText, *hTitle;
   int iResult;
 
-  iResult = MessageBox(GetActiveWindow(), HB_PARSTR(1, &hText, NULL),
-                       HB_PARSTRDEF(2, &hTitle, NULL), uType);
+  iResult = MessageBox(GetActiveWindow(), HB_PARSTR(1, &hText, NULL), HB_PARSTRDEF(2, &hTitle, NULL), uType);
   hb_strfree(hText);
   hb_strfree(hTitle);
 
@@ -76,8 +75,7 @@ HB_FUNC(HWG_MSGTEMP)
   LPCTSTR msg;
 
 #if __HARBOUR__ - 0 >= 0x010100
-  hb_snprintf(cres, sizeof(cres), "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ",
-              (LONG)WS_OVERLAPPEDWINDOW, NM_FIRST);
+  hb_snprintf(cres, sizeof(cres), "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ", (LONG)WS_OVERLAPPEDWINDOW, NM_FIRST);
 #else
   sprintf(cres, "WS_OVERLAPPEDWINDOW: %lx NM_FIRST: %d ", (LONG)WS_OVERLAPPEDWINDOW, NM_FIRST);
 #endif
@@ -89,7 +87,6 @@ HB_FUNC(HWG_MSGTEMP)
 #else
     msg = cres;
 #endif
-    hb_retni(
-        MessageBox(GetActiveWindow(), msg, TEXT("DialogBaseUnits"), MB_OKCANCEL | MB_ICONQUESTION));
+    hb_retni(MessageBox(GetActiveWindow(), msg, TEXT("DialogBaseUnits"), MB_OKCANCEL | MB_ICONQUESTION));
   }
 }

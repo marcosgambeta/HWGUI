@@ -16,8 +16,7 @@ HB_FUNC(HWG_ANIMATE_CREATE)
 {
   HWND hwnd;
 
-  hwnd =
-      Animate_Create(hwg_par_HWND(1), (LONG)hb_parnl(2), (LONG)hb_parnl(3), GetModuleHandle(NULL));
+  hwnd = Animate_Create(hwg_par_HWND(1), (LONG)hb_parnl(2), (LONG)hb_parnl(3), GetModuleHandle(NULL));
   MoveWindow(hwnd, hb_parnl(4), hb_parnl(5), hb_parnl(6), hb_parnl(7), TRUE);
   HB_RETHANDLE(hwnd);
 }
@@ -57,8 +56,7 @@ HB_FUNC(HWG_ANIMATE_DESTROY)
 HB_FUNC(HWG_ANIMATE_OPENEX)
 {
 #if defined(__DMC__)
-#define Animate_OpenEx(hwnd, hInst, szName)                                                        \
-  (BOOL) SNDMSG(hwnd, ACM_OPEN, (WPARAM)hInst, (LPARAM)(LPTSTR)(szName))
+#define Animate_OpenEx(hwnd, hInst, szName) (BOOL) SNDMSG(hwnd, ACM_OPEN, (WPARAM)hInst, (LPARAM)(LPTSTR)(szName))
 #endif
   void *hResource;
   LPCTSTR lpResource = HB_PARSTR(3, &hResource, NULL);
@@ -67,7 +65,7 @@ HB_FUNC(HWG_ANIMATE_OPENEX)
   {
     lpResource = MAKEINTRESOURCE(hb_parni(3));
   }
-  
+
   Animate_OpenEx(hwg_par_HWND(1), (HINSTANCE)hb_parnl(2), lpResource);
 
   hb_strfree(hResource);

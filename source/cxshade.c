@@ -76,8 +76,8 @@ typedef struct CXSHADE_STRU
 PCXSHADE cxshade_New(RECT *prect, BOOL lFlat);
 void cxshade_Release(PCXSHADE pshade);
 void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state);
-void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight,
-                      BYTE coloring, COLORREF color, RECT *prect);
+void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight, BYTE coloring,
+                      COLORREF color, RECT *prect);
 void cxshade_SetFlat(PCXSHADE pshade, BOOL bFlag);
 COLORREF cxshade_SetTextColor(PCXSHADE pshade, COLORREF new_color);
 
@@ -113,7 +113,7 @@ void cxdib_Release(PCXDIB pdib)
   if (pdib->hDib)
   {
     hb_xfree(pdib->hDib);
-  }  
+  }
 }
 
 WORD cxdib_GetPaletteSize(PCXDIB pdib)
@@ -146,7 +146,7 @@ void cxdib_Clone(PCXDIB pdib, PCXDIB src)
   if (pdib->hDib)
   {
     memcpy(pdib->hDib, src->hDib, cxdib_GetSize(pdib));
-  }  
+  }
 }
 
 void cxdib_Clear(PCXDIB pdib, BYTE bval)
@@ -154,7 +154,7 @@ void cxdib_Clear(PCXDIB pdib, BYTE bval)
   if (pdib->hDib)
   {
     memset(cxdib_GetBits(pdib), bval, pdib->m_bi.biSizeImage);
-  }  
+  }
 }
 
 HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
@@ -227,7 +227,7 @@ HDIB cxdib_Create(PCXDIB pdib, DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   {
     return NULL;
   }
-  
+
   // use our bitmap info structure to fill in first part of
   // our DIB with the BITMAPINFOHEADER
   lpbi = (LPBITMAPINFOHEADER)(pdib->hDib);
@@ -243,8 +243,8 @@ long cxdib_Draw(PCXDIB pdib, HDC pDC, long xoffset, long yoffset)
     // palette must be correctly filled
     BITMAPINFO *lpDIB = (BITMAPINFO *)pdib->hDib; // set image to hdc...
     SetStretchBltMode(pDC, COLORONCOLOR);
-    SetDIBitsToDevice(pDC, xoffset, yoffset, pdib->m_bi.biWidth, pdib->m_bi.biHeight, 0, 0, 0,
-                      pdib->m_bi.biHeight, cxdib_GetBits(pdib), lpDIB, DIB_RGB_COLORS);
+    SetDIBitsToDevice(pDC, xoffset, yoffset, pdib->m_bi.biWidth, pdib->m_bi.biHeight, 0, 0, 0, pdib->m_bi.biHeight,
+                      cxdib_GetBits(pdib), lpDIB, DIB_RGB_COLORS);
     return 1;
   }
   return 0;
@@ -257,8 +257,8 @@ long cxdib_Stretch(PCXDIB pdib, HDC pDC, long xoffset, long yoffset, long xsize,
     // palette must be correctly filled
     BITMAPINFO *lpDIB = (BITMAPINFO *)pdib->hDib; // set image to hdc...
     SetStretchBltMode(pDC, COLORONCOLOR);
-    StretchDIBits(pDC, xoffset, yoffset, xsize, ysize, 0, 0, pdib->m_bi.biWidth,
-                  pdib->m_bi.biHeight, cxdib_GetBits(pdib), lpDIB, DIB_RGB_COLORS, SRCCOPY);
+    StretchDIBits(pDC, xoffset, yoffset, xsize, ysize, 0, 0, pdib->m_bi.biWidth, pdib->m_bi.biHeight,
+                  cxdib_GetBits(pdib), lpDIB, DIB_RGB_COLORS, SRCCOPY);
     return 1;
   }
   return 0;
@@ -312,8 +312,8 @@ void cxdib_SetPixelIndex(PCXDIB pdib, long x, long y, BYTE i)
 {
   BYTE *iDst;
 
-  if ((pdib->hDib == NULL) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) ||
-      (x >= pdib->m_bi.biWidth) || (y >= pdib->m_bi.biHeight))
+  if ((pdib->hDib == NULL) || (pdib->m_nColors == 0) || (x < 0) || (y < 0) || (x >= pdib->m_bi.biWidth) ||
+      (y >= pdib->m_bi.biHeight))
   {
     return;
   }
@@ -466,8 +466,8 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
 }
 
 // #include "stdio.h"
-void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight,
-                      BYTE coloring, COLORREF color, RECT *prect)
+void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight, BYTE coloring,
+                      COLORREF color, RECT *prect)
 {
   long sXSize, sYSize, bytes, j, i, k, h;
   BYTE *iDst, *posDst;
@@ -774,8 +774,7 @@ HB_FUNC(HWG_SHADE_SET)
     SetRect(&rect, hb_parni(7), hb_parni(8), hb_parni(9), hb_parni(10));
   }
 
-  cxshade_SetShade(pshade, shadeID, palette, granularity, highlight, coloring, color,
-                   (HB_ISNIL(8)) ? NULL : &rect);
+  cxshade_SetShade(pshade, shadeID, palette, granularity, highlight, coloring, color, (HB_ISNIL(8)) ? NULL : &rect);
 }
 
 /*

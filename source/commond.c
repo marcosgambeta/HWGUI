@@ -339,7 +339,7 @@ HB_FUNC(HWG_CHOOSECOLOR)
   else
   {
     hb_ret();
-  }  
+  }
 }
 
 static unsigned long Get_SerialNumber(LPCTSTR RootPathName)
@@ -372,9 +372,8 @@ HB_FUNC(HWG_GETPRIVATEPROFILESTRING)
   void *hSection, *hEntry, *hDefault, *hFileName;
   LPCTSTR lpDefault = HB_PARSTR(3, &hDefault, NULL);
 
-  dwLen =
-      GetPrivateProfileString(HB_PARSTR(1, &hSection, NULL), HB_PARSTR(2, &hEntry, NULL), lpDefault,
-                              buffer, HB_SIZEOFARRAY(buffer), HB_PARSTR(4, &hFileName, NULL));
+  dwLen = GetPrivateProfileString(HB_PARSTR(1, &hSection, NULL), HB_PARSTR(2, &hEntry, NULL), lpDefault, buffer,
+                                  HB_SIZEOFARRAY(buffer), HB_PARSTR(4, &hFileName, NULL));
   if (dwLen)
   {
     HB_RETSTRLEN(buffer, dwLen);
@@ -383,7 +382,7 @@ HB_FUNC(HWG_GETPRIVATEPROFILESTRING)
   {
     HB_RETSTR(lpDefault);
   }
-  
+
   hb_strfree(hSection);
   hb_strfree(hEntry);
   hb_strfree(hDefault);

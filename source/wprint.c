@@ -220,8 +220,7 @@ HB_FUNC(HWG_SETPRINTERMODE)
     }
 
     // Call DocumentProperties() to change the values
-    DocumentProperties(NULL, hPrinter, (LPTSTR)lpPrinterName, pdm, pdm,
-                       DM_OUT_BUFFER | DM_IN_BUFFER);
+    DocumentProperties(NULL, hPrinter, (LPTSTR)lpPrinterName, pdm, pdm, DM_OUT_BUFFER | DM_IN_BUFFER);
 
     // создадим контекст устройства принтера
     HB_RETHANDLE(CreateDC(NULL, lpPrinterName, NULL, pdm));
@@ -489,13 +488,12 @@ HB_FUNC(HWG_SETDOCUMENTPROPERTIES)
         if (pDevMode && DocumentProperties(0, hPrinter, (LPTSTR)lpPrinterName, pDevMode, pDevMode,
                                            DM_OUT_BUFFER) == IDOK) // Get the current settings
         {
-          BOOL bAskUser = HB_ISBYREF(3) || HB_ISBYREF(4) || HB_ISBYREF(5) || HB_ISBYREF(6) ||
-                          HB_ISBYREF(7) || HB_ISBYREF(8) || HB_ISBYREF(9) ||
-                          HB_ISBYREF(10); // x 20070421
-          DWORD dInit = 0;                // x 20070421
+          BOOL bAskUser = HB_ISBYREF(3) || HB_ISBYREF(4) || HB_ISBYREF(5) || HB_ISBYREF(6) || HB_ISBYREF(7) ||
+                          HB_ISBYREF(8) || HB_ISBYREF(9) || HB_ISBYREF(10); // x 20070421
+          DWORD dInit = 0;                                                  // x 20070421
           DWORD fMode;
-          BOOL bCustomFormSize = (HB_ISNUM(9) && hb_parnl(9) > 0) &&
-                                 (HB_ISNUM(10) && hb_parnl(10) > 0); // Must set both Length & Width
+          BOOL bCustomFormSize =
+              (HB_ISNUM(9) && hb_parnl(9) > 0) && (HB_ISNUM(10) && hb_parnl(10) > 0); // Must set both Length & Width
 
           if (bCustomFormSize)
           {
@@ -577,9 +575,7 @@ HB_FUNC(HWG_SETDOCUMENTPROPERTIES)
              anything in DocumentProperties. Therefore, we ignore the return value in Win9x, and
              assume user clicks OK. IOW, DocumentProperties is not cancelable in Win9X.
            */
-          if (DocumentProperties(0, hPrinter, (LPTSTR)lpPrinterName, pDevMode, pDevMode, fMode) ==
-                  IDOK ||
-              bW9X)
+          if (DocumentProperties(0, hPrinter, (LPTSTR)lpPrinterName, pDevMode, pDevMode, fMode) == IDOK || bW9X)
           {
             if (HB_ISBYREF(3) && !bCustomFormSize)
             {

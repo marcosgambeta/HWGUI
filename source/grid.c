@@ -32,9 +32,8 @@
 #endif
 
 #ifndef ListView_SortItemsEx
-#define ListView_SortItemsEx(hwndLV, _pfnCompare, _lPrm)                                           \
-  (BOOL) SNDMSG((hwndLV), LVM_SORTITEMSEX, (WPARAM)(LPARAM)(_lPrm),                                \
-                (LPARAM)(PFNLVCOMPARE)(_pfnCompare))
+#define ListView_SortItemsEx(hwndLV, _pfnCompare, _lPrm)                                                               \
+  (BOOL) SNDMSG((hwndLV), LVM_SORTITEMSEX, (WPARAM)(LPARAM)(_lPrm), (LPARAM)(PFNLVCOMPARE)(_pfnCompare))
 #endif
 
 // static HWND hListSort=NULL;
@@ -64,9 +63,8 @@ HB_FUNC(HWG_LISTVIEW_CREATE)
     style = style | LVS_NOSCROLL;
   }
 
-  handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL, style, hb_parni(3), hb_parni(4),
-                          hb_parni(5), hb_parni(6), hwnd, (HMENU)hb_parni(2), GetModuleHandle(NULL),
-                          NULL);
+  handle = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, NULL, style, hb_parni(3), hb_parni(4), hb_parni(5),
+                          hb_parni(6), hwnd, (HMENU)hb_parni(2), GetModuleHandle(NULL), NULL);
 
   HB_RETHANDLE(handle);
 }
@@ -292,8 +290,7 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
   lvcolumn.fmt = hb_parni(5);
   lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-  if (SendMessage((HWND)hwndListView, (UINT)LVM_INSERTCOLUMN, (WPARAM)(int)lCol,
-                  (LPARAM)&lvcolumn) == -1)
+  if (SendMessage((HWND)hwndListView, (UINT)LVM_INSERTCOLUMN, (WPARAM)(int)lCol, (LPARAM)&lvcolumn) == -1)
   {
     iResult = 0;
   }
@@ -302,8 +299,7 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
     iResult = 1;
   }
 
-  RedrawWindow(hwndListView, NULL, NULL,
-               RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+  RedrawWindow(hwndListView, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 
   hb_retnl(iResult);
   hb_strfree(hText);
@@ -461,7 +457,7 @@ HB_FUNC(HWG_LISTVIEWGETITEM)
   else
   {
     hb_retc(NULL);
-  }  
+  }
 }
 
 int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
@@ -516,7 +512,7 @@ HB_FUNC(HWG_LISTVIEWSORTINFOFREE)
   if (p)
   {
     hb_xfree(p);
-  }  
+  }
 }
 
 HB_FUNC(HWG_LISTVIEWSORT)

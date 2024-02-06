@@ -79,8 +79,8 @@ HB_FUNC(HWG__ADDMENUITEM)
 
     uFlags |= MF_POPUP;
     InsertMenu(hwg_par_HMENU(1), hb_parni(3), uFlags, // menu item flags
-               (UINT)hSubMenu, // menu item identifier or handle of drop-down menu or submenu
-               lpNewItem       // menu item content
+               (UINT)hSubMenu,                        // menu item identifier or handle of drop-down menu or submenu
+               lpNewItem                              // menu item content
     );
     HB_RETHANDLE(hSubMenu);
 
@@ -98,8 +98,8 @@ HB_FUNC(HWG__ADDMENUITEM)
   else
   {
     InsertMenu(hwg_par_HMENU(1), hb_parni(3), uFlags, // menu item flags
-               hb_parni(5), // menu item identifier or handle of drop-down menu or submenu
-               lpNewItem    // menu item content
+               hb_parni(5),                           // menu item identifier or handle of drop-down menu or submenu
+               lpNewItem                              // menu item content
     );
     hb_retnl(0);
   }
@@ -323,13 +323,12 @@ HB_FUNC(HWG_TRACKMENU)
 {
   HWND hWnd = hwg_par_HWND(4);
   SetForegroundWindow(hWnd);
-  hb_retl(TrackPopupMenu(hwg_par_HMENU(1), // handle of shortcut menu
-                         HB_ISNIL(5) ? TPM_RIGHTALIGN
-                                     : hb_parni(5), // screen-position and mouse-button flags
-                         hb_parni(2),               // horizontal position, in screen coordinates
-                         hb_parni(3),               // vertical position, in screen coordinates
-                         0,                         // reserved, must be zero
-                         hWnd,                      // handle of owner window
+  hb_retl(TrackPopupMenu(hwg_par_HMENU(1),                           // handle of shortcut menu
+                         HB_ISNIL(5) ? TPM_RIGHTALIGN : hb_parni(5), // screen-position and mouse-button flags
+                         hb_parni(2),                                // horizontal position, in screen coordinates
+                         hb_parni(3),                                // vertical position, in screen coordinates
+                         0,                                          // reserved, must be zero
+                         hWnd,                                       // handle of owner window
                          NULL));
   PostMessage(hWnd, 0, 0, 0);
 }
@@ -481,8 +480,7 @@ HB_FUNC(HWG_SETMENUCAPTION)
 
 HB_FUNC(HWG__SETMENUITEMBITMAPS)
 {
-  hb_retl(SetMenuItemBitmaps(hwg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hwg_par_HBITMAP(3),
-                             hwg_par_HBITMAP(4)));
+  hb_retl(SetMenuItemBitmaps(hwg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hwg_par_HBITMAP(3), hwg_par_HBITMAP(4)));
 }
 
 HB_FUNC(HWG_GETMENUCHECKMARKDIMENSIONS)
@@ -512,9 +510,8 @@ HB_FUNC(HWG_GETMENUCHECKMARKHEIGHT)
 
 HB_FUNC(HWG_STRETCHBLT)
 {
-  hb_retl(StretchBlt(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-                     hwg_par_HDC(6), hb_parni(7), hb_parni(8), hb_parni(9), hb_parni(10),
-                     hwg_par_DWORD(11)));
+  hb_retl(StretchBlt(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwg_par_HDC(6), hb_parni(7),
+                     hb_parni(8), hb_parni(9), hb_parni(10), hwg_par_DWORD(11)));
 }
 
 HB_FUNC(HWG__INSERTBITMAPMENU)
@@ -531,16 +528,14 @@ HB_FUNC(HWG__INSERTBITMAPMENU)
 HB_FUNC(HWG_CHANGEMENU)
 {
   void *hStr;
-  hb_retl(ChangeMenu(hwg_par_HMENU(1), hwg_par_UINT(2), HB_PARSTR(3, &hStr, NULL),
-                     hwg_par_UINT(4), hwg_par_UINT(5)));
+  hb_retl(ChangeMenu(hwg_par_HMENU(1), hwg_par_UINT(2), HB_PARSTR(3, &hStr, NULL), hwg_par_UINT(4), hwg_par_UINT(5)));
   hb_strfree(hStr);
 }
 
 HB_FUNC(HWG_MODIFYMENU)
 {
   void *hStr;
-  hb_retl(ModifyMenu(hwg_par_HMENU(1), hwg_par_UINT(2), hwg_par_UINT(3), hwg_par_UINT(4),
-                     HB_PARSTR(5, &hStr, NULL)));
+  hb_retl(ModifyMenu(hwg_par_HMENU(1), hwg_par_UINT(2), hwg_par_UINT(3), hwg_par_UINT(4), HB_PARSTR(5, &hStr, NULL)));
   hb_strfree(hStr);
 }
 

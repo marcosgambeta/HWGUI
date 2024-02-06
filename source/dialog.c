@@ -47,7 +47,7 @@ HB_FUNC(HWG_DIALOGBOX)
   {
     lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
   }
-  
+
   DialogBoxParam(hModule, lpResource, hwg_par_HWND(1), (DLGPROC)s_ModalDlgProc, (LPARAM)pObject);
 
   hb_strfree(hResource);
@@ -68,9 +68,8 @@ HB_FUNC(HWG_CREATEDIALOG)
   {
     lpResource = MAKEINTRESOURCE(hb_itemGetNI(pData));
   }
-  
-  hDlg =
-      CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), (DLGPROC)s_DlgProc, (LPARAM)pObject);
+
+  hDlg = CreateDialogParam(hModule, lpResource, hwg_par_HWND(1), (DLGPROC)s_DlgProc, (LPARAM)pObject);
   hb_strfree(hResource);
 
   ShowWindow(hDlg, SW_SHOW);
@@ -108,8 +107,8 @@ HB_FUNC(HWG_SETDLGITEMTEXT)
 
 HB_FUNC(HWG_SETDLGITEMINT)
 {
-  SetDlgItemInt(hwg_par_HWND(1),   // handle of dialog box
-                hb_parni(2),       // identifier of control
+  SetDlgItemInt(hwg_par_HWND(1), // handle of dialog box
+                hb_parni(2),     // identifier of control
                 hwg_par_UINT(3), // text to set
                 (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? 0 : 1);
 }
@@ -181,8 +180,7 @@ HB_FUNC(HWG_COMBOINSERTSTRING)
 {
   void *hText;
 
-  SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, hwg_par_WPARAM(2),
-              (LPARAM)HB_PARSTR(3, &hText, NULL));
+  SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, hwg_par_WPARAM(2), (LPARAM)HB_PARSTR(3, &hText, NULL));
   hb_strfree(hText);
 }
 
@@ -225,8 +223,7 @@ static int s_nWideStringLen(PHB_ITEM pItem)
 #endif
 }
 
-static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwidth, int dheight,
-                                         ULONG ulStyle)
+static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwidth, int dheight, ULONG ulStyle)
 {
   HGLOBAL hgbl;
   PWORD p, pend;
@@ -266,7 +263,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
   {
     return NULL;
   }
-  
+
   p = (PWORD)GlobalLock(hgbl);
   pend = p + lTemplateSize;
 
@@ -345,8 +342,8 @@ static void s_ReleaseDlgTemplate(LPDLGTEMPLATE pdlgtemplate)
 
 HB_FUNC(HWG_CREATEDLGTEMPLATE)
 {
-  hb_retnl((LONG)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3),
-                                     hb_parni(4), hb_parni(5), (ULONG)hb_parnd(6)));
+  hb_retnl((LONG)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
+                                     (ULONG)hb_parnd(6)));
 }
 
 HB_FUNC(HWG_RELEASEDLGTEMPLATE)
@@ -449,7 +446,7 @@ HB_FUNC(HWG__PROPERTYSHEET)
   {
     psp[i] = (HPROPSHEETPAGE)hb_arrayGetNL(pArr, i + 1);
   }
-  
+
   psh.dwSize = sizeof(PROPSHEETHEADER);
   psh.dwFlags = dwFlags;
   psh.hwndParent = hwg_par_HWND(1);
@@ -489,23 +486,20 @@ HB_FUNC(HWG_CREATEDLGINDIRECT)
   }
   else
   {
-    ULONG ulStyle =
-        ((hb_pcount() > 6 && !HB_ISNIL(7))
-             ? (ULONG)hb_parnd(7)
-             : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX); // | DS_SETFONT;
+    ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7))
+                         ? (ULONG)hb_parnd(7)
+                         : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_SIZEBOX); // | DS_SETFONT;
 
-    pdlgtemplate =
-        s_CreateDlgTemplate(pObject, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), ulStyle);
+    pdlgtemplate = s_CreateDlgTemplate(pObject, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), ulStyle);
     fFree = TRUE;
   }
 
-  CreateDialogIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC)s_DlgProc,
-                            (LPARAM)pObject);
+  CreateDialogIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC)s_DlgProc, (LPARAM)pObject);
 
   if (fFree)
   {
     s_ReleaseDlgTemplate(pdlgtemplate);
-  }  
+  }
 }
 
 /* Hwg_DlgBoxIndirect(hParentWnd, pArray, x1, y1, nWidth, nHeight, nStyle)
@@ -514,14 +508,13 @@ HB_FUNC(HWG_CREATEDLGINDIRECT)
 HB_FUNC(HWG_DLGBOXINDIRECT)
 {
   PHB_ITEM pObject = hb_param(2, HB_IT_OBJECT);
-  ULONG ulStyle = ((hb_pcount() > 6 && !HB_ISNIL(7))
-                       ? (ULONG)hb_parnd(7)
-                       : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
+  ULONG ulStyle =
+      ((hb_pcount() > 6 && !HB_ISNIL(7)) ? (ULONG)hb_parnd(7)
+                                         : WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU); // | DS_SETFONT;
   int x1 = hb_parni(3), y1 = hb_parni(4), dwidth = hb_parni(5), dheight = hb_parni(6);
   LPDLGTEMPLATE pdlgtemplate = s_CreateDlgTemplate(pObject, x1, y1, dwidth, dheight, ulStyle);
 
-  DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC)s_ModalDlgProc,
-                         (LPARAM)pObject);
+  DialogBoxIndirectParam(hModule, pdlgtemplate, hwg_par_HWND(1), (DLGPROC)s_ModalDlgProc, (LPARAM)pObject);
   s_ReleaseDlgTemplate(pdlgtemplate);
 }
 
@@ -556,7 +549,7 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
   {
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
-  
+
   if (pSym_onEvent && pObject)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSym_onEvent));
@@ -566,8 +559,8 @@ static LRESULT CALLBACK s_ModalDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPAR
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
 #ifdef HWG_USE_POINTER_ITEM
-    if (uMsg == WM_CTLCOLORSTATIC || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN ||
-        uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG)
+    if (uMsg == WM_CTLCOLORSTATIC || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX ||
+        uMsg == WM_CTLCOLORDLG)
     {
       return (INT_PTR)hb_parptr(-1);
     }
@@ -637,7 +630,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     for (; i < iDialogs; i++)
     {
       aDialogs[i] = aDialogs[i + 1];
-    }  
+    }
   }
 
   pObject = (PHB_ITEM)GetWindowLongPtr(hDlg, GWLP_USERDATA);
@@ -656,8 +649,8 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
 #ifdef HWG_USE_POINTER_ITEM
-    if (uMsg == WM_CTLCOLORSTATIC || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN ||
-        uMsg == WM_CTLCOLORLISTBOX || uMsg == WM_CTLCOLORDLG)
+    if (uMsg == WM_CTLCOLORSTATIC || uMsg == WM_CTLCOLOREDIT || uMsg == WM_CTLCOLORBTN || uMsg == WM_CTLCOLORLISTBOX ||
+        uMsg == WM_CTLCOLORDLG)
     {
       return (INT_PTR)hb_parptr(-1);
     }

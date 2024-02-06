@@ -33,7 +33,7 @@ void writelog(char *s)
   {
     handle = hb_fsCreate("ac.log", 0);
   }
-  
+
   hb_fsSeek(handle, 0, SEEK_END);
   hb_fsWrite(handle, (const char *)s, (USHORT)strlen(s));
   hb_fsWrite(handle, "\n\r", 2);
@@ -123,7 +123,7 @@ HB_FUNC(HWG_GETCLIPBOARDTEXT)
   if (lpText)
   {
     hb_xfree(lpText);
-  }  
+  }
 }
 
 HB_FUNC(HWG_GETSTOCKOBJECT)
@@ -138,8 +138,7 @@ HB_FUNC(HWG_LOWORD)
 
 HB_FUNC(HWG_HIWORD)
 {
-  hb_retni(
-      (int)(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : (ULONG)hb_parnl(1)) >> 16) & 0xFFFF));
+  hb_retni((int)(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : (ULONG)hb_parnl(1)) >> 16) & 0xFFFF));
 }
 
 HB_FUNC(HWG_BITOR)
@@ -171,8 +170,7 @@ HB_FUNC(HWG_SETBIT)
 
 HB_FUNC(HWG_CHECKBIT)
 {
-  hb_retl((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : (ULONG)hb_parnl(1)) &
-          (1 << (hb_parni(2) - 1)));
+  hb_retl((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : (ULONG)hb_parnl(1)) & (1 << (hb_parni(2) - 1)));
 }
 
 HB_FUNC(HWG_SIN)
@@ -849,8 +847,7 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   si.hStdOutput = g_hChildStd_OUT_Wr;
   si.hStdError = g_hChildStd_OUT_Wr;
 
-  bSuccess = CreateProcess(NULL, (LPTSTR)hb_parc(1), NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL,
-                           NULL, &si, &pi);
+  bSuccess = CreateProcess(NULL, (LPTSTR)hb_parc(1), NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi);
 
   if (!bSuccess)
   {

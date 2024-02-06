@@ -44,14 +44,13 @@ typedef int(_stdcall *TRANSPARENTBLT)(HDC, int, int, int, int, HDC, int, int, in
 
 static TRANSPARENTBLT s_pTransparentBlt = NULL;
 
-void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC dcImage,
-                    int bmWidth, int bmHeight, int trColor)
+void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC dcImage, int bmWidth, int bmHeight,
+                    int trColor)
 {
   if (s_pTransparentBlt == NULL)
   {
-    s_pTransparentBlt =
-        (TRANSPARENTBLT)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "TransparentBlt");
-  }      
+    s_pTransparentBlt = (TRANSPARENTBLT)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "TransparentBlt");
+  }
   s_pTransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
 }
 
@@ -206,8 +205,7 @@ HB_FUNC(HWG_FILLRECT)
   rc.right = hb_parni(4);
   rc.bottom = hb_parni(5);
 
-  FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1)
-                           : (HDC)hb_parnl(1) /* TODO: pointer */, // handle to device context
+  FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1) : (HDC)hb_parnl(1) /* TODO: pointer */, // handle to device context
            &rc,              // pointer to structure with rectangle
            hwg_par_HBRUSH(6) // handle to brush
   );
@@ -252,7 +250,7 @@ HB_FUNC(HWG_REDRAWWINDOW)
   RedrawWindow(hwg_par_HWND(1),                // handle of window
                (hb_pcount() > 3) ? &rc : NULL, // address of structure with update rectangle
                NULL,                           // handle of update region
-               hwg_par_UINT(2)               // array of redraw flags
+               hwg_par_UINT(2)                 // array of redraw flags
   );
 }
 
@@ -276,11 +274,7 @@ HB_FUNC(HWG_DRAWBUTTON)
     FillRect(hDC, &rc, (HBRUSH)(((iType & 2) ? COLOR_3DSHADOW : COLOR_3DHILIGHT) + 1));
     rc.left++;
     rc.top++;
-    FillRect(hDC, &rc,
-             (HBRUSH)(((iType & 2)   ? COLOR_3DHILIGHT
-                       : (iType & 4) ? COLOR_3DDKSHADOW
-                                     : COLOR_3DSHADOW) +
-                      1));
+    FillRect(hDC, &rc, (HBRUSH)(((iType & 2) ? COLOR_3DHILIGHT : (iType & 4) ? COLOR_3DDKSHADOW : COLOR_3DSHADOW) + 1));
     rc.right--;
     rc.bottom--;
     if (iType & 4)
@@ -333,14 +327,12 @@ HB_FUNC(HWG_LOADIMAGE)
   void *hString = NULL;
 
   HB_RETHANDLE(LoadImage(
-      HB_ISNIL(1) ? GetModuleHandle(NULL)
-                  : (HINSTANCE)hb_parnl(1), // handle of the instance that contains the image
-      HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2))
-                  : HB_PARSTR(2, &hString, NULL), // name or identifier of image
-      hwg_par_UINT(3),                          // type of image
-      hb_parni(4),                                // desired width
-      hb_parni(5),                                // desired height
-      hwg_par_UINT(6)                           // load flags
+      HB_ISNIL(1) ? GetModuleHandle(NULL) : (HINSTANCE)hb_parnl(1), // handle of the instance that contains the image
+      HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR(2, &hString, NULL), // name or identifier of image
+      hwg_par_UINT(3),                                                           // type of image
+      hb_parni(4),                                                               // desired width
+      hb_parni(5),                                                               // desired height
+      hwg_par_UINT(6)                                                            // load flags
       ));
   hb_strfree(hString);
 }
@@ -412,8 +404,8 @@ HB_FUNC(HWG_DRAWBITMAP)
   if (nWidthDest && (nWidthDest != bitmap.bmWidth || nHeightDest != bitmap.bmHeight))
   {
     SetStretchBltMode(hDC, COLORONCOLOR);
-    StretchBlt(hDC, hb_parni(4), hb_parni(5), nWidthDest, nHeightDest, hDCmem, 0, 0, bitmap.bmWidth,
-               bitmap.bmHeight, dwraster);
+    StretchBlt(hDC, hb_parni(4), hb_parni(5), nWidthDest, nHeightDest, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight,
+               dwraster);
   }
   else
   {
@@ -468,8 +460,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
           bitmap.bmWidth, bitmap.bmHeight, SRCINVERT);
     */
     SetStretchBltMode(hDC, COLORONCOLOR);
-    TransparentBmp(hDC, x, y, nWidthDest, nHeightDest, dcImage, bitmap.bmWidth, bitmap.bmHeight,
-                   trColor);
+    TransparentBmp(hDC, x, y, nWidthDest, nHeightDest, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor);
   }
   else
   {
@@ -484,8 +475,7 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
     BitBlt(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, 0, 0,
           SRCINVERT);
    */
-    TransparentBmp(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, bitmap.bmWidth,
-                   bitmap.bmHeight, trColor);
+    TransparentBmp(hDC, x, y, bitmap.bmWidth, bitmap.bmHeight, dcImage, bitmap.bmWidth, bitmap.bmHeight, trColor);
   }
   // Restore settings
   SelectObject(dcImage, pOldBitmapImage);
@@ -545,8 +535,8 @@ HB_FUNC(HWG_CENTERBITMAP)
   GetClientRect(hwg_par_HWND(2), &rc);
 
   FillRect(hDC, &rc, hBrush);
-  BitBlt(hDC, (rc.right - bitmap.bmWidth) / 2, (rc.bottom - bitmap.bmHeight) / 2, bitmap.bmWidth,
-         bitmap.bmHeight, hDCmem, 0, 0, dwraster);
+  BitBlt(hDC, (rc.right - bitmap.bmWidth) / 2, (rc.bottom - bitmap.bmHeight) / 2, bitmap.bmWidth, bitmap.bmHeight,
+         hDCmem, 0, 0, dwraster);
 
   DeleteDC(hDCmem);
 }
@@ -618,9 +608,8 @@ HB_FUNC(HWG_OPENBITMAP)
   void *hString;
   HANDLE hfbm;
 
-  hfbm =
-      CreateFile(HB_PARSTR(1, &hString, NULL), GENERIC_READ, FILE_SHARE_READ,
-                 (LPSECURITY_ATTRIBUTES)NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, (HANDLE)NULL);
+  hfbm = CreateFile(HB_PARSTR(1, &hString, NULL), GENERIC_READ, FILE_SHARE_READ, (LPSECURITY_ATTRIBUTES)NULL,
+                    OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, (HANDLE)NULL);
   hb_strfree(hString);
   if (((long int)hfbm) <= 0)
   {
@@ -660,8 +649,7 @@ HB_FUNC(HWG_OPENBITMAP)
   case 1:
   case 4:
   case 8:
-    ReadFile(hfbm, lpbmi->bmiColors, ((1 << bmih.biBitCount) * sizeof(RGBQUAD)), &dwRead,
-             (LPOVERLAPPED)NULL);
+    ReadFile(hfbm, lpbmi->bmiColors, ((1 << bmih.biBitCount) * sizeof(RGBQUAD)), &dwRead, (LPOVERLAPPED)NULL);
     break;
 
   case 16:
@@ -1026,8 +1014,7 @@ HB_FUNC(HWG_BITBLT)
   HDC hDC = hwg_par_HDC(1);
   HDC hDC1 = hwg_par_HDC(6);
 
-  hb_retl(BitBlt(hDC, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hDC1, hb_parni(7),
-                 hb_parni(8), hb_parnl(9)));
+  hb_retl(BitBlt(hDC, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hDC1, hb_parni(7), hb_parni(8), hb_parnl(9)));
 }
 
 HB_FUNC(HWG_CREATECOMPATIBLEBITMAP)
@@ -1082,7 +1069,7 @@ HB_FUNC(HWG_DRAWFRAMECONTROL)
   {
     Array2Rect(hb_param(2, HB_IT_ARRAY), &pRect);
   }
-  
+
   hb_retl(DrawFrameControl(hdc, &pRect, uType, uState));
 }
 

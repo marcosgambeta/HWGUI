@@ -118,18 +118,15 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
         cf.yHeight = hb_arrayGetNL(pArr1, 5);
         cf.dwMask |= CFM_SIZE;
       }
-      if (ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != HB_IT_NIL &&
-          hb_arrayGetL(pArr1, 6))
+      if (ulLen1 > 5 && hb_itemType(hb_arrayGetItemPtr(pArr1, 6)) != HB_IT_NIL && hb_arrayGetL(pArr1, 6))
       {
         cf.dwEffects |= CFE_BOLD;
       }
-      if (ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != HB_IT_NIL &&
-          hb_arrayGetL(pArr1, 7))
+      if (ulLen1 > 6 && hb_itemType(hb_arrayGetItemPtr(pArr1, 7)) != HB_IT_NIL && hb_arrayGetL(pArr1, 7))
       {
         cf.dwEffects |= CFE_ITALIC;
       }
-      if (ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != HB_IT_NIL &&
-          hb_arrayGetL(pArr1, 8))
+      if (ulLen1 > 7 && hb_itemType(hb_arrayGetItemPtr(pArr1, 8)) != HB_IT_NIL && hb_arrayGetL(pArr1, 8))
       {
         cf.dwEffects |= CFE_UNDERLINE;
       }
@@ -150,8 +147,7 @@ HB_FUNC(HWG_RE_SETCHARFORMAT)
         }
         cf.dwMask |= CFM_SUPERSCRIPT;
       }
-      if (ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL &&
-          hb_arrayGetL(pArr1, 11))
+      if (ulLen1 > 10 && hb_itemType(hb_arrayGetItemPtr(pArr1, 11)) != HB_IT_NIL && hb_arrayGetL(pArr1, 11))
       {
         cf.dwEffects |= CFE_PROTECTED;
       }
@@ -350,8 +346,7 @@ HB_FUNC(HWG_RE_FINDTEXT)
   HWND hCtrl = hwg_par_HWND(1);
   FINDTEXTEX ft;
   LONG lPos;
-  LONG lFlag = ((HB_ISNIL(4) || !hb_parl(4)) ? 0 : FR_MATCHCASE) |
-               ((HB_ISNIL(5) || !hb_parl(5)) ? 0 : FR_WHOLEWORD) |
+  LONG lFlag = ((HB_ISNIL(4) || !hb_parl(4)) ? 0 : FR_MATCHCASE) | ((HB_ISNIL(5) || !hb_parl(5)) ? 0 : FR_WHOLEWORD) |
                ((HB_ISNIL(6) || !hb_parl(6)) ? FR_DOWN : 0);
   void *hString;
 
@@ -436,8 +431,7 @@ HB_FUNC(HWG_PRINTRTF)
 
 HB_FUNC(HWG_INITRICHPROC)
 {
-  wpOrigRichProc =
-      (WNDPROC)SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, (LONG_PTR)RichSubclassProc);
+  wpOrigRichProc = (WNDPROC)SetWindowLongPtr(hwg_par_HWND(1), GWLP_WNDPROC, (LONG_PTR)RichSubclassProc);
 }
 
 LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -505,8 +499,7 @@ HB_FUNC(HWG_SAVERICHEDIT)
   HB_SIZE nSize;
 
   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
-  hFile =
-      CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+  hFile = CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     hb_retni(0);
@@ -530,8 +523,7 @@ HB_FUNC(HWG_LOADRICHEDIT)
   HB_SIZE nSize;
 
   lpFileName = HB_PARSTR(2, &hFileName, &nSize);
-  hFile = CreateFile(lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING,
-                     FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+  hFile = CreateFile(lpFileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
   if (hFile == INVALID_HANDLE_VALUE)
   {
     hb_retni(0);

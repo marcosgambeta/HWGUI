@@ -161,13 +161,12 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
   else
   {
     return (DefWindowProc(hWnd, message, wParam, lParam));
-  }  
+  }
 }
 
 HB_FUNC(HWG_CREATEROUNDRECTRGN)
 {
-  HRGN Res = CreateRoundRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-                                hb_parni(6));
+  HRGN Res = CreateRoundRectRgn(hb_parni(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6));
   HB_RETHANDLE(Res);
 }
 
@@ -183,8 +182,7 @@ HB_FUNC(HWG_REGNICE)
   static LPCTSTR s_szAppName = TEXT("NICEBUTT");
   static BOOL s_bRegistered = 0;
 
-  s_pGradientfill =
-      (GRADIENTFILL)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
+  s_pGradientfill = (GRADIENTFILL)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
   //    if (Gradientfill == NULL)
   //        return FALSE;
   if (!s_bRegistered)
@@ -242,15 +240,14 @@ HB_FUNC(HWG_RGB)
 
 HB_FUNC(HWG_DRAW_GRADIENT)
 {
-  Draw_Gradient(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6),
-                hb_parni(7), hb_parni(8));
+  Draw_Gradient(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+                hb_parni(8));
 }
 
 HB_FUNC(HWG_GRADIENT)
 {
   if (s_pGradientfill == NULL)
-    s_pGradientfill =
-        (GRADIENTFILL)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
+    s_pGradientfill = (GRADIENTFILL)(void *)GetProcAddress(LoadLibrary(TEXT("MSIMG32.DLL")), "GradientFill");
   // void Gradient(HDC hdc, int x, int y, int w, int h, int color1, int color2, int nmode)
 
   Gradient(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),

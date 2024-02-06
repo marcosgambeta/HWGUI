@@ -18,38 +18,30 @@
 typedef char *(WINAPI *FREEIMAGE_GETVERSION)(void);
 
 #if defined(__cplusplus)
-typedef FIBITMAP *(WINAPI *FREEIMAGE_LOADFROMHANDLE)(FREE_IMAGE_FORMAT fif, FreeImageIO *io,
-                                                     fi_handle handle, int flags);
+typedef FIBITMAP *(WINAPI *FREEIMAGE_LOADFROMHANDLE)(FREE_IMAGE_FORMAT fif, FreeImageIO *io, fi_handle handle,
+                                                     int flags);
 typedef FIBITMAP *(WINAPI *FREEIMAGE_LOAD)(FREE_IMAGE_FORMAT fif, const char *filename, int flags);
-typedef BOOL(WINAPI *FREEIMAGE_SAVE)(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const char *filename,
-                                     int flags);
-typedef FIBITMAP *(WINAPI *FREEIMAGE_ALLOCATE)(int width, int height, int bpp, unsigned red_mask,
-                                               unsigned green_mask, unsigned blue_mask);
-typedef FIBITMAP *(WINAPI *FREEIMAGE_CONVERTFROMRAWBITS)(BYTE *bits, int width, int height,
-                                                         int pitch, unsigned bpp, unsigned red_mask,
-                                                         unsigned green_mask, unsigned blue_mask,
+typedef BOOL(WINAPI *FREEIMAGE_SAVE)(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const char *filename, int flags);
+typedef FIBITMAP *(WINAPI *FREEIMAGE_ALLOCATE)(int width, int height, int bpp, unsigned red_mask, unsigned green_mask,
+                                               unsigned blue_mask);
+typedef FIBITMAP *(WINAPI *FREEIMAGE_CONVERTFROMRAWBITS)(BYTE *bits, int width, int height, int pitch, unsigned bpp,
+                                                         unsigned red_mask, unsigned green_mask, unsigned blue_mask,
                                                          BOOL topdown);
-typedef void(WINAPI *FREEIMAGE_CONVERTTORAWBITS)(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp,
-                                                 unsigned red_mask, unsigned green_mask,
-                                                 unsigned blue_mask, BOOL topdown);
+typedef void(WINAPI *FREEIMAGE_CONVERTTORAWBITS)(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp, unsigned red_mask,
+                                                 unsigned green_mask, unsigned blue_mask, BOOL topdown);
 #else
-typedef FIBITMAP *(WINAPI *FREEIMAGE_LOADFROMHANDLE)(FREE_IMAGE_FORMAT fif, FreeImageIO *io,
-                                                     fi_handle handle, int flags FI_DEFAULT(0));
-typedef FIBITMAP *(WINAPI *FREEIMAGE_LOAD)(FREE_IMAGE_FORMAT fif, const char *filename,
-                                           int flags FI_DEFAULT(0));
-typedef FIBITMAP *(WINAPI *FREEIMAGE_ALLOCATE)(int width, int height, int bpp,
-                                               unsigned red_mask FI_DEFAULT(0),
-                                               unsigned green_mask FI_DEFAULT(0),
-                                               unsigned blue_mask FI_DEFAULT(0));
+typedef FIBITMAP *(WINAPI *FREEIMAGE_LOADFROMHANDLE)(FREE_IMAGE_FORMAT fif, FreeImageIO *io, fi_handle handle,
+                                                     int flags FI_DEFAULT(0));
+typedef FIBITMAP *(WINAPI *FREEIMAGE_LOAD)(FREE_IMAGE_FORMAT fif, const char *filename, int flags FI_DEFAULT(0));
+typedef FIBITMAP *(WINAPI *FREEIMAGE_ALLOCATE)(int width, int height, int bpp, unsigned red_mask FI_DEFAULT(0),
+                                               unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0));
 typedef BOOL(WINAPI *FREEIMAGE_SAVE)(FREE_IMAGE_FORMAT fif, FIBITMAP *dib, const char *filename,
                                      int flags FI_DEFAULT(0));
-typedef FIBITMAP *(WINAPI *FREEIMAGE_CONVERTFROMRAWBITS)(BYTE *bits, int width, int height,
-                                                         int pitch, unsigned bpp, unsigned red_mask,
-                                                         unsigned green_mask, unsigned blue_mask,
+typedef FIBITMAP *(WINAPI *FREEIMAGE_CONVERTFROMRAWBITS)(BYTE *bits, int width, int height, int pitch, unsigned bpp,
+                                                         unsigned red_mask, unsigned green_mask, unsigned blue_mask,
                                                          BOOL topdown FI_DEFAULT(FALSE));
-typedef void(WINAPI *FREEIMAGE_CONVERTTORAWBITS)(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp,
-                                                 unsigned red_mask, unsigned green_mask,
-                                                 unsigned blue_mask,
+typedef void(WINAPI *FREEIMAGE_CONVERTTORAWBITS)(BYTE *bits, FIBITMAP *dib, int pitch, unsigned bpp, unsigned red_mask,
+                                                 unsigned green_mask, unsigned blue_mask,
                                                  BOOL topdown FI_DEFAULT(FALSE));
 #endif
 
@@ -60,12 +52,10 @@ typedef ULONG(WINAPI *FREEIMAGE_GETHEIGHT)(FIBITMAP *dib);
 typedef BYTE *(WINAPI *FREEIMAGE_GETBITS)(FIBITMAP *dib);
 typedef BITMAPINFO *(WINAPI *FREEIMAGE_GETINFO)(FIBITMAP *dib);
 typedef BITMAPINFOHEADER *(WINAPI *FREEIMAGE_GETINFOHEADER)(FIBITMAP *dib);
-typedef FIBITMAP *(WINAPI *FREEIMAGE_RESCALE)(FIBITMAP *dib, int dst_width, int dst_height,
-                                              FREE_IMAGE_FILTER filter);
+typedef FIBITMAP *(WINAPI *FREEIMAGE_RESCALE)(FIBITMAP *dib, int dst_width, int dst_height, FREE_IMAGE_FILTER filter);
 typedef RGBQUAD *(WINAPI *FREEIMAGE_GETPALETTE)(FIBITMAP *dib);
 typedef ULONG(WINAPI *FREEIMAGE_GETBPP)(FIBITMAP *dib);
-typedef BOOL(WINAPI *FREEIMAGE_SETCHANNEL)(FIBITMAP *dib, FIBITMAP *dib8,
-                                           FREE_IMAGE_COLOR_CHANNEL channel);
+typedef BOOL(WINAPI *FREEIMAGE_SETCHANNEL)(FIBITMAP *dib, FIBITMAP *dib8, FREE_IMAGE_COLOR_CHANNEL channel);
 typedef BYTE *(WINAPI *FREEIMAGE_GETSCANLINE)(FIBITMAP *dib, int scanline);
 typedef unsigned(WINAPI *FREEIMAGE_GETPITCH)(FIBITMAP *dib);
 typedef short(WINAPI *FREEIMAGE_GETIMAGETYPE)(FIBITMAP *dib);
@@ -85,11 +75,9 @@ typedef BOOL(WINAPI *FREEIMAGE_FLIPVERTICAL)(FIBITMAP *dib);
 typedef FIBITMAP *(WINAPI *FREEIMAGE_THRESHOLD)(FIBITMAP *dib, BYTE T);
 
 typedef BOOL(WINAPI *FREEIMAGE_GETPIXELINDEX)(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
-typedef BOOL(WINAPI *FREEIMAGE_GETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y,
-                                              RGBQUAD *value);
+typedef BOOL(WINAPI *FREEIMAGE_GETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
 typedef BOOL(WINAPI *FREEIMAGE_SETPIXELINDEX)(FIBITMAP *dib, unsigned x, unsigned y, BYTE *value);
-typedef BOOL(WINAPI *FREEIMAGE_SETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y,
-                                              RGBQUAD *value);
+typedef BOOL(WINAPI *FREEIMAGE_SETPIXELCOLOR)(FIBITMAP *dib, unsigned x, unsigned y, RGBQUAD *value);
 
 static HINSTANCE hFreeImageDll = NULL;
 static FREEIMAGE_LOAD pLoad = NULL;
@@ -141,8 +129,7 @@ BOOL s_freeImgInit(void)
     hFreeImageDll = LoadLibrary(TEXT("FreeImage.dll"));
     if (!hFreeImageDll)
     {
-      MessageBox(GetActiveWindow(), TEXT("Library not loaded"), TEXT("FreeImage.dll"),
-                 MB_OK | MB_ICONSTOP);
+      MessageBox(GetActiveWindow(), TEXT("Library not loaded"), TEXT("FreeImage.dll"), MB_OK | MB_ICONSTOP);
       return 0;
     }
   }
@@ -221,16 +208,14 @@ HB_FUNC(HWG_FI_END)
 
 HB_FUNC(HWG_FI_VERSION)
 {
-  FREEIMAGE_GETVERSION pFunc =
-      (FREEIMAGE_GETVERSION)(void *)s_getFunction(NULL, "_FreeImage_GetVersion@0");
+  FREEIMAGE_GETVERSION pFunc = (FREEIMAGE_GETVERSION)(void *)s_getFunction(NULL, "_FreeImage_GetVersion@0");
 
   hb_retc((pFunc) ? pFunc() : "");
 }
 
 HB_FUNC(HWG_FI_UNLOAD)
 {
-  pUnload =
-      (FREEIMAGE_UNLOAD)(void *)s_getFunction((FARPROC)(void *)pUnload, "_FreeImage_Unload@4");
+  pUnload = (FREEIMAGE_UNLOAD)(void *)s_getFunction((FARPROC)(void *)pUnload, "_FreeImage_Unload@4");
 
   if (pUnload)
   {
@@ -241,8 +226,8 @@ HB_FUNC(HWG_FI_UNLOAD)
 HB_FUNC(HWG_FI_LOAD)
 {
   pLoad = (FREEIMAGE_LOAD)(void *)s_getFunction((FARPROC)(void *)pLoad, "_FreeImage_Load@12");
-  pGetfiffromfile = (FREEIMAGE_GETFIFFROMFILENAME)(void *)s_getFunction(
-      (FARPROC)(void *)pGetfiffromfile, "_FreeImage_GetFIFFromFilename@4");
+  pGetfiffromfile = (FREEIMAGE_GETFIFFROMFILENAME)(void *)s_getFunction((FARPROC)(void *)pGetfiffromfile,
+                                                                        "_FreeImage_GetFIFFromFilename@4");
 
   if (pGetfiffromfile && pLoad)
   {
@@ -265,8 +250,7 @@ HB_FUNC(HWG_FI_LOADTYPE)
   if (pLoad)
   {
     const char *name = hb_parc(2);
-    hb_retnl((ULONG)pLoad((enum FREE_IMAGE_FORMAT)hb_parni(1), name,
-                          (hb_pcount() > 2) ? hb_parni(3) : 0));
+    hb_retnl((ULONG)pLoad((enum FREE_IMAGE_FORMAT)hb_parni(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
   }
   else
   {
@@ -277,14 +261,13 @@ HB_FUNC(HWG_FI_LOADTYPE)
 HB_FUNC(HWG_FI_SAVE)
 {
   pSave = (FREEIMAGE_SAVE)(void *)s_getFunction((FARPROC)(void *)pSave, "_FreeImage_Save@16");
-  pGetfiffromfile = (FREEIMAGE_GETFIFFROMFILENAME)(void *)s_getFunction(
-      (FARPROC)(void *)pGetfiffromfile, "_FreeImage_GetFIFFromFilename@4");
+  pGetfiffromfile = (FREEIMAGE_GETFIFFROMFILENAME)(void *)s_getFunction((FARPROC)(void *)pGetfiffromfile,
+                                                                        "_FreeImage_GetFIFFromFilename@4");
 
   if (pGetfiffromfile && pSave)
   {
     const char *name = hb_parc(2);
-    hb_retl((BOOL)pSave(pGetfiffromfile(name), hwg_par_FIBITMAP(1), name,
-                        (hb_pcount() > 2) ? hb_parni(3) : 0));
+    hb_retl((BOOL)pSave(pGetfiffromfile(name), hwg_par_FIBITMAP(1), name, (hb_pcount() > 2) ? hb_parni(3) : 0));
   }
   else
   {
@@ -313,32 +296,29 @@ HB_FUNC(HWG_FI_SAVETYPE)
 
 HB_FUNC(HWG_FI_GETWIDTH)
 {
-  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth,
-                                                        "_FreeImage_GetWidth@4");
+  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth, "_FreeImage_GetWidth@4");
 
   hb_retnl((pGetwidth) ? pGetwidth(hwg_par_FIBITMAP(1)) : 0);
 }
 
 HB_FUNC(HWG_FI_GETHEIGHT)
 {
-  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight,
-                                                          "_FreeImage_GetHeight@4");
+  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight, "_FreeImage_GetHeight@4");
 
   hb_retnl((pGetheight) ? pGetheight(hwg_par_FIBITMAP(1)) : 0);
 }
 
 HB_FUNC(HWG_FI_GETBPP)
 {
-  pGetBPP =
-      (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
+  pGetBPP = (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
 
   hb_retnl((pGetBPP) ? pGetBPP(hwg_par_FIBITMAP(1)) : 0);
 }
 
 HB_FUNC(HWG_FI_GETIMAGETYPE)
 {
-  pGetImageType = (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType,
-                                                                "_FreeImage_GetImageType@4");
+  pGetImageType =
+      (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType, "_FreeImage_GetImageType@4");
 
   hb_retnl((pGetImageType) ? pGetImageType(hwg_par_FIBITMAP(1)) : 0);
 }
@@ -348,15 +328,12 @@ HB_FUNC(HWG_FI_2BITMAP)
   FIBITMAP *dib = hwg_par_FIBITMAP(1);
   HDC hDC = GetDC(0);
 
-  pGetbits =
-      (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
-  pGetinfo =
-      (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
-  pGetinfoHead = (FREEIMAGE_GETINFOHEADER)(void *)s_getFunction((FARPROC)(void *)pGetinfoHead,
-                                                                "_FreeImage_GetInfoHeader@4");
+  pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+  pGetinfo = (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
+  pGetinfoHead =
+      (FREEIMAGE_GETINFOHEADER)(void *)s_getFunction((FARPROC)(void *)pGetinfoHead, "_FreeImage_GetInfoHeader@4");
 
-  hb_retnl((LONG)CreateDIBitmap(hDC, pGetinfoHead(dib), CBM_INIT, pGetbits(dib), pGetinfo(dib),
-                                DIB_RGB_COLORS));
+  hb_retnl((LONG)CreateDIBitmap(hDC, pGetinfoHead(dib), CBM_INIT, pGetbits(dib), pGetinfo(dib), DIB_RGB_COLORS));
 
   ReleaseDC(0, hDC);
 }
@@ -455,16 +432,11 @@ HB_FUNC(HWG_FI_FI2DIB)
   FIBITMAP *dib = hwg_par_FIBITMAP(1);
   HANDLE hdib;
 
-  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth,
-                                                        "_FreeImage_GetWidth@4");
-  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight,
-                                                          "_FreeImage_GetHeight@4");
-  pGetBPP =
-      (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
-  pGetPitch =
-      (FREEIMAGE_GETPITCH)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetPitch@4");
-  pGetbits =
-      (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth, "_FreeImage_GetWidth@4");
+  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight, "_FreeImage_GetHeight@4");
+  pGetBPP = (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
+  pGetPitch = (FREEIMAGE_GETPITCH)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetPitch@4");
+  pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
 
   hdib = CreateDIB((WORD)pGetwidth(dib), (WORD)pGetheight(dib), (WORD)pGetBPP(dib));
 
@@ -472,8 +444,7 @@ HB_FUNC(HWG_FI_FI2DIB)
   {
     /* int scan_width = pGetPitch(dib); unused */
     LPBITMAPINFO lpbi = (LPBITMAPINFO)GlobalLock(hdib);
-    memcpy((LPBYTE)((BYTE *)lpbi) + lpbi->bmiHeader.biSize, pGetbits(dib),
-           lpbi->bmiHeader.biSizeImage);
+    memcpy((LPBYTE)((BYTE *)lpbi) + lpbi->bmiHeader.biSize, pGetbits(dib), lpbi->bmiHeader.biSizeImage);
     GlobalUnlock(hdib);
     hb_retnl((LONG)hdib);
   }
@@ -489,8 +460,8 @@ HB_FUNC(HWG_FI_FI2DIB)
 static void SET_FREEIMAGE_MARKER(BITMAPINFOHEADER *bmih, FIBITMAP *dib)
 {
 
-  pGetImageType = (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType,
-                                                                "_FreeImage_GetImageType@4");
+  pGetImageType =
+      (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType, "_FreeImage_GetImageType@4");
 
   // Windows constants goes from 0L to 5L
   // Add 0xFF to avoid conflicts
@@ -502,26 +473,19 @@ HB_FUNC(HWG_FI_FI2DIBEX)
   FIBITMAP *_dib = hwg_par_FIBITMAP(1);
   HANDLE hMem = NULL;
 
-  pGetColorsUsed = (FREEIMAGE_GETCOLORSUSED)(void *)s_getFunction((FARPROC)(void *)pGetColorsUsed,
-                                                                  "_FreeImage_GetColorsUsed@4");
-  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth,
-                                                        "_FreeImage_GetWidth@4");
-  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight,
-                                                          "_FreeImage_GetHeight@4");
-  pGetBPP =
-      (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
-  pGetPitch = (FREEIMAGE_GETPITCH)(void *)s_getFunction((FARPROC)(void *)pGetPitch,
-                                                        "_FreeImage_GetPitch@4");
-  pGetinfoHead = (FREEIMAGE_GETINFOHEADER)(void *)s_getFunction((FARPROC)(void *)pGetinfoHead,
-                                                                "_FreeImage_GetInfoHeader@4");
-  pGetinfo =
-      (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
-  pGetbits =
-      (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
-  pGetPalette = (FREEIMAGE_GETPALETTE)(void *)s_getFunction((FARPROC)(void *)pGetPalette,
-                                                            "_FreeImage_GetPalette@4");
-  pGetImageType = (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType,
-                                                                "_FreeImage_GetImageType@4");
+  pGetColorsUsed =
+      (FREEIMAGE_GETCOLORSUSED)(void *)s_getFunction((FARPROC)(void *)pGetColorsUsed, "_FreeImage_GetColorsUsed@4");
+  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth, "_FreeImage_GetWidth@4");
+  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight, "_FreeImage_GetHeight@4");
+  pGetBPP = (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
+  pGetPitch = (FREEIMAGE_GETPITCH)(void *)s_getFunction((FARPROC)(void *)pGetPitch, "_FreeImage_GetPitch@4");
+  pGetinfoHead =
+      (FREEIMAGE_GETINFOHEADER)(void *)s_getFunction((FARPROC)(void *)pGetinfoHead, "_FreeImage_GetInfoHeader@4");
+  pGetinfo = (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
+  pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+  pGetPalette = (FREEIMAGE_GETPALETTE)(void *)s_getFunction((FARPROC)(void *)pGetPalette, "_FreeImage_GetPalette@4");
+  pGetImageType =
+      (FREEIMAGE_GETIMAGETYPE)(void *)s_getFunction((FARPROC)(void *)pGetImageType, "_FreeImage_GetImageType@4");
 
   if (_dib)
   {
@@ -601,16 +565,14 @@ HB_FUNC(HWG_FI_DRAW)
   // sprintf(cres, "\n %d %d %d %d %d", pp[0].x, pp[0].y, pp[1].x, pp[1].y, l);
   // writelog(cres);
 
-  pGetbits =
-      (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
-  pGetinfo =
-      (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
+  pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+  pGetinfo = (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
 
   if (pGetbits && pGetinfo)
   {
     SetStretchBltMode(hDC, COLORONCOLOR);
-    StretchDIBits(hDC, pp[0].x, pp[0].y, pp[1].x - pp[0].x, pp[1].y - pp[0].y, 0, 0, nWidth,
-                  nHeight, pGetbits(dib), pGetinfo(dib), DIB_RGB_COLORS, SRCCOPY);
+    StretchDIBits(hDC, pp[0].x, pp[0].y, pp[1].x - pp[0].x, pp[1].y - pp[0].y, 0, 0, nWidth, nHeight, pGetbits(dib),
+                  pGetinfo(dib), DIB_RGB_COLORS, SRCCOPY);
   }
 }
 
@@ -623,14 +585,10 @@ HB_FUNC(HWG_FI_BMP2FI)
     FIBITMAP *dib;
     BITMAP bm;
 
-    pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate,
-                                                          "_FreeImage_Allocate@24");
-    pGetbits =
-        (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
-    pGetinfo =
-        (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
-    pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight,
-                                                            "_FreeImage_GetHeight@4");
+    pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate, "_FreeImage_Allocate@24");
+    pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+    pGetinfo = (FREEIMAGE_GETINFO)(void *)s_getFunction((FARPROC)(void *)pGetinfo, "_FreeImage_GetInfo@4");
+    pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight, "_FreeImage_GetHeight@4");
 
     if (pAllocate && pGetbits && pGetinfo && pGetheight)
     {
@@ -697,21 +655,18 @@ HB_FUNC(HWG_FI_DIB2FI)
     FIBITMAP *dib;
     LPBITMAPINFOHEADER lpbi = (LPBITMAPINFOHEADER)GlobalLock(hdib);
 
-    pConvertFromRawBits = (FREEIMAGE_CONVERTFROMRAWBITS)(void *)s_getFunction(
-        (FARPROC)(void *)pConvertFromRawBits, "_FreeImage_ConvertFromRawBits@36");
-    pGetPalette = (FREEIMAGE_GETPALETTE)(void *)s_getFunction((FARPROC)(void *)pGetPalette,
-                                                              "_FreeImage_GetPalette@4");
-    pGetBPP =
-        (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
+    pConvertFromRawBits = (FREEIMAGE_CONVERTFROMRAWBITS)(void *)s_getFunction((FARPROC)(void *)pConvertFromRawBits,
+                                                                              "_FreeImage_ConvertFromRawBits@36");
+    pGetPalette = (FREEIMAGE_GETPALETTE)(void *)s_getFunction((FARPROC)(void *)pGetPalette, "_FreeImage_GetPalette@4");
+    pGetBPP = (FREEIMAGE_GETBPP)(void *)s_getFunction((FARPROC)(void *)pGetBPP, "_FreeImage_GetBPP@4");
 
     if (pConvertFromRawBits && lpbi)
     {
       // int pitch = ((((lpbi->biWidth * lpbi->biBitCount) + 31) &~31) >> 3);
       int pitch = ((((lpbi->biBitCount * lpbi->biWidth) + 31) / 32) * 4);
 
-      dib =
-          pConvertFromRawBits(DibBits(lpbi), lpbi->biWidth, lpbi->biHeight, pitch, lpbi->biBitCount,
-                              FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, hb_parl(2));
+      dib = pConvertFromRawBits(DibBits(lpbi), lpbi->biWidth, lpbi->biHeight, pitch, lpbi->biBitCount, FI_RGBA_RED_MASK,
+                                FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK, hb_parl(2));
 
       /* I can't print it with FI_DRAW, though, and I don't know why */
       if (pGetBPP(dib) <= 8)
@@ -743,11 +698,9 @@ HB_FUNC(HWG_FI_DIB2FI)
 
 HB_FUNC(HWG_FI_RESCALE)
 {
-  pRescale =
-      (FREEIMAGE_RESCALE)(void *)s_getFunction((FARPROC)(void *)pRescale, "_FreeImage_Rescale@16");
+  pRescale = (FREEIMAGE_RESCALE)(void *)s_getFunction((FARPROC)(void *)pRescale, "_FreeImage_Rescale@16");
 
-  hb_retnl((pRescale) ? (LONG)pRescale(hwg_par_FIBITMAP(1), hb_parnl(2), hb_parnl(3),
-                                       (FREE_IMAGE_FILTER)hb_parni(4))
+  hb_retnl((pRescale) ? (LONG)pRescale(hwg_par_FIBITMAP(1), hb_parnl(2), hb_parnl(3), (FREE_IMAGE_FILTER)hb_parni(4))
                       : 0);
 }
 
@@ -757,16 +710,11 @@ HB_FUNC(HWG_FI_REMOVECHANNEL)
   FIBITMAP *dib = hwg_par_FIBITMAP(1);
   FIBITMAP *dib8;
 
-  pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate,
-                                                        "_FreeImage_Allocate@24");
-  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth,
-                                                        "_FreeImage_GetWidth@4");
-  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight,
-                                                          "_FreeImage_GetHeight@4");
-  pSetChannel = (FREEIMAGE_SETCHANNEL)(void *)s_getFunction((FARPROC)(void *)pSetChannel,
-                                                            "_FreeImage_SetChannel@12");
-  pUnload =
-      (FREEIMAGE_UNLOAD)(void *)s_getFunction((FARPROC)(void *)pUnload, "_FreeImage_Unload@4");
+  pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate, "_FreeImage_Allocate@24");
+  pGetwidth = (FREEIMAGE_GETWIDTH)(void *)s_getFunction((FARPROC)(void *)pGetwidth, "_FreeImage_GetWidth@4");
+  pGetheight = (FREEIMAGE_GETHEIGHT)(void *)s_getFunction((FARPROC)(void *)pGetheight, "_FreeImage_GetHeight@4");
+  pSetChannel = (FREEIMAGE_SETCHANNEL)(void *)s_getFunction((FARPROC)(void *)pSetChannel, "_FreeImage_SetChannel@12");
+  pUnload = (FREEIMAGE_UNLOAD)(void *)s_getFunction((FARPROC)(void *)pUnload, "_FreeImage_Unload@4");
 
   dib8 = pAllocate(pGetwidth(dib), pGetheight(dib), 8, 0, 0, 0);
 
@@ -826,8 +774,8 @@ long DLL_CALLCONV _TellProc(fi_handle handle)
 
 HB_FUNC(HWG_FI_LOADFROMMEM)
 {
-  pLoadFromHandle = (FREEIMAGE_LOADFROMHANDLE)(void *)s_getFunction(
-      (FARPROC)(void *)pLoadFromHandle, "_FreeImage_LoadFromHandle@16");
+  pLoadFromHandle =
+      (FREEIMAGE_LOADFROMHANDLE)(void *)s_getFunction((FARPROC)(void *)pLoadFromHandle, "_FreeImage_LoadFromHandle@16");
 
   if (pLoadFromHandle)
   {
@@ -871,8 +819,7 @@ HB_FUNC(HWG_FI_LOADFROMMEM)
     }
 
     g_load_address = (fi_handle)image;
-    hb_retnl(
-        (LONG)pLoadFromHandle(fif, &io, (fi_handle)image, (hb_pcount() > 2) ? hb_parni(3) : 0));
+    hb_retnl((LONG)pLoadFromHandle(fif, &io, (fi_handle)image, (hb_pcount() > 2) ? hb_parni(3) : 0));
   }
   else
   {
@@ -882,32 +829,32 @@ HB_FUNC(HWG_FI_LOADFROMMEM)
 
 HB_FUNC(HWG_FI_ROTATECLASSIC)
 {
-  pRotateClassic = (FREEIMAGE_ROTATECLASSIC)(void *)s_getFunction((FARPROC)(void *)pRotateClassic,
-                                                                  "_FreeImage_RotateClassic@12");
+  pRotateClassic =
+      (FREEIMAGE_ROTATECLASSIC)(void *)s_getFunction((FARPROC)(void *)pRotateClassic, "_FreeImage_RotateClassic@12");
 
   hb_retnl((pRotateClassic) ? (LONG)pRotateClassic((FIBITMAP *)hb_parnl(1), hb_parnd(2)) : 0);
 }
 
 HB_FUNC(HWG_FI_GETDOTSPERMETERX)
 {
-  pGetDotsPerMeterX = (FREEIMAGE_GETDOTSPERMETERX)(void *)s_getFunction(
-      (FARPROC)(void *)pGetDotsPerMeterX, "_FreeImage_GetDotsPerMeterX@4");
+  pGetDotsPerMeterX = (FREEIMAGE_GETDOTSPERMETERX)(void *)s_getFunction((FARPROC)(void *)pGetDotsPerMeterX,
+                                                                        "_FreeImage_GetDotsPerMeterX@4");
 
   hb_retnl((pGetDotsPerMeterX) ? pGetDotsPerMeterX((FIBITMAP *)hb_parnl(1)) : 0);
 }
 
 HB_FUNC(HWG_FI_GETDOTSPERMETERY)
 {
-  pGetDotsPerMeterY = (FREEIMAGE_GETDOTSPERMETERY)(void *)s_getFunction(
-      (FARPROC)(void *)pGetDotsPerMeterY, "_FreeImage_GetDotsPerMeterY@4");
+  pGetDotsPerMeterY = (FREEIMAGE_GETDOTSPERMETERY)(void *)s_getFunction((FARPROC)(void *)pGetDotsPerMeterY,
+                                                                        "_FreeImage_GetDotsPerMeterY@4");
 
   hb_retnl((pGetDotsPerMeterY) ? pGetDotsPerMeterY((FIBITMAP *)hb_parnl(1)) : 0);
 }
 
 HB_FUNC(HWG_FI_SETDOTSPERMETERX)
 {
-  pSetDotsPerMeterX = (FREEIMAGE_SETDOTSPERMETERX)(void *)s_getFunction(
-      (FARPROC)(void *)pSetDotsPerMeterX, "_FreeImage_SetDotsPerMeterX@8");
+  pSetDotsPerMeterX = (FREEIMAGE_SETDOTSPERMETERX)(void *)s_getFunction((FARPROC)(void *)pSetDotsPerMeterX,
+                                                                        "_FreeImage_SetDotsPerMeterX@8");
 
   if (pSetDotsPerMeterX)
   {
@@ -919,8 +866,8 @@ HB_FUNC(HWG_FI_SETDOTSPERMETERX)
 
 HB_FUNC(HWG_FI_SETDOTSPERMETERY)
 {
-  pSetDotsPerMeterY = (FREEIMAGE_SETDOTSPERMETERY)(void *)s_getFunction(
-      (FARPROC)(void *)pSetDotsPerMeterY, "_FreeImage_SetDotsPerMeterY@8");
+  pSetDotsPerMeterY = (FREEIMAGE_SETDOTSPERMETERY)(void *)s_getFunction((FARPROC)(void *)pSetDotsPerMeterY,
+                                                                        "_FreeImage_SetDotsPerMeterY@8");
 
   if (pSetDotsPerMeterY)
   {
@@ -932,8 +879,7 @@ HB_FUNC(HWG_FI_SETDOTSPERMETERY)
 
 HB_FUNC(HWG_FI_ALLOCATE)
 {
-  pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate,
-                                                        "_FreeImage_Allocate@24");
+  pAllocate = (FREEIMAGE_ALLOCATE)(void *)s_getFunction((FARPROC)(void *)pAllocate, "_FreeImage_Allocate@24");
 
   // X, Y, DEPTH
   hb_retnl((ULONG)pAllocate(hb_parnl(1), hb_parnl(2), hb_parnl(3), 0, 0, 0));
@@ -966,56 +912,53 @@ HB_FUNC(HWG_FI_SETBACKGROUNDCOLOR)
 {
   RGBQUAD rgbquad = {255, 255, 255, 255};
 
-  pSetBackgroundColor = (FREEIMAGE_SETBACKGROUNDCOLOR)(void *)s_getFunction(
-      (FARPROC)(void *)pSetBackgroundColor, "_FreeImage_SetBackgroundColor@8");
+  pSetBackgroundColor = (FREEIMAGE_SETBACKGROUNDCOLOR)(void *)s_getFunction((FARPROC)(void *)pSetBackgroundColor,
+                                                                            "_FreeImage_SetBackgroundColor@8");
 
   hb_retl(pSetBackgroundColor(hwg_par_FIBITMAP(1), &rgbquad));
 }
 
 HB_FUNC(HWG_FI_INVERT)
 {
-  pInvert =
-      (FREEIMAGE_INVERT)(void *)s_getFunction((FARPROC)(void *)pInvert, "_FreeImage_Invert@4");
+  pInvert = (FREEIMAGE_INVERT)(void *)s_getFunction((FARPROC)(void *)pInvert, "_FreeImage_Invert@4");
 
   hb_retl(pInvert(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC(HWG_FI_GETBITS)
 {
-  pGetbits =
-      (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
+  pGetbits = (FREEIMAGE_GETBITS)(void *)s_getFunction((FARPROC)(void *)pGetbits, "_FreeImage_GetBits@4");
 
   hb_retptr(pGetbits(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC(HWG_FI_CONVERTTO8BITS)
 {
-  pConvertTo8Bits = (FREEIMAGE_CONVERTTO8BITS)(void *)s_getFunction(
-      (FARPROC)(void *)pConvertTo8Bits, "_FreeImage_ConvertTo8Bits@4");
+  pConvertTo8Bits =
+      (FREEIMAGE_CONVERTTO8BITS)(void *)s_getFunction((FARPROC)(void *)pConvertTo8Bits, "_FreeImage_ConvertTo8Bits@4");
 
   hb_retnl((LONG)pConvertTo8Bits(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC(HWG_FI_CONVERTTOGREYSCALE)
 {
-  pConvertToGreyscale = (FREEIMAGE_CONVERTTOGREYSCALE)(void *)s_getFunction(
-      (FARPROC)(void *)pConvertToGreyscale, "_FreeImage_ConvertToGreyscale@4");
+  pConvertToGreyscale = (FREEIMAGE_CONVERTTOGREYSCALE)(void *)s_getFunction((FARPROC)(void *)pConvertToGreyscale,
+                                                                            "_FreeImage_ConvertToGreyscale@4");
 
   hb_retnl((LONG)pConvertToGreyscale(hwg_par_FIBITMAP(1)));
 }
 
 HB_FUNC(HWG_FI_THRESHOLD)
 {
-  pThreshold = (FREEIMAGE_THRESHOLD)(void *)s_getFunction((FARPROC)(void *)pThreshold,
-                                                          "_FreeImage_Threshold@8");
+  pThreshold = (FREEIMAGE_THRESHOLD)(void *)s_getFunction((FARPROC)(void *)pThreshold, "_FreeImage_Threshold@8");
 
   hb_retnl((LONG)pThreshold(hwg_par_FIBITMAP(1), (BYTE)hb_parnl(2)));
 }
 
 HB_FUNC(HWG_FI_FLIPVERTICAL)
 {
-  pFlipVertical = (FREEIMAGE_FLIPVERTICAL)(void *)s_getFunction((FARPROC)(void *)pFlipVertical,
-                                                                "_FreeImage_FlipVertical@4");
+  pFlipVertical =
+      (FREEIMAGE_FLIPVERTICAL)(void *)s_getFunction((FARPROC)(void *)pFlipVertical, "_FreeImage_FlipVertical@4");
 
   hb_retl(pFlipVertical(hwg_par_FIBITMAP(1)));
 }
@@ -1024,8 +967,8 @@ HB_FUNC(HWG_FI_GETPIXELINDEX)
 {
   BYTE value = (BYTE)-1;
   BOOL lRes;
-  pGetPixelIndex = (FREEIMAGE_GETPIXELINDEX)(void *)s_getFunction((FARPROC)(void *)pGetPixelIndex,
-                                                                  "_FreeImage_GetPixelIndex@16");
+  pGetPixelIndex =
+      (FREEIMAGE_GETPIXELINDEX)(void *)s_getFunction((FARPROC)(void *)pGetPixelIndex, "_FreeImage_GetPixelIndex@16");
 
   lRes = pGetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value);
 
@@ -1040,8 +983,8 @@ HB_FUNC(HWG_FI_GETPIXELINDEX)
 HB_FUNC(HWG_FI_SETPIXELINDEX)
 {
   BYTE value = hb_parni(4);
-  pSetPixelIndex = (FREEIMAGE_SETPIXELINDEX)(void *)s_getFunction((FARPROC)(void *)pSetPixelIndex,
-                                                                  "_FreeImage_SetPixelIndex@16");
+  pSetPixelIndex =
+      (FREEIMAGE_SETPIXELINDEX)(void *)s_getFunction((FARPROC)(void *)pSetPixelIndex, "_FreeImage_SetPixelIndex@16");
 
   hb_retl(pSetPixelIndex(hwg_par_FIBITMAP(1), hb_parni(2), hb_parni(3), &value));
 }
