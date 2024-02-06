@@ -151,6 +151,7 @@ METHOD GetValue() CLASS HTrackBar
 #pragma BEGINDUMP
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 
 HB_FUNC(HWG_INITTRACKBAR)

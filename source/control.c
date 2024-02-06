@@ -12,6 +12,7 @@
 
 #define OEMRESOURCE
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 #include <winuser.h>
 #if defined(__DMC__)

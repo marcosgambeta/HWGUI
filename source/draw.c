@@ -13,6 +13,7 @@
 #define __DRAW_C__
 #endif
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"

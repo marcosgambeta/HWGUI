@@ -10,6 +10,7 @@
 
 #define OEMRESOURCE
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 #ifdef __DMC__
 #define MIIM_BITMAP 0x00000080

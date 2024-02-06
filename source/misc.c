@@ -10,6 +10,7 @@
 
 #define OEMRESOURCE
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 #include <math.h>
 

@@ -43,6 +43,7 @@
 ---------------------------------------------------------------------------*/
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 
 #if defined(__POCC__) || defined(__XCC__)
 #include <unknwn.h>

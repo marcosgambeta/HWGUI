@@ -9,6 +9,7 @@
  */
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 
 HB_FUNC(HWG_ANIMATE_CREATE)

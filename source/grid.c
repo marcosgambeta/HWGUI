@@ -12,6 +12,7 @@
  */
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <commctrl.h>
 #if defined(__POCC__) || defined(__XCC__)
 #include <unknwn.h>
