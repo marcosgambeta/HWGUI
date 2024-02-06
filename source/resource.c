@@ -10,6 +10,7 @@
 */
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #if defined(__MINGW32__) || defined(__WATCOMC__)
 #include <prsht.h>
 #endif

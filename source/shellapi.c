@@ -9,6 +9,7 @@
  */
 
 #include "hwingui.h"
+#include "incomp_pointer.h"
 #include <shlobj.h>
 
 #include "hbapi.h"
