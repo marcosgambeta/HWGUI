@@ -1138,7 +1138,7 @@ HB_FUNC(HWG_IMAGELIST_ADDMASKED)
 HB_FUNC(HWG_SETTIMER)
 {
   SetTimer(hwg_par_HWND(1), (UINT)hb_parni(2), (UINT)hb_parni(3),
-           hb_pcount() == 3 ? s_timerProc : (TIMERPROC)NULL);
+           hb_pcount() == 3 ? (TIMERPROC)s_timerProc : (TIMERPROC)NULL);
 }
 
 /*
