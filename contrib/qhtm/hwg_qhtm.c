@@ -17,6 +17,7 @@
 #include "hbvm.h"
 #include "qhtm.h"
 #include "hwingui.h"
+#include "incomp_pointer.h"
 
 extern BOOL WINAPI QHTM_Initialize( HINSTANCE hInst );
 extern int WINAPI QHTM_MessageBox( HWND hwnd, LPCTSTR lpText,
