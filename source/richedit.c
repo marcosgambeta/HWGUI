@@ -474,7 +474,7 @@ LRESULT APIENTRY RichSubclassProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
   }
 }
 
-static DWORD CALLBACK RichStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
+static DWORD CALLBACK RichStreamOutCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
 {
   HANDLE pFile = (HANDLE)dwCookie;
   DWORD dwW;
@@ -513,7 +513,7 @@ HB_FUNC(HWG_SAVERICHEDIT)
     return;
   }
   es.dwCookie = (DWORD)hFile;
-  es.pfnCallback = RichStreamOutCallback;
+  es.pfnCallback = (EDITSTREAMCALLBACK)RichStreamOutCallback;
 
   SendMessage(hWnd, EM_STREAMOUT, (WPARAM)SF_RTF, (LPARAM)&es);
   CloseHandle(hFile);
