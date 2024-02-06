@@ -169,7 +169,7 @@ HB_FUNC(HWG_SETRANGEPROGRESSBAR)
 HB_FUNC(HWG_CREATEPANEL)
 {
   HWND hWndPanel;
-  hWndPanel = CreateWindow(TEXT("PANEL"), /* predefined class  */
+  hWndPanel = CreateWindowEx(0, TEXT("PANEL"), /* predefined class  */
                            NULL,          /* no window title   */
                            WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW | CCS_TOP |
                                hb_parnl(3),          /* style  */
@@ -189,7 +189,7 @@ HB_FUNC(HWG_CREATEPANEL)
 HB_FUNC(HWG_CREATEOWNBTN)
 {
   HWND hWndPanel;
-  hWndPanel = CreateWindow(TEXT("OWNBTN"), /* predefined class  */
+  hWndPanel = CreateWindowEx(0, TEXT("OWNBTN"), /* predefined class  */
                            NULL,           /* no window title   */
                            WS_CHILD | WS_VISIBLE | SS_GRAYRECT | SS_OWNERDRAW, /* style  */
                            hb_parni(3), hb_parni(4),                           /* x, y       */
@@ -240,7 +240,7 @@ HB_FUNC(HWG_CREATESTATIC)
 HB_FUNC(HWG_CREATEBUTTON)
 {
   void *hStr;
-  HWND hBtn = CreateWindow(TEXT("BUTTON"),                      /* predefined class  */
+  HWND hBtn = CreateWindowEx(0, TEXT("BUTTON"),                      /* predefined class  */
                            HB_PARSTR(8, &hStr, NULL),           /* button text   */
                            WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
                            hb_parni(4), hb_parni(5),            /* x, y       */
@@ -291,7 +291,7 @@ HB_FUNC(HWG_CREATEEDIT)
 */
 HB_FUNC(HWG_CREATECOMBO)
 {
-  HWND hCombo = CreateWindow(TEXT("COMBOBOX"),                    /* predefined class  */
+  HWND hCombo = CreateWindowEx(0, TEXT("COMBOBOX"),                    /* predefined class  */
                              TEXT(""),                            /*   */
                              WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
                              hb_parni(4), hb_parni(5),            /* x, y       */
@@ -432,7 +432,7 @@ HB_FUNC(HWG_ADDTOOLTIP)
 
   if (!hWndTT)
   {
-    hWndTT = CreateWindow(TOOLTIPS_CLASS, NULL, WS_POPUP | TTS_ALWAYSTIP | iStyle, CW_USEDEFAULT,
+    hWndTT = CreateWindowEx(0, TOOLTIPS_CLASS, NULL, WS_POPUP | TTS_ALWAYSTIP | iStyle, CW_USEDEFAULT,
                           CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL,
                           GetModuleHandle(NULL), NULL);
   }
@@ -678,7 +678,7 @@ HB_FUNC(HWG_CREATETABCONTROL)
 {
   HWND hTab;
 
-  hTab = CreateWindow(WC_TABCONTROL, NULL, WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
+  hTab = CreateWindowEx(0, WC_TABCONTROL, NULL, WS_CHILD | WS_VISIBLE | hb_parnl(3), /* style  */
                       hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
                       hwg_par_HWND(1),    /* parent window    */
                       (HMENU)hb_parni(2), /* control ID  */
@@ -2027,7 +2027,7 @@ HB_FUNC(HWG_CREATEPAGER)
   HWND hWndPanel;
   BOOL bVert = hb_parl(8);
   hWndPanel =
-      CreateWindow(WC_PAGESCROLLER, /* predefined class  */
+      CreateWindowEx(0, WC_PAGESCROLLER, /* predefined class  */
                    NULL,            /* no window title   */
                    WS_CHILD | WS_VISIBLE | bVert ? PGS_VERT : PGS_HORZ | hb_parnl(3), /* style  */
                    hb_parni(4), hb_parni(5), /* x, y       */

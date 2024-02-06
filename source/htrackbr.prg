@@ -158,7 +158,7 @@ HB_FUNC(HWG_INITTRACKBAR)
 {
     HWND hTrackBar;
 
-    hTrackBar = CreateWindow(TRACKBAR_CLASS,
+    hTrackBar = CreateWindowEx(0, TRACKBAR_CLASS,
                              0,
                              (LONG) hb_parnl(3),
                                     hb_parni(4),
