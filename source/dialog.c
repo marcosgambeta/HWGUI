@@ -8,13 +8,6 @@
  * www - http://kresin.belgorod.su
  */
 
-// TODO: revision
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4311 )
-#pragma warning( disable : 4312 )
-#endif
-
 // #define OEMRESOURCE
 #include "hwingui.h"
 #include "incomp_pointer.h"
@@ -122,7 +115,7 @@ HB_FUNC(HWG_SETDLGITEMINT)
 
 HB_FUNC(HWG_GETDLGITEMTEXT)
 {
-  USHORT uiLen = hb_parni(3);
+  USHORT uiLen = (USHORT)hb_parni(3);
   LPTSTR lpText = (LPTSTR)hb_xgrab((uiLen + 1) * sizeof(TCHAR));
 
   GetDlgItemText(hwg_par_HWND(1), // handle of dialog box
@@ -201,11 +194,22 @@ HB_FUNC(HWG_GETNOTIFYCODE)
   hb_retnl((LONG)(((NMHDR *)HB_PARHANDLE(1))->code));
 }
 
+#if 0
 static LPWORD s_lpwAlign(LPWORD lpIn)
 {
   ULONG ul;
 
   ul = (ULONG)lpIn;
+  ul += 3;
+  ul >>= 2;
+  ul <<= 2;
+  return (LPWORD)ul;
+}
+#endif
+
+static LPWORD s_lpwAlign(LPWORD lpIn)
+{
+  HB_PTRDIFF ul = (HB_PTRDIFF)lpIn;
   ul += 3;
   ul >>= 2;
   ul <<= 2;
@@ -224,9 +228,9 @@ static HB_SIZE s_nCopyAnsiToWideChar(LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE siz
 static int s_nWideStringLen(PHB_ITEM pItem)
 {
 #if defined(HB_HAS_STR_FUNC)
-  return hb_itemCopyStrU16(pItem, HB_CDP_ENDIAN_NATIVE, NULL, 0) + 1;
+  return (int)hb_itemCopyStrU16(pItem, HB_CDP_ENDIAN_NATIVE, NULL, 0) + 1;
 #else
-  return MultiByteToWideChar(GetACP(), 0, hb_itemGetCPtr(pItem), -1, NULL, 0);
+  return (int)MultiByteToWideChar(GetACP(), 0, hb_itemGetCPtr(pItem), -1, NULL, 0);
 #endif
 }
 
@@ -250,7 +254,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
   ulStyle &= ~(DS_SETFONT | DS_SHELLFONT);
 
   pControls = hb_itemNew(GetObjectVar(pObj, "ACONTROLS"));
-  ulControls = hb_arrayLen(pControls);
+  ulControls = (ULONG)hb_arrayLen(pControls);
 
   lTemplateSize += s_nWideStringLen(GetObjectVar(pObj, "TITLE"));
   lTemplateSize += lTemplateSize & 1;
@@ -282,11 +286,11 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
   *p++ = 0;      // HIWORD (lExtendedStyle)
   *p++ = LOWORD(ulStyle);
   *p++ = HIWORD(ulStyle);
-  *p++ = (UINT)ulControls; // NumberOfItems
-  *p++ = x1;               // x
-  *p++ = y1;               // y
-  *p++ = dwidth;           // cx
-  *p++ = dheight;          // cy
+  *p++ = (WORD)ulControls; // NumberOfItems
+  *p++ = (WORD)x1;               // x
+  *p++ = (WORD)y1;               // y
+  *p++ = (WORD)dwidth;           // cx
+  *p++ = (WORD)dheight;          // cy
   *p++ = 0;                // Menu
   *p++ = 0;                // Class
 
@@ -316,11 +320,11 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
     *p++ = HIWORD(lExtStyle); // HIWORD (lExtendedStyle)
     *p++ = LOWORD(ulStyle);
     *p++ = HIWORD(ulStyle);
-    *p++ = x1;                                         // x
-    *p++ = y1;                                         // y
-    *p++ = dwidth;                                     // cx
-    *p++ = dheight;                                    // cy
-    *p++ = hb_itemGetNI(GetObjectVar(pControl, "ID")); // LOWORD (Control ID)
+    *p++ = (WORD)x1;                                         // x
+    *p++ = (WORD)y1;                                         // y
+    *p++ = (WORD)dwidth;                                     // cx
+    *p++ = (WORD)dheight;                                    // cy
+    *p++ = (WORD)hb_itemGetNI(GetObjectVar(pControl, "ID")); // LOWORD (Control ID)
     *p++ = 0;                                          // HOWORD (Control ID)
 
     // class name
@@ -349,13 +353,13 @@ static void s_ReleaseDlgTemplate(LPDLGTEMPLATE pdlgtemplate)
 
 HB_FUNC(HWG_CREATEDLGTEMPLATE)
 {
-  hb_retnl((LONG)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
+  hb_retnl((LONG)(LONG_PTR)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
                                      (ULONG)hb_parnd(6)));
 }
 
 HB_FUNC(HWG_RELEASEDLGTEMPLATE)
 {
-  s_ReleaseDlgTemplate((LPDLGTEMPLATE)hb_parnl(1));
+  s_ReleaseDlgTemplate((LPDLGTEMPLATE)(LONG_PTR)hb_parnl(1));
 }
 
 /*
@@ -411,7 +415,7 @@ HB_FUNC(HWG__CREATEPROPERTYSHEETPAGE)
   }
   else
   {
-    pdlgtemplate = (LPDLGTEMPLATE)hb_parnl(2);
+    pdlgtemplate = (LPDLGTEMPLATE)(LONG_PTR)hb_parnl(2);
 
     psp.dwFlags = PSP_DLGINDIRECT | PSP_USECALLBACK;
 #if !defined(__BORLANDC__) || (__BORLANDC__ > 1424)
@@ -451,7 +455,7 @@ HB_FUNC(HWG__PROPERTYSHEET)
   }
   for (i = 0; i < nPages; i++)
   {
-    psp[i] = (HPROPSHEETPAGE)hb_arrayGetNL(pArr, i + 1);
+    psp[i] = (HPROPSHEETPAGE)(LONG_PTR)hb_arrayGetNL(pArr, i + 1);
   }
 
   psh.dwSize = sizeof(PROPSHEETHEADER);
@@ -489,7 +493,7 @@ HB_FUNC(HWG_CREATEDLGINDIRECT)
 
   if (hb_pcount() > 7 && !HB_ISNIL(8))
   {
-    pdlgtemplate = (LPDLGTEMPLATE)hb_parnl(8);
+    pdlgtemplate = (LPDLGTEMPLATE)(LONG_PTR)hb_parnl(8);
   }
   else
   {
