@@ -19,7 +19,7 @@ Private nColor, oBmp2
    // hb_SetCodepage( "RU1251" )
 
    INIT WINDOW oMainWindow MDI TITLE "Example" ;
-         MENUPOS 3 COLOR HBrush():Add(16744703):handle 
+         MENUPOS 3 COLOR HBrush():Add(16744703):color 
 
    @ 0,0 PANEL oPanel SIZE 0,32
    @ 2,3 OWNERBUTTON OF oPanel ON CLICK {||CreateChildWindow()} ;
