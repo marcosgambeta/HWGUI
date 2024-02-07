@@ -2064,7 +2064,7 @@ static BOOL _AddBar(HWND pParent, HWND pBar, REBARBANDINFO *pRBBI)
 
   pRBBI->cxMinChild = size.cx;
   pRBBI->cyMinChild = size.cy;
-  bResult = SendMessage(pParent, RB_INSERTBAND, -1, (LPARAM)pRBBI);
+  bResult = SendMessage(pParent, RB_INSERTBAND, (WPARAM)-1, (LPARAM)pRBBI);
 
   return bResult;
 }
@@ -2242,9 +2242,9 @@ HB_FUNC(HWG_HANDLETOPTR)
   DWORD h = hb_parnl(1);
 #ifdef HWG_USE_POINTER_ITEM
   hb_retptr(ULongToPtr(h));
-  return;
-#endif
+#else
   hb_retnl((LONG)h);
+#endif
 }
 
 HB_FUNC(HWG_TABITEMPOS)
