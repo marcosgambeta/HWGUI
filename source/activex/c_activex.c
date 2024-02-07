@@ -24,6 +24,13 @@
  *
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4311 )
+#pragma warning( disable : 4312 )
+#endif
+
 #ifndef NONAMELESSUNION
 #define NONAMELESSUNION
 #endif
@@ -283,7 +290,7 @@ static ULONG STDMETHODCALLTYPE GetTypeInfoCount(IEventHandler *this, UINT *pCoun
 {
   HB_SYMBOL_UNUSED(this);
   HB_SYMBOL_UNUSED(pCount);
-  return E_NOTIMPL;
+  return (ULONG)E_NOTIMPL;
 }
 
 //------------------------------------------------------------------------------
@@ -295,7 +302,7 @@ static ULONG STDMETHODCALLTYPE GetTypeInfo(IEventHandler *this, UINT itinfo, LCI
   HB_SYMBOL_UNUSED(itinfo);
   HB_SYMBOL_UNUSED(lcid);
   HB_SYMBOL_UNUSED(pTypeInfo);
-  return E_NOTIMPL;
+  return (ULONG)E_NOTIMPL;
 }
 
 //------------------------------------------------------------------------------
@@ -309,7 +316,7 @@ static ULONG STDMETHODCALLTYPE GetIDsOfNames(IEventHandler *this, REFIID riid, L
   HB_SYMBOL_UNUSED(cNames);
   HB_SYMBOL_UNUSED(lcid);
   HB_SYMBOL_UNUSED(rgdispid);
-  return E_NOTIMPL;
+  return (ULONG)E_NOTIMPL;
 }
 
 //------------------------------------------------------------------------------
@@ -334,7 +341,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
   // We implement only a "default" interface
   if (!IsEqualIID(riid, &IID_NULL))
   {
-    return (DISP_E_UNKNOWNINTERFACE);
+    return (ULONG)DISP_E_UNKNOWNINTERFACE;
   }
   
   HB_SYMBOL_UNUSED(lcid);
@@ -370,10 +377,8 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
 
     PHB_ITEM pExec = hb_arrayGetItemPtr(pArray, 01);
 
-    if (pExec)
+    if (pExec && hb_vmRequestReenter())
     {
-
-      hb_vmPushState();
 
       switch (hb_itemType(pExec))
       {
@@ -483,7 +488,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
 
       } // EOF for( i=iArg; i > 0; i-- )
 
-      hb_vmPopState();
+      hb_vmRequestRestore();
 
     } // EOF if ( pExec )
 
@@ -519,10 +524,10 @@ HB_FUNC(HWG_SETUPCONNECTIONPOINT)
 {
   IConnectionPointContainer *pIConnectionPointContainerTemp = NULL;
   IUnknown *pIUnknown = NULL;
-  IConnectionPoint *m_pIConnectionPoint;
+  IConnectionPoint *m_pIConnectionPoint = NULL;
   IEnumConnectionPoints *m_pIEnumConnectionPoints;
   HRESULT hr; //,r;
-  IID rriid;
+  IID rriid = {0};
   register IEventHandler *thisobj;
   DWORD dwCookie = 0;
 
