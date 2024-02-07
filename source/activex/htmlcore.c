@@ -36,8 +36,16 @@
  * ignore the default libraries. This will reduce code size.
  */
 
+// TODO: revision
 #if defined(_MSC_VER)
 #pragma warning( disable : 4201 )
+#pragma warning( disable : 4706 )
+#pragma warning( disable : 4057 )
+#pragma warning( disable : 4133 )
+#pragma warning( disable : 4213 )
+#pragma warning( disable : 4311 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4244 )
 #endif
 
 #include <windows.h>
@@ -425,7 +433,7 @@ void SetEmbedded(HWND handle, IOleObject **obj)
   PHB_ITEM pObject, pEmbed;
   PHB_ITEM temp;
 
-  pObject = (PHB_ITEM)GetWindowLongPtr(handle, GWL_USERDATA);
+  pObject = (PHB_ITEM)GetWindowLongPtr(handle, GWLP_USERDATA);
   pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
   temp = hb_itemPutNL(NULL, (LONG)obj);
   SetObjectVar(pEmbed, "_HANDLE", temp);
@@ -436,7 +444,7 @@ IOleObject **GetEmbedded(HWND handle)
 {
   PHB_ITEM pObject, pEmbed;
 
-  pObject = (PHB_ITEM)GetWindowLongPtr(handle, GWL_USERDATA);
+  pObject = (PHB_ITEM)GetWindowLongPtr(handle, GWLP_USERDATA);
   pEmbed = hb_itemNew(GetObjectVar(pObject, "OEMBEDDED"));
   return (IOleObject **)hb_itemGetNL(GetObjectVar(pEmbed, "HANDLE"));
 }
@@ -1477,7 +1485,7 @@ HRESULT STDMETHODCALLTYPE Dispatch_Invoke(IDispatch *This, DISPID dispIdMember, 
         else
         {
           webParams.eventStr = (LPCTSTR)strType;
-        }  
+        }
       }
       // Send a WM_NOTIFY message to the window with the _IDispatchEx as
       // WPARAM, and the WEBPARAMS as LPARAM.
@@ -1567,7 +1575,7 @@ IDispatch *WINAPI CreateWebEvtHandler(HWND hwnd, IHTMLDocument2 *htmlDoc2, DWORD
     {
       varDisp.DEF_VT -= sizeof(void *);
     }
-    
+
     // Create an IDispatch object (actually we create one of our own
     // _IDispatchEx objects) which we'll use to monitor "events" that occur
     // to an element on a web page. IE's engine will call our IDispatch's
@@ -1594,7 +1602,7 @@ IDispatch *WINAPI CreateWebEvtHandler(HWND hwnd, IHTMLDocument2 *htmlDoc2, DWORD
       {
         lpDispatchEx->userdata = userdata;
       }
-      
+
       // No one has yet called its Dispatch_AddRef(). That won't happen
       // until we attach some event to it, such as below.
       lpDispatchEx->refCount = 0;
@@ -1647,7 +1655,9 @@ IDispatch *WINAPI CreateWebEvtHandler(HWND hwnd, IHTMLDocument2 *htmlDoc2, DWORD
         }
 
         // An error. Free all stuff above.
+#if 0
       bad:
+#endif
         htmlWindow3->lpVtbl->Release(htmlWindow3);
       }
 
@@ -1663,7 +1673,7 @@ IDispatch *WINAPI CreateWebEvtHandler(HWND hwnd, IHTMLDocument2 *htmlDoc2, DWORD
   {
     obj->lpVtbl->Release(obj);
   }
-  
+
   // FAILURE.
   return (0);
 }
