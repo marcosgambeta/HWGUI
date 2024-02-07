@@ -8,6 +8,14 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4996 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4311 )
+#endif
+
 #define OEMRESOURCE
 #include "hwingui.h"
 #include "incomp_pointer.h"
@@ -28,13 +36,6 @@ BOOL WINAPI GetDefaultPrinterW(LPWSTR, LPDWORD);
 #else
 #define GetDefaultPrinter GetDefaultPrinterA
 #endif
-#endif
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4996 )
-#pragma warning( disable : 4312 )
-#pragma warning( disable : 4311 )
 #endif
 
 HB_FUNC(HWG_OPENPRINTER)

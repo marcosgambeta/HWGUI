@@ -8,16 +8,17 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <commctrl.h>
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#endif
 
 HB_FUNC_EXTERN(HB_OEMTOANSI);
 HB_FUNC_EXTERN(HB_ANSITOOEM);

@@ -8,6 +8,7 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
 #if defined(_MSC_VER)
 #pragma warning( disable : 4201 )
 #endif
@@ -34,7 +35,7 @@ HB_FUNC(HWGAX_OLEINITIALIZE)
     if (OleInitialize(NULL) == S_OK)
     {
       bOleInitialized = 1;
-    }  
+    }
   }
   hb_retl(bOleInitialized);
 }

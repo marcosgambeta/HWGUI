@@ -8,10 +8,11 @@
  * www - http://sites.uol.com.br/culikr/
  */
 
+// TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4996 )
 #pragma warning( disable : 4244 )
 #pragma warning( disable : 4312 )
+#pragma warning( disable : 4996 )
 #endif
 
 #include "hwingui.h"

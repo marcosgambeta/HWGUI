@@ -8,6 +8,7 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
 #if defined(_MSC_VER)
 #pragma warning( disable : 4201 )
 #endif

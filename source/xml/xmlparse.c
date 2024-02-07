@@ -8,6 +8,11 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #include <stdio.h>
 #include "hbapi.h"
 #include "hbapiitm.h"
@@ -19,10 +24,6 @@
 #include "hbapicls.h"
 #endif
 #include "guilib.h"
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#endif
 
 void hwg_writelog(const char *sFile, const char *sTraceMsg, ...);
 

@@ -42,6 +42,7 @@
     Copyright 1999-2003, http://www.harbour-project.org/
 ---------------------------------------------------------------------------*/
 
+// TODO: revision
 #if defined(_MSC_VER)
 #pragma warning( disable : 4312 )
 #endif

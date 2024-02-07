@@ -8,6 +8,13 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4311 )
+#pragma warning( disable : 4312 )
+#endif
+
 #define HB_OS_WIN_32_USED
 
 #define OEMRESOURCE
@@ -25,12 +32,6 @@
 #include "hbtrace.h"
 #ifdef __XHARBOUR__
 #include "hbfast.h"
-#endif
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4312 )
-#pragma warning( disable : 4311 )
 #endif
 
 #if defined(__BORLANDC__) || (defined(_MSC_VER) && !defined(__XCC__) || defined(__WATCOMC__) || defined(__DMC__))

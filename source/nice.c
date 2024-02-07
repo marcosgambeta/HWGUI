@@ -8,6 +8,13 @@
  * www - http://sites.uol.com.br/culikr/
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4311 )
+#pragma warning( disable : 4312 )
+#endif
+
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>
@@ -15,12 +22,6 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 #include "hbstack.h"
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4312 )
-#pragma warning( disable : 4311 )
-#endif
 
 #ifndef GRADIENT_FILL_RECT_H
 

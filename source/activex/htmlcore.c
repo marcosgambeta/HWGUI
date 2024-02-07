@@ -38,14 +38,14 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4201 )
-#pragma warning( disable : 4706 )
 #pragma warning( disable : 4057 )
 #pragma warning( disable : 4133 )
+#pragma warning( disable : 4201 )
 #pragma warning( disable : 4213 )
+#pragma warning( disable : 4244 )
 #pragma warning( disable : 4311 )
 #pragma warning( disable : 4312 )
-#pragma warning( disable : 4244 )
+#pragma warning( disable : 4706 )
 #endif
 
 #include <windows.h>

@@ -145,6 +145,7 @@ METHOD onSelect() CLASS HMonthCalendar
 
 #pragma BEGINDUMP
 
+// TODO: revision
 #if defined(_MSC_VER)
 #pragma warning( disable : 4312 )
 #endif

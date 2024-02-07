@@ -8,14 +8,15 @@
  * www - http://kresin.belgorod.su
  */
 
+// TODO: revision
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #define OEMRESOURCE
 #include "hwingui.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
-
-#if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
-#endif
 
 HB_FUNC(HWG_SELECTFONT)
 {
