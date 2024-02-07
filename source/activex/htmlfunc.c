@@ -18,7 +18,9 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
-#include "guilib.h"
+//#include "guilib.h"
+#include "hwingui.h"
+
 static short int bOleInitialized = 0;
 
 HB_FUNC(HWGAX_OLEINITIALIZE)
