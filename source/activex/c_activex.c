@@ -377,8 +377,16 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
 
     PHB_ITEM pExec = hb_arrayGetItemPtr(pArray, 01);
 
+#ifdef __XHARBOUR__
+    if (pExec)
+#else
     if (pExec && hb_vmRequestReenter())
+#endif
     {
+
+      #ifdef __XHARBOUR__
+      hb_vmPushState();
+      #endif
 
       switch (hb_itemType(pExec))
       {
@@ -488,7 +496,11 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler *this, DISPID dispid, REFIID
 
       } // EOF for( i=iArg; i > 0; i-- )
 
+      #ifdef __XHARBOUR__
+      hb_vmPopState();
+      #else
       hb_vmRequestRestore();
+      #endif
 
     } // EOF if ( pExec )
 
