@@ -32,6 +32,7 @@ BOOL WINAPI GetDefaultPrinterW(LPWSTR, LPDWORD);
 
 #if defined(_MSC_VER)
 #pragma warning( disable : 4244 )
+#pragma warning( disable : 4996 )
 #endif
 
 HB_FUNC(HWG_OPENPRINTER)

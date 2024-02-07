@@ -8,6 +8,10 @@
  * www - http://sites.uol.com.br/culikr/
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4996 )
+#endif
+
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>
