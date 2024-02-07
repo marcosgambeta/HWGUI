@@ -374,7 +374,7 @@ HB_FUNC(HWG_LISTVIEWSELECTALL)
   HWND hList = hwg_par_HWND(1);
 
   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
-  SendMessage(hList, LVM_ENSUREVISIBLE, -1, FALSE);
+  SendMessage(hList, LVM_ENSUREVISIBLE, (WPARAM)-1, FALSE);
   ListView_SetItemState(hList, -1, LVIS_SELECTED, LVIS_SELECTED);
   hb_retl(1);
 }
