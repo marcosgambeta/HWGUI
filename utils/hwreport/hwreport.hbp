@@ -1,0 +1,11 @@
+-i.
+
+hwreport.prg
+opensave.prg
+propert.prg
+printrpt.prg
+repexec.prg
+
+repbuild.rc
+
+..\..\hwgui.hbc
