@@ -17,6 +17,7 @@
 -iinclude
 
 -cflag=-DHWG_USE_POINTER_ITEM
+{allmsvc}-cflag=-D_CRT_SECURE_NO_WARNINGS
 "{unix}-cflag=`pkg-config --cflags gtk+-2.0`"
 
 @hwgui.hbm
