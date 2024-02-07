@@ -8,6 +8,10 @@
  * www - http://kresin.belgorod.su
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4201 )
+#endif
+
 #define OEMRESOURCE
 #ifdef __DMC__
 #define __DRAW_C__

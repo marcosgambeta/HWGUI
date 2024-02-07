@@ -8,6 +8,10 @@
  * www - http://kresin.belgorod.su
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4201 )
+#endif
+
 #define HB_OS_WIN_32_USED
 
 #define _WIN32_WINNT 0x0400

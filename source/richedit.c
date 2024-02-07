@@ -8,6 +8,10 @@
  * www - http://kresin.belgorod.su
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4201 )
+#endif
+
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #if defined(__MINGW32__) || defined(__WATCOMC__)

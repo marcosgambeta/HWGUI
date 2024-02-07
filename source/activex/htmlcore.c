@@ -36,6 +36,10 @@
  * ignore the default libraries. This will reduce code size.
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4201 )
+#endif
+
 #include <windows.h>
 #include <tchar.h>
 #include "htmlcore.h"
