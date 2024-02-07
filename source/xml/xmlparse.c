@@ -20,6 +20,10 @@
 #endif
 #include "guilib.h"
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 void hwg_writelog(const char *sFile, const char *sTraceMsg, ...);
 
 #if (defined(_MSC_VER) && (_MSC_VER >= 1400))

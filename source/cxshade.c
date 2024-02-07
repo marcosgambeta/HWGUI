@@ -14,6 +14,10 @@
 #include "hwingui.h"
 #include "hbapiitm.h"
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #if defined(__HARBOURPP__)
 #define max(a, b) HB_MAX(a, b)
 #define min(a, b) HB_MIN(a, b)

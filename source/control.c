@@ -27,6 +27,10 @@
 #include "hbfast.h"
 #endif
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #if defined(__BORLANDC__) || (defined(_MSC_VER) && !defined(__XCC__) || defined(__WATCOMC__) || defined(__DMC__))
 HB_EXTERN_BEGIN
 WINUSERAPI HWND WINAPI GetAncestor(HWND hwnd, UINT gaFlags);

@@ -13,6 +13,10 @@
 #include "hbvm.h"
 #include "freeimage.h"
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #define hwg_par_FIBITMAP(n) (FIBITMAP *)hb_parnl(n)
 
 typedef char *(WINAPI *FREEIMAGE_GETVERSION)(void);

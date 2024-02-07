@@ -13,6 +13,10 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 HB_FUNC(HWG_SELECTFONT)
 {
 

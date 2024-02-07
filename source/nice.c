@@ -16,6 +16,10 @@
 #include "hbvm.h"
 #include "hbstack.h"
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #ifndef GRADIENT_FILL_RECT_H
 
 #define GRADIENT_FILL_RECT_H 0
