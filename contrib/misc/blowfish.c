@@ -9,6 +9,10 @@
  * www - http://www.geocities.com/alkresin/
 */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #define MAXKEYBYTES 56          /* 448 bits */
 #define N           16
 

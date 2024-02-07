@@ -51,6 +51,10 @@
  *
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #include "hbapidbg.h"
 #include "hbapiitm.h"
 #include "hbapicls.h"
@@ -1288,7 +1292,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
     i++;
   }
 
-  buffsize = 8 + strlen(watch->szExpr) + 1;
+  buffsize = 8 + (int)strlen(watch->szExpr) + 1;
 
   s = (char *)hb_xgrab(buffsize + 1);
   hb_strncpy(s, "{|__dbg|", buffsize);

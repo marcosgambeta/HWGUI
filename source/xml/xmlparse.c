@@ -141,10 +141,10 @@ HB_FUNC(HBXML_TRANSFORM)
       {
         if (*ptrs == c)
         {
-          iLenAdd += strlen((char *)pEntity1[ptrs - pEntity2]);
+          iLenAdd += (int)strlen((char *)pEntity1[ptrs - pEntity2]);
           break;
         }
-      }  
+      }
     }
     ptr++;
   }
@@ -162,7 +162,7 @@ HB_FUNC(HBXML_TRANSFORM)
         {
           if (*ptrs == c)
           {
-            iLen = strlen((char *)pEntity1[ptrs - pEntity2]);
+            iLen = (int)strlen((char *)pEntity1[ptrs - pEntity2]);
             *ptr1++ = '&';
             memcpy(ptr1, pEntity1[ptrs - pEntity2], iLen);
             ptr1 += iLen - 1;
@@ -221,7 +221,7 @@ PHB_ITEM hbxml_pp(unsigned char *ptr, HB_ULONG ulLen)
       {
         for (i = 0; i < nPredefsKol; i++)
         {
-          nlen = strlen((char *)pEntity1[i]);
+          nlen = (int)strlen((char *)pEntity1[i]);
           if (!memcmp(ptr + 1, pEntity1[i], nlen))
           {
             *ptr = pEntity2[i];

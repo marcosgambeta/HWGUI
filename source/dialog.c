@@ -14,6 +14,8 @@
 
 #if defined(_MSC_VER)
 #pragma warning( disable : 4244 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4311 )
 #endif
 
 #if defined(__MINGW32__) || defined(__WATCOMC__)

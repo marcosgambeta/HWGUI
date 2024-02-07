@@ -11,6 +11,11 @@
  * Extended function Copyright 2006 Luiz Rafael Culik Guimaraes <luiz@xharbour.com.br>
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4312 )
+#endif
+
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>

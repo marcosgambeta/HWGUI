@@ -29,6 +29,8 @@
 
 #if defined(_MSC_VER)
 #pragma warning( disable : 4244 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4311 )
 #endif
 
 #if defined(__BORLANDC__) || (defined(_MSC_VER) && !defined(__XCC__) || defined(__WATCOMC__) || defined(__DMC__))
@@ -605,7 +607,7 @@ HB_FUNC(HWG_SETDATEPICKER)
       const char *szTime = hb_parc(3);
       if (szTime)
       {
-        ulLen = strlen(szTime);
+        ulLen = (ULONG)strlen(szTime);
         if (ulLen >= 4)
         {
           lSeconds = (LONG)hb_strVal(szTime, 2) * 3600 * 1000 + (LONG)hb_strVal(szTime + 2, 2) * 60 * 1000 +

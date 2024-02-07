@@ -10,6 +10,10 @@
  * Vic McClung
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4312 )
+#endif
+
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #if defined(__MINGW32__) || defined(__WATCOMC__)

@@ -8,6 +8,10 @@
  * www - http://kresin.belgorod.su
 */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#endif
+
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"

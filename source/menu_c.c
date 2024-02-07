@@ -8,6 +8,12 @@
  * www - http://kresin.belgorod.su
  */
 
+#if defined(_MSC_VER)
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4311 )
+#endif
+
 #define OEMRESOURCE
 #include "hwingui.h"
 #include "incomp_pointer.h"

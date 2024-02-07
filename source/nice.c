@@ -18,6 +18,8 @@
 
 #if defined(_MSC_VER)
 #pragma warning( disable : 4244 )
+#pragma warning( disable : 4312 )
+#pragma warning( disable : 4311 )
 #endif
 
 #ifndef GRADIENT_FILL_RECT_H
