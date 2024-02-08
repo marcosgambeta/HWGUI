@@ -34,6 +34,7 @@ PRG_SOURCES=\
 	hctrlex.prg \
 	hcwindow.prg \
 	hobject.prg \
+	hscrollarea.prg \
 	hdatepic.prg \
 	hedit.prg \
 	hfreeimg.prg \

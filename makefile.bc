@@ -138,6 +138,7 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\hctrlex.obj \
    $(HWGUI_OBJ_DIR)\hcwindow.obj \
    $(HWGUI_OBJ_DIR)\hobject.obj \
+   $(HWGUI_OBJ_DIR)\hscrollarea.obj \
    $(HWGUI_OBJ_DIR)\hdatepic.obj \
    $(HWGUI_OBJ_DIR)\hdialog.obj \
    $(HWGUI_OBJ_DIR)\hedit.obj \

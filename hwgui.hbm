@@ -45,6 +45,7 @@
 {win}source/hctrlex.prg
 {win}source/hcwindow.prg
 {win}source/hobject.prg
+{win}source/hscrollarea.prg
 {win}source/hdatepic.prg
 {win}source/hdialog.prg
 {win}source/hedit.prg

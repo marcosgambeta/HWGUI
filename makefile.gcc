@@ -50,6 +50,7 @@ $(LIB_DIR)/libhwgui.a : \
    $(OBJ_DIR)/hctrlex.o \
    $(OBJ_DIR)/hcwindow.o \
    $(OBJ_DIR)/hobject.o \
+   $(OBJ_DIR)/hscrollarea.o \
    $(OBJ_DIR)/hdatepic.o \
    $(OBJ_DIR)/hdc.o \
    $(OBJ_DIR)/hdialog.o \
