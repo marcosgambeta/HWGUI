@@ -740,13 +740,13 @@ HB_FUNC(HWG_CREATEHATCHBRUSH)
 HB_FUNC(HWG_SELECTOBJECT)
 {
   HB_RETHANDLE(SelectObject(hwg_par_HDC(1),          // handle of device context
-                            (HGDIOBJ)HB_PARHANDLE(2) // handle of object
+                            hwg_par_HGDIOBJ(2) // handle of object
                             ));
 }
 
 HB_FUNC(HWG_DELETEOBJECT)
 {
-  DeleteObject((HGDIOBJ)HB_PARHANDLE(1) // handle of object
+  DeleteObject(hwg_par_HGDIOBJ(1) // handle of object
   );
 }
 
