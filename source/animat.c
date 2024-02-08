@@ -10,7 +10,7 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4312 )
+#pragma warning(disable : 4312)
 #endif
 
 #include "hwingui.h"

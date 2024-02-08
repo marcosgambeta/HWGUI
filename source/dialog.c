@@ -287,10 +287,10 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
   *p++ = LOWORD(ulStyle);
   *p++ = HIWORD(ulStyle);
   *p++ = (WORD)ulControls; // NumberOfItems
-  *p++ = (WORD)x1;               // x
-  *p++ = (WORD)y1;               // y
-  *p++ = (WORD)dwidth;           // cx
-  *p++ = (WORD)dheight;          // cy
+  *p++ = (WORD)x1;         // x
+  *p++ = (WORD)y1;         // y
+  *p++ = (WORD)dwidth;     // cx
+  *p++ = (WORD)dheight;    // cy
   *p++ = 0;                // Menu
   *p++ = 0;                // Class
 
@@ -325,7 +325,7 @@ static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwid
     *p++ = (WORD)dwidth;                                     // cx
     *p++ = (WORD)dheight;                                    // cy
     *p++ = (WORD)hb_itemGetNI(GetObjectVar(pControl, "ID")); // LOWORD (Control ID)
-    *p++ = 0;                                          // HOWORD (Control ID)
+    *p++ = 0;                                                // HOWORD (Control ID)
 
     // class name
     p += s_nCopyAnsiToWideChar(p, GetObjectVar(pControl, "WINCLASS"), pend - p);
@@ -353,8 +353,8 @@ static void s_ReleaseDlgTemplate(LPDLGTEMPLATE pdlgtemplate)
 
 HB_FUNC(HWG_CREATEDLGTEMPLATE)
 {
-  hb_retnl((LONG)(LONG_PTR)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5),
-                                     (ULONG)hb_parnd(6)));
+  hb_retnl((LONG)(LONG_PTR)s_CreateDlgTemplate(hb_param(1, HB_IT_OBJECT), hb_parni(2), hb_parni(3), hb_parni(4),
+                                               hb_parni(5), (ULONG)hb_parnd(6)));
 }
 
 HB_FUNC(HWG_RELEASEDLGTEMPLATE)

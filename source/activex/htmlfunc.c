@@ -10,7 +10,7 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4201 )
+#pragma warning(disable : 4201)
 #endif
 
 #define HB_OS_WIN_32_USED
@@ -23,7 +23,7 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
-//#include "guilib.h"
+// #include "guilib.h"
 #include "hwingui.h"
 
 static short int bOleInitialized = 0;

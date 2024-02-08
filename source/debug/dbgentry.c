@@ -53,7 +53,7 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
+#pragma warning(disable : 4244)
 #endif
 
 #include "hbapidbg.h"
@@ -81,17 +81,17 @@ static HB_BOOL hb_clsSetScope(HB_BOOL fScope)
 #define FILENAME_EQUAL(s1, s2) (!hb_stricmp((s1), (s2)))
 #endif
 
-#define ARRAY_ADD(type, array, length)                                                             \
-  ((++length == 1) ? (array = (type *)hb_xgrab(sizeof(type)))                                      \
+#define ARRAY_ADD(type, array, length)                                                                                 \
+  ((++length == 1) ? (array = (type *)hb_xgrab(sizeof(type)))                                                          \
                    : ((array = (type *)hb_xrealloc(array, sizeof(type) * length)) + length - 1))
 
-#define ARRAY_DEL(type, array, length, index)                                                      \
-  do                                                                                               \
-  {                                                                                                \
-    if (!--length)                                                                                 \
-      hb_xfree(array);                                                                             \
-    else if (index < length)                                                                       \
-      memmove(array + index, array + index + 1, sizeof(type) * (length - index));                  \
+#define ARRAY_DEL(type, array, length, index)                                                                          \
+  do                                                                                                                   \
+  {                                                                                                                    \
+    if (!--length)                                                                                                     \
+      hb_xfree(array);                                                                                                 \
+    else if (index < length)                                                                                           \
+      memmove(array + index, array + index + 1, sizeof(type) * (length - index));                                      \
   } while (0)
 
 #if 1
@@ -203,8 +203,8 @@ static void hb_dbgAddLocal(HB_DEBUGINFO *info, const char *szName, int nIndex, i
 static void hb_dbgAddModule(const char *szName);
 static void hb_dbgAddStack(HB_DEBUGINFO *info, const char *szName, int nProcLevel);
 static void hb_dbgAddStatic(HB_DEBUGINFO *info, const char *szName, int nIndex, PHB_ITEM pFrame);
-static void hb_dbgAddVar(int *nVars, HB_VARINFO **aVars, const char *szName, char cType, int nIndex,
-                         int nFrame, PHB_ITEM pFrame);
+static void hb_dbgAddVar(int *nVars, HB_VARINFO **aVars, const char *szName, char cType, int nIndex, int nFrame,
+                         PHB_ITEM pFrame);
 static void hb_dbgAddStopLines(PHB_ITEM pItem);
 static void hb_dbgEndProc(HB_DEBUGINFO *info);
 static PHB_ITEM hb_dbgEval(HB_DEBUGINFO *info, HB_WATCHPOINT *watch);
@@ -291,7 +291,7 @@ static PHB_ITEM hb_dbgActivateBreakArray(HB_DEBUGINFO *info)
     {
       hb_arraySetC(pBreak, 3, info->aBreak[i].szFunction);
     }
-    
+
     hb_arraySet(pArray, i + 1, pBreak);
     hb_itemRelease(pBreak);
   }
@@ -322,8 +322,7 @@ static PHB_ITEM hb_dbgActivateModuleArray(void)
     hb_arraySet(pModule, 3, item);
     hb_itemRelease(item);
 
-    item = hb_dbgActivateVarArray(s_common.aModules[i].nExternGlobals,
-                                  s_common.aModules[i].aExternGlobals);
+    item = hb_dbgActivateVarArray(s_common.aModules[i].nExternGlobals, s_common.aModules[i].aExternGlobals);
     hb_arraySet(pModule, 4, item);
     hb_itemRelease(item);
 
@@ -356,7 +355,7 @@ static PHB_ITEM hb_dbgActivateVarArray(int nVars, HB_VARINFO *aVars)
     {
       hb_arraySetNL(aVar, 4, aVars[i].frame.num);
     }
-    
+
     hb_arraySet(pArray, i + 1, aVar);
     hb_itemRelease(aVar);
   }
@@ -469,7 +468,7 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
       {
         xValue = hb_itemNew(NULL);
       }
-      
+
       if (HB_ITEM_TYPE(xValue) != HB_ITEM_TYPE(tp->xValue) || !hb_dbgEqual(xValue, tp->xValue))
       {
         hb_itemCopy(tp->xValue, xValue);
@@ -560,14 +559,14 @@ void hb_dbgEntry(int nMode, int nLine, const char *szName, int nIndex, PHB_ITEM 
     {
       return;
     }
-    
+
     HB_TRACE(HB_TR_DEBUG, ("ENDPROC %d", nLine));
 
     if (info->bInitLines)
     {
       hb_dbgAddStopLines(hb_stackReturnItem());
     }
-    
+
     info->bCodeBlock = HB_FALSE;
     info->bInitStatics = HB_FALSE;
     info->bInitGlobals = HB_FALSE;
@@ -604,7 +603,7 @@ static const char *hb_dbgStripModuleName(const char *szName)
   {
     szName = ptr + 1;
   }
-  
+
   return szName;
 }
 
@@ -635,8 +634,7 @@ static void hb_dbgAddLocal(HB_DEBUGINFO *info, const char *szName, int nIndex, i
 
     HB_DBGCOMMON_LOCK
     module = &s_common.aModules[s_common.nModules - 1];
-    hb_dbgAddVar(&module->nGlobals, &module->aGlobals, szName, 'G', nIndex, hb_dbg_vmVarGCount(),
-                 NULL);
+    hb_dbgAddVar(&module->nGlobals, &module->aGlobals, szName, 'G', nIndex, hb_dbg_vmVarGCount(), NULL);
     HB_DBGCOMMON_UNLOCK
   }
   else
@@ -721,7 +719,7 @@ static void hb_dbgAddStack(HB_DEBUGINFO *info, const char *szName, int nProcLeve
   {
     top->szModule = hb_strdup(szName);
   }
-  
+
   top->nProcLevel = nProcLevel;
   top->nLine = 0;
   top->nLocals = 0;
@@ -736,8 +734,7 @@ static void hb_dbgAddStatic(HB_DEBUGINFO *info, const char *szName, int nIndex, 
 
     HB_DBGCOMMON_LOCK
     module = &s_common.aModules[s_common.nModules - 1];
-    hb_dbgAddVar(&module->nExternGlobals, &module->aExternGlobals, szName, 'G', nIndex,
-                 hb_dbg_vmVarGCount(), NULL);
+    hb_dbgAddVar(&module->nExternGlobals, &module->aExternGlobals, szName, 'G', nIndex, hb_dbg_vmVarGCount(), NULL);
     HB_DBGCOMMON_UNLOCK
   }
   else if (info->bInitStatics)
@@ -811,7 +808,7 @@ static void hb_dbgAddStopLines(PHB_ITEM pItem)
           {
             pBuffer[nOrigMin + k] |= pOrigBuffer[k];
           }
-          
+
           hb_arraySetNL(pLines, 2, nMin);
           if (!hb_arraySetCLPtr(pLines, 3, pBuffer, nLen))
           {
@@ -848,8 +845,8 @@ static void hb_dbgAddStopLines(PHB_ITEM pItem)
   HB_DBGCOMMON_UNLOCK
 }
 
-static void hb_dbgAddVar(int *nVars, HB_VARINFO **aVars, const char *szName, char cType, int nIndex,
-                         int nFrame, PHB_ITEM pFrame)
+static void hb_dbgAddVar(int *nVars, HB_VARINFO **aVars, const char *szName, char cType, int nIndex, int nFrame,
+                         PHB_ITEM pFrame)
 {
   HB_VARINFO *var;
 
@@ -904,7 +901,7 @@ static void hb_dbgClearWatch(HB_WATCHPOINT *pWatch)
     {
       hb_xfree(pWatch->aVars[i]);
     }
-    
+
     hb_xfree(pWatch->aVars);
   }
 }
@@ -919,7 +916,7 @@ void hb_dbgDelBreak(void *handle, int nBreak)
   {
     hb_xfree(pBreak->szFunction);
   }
-  
+
   ARRAY_DEL(HB_BREAKPOINT, info->aBreak, info->nBreakPoints, nBreak);
 }
 
@@ -961,7 +958,7 @@ static void hb_dbgEndProc(HB_DEBUGINFO *info)
   {
     return;
   }
-  
+
   top = &info->aCallStack[--info->nCallStackLen];
   hb_xfree(top->szFunction);
   hb_xfree(top->szModule);
@@ -1131,8 +1128,7 @@ static int hb_dbgEvalSubstituteVar(HB_WATCHPOINT *watch, char *szWord, int nStar
   t[nStart + 6] = '0' + (char)((j + 1) / 10);
   t[nStart + 7] = '0' + (char)((j + 1) % 10);
   t[nStart + 8] = ']';
-  hb_strncpy(t + nStart + 9, watch->szExpr + nStart + nLen,
-             (HB_SIZE)strlen(watch->szExpr) - nLen - nStart);
+  hb_strncpy(t + nStart + 9, watch->szExpr + nStart + nLen, (HB_SIZE)strlen(watch->szExpr) - nLen - nStart);
   hb_xfree(watch->szExpr);
   watch->szExpr = t;
   return nStart + 9;
@@ -1171,7 +1167,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
         {
           i++;
         }
-        
+
         if (watch->szExpr[i] == '(')
         {
           hb_xfree(szWord);
@@ -1186,7 +1182,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
           {
             i++;
           }
-          
+
           hb_xfree(szWord);
           continue;
         }
@@ -1198,8 +1194,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
     }
     if (c == '.')
     {
-      if (watch->szExpr[i + 1] && strchr("TtFf", watch->szExpr[i + 1]) &&
-          watch->szExpr[i + 2] == '.')
+      if (watch->szExpr[i + 1] && strchr("TtFf", watch->szExpr[i + 1]) && watch->szExpr[i + 2] == '.')
       {
         i += 3;
       }
@@ -1207,8 +1202,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       {
         i += 4;
       }
-      else if (!hb_strnicmp(watch->szExpr + i + 1, "AND.", 4) ||
-               !hb_strnicmp(watch->szExpr + i + 1, "NOT.", 4))
+      else if (!hb_strnicmp(watch->szExpr + i + 1, "AND.", 4) || !hb_strnicmp(watch->szExpr + i + 1, "NOT.", 4))
       {
         i += 5;
       }
@@ -1219,8 +1213,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       bAfterId = HB_FALSE;
       continue;
     }
-    if (c == ':' ||
-        (c == '-' && watch->szExpr[i + 1] == '>' && IS_IDENT_START(watch->szExpr[i + 2])))
+    if (c == ':' || (c == '-' && watch->szExpr[i + 1] == '>' && IS_IDENT_START(watch->szExpr[i + 2])))
     {
       if (c == ':' && watch->szExpr[i + 1] == ':')
       {
@@ -1240,7 +1233,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       {
         i++;
       }
-      
+
       bAfterId = HB_TRUE;
       continue;
     }
@@ -1258,7 +1251,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
       {
         i++;
       }
-      
+
       if (watch->szExpr[i])
       {
         i++;
@@ -1280,7 +1273,7 @@ static PHB_ITEM hb_dbgEvalMakeBlock(HB_WATCHPOINT *watch)
         {
           i++;
         }
-        
+
         if (watch->szExpr[i])
         {
           i++;

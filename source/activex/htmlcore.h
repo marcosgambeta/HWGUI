@@ -12,8 +12,8 @@
 #define _UNICODE
 #endif
 #include <windows.h>
-#include <exdisp.h> /* Defines of stuff like IWebBrowser2. This is an include file with Visual C 6 and above */
-#include <mshtml.h> /* Defines of stuff like IHTMLDocument2. This is an include file with Visual C 6 and above */
+#include <exdisp.h>   /* Defines of stuff like IWebBrowser2. This is an include file with Visual C 6 and above */
+#include <mshtml.h>   /* Defines of stuff like IHTMLDocument2. This is an include file with Visual C 6 and above */
 #include <mshtmhst.h> /* Defines of stuff like IDocHostUIHandler. This is an include file with Visual C 6 and above */
 
 #ifdef __cplusplus
@@ -37,16 +37,15 @@ extern "C"
   // to some element on a web page.
   typedef struct
   {
-    IDispatch dispatchObj; // The mandatory IDispatch.
-    DWORD refCount;        // Our reference count.
-    IHTMLWindow2 *
-        htmlWindow2; // Where we store the IHTMLWindow2 so that our IDispatch's Invoke() can get it.
-    HWND hwnd; // The window hosting the browser page. Our IDispatch's Invoke() sends messages when
-               // an event of interest occurs.
-    short id;  // Any numeric value of your choosing that you wish to associate with this IDispatch.
-    unsigned short extraSize; // Byte size of any extra fields prepended to this struct.
-    IUnknown *object; // Some object associated with the web page element this IDispatch is for.
-    void *userdata;   // An extra pointer.
+    IDispatch dispatchObj;     // The mandatory IDispatch.
+    DWORD refCount;            // Our reference count.
+    IHTMLWindow2 *htmlWindow2; // Where we store the IHTMLWindow2 so that our IDispatch's Invoke() can get it.
+    HWND hwnd;                 // The window hosting the browser page. Our IDispatch's Invoke() sends messages when
+                               // an event of interest occurs.
+    short id;                  // Any numeric value of your choosing that you wish to associate with this IDispatch.
+    unsigned short extraSize;  // Byte size of any extra fields prepended to this struct.
+    IUnknown *object;          // Some object associated with the web page element this IDispatch is for.
+    void *userdata;            // An extra pointer.
   } _IDispatchEx;
 
 #if UNICODE
@@ -166,8 +165,7 @@ typedef BSTR WINAPI TStr2BStrPtr(HWND, const char *);
 #define FREEWEBEVTHANDLERNAME "FreeWebEvtHandler"
 
   IDispatch *WINAPI CreateWebEvtHandler(HWND, IHTMLDocument2 *, DWORD, long, IUnknown *, void *);
-  typedef IDispatch *WINAPI CreateWebEvtHandlerPtr(HWND, IHTMLDocument2 *, DWORD, long, IUnknown *,
-                                                   void *);
+  typedef IDispatch *WINAPI CreateWebEvtHandlerPtr(HWND, IHTMLDocument2 *, DWORD, long, IUnknown *, void *);
 #define CREATEWEBEVTHANDLER CreateWebEvtHandler
 #define CREATEWEBEVTHANDLERNAME "CreateWebEvtHandler"
 

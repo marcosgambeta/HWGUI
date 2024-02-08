@@ -10,7 +10,7 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4244 )
+#pragma warning(disable : 4244)
 #endif
 
 #include <stdio.h>
@@ -31,12 +31,12 @@ void hwg_writelog(const char *sFile, const char *sTraceMsg, ...);
 #define sscanf sscanf_s
 #endif
 
-#define HB_SKIPTABSPACES(sptr)                                                                     \
-  while (*sptr == ' ' || *sptr == '\t' || *sptr == '\r' || *sptr == '\n')                          \
+#define HB_SKIPTABSPACES(sptr)                                                                                         \
+  while (*sptr == ' ' || *sptr == '\t' || *sptr == '\r' || *sptr == '\n')                                              \
   (sptr)++
-#define HB_SKIPCHARS(sptr)                                                                         \
-  while (*sptr && *sptr != ' ' && *sptr != '\t' && *sptr != '=' && *sptr != '>' && *sptr != '<' && \
-         *sptr != '\"' && *sptr != '\'' && *sptr != '\r' && *sptr != '\n')                         \
+#define HB_SKIPCHARS(sptr)                                                                                             \
+  while (*sptr && *sptr != ' ' && *sptr != '\t' && *sptr != '=' && *sptr != '>' && *sptr != '<' && *sptr != '\"' &&    \
+         *sptr != '\'' && *sptr != '\r' && *sptr != '\n')                                                              \
   (sptr)++
 
 #define HBXML_ERROR_NOT_LT 1
@@ -169,7 +169,7 @@ HB_FUNC(HBXML_TRANSFORM)
             ptr1 += iLen - 1;
             break;
           }
-        }  
+        }
       }
       ptr++;
       ptr1++;
@@ -216,7 +216,7 @@ PHB_ITEM hbxml_pp(unsigned char *ptr, HB_ULONG ulLen)
         for (ul1 = ul + 1; ul1 < ulLen; ul1++)
         {
           *(ptrStart + ul1) = *(ptrStart + ul1 + i);
-        }  
+        }
       }
       else
       {
@@ -411,7 +411,7 @@ HB_BOOL hbxml_readComment(PHB_ITEM pParent, unsigned char **pBuffer)
   {
     (*pBuffer)++;
   }
-  
+
   if (**pBuffer)
   {
     pTemp = hb_itemPutCL(NULL, (char *)ptr, *pBuffer - ptr);
@@ -446,7 +446,7 @@ HB_BOOL hbxml_readCDATA(PHB_ITEM pParent, unsigned char **pBuffer)
   {
     (*pBuffer)++;
   }
-  
+
   if (**pBuffer)
   {
     pTemp = hb_itemPutCL(NULL, (char *)ptr, *pBuffer - ptr);
@@ -505,8 +505,7 @@ HB_BOOL hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
     hb_objSendMsg(pNode, "_AATTR", 1, pArray);
     hb_itemRelease(pArray);
   }
-  pTemp = hb_itemPutNI(NULL, (lSingle) ? ((lSingle == 2) ? HBXML_TYPE_PI : HBXML_TYPE_SINGLE)
-                                       : HBXML_TYPE_TAG);
+  pTemp = hb_itemPutNI(NULL, (lSingle) ? ((lSingle == 2) ? HBXML_TYPE_PI : HBXML_TYPE_SINGLE) : HBXML_TYPE_TAG);
   hb_objSendMsg(pNode, "_TYPE", 1, pTemp);
   hb_itemRelease(pTemp);
 
@@ -518,8 +517,7 @@ HB_BOOL hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
       lEmpty = HB_TRUE;
       while (**pBuffer != '<')
       {
-        if (lEmpty &&
-            (**pBuffer != ' ' && **pBuffer != '\t' && **pBuffer != '\r' && **pBuffer != '\n'))
+        if (lEmpty && (**pBuffer != ' ' && **pBuffer != '\t' && **pBuffer != '\r' && **pBuffer != '\n'))
         {
           lEmpty = HB_FALSE;
         }

@@ -10,8 +10,8 @@
 
 // TODO: revision
 #if defined(_MSC_VER)
-#pragma warning( disable : 4201 )
-#pragma warning( disable : 4334 )
+#pragma warning(disable : 4201)
+#pragma warning(disable : 4334)
 #endif
 
 #define OEMRESOURCE
@@ -220,9 +220,10 @@ HB_FUNC(HWG_FILLRECT)
   rc.right = hb_parni(4);
   rc.bottom = hb_parni(5);
 
-  FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1) : (HDC)(LONG_PTR)hb_parnl(1) /* TODO: pointer */, // handle to device context
-           &rc,              // pointer to structure with rectangle
-           hwg_par_HBRUSH(6) // handle to brush
+  FillRect(HB_ISPOINTER(1) ? hwg_par_HDC(1)
+                           : (HDC)(LONG_PTR)hb_parnl(1) /* TODO: pointer */, // handle to device context
+           &rc,                                                              // pointer to structure with rectangle
+           hwg_par_HBRUSH(6)                                                 // handle to brush
   );
 }
 
@@ -289,7 +290,11 @@ HB_FUNC(HWG_DRAWBUTTON)
     FillRect(hDC, &rc, (HBRUSH)(INT_PTR)(((iType & 2) ? COLOR_3DSHADOW : COLOR_3DHILIGHT) + 1));
     rc.left++;
     rc.top++;
-    FillRect(hDC, &rc, (HBRUSH)(INT_PTR)(((iType & 2) ? COLOR_3DHILIGHT : (iType & 4) ? COLOR_3DDKSHADOW : COLOR_3DSHADOW) + 1));
+    FillRect(hDC, &rc,
+             (HBRUSH)(INT_PTR)(((iType & 2)   ? COLOR_3DHILIGHT
+                                : (iType & 4) ? COLOR_3DDKSHADOW
+                                              : COLOR_3DSHADOW) +
+                               1));
     rc.right--;
     rc.bottom--;
     if (iType & 4)
@@ -342,7 +347,8 @@ HB_FUNC(HWG_LOADIMAGE)
   void *hString = NULL;
 
   HB_RETHANDLE(LoadImage(
-      HB_ISNIL(1) ? GetModuleHandle(NULL) : (HINSTANCE)(LONG_PTR)hb_parnl(1), // handle of the instance that contains the image
+      HB_ISNIL(1) ? GetModuleHandle(NULL)
+                  : (HINSTANCE)(LONG_PTR)hb_parnl(1), // handle of the instance that contains the image
       HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : HB_PARSTR(2, &hString, NULL), // name or identifier of image
       hwg_par_UINT(3),                                                           // type of image
       hb_parni(4),                                                               // desired width
@@ -745,7 +751,7 @@ HB_FUNC(HWG_CREATEHATCHBRUSH)
 
 HB_FUNC(HWG_SELECTOBJECT)
 {
-  HB_RETHANDLE(SelectObject(hwg_par_HDC(1),          // handle of device context
+  HB_RETHANDLE(SelectObject(hwg_par_HDC(1),    // handle of device context
                             hwg_par_HGDIOBJ(2) // handle of object
                             ));
 }
