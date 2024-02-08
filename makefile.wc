@@ -92,6 +92,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\hcontrol.obj \
    $(OBJ_DIR)\hctrlex.obj \
    $(OBJ_DIR)\hcwindow.obj \
+   $(OBJ_DIR)\hobject.obj \
    $(OBJ_DIR)\hdatepic.obj \
    $(OBJ_DIR)\hdialog.obj \
    $(OBJ_DIR)\hedit.obj \
@@ -147,8 +148,8 @@ $(DEBUG_LIB) : $(DEBUG_LIB_OBJS)
    $(LIB_EXE) /nologo /out:$@ $**
 
 # здддддддддддддддддддддддд©
-# Ё HWGUI.LIB Dependencies Ёш
-# юддддддддддддддддддддддддыш
+# ?HWGUI.LIB Dependencies Ёш
+# юдддддддддддддддддддддддды?
 #  ъъъъъъъъъъъъъъъъъъъъъъъъъъ
 
 $(OBJ_DIR)\drawwidg.c : $(SRC_DIR)\drawwidg.prg
@@ -203,6 +204,12 @@ $(OBJ_DIR)\hcwindow.c : $(SRC_DIR)\hcwindow.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
 $(OBJ_DIR)\hcwindow.obj : $(OBJ_DIR)\hcwindow.c
+   $(CC_EXE) $(CFLAGS) -fo$@ $**
+
+$(OBJ_DIR)\hobject.c : $(SRC_DIR)\hobject.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
+$(OBJ_DIR)\hobject.obj : $(OBJ_DIR)\hobject.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
 
 $(OBJ_DIR)\hdatepic.c : $(SRC_DIR)\hdatepic.prg
@@ -501,8 +508,8 @@ $(OBJ_DIR)\hhyper.obj : $(OBJ_DIR)\hhyper.c
 
 
 # здддддддддддддддддддддддд©
-# Ё HWG_CONTRIB.LIB Dependencies  Ёш
-# юддддддддддддддддддддддддыш
+# ?HWG_CONTRIB.LIB Dependencies  Ёш
+# юдддддддддддддддддддддддды?
 #  ъъъъъъъъъъъъъъъъъъъъъъъъъъ
 
 $(OBJ_DIR)\hqhtm.c : $(CONTRIB_DIR)\qhtm\hqhtm.prg
@@ -539,10 +546,10 @@ $(OBJ_DIR)\saymoney.obj : $(OBJ_DIR)\saymoney.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
 
 
-# зддддддддддддддддддддддддддд©
-# Ё PROCMISC.LIB Dependencies Ёш
+# зддддддддддддддддддддддддддд?
+# ?PROCMISC.LIB Dependencies Ёш
 # юдддддддддддддддддддддддддддыш
-#  ъъъъъъъъъъъъъъъъъъъъъъъъъъъъъ
+#  ъъъъъъъъъъъъъъъъъъъъъъъъъъъъ?
 
 $(OBJ_DIR)\hfrmtmpl.c : $(SRC_DIR)\procmisc\hfrmtmpl.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
@@ -575,8 +582,8 @@ $(OBJ_DIR)\scrdebug.obj : $(OBJ_DIR)\scrdebug.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
 
 # здддддддддддддддддддддддддд©
-# Ё HBXML.LIB Dependencies   Ёш
-# юддддддддддддддддддддддддддыш
+# ?HBXML.LIB Dependencies   Ёш
+# юдддддддддддддддддддддддддды?
 #  ъъъъъъъъъъъъъъъъъъъъъъъъъъъъ
 
 $(OBJ_DIR)\hxmldoc.c : $(SRC_DIR)\xml\hxmldoc.prg
@@ -589,8 +596,8 @@ $(OBJ_DIR)\xmlparse.obj : $(SRC_DIR)\xml\xmlparse.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
 
    # здддддддддддддддддддддддддд©
-# Ё HWGDEBUG.LIB Dependencies   Ёш
-# юддддддддддддддддддддддддддыш
+# ?HWGDEBUG.LIB Dependencies   Ёш
+# юдддддддддддддддддддддддддды?
 #  ъъъъъъъъъъъъъъъъъъъъъъъъъъъъ
 
 $(OBJ_DIR)\debugger.c : $(SRC_DIR)\xml\debugger.prg

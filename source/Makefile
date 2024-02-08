@@ -33,6 +33,7 @@ PRG_SOURCES=\
 	hcontrol.prg \
 	hctrlex.prg \
 	hcwindow.prg \
+	hobject.prg \
 	hdatepic.prg \
 	hedit.prg \
 	hfreeimg.prg \

@@ -137,6 +137,7 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\hcontrol.obj \
    $(HWGUI_OBJ_DIR)\hctrlex.obj \
    $(HWGUI_OBJ_DIR)\hcwindow.obj \
+   $(HWGUI_OBJ_DIR)\hobject.obj \
    $(HWGUI_OBJ_DIR)\hdatepic.obj \
    $(HWGUI_OBJ_DIR)\hdialog.obj \
    $(HWGUI_OBJ_DIR)\hedit.obj \
@@ -324,8 +325,8 @@ $(CONTRIB_LIB) : $(CONTRIB_LIB_OBJS)
 !
 
 # здддддддддддддддддддддддд©
-# Ё HWGUI.LIB Dependencies Ёш
-# юддддддддддддддддддддддддыш
+# ?HWGUI.LIB Dependencies Ёш
+# юдддддддддддддддддддддддды?
 #  ъъъъъъъъъъъъъъъъъъъъъъъъъъ
 
 {$(HWGUI_DIR)}.prg{$(OBJ_DIR)}.c:
