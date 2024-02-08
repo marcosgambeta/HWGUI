@@ -18,10 +18,6 @@
 #define EVENTS_ACTIONS  2
 #define RT_MANIFEST  24
 
-#ifndef __XHARBOUR__
-REQUEST HB_GT_GUI_DEFAULT
-#endif
-
 STATIC aCustomEvents := { ;
        { WM_NOTIFY, WM_PAINT, WM_CTLCOLORSTATIC, WM_CTLCOLOREDIT, WM_CTLCOLORBTN, WM_CTLCOLORLISTBOX, ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
@@ -38,28 +34,6 @@ STATIC aCustomEvents := { ;
          {|o      |onDestroy(o)}                                          ;
        } ;
      }
-
-CLASS HObject
-
-   DATA aObjects     INIT {}
-   METHOD AddObject(oCtrl) INLINE AAdd(::aObjects, oCtrl)
-   METHOD DelObject(oCtrl)
-   METHOD Release()  INLINE ::DelObject(Self)
-
-ENDCLASS
-
-METHOD DelObject(oCtrl) CLASS HObject
-
-   LOCAL h := oCtrl:handle
-   LOCAL i := Ascan(::aObjects, {|o|o:handle == h})
-
-   hwg_Sendmessage(h, WM_CLOSE, 0, 0)
-   IF i != 0
-      Adel(::aObjects, i)
-      Asize(::aObjects, Len(::aObjects) - 1)
-   ENDIF
-   RETURN NIL
-
 
 CLASS HCustomWindow INHERIT HObject
 
@@ -663,12 +637,3 @@ METHOD ResetScrollbars() CLASS HScrollArea
       ::nVscrollPos := 0
    ENDIF
    RETURN Nil
-
-PROCEDURE HB_GT_DEFAULT_NUL()
-   RETURN
-
-INIT PROCEDURE HWGINIT
-
-   hwg_ErrSys()
-   RETURN
-
