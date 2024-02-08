@@ -438,8 +438,8 @@ Return
 
 #ifdef __XHARBOUR__
 #pragma BEGINDUMP
-#include "hbapi.h"
-#include "hbapiitm.h"
+#include <hbapi.h>
+#include <hbapiitm.h>
 
 HB_FUNC(HB_RELEASECPU)
 {

@@ -411,9 +411,9 @@ static const WCHAR BeforeUnload[] = L"beforeunload";
  * HwGUI keeps there the pointer to a window object, so I changed this and now
  * the browser object's pointer is stored in oWindow:oEmbedded:handle
  */
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "item.api"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <item.api>
 
 PHB_ITEM GetObjectVar(PHB_ITEM pObject, char *varname);
 void SetObjectVar(PHB_ITEM pObject, char *varname, PHB_ITEM pValue);

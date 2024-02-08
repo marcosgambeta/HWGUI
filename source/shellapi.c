@@ -17,8 +17,8 @@
 #include "incomp_pointer.h"
 #include <shlobj.h>
 
-#include "hbapi.h"
-#include "hbapiitm.h"
+#include <hbapi.h>
+#include <hbapiitm.h>
 
 #define ID_NOTIFYICON 1
 #define WM_NOTIFYICON WM_USER + 1000

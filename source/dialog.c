@@ -19,8 +19,8 @@
 #define GetWindowLongPtr GetWindowLong
 #endif
 
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
 
 #define WM_PSPNOTIFY WM_USER + 1010
 

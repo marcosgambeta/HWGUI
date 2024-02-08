@@ -56,16 +56,16 @@
 #pragma warning(disable : 4244)
 #endif
 
-#include "hbapidbg.h"
-#include "hbapiitm.h"
-#include "hbapicls.h"
-#include "hbapirdd.h"
-#include "hbstack.h"
-#include "hbvm.h"
-#include "hbthread.h"
+#include <hbapidbg.h>
+#include <hbapiitm.h>
+#include <hbapicls.h>
+#include <hbapirdd.h>
+#include <hbstack.h>
+#include <hbvm.h>
+#include <hbthread.h>
 
-#include "hbdebug.ch"
-#include "hbmacro.ch"
+#include <hbdebug.ch>
+#include <hbmacro.ch>
 
 /* dummy function declaration */
 static HB_BOOL hb_clsSetScope(HB_BOOL fScope)

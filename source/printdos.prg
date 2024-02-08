@@ -589,10 +589,10 @@ FUNCTION hwg_regenfile(o, new)
 */
 
 #include "guilib.h"
-#include "hbapiitm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbstack.h>
 #ifdef __XHARBOUR__
-#include "hbfast.h"
+#include <hbfast.h>
 #endif
 
 #undef LINE_MAX

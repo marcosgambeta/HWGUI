@@ -17,7 +17,7 @@
 #endif
 
 #include "hwingui.h"
-#include "hbapiitm.h"
+#include <hbapiitm.h>
 
 #if defined(__HARBOURPP__)
 #define max(a, b) HB_MAX(a, b)

@@ -16,9 +16,9 @@
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <commctrl.h>
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 
 HB_FUNC_EXTERN(HB_OEMTOANSI);
 HB_FUNC_EXTERN(HB_ANSITOOEM);

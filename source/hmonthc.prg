@@ -153,8 +153,8 @@ METHOD onSelect() CLASS HMonthCalendar
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>
-#include "hbapiitm.h"
-#include "hbdate.h"
+#include <hbapiitm.h>
+#include <hbdate.h>
 #if defined(__DMC__)
 #include "missing.h"
 #endif

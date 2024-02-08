@@ -21,10 +21,10 @@
 #include <commctrl.h>
 #include <math.h>
 
-#include "hbmath.h"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbmath.h>
+#include <hbapifs.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
 
 #include "missing.h"
 

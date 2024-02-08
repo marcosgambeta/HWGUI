@@ -27,10 +27,10 @@
 #if defined(__DMC__)
 #define GetWindowLongPtr GetWindowLong
 #endif
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbdate.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
+#include <hbdate.h>
 
 LRESULT APIENTRY RichSubclassProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

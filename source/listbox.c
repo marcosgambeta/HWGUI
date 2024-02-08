@@ -20,9 +20,9 @@
 #if defined(__MINGW32__) || defined(__WATCOMC__)
 #include <prsht.h>
 #endif
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 
 HB_FUNC(HWG_LISTBOXADDSTRING)
 {

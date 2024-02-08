@@ -21,11 +21,11 @@
 #include "incomp_pointer.h"
 #include <commctrl.h>
 
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 #ifdef __XHARBOUR__
-#include "hbfast.h"
+#include <hbfast.h>
 #endif
 
 #if !defined(GetDefaultPrinter) && defined(__DMC__)

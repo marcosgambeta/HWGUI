@@ -22,9 +22,9 @@
 #ifdef __DMC__
 #define MIIM_BITMAP 0x00000080
 #endif
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbstack.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbstack.h>
 
 #define FLAG_DISABLED 1
 

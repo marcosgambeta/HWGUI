@@ -16,8 +16,8 @@
 
 #include "hwingui.h"
 #include "incomp_pointer.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
 #include "freeimage.h"
 
 #define hwg_par_FIBITMAP(n) (FIBITMAP *)hb_parnl(n)

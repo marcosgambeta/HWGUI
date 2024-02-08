@@ -20,9 +20,9 @@
 #include <windows.h>
 #include "htmlcore.h" /* Declarations of the functions in DLL.c */
 
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapi.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
 // #include "guilib.h"
 #include "hwingui.h"
 
