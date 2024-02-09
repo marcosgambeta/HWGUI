@@ -67,7 +67,7 @@ HB_FUNC(HWG_CREATERICHEDIT)
                          hb_parni(4), hb_parni(5),            /* x, y   */
                          hb_parni(6), hb_parni(7),            /* nWidth, nHeight */
                          hwg_par_HWND(1),                     /* parent window    */
-                         hwg_par_HMENU(2),                  /* control ID  */
+                         hwg_par_HMENU(2),                    /* control ID  */
                          GetModuleHandle(NULL), NULL);
 
   lpText = HB_PARSTR(8, &hText, NULL);
