@@ -12,7 +12,6 @@
 #if defined(_MSC_VER)
 #pragma warning(disable : 4244)
 #pragma warning(disable : 4311)
-#pragma warning(disable : 4312)
 #endif
 
 #define HB_OS_WIN_32_USED
@@ -875,14 +874,14 @@ HB_FUNC(HWG_TREEADDNODE)
   {
     if (tvi.iImage)
     {
-      DeleteObject((HGDIOBJ)tvi.iImage);
+      DeleteObject((HGDIOBJ)(INT_PTR)tvi.iImage);
     }
   }
   if (tvi.mask & TVIF_SELECTEDIMAGE)
   {
     if (tvi.iSelectedImage)
     {
-      DeleteObject((HGDIOBJ)tvi.iSelectedImage);
+      DeleteObject((HGDIOBJ)(INT_PTR)tvi.iSelectedImage);
     }
   }
 
@@ -2198,7 +2197,7 @@ HB_FUNC(HWG_DEFWINDOWPROC)
 
 HB_FUNC(HWG_CALLWINDOWPROC)
 {
-  WNDPROC wpProc = (WNDPROC)hb_parnl(1);
+  WNDPROC wpProc = (WNDPROC)(LONG_PTR)hb_parnl(1);
   HWND hWnd = hwg_par_HWND(2);
   LONG message = hb_parnl(3);
   WPARAM wParam = hwg_par_WPARAM(4);
