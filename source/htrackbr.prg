@@ -171,7 +171,7 @@ HB_FUNC(HWG_INITTRACKBAR)
                                     hb_parni(6),
                                     hb_parni(7),
                              hwg_par_HWND(1),
-                             (HMENU) hb_parni(2),
+                             hwg_par_HMENU(2),
                              GetModuleHandle(NULL),
                              NULL);
 
