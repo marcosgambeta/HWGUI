@@ -8,11 +8,6 @@
  * www - http://geocities.yahoo.com.br/marcosgambeta/
  */
 
-// TODO: revision
-#if defined(_MSC_VER)
-#pragma warning(disable : 4312)
-#endif
-
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>
@@ -20,8 +15,7 @@
 HB_FUNC(HWG_ANIMATE_CREATE)
 {
   HWND hwnd;
-
-  hwnd = Animate_Create(hwg_par_HWND(1), (LONG)hb_parnl(2), (LONG)hb_parnl(3), GetModuleHandle(NULL));
+  hwnd = Animate_Create(hwg_par_HWND(1), (UINT_PTR)hb_parni(2), (DWORD)hb_parnl(3), GetModuleHandle(NULL));
   MoveWindow(hwnd, hb_parnl(4), hb_parnl(5), hb_parnl(6), hb_parnl(7), TRUE);
   HB_RETHANDLE(hwnd);
 }
@@ -71,7 +65,7 @@ HB_FUNC(HWG_ANIMATE_OPENEX)
     lpResource = MAKEINTRESOURCE(hb_parni(3));
   }
 
-  Animate_OpenEx(hwg_par_HWND(1), (HINSTANCE)hb_parnl(2), lpResource);
+  Animate_OpenEx(hwg_par_HWND(1), (HINSTANCE)(LONG_PTR)hb_parnl(2), lpResource);
 
   hb_strfree(hResource);
 }
