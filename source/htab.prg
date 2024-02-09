@@ -218,7 +218,7 @@ METHOD Activate() CLASS HTab
    RETURN NIL
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)  CLASS hTab
+      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) CLASS hTab
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)

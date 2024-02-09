@@ -62,7 +62,7 @@ METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
    RETURN Self
 
 METHOD Redefine(oWndParent, nId, aValues, oFont, ;
-                bSize, ctooltip, tcolor, bcolor)  CLASS HGraph
+                bSize, ctooltip, tcolor, bcolor) CLASS HGraph
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, 0, 0, 0, 0, oFont,, ;
               bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
@@ -80,7 +80,7 @@ METHOD Activate() CLASS HGraph
    ENDIF
    RETURN Nil
 
-METHOD Init()  CLASS HGraph
+METHOD Init() CLASS HGraph
    IF !::lInit
       ::Super:Init()
       ::CalcMinMax()

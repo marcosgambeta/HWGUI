@@ -130,7 +130,7 @@ ENDCLASS
 METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
            bInit, bExit, bSize, bPaint, bGfocus, bLfocus, bOther, ;
            cAppName, oBmp, cHelp, nHelpId, bCloseQuery, bRefresh, lChild,;
-           lClipper, lNoClosable, bSetForm, nBmpStretch)  CLASS HWindow
+           lClipper, lNoClosable, bSetForm, nBmpStretch) CLASS HWindow
 
    HB_SYMBOL_UNUSED(clr)
    HB_SYMBOL_UNUSED(cMenu)
@@ -429,7 +429,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    RETURN Nil
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HMainWindow
+METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
    Local i, xPos, yPos, oMdi, aCoors
    LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
 
@@ -608,7 +608,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    RETURN Nil
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HMDIChildWindow
+METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
    LOCAL i, oCtrl
    LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
    //IF msg = WM_NCLBUTTONDBLCLK .AND. ::lChild
@@ -753,7 +753,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    RETURN Nil
 
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HChildWindow
+METHOD onEvent(msg, wParam, lParam) CLASS HChildWindow
    LOCAL i, oCtrl
 
    IF msg = WM_PAINT

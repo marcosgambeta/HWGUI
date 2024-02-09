@@ -127,7 +127,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    RETURN Self
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor)  CLASS HStaticLink
+                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) CLASS HStaticLink
    LOCAL oPrevFont
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;

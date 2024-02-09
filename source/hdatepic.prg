@@ -167,7 +167,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
    RETURN -1
 
-METHOD CheckValue(lValue)  CLASS HDatePicker
+METHOD CheckValue(lValue) CLASS HDatePicker
 
    IF HWG_BITAND(::Style, DTS_SHOWNONE) = 0
        RETURN .F.
@@ -183,7 +183,7 @@ METHOD CheckValue(lValue)  CLASS HDatePicker
    ENDIF
    RETURN IIF(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.)
 
-METHOD Value(Value)  CLASS HDatePicker
+METHOD Value(Value) CLASS HDatePicker
 
    IF Value != NIL
       ::SetValue(Value)

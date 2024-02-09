@@ -168,7 +168,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
 
    RETURN - 1
 
-METHOD SetValue(cValue)  CLASS HStaticEx
+METHOD SetValue(cValue) CLASS HStaticEx
 
    ::Auto_Size(cValue)
    IF ::backstyle = TRANSPARENT .AND. ::Title != cValue .AND. hwg_Iswindowvisible(::handle)
@@ -221,7 +221,7 @@ METHOD Paint(lpDis) CLASS HStaticEx
 
    RETURN NIL
 
-METHOD onClick()  CLASS HStaticEx
+METHOD onClick() CLASS HStaticEx
 
    IF ::bClick != NIL
       //::oParent:lSuspendMsgsHandling := .T.
@@ -231,7 +231,7 @@ METHOD onClick()  CLASS HStaticEx
 
    RETURN NIL
 
-METHOD onDblClick()  CLASS HStaticEx
+METHOD onDblClick() CLASS HStaticEx
 
    IF ::bDblClick != NIL
       Eval(::bDblClick, Self, ::id)
@@ -388,7 +388,7 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
 
    RETURN - 1
 
-METHOD onClick()  CLASS HButtonX
+METHOD onClick() CLASS HButtonX
 
    IF ::bClick != NIL
       Eval(::bClick, Self, ::id)
@@ -397,7 +397,7 @@ METHOD onClick()  CLASS HButtonX
 
    RETURN NIL
 
-METHOD NoteCaption(cNote)  CLASS HButtonX
+METHOD NoteCaption(cNote) CLASS HButtonX
 
    IF cNote != NIL
       IF Hwg_BitOr(::Style, BS_COMMANDLINK) > 0
@@ -408,7 +408,7 @@ METHOD NoteCaption(cNote)  CLASS HButtonX
 
    RETURN ::cNote
 
-METHOD onGetFocus()  CLASS HButtonX
+METHOD onGetFocus() CLASS HButtonX
    LOCAL res := .T., nSkip
 
    IF !hwg_CheckFocus(Self, .F.) .OR. ::bGetFocus = NIL
@@ -429,7 +429,7 @@ METHOD onGetFocus()  CLASS HButtonX
 
    RETURN res
 
-METHOD onLostFocus()  CLASS HButtonX
+METHOD onLostFocus() CLASS HButtonX
 
    IF ::lflat
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)

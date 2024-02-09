@@ -460,7 +460,7 @@ METHOD Init() CLASS HStatus
    RETURN  NIL
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts)  CLASS hStatus
+      bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aParts) CLASS hStatus
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)

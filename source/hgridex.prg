@@ -250,7 +250,7 @@ METHOD AddRow(a, bupdate) CLASS HGRIDEX
 
    RETURN nil
 
-METHOD Notify(lParam)  CLASS HGRIDEX
+METHOD Notify(lParam) CLASS HGRIDEX
    LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL Res, iSelect, oParent := hwg_GetParentForm(Self)
 
@@ -295,7 +295,7 @@ METHOD Notify(lParam)  CLASS HGRIDEX
    RETURN Res
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem)  CLASS hGridex
+                bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) CLASS hGridex
 
    HB_SYMBOL_UNUSED(cCaption)
    HB_SYMBOL_UNUSED(lTransp)

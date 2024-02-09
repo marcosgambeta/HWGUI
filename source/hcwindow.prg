@@ -159,7 +159,7 @@ METHOD DelControl(oCtrl) CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
+METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
    LOCAL rect, nHx := 0, nWx := 0
    
    x1     := IIF(x1     = NIL, ::nLeft, x1)
@@ -196,7 +196,7 @@ METHOD Move(x1, y1, width, height, nRePaint)  CLASS HCustomWindow
 
    RETURN NIL
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
+METHOD onEvent(msg, wParam, lParam) CLASS HCustomWindow
    LOCAL i
 
    // Writelog("== "+::Classname()+Str(msg)+IIF(wParam!=NIL, Str(wParam), "NIL")+IIF(lParam!=NIL, Str(lParam), "NIL"))
@@ -224,7 +224,7 @@ METHOD onEvent(msg, wParam, lParam)  CLASS HCustomWindow
 
    RETURN - 1
 
-METHOD END()  CLASS HCustomWindow
+METHOD END() CLASS HCustomWindow
 LOCAL aControls, i, nLen
 
    IF ::nHolder != 0

@@ -162,7 +162,7 @@ METHOD New(oPorta) CLASS PrintDos
 
 
 METHOD Comando(oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
-                oComm8, oComm9, oComm10)  CLASS PrintDos
+                oComm8, oComm9, oComm10) CLASS PrintDos
 
    LOCAL oStr := oComm1
 
@@ -206,7 +206,7 @@ METHOD Comando(oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
    RETURN Nil
 
 
-METHOD gWrite(oText)  CLASS PrintDos
+METHOD gWrite(oText) CLASS PrintDos
 
    //tracelog(otext)
    IF ::oAns2Oem
@@ -220,7 +220,7 @@ METHOD gWrite(oText)  CLASS PrintDos
 
    RETURN Nil
 
-METHOD Eject()   CLASS PrintDos
+METHOD Eject() CLASS PrintDos
 //tracelog(::gText, ::oText)
 
    FWrite(::gText, ::oText)

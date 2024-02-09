@@ -29,7 +29,7 @@
 
 //-----------------------------------------------------------------------------------------------//
 CLASS HActiveX FROM HControl
-  CLASS VAR winclass	INIT "ACTIVEX"
+   CLASS VAR winclass	INIT "ACTIVEX"
    DATA oOle      INIT nil
    DATA hSink     INIT nil
    DATA hAtl      INIT nil

@@ -73,7 +73,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
-                bSize, bPaint, ctooltip, tcolor, bcolor, lVert)  CLASS HPager
+                bSize, bPaint, ctooltip, tcolor, bcolor, lVert) CLASS HPager
 
    HB_SYMBOL_UNUSED(cCaption)
 

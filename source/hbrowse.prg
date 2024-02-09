@@ -476,7 +476,7 @@ METHOD Init() CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD SetMargin(nTop, nRight, nBottom, nLeft)  CLASS HBrowse
+METHOD SetMargin(nTop, nRight, nBottom, nLeft) CLASS HBrowse
    LOCAL aOldMargin := AClone(::aMargin)
 
    IF nTop == NIL
@@ -520,7 +520,7 @@ METHOD SetRowHeight(nPixels) CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD onEvent(msg, wParam, lParam)  CLASS HBrowse
+METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
    LOCAL oParent, cKeyb, nCtrl, nPos, lBEof, iParHigh, iParLow
    LOCAL nRecStart, nRecStop, nRet, nShiftAltCtrl
 
@@ -1024,7 +1024,7 @@ METHOD SetRefresh(nSeconds) CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD InitBrw(nType, lInit)  CLASS HBrowse
+METHOD InitBrw(nType, lInit) CLASS HBrowse
    LOCAL cAlias := Alias()
 
    DEFAULT lInit TO .F.
@@ -1295,7 +1295,7 @@ METHOD AutoFit() CLASS HBrowse
 
    //----------------------------------------------------//
 
-METHOD Paint(lLostFocus)  CLASS HBrowse
+METHOD Paint(lLostFocus) CLASS HBrowse
    LOCAL aCoors, aMetr, cursor_row, tmp, nRows, nRowsFill
    LOCAL pps, hDC
    LOCAL oldfont, aMetrHead, nRecFilter
