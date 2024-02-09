@@ -8,11 +8,6 @@
  * www - http://kresin.belgorod.su
  */
 
-// TODO: revision
-#if defined(_MSC_VER)
-#pragma warning(disable : 4244)
-#endif
-
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <commctrl.h>
@@ -58,7 +53,7 @@ HB_FUNC(HWG_TEXTOUT)
           hb_parni(2),    // x-coordinate of starting position
           hb_parni(3),    // y-coordinate of starting position
           lpText,         // address of string
-          nLen            // number of characters in string
+          (int)nLen            // number of characters in string
   );
   hb_strfree(hText);
 }
@@ -88,7 +83,7 @@ HB_FUNC(HWG_DRAWTEXT)
 
   heigh = DrawText(hwg_par_HDC(1), // handle of device context
                    lpText,         // address of string
-                   nLen,           // number of characters in string
+                   (int)nLen,      // number of characters in string
                    &rc, uFormat);
   hb_strfree(hText);
 
@@ -159,7 +154,7 @@ HB_FUNC(HWG_GETTEXTSIZE)
   PHB_ITEM aMetr = hb_itemArrayNew(2);
   PHB_ITEM temp;
 
-  GetTextExtentPoint32(hwg_par_HDC(1), lpText, nLen, &sz);
+  GetTextExtentPoint32(hwg_par_HDC(1), lpText, (int)nLen, &sz);
   hb_strfree(hText);
 
   temp = hb_itemPutNL(NULL, sz.cx);
@@ -339,7 +334,7 @@ HB_FUNC(HWG_EXTTEXTOUT)
              ETO_OPAQUE,     // text-output options
              &rc,            // optional clipping and/or opaquing rectangle
              lpText,         // points to string
-             nLen,           // number of characters in string
+             (int)nLen,           // number of characters in string
              NULL            // pointer to array of intercharacter spacing values
   );
   hb_strfree(hText);
@@ -445,7 +440,7 @@ HB_FUNC(HWG_CREATEFONTINDIRECT)
   LOGFONT lf;
   HFONT f;
   memset(&lf, 0, sizeof(LOGFONT));
-  lf.lfQuality = hb_parni(4);
+  lf.lfQuality = (BYTE)hb_parni(4);
   lf.lfHeight = hb_parni(3);
   lf.lfWeight = hb_parni(2);
   HB_ITEMCOPYSTR(hb_param(1, HB_IT_ANY), lf.lfFaceName, HB_SIZEOFARRAY(lf.lfFaceName));
