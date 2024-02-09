@@ -8,11 +8,6 @@
  * www - http://kresin.belgorod.su
  */
 
-// TODO: revision
-#if defined(_MSC_VER)
-#pragma warning(disable : 4244)
-#endif
-
 #define OEMRESOURCE
 #include "hwingui.h"
 #include <hbapiitm.h>
@@ -42,13 +37,13 @@ HB_FUNC(HWG_SELECTFONT)
     temp1 = GetObjectVar(pObj, "WEIGHT");
     lf.lfWeight = hb_itemGetNI(temp1);
     temp1 = GetObjectVar(pObj, "CHARSET");
-    lf.lfCharSet = hb_itemGetNI(temp1);
+    lf.lfCharSet = (BYTE)hb_itemGetNI(temp1);
     temp1 = GetObjectVar(pObj, "ITALIC");
-    lf.lfItalic = hb_itemGetNI(temp1);
+    lf.lfItalic = (BYTE)hb_itemGetNI(temp1);
     temp1 = GetObjectVar(pObj, "UNDERLINE");
-    lf.lfUnderline = hb_itemGetNI(temp1);
+    lf.lfUnderline = (BYTE)hb_itemGetNI(temp1);
     temp1 = GetObjectVar(pObj, "STRIKEOUT");
-    lf.lfStrikeOut = hb_itemGetNI(temp1);
+    lf.lfStrikeOut = (BYTE)hb_itemGetNI(temp1);
   }
 
   cf.lStructSize = sizeof(CHOOSEFONT);
@@ -249,7 +244,7 @@ HB_FUNC(HWG_SAVEFILE)
   ofn.hwndOwner = GetActiveWindow();
   ofn.lpstrFilter = lpFilter;
   ofn.lpstrFile = lpFileBuff;
-  ofn.nMaxFile = nSize;
+  ofn.nMaxFile = (DWORD)nSize;
   ofn.lpstrInitialDir = HB_PARSTR(4, &hInitDir, NULL);
   ofn.lpstrTitle = HB_PARSTR(5, &hTitle, NULL);
   ofn.Flags = OFN_FILEMUSTEXIST | OFN_EXPLORER;
@@ -538,7 +533,7 @@ HB_FUNC(HWG_GETOPENFILENAME)
   ofn.lpstrDefExt = HB_PARSTR(7, &hDefExt, NULL);
   ofn.nFilterIndex = hb_parni(8);
   ofn.lpstrFile = lpFileBuff;
-  ofn.nMaxFile = nSize;
+  ofn.nMaxFile = (DWORD)nSize;
 
   if (GetOpenFileName(&ofn))
   {
