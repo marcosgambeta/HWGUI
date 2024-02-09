@@ -83,10 +83,7 @@ HB_FUNC(HWG__ENDDIALOG)
 
 HB_FUNC(HWG_GETDLGITEM)
 {
-  HWND hWnd = GetDlgItem(hwg_par_HWND(1), // handle of dialog box
-                         hb_parni(2)      // identifier of control
-  );
-  HB_RETHANDLE(hWnd);
+  HB_RETHANDLE(GetDlgItem(hwg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC(HWG_GETDLGCTRLID)
@@ -97,32 +94,20 @@ HB_FUNC(HWG_GETDLGCTRLID)
 HB_FUNC(HWG_SETDLGITEMTEXT)
 {
   void *hText;
-
-  SetDlgItemText(hwg_par_HWND(1),           // handle of dialog box
-                 hb_parni(2),               // identifier of control
-                 HB_PARSTR(3, &hText, NULL) // text to set
-  );
+  SetDlgItemText(hwg_par_HWND(1), hb_parni(2), HB_PARSTR(3, &hText, NULL));
   hb_strfree(hText);
 }
 
 HB_FUNC(HWG_SETDLGITEMINT)
 {
-  SetDlgItemInt(hwg_par_HWND(1), // handle of dialog box
-                hb_parni(2),     // identifier of control
-                hwg_par_UINT(3), // text to set
-                (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? 0 : 1);
+  SetDlgItemInt(hwg_par_HWND(1), hb_parni(2), hwg_par_UINT(3), (hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4)) ? 0 : 1);
 }
 
 HB_FUNC(HWG_GETDLGITEMTEXT)
 {
   USHORT uiLen = (USHORT)hb_parni(3);
   LPTSTR lpText = (LPTSTR)hb_xgrab((uiLen + 1) * sizeof(TCHAR));
-
-  GetDlgItemText(hwg_par_HWND(1), // handle of dialog box
-                 hb_parni(2),     // identifier of control
-                 lpText,          // address of buffer for text
-                 uiLen            // maximum size of string
-  );
+  GetDlgItemText(hwg_par_HWND(1), hb_parni(2), lpText, uiLen);
   HB_RETSTR(lpText);
   hb_xfree(lpText);
 }
@@ -133,45 +118,30 @@ HB_FUNC(HWG_GETEDITTEXT)
   int id = hb_parni(2);
   USHORT uiLen = (USHORT)SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
   LPTSTR lpText = (LPTSTR)hb_xgrab((uiLen + 2) * sizeof(TCHAR));
-
-  GetDlgItemText(hDlg,     // handle of dialog box
-                 id,       // identifier of control
-                 lpText,   // address of buffer for text
-                 uiLen + 1 // maximum size of string
-  );
+  GetDlgItemText(hDlg, id, lpText, uiLen + 1);
   HB_RETSTR(lpText);
   hb_xfree(lpText);
 }
 
 HB_FUNC(HWG_CHECKDLGBUTTON)
 {
-  CheckDlgButton(hwg_par_HWND(1),                           // handle of dialog box
-                 hb_parni(2),                               // identifier of control
-                 (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED // value to set
-  );
+  CheckDlgButton(hwg_par_HWND(1), hb_parni(2), (hb_parl(3)) ? BST_CHECKED : BST_UNCHECKED);
 }
 
 HB_FUNC(HWG_CHECKRADIOBUTTON)
 {
-  CheckRadioButton(hwg_par_HWND(1), // handle of dialog box
-                   hb_parni(2),     // identifier of first radio button in group
-                   hb_parni(3),     // identifier of last radio button in group
-                   hb_parni(4)      // identifier of radio button to select
-  );
+  CheckRadioButton(hwg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4));
 }
 
 HB_FUNC(HWG_ISDLGBUTTONCHECKED)
 {
-  UINT nRes = IsDlgButtonChecked(hwg_par_HWND(1), // handle of dialog box
-                                 hb_parni(2)      // button identifier
-  );
+  UINT nRes = IsDlgButtonChecked(hwg_par_HWND(1), hb_parni(2));
   hb_retl(nRes == BST_CHECKED);
 }
 
 HB_FUNC(HWG_COMBOADDSTRING)
 {
   void *hText;
-
   SendMessage(hwg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM)HB_PARSTR(2, &hText, NULL));
   hb_strfree(hText);
 }
@@ -179,7 +149,6 @@ HB_FUNC(HWG_COMBOADDSTRING)
 HB_FUNC(HWG_COMBOINSERTSTRING)
 {
   void *hText;
-
   SendMessage(hwg_par_HWND(1), CB_INSERTSTRING, hwg_par_WPARAM(2), (LPARAM)HB_PARSTR(3, &hText, NULL));
   hb_strfree(hText);
 }
@@ -194,7 +163,7 @@ HB_FUNC(HWG_GETNOTIFYCODE)
   hb_retnl((LONG)(((NMHDR *)HB_PARHANDLE(1))->code));
 }
 
-#if 0
+#if 0 // TODO: old code for reference (to be deleted)
 static LPWORD s_lpwAlign(LPWORD lpIn)
 {
   ULONG ul;
@@ -752,7 +721,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     hb_vmPush(pObject);
     hb_vmPushLong((LONG)uMsg);
     hb_vmPushLong((LONG)wParam);
-    //      hb_vmPushLong((LONG) lParam);
+    // hb_vmPushLong((LONG) lParam);
     HB_PUSHITEM(lParam);
     hb_vmSend(3);
     res = hb_parnl(-1);
