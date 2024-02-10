@@ -452,7 +452,7 @@ HB_FUNC(HWG_WINHELP)
     context = 0;
   }
 
-  hb_retni(WinHelp((HWND)hb_parnl(1), HB_PARSTR(2, &hStr, NULL), style, context)); // TODO: pointer
+  hb_retni(WinHelp(hwg_par_HWND(1), HB_PARSTR(2, &hStr, NULL), style, context));
   hb_strfree(hStr);
 }
 
