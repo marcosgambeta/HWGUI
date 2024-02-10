@@ -18,6 +18,7 @@
 #define EVENTS_ACTIONS  2
 #define RT_MANIFEST  24
 
+#if 0 // TODO: old code for reference (to be deleted)
 STATIC aCustomEvents := { ;
        { WM_NOTIFY, WM_PAINT, WM_CTLCOLORSTATIC, WM_CTLCOLOREDIT, WM_CTLCOLORBTN, WM_CTLCOLORLISTBOX, ;
          WM_COMMAND, WM_DRAWITEM, WM_SIZE, WM_DESTROY }, ;
@@ -34,6 +35,7 @@ STATIC aCustomEvents := { ;
          {|o      |onDestroy(o)}                                          ;
        } ;
      }
+#endif
 
 CLASS HCustomWindow INHERIT HObject
 
@@ -161,7 +163,7 @@ METHOD DelControl(oCtrl) CLASS HCustomWindow
 
 METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
    LOCAL rect, nHx := 0, nWx := 0
-   
+
    x1     := IIF(x1     = NIL, ::nLeft, x1)
    y1     := IIF(y1     = NIL, ::nTop, y1)
    width  := IIF(width  = NIL, ::nWidth, width)
@@ -196,6 +198,7 @@ METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
 
    RETURN NIL
 
+#if 0 // TODO: old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HCustomWindow
    LOCAL i
 
@@ -223,6 +226,59 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCustomWindow
    ENDIF
 
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HCustomWindow
+
+   IF msg == WM_GETMINMAXINFO
+      IF ::minWidth > -1 .OR. ::maxWidth > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
+         hwg_Minmaxwindow(::handle, lParam, ;
+            IIf(::minWidth  > -1, ::minWidth, NIL), ;
+            IIf(::minHeight > -1, ::minHeight, NIL), ;
+            IIf(::maxWidth  > -1, ::maxWidth, NIL), ;
+            IIf(::maxHeight > -1, ::maxHeight, NIL))
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_NOTIFY
+      RETURN Eval({|o, w, l|onNotify(o, w, l)}, Self, wParam, lParam)
+
+   CASE WM_PAINT
+      RETURN Eval({|o, w|IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), -1)}, Self, wParam, lParam)
+
+   CASE WM_CTLCOLORSTATIC
+   CASE WM_CTLCOLOREDIT
+   CASE WM_CTLCOLORBTN
+   CASE WM_CTLCOLORLISTBOX
+      RETURN Eval({|o, w, l|onCtlColor(o, w, l)}, Self, wParam, lParam)
+
+   CASE WM_COMMAND
+      RETURN Eval({|o, w, l|onCommand(o, w, l)}, Self, wParam, lParam)
+
+   CASE WM_DRAWITEM
+      RETURN Eval({|o, w, l|onDrawItem(o, w, l)}, Self, wParam, lParam)
+
+   CASE WM_SIZE
+      RETURN Eval({|o, w, l|onSize(o, w, l)}, Self, wParam, lParam)
+
+   CASE WM_DESTROY
+      RETURN Eval({|o|onDestroy(o)}, Self, wParam, lParam)
+
+#ifdef __XHARBOUR__
+   DEFAULT
+#else
+   OTHERWISE
+#endif
+      IF ::bOther != NIL
+         RETURN Eval(::bOther, Self, msg, wParam, lParam)
+      ENDIF
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD END() CLASS HCustomWindow
 LOCAL aControls, i, nLen
@@ -243,7 +299,7 @@ LOCAL aControls, i, nLen
 
 METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
    LOCAL nlen, i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
-   
+
 	 oCtrl := IIF(oCtrl == Nil, Self, oCtrl)
 	 lAll  := IIF(lAll  == Nil, .F., lAll)
 	 nLen  := LEN(oCtrl:aControls)
