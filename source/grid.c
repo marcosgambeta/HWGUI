@@ -11,12 +11,6 @@
  * Extended function Copyright 2006 Luiz Rafael Culik Guimaraes <luiz@xharbour.com.br>
  */
 
-// TODO: revision
-#if defined(_MSC_VER)
-#pragma warning(disable : 4244)
-#pragma warning(disable : 4312)
-#endif
-
 #include "hwingui.h"
 #include "incomp_pointer.h"
 #include <commctrl.h>
@@ -390,7 +384,7 @@ HB_FUNC(HWG_LISTVIEWSELECTLASTITEM)
   HWND hList = hwg_par_HWND(1);
   int items;
 
-  items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
+  items = (int)SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
   items--;
   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
   SendMessage(hList, LVM_ENSUREVISIBLE, (WPARAM)items, FALSE);
