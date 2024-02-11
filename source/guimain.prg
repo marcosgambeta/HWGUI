@@ -648,7 +648,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
 	   ENDIF
      IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
          !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
-        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(lParam)) == Upper(SubStr(oCtrl:aControls[i]:title, ++pos, 1))
+        IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(hwg_loword(hwg_hiword(lParam)))) == Upper(SubStr(oCtrl:aControls[i]:title, ++pos, 1))
            RETURN oCtrl:aControls[i]
         ENDIF
      ENDIF
