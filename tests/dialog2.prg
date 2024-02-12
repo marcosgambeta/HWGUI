@@ -8,7 +8,6 @@ PROCEDURE Main()
    LOCAL oEdit3
    LOCAL oEdit4
    LOCAL oEdit5
-   LOCAL cText
 
    INIT DIALOG oDialog TITLE "Test" SIZE 640, 480 ;
       FONT HFont():Add("Courier New", 0, -13) ;
