@@ -658,7 +658,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
 FUNCTION hwg_GetBackColorParent(oCtrl, lSelf, lTransparent)
 
    Local bColor := hwg_Getsyscolor(COLOR_BTNFACE), hTheme
-   Local brush := nil
+   Local brush := NIL
 
    DEFAULT lTransparent := .F.
    IF lSelf == Nil .OR. !lSelf

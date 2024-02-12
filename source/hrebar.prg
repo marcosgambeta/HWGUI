@@ -86,7 +86,7 @@ METHOD INIT() CLASS hrebar
    IF !::lInit
       ::Super:Init()
       ::CreateBands()
-      // hwg_Rebarsetimagelist(::handle, nil)
+      // hwg_Rebarsetimagelist(::handle, NIL)
    ENDIF
 
    RETURN NIL

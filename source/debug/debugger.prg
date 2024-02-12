@@ -695,5 +695,5 @@ function ALTD(nAction)
          SET(_SET_DEBUG, .T.)
       endif
    endif
-return nil
+return NIL
 #endif

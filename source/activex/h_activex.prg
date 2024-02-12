@@ -30,10 +30,10 @@
 //-----------------------------------------------------------------------------------------------//
 CLASS HActiveX FROM HControl
    CLASS VAR winclass	INIT "ACTIVEX"
-   DATA oOle      INIT nil
-   DATA hSink     INIT nil
-   DATA hAtl      INIT nil
-   DATA hObj      INIT nil
+   DATA oOle      INIT NIL
+   DATA hSink     INIT NIL
+   DATA hAtl      INIT NIL
+   DATA hObj      INIT NIL
 
    METHOD Release
    METHOD New
