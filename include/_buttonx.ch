@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>,<nY> BUTTON [ <lExt: EXTENDED,EXT> ] [ <oBut> CAPTION ] <caption> ;
              [ OF <oWnd> ]              ;
              [ ID <nId> ]               ;

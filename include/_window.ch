@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand INIT WINDOW <oWnd>                ;
              [ MAIN ]                       ;
              [<lMdi: MDI>]                  ;

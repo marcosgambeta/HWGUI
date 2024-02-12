@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand PREPARE FONT <oFont>       ;
              NAME <cName>            ;
              [ WIDTH <nWidth> ]      ;

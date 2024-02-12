@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 #xcommand @ <nX>,<nY> GRID <oGrid>        ;
              [ OF <oWnd> ]               ;
              [ ID <nId> ]                ;

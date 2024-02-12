@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY - USED BY GUILIB.CH
+
 /* Add Sandro R. R. Freire */
 
 #xcommand SPLASH [<osplash> TO]  <oBitmap> ;
