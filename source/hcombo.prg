@@ -949,6 +949,7 @@ METHOD INIT() CLASS hCheckComboBox
 
    RETURN Nil
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
    LOCAL nIndex
    LOCAL rcItem, rcClient
@@ -1063,6 +1064,127 @@ METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
    ENDIF
 
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
+
+   LOCAL nIndex
+   LOCAL rcItem
+   LOCAL rcClient
+   LOCAL pt
+   LOCAL nItemHeight
+   LOCAL nTopIndex
+   LOCAL nPos
+
+   SWITCH msg
+
+   CASE WM_RBUTTONDOWN
+      EXIT
+
+   CASE LB_GETCURSEL
+      RETURN -1
+
+   CASE WM_MEASUREITEM
+      ::MeasureItem(lParam)
+      RETURN 0
+
+   CASE WM_GETTEXT
+      RETURN ::OnGetText(wParam, lParam)
+
+   CASE WM_GETTEXTLENGTH
+      RETURN ::OnGetTextLength(wParam, lParam)
+
+   CASE WM_MOUSEWHEEL
+      RETURN ::SkipItems(iif(hwg_Hiword(wParam) > 32768, 1, -1))
+
+   CASE WM_COMMAND
+      IF hwg_Hiword(wParam) == CBN_SELCHANGE
+         nPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0)
+         IF Left(::Title, 2) == "\]" .OR. Left(::Title, 2) == "\-"
+            RETURN 0
+         ELSE
+            ::nCurPos := nPos
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_CHAR
+      IF wParam == VK_SPACE
+         nIndex := hwg_Sendmessage(::handle, CB_GETCURSEL, wParam, lParam) + 1
+         rcItem := hwg_Combogetitemrect(::handle, nIndex - 1)
+         hwg_Invalidaterect(::handle, .F., rcItem[1], rcItem[2], rcItem[3], rcItem[4])
+         ::SetCheck(nIndex, !::GetCheck(nIndex))
+         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)
+      ENDIF
+      IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE .OR. !hwg_GetParentForm(Self):lModal
+         IF wParam == VK_TAB
+            hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            RETURN 0
+         ELSEIF wParam == VK_RETURN
+            hwg_GetSkip(::oParent, ::handle, , 1)
+            RETURN 0
+         ENDIF
+      ENDIF
+      RETURN 0
+
+   CASE WM_KEYDOWN
+      SWITCH wParam
+      CASE VK_HOME
+      CASE VK_END
+         nPos := iif(wParam == VK_HOME, ;
+            Ascan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,), ;
+            RAscan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,))
+         IF nPos - 1 != ::nCurPos
+            hwg_Setfocus(NIL)
+            hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)
+            ::nCurPos := nPos - 1
+            RETURN 0
+         ENDIF
+         EXIT
+      CASE VK_UP
+      CASE VK_DOWN
+         RETURN ::SkipItems(iif(wParam = VK_DOWN, 1, -1))
+      ENDSWITCH
+      hwg_ProcKeyList(Self, wParam)
+      EXIT
+
+   CASE WM_KEYUP
+      IF wParam == VK_DOWN .OR. wParam == VK_UP
+         IF Left(::Title, 2) == "\]" .OR. Left(::Title, 2) == "\-"
+            RETURN 0
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_LBUTTONDOWN
+      rcClient := hwg_Getclientrect(::handle)
+      pt := {,}
+      pt[1] := hwg_Loword(lParam)
+      pt[2] := hwg_Hiword(lParam)
+      IF hwg_Ptinrect(rcClient, pt)
+         nItemHeight := hwg_Sendmessage(::handle, LB_GETITEMHEIGHT, 0, 0)
+         nTopIndex   := hwg_Sendmessage(::handle, LB_GETTOPINDEX, 0, 0)
+         // Compute which index to check/uncheck
+         nIndex := (nTopIndex + pt[2] / nItemHeight) + 1
+         rcItem := hwg_Combogetitemrect(::handle, nIndex - 1)
+         IF pt[1] < ::nWidthCheck
+            // Invalidate this window
+            hwg_Invalidaterect(::handle, .F., rcItem[1], rcItem[2], rcItem[3], rcItem[4])
+            nIndex := hwg_Sendmessage(::handle, CB_GETCURSEL, wParam, lParam) + 1
+            ::SetCheck(nIndex, !::GetCheck(nIndex))
+            // Notify that selection has changed
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_LBUTTONUP
+      RETURN -1 //0
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD Requery() CLASS hCheckComboBox
    LOCAL i
