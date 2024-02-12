@@ -113,6 +113,7 @@ METHOD Init() CLASS HCheckButton
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
    LOCAL oCtrl
 
@@ -157,6 +158,69 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
       ENDIF
       RETURN DLGC_WANTMESSAGE //+ DLGC_WANTCHARS
    ENDIF
+
+   RETURN -1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
+
+   LOCAL oCtrl
+
+   IF ::bOther != NIL
+      IF Eval(::bOther, Self, msg, wParam, lParam) != -1
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_KEYDOWN
+      //IF hwg_ProcKeyList(Self, wParam)
+      SWITCH wParam
+      CASE VK_TAB
+         hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         RETURN 0
+      CASE VK_LEFT
+      CASE VK_UP
+         hwg_GetSkip(::oparent, ::handle, , -1)
+         RETURN 0
+      CASE VK_RIGHT
+      CASE VK_DOWN
+         hwg_GetSkip(::oparent, ::handle, , 1)
+         RETURN 0
+      CASE VK_RETURN
+      //CASE VK_SPACE
+         IF ::lEnter
+            ::SetValue(!::GetValue())
+            ::VALID()
+            RETURN 0 //-1
+         ELSE
+            hwg_GetSkip(::oparent, ::handle, , 1)
+            RETURN 0
+         ENDIF
+      ENDSWITCH
+      EXIT
+
+   CASE WM_KEYUP
+      hwg_ProcKeyList(Self, wParam) // working in MDICHILD AND DIALOG
+      EXIT
+
+   CASE WM_GETDLGCODE
+      IF !EMPTY(lParam)
+         IF wParam = VK_RETURN .OR. wParam = VK_TAB
+            RETURN -1
+         ELSEIF wParam = VK_ESCAPE .AND. ;
+            (oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != NIL .AND. !oCtrl:IsEnabled()
+            RETURN DLGC_WANTMESSAGE
+         ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
+         ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE .OR. ;
+            hwg_Getdlgmessage(lParam) = WM_SYSCHAR
+            RETURN -1
+         ENDIF
+         RETURN DLGC_WANTMESSAGE //+ DLGC_WANTCHARS
+      ENDIF
+
+   ENDSWITCH
 
    RETURN -1
 
