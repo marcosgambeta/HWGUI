@@ -728,6 +728,7 @@ Function hwg_SetAll(oWnd, cProperty, Value, aControls, cClass)
    NEXT
    RETURN Nil
 
+#if 0 // old code for reference (to be deleted)
 FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
    Local nDelta, nSBCode, nPos, nInc
 
@@ -799,6 +800,106 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
       nDelta := - HORZ_PTS * nInc
       hwg_Scrollwindow(oForm:handle, nDelta, 0)
       hwg_Setscrollpos(oForm:Handle, SB_HORZ, oForm:nHscrollPos, .T.)
-   ENDIF 	
+   ENDIF
    RETURN Nil
+#endif
 
+FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
+
+   LOCAL nDelta
+   LOCAL nSBCode
+   LOCAL nPos
+   LOCAL nInc
+
+   HB_SYMBOL_UNUSED(lParam)
+
+   nSBCode := hwg_Loword(wParam)
+
+   SWITCH msg
+
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF msg == WM_MOUSEWHEEL
+         nSBCode = IIF(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+         nSBCode = IIF(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
+      ENDIF
+      // Handle vertical scrollbar messages
+      SWITCH nSBCode
+      CASE SB_TOP
+         nInc := -oForm:nVscrollPos
+         EXIT
+      CASE SB_BOTTOM
+         nInc := oForm:nVscrollMax - oForm:nVscrollPos
+         EXIT
+      CASE SB_LINEUP
+         nInc := -Int(oForm:nVertInc * 0.05 + 0.49)
+         EXIT
+      CASE SB_LINEDOWN
+         nInc := Int(oForm:nVertInc * 0.05 + 0.49)
+         EXIT
+      CASE SB_PAGEUP
+         nInc := min(-1, -oForm:nVertInc / 2)
+         EXIT
+      CASE SB_PAGEDOWN
+         nInc := max(1, oForm:nVertInc / 2)
+         EXIT
+      CASE SB_THUMBTRACK
+         nPos := hwg_Hiword(wParam)
+         nInc := nPos - oForm:nVscrollPos
+         EXIT
+      #ifdef __XHARBOUR__
+      DEFAULT
+      #else
+      OTHERWISE
+      #endif
+         nInc := 0
+      ENDSWITCH
+      nInc := Max(-oForm:nVscrollPos, Min(nInc, oForm:nVscrollMax - oForm:nVscrollPos))
+      oForm:nVscrollPos += nInc
+      nDelta := -VERT_PTS * nInc
+      hwg_Scrollwindow(oForm:handle, 0, nDelta) //, NIL, NIL)
+      hwg_Setscrollpos(oForm:Handle, SB_VERT, oForm:nVscrollPos, .T.)
+      EXIT
+
+   CASE WM_HSCROLL
+   // CASE WM_MOUSEWHEEL
+      // Handle vertical scrollbar messages
+      SWITCH nSBCode
+      CASE SB_TOP
+         nInc := -oForm:nHscrollPos
+         EXIT
+      CASE SB_BOTTOM
+         nInc := oForm:nHscrollMax - oForm:nHscrollPos
+          EXIT
+      CASE SB_LINEUP
+         nInc := -1
+         EXIT
+      CASE SB_LINEDOWN
+         nInc := 1
+         EXIT
+      CASE SB_PAGEUP
+         nInc := -HORZ_PTS
+         EXIT
+      CASE SB_PAGEDOWN
+         nInc := HORZ_PTS
+         EXIT
+      CASE SB_THUMBTRACK
+         nPos := hwg_Hiword(wParam)
+         nInc := nPos - oForm:nHscrollPos
+         EXIT
+      #ifdef __XHARBOUR__
+      DEFAULT
+      #else
+      OTHERWISE
+      #endif
+         nInc := 0
+      ENDSWITCH
+      nInc := max(-oForm:nHscrollPos, min(nInc, oForm:nHscrollMax - oForm:nHscrollPos))
+      oForm:nHscrollPos += nInc
+      nDelta := -HORZ_PTS * nInc
+      hwg_Scrollwindow(oForm:handle, nDelta, 0)
+      hwg_Setscrollpos(oForm:Handle, SB_HORZ, oForm:nHscrollPos, .T.)
+
+   ENDSWITCH
+
+   RETURN NIL
