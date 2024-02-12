@@ -793,8 +793,9 @@ FUNCTION hwg_SetDlgKey(oDlg, nctrl, nkey, block)
 
    RETURN bOldSet
 
+#if 0 // old code for reference (to be deleted)
 STATIC FUNCTION onSysCommand(oDlg, wParam, lParam)
-   
+
    LOCAL oCtrl
 
    IF wParam == SC_CLOSE
@@ -816,6 +817,55 @@ STATIC FUNCTION onSysCommand(oDlg, wParam, lParam)
    ELSEIF wParam == SC_MENU
    ELSEIF wParam == 61824 // button help
    ENDIF
+
+   RETURN -1
+#endif
+
+STATIC FUNCTION onSysCommand(oDlg, wParam, lParam)
+
+   LOCAL oCtrl
+
+   SWITCH wParam
+
+   CASE SC_CLOSE
+      IF !oDlg:Closable
+         RETURN 1
+      ENDIF
+      EXIT
+
+   //CASE SC_MINIMIZE
+   //   EXIT
+
+   //CASE SC_MAXIMIZE
+   //CASE SC_MAXIMIZE2
+   //   EXIT
+
+   //CASE SC_RESTORE
+   //CASE SC_RESTORE2
+   //   EXIT
+
+   //CASE SC_NEXTWINDOW
+   //CASE SC_PREVWINDOW
+   //   EXIT
+
+   CASE SC_KEYMENU
+      // accelerator IN TAB/CONTAINER
+      IF (oCtrl := hwg_FindAccelerator(oDlg, lParam)) != NIL
+         oCtrl:Setfocus()
+         hwg_Sendmessage(oCtrl:handle, WM_SYSKEYUP, lParam, 0)
+         RETURN 2
+      ENDIF
+      EXIT
+
+   //CASE SC_HOTKEY
+   //   EXIT
+
+   //CASE SC_MENU
+   //   EXIT
+
+   //CASE 61824 // button help
+
+   ENDSWITCH
 
    RETURN -1
 
