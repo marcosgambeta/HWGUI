@@ -415,14 +415,14 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
       IF (bActivate  != NIL)
          Eval(bActivate, Self)
       ENDIF
-      
+
       ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
       ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
       IF !Empty(::nInitFocus)
          hwg_Setfocus(::nInitFocus)
          ::nFocus := hwg_Getfocus()
       ENDIF
-      
+
       Hwg_ActivateMainWindow((lShow == Nil .OR. lShow), ::hAccel, lMaximized, lMinimized)
 
    ENDIF
@@ -749,10 +749,10 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
      ::nFocus := hwg_Getfocus()
    ENDIF
 
-   
+
    RETURN Nil
 
-
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HChildWindow
    LOCAL i, oCtrl
 
@@ -780,6 +780,84 @@ METHOD onEvent(msg, wParam, lParam) CLASS HChildWindow
    ENDIF
 
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HChildWindow
+
+   LOCAL oCtrl
+
+   SWITCH msg
+
+   CASE WM_PAINT
+      RETURN ::Paint(self)
+
+   CASE WM_DESTROY
+      RETURN hwg_onDestroy(Self)
+
+   CASE WM_SIZE
+      RETURN onSize(Self, wParam, lParam)
+
+   CASE WM_SETFOCUS
+      IF !Empty(::nFocus)
+         hwg_Setfocus(::nFocus)
+      ENDIF
+      EXIT
+
+   CASE WM_COMMAND
+      RETURN onCommand(Self, wParam, lParam)
+
+   CASE WM_ERASEBKGND
+      RETURN onEraseBk(Self, wParam)
+
+   CASE WM_MOVE
+      RETURN hwg_onMove(Self)
+
+   CASE WM_SYSCOMMAND
+      RETURN onSysCommand(Self, wParam, lParam)
+
+   CASE WM_NOTIFYICON
+      RETURN onNotifyIcon(Self, wParam, lParam)
+
+   CASE WM_ENTERIDLE
+      RETURN onEnterIdle(Self, wParam, lParam)
+
+   CASE WM_ACTIVATEAPP
+      RETURN onEnterIdle(Self, wParam, lParam)
+
+   CASE WM_CLOSE
+      RETURN onCloseQuery(Self)
+
+   CASE WM_ENDSESSION
+      RETURN onEndSession(Self, wParam)
+
+   CASE WM_ACTIVATE
+      RETURN onActivate(Self, wParam, lParam)
+
+   CASE WM_HELP
+      RETURN hwg_onHelp(Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   CASE WM_NOTIFY
+      IF !::lSuspendMsgsHandling
+         IF (oCtrl := ::FindControl(wParam)) != Nil .AND. oCtrl:className != "HTAB"
+            ::nFocus := oCtrl:handle
+            hwg_Sendmessage(oCtrl:handle, msg, wParam, lParam)
+         ENDIF
+      ENDIF
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN -1
 
 FUNCTION hwg_ReleaseAllWindows(hWnd)
 
