@@ -150,6 +150,8 @@ ENDCLASS
 METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont, ;
                   bInit,bSize,bClick,ctooltip ) CLASS HQhtmButton
 
+   HB_SYMBOL_UNUSED(oFont)
+
    ::cHtml := cCaption
    ::Super:New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,"",, ;
                   bInit,bSize,,bClick,ctooltip )
@@ -158,6 +160,8 @@ METHOD New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont, ;
 Return Self
 
 METHOD Redefine( oWndParent,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip) CLASS HQhtmButton
+
+   HB_SYMBOL_UNUSED(oFont)
 
    ::cHtml := cCaption
    ::Super:Redefine( oWndParent,nId,,bInit,bSize,,bClick,ctooltip )

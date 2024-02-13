@@ -313,7 +313,11 @@ METHOD Go() CLASS HBDebugger
 
 METHOD HandleEvent() CLASS HBDebugger
 
-   LOCAL nKey, p1, p2, xResult, nAt
+   LOCAL nKey
+   LOCAL p1
+   LOCAL p2
+   //LOCAL xResult (not used)
+   LOCAL nAt
 
    DO WHILE .T.
 
@@ -630,12 +634,14 @@ Local arr, arr1[512], n, i, nAreas := 0, nAlias
 
 
 /* Check if a string starts with another string */
-STATIC FUNCTION starts(cLine, cStart)
+#if 0
+STATIC FUNCTION starts(cLine, cStart) // defined, but not used
    RETURN cStart == Left(cLine, Len(cStart))
-
+#endif
 
 /* Strip path from filename */
-STATIC FUNCTION strip_path(cFileName)
+#if 0
+STATIC FUNCTION strip_path(cFileName) // defined, but not used
 
    LOCAL cName
    LOCAL cExt
@@ -647,6 +653,7 @@ STATIC FUNCTION strip_path(cFileName)
    hb_FNameSplit(cFileName, NIL, @cName, @cExt)
 
    RETURN cName + cExt
+#endif
 
 FUNCTION __dbgValToStr(uVal)
 
@@ -655,7 +662,7 @@ FUNCTION __dbgValToStr(uVal)
    DO CASE
    CASE uVal == NIL  ; RETURN "NIL"
    CASE cType == "B" ; RETURN "{|| ... }"
-   CASE cType == "A" 
+   CASE cType == "A"
       s := ""
       nLen := Min(8, Len(uVal))
       FOR i := 1 TO nLen

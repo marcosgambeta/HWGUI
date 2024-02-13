@@ -256,6 +256,8 @@ Return Nil
 
 Function hwg_dbg_Wait(nWait)
 
+   HB_SYMBOL_UNUSED(nWait)
+
    IF !lDebugRun
       Return Nil
    ENDIF
@@ -363,6 +365,8 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
 Return Nil
 
 Function hwg_dbg_Msg(cMessage)
+
+   HB_SYMBOL_UNUSED(cMessage)
 
    IF !lDebugRun
       Return Nil

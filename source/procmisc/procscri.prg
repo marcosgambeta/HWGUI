@@ -8,6 +8,8 @@
  *         www - http://kresin.belgorod.su
 */
 
+#pragma -w1
+
 #include "fileio.ch"
 #define __WINDOWS__
 
@@ -361,7 +363,7 @@ Local n, cTitle
    ENDIF
 #endif
    BREAK
-RETURN .T.
+RETURN .T. // TODO: Warning W0028 Unreachable code
 
 STATIC FUNCTION Fou_If(rezArray, tmpArray, prju)
 
@@ -399,7 +401,11 @@ RETURN .F.
 
 STATIC FUNCTION Fou_Do(rezArray, tmpArray)
 
-LOCAL i, j, iloop := 0, iPos, bOldError
+   LOCAL i
+   LOCAL j
+   LOCAL iloop := 0
+   //LOCAL iPos (not used)
+   LOCAL bOldError
 
    j := LEN(rezArray)
    FOR i := j TO 1 STEP - 1
