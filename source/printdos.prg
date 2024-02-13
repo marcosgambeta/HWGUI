@@ -286,7 +286,7 @@ METHOD Say(oProw, oPcol, oTexto, oPicture) CLASS PrintDos
    // tracelog(oProw, oPcol, oTexto, oPicture)
    IF ValType(oTexto) == "N"
 
-      IF !Empty(oPicture) .OR. oPicture # Nil
+      IF !Empty(oPicture) .OR. oPicture != Nil
          oTexto := Transform(oTexto, oPicture)
       ELSE
          oTexto := Str(oTexto)
@@ -295,7 +295,7 @@ METHOD Say(oProw, oPcol, oTexto, oPicture) CLASS PrintDos
    ELSEIF ValType(oTexto) == "D"
       oTexto := DToC(oTexto)
    ELSE
-      IF !Empty(oPicture) .OR. oPicture # Nil
+      IF !Empty(oPicture) .OR. oPicture != Nil
          oTexto := Transform(oTexto, oPicture)
       ENDIF
    ENDIF
