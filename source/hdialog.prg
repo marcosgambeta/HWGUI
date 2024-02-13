@@ -16,6 +16,10 @@
 #define WM_PSPNOTIFY WM_USER + 1010
 
 STATIC aSheet := NIL
+
+// if you have problems with the new code, change
+// '#if 0' to '#if 1' to use the old code
+#if 0 // old code for reference (to be deleted)
 STATIC aMessModalDlg := { ;
       { WM_COMMAND, {|o, w, l|onDlgCommand(o, w, l)} },       ;
       { WM_SYSCOMMAND, {|o, w, l|onSysCommand(o, w, l)} },    ;
@@ -28,6 +32,7 @@ STATIC aMessModalDlg := { ;
       { WM_HELP, {|o, w, l|hwg_onHelp(o, w, l)} },            ;
       { WM_CTLCOLORDLG, {|o, w, l|onDlgColor(o, w, l)} }      ;
       }
+#endif
 
 // Class HDialog
 
@@ -154,8 +159,11 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
 
    RETURN NIL
 
+// if you have problems with the new code, change
+// '#if 0' to '#if 1' to use the old code
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HDialog
-   
+
    LOCAL i
    LOCAL oTab
    LOCAL nPos
@@ -216,9 +224,170 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
    ENDIF
 
    RETURN 0
+#else
+METHOD onEvent(msg, wParam, lParam) CLASS HDialog
+
+   LOCAL oTab
+   LOCAL nPos
+   LOCAL aCoors
+
+   SWITCH msg
+
+   CASE WM_GETMINMAXINFO
+      IF ::minWidth  > -1 .OR. ::maxWidth  > -1 .OR. ;
+         ::minHeight > -1 .OR. ::maxHeight > -1
+         hwg_Minmaxwindow(::handle, lParam, ;
+            iif(::minWidth  > -1, ::minWidth, NIL), ;
+            iif(::minHeight > -1, ::minHeight, NIL), ;
+            iif(::maxWidth  > -1, ::maxWidth, NIL), ;
+            iif(::maxHeight > -1, ::maxHeight, NIL))
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_MENUCHAR
+      RETURN onSysCommand(Self, SC_KEYMENU, hwg_Loword(wParam))
+
+   CASE WM_MOVE
+      aCoors := hwg_Getwindowrect(::handle)
+      ::nLeft := aCoors[1]
+      ::nTop  := aCoors[2]
+      EXIT
+
+   CASE WM_UPDATEUISTATE
+      IF hwg_Hiword(wParam) != UISF_HIDEFOCUS
+         // prevent the screen flicker
+         RETURN 1
+      ENDIF
+      EXIT
+
+   CASE WM_NCPAINT
+      IF !::lActivated
+         /* triggered on activate the modal dialog is visible only when */
+         // ::lActivated := .T.
+         IF ::lModal .AND. ValType(::bOnActivate) == "B"
+            hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam(WA_ACTIVE, 0), ::handle)
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_COMMAND
+      IF ::lRouteCommand
+         nPos := AScan(::aControls, {|x|x:className() == "HTAB"})
+         IF nPos > 0
+            oTab := ::aControls[nPos]
+            IF Len(oTab:aPages) > 0
+               Eval({|o, w, l|onDlgCommand(o, w, l)}, oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
+            ENDIF
+         ENDIF
+      ENDIF
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|onDlgCommand(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_SYSCOMMAND
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|onSysCommand(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_SIZE
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling .OR. msg == WM_SIZE
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|onSize(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_INITDIALOG
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|InitModalDlg(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ERASEBKGND
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling .OR. msg == WM_ERASEBKGND
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w|onEraseBk(o, w)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_DESTROY
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o|hwg_onDestroy(o)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ACTIVATE
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({| o, w, l|onActivate(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_PSPNOTIFY
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|onPspNotify(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_HELP
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|hwg_onHelp(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_CTLCOLORDLG
+      //AgE SOMENTE NO DIALOG
+      IF !::lSuspendMsgsHandling
+         //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
+         RETURN Eval({|o, w, l|onDlgColor(o, w, l)}, Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_CLOSE
+      ::close()
+      RETURN 1
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF ::nScrollBars != -1 .AND. ::bScroll == NIL
+         hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
+   OTHERWISE
+   #endif
+
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN 0
+#endif
 
 METHOD DelItem() CLASS HDialog
-   
+
    LOCAL i
 
    IF ::lModal
@@ -236,7 +405,7 @@ METHOD DelItem() CLASS HDialog
    RETURN NIL
 
 METHOD FindDialog(hWndTitle, lAll) CLASS HDialog
-   
+
    LOCAL cType := ValType(hWndTitle)
    LOCAL i
 
@@ -257,7 +426,7 @@ METHOD FindDialog(hWndTitle, lAll) CLASS HDialog
    RETURN iif(i == 0, NIL, ::aDialogs[i])
 
 METHOD GetActive() CLASS HDialog
-   
+
    LOCAL handle := hwg_Getfocus()
    LOCAL i := AScan(::Getlist, {|o|o:handle == handle})
 
@@ -267,7 +436,7 @@ METHOD GetActive() CLASS HDialog
    // ------------------------------------
 
 STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
-   
+
    LOCAL nReturn := 1
    LOCAL uis
 
@@ -564,7 +733,7 @@ STATIC FUNCTION onSize(oDlg, wParam, lParam)
    RETURN 0
 
 STATIC FUNCTION onActivate(oDlg, wParam, lParam)
-   
+
    LOCAL iParLow := hwg_Loword(wParam)
    LOCAL iParHigh := hwg_Hiword(wParam)
 
@@ -635,8 +804,9 @@ FUNCTION hwg_onHelp(oDlg, wParam, lParam)
 
    RETURN 1
 
+#if 0 // old code for reference (to be deleted)
 STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
-   
+
    LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL res := .T.
 
@@ -679,6 +849,65 @@ STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
          RETURN 1
       ENDIF
    ENDIF
+
+   RETURN 0
+#endif
+
+STATIC FUNCTION onPspNotify(oDlg, wParam, lParam)
+
+   LOCAL nCode := hwg_Getnotifycode(lParam)
+   LOCAL res := .T.
+
+   HB_SYMBOL_UNUSED(wParam)
+
+   SWITCH nCode
+
+   CASE PSN_SETACTIVE
+      IF oDlg:bGetFocus != NIL
+         oDlg:lSuspendMsgsHandling := .T.
+         res := Eval(oDlg:bGetFocus, oDlg)
+         oDlg:lSuspendMsgsHandling := .F.
+      ENDIF
+      // 'res' should be 0(Ok) or -1
+      Hwg_SetDlgResult(oDlg:handle, iif(res, 0, -1))
+      RETURN 1
+
+   CASE PSN_KILLACTIVE
+      IF oDlg:bLostFocus != NIL
+         oDlg:lSuspendMsgsHandling := .T.
+         res := Eval(oDlg:bLostFocus, oDlg)
+         oDlg:lSuspendMsgsHandling := .F.
+      ENDIF
+      // 'res' should be 0(Ok) or 1
+      Hwg_SetDlgResult(oDlg:handle, iif(res, 0, 1))
+      RETURN 1
+
+   //CASE PSN_RESET
+
+   CASE PSN_APPLY
+      IF oDlg:bDestroy != NIL
+         res := Eval(oDlg:bDestroy, oDlg)
+      ENDIF
+      // 'res' should be 0(Ok) or 2
+      Hwg_SetDlgResult(oDlg:handle, iif(res, 0, 2))
+      IF res
+         oDlg:lResult := .T.
+      ENDIF
+      RETURN 1
+
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
+   OTHERWISE
+   #endif
+
+      IF oDlg:bOther != NIL
+         res := Eval(oDlg:bOther, oDlg, WM_NOTIFY, 0, lParam)
+         Hwg_SetDlgResult(oDlg:handle, iif(res, 0, 1))
+         RETURN 1
+      ENDIF
+
+   ENDSWITCH
 
    RETURN 0
 
