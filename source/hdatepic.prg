@@ -128,7 +128,7 @@ METHOD Activate() CLASS HDatePicker
 
 METHOD Init() CLASS HDatePicker
    IF !::lInit
-   
+
       ::nHolder := 1
       hwg_Setwindowobject(::handle, Self)
       HWG_INITDATEPICKERPROC(::handle)
@@ -139,6 +139,7 @@ METHOD Init() CLASS HDatePicker
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
    IF ::bOther != NIL
@@ -164,6 +165,43 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
           //RETURN DLGC_WANTTAB
       ENDIF
    ENDIF
+
+   RETURN -1
+#endif
+
+METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
+
+   IF ::bOther != NIL
+      IF Eval(::bOther, Self, msg, wParam, lParam) != -1
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_CHAR
+      IF wParam == VK_TAB
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         RETURN 0
+      ELSEIF wParam == VK_RETURN
+         hwg_GetSkip(::oParent, ::handle, , 1)
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_KEYDOWN
+      IF hwg_ProcKeyList(Self, wParam)
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_GETDLGCODE
+      IF WPARAM == VK_RETURN .OR. wParam == VK_TAB
+         Return DLGC_WANTMESSAGE
+         //RETURN DLGC_WANTTAB
+      ENDIF
+
+   ENDSWITCH
 
    RETURN -1
 
