@@ -12,7 +12,7 @@
 -lprocmisc
 -Llib/${hb_plat}/${hb_comp}
 
--n1 -q0 -w -es2
+-n1 -q0 -w2 -es2
 
 -cflag=-DHWG_USE_POINTER_ITEM
 {allmsvc}-cflag=-D_CRT_SECURE_NO_WARNINGS
