@@ -179,14 +179,15 @@ METHOD INIT() CLASS HStaticLink
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
 
    IF (msg = WM_SETFOCUS .OR. msg = WM_KILLFOCUS) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_Redrawwindow(::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ::nLeft, ::nTop, ::nWidth, ::nHeight)
-      
+
    ELSEIF msg == WM_PAINT
       //::PAint()
-      
+
    ELSEIF msg == WM_MOUSEMOVE
       hwg_SetCursor(::m_hHyperCursor)
      ::OnMouseMove(wParam, lParam)
@@ -230,6 +231,81 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
 
    ENDIF
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
+
+   SWITCH msg
+
+   CASE WM_SETFOCUS
+   CASE WM_KILLFOCUS
+      IF Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
+         hwg_Redrawwindow(::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ;
+            ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ENDIF
+      EXIT
+
+   //CASE WM_PAINT
+      //::PAint()
+
+   CASE WM_MOUSEMOVE
+      hwg_SetCursor(::m_hHyperCursor)
+      ::OnMouseMove(wParam, lParam)
+      EXIT
+
+   CASE WM_MOUSELEAVE
+   CASE WM_NCMOUSELEAVE
+     ::state := LBL_NORMAL
+     hwg_Invalidaterect(::handle, 0)
+     hwg_Redrawwindow(::oParent:Handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT, ;
+        ::nLeft, ::nTop, ::nWidth, ::nHeight)
+     EXIT
+
+   //CASE WM_MOUSEHOVER
+
+   CASE WM_SETCURSOR
+      ::OnSetCursor(msg, wParam, lParam)
+      EXIT
+
+   CASE WM_LBUTTONDOWN
+      hwg_SetCursor(::m_hHyperCursor)
+      ::OnClicked()
+      EXIT
+
+   //CASE WM_SIZE
+
+   CASE WM_KEYDOWN
+      SWITCH wParam
+      CASE VK_SPACE
+      CASE VK_RETURN
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
+         RETURN 0
+      CASE VK_DOWN
+         hwg_GetSkip(::oparent, ::handle,, 1)
+         EXIT
+      CASE VK_UP
+         hwg_GetSkip(::oparent, ::handle,, -1)
+         EXIT
+      CASE VK_TAB
+         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift(.F., .T.), -1, 1))
+      ENDSWITCH
+      RETURN 0
+
+   //CASE WM_KEYUP
+      /*
+      IF (wParam == VK_SPACE .OR. wParam == VK_RETURN)
+       *  hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
+       *  hwg_Msginfo('k')
+         RETURN 0
+      ENDIF
+      */
+
+   CASE WM_GETDLGCODE
+      RETURN IIF(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD GoToLinkUrl(csLink) CLASS HStaticLink
 
@@ -376,7 +452,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
    ENDIF
    focusrect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
    rcClient  := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
-   
+
    // Draw the focus rect
    IF hwg_Selffocus(::handle) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_Setbkmode(dc, TRANSPARENT)
