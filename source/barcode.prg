@@ -289,9 +289,9 @@ METHOD CreateBarcode(cCode) CLASS BarCode
       IF SubStr(cCode, i, 1) = "1"
          IF ::lHorizontal = .F.
             RICH_Rectangle(::hDC, nX, nY, nX + ::nHeight, (nY += ::nPinWidth))
-        *RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, (nY += ::nPinWidth))
+            //RICH_Rectangle(::hDC, nX, nY, nX + ::nWidth, (nY += ::nPinWidth))
          ELSE
-           *RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
+            //RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nWidth)
             RICH_Rectangle(::hDC, nX, nY, (nX += ::nPinWidth), nY + ::nHeight)
          ENDIF
       ELSE

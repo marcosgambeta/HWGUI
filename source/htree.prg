@@ -646,7 +646,7 @@ METHOD Notify(lParam) CLASS HTree
          oItem  := hwg_Treehittest(::handle,,, @nAct)
          IF oItem = Nil
             oItem := ::oItem
-            *::Select(oItem)
+            //::Select(oItem)
          ENDIF
          Eval(::bDblClick, oItem, Self, nAct)
       ENDIF

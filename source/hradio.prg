@@ -255,7 +255,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
       AAdd(::oGroup:aButtons, Self)
       // IF ::oGroup:bSetGet != Nil
       ::bLostFocus := bClick
-      *- ::oParent:AddEvent(BN_CLICKED, self, {|o, id|::Valid(o:FindControl(id))},, "onClick")
+      //- ::oParent:AddEvent(BN_CLICKED, self, {|o, id|::Valid(o:FindControl(id))},, "onClick")
       ::oParent:AddEvent(BN_CLICKED, self, {||::onClick()},, "onClick")
       // ENDIF
    ENDIF
@@ -310,7 +310,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::oParent:AddControl(Self)
 
    IF bClick != NIL .AND. (::oGroup == NIL .OR. ::oGroup:bSetGet == NIL)
-      *::oParent:AddEvent(0, self, bClick,, "onClick")
+      //::oParent:AddEvent(0, self, bClick,, "onClick")
       ::bLostFocus := bClick
       //::oParent:AddEvent(0, self,{|o, id|__Valid(o:FindControl(id))},, "onClick")
    ENDIF
@@ -459,7 +459,7 @@ METHOD Valid(nKey) CLASS HRadioButton
       ::oParent:lSuspendMsgsHandling := .T.
        iValue := Ascan(::oGroup:aButtons, {|o|o:id == ::id})
       IF nEnter = VK_RETURN //< 0
-         *-iValue := Ascan(::oGroup:aButtons,{|o|o:id == ::id})
+         //-iValue := Ascan(::oGroup:aButtons,{|o|o:id == ::id})
          IF !::GetValue()
             ::oGroup:nValue  := iValue
             ::oGroup:SetValue(::oGroup:nValue)

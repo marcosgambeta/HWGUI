@@ -332,8 +332,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
       handle := Hwg_InitClientWindow(oWndClient, ::nMenuPos, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::oClient := HWindow():aWindows[2]
 
-     * hwg_Setwindowpos(::oClient:Handle, 0, 0, 0, 0, 0, SWP_NOACTIVATE + SWP_NOMOVE + SWP_NOSIZE + SWP_NOZORDER +;
-     *                   SWP_NOOWNERZORDER + SWP_FRAMECHANGED)
+     // hwg_Setwindowpos(::oClient:Handle, 0, 0, 0, 0, 0, SWP_NOACTIVATE + SWP_NOMOVE + SWP_NOSIZE + SWP_NOZORDER +;
+     //                   SWP_NOOWNERZORDER + SWP_FRAMECHANGED)
 
       /*
       // ADDED screen to backgroup to MDI MAIN
@@ -554,7 +554,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    ENDIF
    ::aRectSave := { ::nLeft, ::nTop, ::nwidth, ::nHeight }
    IF Hwg_BitAND(::Style, DS_3DLOOK) > 0
-       *- efect  border 3d in mdichilds with no sizebox
+      //- efect  border 3d in mdichilds with no sizebox
       ::Style -= DS_3DLOOK
       l3d := .T.
     ENDIF
@@ -588,7 +588,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
 
    IF lShow
-      *-hwg_onMove(Self)
+      //-hwg_onMove(Self)
       IF lMinimized .OR. ::WindowState = SW_SHOWMINIMIZED
          ::Minimize()
       ELSEIF ::WindowState = SW_SHOWMAXIMIZED .AND. !::IsMaximized()
@@ -631,7 +631,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
       ::Maximize()
    ELSEIF msg = WM_SETFOCUS .AND. !Empty(nFocus) .AND. !hwg_Selffocus(nFocus)
       hwg_Setfocus(nFocus)
-      *-::nFocus := 0
+      //-::nFocus := 0
    ELSEIF msg = WM_DESTROY .AND. ::lModal .AND. !hwg_Selffocus(::Screen:Handle, ::handle)
       IF !EMPTY(::hActive) .AND. !hwg_Selffocus(::hActive, ::Screen:Handle)
          hwg_Postmessage(nFocus, WM_SETFOCUS, 0, 0)
@@ -807,7 +807,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       IF wParam >= FIRST_MDICHILD_ID
          hwg_Setwindowpos(ownd:Screen:HANDLE, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOREDRAW + SWP_NOACTIVATE + SWP_NOMOVE + SWP_NOSIZE)
       ENDIF
-      *-wParam += IIF(hwg_Iswindowenabled(oWnd:Screen:handle), 0, 1)
+      //-wParam += IIF(hwg_Iswindowenabled(oWnd:Screen:handle), 0, 1)
    ENDIF
    IF wParam == SC_CLOSE
       IF Len(HWindow():aWindows) > 2 .AND. (nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0)) > 0
@@ -1223,7 +1223,7 @@ STATIC FUNCTION onActivate(oWin, wParam, lParam)
          IF oWin:bGetFocus != Nil //.AND. hwg_Iswindowvisible(::handle)
             oWin:lSuspendMsgsHandling := .T.
             IF iParHigh > 0  // MINIMIZED
-               *oWin:restore()
+               //oWin:restore()
             ENDIF
             Eval(oWin:bGetFocus, oWin, lParam)
             oWin:lSuspendMsgsHandling := .F.

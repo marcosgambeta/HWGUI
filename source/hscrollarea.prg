@@ -72,7 +72,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
    IF ::nScrollBars = 0 .OR. ::nScrollBars = 2
       ::nHscrollMax := Max(0, ::nHorzInc)
       IF ::nHscrollMax < HORZ_PTS / 2
-        *-  hwg_Scrollwindow(::Handle, ::nHscrollPos * HORZ_PTS, 0)
+         //-  hwg_Scrollwindow(::Handle, ::nHscrollPos * HORZ_PTS, 0)
       ELSEIF ::nHScrollMax <= HORZ_PTS
           ::nHScrollMax := 0
       ENDIF
@@ -91,7 +91,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
    IF ::nScrollBars = 1 .OR. ::nScrollBars = 2
       ::nVscrollMax := INT(Max(0, ::nVertInc))
       IF ::nVscrollMax < VERT_PTS / 2
-        *-  hwg_Scrollwindow(::Handle, 0, ::nVscrollPos * VERT_PTS)
+         //-  hwg_Scrollwindow(::Handle, 0, ::nVscrollPos * VERT_PTS)
       ELSEIF ::nVScrollMax <= VERT_PTS
          ::nVScrollMax := 0
       ENDIF
