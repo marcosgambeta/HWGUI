@@ -250,6 +250,7 @@ METHOD AddRow(a, bupdate) CLASS HGRIDEX
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD Notify(lParam) CLASS HGRIDEX
    LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL Res, iSelect, oParent := hwg_GetParentForm(Self)
@@ -292,6 +293,60 @@ METHOD Notify(lParam) CLASS HGRIDEX
       Hwg_SetDlgResult(oParent:Handle, Res)
       //RETURN 1
    ENDIF
+   RETURN Res
+#endif
+
+METHOD Notify(lParam) CLASS HGRIDEX
+
+   LOCAL nCode := hwg_Getnotifycode(lParam)
+   LOCAL Res
+   LOCAL iSelect
+   LOCAL oParent := hwg_GetParentForm(Self)
+
+   SWITCH nCode
+
+   CASE NM_CUSTOMDRAW
+      IF hwg_Getnotifycodefrom(lParam) == ::Handle
+         Res := hwg_Processcustu(::handle, lParam, ::aColors)
+         Hwg_SetDlgResult(oParent:Handle, Res)
+         RETURN Res
+      ENDIF
+      EXIT
+
+   CASE NM_CLICK
+      iSelect := hwg_Sendmessage(::handle, LVM_GETNEXTITEM, -1, LVNI_FOCUSED)
+      IF iSelect == -1
+         RETURN 0
+      ENDIF
+      ::iRowSelect := iSelect
+      ::bFlag := .T.
+      RETURN 1
+
+   CASE LVN_COLUMNCLICK
+      //IF hwg_Getnotifycodefrom(lParam) == ::Handle
+      IF Empty(::hsort)
+         ::hSort := hwg_Listviewsortinfonew(lParam, NIL)
+      ENDIF
+      hwg_Listviewsort(::handle, lParam, ::hSort)
+      RETURN  0
+      //ENDIF
+
+   //CASE NM_SETFOCUS
+
+   //CASE NM_KILLFOCUS
+
+   //CASE NM_RETURN
+
+   //CASE LVN_KEYDOWN
+   
+   ENDSWITCH
+
+   Res := hwg_ListViewNotify(Self, lParam)
+   IF ValType(Res) == "N"
+      Hwg_SetDlgResult(oParent:Handle, Res)
+      //RETURN 1
+   ENDIF
+
    RETURN Res
 
 METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
