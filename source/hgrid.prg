@@ -185,6 +185,7 @@ METHOD Refresh() CLASS HGrid
 METHOD Notify(lParam) CLASS HGrid
    RETURN hwg_ListViewNotify(Self, lParam)
 
+#if 0 // old code for reference (to be deleted)
 FUNCTION hwg_ListViewNotify(oCtrl, lParam)
 
    LOCAL aCord
@@ -223,5 +224,57 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam)
 
    ENDIF
    RETURN 0
+#endif
 
+FUNCTION hwg_ListViewNotify(oCtrl, lParam)
 
+   LOCAL aCord
+
+   SWITCH hwg_Getnotifycode(lParam)
+
+   CASE LVN_KEYDOWN
+      IF oCtrl:bKeydown != NIL
+         Eval(oCtrl:bKeyDown, oCtrl, hwg_Listview_getgridkey(lParam))
+      ENDIF
+      EXIT
+
+   CASE NM_DBLCLK
+      IF oCtrl:bEnter != NIL
+         aCord := hwg_Listview_hittest(oCtrl:handle, hwg_GetCursorPos()[2] - hwg_GetWindowRect(oCtrl:handle)[2], ;
+            hwg_GetCursorPos()[1] - hwg_GetWindowRect(oCtrl:handle)[1])
+         oCtrl:nRow := aCord[1]
+         oCtrl:nCol := aCord[2]
+         Eval(oCtrl:bEnter, oCtrl)
+      ENDIF
+      EXIT
+
+   CASE NM_SETFOCUS
+      IF oCtrl:bGfocus != NIL
+         Eval(oCtrl:bGfocus, oCtrl)
+      ENDIF
+      EXIT
+
+   CASE NM_KILLFOCUS
+      IF oCtrl:bLfocus != NIL
+         Eval(oCtrl:bLfocus, oCtrl)
+      ENDIF
+      EXIT
+
+   CASE LVN_ITEMCHANGED
+      oCtrl:nRow := oCtrl:Row()
+      IF oCtrl:bPosChg != NIL
+         Eval(oCtrl:bPosChg, oCtrl, hwg_Listview_getfirstitem(oCtrl:handle))
+      ENDIF
+      EXIT
+
+   CASE LVN_GETDISPINFO
+      IF oCtrl:bDispInfo != NIL
+         aCord := hwg_Listview_getdispinfo(lParam)
+         oCtrl:nRow := aCord[1]
+         oCtrl:nCol := aCord[2]
+         hwg_Listview_setdispinfo(lParam, Eval(oCtrl:bDispInfo, oCtrl, oCtrl:nRow, oCtrl:nCol))
+      ENDIF
+
+   ENDSWITCH
+
+   RETURN 0
