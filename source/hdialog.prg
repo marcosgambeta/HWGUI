@@ -277,14 +277,14 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
          IF nPos > 0
             oTab := ::aControls[nPos]
             IF Len(oTab:aPages) > 0
-               Eval({|o, w, l|onDlgCommand(o, w, l)}, oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
+               onDlgCommand(oTab:aPages[oTab:GetActivePage(), 1], wParam, lParam)
             ENDIF
          ENDIF
       ENDIF
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|onDlgCommand(o, w, l)}, Self, wParam, lParam)
+         RETURN onDlgCommand(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -292,7 +292,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|onSysCommand(o, w, l)}, Self, wParam, lParam)
+         RETURN onSysCommand(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -300,7 +300,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling .OR. msg == WM_SIZE
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|onSize(o, w, l)}, Self, wParam, lParam)
+         RETURN onSize(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -308,7 +308,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|InitModalDlg(o, w, l)}, Self, wParam, lParam)
+         RETURN InitModalDlg(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -316,7 +316,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling .OR. msg == WM_ERASEBKGND
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w|onEraseBk(o, w)}, Self, wParam, lParam)
+         RETURN onEraseBk(Self, wParam)
       ENDIF
       EXIT
 
@@ -324,7 +324,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o|hwg_onDestroy(o)}, Self, wParam, lParam)
+         RETURN hwg_onDestroy(Self)
       ENDIF
       EXIT
 
@@ -332,7 +332,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({| o, w, l|onActivate(o, w, l)}, Self, wParam, lParam)
+         RETURN onActivate(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -340,7 +340,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|onPspNotify(o, w, l)}, Self, wParam, lParam)
+         RETURN onPspNotify(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -348,7 +348,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|hwg_onHelp(o, w, l)}, Self, wParam, lParam)
+         RETURN hwg_onHelp(Self, wParam, lParam)
       ENDIF
       EXIT
 
@@ -356,7 +356,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       //AgE SOMENTE NO DIALOG
       IF !::lSuspendMsgsHandling
          //writelog(str(msg) + str(wParam) + str(lParam) + CHR(13))
-         RETURN Eval({|o, w, l|onDlgColor(o, w, l)}, Self, wParam, lParam)
+         RETURN onDlgColor(Self, wParam, lParam)
       ENDIF
       EXIT
 
