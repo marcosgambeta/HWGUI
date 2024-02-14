@@ -84,6 +84,7 @@ METHOD Activate() CLASS HTrackBar
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    LOCAL aCoors
 
@@ -120,6 +121,65 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    ENDIF
 
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
+
+   LOCAL aCoors
+
+   SWITCH msg
+
+   CASE WM_PAINT
+      IF ::bPaint != NIL
+         Eval(::bPaint, Self)
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_MOUSEMOVE
+      IF ::hCursor != NIL
+         Hwg_SetCursor(::hCursor)
+      ENDIF
+      EXIT
+
+   CASE WM_ERASEBKGND
+      IF ::brush != NIL
+         aCoors := hwg_Getclientrect(::handle)
+         hwg_Fillrect(wParam, aCoors[1], aCoors[2], aCoors[3] + 1, aCoors[4] + 1, ::brush:handle)
+         RETURN 1
+      ENDIF
+      EXIT
+
+   CASE WM_DESTROY
+      ::END()
+      EXIT
+
+   CASE WM_CHAR
+      IF wParam == VK_TAB
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_KEYDOWN
+      IF hwg_ProcKeyList(Self, wParam)
+         RETURN 0
+      ENDIF
+      EXIT
+
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
+   OTHERWISE
+   #endif
+
+      IF ::bOther != NIL
+         RETURN Eval(::bOther, Self, msg, wParam, lParam)
+      ENDIF
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD Init() CLASS HTrackBar
    IF !::lInit
