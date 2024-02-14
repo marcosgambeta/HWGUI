@@ -244,28 +244,28 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCustomWindow
    SWITCH msg
 
    CASE WM_NOTIFY
-      RETURN Eval({|o, w, l|onNotify(o, w, l)}, Self, wParam, lParam)
+      RETURN onNotify(Self, wParam, lParam)
 
    CASE WM_PAINT
-      RETURN Eval({|o, w|IIf(o:bPaint != NIL, Eval(o:bPaint, o, w), -1)}, Self, wParam, lParam)
+      RETURN IIf(Self:bPaint != NIL, Eval(Self:bPaint, Self, wParam), -1)
 
    CASE WM_CTLCOLORSTATIC
    CASE WM_CTLCOLOREDIT
    CASE WM_CTLCOLORBTN
    CASE WM_CTLCOLORLISTBOX
-      RETURN Eval({|o, w, l|onCtlColor(o, w, l)}, Self, wParam, lParam)
+      RETURN onCtlColor(Self, wParam, lParam)
 
    CASE WM_COMMAND
-      RETURN Eval({|o, w, l|onCommand(o, w, l)}, Self, wParam, lParam)
+      RETURN onCommand(Self, wParam, lParam)
 
    CASE WM_DRAWITEM
-      RETURN Eval({|o, w, l|onDrawItem(o, w, l)}, Self, wParam, lParam)
+      RETURN onDrawItem(Self, wParam, lParam)
 
    CASE WM_SIZE
-      RETURN Eval({|o, w, l|onSize(o, w, l)}, Self, wParam, lParam)
+      RETURN onSize(Self, wParam, lParam)
 
    CASE WM_DESTROY
-      RETURN Eval({|o|onDestroy(o)}, Self, wParam, lParam)
+      RETURN onDestroy(Self)
 
 #ifdef __XHARBOUR__
    DEFAULT
@@ -555,6 +555,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    NEXT
    RETURN - 1
 
+#if 0 // old code for reference (to be deleted)
 FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
 
    LOCAL oCtrl := oWnd:FindControl(, lParam)
@@ -583,3 +584,34 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
    ENDIF
 
    RETURN - 1
+#endif
+
+FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
+
+   LOCAL oCtrl := oWnd:FindControl(, lParam)
+
+   IF oCtrl != NIL
+      msg := hwg_Loword(wParam)
+      SWITCH msg
+      CASE TB_ENDTRACK
+         IF __ObjHasMsg(oCtrl, "BCHANGE") .AND. ISBLOCK(oCtrl:bChange)
+            Eval(oCtrl:bChange, oCtrl)
+            RETURN 0
+         ENDIF
+         EXIT
+      CASE TB_THUMBTRACK
+      CASE TB_PAGEUP
+      CASE TB_PAGEDOWN
+         IF __ObjHasMsg(oCtrl, "BTHUMBDRAG") .AND. ISBLOCK(oCtrl:bThumbDrag)
+            Eval(oCtrl:bThumbDrag, oCtrl)
+            RETURN 0
+         ENDIF
+      ENDSWITCH
+   ELSE
+      IF ISBLOCK(oWnd:bScroll)
+         Eval(oWnd:bScroll, oWnd, msg, wParam, lParam)
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   RETURN -1
