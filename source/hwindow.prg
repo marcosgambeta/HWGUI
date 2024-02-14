@@ -230,6 +230,7 @@ METHOD Paint() CLASS  HWindow
 
 CLASS HMainWindow INHERIT HWindow
 
+#if 0
 CLASS VAR aMessages INIT { ;
       { WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_SYSCOMMAND, ;
         WM_NOTIFYICON, WM_ENTERIDLE, WM_ACTIVATEAPP, WM_CLOSE, WM_DESTROY, WM_ENDSESSION, WM_ACTIVATE, WM_HELP }, ;
@@ -249,6 +250,7 @@ CLASS VAR aMessages INIT { ;
         {|o, w, l|hwg_onHelp(o, w, l)}        ;
       } ;
    }
+#endif
 
    DATA  nMenuPos
    DATA  bMdiMenu
@@ -429,6 +431,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    RETURN Nil
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
    Local i, xPos, yPos, oMdi, aCoors
    LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
@@ -479,6 +482,154 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
    ENDIF
 
    RETURN - 1
+#endif
+
+METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
+
+   LOCAL i
+   LOCAL xPos
+   LOCAL yPos
+   LOCAL oMdi
+   LOCAL aCoors
+   LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
+
+   // writelog(str(msg) + str(wParam) + str(lParam) + chr(13))
+
+   SWITCH msg
+
+   CASE WM_MENUCHAR
+      // PROCESS ACCELERATOR IN CONTROLS
+      RETURN onSysCommand(Self, SC_KEYMENU, hwg_Loword(wParam))
+
+   CASE WM_PAINT
+      IF ::Type == WND_MAIN
+         RETURN ::Paint(self)
+      ENDIF
+      EXIT
+
+   CASE WM_PARENTNOTIFY
+      // added control MDICHILD MODAL
+      IF wParam == WM_LBUTTONDOWN .AND. !EMPTY(::GetMdiActive())
+         oMdi := ::GetMdiActive()
+         IF oMdi:lModal
+            xPos := hwg_Loword(lParam)
+            yPos := hwg_Hiword(lParam) // + ::nTop + hwg_Getsystemmetrics(SM_CYMENU) + hwg_Getsystemmetrics(SM_CYCAPTION)
+            aCoors := hwg_Screentoclient(::handle, hwg_Getwindowrect(oMdi:handle)) // acoors[1], acoors[2])
+            IF (!hwg_Ptinrect(aCoors, {xPos, yPos}))
+               hwg_Msgbeep()
+               FOR i := 1 TO 6
+                  hwg_Flashwindow(oMdi:Handle, 1)
+                  hwg_Sleep(60)
+               NEXT
+               hwg_Setwindowpos(oMdi:Handle, HWND_TOP, 0, 0, 0, 0, ;
+                  SWP_NOMOVE + SWP_NOSIZE + SWP_NOOWNERZORDER + SWP_FRAMECHANGED)
+               ::lSuspendMsgsHandling := .T.
+               RETURN 0
+            ENDIF
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_SETFOCUS
+      IF !Empty(nFocus) .AND. !hwg_Selffocus(nFocus)
+         hwg_Setfocus(nFocus)
+      ENDIF
+      EXIT
+
+   CASE WM_COMMAND
+      IF !::lSuspendMsgsHandling
+         RETURN onCommand(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ERASEBKGND
+      IF !::lSuspendMsgsHandling .OR. msg == WM_ERASEBKGND
+         RETURN onEraseBk(Self, wParam)
+      ENDIF
+      EXIT
+
+   CASE WM_MOVE
+      IF !::lSuspendMsgsHandling
+         RETURN hwg_onMove(Self)
+      ENDIF
+      EXIT
+
+   CASE WM_SIZE
+      IF !::lSuspendMsgsHandling .OR. msg == WM_SIZE
+         RETURN onSize(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_SYSCOMMAND
+      IF !::lSuspendMsgsHandling
+         RETURN onSysCommand(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_NOTIFYICON
+      IF !::lSuspendMsgsHandling
+         RETURN onNotifyIcon(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ENTERIDLE
+      IF !::lSuspendMsgsHandling
+         RETURN onEnterIdle(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ACTIVATEAPP
+      IF !::lSuspendMsgsHandling
+         RETURN onEnterIdle(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_CLOSE
+      IF !::lSuspendMsgsHandling
+         RETURN onCloseQuery(Self)
+      ENDIF
+      EXIT
+
+   CASE WM_DESTROY
+      IF !::lSuspendMsgsHandling
+         RETURN hwg_onDestroy(Self)
+      ENDIF
+      EXIT
+
+   CASE WM_ENDSESSION
+      IF !::lSuspendMsgsHandling
+         RETURN onEndSession(Self, wParam)
+      ENDIF
+      EXIT
+
+   CASE WM_ACTIVATE
+      IF !::lSuspendMsgsHandling
+         RETURN onActivate(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_HELP
+      IF !::lSuspendMsgsHandling
+         RETURN hwg_onHelp(Self, wParam, lParam)
+      ENDIF
+      EXIT
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF ::nScrollBars != -1
+         hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   OTHERWISE
+
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN -1
 
 METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
 
@@ -493,6 +644,7 @@ METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
 
 CLASS HMDIChildWindow INHERIT HWindow
 
+#if 0 // old code for reference (to be deleted)
 CLASS VAR aMessages INIT { ;
         { WM_CREATE, WM_COMMAND, WM_ERASEBKGND, WM_MOVE, WM_SIZE, WM_NCACTIVATE, ;
           WM_SYSCOMMAND, WM_ENTERIDLE, WM_MDIACTIVATE, WM_DESTROY }, ;
@@ -509,6 +661,8 @@ CLASS VAR aMessages INIT { ;
           {|o|hwg_onDestroy(o)}              ;
         } ;
    }
+#endif
+
    DATA aRectSave
    DATA oWndParent
    DATA lMaximized  INIT .F.
@@ -562,7 +716,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
                         IIF(lMaximized .AND. !::lChild .AND. !::lModal, WS_MAXIMIZE, 0)
 
    ::handle := Hwg_CreateMdiChildWindow(Self)
-   
+
    ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
    ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
    IF !Empty(::nInitFocus)
@@ -608,6 +762,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    RETURN Nil
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
    LOCAL i, oCtrl
    LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
@@ -657,7 +812,116 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
    ENDIF
 
    RETURN - 1
+#endif
 
+METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
+
+   LOCAL oCtrl
+   LOCAL nFocus := IIf(Hb_IsNumeric(::nFocus), ::nFocus, 0)
+
+   SWITCH msg
+
+   //CASE WM_NCLBUTTONDBLCLK
+   //   IF ::lChild
+   //      RETURN 0
+   //   ENDIF
+   //   EXIT
+
+   CASE WM_GETMINMAXINFO
+      IF ::minWidth > -1 .OR. ::maxWidth > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
+         hwg_Minmaxwindow(::handle, lParam, ;
+            IIF(::minWidth  > -1, ::minWidth, Nil), ;
+            IIF(::minHeight > -1, ::minHeight, Nil), ;
+            IIF(::maxWidth  > -1, ::maxWidth, Nil), ;
+            IIF(::maxHeight > -1, ::maxHeight, Nil))
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_PAINT
+      RETURN ::Paint(self)
+
+   CASE WM_MOVING
+      IF ::lMaximized
+         ::Maximize()
+      ENDIF
+      EXIT
+
+   CASE WM_SETFOCUS
+      IF !Empty(nFocus) .AND. !hwg_Selffocus(nFocus)
+         hwg_Setfocus(nFocus)
+         //-::nFocus := 0
+      ENDIF
+      EXIT
+
+   CASE WM_DESTROY
+      IF ::lModal .AND. !hwg_Selffocus(::Screen:Handle, ::handle)
+         IF !EMPTY(::hActive) .AND. !hwg_Selffocus(::hActive, ::Screen:Handle)
+            hwg_Postmessage(nFocus, WM_SETFOCUS, 0, 0)
+            hwg_Postmessage(::hActive, WM_SETFOCUS, 0, 0)
+         ENDIF
+         ::GETMDIMAIN():lSuspendMsgsHandling := .F.
+      ENDIF
+      RETURN hwg_onDestroy(Self)
+
+   CASE WM_CREATE
+      RETURN onMdiCreate(Self, lParam)
+
+   CASE WM_COMMAND
+      RETURN onMdiCommand(Self, wParam)
+
+   CASE WM_ERASEBKGND
+      RETURN onEraseBk(Self, wParam)
+
+   CASE WM_MOVE
+      RETURN hwg_onMove(Self)
+
+   CASE WM_SIZE
+      RETURN onSize(Self, wParam, lParam)
+
+   CASE WM_NCACTIVATE
+      RETURN onMdiNcActivate(Self, wParam)
+
+   CASE WM_SYSCOMMAND
+      RETURN onSysCommand(Self, wParam, lParam)
+
+   CASE WM_ENTERIDLE
+      RETURN onEnterIdle(Self, wParam, lParam)
+
+   CASE WM_MDIACTIVATE
+      RETURN onMdiActivate(Self, wParam, lParam)
+
+//    CASE WM_DESTROY (duplicated)
+//       RETURN Eval({|o|hwg_onDestroy(o)}, Self, wParam, lParam)
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+   CASE WM_MOUSEWHEEL
+      IF ::nScrollBars != -1
+          hwg_ScrollHV(Self, msg, wParam, lParam)
+      ENDIF
+      hwg_onTrackScroll(Self, msg, wParam, lParam)
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   CASE WM_NOTIFY
+      IF !::lSuspendMsgsHandling
+         IF (oCtrl := ::FindControl(, hwg_Getfocus())) != Nil .AND. oCtrl:ClassName != "HTAB"
+            hwg_Sendmessage(oCtrl:handle, msg, wParam, lParam)
+         ENDIF
+      ENDIF
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
+   OTHERWISE
+   #endif
+
+      RETURN ::Super:onEvent(msg, wParam, lParam)
+
+   ENDSWITCH
+
+   RETURN -1
 
 CLASS HChildWindow INHERIT HWindow
 
