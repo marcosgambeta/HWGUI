@@ -13,15 +13,13 @@ Static oMain, oForm, oFont, oBar
 
 Function Main ()
 
-   INIT WINDOW oMain MAIN TITLE "ComboBox Sample" ;
-      AT 0,0 ;
-      SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+   INIT WINDOW oMain MAIN TITLE "ComboBox Sample" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
-      MENU OF oMain
-         MENUITEM "&Exit" ACTION oMain:Close()
-         MENUITEM "&Demo" ACTION Test()
-         MENUITEM "&Bound demo" ACTION BoundTest()
-      ENDMENU
+   MENU OF oMain
+      MENUITEM "&Exit" ACTION oMain:Close()
+      MENUITEM "&Demo" ACTION Test()
+      MENUITEM "&Bound demo" ACTION BoundTest()
+   ENDMENU
 
    ACTIVATE WINDOW oMain
 
@@ -38,22 +36,20 @@ Function Test ()
 
    PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
-   INIT DIALOG oForm CLIPPER NOEXIT TITLE "ComboBox Demo" ;
-      FONT oFont ;
-      AT 0, 0 SIZE 700, 425 ;
+   INIT DIALOG oForm CLIPPER NOEXIT TITLE "ComboBox Demo" AT 0, 0 SIZE 700, 425 FONT oFont ;
       STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 
       @ 20, 20 GET COMBOBOX oCombo1 VAR nCombo ITEMS aItems SIZE 100, 23
       @ 20, 50 GET COMBOBOX oCombo2 VAR cCombo ITEMS aItems SIZE 100, 23 TEXT
       @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, 23 EDIT TOOLTIP "Type any thing here";
-         ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange( value,This ) }  
+         ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange(value, This) }
 
-      @ 20,110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, 23
-      @ 20,140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, 23 TEXT
-      @ 20,170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, 23 EDIT;
-         ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange( value,This ) }  
+      @ 20, 110 COMBOBOX oCombo4 ITEMS aItems SIZE 100, 23
+      @ 20, 140 COMBOBOX oCombo5 ITEMS aItems SIZE 100, 23 TEXT
+      @ 20, 170 COMBOBOX oCombo6 ITEMS aItems SIZE 100, 23 EDIT;
+         ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange(value, This) }
 
-      @ 20,200 GET cEdit SIZE 150, 23
+      @ 20, 200 GET cEdit SIZE 150, 23
 
       @ 300, 395 BUTTON "Add"    SIZE 75, 25 ON CLICK {|| oCombo1:AddItem(cEdit), oCombo1:refresh() }
 
@@ -76,17 +72,15 @@ Function BoundTest ()
 
    PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
-   INIT DIALOG oForm CLIPPER NOEXIT TITLE "Bound ComboBox Demo" ;
-      FONT oFont ;
-      AT 0, 0 SIZE 700, 425 ;
+   INIT DIALOG oForm CLIPPER NOEXIT TITLE "Bound ComboBox Demo" AT 0, 0 SIZE 700, 425 FONT oFont ;
       STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 
       @ 20, 20 GET COMBOBOX oCombo1 VAR nCombo ITEMS aItems SIZE 100, 23
       @ 20, 50 GET COMBOBOX oCombo2 VAR cCombo ITEMS aItems SIZE 100, 23 TEXT
       @ 20, 80 GET COMBOBOX oCombo3 VAR xCombo ITEMS aItems SIZE 100, 23 EDIT TOOLTIP "Type any thing here";
-          ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange( value,This ) }  
+          ON INTERACTIVECHANGE {|value,This| oCombo3_onInteractiveChange(value, This) }  
 
-      // @ 20,200 GET cEdit SIZE 150, 23
+      // @ 20, 200 GET cEdit SIZE 150, 23
 //      @ 300, 395 BUTTON "Add"    SIZE 75, 25 ON CLICK {|| oCombo1:AddItem(cEdit), oCombo1:refresh() }
 //      @ 380, 395 BUTTON "Test"    SIZE 75, 25 ON CLICK {|| xCombo := "Temp", oCombo3:refresh(), nCombo := 2, oCombo1:refresh(), oCombo2:SetItem(3), oCombo4:SetItem(3), oCombo5:value := "Third", oCombo5:refresh(), oCombo6:SetItem(2) }
       @ 380, 395 BUTTON "Combo 1" SIZE 75, 25 ON CLICK {|| hwg_Msginfo(oCombo1:GetValueBound()+"-"+str(nCombo), "Value of combo 1") }
@@ -98,13 +92,13 @@ Function BoundTest ()
 
 Return Nil
 
-Static Function oCombo3_onInteractiveChange( value,This )  
+Static Function oCombo3_onInteractiveChange(value, This)  
    LOCAL cTexto,n
 
-   cTexto := TRIM( This:GetText() )
-   n := Ascan( This:aitems, {| a | a = cTexto } )
-   IF !EMPTY( cTexto ) .AND. (hwg_Getkeystate( VK_DELETE ) + hwg_Getkeystate( VK_BACK )) >= 0 .AND. n > 0
-      This:SETVALUE( TRIM( This:aitems[ n ] ) )
-      hwg_Keyb_event( VK_END,.T.,.T. )
+   cTexto := TRIM(This:GetText())
+   n := Ascan(This:aitems, {|a| a = cTexto })
+   IF !EMPTY(cTexto) .AND. (hwg_Getkeystate(VK_DELETE) + hwg_Getkeystate(VK_BACK)) >= 0 .AND. n > 0
+      This:SETVALUE(TRIM(This:aitems[n]))
+      hwg_Keyb_event(VK_END, .T., .T.)
    ENDIF
    RETURN Nil

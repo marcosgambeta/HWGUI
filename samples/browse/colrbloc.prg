@@ -36,7 +36,7 @@ SET(_SET_DATEFORMAT, "dd/mm/yyyy")
 SET(_SET_EPOCH, 1950)
 
 REQUEST DBFCDX                      // Causes DBFCDX RDD to be linked in
-rddSetDefault( "DBFCDX" )           // Set up DBFCDX as default driver
+rddSetDefault("DBFCDX")           // Set up DBFCDX as default driver
 
 *FERASE("TSTBRW.DBF")
 
@@ -46,33 +46,30 @@ ELSE
    DBUSEAREA(.T., "DBFCDX", "TSTBRW", "TSTB")
 END
 
-INIT WINDOW oWinMain MAIN  ;
-     TITLE "Teste" AT 0, 0 SIZE 600,400;
-    FONT HFont():Add( 'Arial',0,-13,400,,,) ;
-    STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
-
+   INIT WINDOW oWinMain MAIN TITLE "Teste" AT 0, 0 SIZE 600, 400 FONT HFont():Add("Arial", 0, -13, 400, , ,) ;
+      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
    MENU OF oWinMain
       MENU TITLE "&Arquivo"
-          MENUITEM "&Sair"              ACTION hwg_EndWindow()
+         MENUITEM "&Sair" ACTION hwg_EndWindow()
       ENDMENU
       MENU TITLE "&Browse"
-         MENUITEM "&Database"           ACTION BrwDbs(.f.)
-         MENUITEM "Database &EDITABLE"  ACTION BrwDbs(.t.)
-         MENUITEM "Database &Zebra"     ACTION BrwDbs(.f., .T.)
+         MENUITEM "&Database" ACTION BrwDbs(.F.)
+         MENUITEM "Database &EDITABLE" ACTION BrwDbs(.T.)
+         MENUITEM "Database &Zebra" ACTION BrwDbs(.F., .T.)
          SEPARATOR
-         MENUITEM "&Array"              ACTION BrwArr(.f.)
-         MENUITEM "Array E&DITABLE"     ACTION BrwArr(.t.)
-         MENUITEM "Array Ze&bra"        ACTION BrwArr(.f., .T.)
+         MENUITEM "&Array" ACTION BrwArr(.F.)
+         MENUITEM "Array E&DITABLE" ACTION BrwArr(.T.)
+         MENUITEM "Array Ze&bra" ACTION BrwArr(.F., .T.)
       ENDMENU
    ENDMENU
 
-   oWinMain:Activate()
+   ACTIVATE WINDOW oWinMain
 
 RETURN(NIL)
 
 *****************************
-STATIC FUNCTION BrwDbs( lEdit, lZebra )
+STATIC FUNCTION BrwDbs(lEdit, lZebra)
 *****************************
 LOCAL oEdGoto
 LOCAL oBrwDb
@@ -86,13 +83,11 @@ LOCAL nLast := 0
   nLast := LASTREC()
   dbGoTop()
 
-  INIT DIALOG oDlg TITLE "Browse DataBase" ;
-        AT 0,0 SIZE 600, 500 NOEXIT ;
-        FONT HFont():Add( 'Arial',0,-13,400,,,) ;
-        STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
+   INIT DIALOG oDlg TITLE "Browse DataBase" AT 0, 0 SIZE 600, 500 NOEXIT FONT HFont():Add("Arial", 0, -13, 400) ;
+      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
   IF lEdit
-   @ 10 ,10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
+   @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
         STYLE  WS_VSCROLL + WS_HSCROLL ;
         AUTOEDIT ;
         APPEND ;
@@ -100,54 +95,54 @@ LOCAL nLast := 0
         ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
         ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
   ELSE
-   @ 10 ,10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
+   @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
         STYLE  WS_VSCROLL + WS_HSCROLL ;
         ON UPDATE {|| oBrwDb:REFRESH() } ;
         ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
         ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
   END
 
-   @ 260,410 BUTTON oBtn1 CAPTION "&OK " SIZE 80,26 ;
+   @ 260, 410 BUTTON oBtn1 CAPTION "&OK " SIZE 80, 26 ;
          ON CLICK {|| hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
 
-   @ 17,10 SAY oLbl1 CAPTION "Records :" OF oTbar1 SIZE 70,22
+   @ 17, 10 SAY oLbl1 CAPTION "Records :" OF oTbar1 SIZE 70, 22
 
-   @ 85,5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20,20     ;
-        BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 85, 5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20, 20     ;
+        BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwDb, "Home", oEdGoto, "Dbs" ) };
         TOOLTIP "First Record"
 
-   @ 105,5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20,20    ;
-        BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 105, 5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20, 20    ;
+        BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwDb, "Up", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Prior"
 
-   @ 130,4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80,22 ;
+   @ 130, 4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80, 22 ;
         MAXLENGTH 09 PICTURE "999999999" ;
         STYLE WS_BORDER + ES_LEFT ;
         VALID {||GoToRec(oBrwDb, @nRec, nLast, "Dbs")}
 
-   @ 270,7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70,22
+   @ 270, 7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70, 22
 
-   @ 215,5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20,20   ;
-        BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
+        BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwDb, "Down", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Next"
 
-   @ 235,5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20,20   ;
-        BITMAP "End.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 235, 5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20, 20   ;
+        BITMAP "End.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwDb, "End", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Last Record"
 
         oBrwDb:bcolorSel := x_DARKBLUE
-        oBrwDb:alias := 'TSTB'
-        oBrwDb:AddColumn( HColumn():New( "Field1" , FieldBlock(Fieldname(1)),"N", 10,02) )
-        oBrwDb:AddColumn( HColumn():New( "Field2" , FieldBlock(Fieldname(2)),"C", 11,00) )
-        oBrwDb:AddColumn( HColumn():New( "Field3" , FieldBlock(Fieldname(3)),"D", 10,00) )
-        oBrwDb:AddColumn( HColumn():New( "Field4" , FieldBlock(Fieldname(4)),"C", 31,00) )
-        oBrwDb:AddColumn( HColumn():New( "Field5" , FieldBlock(Fieldname(5)),"C", 05,00) )
+        oBrwDb:alias := "TSTB"
+        oBrwDb:AddColumn(HColumn():New("Field1", FieldBlock(Fieldname(1)), "N", 10, 02))
+        oBrwDb:AddColumn(HColumn():New("Field2", FieldBlock(Fieldname(2)), "C", 11, 00))
+        oBrwDb:AddColumn(HColumn():New("Field3", FieldBlock(Fieldname(3)), "D", 10, 00))
+        oBrwDb:AddColumn(HColumn():New("Field4", FieldBlock(Fieldname(4)), "C", 31, 00))
+        oBrwDb:AddColumn(HColumn():New("Field5", FieldBlock(Fieldname(5)), "C", 05, 00))
 
         oBrwDb:aColumns[1]:nJusHead := DT_CENTER
         oBrwDb:aColumns[2]:nJusHead := DT_CENTER
@@ -168,22 +163,23 @@ LOCAL nLast := 0
 //       {tColor, bColor, tColorSel, bColorSel}) }
 
         IF lEdit
-          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0 , ;
-           {x_RED, x_WHITE, x_CYAN, x_GRAY} , ;
-           {x_BLUE, x_WHITE , x_BLACK, x_YELLOW })}
+          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+           {x_RED, x_WHITE, x_CYAN, x_GRAY}, ;
+           {x_BLUE, x_WHITE, x_BLACK, x_YELLOW })}
         ELSE
-          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0 , ;
-           {x_RED, x_WHITE, x_CYAN, x_DARKBLUE} , ;
-           {x_BLACK, x_WHITE , x_WHITE, x_DARKBLUE })}
+          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+           {x_RED, x_WHITE, x_CYAN, x_DARKBLUE}, ;
+           {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
           IF lZebra
              FOR nI := 2 TO 5
                 oBrwDB:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwDB:nPaintRow, 2) = 0,;
-                      {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE} , ;
-                      {x_BLACK, x_WHITE , x_WHITE, x_DARKBLUE })}
+                      {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
+                      {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
              NEXT
           ENDIF
         END
-   oDlg:Activate()
+
+   ACTIVATE DIALOG oDlg
 
 RETURN(NIL)
 
@@ -273,7 +269,7 @@ LOCAL nIncrement := 10
              FIELD->FIELD1 := i
           end
         END
-        FIELD->FIELD2 := "Field2 " + STRZERO(i,4)
+        FIELD->FIELD2 := "Field2 " + STRZERO(i, 4)
         FIELD->FIELD3 := DATE() + i
         FIELD->FIELD4 := "jgçpqy " + STRZERO(i, 23)
         FIELD->FIELD5 := STRZERO(i, 5)
@@ -294,13 +290,12 @@ LOCAL nLast := LEN(aArrayTst)
 LOCAL nI
 
   lZebra := IF(lZebra == NIL, .F., lZebra)
-  INIT DIALOG oDlg TITLE "Browse Array" ;
-        AT 0,0 SIZE 600, 500 NOEXIT ;
-        FONT HFont():Add( 'Arial',0,-13,400,,,) ;
-        STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
+
+   INIT DIALOG oDlg TITLE "Browse Array" AT 0, 0 SIZE 600, 500 NOEXIT FONT HFont():Add("Arial", 0, -13, 400) ;
+      STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
   IF lEdit
-   @ 10 ,10 BROWSE oBrwArr ARRAY SIZE 580, 385  ;
+   @ 10, 10 BROWSE oBrwArr ARRAY SIZE 580, 385  ;
         STYLE  WS_VSCROLL + WS_HSCROLL ;
         AUTOEDIT ;
         APPEND ;
@@ -308,48 +303,48 @@ LOCAL nI
         ON KEYDOWN {|oBrwArr, nKey| BrowseDbKey(oBrwArr, nKey, @nLast, oLbl2, "") } ;
         ON POSCHANGE {|| BrowseMove(oBrwArr, "NIL", oEdGoto, "Array" ) }
   ELSE
-   @ 10 ,10 BROWSE oBrwArr ARRAY SIZE 580, 385  ;
+   @ 10, 10 BROWSE oBrwArr ARRAY SIZE 580, 385  ;
         STYLE  WS_VSCROLL + WS_HSCROLL ;
         ON UPDATE {|| oBrwArr:REFRESH() } ;
         ON KEYDOWN {|oBrwArr, nKey| BrowseDbKey(oBrwArr, nKey, @nLast, oLbl2, "") } ;
         ON POSCHANGE {|| BrowseMove(oBrwArr, "NIL", oEdGoto, "Array" ) }
   END
 
-   @ 260,410 BUTTON oBtn1 CAPTION "&OK " SIZE 80,26 ;
+   @ 260, 410 BUTTON oBtn1 CAPTION "&OK " SIZE 80, 26 ;
          ON CLICK {|| hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
 
-   @ 17,10 SAY oLbl1 CAPTION "Elements :" OF oTbar1 SIZE 70,22
+   @ 17, 10 SAY oLbl1 CAPTION "Elements :" OF oTbar1 SIZE 70, 22
 
-   @ 85,5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20,20     ;
-        BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 85, 5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20, 20     ;
+        BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwArr, "Home", oEdGoto, "Array" ) };
         TOOLTIP "First Record"
 
-   @ 105,5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20,20    ;
-        BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 105, 5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20, 20    ;
+        BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwArr, "Up", oEdGoto, "Array" ) } ;
         TOOLTIP "Prior"
 
-   @ 130,4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80,22 ;
+   @ 130, 4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80, 22 ;
         MAXLENGTH 09 PICTURE "999999999" ;
         STYLE WS_BORDER + ES_LEFT ;
         VALID {||GoToRec(oBrwArr, @nRec, nLast, "Array")}
 
-   @ 270,7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70,22
+   @ 270, 7 SAY oLbl2 CAPTION " of  " + ALLTRIM(STR(nLast)) OF oTbar1 SIZE 70, 22
 
-   @ 215,5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20,20   ;
-        BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
+        BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwArr, "Down", oEdGoto, "Array" ) } ;
         TOOLTIP "Next"
 
-   @ 235,5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20,20   ;
-        BITMAP "End.bmp";// TRANSPARENT COORDINATES 0,2,0,0 ;
+   @ 235, 5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20, 20   ;
+        BITMAP "End.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
         ON CLICK {|| BrowseMove(oBrwArr, "End", oEdGoto, "Array" ) } ;
         TOOLTIP "Last Record"
 
-       hwg_CREATEARLIST( oBrwArr, aArrayTst )
+       hwg_CREATEARLIST(oBrwArr, aArrayTst)
 
         oBrwArr:bcolorSel := x_BLUE
 
@@ -380,29 +375,29 @@ LOCAL nI
         END
 
 //      {|| IF (nNumber < 0, ;
-//       {tColor, bColor, tColorSel, bColorSel} ,;
+//       {tColor, bColor, tColorSel, bColorSel}, ;
 //       {tColor, bColor, tColorSel, bColorSel}) }
        IF lEdit
-       oBrwArr:aColumns[1]:bColorBlock := {|n| IF(aArrayTst[oBrwArr:nCurrent][1] < 0 , ;
-           {x_RED, x_WHITE, x_CYAN, x_BLUE} , ;
-           {x_BLUE, x_WHITE , x_WHITE, x_BLUE })}
+       oBrwArr:aColumns[1]:bColorBlock := {|n| IF(aArrayTst[oBrwArr:nCurrent][1] < 0, ;
+           {x_RED, x_WHITE, x_CYAN, x_BLUE}, ;
+           {x_BLUE, x_WHITE, x_WHITE, x_BLUE })}
        ELSE
-       oBrwArr:aColumns[1]:bColorBlock := {|n| IF(aArrayTst[oBrwArr:nCurrent][1] < 0 , ;
-           {x_RED, x_WHITE, x_CYAN, x_DARKBLUE} , ;
-           {x_BLUE, x_WHITE , x_WHITE, x_BLUE })}
+       oBrwArr:aColumns[1]:bColorBlock := {|n| IF(aArrayTst[oBrwArr:nCurrent][1] < 0, ;
+           {x_RED, x_WHITE, x_CYAN, x_DARKBLUE}, ;
+           {x_BLUE, x_WHITE, x_WHITE, x_BLUE })}
           IF lZebra
              FOR nI := 2 TO 5
                 oBrwArr:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwArr:nCurrent, 2) = 0,;
-                       {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE} , ;
-                       {x_BLACK, x_WHITE , x_WHITE, x_DARKBLUE })}
+                       {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
+                       {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
              NEXT
           ENDIF
        END
 
 /*
-        oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0 , ;
-         {x_VERMELHO, x_BRANCO, x_CYAN, x_CINZA50} , ;
-         {x_AZUL, x_BRANCO , x_LARANJA, x_AMARELO })}
+        oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+         {x_VERMELHO, x_BRANCO, x_CYAN, x_CINZA50}, ;
+         {x_AZUL, x_BRANCO, x_LARANJA, x_AMARELO })}
 */
    oDlg:Activate()
 
@@ -428,7 +423,7 @@ LOCAL aArray := {}
              n := i
        END
     END
-    AADD(aArray, { n, STRZERO(i,4), DATE() + i, "jgçpqy " + STRZERO(i, 23), STRZERO(i, 5)})
+    AADD(aArray, {n, STRZERO(i, 4), DATE() + i, "jgçpqy " + STRZERO(i, 23), STRZERO(i, 5)})
   Next
 
 RETURN(aArray)
@@ -439,7 +434,7 @@ RETURN(aArray)
  #XTRANSLATE HB_PVALUE(<var>)  => PVALUE(<var>)
 #endif
 
-FUNCTION MsgD( cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10 )
+FUNCTION MsgD(cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10)
    LOCAL nI, nLen := PCOUNT(), cVar := ""
    FOR nI := 1 TO nLen
        IF HB_PVALUE(nI) == NIL

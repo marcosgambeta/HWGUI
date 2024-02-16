@@ -15,7 +15,7 @@
 #include "hwgui.ch"
 #include "common.ch"
 
-#translate hwg_Rgb( <nRed>, <nGreen>, <nBlue> ) => ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )
+#translate hwg_Rgb(<nRed>, <nGreen>, <nBlue>) => (<nRed> + (<nGreen> * 256) + (<nBlue> * 65536))
 
 Static oMain, oForm, oFont, oGrid, oServer, oQuery
 
@@ -23,9 +23,8 @@ Function Main()
 
         ConnectGrid()
         
-        INIT WINDOW oMain MAIN TITLE "Grid Postgres Sample Using TPostgres" ;
-             AT 0,0 ;
-             SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+   INIT WINDOW oMain MAIN TITLE "Grid Postgres Sample Using TPostgres" ;
+      AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
                         MENUITEM "&Exit"   ACTION oMain:Close()
@@ -46,26 +45,26 @@ Function Test()
              AT 0, 0 SIZE 700, 425 ;
              STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
                 
-             @ 10,10 GRID oGrid OF oForm SIZE 680,375;
+             @ 10, 10 GRID oGrid OF oForm SIZE 680, 375;
                      ITEMCOUNT oQuery:Lastrec() ;
-                     COLOR hwg_VColor('D3D3D3');
-                     BACKCOLOR hwg_Rgb(220,220,220) ;
-                     ON DISPINFO {|oCtrl, nRow, nCol| valtoprg(oQuery:FieldGet( nRow, nCol )) } 
+                     COLOR hwg_VColor("D3D3D3");
+                     BACKCOLOR hwg_Rgb(220, 220, 220) ;
+                     ON DISPINFO {|oCtrl, nRow, nCol| valtoprg(oQuery:FieldGet(nRow, nCol)) } 
 
              ADD COLUMN TO GRID oGrid HEADER "Column 1" WIDTH  50
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 200
              ADD COLUMN TO GRID oGrid HEADER "Column 3" WIDTH 100
                                                               
-             @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:Close() }                            
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
              
         ACTIVATE DIALOG oForm
 Return Nil
 
 Function ConnectGrid()
-    Local cHost := 'Localhost'
-    Local cDatabase := 'test'
-    Local cUser := 'Rodrigo'
-    Local cPass := 'moreno'
+    Local cHost := "Localhost"
+    Local cDatabase := "test"
+    Local cUser := "Rodrigo"
+    Local cPass := "moreno"
     Local oRow, i
     
     oServer := TPQServer():New(cHost, cDatabase, cUser, cPass)
@@ -75,21 +74,21 @@ Function ConnectGrid()
         quit
     end
     
-    if oServer:TableExists('test')
-        oServer:DeleteTable('Test')
+    if oServer:TableExists("test")
+        oServer:DeleteTable("Test")
     endif        
     
-    oServer:CreateTable('Test', {{'col1', 'N', 6, 0},;
-                                 {'col2', 'C', 40,0},;
-                                 {'col3', 'D', 8, 0}})
+    oServer:CreateTable("Test", {{"col1", "N", 6, 0},;
+                                 {"col2", "C", 40, 0},;
+                                 {"col3", "D", 8, 0}})
         
-    oQuery := oServer:Query('SELECT * FROM test')
+    oQuery := oServer:Query("SELECT * FROM test")
                                      
     For i := 1 to 100
         oRow := oQuery:blank()
         
         oRow:Fieldput(1, i)
-        oRow:Fieldput(2, 'teste line ' + str(i))
+        oRow:Fieldput(2, "teste line " + str(i))
         oRow:Fieldput(3, date() + i)
         
         oQuery:Append(oRow)

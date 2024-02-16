@@ -51,8 +51,8 @@
  */
 
 #include "hbclass.ch"
-#include 'common.ch'
-#include 'hbdocdef.ch'
+#include "common.ch"
+#include "hbdocdef.ch"
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -67,22 +67,22 @@ CLASS FileMan
    data nHan
    data nLastDosMessage                 // Holds the DOS error level of last operation
 
-   METHOD addItem( nDos, cFile, cPath ) // Adds an item to the array of handles
-   METHOD delItem( xitem )              // Deletes an item from the array of handles
+   METHOD addItem(nDos, cFile, cPath)   // Adds an item to the array of handles
+   METHOD delItem(xitem)                // Deletes an item from the array of handles
 
    METHOD new()     // The constructor for this class
    METHOD closeAll()                    // Closes all of those files
    METHOD rewindAll()                   // Positions the file pointer for each file
    METHOD writeAll()                    // Performs hard-write of all
 
-   METHOD getFileName( cfile )          // Obtains the name of the file based on ID
-   METHOD getFileId( nid )              // Obtains the ID based on file name
-   METHOD getFilePath( xItem )          // Obtains file path based on either ID or name
+   METHOD getFileName(cfile)            // Obtains the name of the file based on ID
+   METHOD getFileId(nid)                // Obtains the ID based on file name
+   METHOD getFilePath(xItem)            // Obtains file path based on either ID or name
 
    METHOD noDosError()                  // Returns a logical true/false
 
-   METHOD openfile( cFile, nMethod )    // Opens the specified file and sets error
-   METHOD Buffget( ld ) virtual
+   METHOD openfile(cFile, nMethod)      // Opens the specified file and sets error
+   METHOD Buffget(ld) virtual
 
 ENDCLASS
 
@@ -102,7 +102,7 @@ METHOD new() CLASS FileMan
       ::nLastDosMessage := 0
    ENDIF
 
-   RETURN ( self )
+   RETURN self
 
    // The following are global operations that need to be performed by all
    // files regardless of their format
@@ -120,10 +120,10 @@ METHOD new() CLASS FileMan
 METHOD closeAll() CLASS FileMan
 
    IF ::nLastDosMessage == 0
-      AEVAL( ::aDosHandles, { | aFile | FCLOSE( aFile[ pDOS_HANDLE ] ) } )
+      AEVAL(::aDosHandles, {|aFile|FCLOSE(aFile[pDOS_HANDLE])})
    ENDIF
 
-   RETURN ( self )
+   RETURN self
 
    /* Method:  ::rewindAll()
    Params:  N/A
@@ -138,10 +138,10 @@ METHOD closeAll() CLASS FileMan
 METHOD rewindAll() CLASS FileMan
 
    IF ::nLastDosMessage == 0
-      AEVAL( ::aDosHandles, { | aFile | FSEEK( aFile[ pDOS_HANDLE ], 0, 0 ) } )
+      AEVAL(::aDosHandles, {|aFile|FSEEK(aFile[pDOS_HANDLE], 0, 0)})
    ENDIF
 
-   RETURN ( self )
+   RETURN self
 
    /* Method:  ::writeAll()
    Params:  N/A
@@ -155,58 +155,56 @@ METHOD rewindAll() CLASS FileMan
 METHOD writeAll() CLASS FileMan
 
    IF ::nLastDosMessage == 0
-      AEVAL( ::aDosHandles, { | aFile | FWRITE( aFile[ pDOS_HANDLE ], "", 0 ) } )
+      AEVAL(::aDosHandles, {|aFile|FWRITE(aFile[pDOS_HANDLE], "", 0)})
    ENDIF
 
-   RETURN ( self )
+   RETURN self
 
-   /* Method:  ::getFileName( <nId> )
+   /* Method:  ::getFileName(<nId>)
    Params:  <nId>           DOS File handle / ID
    Returns: <cName>         File name store with that ID handle
    Purpose: This method will return the file's name found
             within the table of this class.
 */
-METHOD getFileName( nId ) CLASS FileMan                     // Obtains the name of the file based on ID
+METHOD getFileName(nId) CLASS FileMan                     // Obtains the name of the file based on ID
 
    LOCAL cName     := ""                   // as char
    LOCAL nPosition     // as int
 
    IF ::nLastDosMessage == 0
       IF nId IS pNUMERIC
-         nPosition := ASCAN( ::aDosHandles, ;
-                             { | aFile | nId == aFile[ pDOS_HANDLE ] } )
+         nPosition := ASCAN(::aDosHandles, {|aFile|nId == aFile[pDOS_HANDLE]})
          IF nPosition != 0
-            cName := ::aDosHandles[ nPosition, pDOS_FILE ]
+            cName := ::aDosHandles[nPosition, pDOS_FILE]
          ENDIF
       ENDIF
    ENDIF
 
-   RETURN ( cName )
+   RETURN cName
 
-   /* Method:  ::getFileId( <cName> )
+   /* Method:  ::getFileId(<cName>)
    Params:  <cName>         File names used to store item to stack
    Returns: <nId>           DOS File handle or ID associated with name
    Purpose: This method will return the file's ID or DOS handle found
             within the table of this class.
 */
-METHOD getFileId( cName ) CLASS FileMan                     // Obtains the ID based on file name
+METHOD getFileId(cName) CLASS FileMan                     // Obtains the ID based on file name
 
    LOCAL nId       := 0                    // as int
    LOCAL nPosition     // as int
 
    IF ::nLastDosMessage == 0
       IF cName IS pCHARACTER
-         nPosition := ASCAN( ::aDosHandles, ;
-                             { | aFile | cName == aFile[ pDOS_FILE ] } )
+         nPosition := ASCAN(::aDosHandles, {|aFile|cName == aFile[pDOS_FILE]})
          IF nPosition != 0
-            nId := ::aDosHandles[ nPosition, pDOS_HANDLE ]
+            nId := ::aDosHandles[nPosition, pDOS_HANDLE]
          ENDIF
       ENDIF
    ENDIF
 
-   RETURN ( nId )
+   RETURN nId
 
-   /* Method:  ::getFilePath( <xItem> )
+   /* Method:  ::getFilePath(<xItem>)
    Params:  <xItem>         DOS File handle / ID or stored file name
    Returns: <cPath>         Associated file path
    Purpose: This method will return the associated DOS path for either the
@@ -214,36 +212,34 @@ METHOD getFileId( cName ) CLASS FileMan                     // Obtains the ID ba
             path or if there is an error with the method, the return value
             will be a NULL character byte.
 */
-METHOD getFilePath( xItem ) CLASS FileMan                   // Obtains file path based on either ID or name
+METHOD getFilePath(xItem) CLASS FileMan                   // Obtains file path based on either ID or name
 
    LOCAL cPath     := ""                   // as char
    LOCAL nPosition     // as int
 
    IF ::nLastDosMessage == 0
       DO CASE
-         CASE ( xItem IS pCHARACTER )   // we've got the file name
-            nPosition := ASCAN( ::aDosHandles, ;
-                                { | aFile | xItem == aFile[ pDOS_FILE ] } )
+         CASE (xItem IS pCHARACTER)   // we've got the file name
+            nPosition := ASCAN(::aDosHandles, {|aFile|xItem == aFile[pDOS_FILE]})
             IF nPosition != 0
-               cPath := ::aDosHandles[ nPosition, pDOS_PATH ]
+               cPath := ::aDosHandles[nPosition, pDOS_PATH]
             ENDIF
 
-         CASE ( xItem IS pNUMERIC )     // we've got the file path
-            nPosition := ASCAN( ::aDosHandles, ;
-                                { | aFile | xItem == aFile[ pDOS_HANDLE ] } )
+         CASE (xItem IS pNUMERIC)     // we've got the file path
+            nPosition := ASCAN(::aDosHandles, {|aFile|xItem == aFile[pDOS_HANDLE]})
             IF nPosition != 0
-               cPath := ::aDosHandles[ nPosition, pDOS_PATH ]
+               cPath := ::aDosHandles[nPosition, pDOS_PATH]
             ENDIF
 
       ENDCASE
    ENDIF
 
-   RETURN ( cPath )
+   RETURN cPath
 
    // The following two methods are for the sole purpose of manipulating the
    // array of DOS file handles
 
-   /* Method:  ::addItem( <nDos>, <cFile> [, <cPath] )
+   /* Method:  ::addItem(<nDos>, <cFile> [, <cPath])
    Params:  <nDos>          DOS file handle
             <cFile>         File name
             <cPath>         File path, defaults to ""
@@ -254,17 +250,17 @@ METHOD getFilePath( xItem ) CLASS FileMan                   // Obtains file path
             ::nLastDosMessage is 0.  The return value of the method will
             be the object itself.
 */
-METHOD addItem( nDos, cFile, cPath ) CLASS FileMan
+METHOD addItem(nDos, cFile, cPath) CLASS FileMan
 
    DEFAULT cPath TO ""
 
    IF ::nLastDosMessage == 0
-      AADD( ::aDosHandles, { nDos, cFile, cPath } )
+      AADD(::aDosHandles, {nDos, cFile, cPath})
    ENDIF
 
-   RETURN ( self )
+   RETURN self
 
-   /* Method:  ::delItem( <xItem> )
+   /* Method:  ::delItem(<xItem>)
    Params:  <xItem>         DOS file handle or file name
    Returns: <lSuccess>      Success status of operation
    Purpose: To go through the stack of opened file handles and based on the
@@ -277,7 +273,7 @@ METHOD addItem( nDos, cFile, cPath ) CLASS FileMan
             otherwise, a logical true (.T.) will be returned.
 */
 
-METHOD delItem( xItem ) CLASS FileMan
+METHOD delItem(xItem) CLASS FileMan
 
    LOCAL nPosition     // as int
    LOCAL lSuccess  := pTRUE                // as logical
@@ -287,30 +283,28 @@ METHOD delItem( xItem ) CLASS FileMan
 
    IF ::nLastDosMessage == 0            // No DOS error!
       DO CASE
-         CASE ( xItem IS pNUMERIC )     // It's a DOS file handle
-            nPosition := ASCAN( ::aDosHandles, ;
-                                { | aItem | xItem == aItem[ pDOS_HANDLE ] } )
+         CASE (xItem IS pNUMERIC)     // It's a DOS file handle
+            nPosition := ASCAN(::aDosHandles, {|aItem|xItem == aItem[pDOS_HANDLE]})
             IF nPosition == 0
                // Don't remove and set the return value of the function
                lSuccess := pFALSE
             ELSE
                // Since we have a position, remove from the table and keep the
                // default return value
-               ADEL( ::aDosHandles, nPosition )
-               ASIZE( ::aDosHandles, LEN( ::aDosHandles ) - 1 )
+               ADEL(::aDosHandles, nPosition)
+               ASIZE(::aDosHandles, LEN(::aDosHandles) - 1)
             ENDIF
 
-         CASE ( xItem IS pCHARACTER )   // It's a file name
-            nPosition := ASCAN( ::aDosHandles, ;
-                                { | aItem | xItem == aItem[ pDOS_FILE ] } )
+         CASE (xItem IS pCHARACTER)   // It's a file name
+            nPosition := ASCAN(::aDosHandles, {|aItem|xItem == aItem[pDOS_FILE]})
             IF nPosition == 0
                // Don't remove and set the return value of the function
                lSuccess := pFALSE
             ELSE
                // Since we have a position, remove from the table and keep the
                // default return value
-               ADEL( ::aDosHandles, nPosition )
-               ASIZE( ::aDosHandles, LEN( ::aDosHandles ) - 1 )
+               ADEL(::aDosHandles, nPosition)
+               ASIZE(::aDosHandles, LEN(::aDosHandles) - 1)
             ENDIF
 
          OTHERWISE
@@ -323,7 +317,7 @@ METHOD delItem( xItem ) CLASS FileMan
 
    ENDIF
 
-   RETURN ( lSuccess )
+   RETURN lSuccess
 
    /* Method:  noDosError()
    Params:  N/A
@@ -334,7 +328,7 @@ METHOD delItem( xItem ) CLASS FileMan
 
 METHOD noDosError() CLASS FileMan
 
-   RETURN ( ::nLastDosMessage == 0 )
+   RETURN (::nLastDosMessage == 0)
 
    /* Method:  open()
    Params:  N/A
@@ -345,7 +339,7 @@ METHOD noDosError() CLASS FileMan
             to update the internal table.
 
 */
-METHOD openfile( cFile, nMethod ) CLASS FileMan
+METHOD openfile(cFile, nMethod) CLASS FileMan
 
    LOCAL nFileHandle   // as int
    LOCAL cFilename     // as char
@@ -353,17 +347,17 @@ METHOD openfile( cFile, nMethod ) CLASS FileMan
 
    DEFAULT nMethod TO 0
 
-   nFileHandle := FOPEN( cFile, nMethod )                   // opens the file
-   IF !EMPTY( FERROR() )                // There was an error in opening
+   nFileHandle := FOPEN(cFile, nMethod)                   // opens the file
+   IF !EMPTY(FERROR())                // There was an error in opening
       ::nLastDosMessage := FERROR()
       nFileHandle       := - 1
    ELSE
-      cFileName := DOSFILENAME( cFile )
-      cPath     := STRTRAN( cFile, cFileName, "" )
-      ::addItem( nFileHandle, cFileName, cPath )
+      cFileName := DOSFILENAME(cFile)
+      cPath     := STRTRAN(cFile, cFileName, "")
+      ::addItem(nFileHandle, cFileName, cPath)
    ENDIF
    ::nHan := nFileHandle
-RETURN ( nFileHandle )
+RETURN nFileHandle
 
 // End of File: FClass1.prg
 

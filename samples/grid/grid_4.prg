@@ -16,17 +16,15 @@
 Static oMain, oForm, oFont, oGrid
 
 Function Main()
-        IF File('temp.dbf')
-            FErase('temp.dbf')
+        IF File("temp.dbf")
+            FErase("temp.dbf")
         END
 
-        DBCreate( "temp.dbf", {{"LINE", "C", 300, 0}} )
+        DBCreate("temp.dbf", {{"LINE", "C", 300, 0}})
 
         USE temp
 
-        INIT WINDOW oMain MAIN TITLE "File Viewer" ;
-             AT 0,0 ;
-             SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+   INIT WINDOW oMain MAIN TITLE "File Viewer" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
                         MENUITEM "&Exit" ACTION oMain:Close()
@@ -46,20 +44,20 @@ Function Test()
              STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 
 
-             @ 10,10 GRID oGrid OF oForm SIZE 680,375;
+             @ 10, 10 GRID oGrid OF oForm SIZE 680, 375;
                      ITEMCOUNT Lastrec() ;
-                     ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
+                     ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo(oCtrl, nRow, nCol) } ;
                      NOGRIDLINES
 
              ADD COLUMN TO GRID oGrid HEADER "" WIDTH  800
 
-             @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
 Return Nil
 
-Function OnDispInfo( o, x, y )
-    Local result := ''
+Function OnDispInfo(o, x, y)
+    Local result := ""
 
     DBGoto(x)
 
@@ -68,7 +66,7 @@ Return result
 
 Function FileOpen()
         Local fname
-        fname := hwg_SelectFile( "Select File", "*.*")
+        fname := hwg_SelectFile("Select File", "*.*")
 
         Zap
         APPEND FROM (fname) SDF

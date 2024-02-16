@@ -52,39 +52,39 @@
 #include "directry.ch"
 #include "fileio.ch"
 #include "inkey.ch"
-#include 'hbdocdef.ch'
-#include 'common.ch'
+#include "hbdocdef.ch"
+#include "common.ch"
 
 #define xReadBuffer 4096
 DECLARE  FT_FUSE(CFILE AS STRING,NMODE AS NUMERIC) AS NUMERIC
 DECLARE  ft_FEOF() AS LOGICAL
-DECLARE  FReadLn(  cLine ) AS STRING
+DECLARE  FReadLn(cLine) AS STRING
 DECLARE  FT_FReadLn() AS STRING
 DECLARE  FT_FGotop()  //AS USUAL
 DECLARE  FT_FSKIP(n AS NUMERIC) //AS USUAL
-DECLARE  FT_MKDIR( CDIR AS STRING ) //AS USUAL
-DECLARE  StrPos( cBuffer AS STRING ) AS NUMERIC
-DECLARE  GetNumberofTableItems( cBuffer AS STRING ) AS NUMERIC
-DECLARE  FREADline( nH AS NUMERIC, @cB AS STRING, nMaxLine AS NUMERIC )
+DECLARE  FT_MKDIR(CDIR AS STRING) //AS USUAL
+DECLARE  StrPos(cBuffer AS STRING) AS NUMERIC
+DECLARE  GetNumberofTableItems(cBuffer AS STRING) AS NUMERIC
+DECLARE  FREADline(nH AS NUMERIC, @cB AS STRING, nMaxLine AS NUMERIC)
 //DECLARE  HBMAKE_FILEBASE() AS OBJECT
 DECLARE  HBMAKE_FILEBASE ;
-    New( cname AS STRING) AS CLASS HBMAKE_FILEBASE;
+    New(cname AS STRING) AS CLASS HBMAKE_FILEBASE;
     FOPEN()   AS OBJECT;
     closefile() AS OBJECT;
-    fskip( OPTIONAL n  AS NUMERIC)  AS OBJECT;
-    FWRITE( c AS STRING) AS OBJECT;
+    fskip(OPTIONAL n AS NUMERIC)  AS OBJECT;
+    FWRITE(c AS STRING) AS OBJECT;
     retrieve() AS STRING;
     fgoTop()      AS OBJECT;
     fgoBottom()     AS OBJECT;
     fgoto()    AS NUMERIC;
     create() AS OBJECT;
-    fappendByte( cByte )    AS OBJECT;
-    BuffGet METHOD BufferGet( OPTIONAL lDirection AS LOGICAL ) AS NUMERIC;
-    SKIP( OPTIONAL nRecord AS NUMERIC )                  AS OBJECT;
-    WRITE( cChar AS STRING )                   AS OBJECT;
+    fappendByte(cByte)    AS OBJECT;
+    BuffGet METHOD BufferGet(OPTIONAL lDirection AS LOGICAL) AS NUMERIC;
+    SKIP(OPTIONAL nRecord AS NUMERIC)                  AS OBJECT;
+    WRITE(cChar AS STRING)                   AS OBJECT;
     goTop()                          AS OBJECT;
     goBottom()                       AS OBJECT;
-    GOTO( OPTIONAL nValue AS NUMERIC)                   AS NUMERIC;
+    GOTO(OPTIONAL nValue AS NUMERIC)                   AS NUMERIC;
     OPEN()                           AS OBJECT;
     append(OPTIONAL cline AS STRING) AS OBJECT
 
@@ -100,7 +100,7 @@ STATIC TheHandle As Object
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION FT_FUSE( cFile AS STRING, nMode  AS NUMERIC)
+FUNCTION FT_FUSE(cFile AS STRING, nMode AS NUMERIC)
    Local nHandle as numeric
    IF nMode == nil
       nMode := 2
@@ -110,9 +110,9 @@ FUNCTION FT_FUSE( cFile AS STRING, nMode  AS NUMERIC)
    ENDIF
    IF cFile <> Nil
       IF nMode <> 0
-         theHandle := HBMake_FileBase():new( cFile ):open()
+         theHandle := HBMake_FileBase():new(cFile):open()
       ELSE
-         theHandle := HBMake_FileBase():new( cFile ):open()
+         theHandle := HBMake_FileBase():new(cFile):open()
       ENDIF
    ENDIF
    nHandle:= theHandle:nHan
@@ -138,7 +138,7 @@ RETURN lRETURN
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION FReadLn(  cLine AS STRING)
+FUNCTION FReadLn(cLine AS STRING)
 
    cLine := theHandle:retrieve()
 RETURN cLine
@@ -153,11 +153,11 @@ RETURN cLine
 *+
 FUNCTION FT_FReadLn()
 
-   LOCAL cBuffer AS STRING := ''
+   LOCAL cBuffer AS STRING := ""
 
-   cBuffer := FReadLn( @cBuffer )
+   cBuffer := FReadLn(@cBuffer)
 
-   cBuffer := STRTRAN( cBuffer, CHR( 13 ), '' )
+   cBuffer := STRTRAN(cBuffer, CHR(13), "")
 
 RETURN cBuffer
 
@@ -181,9 +181,9 @@ RETURN NIL
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION FT_FSKIP( n AS NUMERIC)
+FUNCTION FT_FSKIP(n AS NUMERIC)
 
-   TheHandle:Skip( n )
+   TheHandle:Skip(n)
 RETURN nil
 
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
@@ -194,9 +194,9 @@ RETURN nil
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION FT_MKDIR( CDIR AS STRING)
+FUNCTION FT_MKDIR(CDIR AS STRING)
 
-   MAKEDIR( cdir )
+   MAKEDIR(cdir)
 
 RETURN nil
 
@@ -209,24 +209,24 @@ RETURN nil
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION StrPos( cBuffer AS STRING)
+FUNCTION StrPos(cBuffer AS STRING)
 
    LOCAL nPos AS NUMERIC :=0
    LOCAL x   AS NUMERIC
    LOCAL cChar AS STRING
-   FOR x := 1 TO LEN( cBuffer )
-      cChar := SUBSTR( cBuffer, x, 1 )
-      IF cChar >= CHR( 64 ) .AND. cChar <= CHR( 90 ) .OR. cChar >= CHR( 97 ) ;
-                 .AND. cChar <= CHR( 122 ) .OR. cChar >= CHR( 48 ) .AND. cChar <= CHR( 57 ) ;
-                 .OR. cChar == CHR( 60 ) .OR. cchar == CHR( ASC( "-" ) ) ;
-                 .OR. cchar == CHR( ASC( "(" ) ) .OR. cchar = CHR( ASC( "|" ) ) .OR. ;
-                 cchar == CHR( ASC( '.' ) ) .OR. cchar == CHR( ASC( '*' ) ) .OR. ;
-                 cchar == CHR( ASC( '#' ) ) .OR. cchar == CHR( ASC( '"' ) ) .OR. ;
-                 cchar == CHR( ASC( '/' ) ) .OR. cchar == CHR( ASC( "@" ) ) ;
-                 .OR. cchar == CHR( ASC( "=" ) ) .OR. cchar == CHR( ASC( 'Ä' ) ) ;
-                 .OR. cchar == CHR( ASC( '?' ) ) .OR. cchar == CHR( ASC( '!' ) ) ;
-                 .OR. cchar == CHR( ASC( "<" ) ) .OR. cchar == CHR( ASC( '>' ) ) ;
-                 .OR. cchar == CHR( ASC( '!' ) ) .OR. cchar == CHR( ASC( '+' ) )
+   FOR x := 1 TO LEN(cBuffer)
+      cChar := SUBSTR(cBuffer, x, 1)
+      IF cChar >= CHR(64) .AND. cChar <= CHR(90) .OR. cChar >= CHR(97) ;
+                 .AND. cChar <= CHR(122) .OR. cChar >= CHR(48) .AND. cChar <= CHR(57) ;
+                 .OR. cChar == CHR(60) .OR. cchar == CHR(ASC("-")) ;
+                 .OR. cchar == CHR(ASC("(")) .OR. cchar = CHR(ASC("|")) .OR. ;
+                 cchar == CHR(ASC(".")) .OR. cchar == CHR(ASC("*")) .OR. ;
+                 cchar == CHR(ASC("#")) .OR. cchar == CHR(ASC(""")) .OR. ;
+                 cchar == CHR(ASC("/")) .OR. cchar == CHR(ASC("@")) ;
+                 .OR. cchar == CHR(ASC("=")) .OR. cchar == CHR(ASC("Ä")) ;
+                 .OR. cchar == CHR(ASC("?")) .OR. cchar == CHR(ASC("!")) ;
+                 .OR. cchar == CHR(ASC("<")) .OR. cchar == CHR(ASC(">")) ;
+                 .OR. cchar == CHR(ASC("!")) .OR. cchar == CHR(ASC("+"))
 
          nPos := x
 
@@ -246,23 +246,23 @@ RETURN nPos
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION GetNumberofTableItems( cBuffer )
+FUNCTION GetNumberofTableItems(cBuffer)
 
    LOCAL cItem AS STRING
    LOCAL nItem AS NUMERIC := 0
 
-   cBuffer := ALLTRIM( cBuffer )
+   cBuffer := ALLTRIM(cBuffer)
 
-   DO WHILE AT( SPACE( 3 ), cBuffer ) > 0
-      cItem := SUBSTR( cBuffer, 1, AT( SPACE( 3 ), cBuffer ) - 1 )
-      IF AT( SPACE( 3 ), cBuffer ) == 0
-         nItem ++
+   DO WHILE AT(SPACE(3), cBuffer) > 0
+      cItem := SUBSTR(cBuffer, 1, AT(SPACE(3), cBuffer) - 1)
+      IF AT(SPACE(3), cBuffer) == 0
+         nItem++
       ELSE
-         cBuffer := ALLTRIM( STRTRAN( cBuffer, cItem, '' ) )
-         nItem ++
+         cBuffer := ALLTRIM(STRTRAN(cBuffer, cItem, ""))
+         nItem++
       ENDIF
    ENDDO
-   nItem ++
+   nItem++
    RETURN nItem
 
 #define EOL hb_osnewline()
@@ -276,22 +276,22 @@ FUNCTION GetNumberofTableItems( cBuffer )
 *+
 *+±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *+
-FUNCTION FREADline( nH as Numeric, cB AS STRING, nMaxLine as Numeric)
+FUNCTION FREADline(nH as Numeric, cB AS STRING, nMaxLine as Numeric)
 
    LOCAL cLine AS STRING
    LOCAL nSavePos AS NUMERIC
    LOCAL nEol AS NUMERIC
    LOCAL nNumRead AS NUMERIC
    LOCAL lReturn as Logical
-   cLine    := SPACE( nMaxLine )
-   cB       := ''
-   nSavePos := FSEEK( nH, 0, FS_RELATIVE )
-   nNumRead := FREAD( nH, @cLine, nMaxLine )
-   IF ( nEol := AT( EOL, SUBSTR( cLine, 1, nNumRead ) ) ) == 0
+   cLine    := SPACE(nMaxLine)
+   cB       := ""
+   nSavePos := FSEEK(nH, 0, FS_RELATIVE)
+   nNumRead := FREAD(nH, @cLine, nMaxLine)
+   IF (nEol := AT(EOL, SUBSTR(cLine, 1, nNumRead))) == 0
       cB := cLine
    ELSE
-      cB := SUBSTR( cLine, 1, nEol - 1 )
-      FSEEK( nH, nSavePos + nEol + 1, FS_SET )
+      cB := SUBSTR(cLine, 1, nEol - 1)
+      FSEEK(nH, nSavePos + nEol + 1, FS_SET)
    ENDIF
     lReturn := (nNumRead != 0)
 RETURN lReturn

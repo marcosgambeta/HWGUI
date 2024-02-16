@@ -16,9 +16,7 @@ Static oMain, oForm, oFont, oGrid
 
 Function Main()
 
-        INIT WINDOW oMain MAIN TITLE "Grid Sample" ;
-             AT 0,0 ;
-             SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+   INIT WINDOW oMain MAIN TITLE "Grid Sample" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
                 MENU OF oMain
                         MENUITEM "&Exit"      ACTION oMain:Close()
@@ -36,37 +34,37 @@ Function Test()
              AT 0, 0 SIZE 700, 425 ;
              STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
                 
-             @ 10,10 GRID oGrid OF oForm SIZE 680,375;
+             @ 10, 10 GRID oGrid OF oForm SIZE 680, 375;
                      ITEMCOUNT 10000 ;
                      ON KEYDOWN {|oCtrl, key| OnKey(oCtrl, key) } ;
                      ON POSCHANGE {|oCtrl, nRow| OnPoschange(oCtrl, nRow) } ;
                      ON CLICK {|oCtrl| OnClick(oCtrl) } ;
-                     ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) } ;
-                     COLOR hwg_VColor('D3D3D3');
-                     BACKCOLOR hwg_VColor('BEBEBE') 
+                     ON DISPINFO {|oCtrl, nRow, nCol| OnDispInfo(oCtrl, nRow, nCol) } ;
+                     COLOR hwg_VColor("D3D3D3");
+                     BACKCOLOR hwg_VColor("BEBEBE") 
 
              ADD COLUMN TO GRID oGrid HEADER "Column 1" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 3" WIDTH 150
                                                               
-             @ 620, 395 BUTTON 'Close' SIZE 75,25 ON CLICK {|| oForm:Close() }                            
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
              
         ACTIVATE DIALOG oForm
                 
 Return Nil
 
-Function OnKey( o, k )
+Function OnKey(o, k)
 //    hwg_Msginfo(str(k))
 return nil    
 
-Function OnPosChange( o, row )
-//    hwg_Msginfo( str(row) )
+Function OnPosChange(o, row)
+//    hwg_Msginfo(str(row))
 return nil    
 
-Function OnClick( o )
-//    hwg_Msginfo( 'click' )
+Function OnClick(o)
+//    hwg_Msginfo("click")
 return nil    
 
-Function OnDispInfo( o, x, y )
-return 'Row: ' + ltrim(str(x)) + ' Col: ' + ltrim(str(y))
+Function OnDispInfo(o, x, y)
+return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
 

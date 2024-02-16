@@ -54,22 +54,21 @@ SELECT TESTE
 
 SET Relation TO TESTE->COD into TESTE1
  
-INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Teste";
-        AT 218,143 SIZE 487,270 FONT HFont():Add( "Arial",0,-11)
+   INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Teste" AT 218, 143 SIZE 487, 270 FONT HFont():Add("Arial", 0, -11)
         
    Select Teste
    
-   @  9, 8 BROWSE oBrowse DATABASE SIZE 466,196 STYLE   WS_VSCROLL + WS_HSCROLL;
+   @  9, 8 BROWSE oBrowse DATABASE SIZE 466, 196 STYLE   WS_VSCROLL + WS_HSCROLL;
     ON KEYDOWN {|o,key| BrowseKey(o, key) } ;
    
-   @ 393,214 BUTTON oSai CAPTION "Sair"  ON CLICK {||hwg_EndDialog()} SIZE 80,32  
+   @ 393, 214 BUTTON oSai CAPTION "Sair"  ON CLICK {||hwg_EndDialog()} SIZE 80, 32
 
    oBrowse:alias   := "Teste"
    oBrowse:aColumns := {}
    oBrowse:nFootRows:=2
    
-   Teste_CreateColumn( oBrowse, "COD", "CODIGO", "TESTE", 1,"C",3,0 )
-   Teste_CreateColumn( oBrowse, "NOME","NOME",   "TESTE1",1,"C",30,0 )
+   Teste_CreateColumn(oBrowse, "COD", "CODIGO", "TESTE", 1,"C", 3, 0)
+   Teste_CreateColumn(oBrowse, "NOME","NOME",   "TESTE1", 1,"C", 30, 0)
    oBrowse:acolumns[2]:footing:="test;test2"
    oBrowse:acolumns[2]:bColorfoot:={|| {x_BLUE,x_RED}}
    oBrowse:acolumns[2]:nJusFoot:=DT_CENTER
@@ -85,19 +84,17 @@ INIT DIALOG oDlg CLIPPER NOEXIT TITLE "Teste";
 RETURN Nil
 
  
-STATIC FUNCTION Teste_CreateColumn( oBrw, oCol, oHead, oAr, seq, oType, oLen, oDec )
+STATIC FUNCTION Teste_CreateColumn(oBrw, oCol, oHead, oAr, seq, oType, oLen, oDec)
 Local i
 Local nArea := &oAr->(select())
     
-   oBrw:AddColumn( HColumn():New( oHead ,; 
-                                     FieldWBlock( oCol, nArea ),  ;
-                                     oType, oLen, oDec, .F. ) )
+   oBrw:AddColumn(HColumn():New(oHead, FieldWBlock(oCol, nArea), oType, oLen, oDec, .F.))
                                     //"C",   30,   2
    oBrw:Refresh()
 
 RETURN Nil
 
-Static Function BrowseKey( oBr, key )   
+Static Function BrowseKey(oBr, key)
    LOCAL xFun
  
    IF key == 112 //.and. lHelp == .T.      && f1

@@ -16,7 +16,7 @@ Static oMain, oForm, oFont, oBar := Nil
 
 Function Main()
 
-        INIT WINDOW oMain MAIN TITLE "Progress Bar Sample"
+   INIT WINDOW oMain MAIN TITLE "Progress Bar Sample"
 
         MENU OF oMain
              MENUITEM "&Exit" ACTION oMain:Close()
@@ -37,12 +37,12 @@ Local cMsgErr := "Bar doesn't exist"
              STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU ;
              ON EXIT {||Iif(oBar==Nil,.T.,(oBar:Close(),.T.))}
              
-             @ 115, 390 BUTTON 'Step Bar'     SIZE 95,26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:Step())) }						 
-             @ 210, 390 BUTTON 'Show Text'    SIZE 95,26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:setLabel("New Text here"))) }
-             @ 305, 390 BUTTON 'Create Bar'   SIZE 95,26 ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 10, 100 ) }
-             @ 400, 390 BUTTON 'Create Bar %' SIZE 95,26 ON CLICK {|| oBar := HProgressBar():NewBox( "Testing ...",,,,, 10, 100,,.T. ) }
-             @ 495, 390 BUTTON 'Close Bar'    SIZE 95,26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:Close(),oBar:=Nil)) }
-             @ 590, 390 BUTTON 'Close'        SIZE 95,26 ON CLICK {|| oForm:Close() }
+             @ 115, 390 BUTTON "Step Bar"     SIZE 95, 26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:Step())) }
+             @ 210, 390 BUTTON "Show Text"    SIZE 95, 26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:setLabel("New Text here"))) }
+             @ 305, 390 BUTTON "Create Bar"   SIZE 95, 26 ON CLICK {|| oBar := HProgressBar():NewBox("Testing ...",,,,, 10, 100) }
+             @ 400, 390 BUTTON "Create Bar %" SIZE 95, 26 ON CLICK {|| oBar := HProgressBar():NewBox("Testing ...",,,,, 10, 100,,.T.) }
+             @ 495, 390 BUTTON "Close Bar"    SIZE 95, 26 ON CLICK {|| Iif(oBar==Nil,hwg_Msgstop(cMsgErr),(oBar:Close(),oBar:=Nil)) }
+             @ 590, 390 BUTTON "Close"        SIZE 95, 26 ON CLICK {|| oForm:Close() }
 
         ACTIVATE DIALOG oForm
 

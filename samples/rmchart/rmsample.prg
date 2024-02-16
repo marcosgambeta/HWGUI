@@ -30,7 +30,7 @@ ENDCLASS
 
 
 METHOD New(p1,p2,p3,p4,p5,p6) CLASS RmChart
-  ::EventMap( 1 , "CLICKED" , SELF )
+  ::EventMap(1 , "CLICKED", SELF)
                                       // Map event 1 to Clicked method
                                       // ...7... I don't remember why I put 7
                                       // should be the number of parameters to
@@ -39,8 +39,8 @@ METHOD New(p1,p2,p3,p4,p5,p6) CLASS RmChart
   Super:New(p1,p2,p3,p4,p5,p6)        // 
 RETURN
 
-METHOD Clicked( ... ) CLASS RmChart
-hwg_Msginfo( "Mouse button pressed" , ::winclass )
+METHOD Clicked(...) CLASS RmChart
+hwg_Msginfo("Mouse button pressed", ::winclass)
 Return
 
 
@@ -51,7 +51,8 @@ Private oEdit
 Private oChart
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -15
-   INIT WINDOW oMainWnd TITLE "rmchart example" AT 200,0 SIZE 500,400 FONT oFont
+   
+   INIT WINDOW oMainWnd TITLE "rmchart example" AT 200, 0 SIZE 500, 400 FONT oFont
 
    MENU OF oMainWnd
       MENU TITLE "File"
@@ -59,26 +60,26 @@ Private oChart
       ENDMENU
    ENDMENU
 
-    @ 0,0 PANEL oPanelTool SIZE 500,32
+    @ 0, 0 PANEL oPanelTool SIZE 500, 32
 
-    @ 5,4 BUTTON "Show" OF oPanelTool SIZE 50,24 ;
-        ON CLICK {||oChart:Show()} 
+    @ 5, 4 BUTTON "Show" OF oPanelTool SIZE 50, 24 ;
+        ON CLICK {||oChart:Show()}
 
-    @ 55,4 BUTTON "Hide" OF oPanelTool SIZE 50,24 ;
-        ON CLICK {||oChart:Hide()} 
+    @ 55, 4 BUTTON "Hide" OF oPanelTool SIZE 50, 24 ;
+        ON CLICK {||oChart:Hide()}
 
-    @ 105,4 BUTTON "Enable" OF oPanelTool SIZE 50,24 ;
-        ON CLICK {||oChart:Enable()} 
+    @ 105, 4 BUTTON "Enable" OF oPanelTool SIZE 50, 24 ;
+        ON CLICK {||oChart:Enable()}
 
-    @ 155,4 BUTTON "Disable" OF oPanelTool SIZE 50,24 ;
-        ON CLICK {||oChart:Disable()} 
+    @ 155, 4 BUTTON "Disable" OF oPanelTool SIZE 50, 24 ;
+        ON CLICK {||oChart:Disable()}
 
-    @ 205,4 BUTTON "Redraw" OF oPanelTool SIZE 50,24 ;
+    @ 205, 4 BUTTON "Redraw" OF oPanelTool SIZE 50, 24 ;
         ON CLICK {||oChart:Draw(.T.) } 
 
-    @ 0,34 PANEL oPanel SIZE 500,366 ON SIZE {|o,x, y| o:Move(,,x,y), oChart:Move(,,x,y-32), oChart:Refresh() }
+    @ 0, 34 PANEL oPanel SIZE 500, 366 ON SIZE {|o,x, y| o:Move(,,x,y), oChart:Move(,,x,y-32), oChart:Refresh() }
 
-    oChart := RmChart():New( oPanel, "RMChart.RMChartX", 0, 0, oPanel:nHeight, oPanel:nWidth )
+    oChart := RmChart():New(oPanel, "RMChart.RMChartX", 0, 0, oPanel:nHeight, oPanel:nWidth)
 
     oChart:Clear()
     oChart:Reset()
@@ -86,10 +87,10 @@ Private oChart
     oChart:RMCStyle         := RMC_CTRLSTYLEFLAT
     oChart:RMCUserWatermark := "Test Test Test"
     oChart:AddRegion()
-    r1 := oChart:Region( 1 )
+    r1 := oChart:Region(1)
     r1:Footer = "hwgui does ocx too!"
     r1:AddCaption()
-    WITH OBJECT r1 			// oChart:Region( 1 )
+    WITH OBJECT r1 			// oChart:Region(1)
          WITH OBJECT :Caption()
               :Titel     := "rmchart test"
               :FontSize  := 10
@@ -107,8 +108,8 @@ Private oChart
                :DataString       := "30*15*40*35"
          END
    END
-   oChart:Draw2Clipboard( RMC_EMF )  // Copy in clipboard
-   ris = oChart:Draw( .T. )
+   oChart:Draw2Clipboard(RMC_EMF)  // Copy in clipboard
+   ris = oChart:Draw(.T.)
    oChart:Enable()
    oChart:Show()
 

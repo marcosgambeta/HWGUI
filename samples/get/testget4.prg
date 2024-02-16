@@ -17,9 +17,8 @@ the Direct and Indirect way
 FUNCTION Main
 Local oMain
 
-   INIT WINDOW oMain MAIN TITLE "Browse Example - Database" ;
-     AT 0,0 ;
-     SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
+   INIT WINDOW oMain MAIN TITLE "Browse Example - Database" AT 0, 0 ;
+      SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
    MENU OF oMain
       MENUITEM "&Exit"     ACTION oMain:Close()
@@ -36,16 +35,16 @@ Local iDialog
 
    INIT DIALOG iDialog CLIPPER NOEXIT TITLE "Intermediate Dialog"  ;
      STYLE WS_VISIBLE + WS_POPUP + WS_CAPTION + WS_SYSMENU  ;
-     AT 210,10  SIZE 300,300                    
+     AT 210, 10  SIZE 300, 300                    
 
-   @ 20,35 BUTTON "Open form" ON CLICK {|| TestForm()  }
+   @ 20, 35 BUTTON "Open form" ON CLICK {|| TestForm()  }
 
    ACTIVATE DIALOG iDialog
 
 
 function TestForm()
 Local cTitle := "Dialog from prg"
-Local oModDlg, oFont := HFont():Add( "MS Sans Serif",0,-13 )
+Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local oRadio1, oRadio2, onome, ocodigo, wcodigo, wnome, wfracao
 Local bInit
 
@@ -57,11 +56,11 @@ wnome   := "Nome"
 
    INIT DIALOG oModDlg CLIPPER NOEXIT TITLE cTitle           ;
      STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU  ;
-     AT 210,10  SIZE 300,300                    ;
+     AT 210, 10  SIZE 300, 300                    ;
      FONT oFont                                 ;
      ON EXIT {||hwg_Msgyesno("Really exit ?")}
 
-   @ 20,35 GET ocodigo VAR wcodigo PICTURE "@!" SIZE 100,22 ;
+   @ 20, 35 GET ocodigo VAR wcodigo PICTURE "@!" SIZE 100, 22 ;
      NOBORDER STYLE ES_AUTOHSCROLL ;
      WHEN {|| hwg_Msginfo("WHEN codigo"), .T.  } ;
      VALID {|| hwg_Msginfo("VALID codigo"), .F.  }
