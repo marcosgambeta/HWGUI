@@ -222,7 +222,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       /*
       IF (wParam == VK_SPACE .OR. wParam == VK_RETURN)
        *  hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
-       *  hwg_Msginfo('k')
+       *  hwg_Msginfo("k")
          RETURN 0
       ENDIF
       */
@@ -295,7 +295,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       /*
       IF (wParam == VK_SPACE .OR. wParam == VK_RETURN)
        *  hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
-       *  hwg_Msginfo('k')
+       *  hwg_Msginfo("k")
          RETURN 0
       ENDIF
       */

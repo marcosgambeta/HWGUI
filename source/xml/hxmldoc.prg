@@ -89,7 +89,7 @@ Local i := Ascan(::aAttr,{|a|a[1]==cName})
 Return .T.
 
 METHOD Save(handle, level) CLASS HXMLNode
-Local i, s := Space(level*2)+'<', lNewLine
+Local i, s := Space(level*2)+"<", lNewLine
 
    IF !__mvExist("HXML_NEWLINE")
       __mvPrivate("HXML_NEWLINE")
@@ -97,27 +97,27 @@ Local i, s := Space(level*2)+'<', lNewLine
    ENDIF
    lNewLine := m->hxml_newline
    IF ::type == HBXML_TYPE_COMMENT
-      s += '!--'
+      s += "!--"
    ELSEIF ::type == HBXML_TYPE_CDATA
-      s += '![CDATA['
+      s += "![CDATA["
    ELSEIF ::type == HBXML_TYPE_PI
-      s += '?' + ::title
+      s += "?" + ::title
    ELSE
       s += ::title
    ENDIF
    IF ::type == HBXML_TYPE_TAG .OR. ::type == HBXML_TYPE_SINGLE
       FOR i := 1 TO Len(::aAttr)
-         s += ' ' + ::aAttr[i, 1] + '="' + HBXML_Transform(::aAttr[i,2]) + '"'
+         s += " " + ::aAttr[i, 1] + '="' + HBXML_Transform(::aAttr[i,2]) + '"'
       NEXT
    ENDIF
    IF ::type == HBXML_TYPE_PI
-      s += '?>' + Chr(10)
+      s += "?>" + Chr(10)
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_SINGLE
-      s += '/>' + Chr(10)
+      s += "/>" + Chr(10)
       m->hxml_newline := .T.
    ELSEIF ::type == HBXML_TYPE_TAG
-      s += '>'
+      s += ">"
       IF Empty(::aItems) .OR. (Len(::aItems) == 1 .AND. ;
             Valtype(::aItems[1]) == "C" .AND. Len(::aItems[1]) + Len(s) < 80)
          lNewLine := m->hxml_newline := .F.
@@ -159,19 +159,19 @@ Local i, s := Space(level*2)+'<', lNewLine
    m->hxml_newline := .T.
    IF handle >= 0
       IF ::type == HBXML_TYPE_TAG
-         FWrite(handle, Iif(lNewLine, Space(level*2), "") + '</' + ::title + '>' + Chr(10))
+         FWrite(handle, Iif(lNewLine, Space(level*2), "") + "</" + ::title + ">" + Chr(10))
       ELSEIF ::type == HBXML_TYPE_CDATA
-         FWrite(handle, ']]>' + Chr(10))
+         FWrite(handle, "]]>" + Chr(10))
       ELSEIF ::type == HBXML_TYPE_COMMENT
-         FWrite(handle, '-->' + Chr(10))
+         FWrite(handle, "-->" + Chr(10))
       ENDIF
    ELSE
       IF ::type == HBXML_TYPE_TAG
-         s += Iif(lNewLine, Space(level*2), "") + '</' + ::title + '>' + Chr(10)
+         s += Iif(lNewLine, Space(level*2), "") + "</" + ::title + ">" + Chr(10)
       ELSEIF ::type == HBXML_TYPE_CDATA
-         s += ']]>' + Chr(10)
+         s += "]]>" + Chr(10)
       ELSEIF ::type == HBXML_TYPE_COMMENT
-         s += '-->' + Chr(10)
+         s += "-->" + Chr(10)
       ENDIF
       Return s
    ENDIF

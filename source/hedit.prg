@@ -223,7 +223,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
             ENDIF
             RETURN 0
          ELSEIF msg == WM_CHAR
-            IF !hwg_Checkbit(lParam, 32) .AND. ::bKeyDown != Nil .AND. ValType(::bKeyDown) == 'B'
+            IF !hwg_Checkbit(lParam, 32) .AND. ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
                nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += iif(hwg_Checkbit(lParam, 28), 4, nShiftAltCtrl)
@@ -290,7 +290,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
 
          ELSEIF msg == WM_KEYDOWN
             IF ((hwg_Checkbit(lParam, 25) .AND. wParam != 111) .OR. (wParam > 111 .AND. wParam < 124)) .AND. ;
-                  ::bKeyDown != Nil .AND. ValType(::bKeyDown) == 'B'
+                  ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
                nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += iif(wParam > 111, 4, nShiftAltCtrl)
@@ -447,7 +447,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
          ELSEIF wParam == VK_ESCAPE
             RETURN - 1
          ENDIF
-         IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == 'B'
+         IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
             IF !Eval(::bKeyDown, Self, wParam)
                RETURN 0
             ENDIF
@@ -631,14 +631,14 @@ METHOD ParsePict(cPicture, vari) CLASS HEdit
    IF Empty(::cPicMask)
       IF ::cType == "D"
          ::cPicFunc   := "@D" + iif("K" $ ::cPicFunc, "K", "")
-         ::cPicMask := StrTran(Dtoc(CToD(Space(8))), ' ', '9')
+         ::cPicMask := StrTran(Dtoc(CToD(Space(8))), " ", "9")
       ELSEIF ::cType == "N"
          vari := Str(vari)
          IF (nAt := At(".", vari)) > 0
-            ::cPicMask := Replicate('9', nAt - 1) + "." + ;
-               Replicate('9', Len(vari) - nAt)
+            ::cPicMask := Replicate("9", nAt - 1) + "." + ;
+               Replicate("9", Len(vari) - nAt)
          ELSE
-            ::cPicMask := Replicate('9', Len(vari))
+            ::cPicMask := Replicate("9", Len(vari))
          ENDIF
       ENDIF
    ENDIF
@@ -802,7 +802,7 @@ METHOD DeleteChar(lBack) CLASS HEdit
       ::lFirst := .T.
       nPosStart := ::FirstEditable() - 1
    ELSEIF ::cType = "N" .AND. ::lPicComplex .AND. !lBack .AND. ;
-         Right(Trim(::title), 1) != '.'
+         Right(Trim(::title), 1) != "."
       IF "E" $ ::cPicFunc
          cBuf := Trim(StrTran(cBuf, ".", ""))
          cBuf := StrTran(cBuf, ",", ".")
@@ -919,7 +919,7 @@ METHOD GetApplyKey(cKey) CLASS HEdit
          lSignal := iif(lSignal .AND. vari != 0, .F., lSignal)
       ENDIF
       IF (!Empty(::cPicFunc) .OR. !Empty(::cPicMask)) .AND. ;
-            (!cKey $ ",." .OR. Right(Trim(::title), 1) = '.')
+            (!cKey $ ",." .OR. Right(Trim(::title), 1) = ".")
          ::title := Transform(vari, StrTran(::cPicFunc, "Z", "") + iif(Empty(::cPicFunc), "", " ") + ::cPicMask)
          IF lSignal
             ::title := "-" + SubStr(::title, 2)
@@ -960,7 +960,7 @@ METHOD GetApplyKey(cKey) CLASS HEdit
             ENDIF
 
             IF (!Empty(::cPicFunc) .OR. !Empty(::cPicMask)) .AND. ;
-                  (!cKey $ ",." .OR. Right(Trim(::title), 1) = '.')
+                  (!cKey $ ",." .OR. Right(Trim(::title), 1) = ".")
                ::title := Left(::title, nPos - 1) + cKey + SubStr(::title, nPos + 1)
             ENDIF
          ELSE

@@ -126,7 +126,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
          oFont := ::oPrinter:AddFont(cFont, ::nStdHeight * ::oPrinter:nVRes)
 #endif
          ::oPrinter:SetFont(oFont)
-         nWidth := ::oPrinter:GetTextWidth(Replicate('A', 80)) / ::oPrinter:nHRes
+         nWidth := ::oPrinter:GetTextWidth(Replicate("A", 80)) / ::oPrinter:nHRes
          IF nWidth > nPWidth+2 .OR. nWidth < nPWidth-15
             ::nStdHeight := ::nStdHeight * (nPWidth / nWidth)
          ENDIF
@@ -305,18 +305,18 @@ Return Nil
 
 METHOD PutCode(cLine) CLASS HWinPrn
 Static aCodes := {   ;
-   { Chr(27)+'@', .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
-   { Chr(27)+'M', .T.,,,,, },  ;     /* Elite */
+   { Chr(27)+"@", .F., .F., 6, .F., .F., .F. },  ;     /* Reset */
+   { Chr(27)+"M", .T.,,,,, },  ;     /* Elite */
    { Chr(15),, .T.,,,, },      ;     /* Cond */
    { Chr(18),, .F.,,,, },      ;     /* Cancel Cond */
-   { Chr(27)+'0',,, 8,,, },    ;     /* 8 lines per inch */
-   { Chr(27)+'2',,, 6,,, },    ;     /* 6 lines per inch (standard) */
-   { Chr(27)+'-1',,,,,, .T. }, ;     /* underline */
-   { Chr(27)+'-0',,,,,, .F. }, ;     /* cancel underline */
-   { Chr(27)+'4',,,,, .T., },  ;     /* italic */
-   { Chr(27)+'5',,,,, .F., },  ;     /* cancel italic */
-   { Chr(27)+'G',,,,, .T., },  ;     /* bold */
-   { Chr(27)+'H',,,, .F.,, }   ;     /* cancel bold */
+   { Chr(27)+"0",,, 8,,, },    ;     /* 8 lines per inch */
+   { Chr(27)+"2",,, 6,,, },    ;     /* 6 lines per inch (standard) */
+   { Chr(27)+"-1",,,,,, .T. }, ;     /* underline */
+   { Chr(27)+"-0",,,,,, .F. }, ;     /* cancel underline */
+   { Chr(27)+"4",,,,, .T., },  ;     /* italic */
+   { Chr(27)+"5",,,,, .F., },  ;     /* cancel italic */
+   { Chr(27)+"G",,,,, .T., },  ;     /* bold */
+   { Chr(27)+"H",,,, .F.,, }   ;     /* cancel bold */
  }
 Local i, sLen := Len(aCodes), c := Left(cLine, 1)
 

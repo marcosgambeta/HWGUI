@@ -14,11 +14,11 @@
 #define __WINDOWS__
 
 #ifdef __PLATFORM__UNIX
-   #define DEF_SEP      '/'
-   #define DEF_CH_SEP   '\'
+   #define DEF_SEP      "/"
+   #define DEF_CH_SEP   "\"
 #else
-   #define DEF_SEP      '\'
-   #define DEF_CH_SEP   '/'
+   #define DEF_SEP      "\"
+   #define DEF_CH_SEP   "/"
 #endif
 
 Memvar iscr
@@ -180,7 +180,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
          EXIT
       ENDIF
       numlin++
-      IF Right(cLine, 1) == ';'
+      IF Right(cLine, 1) == ";"
          strfull += Left(cLine, Len(cLine) - 1)
          LOOP
       ELSE

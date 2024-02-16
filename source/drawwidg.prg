@@ -435,7 +435,7 @@ METHOD AddFile(name, hDC, lTranparent, nWidth, nHeight) CLASS HBitmap
 #endif
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
-      cCurDir  := DiskName() + ':\' + CurDir()
+      cCurDir  := DiskName() + ":\" + CurDir()
       name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
@@ -598,7 +598,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
    // ::classname:= "HICON"
    name := iif(!File(name) .AND. File(cname), cname, name)
    IF ::lSelFile .AND. !File(name)
-      cCurDir  := DiskName() + ':\' + CurDir()
+      cCurDir  := DiskName() + ":\" + CurDir()
       name := hwg_SelectFile("Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath(name), FilePath(name), "Locate " + name) //"*.jpg;*.gif;*.bmp;*.ico"
       DirChange(cCurDir)
    ENDIF
