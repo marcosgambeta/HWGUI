@@ -663,7 +663,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
 #ifdef __XHARBOUR__
       IF hb_BitIsSet(hwg_Ptrtoulong(lParam), 30)  // the key was down before ?
 #else
-      IF hb_BitTest(lParam, 30)   // the key was down before ?
+      IF hb_BitTest(hwg_Ptrtoulong(lParam), 30)   // the key was down before ?
 #endif
          RETURN 0
       ENDIF
