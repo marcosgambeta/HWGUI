@@ -16,7 +16,9 @@ Local oMainWindow
 Return nil
 
 Static Function Graph1
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13), oGraph
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oGraph
 Local i, aGraph[1]
 
    aGraph[1] := {}
@@ -40,7 +42,9 @@ Local i, aGraph[1]
 Return Nil
 
 Static Function Graph2
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13), oGraph
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oGraph
 Local i, aGraph[1]
 
    aGraph[1] := {}
@@ -64,7 +68,9 @@ Local i, aGraph[1]
 Return Nil
 
 Static Function Graph3
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13), oGraph
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oGraph
 Local i, aGraph[1]
 
    aGraph[1] := {}

@@ -33,7 +33,7 @@ FUNCTION calculator()
 
   INIT DIALOG oDlg TITLE "Calculando" ;
     AT 0, 0 SIZE 415, 325 ;
-        FONT HFont():Add("Verdana", 0, -13, 400,,,) CLIPPER  NOEXIT  ;
+        FONT HFont():Add("Verdana", 0, -13, 400) CLIPPER  NOEXIT  ;
      STYLE WS_POPUP+WS_CAPTION+WS_SYSMENU+WS_SIZEBOX+DS_CENTER
     Thisform := oDlg
 

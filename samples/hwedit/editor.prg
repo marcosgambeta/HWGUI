@@ -34,7 +34,7 @@ local oPanel, oIcon := HIcon():AddRESOURCE("MAINICON")
 public alterado:=.F.,;
        ID_COLORB:=8454143,;
        ID_COLORF:=0,;
-       ID_FONT:=HFont():Add("Courier New", 0, -12)
+       ID_FONT := HFont():Add("Courier New", 0, -12)
 Set(_SET_INSERT)
 //
 private oMainWindow,;

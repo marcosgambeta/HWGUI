@@ -147,9 +147,7 @@ Local under := oXmlNode:GetAttribute("underline")
      under := Val(under)
   ENDIF
 
-Return HFont():Add(oXmlNode:GetAttribute("name"),  ;
-                   width, height, weight, charset,   ;
-                   ita, under)
+Return HFont():Add(oXmlNode:GetAttribute("name"), width, height, weight, charset, ita, under)
 
 Function Font2XML(oFont)
 Local aAttr := {}

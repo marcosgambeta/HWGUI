@@ -14,12 +14,12 @@ LOCAL oWinMain
 local i, a, b
 
    INIT WINDOW oWinMain MAIN TITLE "Test scroll in HBrowse" AT 0, 0 SIZE 600, 400 ;
-      FONT HFont():Add("Verdana", 0, -13, 400, , ,) STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
+      FONT HFont():Add("Verdana", 0, -13, 400) STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
     
     @  10, 20 BROWSE oBrw1 ARRAY SIZE 180, 325 ON SIZE {|o,x,y|o:Move(,,,y-70)} MULTISELECT
     @ 200, 20 BROWSE oBrw2 ARRAY SIZE 180, 325 
 
-    oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -22, 400,,,)
+    oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -22, 400)
     a := {} 
     for i := 1 to 16
         aAdd(a, {i, chr(asc("a") - 1 + i)})
@@ -64,7 +64,7 @@ local i, a, b
     //oBrw2:SetRowHeight(100)
 
     // @ 400, 160 UPDOWN 10 RANGE 0, 50 SIZE 50, 32 STYLE WS_BORDER
-    @ 400, 160 BUTTONEX oButton1 CAPTION "Font" SIZE 50, 32 ON CLICK {|| oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -12, 400,,,), oBrw1:Refresh()}
+    @ 400, 160 BUTTONEX oButton1 CAPTION "Font" SIZE 50, 32 ON CLICK {|| oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -12, 400), oBrw1:Refresh()}
 
     @ 400, 200 BUTTONEX oButton1 CAPTION "100" SIZE 50, 32 ON CLICK {|| oBrw1:SetRowHeight(100)}
     @ 400, 240 BUTTONEX oButton1 CAPTION "70" SIZE 50, 32 ON CLICK {|| oBrw1:SetRowHeight(70) }

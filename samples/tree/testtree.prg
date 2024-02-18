@@ -21,7 +21,8 @@ Local oMainWindow
 Return Nil
 
 Function DlgGet
-Local oDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local oTree, oSplit, oSay
 
    INIT DIALOG oDlg TITLE "TreeView control sample"  ;

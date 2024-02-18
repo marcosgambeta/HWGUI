@@ -44,7 +44,8 @@ Local iDialog
 
 function TestForm()
 Local cTitle := "Dialog from prg"
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local oRadio1, oRadio2, onome, ocodigo, wcodigo, wnome, wfracao
 Local bInit
 

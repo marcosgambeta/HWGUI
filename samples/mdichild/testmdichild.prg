@@ -77,7 +77,7 @@ FUNCTION CreateMdiChild()
          BACKSTYLE 2
         oContainer6:Anchor := 11
    @ 8, 195 GET oCodigo VAR vCodigo SIZE 216, 38    ;
-        FONT HFont():Add("Times New Roman", 0,-27, 400,,,)
+        FONT HFont():Add("Times New Roman", 0, -27, 400)
    @ 818, 180 BUTTONEX oButtonex1 CAPTION "Cancela Cupom"   SIZE 183, 38 ;
         STYLE BS_CENTER +WS_TABSTOP  NOTHEMES  ;
         ON CLICK {|This, Value| hwg_Msginfo("Cancelado") } ;
@@ -101,7 +101,7 @@ FUNCTION CreateMdiChild()
    @ 808, 153 GROUPBOX oGroup1 CAPTION "Cupom Fiscal"  SIZE 203, 219 ;
         STYLE BS_LEFT ;
          COLOR 8421376   ;
-        FONT HFont():Add("Arial Narrow", 0,-15, 400,,,)
+        FONT HFont():Add("Arial Narrow", 0, -15, 400)
         oGroup1:Anchor := 225
    @ 11, 26 SAY oLabel6 CAPTION "07/09/2010"  SIZE 75, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
@@ -119,7 +119,7 @@ FUNCTION CreateMdiChild()
    @ 501, 429 SAY oLabel13 CAPTION "R$ 11,94"  SIZE 287, 57 ;
         STYLE SS_RIGHT +DT_VCENTER+DT_SINGLELINE;
          COLOR 3280604   ;
-        FONT HFont():Add("Arial", 0,-56, 400,,,)
+        FONT HFont():Add("Arial", 0, -56, 400)
         oLabel13:Anchor := 164
    @ 359, 6 SAY oLabel8 CAPTION "Prazo"  SIZE 47, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
@@ -141,28 +141,28 @@ FUNCTION CreateMdiChild()
         oBrowse1:Anchor := 135
    @ 12, 88 SAY oLabel6 CAPTION "BISCOITO RECHEADO BAUNILHA"  SIZE 992, 53 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-48, 400,,,)
+        FONT HFont():Add("Arial", 0, -48, 400)
         oLabel6:Anchor := 11
    @ 359, 26 SAY oLabel9 CAPTION "A VISTA"  SIZE 80, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
         oLabel9:Anchor := 161
    @ 235, 189 SAY oLabel20 CAPTION "2,00"  SIZE 142, 40 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("", 0,-32, 400,,,)
+        FONT HFont():Add("", 0, -32, 400)
         oLabel20:Anchor := 161
    @ 593, 6 SAY oLabel14 CAPTION "Cliente"  SIZE 61, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
         oLabel14:Anchor := 161
    @ 438, 190 SAY oLabel66 CAPTION "12,50"  SIZE 142, 40 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("", 0,-32, 400,,,)
+        FONT HFont():Add("", 0, -32, 400)
         oLabel66:Anchor := 161
    @ 593, 26 SAY oLabel15 CAPTION "CONSUMIDOR FINAL"  SIZE 139, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
         oLabel15:Anchor := 161
    @ 646, 189 SAY oLabel6 CAPTION "25,00"  SIZE 142, 40 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("", 0,-32, 400,,,)
+        FONT HFont():Add("", 0, -32, 400)
         oLabel6:Anchor := 161
    @ 957, 6 SAY oLabel16 CAPTION "Venda"  SIZE 57, 19 ;
          COLOR 16777215  BACKCOLOR 8421504
@@ -175,34 +175,34 @@ FUNCTION CreateMdiChild()
         oLabel18:Anchor := 161
    @ 8, 57 SAY oLabel5 CAPTION "Descrição do Produto"  SIZE 1003, 27 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-19, 400,,,)
+        FONT HFont():Add("Arial", 0, -19, 400)
         oLabel5:Anchor := 11
    @ 235, 155 SAY oLabel10 CAPTION "Quantidade"  SIZE 147, 27 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-19, 400,,,)
+        FONT HFont():Add("Arial", 0, -19, 400)
         oLabel10:Anchor := 161
    @ 433, 155 SAY oLabel3 CAPTION "Valor Unitário"  SIZE 150, 27 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-19, 400,,,)
+        FONT HFont():Add("Arial", 0, -19, 400)
         oLabel3:Anchor := 161
    @ 643, 154 SAY oLabel11 CAPTION "Total do Item"  SIZE 150, 27 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-19, 400,,,)
+        FONT HFont():Add("Arial", 0, -19, 400)
         oLabel11:Anchor := 161
    @ 8, 155 SAY oLabel21 CAPTION "Código"  SIZE 216, 35 ;
         STYLE SS_CENTER +DT_VCENTER+DT_SINGLELINE+WS_DLGFRAME   ;
-        FONT HFont():Add("Arial", 0,-19, 700,,,)
+        FONT HFont():Add("Arial", 0, -19, 700)
         oLabel21:Anchor := 161
         hwg_SetFontStyle(oLabel21,.T.)  // oLabel21:FontBold := .T.
    @ 10, 429 SAY oLabel12 CAPTION "Total Geral"  SIZE 257, 62   ;
-        FONT HFont():Add("Arial", 0,-47, 400,,,)
+        FONT HFont():Add("Arial", 0, -47, 400)
         oLabel12:Anchor := 6
    @ 398, 192 SAY oLabel2 CAPTION "X"  SIZE 25, 36   ;
-        FONT HFont():Add("Arial", 0,-29, 400,,,)
+        FONT HFont():Add("Arial", 0, -29, 400)
         oLabel2:Anchor := 161
    @ 593, 190 SAY oLabel4 CAPTION " ="  SIZE 32, 36 ;
         STYLE SS_CENTER   ;
-        FONT HFont():Add("Arial", 0,-29, 400,,,)
+        FONT HFont():Add("Arial", 0, -29, 400)
         oLabel4:Anchor := 161
    @ 11, 6 SAY oLabel7 CAPTION "Data"  SIZE 43, 19 ;
          COLOR 16777215  BACKCOLOR 8421504

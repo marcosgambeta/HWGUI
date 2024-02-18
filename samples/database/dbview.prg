@@ -207,7 +207,8 @@ Memvar oBrw, oFont
 Return Nil
 
 Static Function NewIndex()
-Local oDlg, of := HFont():Add("Courier", 0, -12)
+Local oDlg
+Local of := HFont():Add("Courier", 0, -12)
 Local cName := "", lMulti := .T., lUniq := .F., cTag := "", cExpr := "", cCond := ""
 Local oMsg
 Memvar oBrw
@@ -334,7 +335,9 @@ Local oDlg
 Return oDlg
 
 Static Function ModiStru(lNew)
-Local oDlg, oBrowse, of := HFont():Add("Courier", 0, -12), oMsg
+Local oDlg, oBrowse
+Local of := HFont():Add("Courier", 0, -12)
+Local oMsg
 Local oGet1, oGet2, oGet3, oGet4
 Local af, af0, cName := "", nType := 1, cLen := "0", cDec := "0", i
 Local aTypes := {"Character", "Numeric", "Date", "Logical"}
@@ -611,7 +614,8 @@ Memvar oBrw, oSay2
 Return Nil
 
 Static Function GetData(cRes, cTitle, cText)
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 
    INIT DIALOG oModDlg TITLE cTitle AT 0, 0 SIZE 300, 140 FONT oFont CLIPPER ;
       STYLE WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU + WS_SIZEBOX + DS_CENTER

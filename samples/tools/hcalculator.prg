@@ -80,7 +80,7 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
    INIT DIALOG ::oFormCalc TITLE ::Title ;
         COLOR ::bColor ; //15852761  ;
         AT ::nLeft, ::nTop SIZE ::nWidth, ::nHeight ;
-        FONT HFont():Add("Verdana", 0, -13, 400,,,) NOEXIT  ;
+        FONT HFont():Add("Verdana", 0, -13, 400) NOEXIT  ;
      STYLE ::Style                          ;
      ON INIT {|This| ::Init(This, oGet) } ;
      ON LOSTFOCUS {| | IIF(::lCompacta, ::End(), .T.) }  ;
@@ -97,12 +97,12 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
         oCnt1:Anchor := 75
    @ 156, 189 BUTTONEX obtnres CAPTION "="   SIZE 34, 28 ;
         STYLE BS_CENTER    ;
-        FONT HFont():Add("Verdana", 0, -16, 700,,,) ;
+        FONT HFont():Add("Verdana", 0, -16, 700) ;
         ON CLICK {|| ::Calculando("=") }
         hwg_SetFontStyle(obtnres, .T.)  // obtnres:FontBold := .T.
    @ 119, 189 BUTTONEX oBtn10 CAPTION "+"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Verdana", 0, -12, 400,,,) ;
+        FONT HFont():Add("Verdana", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("+") }
    @ 82, 189 BUTTONEX oBtn7 CAPTION ","   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
@@ -112,7 +112,7 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
         ON CLICK {|| ::Calculando("0") }
    @ 156, 158 BUTTONEX oBtn11 CAPTION "%"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Verdana", 0, -12, 400,,,) ;
+        FONT HFont():Add("Verdana", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("%") }
    @ 119, 158 BUTTONEX oBtn5 CAPTION "-"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
@@ -128,11 +128,11 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
         ON CLICK {|| ::Calculando("1") }
    @ 156, 126 BUTTONEX oBtn23 CAPTION "&M+"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("M+") }
    @ 119, 127 BUTTONEX oBtn14 CAPTION "*"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Symbol", 0, -15, 400,,,) ;
+        FONT HFont():Add("Symbol", 0, -15, 400) ;
         ON CLICK {|| ::Calculando("*") }
    @ 82, 127 BUTTONEX oBtn13 CAPTION "&6"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
@@ -145,12 +145,12 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
         ON CLICK {|| ::Calculando("4") }
    @ 156, 96 BUTTONEX oBtn22 CAPTION "M&R"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("MR") }
         oBtn22:Anchor := 224
    @ 119, 96 BUTTONEX oBtn15 CAPTION "/"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Verdana", 0, -12, 400,,,) ;
+        FONT HFont():Add("Verdana", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("/") }
    @ 82, 96 BUTTONEX oBtn17 CAPTION "&9"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
@@ -163,41 +163,41 @@ METHOD Show(oGet, lCompacta, nLeft, nTop, nWidth, nHeight, bcolor)  CLASS HCalcu
         ON CLICK {|| ::Calculando("7") }
    @ 156, 65 BUTTONEX oBtn21 CAPTION "MC"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("MC") }
         oBtn21:Anchor := 224
    @ 119, 65 BUTTONEX oBtn20 CAPTION "&+"   SIZE 34, 28 ;
         STYLE BS_MULTILINE+BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("#") }
    @ 82, 65 BUTTONEX oBtn19 CAPTION "C"  ID IDCANCEL  SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("") }
    @ 45, 65 BUTTONEX oBtn18 CAPTION "CE"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("Tahoma", 0, -12, 400,,,) ;
+        FONT HFont():Add("Tahoma", 0, -12, 400) ;
         ON CLICK {|| ::Calculando("C") }
    @ 8, 65 BUTTONEX oBtn4 CAPTION "<--"   SIZE 34, 28 ;
         STYLE BS_CENTER   ;
-        FONT HFont():Add("System", 0, -16, 700,,,) ;
+        FONT HFont():Add("System", 0, -16, 700) ;
         ON CLICK {|| ::Calculando(" ")  }
         hwg_SetFontStyle(oBtn4, .T.) // oBtn4:FontBold := .T.
    @ 21, 24 SAY oVisor CAPTION "0"  SIZE 168, 33 ;
         STYLE SS_RIGHT +DT_VCENTER+DT_SINGLELINE;
          BACKCOLOR 16578289  ;
-        FONT HFont():Add("Consolas", 0, -24, 400,,,)
+        FONT HFont():Add("Consolas", 0, -24, 400)
         oVisor:Anchor := 75
    @ 7, 29 SAY oMemory CAPTION ""  SIZE 15, 26 ;
         STYLE DT_VCENTER+DT_SINGLELINE;
          COLOR 6250335  BACKCOLOR 16578289  ;
-        FONT HFont():Add("Arial", 0, -13, 700,,,)
+        FONT HFont():Add("Arial", 0, -13, 700)
         oMemory:Anchor := 75
         hwg_SetFontStyle(oMemory, .T.)  // oMemory:FontBold := .T.
    @ 7, 6 SAY oCalculo CAPTION ""  SIZE 182, 17 ;
         STYLE SS_RIGHT ;
          BACKCOLOR 16578289  ;
-        FONT HFont():Add("Consolas", 0, -12, 400,,,)
+        FONT HFont():Add("Consolas", 0, -12, 400)
         oCalculo:Anchor := 75
 
    ACTIVATE DIALOG ::oFormCalc NOMODAL

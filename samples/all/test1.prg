@@ -19,7 +19,8 @@ Local oMainWindow
 Return Nil
 
 Function DlgGet
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local cRes, aCombo := {"First", "Second"}
 Local oGet
 Local e1 := "Dialog from prg", c1 := .F., c2 := .T., r1 := 2, cm := 1

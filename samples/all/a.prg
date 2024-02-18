@@ -124,7 +124,8 @@ Return Nil
 
 Function MdiChildFromPrg(o)
 Local cTitle := "MdiChild from prg", cText := "Input something"
-Local oChildWnd, oFont := HFont():Add("MS Sans Serif", 0,-13)
+Local oChildWnd
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
 // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
 Local oCmd1, oCmd2, oCmd3
@@ -360,7 +361,8 @@ Return Nil
 
 Function DialogFromPrg(o)
 Local cTitle := "Dialog from prg", cText := "Input something"
-Local oModDlg, oFont := HFont():Add("MS Sans Serif", 0, -13)
+Local oModDlg
+Local oFont := HFont():Add("MS Sans Serif", 0, -13)
 Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
 // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
 
