@@ -41,3 +41,54 @@
           => ;
           [<oEdit> := ] HEdit():Redefine( <oWnd>,<nId>,,,<oFont>,<bInit>,<bSize>,<bDraw>, ;
              <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor>,,,,<bKeyDown> )
+
+/* SAY ... GET system     */
+
+#xcommand @ <nX>,<nY> GET [ <oEdit> VAR ]  <vari>  ;
+             [ OF <oWnd> ]              ;
+             [ ID <nId> ]               ;
+             [ SIZE <nWidth>, <nHeight> ] ;
+             [ COLOR <color> ]          ;
+             [ BACKCOLOR <bcolor> ]     ;
+             [ PICTURE <cPicture> ]     ;
+             [ WHEN  <bGfocus> ]        ;
+             [ VALID <bLfocus> ]        ;
+             [<lPassword: PASSWORD>]    ;
+             [ MAXLENGTH <nMaxLength> ] ;
+             [ STYLE <nStyle> ]         ;
+             [<lnoborder: NOBORDER>]    ;
+             [ FONT <oFont> ]           ;
+             [ ON INIT <bInit> ]        ;
+             [ ON SIZE <bSize> ]        ;
+             [ TOOLTIP <ctoolt> ]       ;
+             [ ON KEYDOWN <bKeyDown>   ];
+             [ ON CHANGE <bChange> ]    ;
+             [[ON OTHER MESSAGES <bOther>][ON OTHERMESSAGES <bOther>]] ;
+          => ;
+          [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<vari>,               ;
+             {|v|Iif(v==Nil,<vari>,<vari>:=v)},             ;
+             <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize> ,,  ;
+             <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor>,<cPicture>,;
+             <.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange>,<bOther>);;
+          [ <oEdit>:name := <(oEdit)> ]
+
+/* Added MULTILINE: AJ: 11-03-2007*/
+#xcommand REDEFINE GET [ <oEdit> VAR ] <vari>  ;
+             [ OF <oWnd> ]              ;
+             ID <nId>                   ;
+             [ COLOR <color> ]          ;
+             [ BACKCOLOR <bcolor> ]     ;
+             [ PICTURE <cPicture> ]     ;
+             [ WHEN  <bGfocus> ]        ;
+             [ VALID <bLfocus> ]        ;
+             [ MAXLENGTH <nMaxLength> ] ;
+             [ FONT <oFont> ]           ;
+             [ ON INIT <bInit> ]        ;
+             [ TOOLTIP <ctoolt> ]       ;
+             [<lMultiLine: MULTILINE>]  ;
+             [ ON KEYDOWN <bKeyDown>]   ;
+             [ ON CHANGE <bChange> ]    ;
+          => ;
+          [<oEdit> := ] HEdit():Redefine( <oWnd>,<nId>,<vari>, ;
+             {|v|Iif(v==Nil,<vari>,<vari>:=v)},    ;
+             <oFont>,,,,<{bGfocus}>,<{bLfocus}>,<ctoolt>,<color>,<bcolor>,<cPicture>,<nMaxLength>,<.lMultiLine.>,<bKeyDown>, <bChange>)
