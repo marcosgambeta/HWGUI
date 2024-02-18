@@ -55,7 +55,7 @@ REQUEST hwg_Ellipse
 REQUEST hwg_Setwindowfont
 REQUEST hwg_InitMonthCalendar
 REQUEST hwg_InitTrackbar
-REQUEST BARCODE
+REQUEST HBARCODE
 
 
 EXTERNAL HTIMER,  hwg_Shellabout, hwg_EndDialog

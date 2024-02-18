@@ -89,7 +89,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\drawwidg.obj \
    $(OBJ_DIR)\herrsys.obj \
    $(OBJ_DIR)\guimain.obj \
-   $(OBJ_DIR)\barcode.obj \
+   $(OBJ_DIR)\hbarcode.obj \
    $(OBJ_DIR)\hbrowse.obj \
    $(OBJ_DIR)\hcheck.obj \
    $(OBJ_DIR)\hcombo.obj \
