@@ -10,11 +10,9 @@
  * www - http://www.richard-software.com
 */
 
-
-
 EXTERNAL HBARCODE
 
-PROCEDURE SHOWBARCODE
+PROCEDURE SHOWBARCODE()
 
  HFORMTMPL():READ("BARCODE.XML"):SHOWMODAL()
 

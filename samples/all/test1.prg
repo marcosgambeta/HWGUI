@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
+FUNCTION Main()
+
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -16,15 +17,16 @@ Local oMainWindow
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+RETURN NIL
 
-Function DlgGet
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local cRes, aCombo := {"First", "Second"}
-Local oGet
-Local e1 := "Dialog from prg", c1 := .F., c2 := .T., r1 := 2, cm := 1
-Local upd := 12, d1 := Date()+1
+FUNCTION DlgGet()
+
+   Local oModDlg
+   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+   Local cRes, aCombo := {"First", "Second"}
+   Local oGet
+   Local e1 := "Dialog from prg", c1 := .F., c2 := .T., r1 := 2, cm := 1
+   Local upd := 12, d1 := Date()+1
 
    INIT DIALOG oModDlg TITLE "Test" AT 0, 0 SIZE 450, 350 FONT oFont ;
       STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
@@ -77,4 +79,4 @@ Local upd := 12, d1 := Date()+1
                "Results:")
    ENDIF
 
-Return Nil
+RETURN NIL

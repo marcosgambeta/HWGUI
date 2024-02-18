@@ -27,24 +27,23 @@
 
 #include "hwgui.ch"
 
-***********************
 FUNCTION Main()
-***********************
-LOCAL oWinMain
 
-SET(_SET_DATEFORMAT, "dd/mm/yyyy")
-SET(_SET_EPOCH, 1950)
+   LOCAL oWinMain
+   
+   SET(_SET_DATEFORMAT, "dd/mm/yyyy")
+   SET(_SET_EPOCH, 1950)
+   
+   REQUEST DBFCDX                      // Causes DBFCDX RDD to be linked in
+   rddSetDefault("DBFCDX")           // Set up DBFCDX as default driver
 
-REQUEST DBFCDX                      // Causes DBFCDX RDD to be linked in
-rddSetDefault("DBFCDX")           // Set up DBFCDX as default driver
+   //FERASE("TSTBRW.DBF")
 
-*FERASE("TSTBRW.DBF")
-
-IF !FILE("TSTBRW.DBF")
-   CriaDbf()
-ELSE
-   DBUSEAREA(.T., "DBFCDX", "TSTBRW", "TSTB")
-END
+   IF !FILE("TSTBRW.DBF")
+      CriaDbf()
+   ELSE
+      DBUSEAREA(.T., "DBFCDX", "TSTBRW", "TSTB")
+   END
 
    INIT WINDOW oWinMain MAIN TITLE "Teste" AT 0, 0 SIZE 600, 400 FONT HFont():Add("Arial", 0, -13, 400) ;
       STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
@@ -66,41 +65,40 @@ END
 
    ACTIVATE WINDOW oWinMain
 
-RETURN(NIL)
+RETURN NIL
 
-*****************************
 STATIC FUNCTION BrwDbs(lEdit, lZebra)
-*****************************
-LOCAL oEdGoto
-LOCAL oBrwDb
-LOCAL o_Obtn1, o_Obtn2, o_Obtn3, o_Obtn4
-LOCAL oTbar
-LOCAL nRec := 1
-LOCAL nLast := 0
 
-  lZebra := IF(lZebra == NIL, .F., lZebra)
-  DBSELECTAR("TSTB")
-  nLast := LASTREC()
-  dbGoTop()
+   LOCAL oEdGoto
+   LOCAL oBrwDb
+   LOCAL o_Obtn1, o_Obtn2, o_Obtn3, o_Obtn4
+   LOCAL oTbar
+   LOCAL nRec := 1
+   LOCAL nLast := 0
+
+   lZebra := IF(lZebra == NIL, .F., lZebra)
+   DBSELECTAR("TSTB")
+   nLast := LASTREC()
+   dbGoTop()
 
    INIT DIALOG oDlg TITLE "Browse DataBase" AT 0, 0 SIZE 600, 500 NOEXIT FONT HFont():Add("Arial", 0, -13, 400) ;
       STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
 
-  IF lEdit
-   @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
-        STYLE  WS_VSCROLL + WS_HSCROLL ;
-        AUTOEDIT ;
-        APPEND ;
-        ON UPDATE {|| oBrwDb:REFRESH() } ;
-        ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
-        ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
-  ELSE
-   @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
-        STYLE  WS_VSCROLL + WS_HSCROLL ;
-        ON UPDATE {|| oBrwDb:REFRESH() } ;
-        ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
-        ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
-  END
+   IF lEdit
+      @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
+           STYLE  WS_VSCROLL + WS_HSCROLL ;
+           AUTOEDIT ;
+           APPEND ;
+           ON UPDATE {|| oBrwDb:REFRESH() } ;
+           ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
+           ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
+   ELSE
+      @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
+           STYLE  WS_VSCROLL + WS_HSCROLL ;
+           ON UPDATE {|| oBrwDb:REFRESH() } ;
+           ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
+           ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
+   END
 
    @ 260, 410 BUTTON oBtn1 CAPTION "&OK " SIZE 80, 26 ;
          ON CLICK {|| hwg_EndDialog()}
@@ -136,113 +134,110 @@ LOCAL nLast := 0
         ON CLICK {|| BrowseMove(oBrwDb, "End", oEdGoto, "Dbs" ) } ;
         TOOLTIP "Last Record"
 
-        oBrwDb:bcolorSel := x_DARKBLUE
-        oBrwDb:alias := "TSTB"
-        oBrwDb:AddColumn(HColumn():New("Field1", FieldBlock(Fieldname(1)), "N", 10, 02))
-        oBrwDb:AddColumn(HColumn():New("Field2", FieldBlock(Fieldname(2)), "C", 11, 00))
-        oBrwDb:AddColumn(HColumn():New("Field3", FieldBlock(Fieldname(3)), "D", 10, 00))
-        oBrwDb:AddColumn(HColumn():New("Field4", FieldBlock(Fieldname(4)), "C", 31, 00))
-        oBrwDb:AddColumn(HColumn():New("Field5", FieldBlock(Fieldname(5)), "C", 05, 00))
+   oBrwDb:bcolorSel := x_DARKBLUE
+   oBrwDb:alias := "TSTB"
+   oBrwDb:AddColumn(HColumn():New("Field1", FieldBlock(Fieldname(1)), "N", 10, 02))
+   oBrwDb:AddColumn(HColumn():New("Field2", FieldBlock(Fieldname(2)), "C", 11, 00))
+   oBrwDb:AddColumn(HColumn():New("Field3", FieldBlock(Fieldname(3)), "D", 10, 00))
+   oBrwDb:AddColumn(HColumn():New("Field4", FieldBlock(Fieldname(4)), "C", 31, 00))
+   oBrwDb:AddColumn(HColumn():New("Field5", FieldBlock(Fieldname(5)), "C", 05, 00))
 
-        oBrwDb:aColumns[1]:nJusHead := DT_CENTER
-        oBrwDb:aColumns[2]:nJusHead := DT_CENTER
-        oBrwDb:aColumns[3]:nJusHead := DT_CENTER
-        oBrwDb:aColumns[4]:nJusHead := DT_CENTER
-        oBrwDb:aColumns[5]:nJusHead := DT_CENTER
-
-        IF lEdit
-        oBrwDb:aColumns[1]:lEditable := .T.
-        oBrwDb:aColumns[2]:lEditable := .T.
-        oBrwDb:aColumns[3]:lEditable := .T.
-        oBrwDb:aColumns[4]:lEditable := .T.
-        oBrwDb:aColumns[5]:lEditable := .T.
-        END
+   oBrwDb:aColumns[1]:nJusHead := DT_CENTER
+   oBrwDb:aColumns[2]:nJusHead := DT_CENTER
+   oBrwDb:aColumns[3]:nJusHead := DT_CENTER
+   oBrwDb:aColumns[4]:nJusHead := DT_CENTER
+   oBrwDb:aColumns[5]:nJusHead := DT_CENTER
+   
+   IF lEdit
+      oBrwDb:aColumns[1]:lEditable := .T.
+      oBrwDb:aColumns[2]:lEditable := .T.
+      oBrwDb:aColumns[3]:lEditable := .T.
+      oBrwDb:aColumns[4]:lEditable := .T.
+      oBrwDb:aColumns[5]:lEditable := .T.
+   END
 
 //      {|| IF (nNumber < 0, ;
 //       {tColor, bColor, tColorSel, bColorSel} ,;
 //       {tColor, bColor, tColorSel, bColorSel}) }
 
-        IF lEdit
-          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
-           {x_RED, x_WHITE, x_CYAN, x_GRAY}, ;
-           {x_BLUE, x_WHITE, x_BLACK, x_YELLOW })}
-        ELSE
-          oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
-           {x_RED, x_WHITE, x_CYAN, x_DARKBLUE}, ;
-           {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
-          IF lZebra
-             FOR nI := 2 TO 5
-                oBrwDB:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwDB:nPaintRow, 2) = 0,;
-                      {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
-                      {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
-             NEXT
-          ENDIF
-        END
+   IF lEdit
+      oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+         {x_RED, x_WHITE, x_CYAN, x_GRAY}, ;
+         {x_BLUE, x_WHITE, x_BLACK, x_YELLOW })}
+   ELSE
+      oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+         {x_RED, x_WHITE, x_CYAN, x_DARKBLUE}, ;
+         {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
+      IF lZebra
+         FOR nI := 2 TO 5
+            oBrwDB:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwDB:nPaintRow, 2) = 0,;
+               {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
+               {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
+         NEXT
+      ENDIF
+   END
 
    ACTIVATE DIALOG oDlg
 
-RETURN(NIL)
+RETURN NIL
 
-*******************************************************
 STATIC FUNCTION BrowseMove(oBrw, cPar, oEdGoto, cType )
-*******************************************************
-IF cPar == "Home"
-  oBrw:TOP()
-ELSEIF cPar == "Up"
-  oBrw:LineUp()
-ELSEIF cPar == "Down"
-  oBrw:LineDown()
-ELSEIF cPar == "End"
-  oBrw:BOTTOM()
-END
 
-IF cType == "Dbs"
-  oEdGoto:SetText(oBrw:recCurr)
-ELSEIF cType == "Array"
-  oEdGoto:SetText(oBrw:nCurrent)
-END
-Return Nil
+   IF cPar == "Home"
+     oBrw:TOP()
+   ELSEIF cPar == "Up"
+     oBrw:LineUp()
+   ELSEIF cPar == "Down"
+     oBrw:LineDown()
+   ELSEIF cPar == "End"
+     oBrw:BOTTOM()
+   END
+   
+   IF cType == "Dbs"
+     oEdGoto:SetText(oBrw:recCurr)
+   ELSEIF cType == "Array"
+     oEdGoto:SetText(oBrw:nCurrent)
+   END
 
-*************************************************
+RETURN NIL
+
 STATIC FUNCTION GoToRec(oBrw, nRec, nLast, cType)
-*************************************************
-IF nRec == 0
-   nRec := 1
-END
 
-IF nRec > nLast
-  nRec := nlast
-END
+   IF nRec == 0
+      nRec := 1
+   END
+   
+   IF nRec > nLast
+     nRec := nlast
+   END
+   
+   oBrw:TOP()
+   IF cType == "Dbs"
+     dbGoto(nRec)
+   ELSEIF cType == "Array"
+     oBrw:nCurrent := nRec
+   END
+   oBrw:Refresh()
+   
+   hwg_Setfocus(oBrw:handle)
 
-oBrw:TOP()
-IF cType == "Dbs"
-  dbGoto(nRec)
-ELSEIF cType == "Array"
-  oBrw:nCurrent := nRec
-END
-oBrw:Refresh()
+RETURN .T.
 
-hwg_Setfocus(oBrw:handle)
-
-RETURN(.T.)
-
-*************************************************************
 STATIC FUNCTION BrowseDbKey(oBrwDb, nKey, nLast, oLbl2, cPar)
-*************************************************************
-IF nKey == 46   // DEL
 
-ELSEIF nKey == VK_RETURN
+   IF nKey == 46   // DEL
+   
+   ELSEIF nKey == VK_RETURN
+   
+   END
 
-END
+RETURN .T.
 
-Return .T.
-
-*************************
 STATIC FUNCTION CriaDbf()
-*************************
-LOCAL Estrutura := {}
-LOCAL i := 1
-LOCAL nIncrement := 10
+
+   LOCAL Estrutura := {}
+   LOCAL i := 1
+   LOCAL nIncrement := 10
 
   IF ! FILE("TSTBRW.DBF")
      AADD(Estrutura, {"FIELD1", "N", 10, 02})
@@ -275,19 +270,18 @@ LOCAL nIncrement := 10
         FIELD->FIELD5 := STRZERO(i, 5)
   Next
 
-RETURN(.T.)
+RETURN .T.
 
-*****************************
 STATIC FUNCTION BrwArr(lEdit, lZebra)
-****************************
-LOCAL oEdGoto
-LOCAL oBrwArr
-LOCAL o_Obtn1, o_Obtn2, o_Obtn3, o_Obtn4
-LOCAL oTbar
-LOCAL nRec := 1
-LOCAL aArrayTst := Create_Array()
-LOCAL nLast := LEN(aArrayTst)
-LOCAL nI
+
+   LOCAL oEdGoto
+   LOCAL oBrwArr
+   LOCAL o_Obtn1, o_Obtn2, o_Obtn3, o_Obtn4
+   LOCAL oTbar
+   LOCAL nRec := 1
+   LOCAL aArrayTst := Create_Array()
+   LOCAL nLast := LEN(aArrayTst)
+   LOCAL nI
 
   lZebra := IF(lZebra == NIL, .F., lZebra)
 
@@ -401,15 +395,14 @@ LOCAL nI
 */
    oDlg:Activate()
 
-RETURN(.T.)
+RETURN .T.
 
-******************************
 STATIC FUNCTION Create_Array()
-******************************
-LOCAL i := 1
-LOCAL n := 1
-LOCAL nIncrement := 10
-LOCAL aArray := {}
+
+   LOCAL i := 1
+   LOCAL n := 1
+   LOCAL nIncrement := 10
+   LOCAL aArray := {}
 
   For i := 1 to 200
     n := i
@@ -426,7 +419,7 @@ LOCAL aArray := {}
     AADD(aArray, {n, STRZERO(i, 4), DATE() + i, "jgçpqy " + STRZERO(i, 23), STRZERO(i, 5)})
   Next
 
-RETURN(aArray)
+RETURN aArray
 
 /* -------------------------------------------------------------------------- */
 
@@ -435,7 +428,9 @@ RETURN(aArray)
 #endif
 
 FUNCTION MsgD(cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10)
+
    LOCAL nI, nLen := PCOUNT(), cVar := ""
+
    FOR nI := 1 TO nLen
        IF HB_PVALUE(nI) == NIL
          cVar += "NIL"
@@ -453,5 +448,5 @@ FUNCTION MsgD(cV1, cV2, cV3, cV4, cV5, cV6, cV7, cV8, cV9, cV10)
        cVar += "/"
    NEXT
    hwg_Msginfo(LEFT(cVar, LEN(cVar) - 1))
-RETURN NIL
 
+RETURN NIL

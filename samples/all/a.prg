@@ -11,10 +11,11 @@
 // REQUEST HB_CODEPAGE_RU866
 // REQUEST HB_CODEPAGE_RU1251
 
-function Main
-Private oMainWindow, oPanel
-Private oFont := Nil, cImageDir := "..\image\"
-Private nColor, oBmp2
+FUNCTION Main()
+
+   Private oMainWindow, oPanel
+   Private oFont := Nil, cImageDir := "..\image\"
+   Private nColor, oBmp2
 
    // hb_SetCodepage("RU1251")
 
@@ -77,15 +78,16 @@ Private nColor, oBmp2
 
    ACTIVATE WINDOW oMainWindow MAXIMIZED
 
-return nil
+RETURN NIL
 
-Function CreateChildWindow
-Local oChildWnd, oPanel, oFontBtn, oBoton1, oBoton2
-Local e1 := "Dialog from prg"
-Local e2 := Date()
-Local e3 := 10320.54
-Local e4:="11222333444455"
-Local e5 := 10320.54
+FUNCTION CreateChildWindow()
+
+   Local oChildWnd, oPanel, oFontBtn, oBoton1, oBoton2
+   Local e1 := "Dialog from prg"
+   Local e2 := Date()
+   Local e3 := 10320.54
+   Local e4:="11222333444455"
+   Local e5 := 10320.54
 
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
 
@@ -120,15 +122,16 @@ Local e5 := 10320.54
 
    ACTIVATE WINDOW oChildWnd
 
-Return Nil
+RETURN NIL
 
-Function MdiChildFromPrg(o)
-Local cTitle := "MdiChild from prg", cText := "Input something"
-Local oChildWnd
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
-// Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
-Local oCmd1, oCmd2, oCmd3
+FUNCTION MdiChildFromPrg(o)
+
+   Local cTitle := "MdiChild from prg", cText := "Input something"
+   Local oChildWnd
+   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+   Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
+   // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
+   Local oCmd1, oCmd2, oCmd3
 
    INIT WINDOW oChildWnd MDICHILD TITLE "Child" AT 210, 10 SIZE 350, 350 FONT oFont ;
       STYLE WS_CHILD + WS_OVERLAPPEDWINDOW ;
@@ -174,11 +177,11 @@ Local oCmd1, oCmd2, oCmd3
 
    ACTIVATE WINDOW oChildWnd
 
-Return Nil
+RETURN NIL
 
+FUNCTION NoExit()
 
-function NoExit()
-Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
+   Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
 
    INIT DIALOG oDlg TITLE "No Exit Enter and Esc" AT 190, 10 SIZE 360, 240 NOEXIT NOEXITESC
 
@@ -188,13 +191,14 @@ Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
 
    ACTIVATE DIALOG oDlg
 
-Return Nil
+RETURN NIL
 
-function OpenAbout
-Local oModDlg, oFontBtn, oFontDlg, oBrw
-Local aSample := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
-Local oBmp, oIcon := HIcon():AddFile("image\PIM.ICO")
-Local oSay
+FUNCTION OpenAbout()
+
+   Local oModDlg, oFontBtn, oFontDlg, oBrw
+   Local aSample := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
+   Local oBmp, oIcon := HIcon():AddFile("image\PIM.ICO")
+   Local oSay
 
    PREPARE FONT oFontDlg NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -13 ITALIC UNDERLINE
@@ -240,12 +244,12 @@ Local oSay
    ACTIVATE DIALOG oModDlg
    oIcon:Release()
 
-Return Nil
+RETURN NIL
 
-Static Function About2()
+STATIC FUNCTION About2()
 
    IF oBmp2 == Nil
-      Return
+      RETURN NIL
    ENDIF
 
    INIT DIALOG oModDlg TITLE "About2" AT 190, 10 SIZE 360, 240
@@ -254,20 +258,23 @@ Static Function About2()
 
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+RETURN NIL
 
-Static Function BrwKey(oBrw, key)
+STATIC FUNCTION BrwKey(oBrw, key)
+
    IF key == 32
       oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
-Return .T.
 
-Function FileOpen
-Local oModDlg, oBrw
-Local mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
-Local fname := hwg_SelectFile("xBase files( *.dbf )", "*.dbf", mypath)
-Local nId
+RETURN .T.
+
+FUNCTION FileOpen()
+
+   Local oModDlg, oBrw
+   Local mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
+   Local fname := hwg_SelectFile("xBase files( *.dbf )", "*.dbf", mypath)
+   Local nId
 
    IF !Empty(fname)
       mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
@@ -298,16 +305,22 @@ Local nId
 
       ACTIVATE DIALOG oModDlg NOMODAL
    ENDIF
-Return Nil
 
-Function FileClose(oDlg)
+RETURN NIL
+
+FUNCTION FileClose(oDlg)
+
    Local oBrw := oDlg:FindControl(111)
+
    dbSelectArea(oBrw:alias)
    dbCloseArea()
-Return .T.
 
-function printdos
-Local han := fcreate("LPT1", 0)
+RETURN .T.
+
+FUNCTION printdos()
+
+   Local han := fcreate("LPT1", 0)
+
   if han != -1
      fwrite(han, Chr(10)+Chr(13)+"Example of dos printing ..."+Chr(10)+Chr(13))
      fwrite(han, "Line 2 ..."+Chr(10)+Chr(13))
@@ -316,10 +329,12 @@ Local han := fcreate("LPT1", 0)
   else
      hwg_Msgstop("Can't open printer port!")
   endif
-return nil
 
-Function PrnTest
-Local oPrinter, oFont
+RETURN NIL
+
+FUNCTION PrnTest()
+
+   Local oPrinter, oFont
 
    INIT PRINTER oPrinter
    IF oPrinter == Nil
@@ -357,14 +372,15 @@ Local oPrinter, oFont
    oPrinter:Preview()
    oPrinter:End()
 
-Return Nil
+RETURN NIL
 
-Function DialogFromPrg(o)
-Local cTitle := "Dialog from prg", cText := "Input something"
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
-// Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
+FUNCTION DialogFromPrg(o)
+
+   Local cTitle := "Dialog from prg", cText := "Input something"
+   Local oModDlg
+   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+   Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
+   // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
 
    // o:bGetFocus := Nil
 
@@ -415,26 +431,31 @@ Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
 
    oFont:Release()
 
-Return Nil
+RETURN NIL
 
 #define DTM_SETFORMAT       4101
-Static Function CreateC(oDlg)
-Static lFirst := .F., o
+
+STATIC FUNCTION CreateC(oDlg)
+
+   Static lFirst := .F., o
+
    IF !lFirst
       @ 50, 200 DATEPICKER o SIZE 80, 24
       lFirst := .T.
    ENDIF
    hwg_Sendmessage(o:handle, DTM_SETFORMAT, 0, "dd':'MM':'yyyy")
-Return Nil
 
-Function Sendemail(endereco)
+RETURN NIL
+
+FUNCTION Sendemail(endereco)
+
 hwg_Shellexecute("rundll32.exe", "open", ;
             "url.dll,FileProtocolHandler " + ;
             "mailto:"+endereco+"?cc=&bcc=" + ;
             "&subject=Ref%20:" + ;
             "&body=This%20is%20test%20.", , 1)
 
-Function TestTab()
+FUNCTION TestTab()
 
    Local oDlg, oTAB
    Local oGet1, oGet2, oVar1:="1", oVar2:="2"
@@ -463,7 +484,7 @@ Function TestTab()
 
    ACTIVATE DIALOG oDlg
 
-return nil
+RETURN NIL
 
 FUNCTION ActiveTopMost(nHandle, lActive)
 
@@ -473,13 +494,13 @@ FUNCTION ActiveTopMost(nHandle, lActive)
        lSucess := hwg_Removetopmost(nHandle) // Remove TopMost
     endif
 
-    RETURN lSucess
+RETURN lSucess
 
-
-Function TestProgres()
+FUNCTION TestProgres()
 
    Local oDlg,ostatus,oBar
    Local cRes, aCombo := {"First", "Second"}
+
    Private oProg
 
    INIT DIALOG oDlg TITLE "Progress Bar" AT 190, 10 SIZE 360, 240
@@ -497,17 +518,19 @@ Function TestProgres()
 
 RETURN NIL
 
-Function MudeProg(ostatus)
-Local ct:=1
-Do while ct<1001
-   oProg:Step()
-   ostatus:step()
-   ++ct
-EndDo
-Return Nil
+FUNCTION MudeProg(ostatus)
 
+   Local ct:=1
 
-function RRectangle()
+   Do while ct<1001
+      oProg:Step()
+      ostatus:step()
+      ++ct
+   EndDo
+
+RETURN NIL
+
+FUNCTION RRectangle()
 
    Local oDlg, oR1, oR2, oR3
 
@@ -521,4 +544,4 @@ function RRectangle()
 
    ACTIVATE DIALOG oDlg
 
-return nil
+RETURN NIL

@@ -7,7 +7,7 @@
 
 Static oBrowse
 
-Function Main
+FUNCTION Main()
 
    Local oMain
 
@@ -23,9 +23,9 @@ Function Main
 
    ACTIVATE WINDOW oMain
 
-Return Nil
+RETURN NIL
 
-Function BrowseTest_2()
+FUNCTION BrowseTest_2()
 
    Local oForm, oFont
 
@@ -56,9 +56,10 @@ Function BrowseTest_2()
 
    ACTIVATE DIALOG oForm
 
-Return Nil
+RETURN NIL
 
-Static Function CreateDB()
+STATIC FUNCTION CreateDB()
+
     Local i, letra:=100
 
     if file("test.dbf")
@@ -91,20 +92,16 @@ Static Function CreateDB()
     Next
 
     DBGotop()
-Return Nil
 
-Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
+RETURN NIL
 
-
+FUNCTION DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     Default aAction To {},;
             aHide   To {}
 
-
     ASize(aAction, 10)
     ASize(aHide, 10)
-
-
 
     if Empty(aHide[1])
 
@@ -117,8 +114,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-
-
     if Empty(aHide[2])
 
         @ nLeft, nTop OWNERBUTTON SIZE 24, 25 ;
@@ -129,8 +124,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
         nLeft += 24
 
     endif
-
-
 
     if Empty(aHide[3])
 
@@ -143,8 +136,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-
-
     if Empty(aHide[4])
 
         @ nLeft, nTop OWNERBUTTON SIZE 24, 25 ;
@@ -155,8 +146,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
         nLeft += 24
 
     endif
-
-
 
     if Empty(aHide[5])
 
@@ -169,8 +158,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-
-
     if Empty(aHide[6])
 
         @ nLeft, nTop OWNERBUTTON SIZE 24, 25 ;
@@ -181,8 +168,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
         nLeft += 24
 
     endif
-
-
 
     if Empty(aHide[7])
 
@@ -195,8 +180,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-
-
     if Empty(aHide[8])
 
         @ nLeft, nTop OWNERBUTTON SIZE 24, 25 ;
@@ -207,8 +190,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
         nLeft += 24
 
     endif
-
-
 
     if Empty(aHide[9])
 
@@ -221,8 +202,6 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-
-
     if Empty(aHide[10])
 
         @ nLeft, nTop OWNERBUTTON SIZE 24, 25 ;
@@ -234,18 +213,18 @@ Function DBNavigator(oCtrl, nLeft, nTop, aAction, aHide)
 
     endif
 
-Return Nil
+RETURN NIL
 
-Function ReplaceIndex(oPos)
+FUNCTION ReplaceIndex(oPos)
 
-if ! oBrowse:lAppMode
-  hwg_Msginfo("Key press in col "+str(oPos))
-  if oPos==1
-    Set Order to 1
-  Else
-    Set Order to 2
-  EndIf
-endif
-oBrowse:Refresh()
+   if ! oBrowse:lAppMode
+     hwg_Msginfo("Key press in col "+str(oPos))
+     if oPos==1
+       Set Order to 1
+     Else
+       Set Order to 2
+     EndIf
+   endif
+   oBrowse:Refresh()
 
-Return Nil
+RETURN NIL

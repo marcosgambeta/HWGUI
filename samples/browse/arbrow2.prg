@@ -7,20 +7,19 @@
 #define x_BLUE       16711680
 #define x_RED             255
 
-***********************
 FUNCTION Main()
-***********************
-LOCAL oWinMain
-local i, a, b
+
+   LOCAL oWinMain
+   local i, a, b
 
    INIT WINDOW oWinMain MAIN TITLE "Test scroll in HBrowse" AT 0, 0 SIZE 600, 400 ;
       FONT HFont():Add("Verdana", 0, -13, 400) STYLE WS_DLGFRAME + WS_SYSMENU + DS_CENTER
-    
+
     @  10, 20 BROWSE oBrw1 ARRAY SIZE 180, 325 ON SIZE {|o,x,y|o:Move(,,,y-70)} MULTISELECT
-    @ 200, 20 BROWSE oBrw2 ARRAY SIZE 180, 325 
+    @ 200, 20 BROWSE oBrw2 ARRAY SIZE 180, 325
 
     oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -22, 400)
-    a := {} 
+    a := {}
     for i := 1 to 16
         aAdd(a, {i, chr(asc("a") - 1 + i)})
     next
@@ -38,7 +37,7 @@ local i, a, b
     oBrw1:aColumns[1]:width := 50
     oBrw1:aColumns[2]:width := 50
 
-    b := {} 
+    b := {}
     for i := 1 to 5
         aAdd(b, {i, chr(asc("a") - 1 + i)})
     next
@@ -50,8 +49,6 @@ local i, a, b
     oBrw2:aColumns[2]:length := 5
     oBrw2:aColumns[1]:width := 50
     oBrw2:aColumns[2]:width := 50
-
-
 
     oBrw1:aColumns[1]:bColorFoot := {||{x_BLUE, x_RED}}
     oBrw1:aColumns[1]:bHeadClick := {||hwg_Msginfo("HeadClick")}
@@ -72,5 +69,4 @@ local i, a, b
 
    ACTIVATE WINDOW oWinMain
 
-RETURN(NIL)
-
+RETURN NIL

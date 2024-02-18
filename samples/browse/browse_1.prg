@@ -7,8 +7,8 @@
 Static nCount := 0
 Static oBrowse
 
-Function Main
-   
+FUNCTION Main()
+
    Local oMain
 
    CreateDB()
@@ -24,9 +24,9 @@ Function Main
 
    ACTIVATE WINDOW oMain
 
-Return Nil
+RETURN NIL
 
-Function BrowseTest()
+FUNCTION BrowseTest()
 
    Local oForm, oFont
 
@@ -83,61 +83,71 @@ Function BrowseTest()
 
    ACTIVATE DIALOG oForm
 
-Return Nil
+RETURN NIL
 
-Static Function BrowseWhen()
+STATIC FUNCTION BrowseWhen()
+
         hwg_Msgexclamation("When Event")
-Return .T.
 
-Static Function BrowseValid()
+RETURN .T.
+
+STATIC FUNCTION BrowseValid()
+
         hwg_Msgexclamation("Valid Event"+STR(TENTA))
         ++TENTA
-Return .T.
 
-Static Function BrowseMove()
+RETURN .T.
+
+STATIC FUNCTION BrowseMove()
+
         hwg_Msginfo("Going to record " + ltrim(str(recno())))
-return Nil
 
-Static Function BrowseUpdate(oBrow, colpos)
+RETURN NIL
+
+STATIC FUNCTION BrowseUpdate(oBrow, colpos)
+
         hwg_Msgexclamation("Column " + ltrim(str(colpos)) + " Changed")
-        
+
         if colpos == 2
                 oBrow:Append()
-        else                
+        else
                 oBrow:DoHScroll(SB_LINERIGHT)
                 oBrow:Edit()
-        end                
-                
-        oBrowse:RefreshLine()
-Return Nil
+        end
 
-Static Function BrowseKey(oBrowse, key)
-   IF key == VK_INSERT 
+        oBrowse:RefreshLine()
+
+RETURN NIL
+
+STATIC FUNCTION BrowseKey(oBrowse, key)
+
+   IF key == VK_INSERT
       oBrowse:Append()
    END
-Return .T.
 
-Static Function CreateDB()
+RETURN .T.
+
+STATIC FUNCTION CreateDB()
+
         if file("browse_1.dbf")
                 FErase("browse_1.dbf")
         end
-        
+
         DBCreate("browse_1", {{"code", "N", 6, 0},;
                               {"desc", "C", 40, 0},;
                               {"list", "N", 1, 0},;
                               {"creation", "D", 8, 0},;
                               {"status", "L", 1, 0},;
                               {"price", "N", 10, 2}})
-                              
-        USE browse_1 EXCLUSIVE                   
-        
+
+        USE browse_1 EXCLUSIVE
+
         APPEND BLANK
         REPLACE Code WITH 1
-        REPLACE Desc WITH "Testing code"           
+        REPLACE Desc WITH "Testing code"
         REPLACE list WITH 1
         REPLACE creation WITH Date()
         REPLACE Status WITH .T.
-        REPLACE Price WITH 150.31        
-Return Nil
+        REPLACE Price WITH 150.31
 
- 
+RETURN NIL

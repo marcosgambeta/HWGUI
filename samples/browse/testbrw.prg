@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
+FUNCTION Main()
+
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -12,12 +13,13 @@ Local oMainWindow
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+RETURN NIL
 
-Function DlgGet
-Local oModDlg, oBrw1, oBrw2
-Local aSample1 := {{"Alex", 17}, {"Victor", 42}, {"John", 31}}
-Local aSample2 := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
+FUNCTION DlgGet()
+
+   Local oModDlg, oBrw1, oBrw2
+   Local aSample1 := {{"Alex", 17}, {"Victor", 42}, {"John", 31}}
+   Local aSample2 := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
 
    INIT DIALOG oModDlg TITLE "About" AT 190, 10 SIZE 400, 240
 
@@ -42,11 +44,13 @@ Local aSample2 := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}
 
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+RETURN NIL
 
-Static Function BrwKey(oBrw, key)
+STATIC FUNCTION BrwKey(oBrw, key)
+
    IF key == 32
       oBrw:aArray[oBrw:nCurrent, 1] := !oBrw:aArray[oBrw:nCurrent, 1]
       oBrw:RefreshLine()
    ENDIF
-Return .T.
+
+RETURN .T.

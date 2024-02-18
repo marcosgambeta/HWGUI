@@ -7,10 +7,9 @@
 
 #include "hwgui.ch"
 
-***********************
 FUNCTION Main()
-***********************
-LOCAL oWinMain
+
+   LOCAL oWinMain
 
    SET(_SET_DATEFORMAT, "dd/mm/yyyy")
    SET(_SET_EPOCH, 1950)
@@ -43,9 +42,8 @@ LOCAL oWinMain
     oBrw:sepColor  := hwg_Getsyscolor(COLOR_BTNSHADOW)
     oBrw:colpos  := 2
 
-    readexit(.T.) 
-   
+    readexit(.T.)
+
    ACTIVATE WINDOW oWinMain
 
-RETURN(NIL)
-
+RETURN NIL
