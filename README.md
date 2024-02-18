@@ -11,6 +11,9 @@ HWGUI 2.17 - fork for personal use
 
 ## Notes
 
+The source code is unstable with the flag 'HWG_USE_POINTER_ITEM' active. While the source code
+is being revised, the flag will remain disabled. But you can active in the file hwgui.hbp.
+
 To compile with Harbour++ and MinGW:  
 
 ```
