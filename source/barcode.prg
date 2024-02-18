@@ -1,7 +1,7 @@
 /*
  * $Id: barcode.prg 2012 2013-03-07 09:03:56Z alkresin $
  *
- * Create Barcode for HWGUI application
+ * Create HBarcode for HWGUI application
  *
  * see example at utils\designer\samples\barcode.xml
  *
@@ -49,7 +49,7 @@ Type < nBCodeType >              ;
 [ VERTICAL <lVert>           ] ;
 [ TRANSPARENT <lTransparent> ] ;
 => ;
-< oBC > := Barcode():New([ <hDC> ], < cText >, < nTop >, < nLeft >, ;
+< oBC > := HBarcode():New([ <hDC> ], < cText >, < nTop >, < nLeft >, ;
                          [ <nWidth>       ], [ <nHeight>   ], [ <nBCodeType> ], ;
                          [ <nColText>     ], [ <nColPane>  ], [ !<lVert>     ], ;
                          [ <lTransparent> ], [ <nPinWidth> ])
@@ -91,10 +91,10 @@ FUNCTION main
    nWidth    := 200
    nHeight   := 40
 
-   oBC := Barcode():New(hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
-                        nWidth, nHeight, nBCodeType, ;
-                        nColText, nColPane, lHorz, ;
-                        lTransparent, nPinWidth)
+   oBC := HBarcode():New(hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
+                         nWidth, nHeight, nBCodeType, ;
+                         nColText, nColPane, lHorz, ;
+                         lTransparent, nPinWidth)
 
 
    @ 163, 10 EDITBOX oEdit1 CAPTION oBC:InitEAN13()  SIZE 100, 20
@@ -107,10 +107,10 @@ FUNCTION main
 #endif
 
 *-- CLASS DEFINITION ---------------------------------------------------------
-*         Name: Barcode
+*         Name: HBarcode
 *  Description:
 *-----------------------------------------------------------------------------
-CLASS Barcode
+CLASS HBarcode
 
    DATA hDC           // handle of the window, dialog or printer object
    DATA cText         // barcode text
@@ -165,7 +165,7 @@ ENDCLASS
 *-----------------------------------------------------------------------------
 
 METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
-           nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS Barcode
+           nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS HBarcode
 
    DEFAULT nWidth       := 200
    DEFAULT nHeight      := 20
@@ -199,7 +199,7 @@ METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
 *         Name: ShowBarcode
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD ShowBarcode() CLASS BarCode
+METHOD ShowBarcode() CLASS HBarCode
 
    LOCAL cCode, cCode2
 
@@ -257,7 +257,7 @@ METHOD ShowBarcode() CLASS BarCode
 *         Name: CreateBarcode
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD CreateBarcode(cCode) CLASS BarCode
+METHOD CreateBarcode(cCode) CLASS HBarCode
 
    LOCAL i, hPen, hOldPen, hBrush, hOldBrush
 
@@ -316,7 +316,7 @@ METHOD CreateBarcode(cCode) CLASS BarCode
 *         Name: InitCode39
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitCode39(lCheck) CLASS BarCode
+METHOD InitCode39(lCheck) CLASS HBarCode
 
    LOCAL cCars   := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
    LOCAL aBarras := { "1110100010101110", ;
@@ -399,7 +399,7 @@ METHOD InitCode39(lCheck) CLASS BarCode
 *         Name: InitCode128
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitCode128(cMode) CLASS BarCode
+METHOD InitCode128(cMode) CLASS HBarCode
 
    LOCAL aCode := { "212222", "222122", "222221", "121223", "121322", "131222", ;
          "122213", "122312", "132212", "221213", "221312", "231212", ;
@@ -530,7 +530,7 @@ METHOD InitCode128(cMode) CLASS BarCode
 *         Name: InitEAN13
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitEAN13() CLASS BarCode
+METHOD InitEAN13() CLASS HBarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
@@ -601,7 +601,7 @@ METHOD InitEAN13() CLASS BarCode
 *         Name: InitUPC
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitUPC(nLen) CLASS BarCode
+METHOD InitUPC(nLen) CLASS HBarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
@@ -663,7 +663,7 @@ METHOD InitUPC(nLen) CLASS BarCode
 *         Name: InitE13BL
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitE13BL(nLen) CLASS BarCode
+METHOD InitE13BL(nLen) CLASS HBarCode
 
    nLen := Int(nLen / 2)
 
@@ -674,7 +674,7 @@ METHOD InitE13BL(nLen) CLASS BarCode
 *         Name: InitCodabar
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitCodabar() CLASS BarCode
+METHOD InitCodabar() CLASS HBarCode
 
    //this system not test the start/end code
 
@@ -703,7 +703,7 @@ METHOD InitCodabar() CLASS BarCode
 *         Name: InitSup5
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitSub5() CLASS BarCode
+METHOD InitSub5() CLASS HBarCode
 
    LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
    LOCAL izda2   := [0100111011001100110110100001001110101110010000101001000100010010010111]
@@ -740,7 +740,7 @@ METHOD InitSub5() CLASS BarCode
 *         Name: InitIndustrial25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitIndustrial25(lCheck) CLASS BarCode
+METHOD InitIndustrial25(lCheck) CLASS HBarCode
 
    LOCAL n
    LOCAL aBar     := { "00110", "10001", "01001", "11000", "00101", ;
@@ -784,7 +784,7 @@ METHOD InitIndustrial25(lCheck) CLASS BarCode
 *         Name: InitInterleave25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitInterleave25(lMode) CLASS BarCode
+METHOD InitInterleave25(lMode) CLASS HBarCode
 
    LOCAL n, m
    LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
@@ -846,7 +846,7 @@ METHOD InitInterleave25(lMode) CLASS BarCode
 *         Name: InitIndust25
 *  Description:
 *-----------------------------------------------------------------------------
-METHOD InitMatrix25(lCheck) CLASS BarCode
+METHOD InitMatrix25(lCheck) CLASS HBarCode
 
    LOCAL n
    LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
