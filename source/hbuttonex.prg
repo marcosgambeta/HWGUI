@@ -197,6 +197,7 @@ METHOD INIT() CLASS HButtonEx
 
    RETURN NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
 
    LOCAL pt := { , }, rectButton, acoor
@@ -363,6 +364,227 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
    ENDIF
 
    RETURN - 1
+#else
+METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
+
+   LOCAL pt := {,}
+   LOCAL rectButton
+   LOCAL acoor
+   LOCAL pos
+   LOCAL nID
+   LOCAL oParent
+   LOCAL nEval
+   
+   // TODO: join switch's
+
+   SWITCH msg
+
+   CASE WM_THEMECHANGED
+      IF ::Themed
+         IF ValType(::hTheme) == "P"
+            hwg_closethemedata(::htheme)
+            ::hTheme := NIL
+         ENDIF
+         ::Themed := .F.
+      ENDIF
+      ::m_bFirstTime := .T.
+      hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
+      RETURN 0
+
+   CASE WM_ERASEBKGND
+      RETURN 0
+
+   CASE BM_SETSTYLE
+      RETURN hwg_Buttonexonsetstyle(wParam, lParam, ::handle, @::m_bIsDefault)
+
+   CASE WM_MOUSEMOVE
+      IF wParam == MK_LBUTTON
+         pt[1] := hwg_Loword(lParam)
+         pt[2] := hwg_Hiword(lParam)
+         acoor := hwg_Clienttoscreen(::handle, pt[1], pt[2])
+         rectButton := hwg_Getwindowrect(::handle)
+         IF !hwg_Ptinrect(rectButton, acoor)
+            hwg_Sendmessage(::handle, BM_SETSTATE, ::m_bToggled, 0)
+            ::bMouseOverButton := .F.
+            RETURN 0
+         ENDIF
+      ENDIF
+      IF !::bMouseOverButton
+         ::bMouseOverButton := .T.
+         hwg_Invalidaterect(::handle, .F.)
+         hwg_Trackmousevent(::handle)
+      ENDIF
+      RETURN 0
+
+   CASE WM_MOUSELEAVE
+      ::CancelHover()
+      RETURN 0
+
+   ENDSWITCH
+
+   IF ::bOther != NIL
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_KEYDOWN
+      #ifdef __XHARBOUR__
+      IF hb_BitIsSet(hwg_Ptrtoulong(lParam), 30)  // the key was down before ?
+      #else
+      IF hb_BitTest(hwg_Ptrtoulong(lParam), 30)   // the key was down before ?
+      #endif
+         RETURN 0
+      ENDIF
+      SWITCH wParam
+      CASE VK_SPACE
+      CASE VK_RETURN
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
+         RETURN 0
+      CASE VK_LEFT
+      CASE VK_UP
+         hwg_GetSkip(::oParent, ::handle, , -1)
+         RETURN 0
+      CASE VK_RIGHT
+      CASE VK_DOWN
+         hwg_GetSkip(::oParent, ::handle, , 1)
+         RETURN 0
+      CASE VK_TAB
+         hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+      ENDSWITCH
+      hwg_ProcKeyList(Self, wParam)
+      EXIT
+
+   CASE WM_SYSKEYUP
+      IF hwg_Checkbit(lParam, 23) .AND. (wParam > 95 .AND. wParam < 106)
+         wParam -= 48
+      ENDIF
+      IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
+         IF ValType(::bClick) == "B" .OR. ::id < 3
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
+         ENDIF
+      ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) == "C", (pos := At("&", o:title)) > 0 .AND. ;
+         wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
+         IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
+            ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
+            hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_KEYUP
+      IF ASCAN({VK_SPACE, VK_RETURN, VK_ESCAPE}, wParam) == 0
+         IF hwg_Checkbit(lParam, 23) .AND. (wParam > 95 .AND. wParam < 106)
+            wParam -= 48
+         ENDIF
+         IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
+            IF ValType(::bClick) == "B" .OR. ::id < 3
+               hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
+            ENDIF
+         ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) == "C", (pos := At("&", o:title)) > 0 .AND. ;
+               wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
+            IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
+                  ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
+               hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ;
+                  ::oParent:aControls[nID]:handle)
+            ENDIF
+         ENDIF
+         RETURN 0
+      ELSE
+         IF wParam == VK_SPACE .OR. wParam == VK_RETURN
+            ::bMouseOverButton := .T.
+            hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
+            ::bMouseOverButton := .F.
+            RETURN 0
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_LBUTTONUP
+      ::m_bLButtonDown := .F.
+      IF ::m_bSent
+         hwg_Sendmessage(::handle, BM_SETSTATE, 0, 0)
+         ::m_bSent := .F.
+      ENDIF
+      IF ::m_bIsToggle
+         pt[1] := hwg_Loword(lParam)
+         pt[2] := hwg_Hiword(lParam)
+         acoor := hwg_Clienttoscreen(::handle, pt[1], pt[2])
+         rectButton := hwg_Getwindowrect(::handle)
+         IF !hwg_Ptinrect(rectButton, acoor)
+            ::m_bToggled := !::m_bToggled
+            hwg_Invalidaterect(::handle, 0)
+            hwg_Sendmessage(::handle, BM_SETSTATE, 0, 0)
+            ::m_bLButtonDown := .T.
+         ENDIF
+      ENDIF
+      IF !::bMouseOverButton
+         hwg_Setfocus(0)
+         ::Setfocus()
+         RETURN 0
+      ENDIF
+      RETURN -1
+
+   CASE WM_LBUTTONDOWN
+      ::m_bLButtonDown := .T.
+      IF ::m_bIsToggle
+         ::m_bToggled := !::m_bToggled
+         hwg_Invalidaterect(::handle, 0)
+      ENDIF
+      RETURN -1
+
+   CASE WM_LBUTTONDBLCLK
+      IF ::m_bIsToggle
+         // for toggle buttons, treat doubleclick as singleclick
+         hwg_Sendmessage(::handle, BM_SETSTATE, ::m_bToggled, 0)
+      ELSE
+         hwg_Sendmessage(::handle, BM_SETSTATE, 1, 0)
+         ::m_bSent := .T.
+      ENDIF
+      RETURN 0
+
+   CASE WM_GETDLGCODE
+      IF wParam == VK_ESCAPE .AND. (hwg_Getdlgmessage(lParam) == WM_KEYDOWN .OR. hwg_Getdlgmessage(lParam) == WM_KEYUP)
+         oParent := hwg_GetParentForm(Self)
+         IF !hwg_ProcKeyList(Self, wParam) .AND. (oParent:Type < WND_DLG_RESOURCE .OR. !oParent:lModal)
+            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
+         ELSEIF oParent:FindControl(IDCANCEL) != NIL .AND. !oParent:FindControl(IDCANCEL):IsEnabled() ;
+            .AND. oParent:lExitOnEsc
+            hwg_Sendmessage(oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, 0), ::handle)
+            RETURN 0
+         ENDIF
+      ENDIF
+      RETURN iif(wParam == VK_ESCAPE, -1, hwg_Buttongetdlgcode(lParam))
+
+   CASE WM_SYSCOLORCHANGE
+      ::SetDefaultColors()
+      EXIT
+
+   CASE WM_CHAR
+      SWITCH wParam
+      CASE VK_RETURN
+      CASE VK_SPACE
+         IF ::m_bIsToggle
+            ::m_bToggled := !::m_bToggled
+            hwg_Invalidaterect(::handle, 0)
+         ELSE
+            hwg_Sendmessage(::handle, BM_SETSTATE, 1, 0)
+            //::m_bSent := .T.
+         ENDIF
+         // remove because repet click 2 times
+         //hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
+         EXIT
+      CASE VK_ESCAPE
+         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(IDCANCEL, BN_CLICKED), ::handle)
+      ENDSWITCH
+      RETURN 0
+
+   ENDSWITCH
+
+   RETURN -1
+#endif
 
 METHOD CancelHover() CLASS HBUTTONEx
 
