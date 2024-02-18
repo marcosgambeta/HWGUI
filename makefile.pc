@@ -95,6 +95,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\hcombo.obj \
    $(OBJ_DIR)\hcontrol.obj \
    $(OBJ_DIR)\hctrlex.obj \
+   $(OBJ_DIR)\hbuttonex.obj \
    $(OBJ_DIR)\hcwindow.obj \
    $(OBJ_DIR)\hobject.obj \
    $(OBJ_DIR)\hscrollarea.obj \
@@ -203,6 +204,9 @@ $(OBJ_DIR)\hcontrol.obj : $(OBJ_DIR)\hcontrol.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hctrlex.obj : $(OBJ_DIR)\hctrlex.c
+   $(CC_EXE) $(CFLAGS) /Fo$@ $**
+
+$(OBJ_DIR)\hbuttonex.obj : $(OBJ_DIR)\hbuttonex.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hcwindow.c  : $(SRC_DIR)\hcwindow.prg

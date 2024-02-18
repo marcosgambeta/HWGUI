@@ -58,6 +58,7 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\hcombo.obj \
    $(OBJ_DIR)\hcontrol.obj \
    $(OBJ_DIR)\hctrlex.obj \
+   $(OBJ_DIR)\hbuttonex.obj \
    $(OBJ_DIR)\hcwindow.obj \
    $(OBJ_DIR)\hobject.obj \
    $(OBJ_DIR)\hscrollarea.obj \
