@@ -1,5 +1,5 @@
 # HWGUI
-HWGUI 2.17 - fork for personal use
+Fork of the HWGUI v2.17
 
 ## Compatibility
 
@@ -23,7 +23,13 @@ make_b32.bat
 
 Option 2:
 
-Copy hbmk2 from Harbour to xHarbour
+Copy hbmk2 from Harbour to xHarbour:
+
+```
+copy harbour\bin\hbmk2*.* xharbour\bin
+```
+
+Compile using the parameter -xhb:
 
 ```
 hbmk2 hwguiall.hbp -xhb
