@@ -16,4 +16,4 @@
 source/activex/*.c
 source/activex/*.prg
 
--stop{allmingw}
+-stop{allmingw|xhb}
