@@ -623,7 +623,11 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
       hwg_onTrackScroll(Self, msg, wParam, lParam)
       RETURN ::Super:onEvent(msg, wParam, lParam)
 
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
    OTHERWISE
+   #endif
 
       RETURN ::Super:onEvent(msg, wParam, lParam)
 
@@ -1115,7 +1119,11 @@ METHOD onEvent(msg, wParam, lParam) CLASS HChildWindow
       ENDIF
       RETURN ::Super:onEvent(msg, wParam, lParam)
 
+   #ifdef __XHARBOUR__
+   DEFAULT
+   #else
    OTHERWISE
+   #endif
 
       RETURN ::Super:onEvent(msg, wParam, lParam)
 
