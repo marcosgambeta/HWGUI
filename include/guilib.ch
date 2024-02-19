@@ -222,24 +222,7 @@
 
 /* Hprinter */
 
-#xcommand INIT PRINTER <oPrinter>   ;
-             [ NAME <cPrinter> ]     ;
-             [ <lPixel: PIXEL> ]     ;
-             [ FORMTYPE  <nFormType> ];
-             [ BIN <nBin> ];
-             [ <lLandScape: LANDSCAPE>];
-             [ COPIES <nCopies> ];
-          =>  ;
-          <oPrinter> := HPrinter():New( <cPrinter>,!<.lPixel.>, <nFormType>, <nBin>, <.lLandScape.>, <nCopies> )
-
-#xcommand INIT DEFAULT PRINTER <oPrinter>   ;
-             [ <lPixel: PIXEL> ]             ;
-             [ FORMTYPE  <nFormType> ];
-             [ BIN <nBin> ];
-             [ <lLandScape: LANDSCAPE>];
-             [ COPIES <nCopies> ];
-          =>  ;
-          <oPrinter> := HPrinter():New( "",!<.lPixel.>, <nFormType>, <nBin>, <.lLandScape.>, <nCopies>  )
+#include "_printer.ch"
 
 #include "_monthcalendar.ch"
 
@@ -254,9 +237,7 @@
 #include "_animation.ch"
 
 //Contribution   Ricardo de Moura Marques
-#xcommand @ <nX>, <nY>, <X2>, <Y2> RECT <oRect> [<lPress: PRESS>] [OF <oWnd>] [RECT_STYLE <nST>];
-          => <oRect> := HRect():New(<oWnd>,<nX>,<nY>,<X2>,<Y2>, <.lPress.>, <nST> )
-          //  [ <oRect>:name := <(oRect)> ]
+#include "_rect.ch"
 
 #include "_toolbar.ch"
 
@@ -267,16 +248,6 @@
           Aadd( <oWnd>, \{ <c>, <id1>, <{b1}> \})
 
 #include "_gridex.ch"
-
-#xcommand REDEFINE STATUS  <oSay>  ;
-             [ OF <oWnd> ]              ;
-             ID <nId>                   ;
-             [ ON INIT <bInit> ]        ;
-             [ ON SIZE <bSize> ]        ;
-             [ ON PAINT <bDraw> ]       ;
-             [ PARTS <bChange,...> ]    ;
-          => ;
-          [<oSay> := ] HStatus():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,\{<bChange>\} )
 
 #xcommand @ <nX>,<nY> PAGER [ <oTool> ] ;
              [ OF <oWnd> ]              ;

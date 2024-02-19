@@ -15,3 +15,13 @@
           [ <oStat> := ] HStatus():New( <oWnd>,<nId>,<nStyle>,<oFont>,\{<aparts>\},<bInit>,;
              <bSize>,<bDraw>, <bRClick>, <bDblClick>, <nHeight> );;
           [ <oStat>:name := <(oStat)> ]
+
+#xcommand REDEFINE STATUS  <oSay>  ;
+             [ OF <oWnd> ]              ;
+             ID <nId>                   ;
+             [ ON INIT <bInit> ]        ;
+             [ ON SIZE <bSize> ]        ;
+             [ ON PAINT <bDraw> ]       ;
+             [ PARTS <bChange,...> ]    ;
+          => ;
+          [<oSay> := ] HStatus():Redefine( <oWnd>,<nId>,,  ,<bInit>,<bSize>,<bDraw>, , , , ,\{<bChange>\} )
