@@ -9,6 +9,32 @@ HWGUI 2.17 - fork for personal use
 * C and C++ compilers  
 * 32-bit and 64-bit  
 
+## Building
+
+### xHarbour and BCC
+
+Option 1:
+
+```
+set HB_PATH=C:\xharbour
+set __XHARBOUR__=ON
+make_b32.bat
+```
+
+Option 2:
+
+Copy hbmk2 from Harbour to xHarbour
+
+```
+hbmk2 hwguiall.hbp -xhb
+```
+
+### Harbour++ and MinGW
+
+```
+hbmk2 hwguiall.hbp -cflag=-fpermissive
+```
+
 ## Notes
 
 The source code is unstable with the flag 'HWG_USE_POINTER_ITEM' active. While the source code
@@ -16,12 +42,6 @@ is being revised, the flag will remain disabled. But you can active in the file 
 
 ```
 #-cflag=-DHWG_USE_POINTER_ITEM
-```
-
-To compile with Harbour++ and MinGW:  
-
-```
-hbmk2 hwguiall.hbp -cflag=-fpermissive
 ```
 
 If you have problems compiling/using this repository, open a issue. Dont forget to tell the tools and versions that you are using.
