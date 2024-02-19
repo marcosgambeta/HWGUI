@@ -95,6 +95,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\hcombo.obj \
    $(OBJ_DIR)\hcontrol.obj \
    $(OBJ_DIR)\hgroup.obj \
+   $(OBJ_DIR)\hgroupex.obj \
    $(OBJ_DIR)\hctrlex.obj \
    $(OBJ_DIR)\hstaticex.obj \
    $(OBJ_DIR)\hbuttonex.obj \

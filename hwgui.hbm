@@ -43,6 +43,7 @@
 {win}source/hcombo.prg
 {win}source/hcontrol.prg
 {win}source/hgroup.prg
+{win}source/hgroupex.prg
 {win}source/hctrlex.prg
 {win}source/hstaticex.prg
 {win}source/hbuttonex.prg
