@@ -216,13 +216,16 @@ DEBUG_LIB_OBJS = \
 #
 # HBACTIVEX.LIB rules
 #
+!if $d(ACTIVEX_SUPPORT)
 ACTIVEX_LIB_OBJS = \
    $(ACTIVEX_OBJ_DIR)\htmlcore.obj \
    $(ACTIVEX_OBJ_DIR)\htmlfunc.obj \
    $(ACTIVEX_OBJ_DIR)\hhtml.obj \
    $(ACTIVEX_OBJ_DIR)\h_activex.obj \
    $(ACTIVEX_OBJ_DIR)\c_activex.obj
-
+!else
+ACTIVEX_LIB_OBJS =
+!endif
 
 #
 # HWG_CONTRIB.LIB rules
