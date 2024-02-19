@@ -11,23 +11,23 @@
 #include "guilib.ch"
 #include "common.ch"
 
-#translate :hBitmap       => :m_csbitmaps\[1\]
-#translate :dwWidth       => :m_csbitmaps\[2\]
-#translate :dwHeight      => :m_csbitmaps\[3\]
-#translate :hMask         => :m_csbitmaps\[4\]
-#translate :crTransparent => :m_csbitmaps\[5\]
+//#translate :hBitmap       => :m_csbitmaps\[1\]
+//#translate :dwWidth       => :m_csbitmaps\[2\]
+//#translate :dwHeight      => :m_csbitmaps\[3\]
+//#translate :hMask         => :m_csbitmaps\[4\]
+//#translate :crTransparent => :m_csbitmaps\[5\]
 
 #define TRANSPARENT 1
-#define BTNST_COLOR_BK_IN     1            // Background color when mouse is INside
-#define BTNST_COLOR_FG_IN     2            // Text color when mouse is INside
-#define BTNST_COLOR_BK_OUT    3             // Background color when mouse is OUTside
-#define BTNST_COLOR_FG_OUT    4             // Text color when mouse is OUTside
-#define BTNST_COLOR_BK_FOCUS  5           // Background color when the button is focused
-#define BTNST_COLOR_FG_FOCUS  6            // Text color when the button is focused
-#define BTNST_MAX_COLORS      6
-#define WM_SYSCOLORCHANGE               0x0015
-#define BS_TYPEMASK SS_TYPEMASK
-#define OFS_X 10 // distance from left/right side to beginning/end of text
+//#define BTNST_COLOR_BK_IN     1            // Background color when mouse is INside
+//#define BTNST_COLOR_FG_IN     2            // Text color when mouse is INside
+//#define BTNST_COLOR_BK_OUT    3             // Background color when mouse is OUTside
+//#define BTNST_COLOR_FG_OUT    4             // Text color when mouse is OUTside
+//#define BTNST_COLOR_BK_FOCUS  5           // Background color when the button is focused
+//#define BTNST_COLOR_FG_FOCUS  6            // Text color when the button is focused
+//#define BTNST_MAX_COLORS      6
+//#define WM_SYSCOLORCHANGE               0x0015
+//#define BS_TYPEMASK SS_TYPEMASK
+//#define OFS_X 10 // distance from left/right side to beginning/end of text
 
 CLASS HStaticEx INHERIT HStatic
 
@@ -136,6 +136,7 @@ METHOD Init() CLASS HStaticEx
 
    RETURN  NIL
 
+#if 0 // old code for reference (to be deleted)
 METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
    LOCAL nEval, pos
 
@@ -165,6 +166,50 @@ METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
    ENDIF
 
    RETURN - 1
+#else
+METHOD OnEvent(msg, wParam, lParam) CLASS HStaticEx
+
+   LOCAL nEval
+   LOCAL pos
+
+   IF ::bOther != NIL
+      IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
+         RETURN 0
+      ENDIF
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_ERASEBKGND
+      RETURN 0
+
+   CASE WM_KEYUP
+      SWITCH wParam
+      CASE VK_DOWN
+         hwg_GetSkip(::oParent, ::handle, , 1)
+         EXIT
+      CASE VK_UP
+         hwg_GetSkip(::oParent, ::handle, , -1)
+         EXIT
+      CASE VK_TAB
+         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+      ENDSWITCH
+      RETURN 0
+
+   CASE WM_SYSKEYUP
+      IF (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
+         hwg_GetSkip(::oparent, ::handle, , 1)
+         RETURN  0
+      ENDIF
+      EXIT
+
+   CASE WM_GETDLGCODE
+      RETURN DLGC_WANTARROWS + DLGC_WANTTAB
+
+   ENDSWITCH
+
+   RETURN -1
+#endif
 
 METHOD SetValue(cValue) CLASS HStaticEx
 
@@ -183,9 +228,13 @@ METHOD SetValue(cValue) CLASS HStaticEx
    RETURN NIL
 
 METHOD Paint(lpDis) CLASS HStaticEx
+
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
-   LOCAL client_rect, szText
-   LOCAL dwtext, nstyle, brBackground
+   LOCAL client_rect
+   LOCAL szText
+   LOCAL dwtext
+   LOCAL nstyle
+   LOCAL brBackground
    LOCAL dc := drawInfo[3]
 
    client_rect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
@@ -239,19 +288,25 @@ METHOD onDblClick() CLASS HStaticEx
    RETURN NIL
 
 METHOD Auto_Size(cValue) CLASS HStaticEx
-   LOCAL ASize, nLeft, nAlign
+
+   LOCAL ASize
+   LOCAL nLeft
+   LOCAL nAlign
 
    IF ::autosize
       nAlign := ::nStyleHS - SS_NOTIFY
       ASize := hwg_TxtRect(cValue, Self)
       // ajust VCENTER
-      IF nAlign == SS_RIGHT
+      SWITCH nAlign
+      CASE SS_RIGHT
          nLeft := ::nLeft + (::nWidth - ASize[1] - 2)
-      ELSEIF nAlign == SS_CENTER
+         EXIT
+      CASE SS_CENTER
          nLeft := ::nLeft + Int((::nWidth - ASize[1] - 2) / 2)
-      ELSEIF nAlign == SS_LEFT
+         EXIT
+      CASE SS_LEFT
          nLeft := ::nLeft
-      ENDIF
+      ENDSWITCH
       ::nWidth := ASize[1] + 2
       ::nHeight := ASize[2]
       ::nLeft := nLeft
