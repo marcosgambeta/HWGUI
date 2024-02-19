@@ -57,6 +57,7 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\hcheck.obj \
    $(OBJ_DIR)\hcombo.obj \
    $(OBJ_DIR)\hcontrol.obj \
+   $(OBJ_DIR)\hgroup.obj \
    $(OBJ_DIR)\hctrlex.obj \
    $(OBJ_DIR)\hstaticex.obj \
    $(OBJ_DIR)\hbuttonex.obj \

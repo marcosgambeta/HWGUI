@@ -2,7 +2,7 @@
  * $Id: hcontrol.prg 2015 2013-03-13 10:41:37Z alkresin $
  *
  * HWGUI - Harbour Win32 GUI library source code:
- * HControl, HStatus, HStatic, HButton, HGroup, HLine classes
+ * HControl, HStatus, HStatic, HButton, HLine classes
  *
  * Copyright 2002 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
@@ -733,41 +733,6 @@ METHOD Init() CLASS HButton
       hwg_Setwindowtext(::handle, ::title)
    ENDIF
 RETURN  NIL
-
-   // CLASS HGroup
-
-CLASS HGroup INHERIT HControl
-
-   CLASS VAR winclass   INIT "BUTTON"
-
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, tcolor, bColor)
-   METHOD Activate()
-
-ENDCLASS
-
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
-      oFont, bInit, bSize, bPaint, tcolor, bColor) CLASS HGroup
-
-   nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_GROUPBOX)
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      oFont, bInit, bSize, bPaint, , tcolor, bColor)
-
-   ::title := cCaption
-   ::Activate()
-
-   RETURN Self
-
-METHOD Activate() CLASS HGroup
-
-   IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ;
-         ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-         ::title)
-      ::Init()
-   ENDIF
-
-   RETURN NIL
 
    // HLine
 

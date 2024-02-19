@@ -94,6 +94,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\hcheck.obj \
    $(OBJ_DIR)\hcombo.obj \
    $(OBJ_DIR)\hcontrol.obj \
+   $(OBJ_DIR)\hgroup.obj \
    $(OBJ_DIR)\hctrlex.obj \
    $(OBJ_DIR)\hstaticex.obj \
    $(OBJ_DIR)\hbuttonex.obj \
@@ -195,6 +196,9 @@ $(OBJ_DIR)\hcombo.obj : $(OBJ_DIR)\hcombo.c
 $(OBJ_DIR)\hcontrol.c : $(SRC_DIR)\hcontrol.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
+$(OBJ_DIR)\hgroup.c : $(SRC_DIR)\hgroup.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
 $(OBJ_DIR)\hctrlex.c : $(SRC_DIR)\hctrlex.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
@@ -205,6 +209,9 @@ $(OBJ_DIR)\hrect.c : $(SRC_DIR)\hrect.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
 $(OBJ_DIR)\hcontrol.obj : $(OBJ_DIR)\hcontrol.c
+   $(CC_EXE) $(CFLAGS) /Fo$@ $**
+
+$(OBJ_DIR)\hgroup.obj : $(OBJ_DIR)\hgroup.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hctrlex.obj : $(OBJ_DIR)\hctrlex.c
