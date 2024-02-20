@@ -35,6 +35,15 @@ Compile using the parameter -xhb:
 hbmk2 hwguiall.hbp -xhb
 ```
 
+Note: static libraries are OK, but fail creating the DLL
+```
+hbmk2: Criando biblioteca dinâmica... lib\win\bcc\hwguidyn-bcc.dll
+Turbo Incremental Link 6.80 Copyright (c) 1997-2017 Embarcadero Technologies, Inc.
+Fatal: Unable to open file 'HBMAINSTD.LIB'
+hbmk2[hwguidyn]: Erro: Executando comando de linkagem da biblioteca dinâmica. 2
+ilink32.exe @C:\Users\marco\AppData\Local\Temp\8naiv0.lnk
+```
+
 ### Harbour++ and MinGW
 
 ```
