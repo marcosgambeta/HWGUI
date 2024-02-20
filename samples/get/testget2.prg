@@ -7,9 +7,10 @@
 
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
-Private var1 := 10320.54
+FUNCTION Main()
+
+   Local oMainWindow
+   Private var1 := 10320.54
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -22,7 +23,8 @@ Private var1 := 10320.54
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function DlgGet(lColor)
 Local oModDlg
@@ -43,14 +45,14 @@ Private oSayT
    FONT oFont ;
    ON INIT {|| hwg_Settimer(oModDlg,@oTimer)}
 
-   SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3") 
-   SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3") 
-   SET KEY 0,VK_F3 TO hwg_Msginfo("F3") 
-   
+   SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3")
+   SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3")
+   SET KEY 0,VK_F3 TO hwg_Msginfo("F3")
+
    If lColor <> Nil
       hwg_SetColorinFocus(lColor)
    EndIf
-   
+
    @ 20, 10 SAY "Input something:" SIZE 260, 22
 
    @ 20, 35 GET e1                       ;

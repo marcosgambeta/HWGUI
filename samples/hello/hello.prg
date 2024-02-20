@@ -1,11 +1,12 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow, oBtn, aCombo := {"First","Second" }, cTool := "Example", oFont
-Local aTabs := {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}, oTab
-Local acho := {{"First item", 180}, {"Second item", 200} }
-Local oEdit, oGetTab, oTree, oItem
-Private aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
+FUNCTION Main()
+
+   Local oMainWindow, oBtn, aCombo := {"First","Second" }, cTool := "Example", oFont
+   Local aTabs := {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}, oTab
+   Local acho := {{"First item", 180}, {"Second item", 200} }
+   Local oEdit, oGetTab, oTree, oItem
+   Private aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
 
    // PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 CHARSET 4
@@ -62,7 +63,7 @@ Private aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
       ENDMENU
    ENDMENU
 
-/*   
+/*
    aMenu := { ;
      {{{{||hwg_Msginfo("Xxxx")}, "XXXXX", 130}, ;
          {, , 131}, ;
@@ -75,17 +76,21 @@ Private aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
 
    ACTIVATE WINDOW oMainWindow
 
-Return nil
+RETURN NIL
 
 Static Function ChangeTab(oWnd, oGet, n)
-Static lastTab := 1
+
+   Static lastTab := 1
+
    aGetsTab[lastTab] := hwg_Getedittext(oGet:oParent:handle,oGet:id)
    hwg_Setdlgitemtext(oGet:oParent:handle,oGet:id,aGetsTab[n])
    lastTab := n
+
 Return Nil
 
 Function PS1(oWnd)
-Local oDlg1, oDlg2
+
+   Local oDlg1, oDlg2
 
    INIT DIALOG oDlg1 TITLE "PAGE_1" STYLE WS_CHILD + WS_VISIBLE + WS_BORDER
    @ 20, 15 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER

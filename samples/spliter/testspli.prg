@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
+FUNCTION Main()
+
+   Local oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
 
@@ -27,4 +28,4 @@ Local oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
 
    ACTIVATE WINDOW oMainWindow
 
-Return nil
+RETURN NIL

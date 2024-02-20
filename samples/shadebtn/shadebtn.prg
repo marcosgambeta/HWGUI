@@ -1,15 +1,16 @@
 /*
  * $Id: shadebtn.prg 1615 2011-02-18 13:53:35Z mlacecilia $
  * Shade buttons sample
- * 
+ *
 */
 
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow, oFont
-Local oIco1 := HIcon():AddFile("..\image\ok.ico")
-Local oIco2 := HIcon():AddFile("..\image\cancel.ico")
+FUNCTION Main()
+
+   Local oMainWindow, oFont
+   Local oIco1 := HIcon():AddFile("..\image\ok.ico")
+   Local oIco2 := HIcon():AddFile("..\image\cancel.ico")
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT 15
 
@@ -42,5 +43,4 @@ Local oIco2 := HIcon():AddFile("..\image\cancel.ico")
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
-
+RETURN NIL

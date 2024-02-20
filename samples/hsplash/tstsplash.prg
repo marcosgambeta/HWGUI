@@ -1,8 +1,9 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
-Local oSplash
+FUNCTION Main()
+
+   Local oMainWindow
+   Local oSplash
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -15,6 +16,4 @@ Local oSplash
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
-
- 
+RETURN NIL

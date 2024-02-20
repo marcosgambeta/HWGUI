@@ -36,7 +36,7 @@ METHOD New(p1,p2,p3,p4,p5,p6) CLASS RmChart
                                       // should be the number of parameters to
                                       // pass to the function
                                       // Mapping must be done before calling New
-  Super:New(p1,p2,p3,p4,p5,p6)        // 
+  Super:New(p1,p2,p3,p4,p5,p6)        //
 RETURN
 
 METHOD Clicked(...) CLASS RmChart
@@ -44,14 +44,16 @@ hwg_Msginfo("Mouse button pressed", ::winclass)
 Return
 
 
-Function Main
-Local oMainWnd, oPanelTool, oPanelIE, oFont
-Local cUrl, oIE
-Private oEdit
-Private oChart
+FUNCTION Main()
+
+   Local oMainWnd, oPanelTool, oPanelIE, oFont
+   Local cUrl, oIE
+
+   Private oEdit
+   Private oChart
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -15
-   
+
    INIT WINDOW oMainWnd TITLE "rmchart example" AT 200, 0 SIZE 500, 400 FONT oFont
 
    MENU OF oMainWnd
@@ -75,7 +77,7 @@ Private oChart
         ON CLICK {||oChart:Disable()}
 
     @ 205, 4 BUTTON "Redraw" OF oPanelTool SIZE 50, 24 ;
-        ON CLICK {||oChart:Draw(.T.) } 
+        ON CLICK {||oChart:Draw(.T.) }
 
     @ 0, 34 PANEL oPanel SIZE 500, 366 ON SIZE {|o,x, y| o:Move(,,x,y), oChart:Move(,,x,y-32), oChart:Refresh() }
 
@@ -115,4 +117,4 @@ Private oChart
 
    ACTIVATE WINDOW oMainWnd
 
-Return
+RETURN NIL

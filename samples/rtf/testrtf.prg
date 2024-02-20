@@ -10,14 +10,14 @@
 
 STATIC oPrinter,aSize:={280, 220}
 
-function Main
-Private oMainWindow, oPanel
-Private oFont := Nil, cDir := "\"+Curdir()+"\"
-Private nColor, oBmp2
+FUNCTION Main()
 
+   Private oMainWindow, oPanel
+   Private oFont := Nil, cDir := "\"+Curdir()+"\"
+   Private nColor, oBmp2
 
    INIT WINDOW oMainWindow MDI TITLE "Example" MENUPOS 3
-  
+
    MENU OF oMainWindow
       MENU TITLE "&File"
          MENUITEM "&Test RTF" ACTION TestRTF()
@@ -31,7 +31,7 @@ Private nColor, oBmp2
 
    ACTIVATE WINDOW oMainWindow
 
-return nil
+RETURN NIL
 
 FUNCTION TestRtf()
 LOCAL cOutFile, oRtf, anchos, i

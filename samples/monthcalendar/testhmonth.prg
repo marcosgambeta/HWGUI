@@ -17,7 +17,7 @@
 
 //================================================================//
 
-Function Main
+FUNCTION Main()
 
    Local oWnd
 
@@ -36,7 +36,7 @@ Function Main
 
    ACTIVATE WINDOW oWnd
 
-   Return Nil
+RETURN NIL
 
 //================================================================//
 

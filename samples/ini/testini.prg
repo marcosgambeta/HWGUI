@@ -7,7 +7,7 @@
 
 #include "hwgui.ch"
 
-Function Main
+FUNCTION Main()
 
    Local oMainWindow
    Local cIniFile:="HwGui.ini"
@@ -19,7 +19,7 @@ Function Main
       Hwg_WriteIni("Config", "DirHwGUima", "C:\HwGUI", cIniFile)
       Hwg_WriteIni("Print",  "Spoll",   "Epson LX 80", cIniFile)
 
-    endif 
+    endif
 
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
@@ -30,7 +30,8 @@ Function Main
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function ReadIni()
 Local cIniFile:="HwGui.ini"

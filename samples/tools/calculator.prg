@@ -11,7 +11,7 @@
 
 STATIC Thisform
 
-Function Main ()
+FUNCTION Main()
 
    INIT WINDOW oMain MAIN TITLE "Calculator Sample" AT 0, 0 SIZE hwg_Getdesktopwidth() - 100, hwg_Getdesktopheight() - 78
 
@@ -22,7 +22,7 @@ Function Main ()
 
    ACTIVATE WINDOW oMain
 
-Return Nil
+RETURN NIL
 
 FUNCTION calculator()
 

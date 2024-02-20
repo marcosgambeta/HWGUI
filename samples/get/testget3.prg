@@ -2,9 +2,10 @@
 //REQUEST HB_GT_GUI
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
-HWG_INITCOMMONCONTROLSEX()
+FUNCTION Main()
+
+   Local oMainWindow
+   HWG_INITCOMMONCONTROLSEX()
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -14,7 +15,8 @@ HWG_INITCOMMONCONTROLSEX()
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function DlgGet
 Local oModDlg

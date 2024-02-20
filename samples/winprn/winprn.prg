@@ -1,6 +1,6 @@
 /*
  * HWinPrn using sample
- * 
+ *
  *
  * Copyright 2005 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
@@ -17,7 +17,8 @@ REQUEST HB_CODEPAGE_RU1251
 #endif
 */
 
-Function Main
+FUNCTION Main()
+
 Local oWinPrn, i
 
 #ifdef __PLATFORM__UNIX
@@ -73,4 +74,4 @@ Local oWinPrn, i
 
    oWinPrn:End()
 
-Return Nil
+RETURN NIL

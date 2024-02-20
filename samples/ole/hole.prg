@@ -1,9 +1,11 @@
 #include "hwgui.ch"
 
-Function Main
-Local oFont
-Local oAgent, oEdit
-Private oMainWindow, oChar
+FUNCTION Main()
+
+   Local oFont
+   Local oAgent, oEdit
+
+   Private oMainWindow, oChar
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 CHARSET 204
 
@@ -36,7 +38,7 @@ Private oMainWindow, oChar
       oAgent:End()
    ENDIF
 
-Return Nil
+RETURN NIL
 
 Static Function SpeakIt(oEdit)
 Local aTop := hwg_Clienttoscreen(oMainWindow:handle, 0, 0)

@@ -168,8 +168,8 @@ METHOD writeAll() CLASS FileMan
 */
 METHOD getFileName(nId) CLASS FileMan                     // Obtains the name of the file based on ID
 
-   LOCAL cName     := ""                   // as char
-   LOCAL nPosition     // as int
+   LOCAL cName := "" // as char
+   LOCAL nPosition // as int
 
    IF ::nLastDosMessage == 0
       IF nId IS pNUMERIC
@@ -190,8 +190,8 @@ METHOD getFileName(nId) CLASS FileMan                     // Obtains the name of
 */
 METHOD getFileId(cName) CLASS FileMan                     // Obtains the ID based on file name
 
-   LOCAL nId       := 0                    // as int
-   LOCAL nPosition     // as int
+   LOCAL nId := 0 // as int
+   LOCAL nPosition // as int
 
    IF ::nLastDosMessage == 0
       IF cName IS pCHARACTER
@@ -214,8 +214,8 @@ METHOD getFileId(cName) CLASS FileMan                     // Obtains the ID base
 */
 METHOD getFilePath(xItem) CLASS FileMan                   // Obtains file path based on either ID or name
 
-   LOCAL cPath     := ""                   // as char
-   LOCAL nPosition     // as int
+   LOCAL cPath := "" // as char
+   LOCAL nPosition // as int
 
    IF ::nLastDosMessage == 0
       DO CASE
@@ -275,8 +275,8 @@ METHOD addItem(nDos, cFile, cPath) CLASS FileMan
 
 METHOD delItem(xItem) CLASS FileMan
 
-   LOCAL nPosition     // as int
-   LOCAL lSuccess  := pTRUE                // as logical
+   LOCAL nPosition // as int
+   LOCAL lSuccess := pTRUE // as logical
 
    // if xItem is N/Numeric, then seek on first element;
    // if xItem is C/Character, then seek on second element
@@ -341,9 +341,9 @@ METHOD noDosError() CLASS FileMan
 */
 METHOD openfile(cFile, nMethod) CLASS FileMan
 
-   LOCAL nFileHandle   // as int
-   LOCAL cFilename     // as char
-   LOCAL cPath         // as char
+   LOCAL nFileHandle // as int
+   LOCAL cFilename // as char
+   LOCAL cPath // as char
 
    DEFAULT nMethod TO 0
 
@@ -357,6 +357,7 @@ METHOD openfile(cFile, nMethod) CLASS FileMan
       ::addItem(nFileHandle, cFileName, cPath)
    ENDIF
    ::nHan := nFileHandle
+
 RETURN nFileHandle
 
 // End of File: FClass1.prg

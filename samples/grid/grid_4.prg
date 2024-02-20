@@ -15,7 +15,8 @@
 
 Static oMain, oForm, oFont, oGrid
 
-Function Main()
+FUNCTION Main()
+
         IF File("temp.dbf")
             FErase("temp.dbf")
         END
@@ -33,7 +34,7 @@ Function Main()
 
         ACTIVATE WINDOW oMain
 
-Return Nil
+RETURN NIL
 
 Function Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11

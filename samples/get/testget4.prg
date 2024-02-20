@@ -14,8 +14,9 @@ the Direct and Indirect way
 
 #include "hwgui.ch"
 
-FUNCTION Main
-Local oMain
+FUNCTION Main()
+
+   Local oMain
 
    INIT WINDOW oMain MAIN TITLE "Browse Example - Database" AT 0, 0 ;
       SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
@@ -35,7 +36,7 @@ Local iDialog
 
    INIT DIALOG iDialog CLIPPER NOEXIT TITLE "Intermediate Dialog"  ;
      STYLE WS_VISIBLE + WS_POPUP + WS_CAPTION + WS_SYSMENU  ;
-     AT 210, 10  SIZE 300, 300                    
+     AT 210, 10  SIZE 300, 300
 
    @ 20, 35 BUTTON "Open form" ON CLICK {|| TestForm()  }
 

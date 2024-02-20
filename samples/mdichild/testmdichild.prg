@@ -11,9 +11,10 @@
 static aChilds := {}
 static Thisform
 
-function Main()
+FUNCTION Main()
+
    Local oMainWindow
-   
+
    INIT WINDOW oMainWindow MAIN MDI TITLE "HwGui - Mdi Child Windows Example" STYLE WS_CLIPCHILDREN
 
    MENU OF oMainWindow
@@ -21,11 +22,9 @@ function Main()
       MENUITEM "&Create a child" ACTION CreateMdiChild()
    ENDMENU
 
-
    ACTIVATE WINDOW oMainWindow  MAXIMIZED
 
-return (NIL)
-
+RETURN NIL
 
 FUNCTION CreateMdiChild()
 

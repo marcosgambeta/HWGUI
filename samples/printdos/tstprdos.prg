@@ -37,8 +37,9 @@
 
 #define PF_BUFFERS   2048
 
-function Main
-Local oMain
+FUNCTION Main()
+
+   Local oMain
   
    INIT WINDOW oMain MAIN TITLE "Example for PrintDos Class"
 
@@ -72,7 +73,7 @@ Local oMain
 
    ACTIVATE WINDOW oMain
 
-return nil
+RETURN NIL
 
 Function TestDosClass(oTest)
 

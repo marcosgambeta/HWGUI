@@ -16,11 +16,11 @@
 #include "rmchart.ch"
 #include "hbclass.ch"
 
+FUNCTION Main()
 
+   Local oMainWnd, oPanel
 
-Function Main
-Local oMainWnd, oPanel
-Private oPdf
+   Private oPdf
 
    INIT WINDOW oMainWnd TITLE "Pdf example" AT 200, 0 SIZE 500, 400
 
@@ -36,7 +36,7 @@ Private oPdf
 
    ACTIVATE WINDOW oMainWnd
 
-Return
+RETURN NIL
 
 CLASS PdfReader  FROM HActiveX
 CLASS VAR winclass INIT "Pdfreader"

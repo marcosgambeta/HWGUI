@@ -1,6 +1,6 @@
 #include "hwgui.ch"
 
-PROCEDURE Main()
+FUNCTION Main()
 
    LOCAL oWnd, oPanel
    LOCAL oBut1, oBut2, oBut3
@@ -38,4 +38,4 @@ PROCEDURE Main()
 
    ACTIVATE WINDOW oWnd
 
-RETURN
+RETURN NIL

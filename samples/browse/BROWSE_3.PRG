@@ -82,7 +82,7 @@ FUNCTION Main()
 
    fErase("teste1.dbf")
 
-RETURN Nil
+RETURN NIL
 
 STATIC FUNCTION Teste_CreateColumn(oBrw, oCol, oHead, oAr, seq, oType, oLen, oDec)
 

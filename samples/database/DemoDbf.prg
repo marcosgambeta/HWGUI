@@ -10,20 +10,19 @@
  */
 
 #include "hwgui.ch"
- 
-*---------------------------------------------------------------------------------------
-Function Main
-*---------------------------------------------------------------------------------------
-Local oFontBtn
-Local oFont := Nil
-Local nColor, oSplah
-Private Form_Main
 
-Public oDir := "\"+Curdir()+"\"
+FUNCTION Main()
 
-SET DELETE ON
-SET DATE BRIT
-SET CENT ON
+   Local oFontBtn
+   Local oFont := Nil
+   Local nColor, oSplah
+   Private Form_Main
+   
+   Public oDir := "\"+Curdir()+"\"
+   
+   SET DELETE ON
+   SET DATE BRIT
+   SET CENT ON
 
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
 
@@ -42,8 +41,7 @@ SET CENT ON
 
    ACTIVATE WINDOW Form_Main
 
-return nil
-
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
 Function Cadastro()

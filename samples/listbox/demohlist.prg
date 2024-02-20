@@ -1,9 +1,9 @@
 #include "hwgui.ch"
 // #include "listbox.ch"
 
+FUNCTION Main()
 
-Function Main
-Local oMainWindow
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -13,7 +13,8 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function Teste
 Local oModDlg

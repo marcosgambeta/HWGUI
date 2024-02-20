@@ -2,13 +2,14 @@
  * $Id: testtree.prg 2012 2013-03-07 09:03:56Z alkresin $
  *
  * This sample demonstrates the using of a TREE control
- * 
+ *
  */
 
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
+FUNCTION Main()
+
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -18,7 +19,8 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function DlgGet
 Local oDlg

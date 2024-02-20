@@ -1,11 +1,10 @@
 #include "hwgui.ch"
 
-FUNCTION _Main
-PRIVATE oRadiogroup1, oL     , oRadiobutton1, oRadiobutton2, oPage , oLabel1, oLabel4, oLabel3, oLabel2
+FUNCTION _Main()
 
-cUser:="1"
+   PRIVATE oRadiogroup1, oL     , oRadiobutton1, oRadiobutton2, oPage , oLabel1, oLabel4, oLabel3, oLabel2
 
-
+   cUser:="1"
 
    INIT DIALOG oDlg TITLE "Form1" ;
         AT 422, 66 SIZE 500, 400 ;
@@ -39,7 +38,8 @@ cUser:="1"
   END PAGE OF oPage
 
    ACTIVATE DIALOG oDlg
-RETURN
+
+RETURN NIL
 
 STATIC function protek
  parameters o,n
@@ -87,4 +87,3 @@ cUser:="2"
 oL:settext("only 2,3")
 
 RETURN Nil
-

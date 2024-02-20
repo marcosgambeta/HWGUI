@@ -11,7 +11,7 @@
 
 Static oMain, oForm, oFont, oBar
 
-Function Main ()
+FUNCTION Main()
 
    INIT WINDOW oMain MAIN TITLE "ComboBox Sample" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -23,7 +23,7 @@ Function Main ()
 
    ACTIVATE WINDOW oMain
 
-Return Nil
+RETURN NIL
 
 Function Test ()
 

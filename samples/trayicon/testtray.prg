@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")
+FUNCTION Main()
+
+   Local oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")
 
    INIT WINDOW oMainWindow MAIN TITLE "Example"
 
@@ -16,5 +17,4 @@ Local oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")
    ACTIVATE WINDOW oMainWindow NOSHOW
    oTrayMenu:End()
 
-Return Nil
-
+RETURN NIL

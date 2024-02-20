@@ -28,7 +28,7 @@
 Static oMain, oForm, oBrowse
 
 #xcommand ADD COLUMN TO GRIDEDIT <aGrid> ;
-            FIELD <cField>               ;            
+            FIELD <cField>               ;
             [ LABEL <cLabel> ]           ;
             [ PICTURE <cPicture> ]       ;
             [ <lReadonly:READONLY> ]     ;
@@ -37,7 +37,7 @@ Static oMain, oForm, oBrowse
           => ;
           aadd(<aGrid>, {<cField>, <cLabel>, <cPicture>, <.lReadonly.>, <{bValid}>, <aList>})
 
-Function Main()
+FUNCTION Main()
 
    INIT WINDOW oMain MAIN TITLE "Grid Edition Sample" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -47,14 +47,15 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return Nil
+
+RETURN NIL
 
 Function Test()
     Local aItems := {}
     Local i
-    
+
     PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
-        
+
     Ferase("temp.dbf")
 
     DBCreate("temp.dbf", {{"field_1", "N", 10, 0},;
@@ -81,7 +82,7 @@ Function Test()
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_3" LABEL "Bool" 
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_4" LABEL "Date" 
     ADD COLUMN TO GRIDEDIT aItems FIELD "Field_5" LABEL "Memo" 
-   
+
     INIT DIALOG oForm CLIPPER NOEXIT TITLE "Grid Edit";
         FONT oFont ;
         AT 0, 0 SIZE 700, 425 ;
@@ -273,7 +274,7 @@ Function GridEdit(cAlias, aFields, lAppend, bChange)
 
         Next
     
-        @ oForm:nWidth - 160, oForm:nHeight - 30 BUTTON "Ok"     ID IDOK SIZE 75, 25 
+        @ oForm:nWidth - 160, oForm:nHeight - 30 BUTTON "Ok"     ID IDOK SIZE 75, 25
         @ oForm:nWidth -  80, oForm:nHeight - 30 BUTTON "Cancel" ID IDCANCEL SIZE 75, 25 ON CLICK {|| oForm:Close() }
         
         oForm:bActivate := {|| hwg_Setfocus(aFields[1, GET_OBJECT]:handle)}
@@ -305,7 +306,7 @@ static Function __valid(value, oCtrl, aFields, bChange)
         n := oCtrl:id - 3000    
         
         Eval(bChange, oCtrl, n)
-        
+
         if aFields[n, GET_VALID] != nil
             if ! Eval(aFields[n, GET_VALID])
                 result := .F.            
@@ -369,7 +370,7 @@ Static function myblock(oCtrl, colpos)
         replace field_5 with "hello"
     endif            
 return nil    
-    
+
 Static Function mydelete()
     DELETE
     PACK

@@ -16,7 +16,7 @@ Static oSayDlg2
 
 //--------------------------------------------------------------------------//
 
-Function Main ()
+FUNCTION Main()
 
    INIT WINDOW oWnd MAIN TITLE "TrackBar Control - Demo" AT 100, 100 SIZE 640, 480 COLOR COLOR_3DLIGHT + 1
 
@@ -39,7 +39,7 @@ Function Main ()
 
    ACTIVATE WINDOW oWnd
 
-   Return Nil
+RETURN NIL
 
 //--------------------------------------------------------------------------//
 

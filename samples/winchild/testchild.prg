@@ -10,7 +10,8 @@
 
 static aChilds := {}
 
-function Main()
+FUNCTION Main()
+
    Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN MDI TITLE "HwGui - Child Windows Example" STYLE WS_CLIPCHILDREN
@@ -22,9 +23,7 @@ function Main()
 
    ACTIVATE WINDOW oMainWindow
 
-return (NIL)
-
-
+RETURN NIL
 
 function CreateChild(lClip)
    Local oChild

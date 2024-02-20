@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
+FUNCTION Main()
+
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 100 COLOR COLOR_3DLIGHT
 
@@ -13,7 +14,8 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return nil
+
+RETURN NIL
 
 Static Function Graph1
 Local oModDlg

@@ -2,19 +2,20 @@
  * $Id: testsdi.prg 2012 2013-03-07 09:03:56Z alkresin $
  *
  * This sample demonstrates the using of a TREE control
- * 
+ *
  */
 
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oTree, oSplit, oTab
+FUNCTION Main()
+
+   Local oMainWindow
+   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
+   Local oTree, oSplit, oTab
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150 COLOR COLOR_3DLIGHT + 1 FONT oFont
 
-   MENU OF oMainWindow 
+   MENU OF oMainWindow
       MENU TITLE "&File"
          MENUITEM "&New" ACTION hwg_Msginfo("New")
          MENUITEM "&Open" ACTION hwg_Msginfo("Open")
@@ -39,7 +40,7 @@ Local oTree, oSplit, oTab
 
    @ 414, 10 BUTTON "X" SIZE 24, 24 ON CLICK {|| hwg_Msginfo("Delete " + str(oTab:GetActivePage())), oTab:DeletePage(oTab:GetActivePage()) } ;
         ON SIZE {|o,x,y| o:Move(oTab:nLeft + oTab:nWidth - 26)} ;
- 
+
    @ 210, 10 SPLITTER oSplit SIZE 4, 260 ;
          DIVIDE {oTree} FROM {oTab,oGet} ;
          ON SIZE {|o,x,y|o:Move(,,,y-20)}
@@ -51,7 +52,7 @@ Local oTree, oSplit, oTab
    ACTIVATE WINDOW oMainWindow MAXIMIZED
    oFont:Release()
 
-Return Nil
+RETURN NIL
 
 Function BuildTree(oMainWindow, oTree, oTab)
 Local oNode
@@ -76,7 +77,7 @@ Local cTitle := "Page " + str(len(oTab:aPages) + 1)
   cTitle := "Pages " + str(len(oTab:aPages))
 
   @ 30, 60 SAY cTitle SIZE 100, 26
- 
+
   oTab:EndPage()
 
 Return Nil

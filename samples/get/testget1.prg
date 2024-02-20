@@ -1,7 +1,8 @@
 #include "hwgui.ch"
 
-Function Main
-Local oMainWindow
+FUNCTION Main()
+
+   Local oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 600, 150
 
@@ -11,7 +12,8 @@ Local oMainWindow
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
-Return Nil
+
+RETURN NIL
 
 Function DlgGet
 Local oModDlg

@@ -10,9 +10,10 @@
 
 #include "hwgui.ch"
 
-Function Main
-Local oMainWnd, oPanelTool, oPanelIE, oFont
-Local oEdit, cUrl, oIE
+FUNCTION Main()
+
+   Local oMainWnd, oPanelTool, oPanelIE, oFont
+   Local oEdit, cUrl, oIE
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -15
 
@@ -40,11 +41,12 @@ Local oEdit, cUrl, oIE
 
     ACTIVATE WINDOW oMainWnd
 
-Return
+RETURN NIL
 
 Static Function OpenFile(oIE, oEdit)
-Local mypath := "\" + Curdir() + Iif(Empty(Curdir()), "", "\")
-Local fname := hwg_SelectFile("HTML files", "*.htm;*.html", mypath)
+
+   Local mypath := "\" + Curdir() + Iif(Empty(Curdir()), "", "\")
+   Local fname := hwg_SelectFile("HTML files", "*.htm;*.html", mypath)
 
    IF !Empty(fname)
       oEdit:SetText(fname
@@ -54,7 +56,8 @@ Local fname := hwg_SelectFile("HTML files", "*.htm;*.html", mypath)
 Return
 
 Static Function FindInGoogle(cQuery, oIE, oEdit)
-Local cUrl := "http://www.google.com/search?q=", cItem
+
+   Local cUrl := "http://www.google.com/search?q=", cItem
 
    IF !Empty(cItem := NextItem(cQuery, .T., " "))
       cUrl += cItem
@@ -64,4 +67,5 @@ Local cUrl := "http://www.google.com/search?q=", cItem
       oEdit:SetText(cUrl)
       oIE:DisplayPage(cUrl)
    ENDIF
+
 Return Nil

@@ -16,10 +16,13 @@
 #include "rmchart.ch"
 #include "hbclass.ch"
 
-Function Main
-Local oMainWnd, oPanel
-Local mypath := curdrive()+":\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
-Private oFlash
+FUNCTION Main()
+
+   LOCAL oMainWnd
+   LOCAL oPanel
+   LOCAL mypath := curdrive() + ":\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
+
+   Private oFlash
 
    INIT WINDOW oMainWnd TITLE "FlashPlayer example" AT 200, 0 SIZE 500, 400
 
@@ -35,7 +38,7 @@ Private oFlash
 
    ACTIVATE WINDOW oMainWnd
 
-Return
+RETURN NIL
 
 CLASS ShockwaveFlash FROM HActiveX
 CLASS VAR winclass INIT "ShockwaveFlash"
@@ -47,11 +50,11 @@ METHOD New(p1,p2,p3,p4,p5,p6) CLASS ShockwaveFlash
   Super:New(p1,p2,p3,p4,p5,p6)
 RETURN
 
-function FlashPlayer(oWindow, cFlashFile, col, row, nHeight, nWidth)
-    local oFlash
+FUNCTION FlashPlayer(oWindow, cFlashFile, col, row, nHeight, nWidth)
 
-    oFlash := ShockwaveFlash():New(oWindow, "ShockwaveFlash.ShockwaveFlash.1", 0, 0, nHeight, nWidth)
-    oFlash:LoadMovie(0,cFlashFile)
+   LOCAL oFlash
 
-    return oFlash
+   oFlash := ShockwaveFlash():New(oWindow, "ShockwaveFlash.ShockwaveFlash.1", 0, 0, nHeight, nWidth)
+   oFlash:LoadMovie(0,cFlashFile)
 
+RETURN oFlash

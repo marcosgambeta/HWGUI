@@ -21,22 +21,23 @@ REQUEST OPENREPORT
 Memvar connHandle, cServer, cDatabase, cUser, cDataDef, queHandle, nNumFields
 Memvar nNumRows, aQueries
 
-Function Main()
-Local oFont, oIcon := HIcon():AddResource("ICON_1")
-Public hBitmap := hwg_Loadbitmap("BITMAP_1")
-Public connHandle := 0, cServer := "", cDatabase := "", cUser := ""
-Public cDataDef := ""
-Public mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
-Public queHandle := 0, nNumFields, nNumRows
-Public aQueries := {}, nHistCurr, nHistoryMax := 20
-Private oBrw, BrwFont := Nil, oBrwFont := Nil
-Private oMainWindow, oEdit, oPanel, oPanelE
+FUNCTION Main()
+
+   Local oFont, oIcon := HIcon():AddResource("ICON_1")
+   Public hBitmap := hwg_Loadbitmap("BITMAP_1")
+   Public connHandle := 0, cServer := "", cDatabase := "", cUser := ""
+   Public cDataDef := ""
+   Public mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
+   Public queHandle := 0, nNumFields, nNumRows
+   Public aQueries := {}, nHistCurr, nHistoryMax := 20
+   Private oBrw, BrwFont := Nil, oBrwFont := Nil
+   Private oMainWindow, oEdit, oPanel, oPanelE
 
    SET EPOCH TO 1960
    SET DATE FORMAT "dd/mm/yyyy"
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
-   
+
    INIT WINDOW oMainWindow MAIN ICON oIcon TITLE "Harbour mySQL client" AT 20, 20 SIZE 500, 500 ;
       COLOR COLOR_3DLIGHT
 
@@ -107,7 +108,7 @@ Private oMainWindow, oEdit, oPanel, oPanelE
 
    WriteHistory("qhistory.txt")
 
-Return Nil
+RETURN NIL
 
 Function About
 Local oModDlg, oFont

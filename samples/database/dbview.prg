@@ -25,10 +25,13 @@ REQUEST ORDKEYCOUNT
 Static aFieldTypes := {"C", "N", "D", "L"}
 Static dbv_cLocate, dbv_nRec, dbv_cSeek
 
-Function Main
-Local oWndMain, oPanel
-Memvar oBrw, oFont
-Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname
+FUNCTION Main()
+
+   Local oWndMain, oPanel
+
+   Memvar oBrw, oFont
+
+   Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname
 
    RDDSETDEFAULT("DBFCDX")
 
@@ -103,7 +106,7 @@ Private oBrw, oSay1, oSay2, oFont, DataCP, currentCP, currFname
 
    ACTIVATE WINDOW oWndMain
 
-Return Nil
+RETURN NIL
 
 Static Function FileOpen
 Local mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")

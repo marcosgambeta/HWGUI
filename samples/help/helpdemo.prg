@@ -1,8 +1,9 @@
 #include "hwgui.ch"
 
-Function Main()
-    Local oMain
-        
+FUNCTION Main()
+
+   Local oMain
+
    INIT WINDOW oMain MAIN TITLE "Help Demo" HELP "helpdemo.hlp" ;
       AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -12,7 +13,8 @@ Function Main()
             ENDMENU
 
     ACTIVATE WINDOW oMain
-Return Nil
+
+RETURN NIL
 
 Static Function Test()
     Local cVar := Space(30)

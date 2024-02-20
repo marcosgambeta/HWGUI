@@ -19,7 +19,7 @@
 
 Static oMain, oForm, oFont, oGrid
 
-Function Main()
+FUNCTION Main()
 
    INIT WINDOW oMain MAIN TITLE "Grid Sample" AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
 
@@ -29,7 +29,8 @@ Function Main()
                 ENDMENU
 
         ACTIVATE WINDOW oMain
-Return Nil
+
+RETURN NIL
 
 Function Test()
 Local aHead :={}
@@ -49,15 +50,15 @@ while !eof()
 enddo
 
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
-        
+
         INIT DIALOG oForm CLIPPER NOEXIT TITLE "Grid Demo";
              FONT oFont ;
              AT 0, 0 SIZE 700, 425 ;
              STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU
 //             on init {||SetGrid(oForm,oGrid,aItems)}
-                
+
              @ 10, 10 GRIDEX oGrid OF oForm ID 800 SIZE 680, 375 ;
-                     ITEMCOUNT 10000 ;                     
+                     ITEMCOUNT 10000 ;
                      ON KEYDOWN {|oCtrl, key| OnKey(oCtrl, key) } ;
                      ON POSCHANGE {|oCtrl, nRow| OnPoschange(oCtrl, nRow) } ;
                      ON CLICK {|oCtrl| OnClick(oCtrl) } ;

@@ -8,11 +8,12 @@
 #include "hwgui.ch"
 #include "hxml.ch"
 
-Function Main
-Local oXmlNode
-Local i, j, fname := ""
-Private oXmlDoc, lIniChanged := .F., nCurrentItem
-Private oMainWindow, oFont
+FUNCTION Main()
+
+   Local oXmlNode
+   Local i, j, fname := ""
+   Private oXmlDoc, lIniChanged := .F., nCurrentItem
+   Private oMainWindow, oFont
 
    oXmlDoc := HXMLDoc():Read("testxml.xml")
 
@@ -44,7 +45,7 @@ Private oMainWindow, oFont
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+RETURN NIL
 
 Function NewItem(nItem)
 Local oDlg, oItemFont, oFontNew

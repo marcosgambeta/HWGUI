@@ -16,18 +16,19 @@
 #define SCROLLVRANGE       20
 #define SCROLLHRANGE       20
 
-Function Main
-Local oMainWindow, oFont
-// Local hDCwindow
-Private oToolBar, oImage, oSayMain, oSayScale
-Private aScreen, nKoef, lScrollV := .F., lScrollH := .F., nStepV := 0, nStepH := 0
-Private nVert, nHorz
+FUNCTION Main()
 
-#ifdef __FREEIMAGE__
-   IF !hwg_Fi_init()
-      Return Nil
-   ENDIF
-#endif
+   Local oMainWindow, oFont
+   // Local hDCwindow
+   Private oToolBar, oImage, oSayMain, oSayScale
+   Private aScreen, nKoef, lScrollV := .F., lScrollH := .F., nStepV := 0, nStepH := 0
+   Private nVert, nHorz
+   
+   #ifdef __FREEIMAGE__
+      IF !hwg_Fi_init()
+         Return Nil
+      ENDIF
+   #endif
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17
 
@@ -84,7 +85,7 @@ Private nVert, nHorz
 
    ACTIVATE WINDOW oMainWindow
 
-Return Nil
+RETURN NIL
 
 Static Function MessagesProc(oWnd, msg, wParam, lParam)
 Local i, aItem

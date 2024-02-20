@@ -1,6 +1,6 @@
 #include "hwgui.ch"
 
-FUNCTION main
+FUNCTION Main()
 
    LOCAL oMain, i
 
@@ -11,13 +11,11 @@ FUNCTION main
       @ 0, i  say StrZero(i, 3) + "  -  " + "01234567890123456789012345678901234567890" + "  -  " + StrZero(i, 3) size 420, 20
    next
 
-
    oMain:bScroll := {|o, msg, wParam, lParam|stdScroll(o, msg, wParam, lParam)}
 
    ACTIVATE window oMain
 
-   RETURN nil
-
+RETURN NIL
 
 STATIC FUNCTION stdScroll(oDlg, msg, wParam, lParam, nIncr)
    LOCAL nScrollCode := hwg_Loword(wParam)

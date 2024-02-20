@@ -12,14 +12,13 @@
 */
 
 #include "hwgui.ch"
- 
-* --------------------------------------------
-function Main
-* --------------------------------------------
-Private oMain, temp1
-Private oDlg
-Private oFont := Nil
- 
+
+FUNCTION Main()
+
+   Private oMain, temp1
+   Private oDlg
+   Private oFont := Nil
+
    INIT WINDOW oMain MAIN TITLE "Demo Maximize"
 
     MENU OF oMain
@@ -35,6 +34,5 @@ Private oFont := Nil
     ENDMENU
 
     ACTIVATE WINDOW oMain MAXIMIZED
- 
-return nil
- 
+
+RETURN NIL
