@@ -490,6 +490,8 @@ Local nFirst, nEnd, i
 
    RETURN ::nActive
 
+// TODO: code duplicated in SWITCH
+#if 1 // old code for reference (to be deleted)
 METHOD Notify(lParam) CLASS HTab
    LOCAL nCode := hwg_Getnotifycode(lParam)
    LOCAL nkeyDown := hwg_Getnotifykeydown(lParam)
@@ -573,7 +575,114 @@ METHOD Notify(lParam) CLASS HTab
    ENDIF
 
    RETURN - 1
+#else
+METHOD Notify(lParam) CLASS HTab
 
+   LOCAL nCode := hwg_Getnotifycode(lParam)
+   LOCAL nkeyDown := hwg_Getnotifykeydown(lParam)
+   LOCAL nPage := hwg_Sendmessage(::handle, TCM_GETCURSEL, 0, 0) + 1
+
+   IF Hwg_BitAnd(::Style, TCS_BUTTONS) != 0
+      nPage := hwg_Sendmessage(::handle, TCM_GETCURFOCUS, 0, 0) + 1
+   ENDIF
+   IF nPage == 0 .OR. ::handle != hwg_Getfocus()
+      IF nCode == TCN_SELCHANGE .AND. ::handle != hwg_Getfocus() .AND. ::lClick
+         hwg_Sendmessage(::handle, TCM_SETCURSEL, hwg_Sendmessage(::handle, ::nPrevPage - 1, 0, 0), 0)
+         RETURN 0
+      ELSEIF nCode == TCN_SELCHANGE .AND. !::lClick
+         hwg_Sendmessage(::handle, TCM_SETCURSEL, ::nActive - 1, 0)
+      ENDIF
+      ::nPrevPage := nPage
+      RETURN 0
+   ENDIF
+
+   SWITCH nCode
+
+   CASE TCN_CLICK
+      ::lClick := .T.
+      EXIT
+
+   CASE TCN_KEYDOWN // -500
+      IF (nPage := SetTabFocus(Self, nPage, nKeyDown)) != nPage
+         ::nActive := nPage
+      ENDIF
+      EXIT
+
+   CASE TCN_FOCUSCHANGE // -554
+      EXIT
+
+   CASE TCN_SELCHANGE
+      // ACTIVATE NEW PAGE
+      IF !::pages[nPage]:enabled
+         ::lClick := .F.
+         ::nPrevPage := nPage
+         RETURN 0
+      ENDIF
+      IF nPage = ::nPrevPage
+         RETURN 0
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
+      IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
+         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
+         ::nActivate := 0
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .F.
+      EXIT
+
+   CASE TCN_SELCHANGING // -552
+      IF ::nPrevPage > 0
+         // DEACTIVATE PAGE //ocorre antes de trocar o focu
+         ::nPrevPage := ::nActive //npage
+         IF ::bLostFocus != NIL
+            ::oparent:lSuspendMsgsHandling := .T.
+            Eval(::bLostFocus, ::nPrevPage, Self) // TODO: order of the parameters
+            ::oparent:lSuspendMsgsHandling := .F.
+         ENDIF
+      ELSE
+         ::nPrevPage := nPage
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE TCN_RCLICK
+      IF !Empty(::pages) .AND. ::nActive > 0 .AND. ::pages[::nActive]:enabled
+         IF ::bRClick != NIL
+            ::oparent:lSuspendMsgsHandling := .T.
+            Eval(::bRClick, Self, hwg_Getcurrenttab(::handle))
+            ::oparent:lSuspendMsgsHandling := .F.
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE TCN_SETFOCUS
+      IF ::bGetFocus != NIL .AND. !::Pages[nPage]:Enabled
+         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
+      ENDIF
+      EXIT
+
+   CASE TCN_KILLFOCUS
+      IF ::bLostFocus != NIL
+         Eval(::bLostFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
+      ENDIF
+
+   ENDSWITCH
+
+   // TODO: move to SWITCH
+   IF (nCode == TCN_CLICK .AND. ::nPrevPage > 0 .AND. ::pages[::nPrevPage]:enabled) .OR. ;
+      (::lClick .AND. nCode == TCN_SELCHANGE)
+      ::oparent:lSuspendMsgsHandling := .T.
+      IF ::bAction != NIL .AND. ::lClick
+         Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .F.
+      ::lClick := .F.
+   ENDIF
+
+   RETURN -1
+#endif
+
+#if 0 // old code for reference (to be deleted)
 METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    LOCAL oCtrl
 
@@ -691,6 +800,158 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    ENDIF
 
    RETURN - 1
+#else
+METHOD OnEvent(msg, wParam, lParam) CLASS HTab
+
+   LOCAL oCtrl
+
+   IF msg >= TCM_FIRST .AND. msg < TCM_FIRST + 61  // optimized only
+      RETURN -1
+   ENDIF
+
+   SWITCH msg
+
+   CASE WM_LBUTTONDOWN
+      ::lClick := .F.
+      IF ::ShowDisablePage(lParam, WM_LBUTTONDOWN) == 0
+         ::nPrevPage := -1
+         RETURN 0
+      ENDIF
+      //::lClick := .T.
+      IF !hwg_Selffocus(::Handle)
+         ::Setfocus(0)
+      ENDIF
+      RETURN -1
+
+   CASE WM_LBUTTONUP
+      IF hwg_Selffocus(::Handle)
+         ::nPrevPage := iif(::nPrevPage == 0, ::nActive, ::nPrevPage)
+         ::lClick := ::nPrevPage != -1
+      ENDIF
+      EXIT
+
+   CASE WM_MOUSEMOVE //.OR. (::nPaintHeight = 0 .AND. msg = WM_NCHITTEST)
+      ::ShowToolTips(lParam)
+      RETURN ::ShowDisablePage(lParam)
+
+   CASE WM_PAINT
+      RETURN -1
+
+   CASE WM_ERASEBKGND
+      ::ShowDisablePage()
+      RETURN -1
+
+   CASE WM_PRINTCLIENT
+   CASE WM_NCHITTEST
+   CASE WM_UPDATEUISTATE
+      RETURN -1 // painted objects without METHOD PAINT
+
+   CASE WM_PRINT
+      ::SetPaintSizePos(iif(::nPaintHeight > 1, -1, 1))
+      IF ::nActive > 0
+         ::ShowPage(::nActive)
+         IF hwg_Sendmessage(::handle, TCM_GETROWCOUNT, 0, 0) > 1
+            hwg_Invalidaterect(::Handle, 0, 1, ::Pages[1]:aItemPos[2], ::nWidth - 1, ;
+               ::Pages[1]:aItemPos[4] * hwg_Sendmessage(::handle, TCM_GETROWCOUNT, 0, 0))
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_SIZE
+      AEval(::Pages, {|p, i|p:aItemPos := hwg_Tabitempos(::Handle, i - 1)})
+      ::oPaint:nHeight := ::nPaintHeight
+      ::oPaint:Anchor := iif(::nPaintHeight > 1, 15, 0)
+      IF ::nPaintHeight > 1
+         hwg_Postmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
+      ENDIF
+      EXIT
+
+   CASE WM_SETFONT
+      IF ::oFont != NIL .AND. ::lInit
+         hwg_Sendmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
+      ENDIF
+      EXIT
+
+   CASE WM_KEYDOWN
+      IF hwg_Getfocus() == ::handle
+         IF hwg_ProcKeyList(Self, wParam)
+            RETURN -1
+         ELSEIF wParam == VK_ESCAPE
+            RETURN 0
+         ENDIF
+         IF wParam == VK_RIGHT .OR. wParam == VK_LEFT
+            IF SetTabFocus(Self, ::nActive, wParam) == ::nActive
+               RETURN 0
+            ENDIF
+         ELSEIF (wparam == VK_DOWN .OR. wparam == VK_RETURN) .AND. ::nActive > 0
+            hwg_GetSkip(Self, ::handle, , 1)
+            RETURN 0
+         ELSEIF wParam == VK_TAB
+            hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            RETURN 0
+         ELSEIF wparam == VK_UP .AND. ::nActive > 0
+            hwg_GetSkip(::oParent, ::handle, , -1)
+            RETURN 0
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_HSCROLL
+   CASE WM_VSCROLL
+      IF hwg_Getfocus() == ::Handle
+         hwg_Invalidaterect(::oPaint:handle, 1, 0, 0, ::nwidth, 30)
+      ENDIF
+      IF hwg_GetParentForm(self):Type < WND_DLG_RESOURCE
+         RETURN ::oParent:onEvent(msg, wparam, lparam)
+      ELSE
+         RETURN ::super:onevent(msg, wparam, lparam)
+      ENDIF
+      EXIT
+
+   CASE WM_GETDLGCODE
+      IF wparam == VK_RETURN .OR. wParam == VK_ESCAPE .AND. ;
+            ((oCtrl := hwg_GetParentForm(Self):FindControl(IDCANCEL)) != NIL .AND. !oCtrl:IsEnabled())
+         RETURN DLGC_WANTMESSAGE
+      ENDIF
+
+   ENDSWITCH
+
+   IF msg == WM_NOTIFY .AND. hwg_Iswindowvisible(::oParent:handle) .AND. ::nActivate == NIL
+      IF ::bGetFocus != NIL
+         ::oParent:lSuspendMsgsHandling := .T.
+         Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
+         ::oParent:lSuspendMsgsHandling := .F.
+      ENDIF
+   ELSEIF (hwg_Iswindowvisible(::handle) .AND. ::nActivate == NIL) .OR. msg == WM_KILLFOCUS
+      ::nActivate := hwg_Getfocus()
+   ENDIF
+
+   IF ::bOther != NIL
+      ::oparent:lSuspendMsgsHandling := .T.
+      IF Eval(::bOther, Self, msg, wParam, lParam) != -1
+         // RETURN 0
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+
+   IF !((msg == WM_COMMAND .OR. msg == WM_NOTIFY) .AND. ::oParent:lSuspendMsgsHandling .AND. ::lSuspendMsgsHandling)
+      IF msg == WM_NCPAINT .AND. !Empty(hwg_GetParentForm(Self):nInitFocus) .AND. ;
+         hwg_Ptrtoulong(hwg_Getparent(hwg_GetParentForm(Self):nInitFocus)) == hwg_Ptrtoulong(::Handle)
+         hwg_GetSkip(::oParent, hwg_GetParentForm(Self):nInitFocus, , 0)
+         hwg_GetParentForm(Self):nInitFocus := 0
+      ENDIF
+      IF msg == WM_KILLFOCUS .AND. hwg_GetParentForm(Self) != NIL .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
+         hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, 0), ::handle)
+         ::nPrevPage := 0
+      ENDIF
+      IF msg == WM_DRAWITEM
+         ::ShowDisablePage()
+      ENDIF
+      RETURN ::Super:onEvent(msg, wparam, lparam)
+   ENDIF
+
+   RETURN -1
+#endif
 
 METHOD ShowDisablePage(nPageEnable, nEvent) CLASS HTab
    LOCAL client_rect, i, pt := { , }
@@ -935,4 +1196,3 @@ METHOD showTextTabs(oPage, aItemPos) CLASS HPaintTab
    ENDIF
 
    RETURN NIL
-
