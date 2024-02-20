@@ -388,7 +388,7 @@ METHOD EndPage() CLASS HTab
       ::nActive := 1
       ::oDefaultParent := ::oTemp
       ::oTemp := NIL
-      ::bChange = {|n, o|o:ChangePage(n)}
+      ::bChange = {|o, n|o:ChangePage(n)}
    ELSE
       IF ::handle != NIL .AND. !Empty(::handle)
          hwg_Addtabdialog(::handle, ::nActive, ::aTabs[::nActive], ::aPages[::nactive, 1]:handle)
@@ -399,7 +399,7 @@ METHOD EndPage() CLASS HTab
       ::nActive := 1
       ::oDefaultParent := ::oTemp
       ::oTemp := NIL
-      ::bChange = {|n, o|o:ChangePage(n)}
+      ::bChange = {|o, n|o:ChangePage(n)}
    ENDIF
 
    RETURN NIL
@@ -435,7 +435,7 @@ METHOD onChange() CLASS HTab
 
    IF ::bChange2 != NIL
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval(::bChange2, ::nActive, Self)
+      Eval(::bChange2, Self, ::nActive)
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
 
@@ -628,9 +628,9 @@ METHOD Notify(lParam) CLASS HTab
          RETURN 0
       ENDIF
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval(::bChange, hwg_Getcurrenttab(::handle), Self)
+      Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
       IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
-         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self)
+         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
          ::nActivate := 0
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
@@ -639,7 +639,7 @@ METHOD Notify(lParam) CLASS HTab
       ::nPrevPage := ::nActive //npage
       IF ::bLostFocus != NIL
          ::oparent:lSuspendMsgsHandling := .T.
-         Eval(::bLostFocus, ::nPrevPage, Self)
+         Eval(::bLostFocus, ::nPrevPage, Self) // TODO: order of the parameters
          ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
    CASE nCode == TCN_SELCHANGING   //-552
@@ -655,11 +655,11 @@ METHOD Notify(lParam) CLASS HTab
       ENDIF
    CASE nCode == TCN_SETFOCUS
       IF ::bGetFocus != NIL .AND. !::Pages[nPage]:Enabled
-         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self)
+         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
    CASE nCode == TCN_KILLFOCUS
       IF ::bLostFocus != NIL
-         Eval(::bLostFocus, hwg_Getcurrenttab(::handle), Self)
+         Eval(::bLostFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
    ENDCASE
    IF (nCode == TCN_CLICK .AND. ::nPrevPage > 0 .AND. ::pages[::nPrevPage]:enabled) .OR. ;
