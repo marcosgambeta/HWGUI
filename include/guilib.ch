@@ -207,18 +207,7 @@
 
 /* Commands for PrintDos Class*/
 
-#xcommand SET PRINTER TO <oPrinter> OF <oPtrObj>     ;
-          => ;
-          <oPtrObj>:=Printdos():New( <oPrinter>)
-
-#xcommand @ <nX>,<nY> PSAY  <vari>  ;
-             [ PICTURE <cPicture> ] OF <oPtrObj>   ;
-          => ;
-          <oPtrObj>:Say(<nX>, <nY>, <vari>, <cPicture>)
-
-#xcommand EJECT OF <oPtrObj> => <oPtrObj>:Eject()
-
-#xcommand END PRINTER <oPtrObj> => <oPtrObj>:End()
+#include "_printdos.ch"
 
 /* Hprinter */
 
