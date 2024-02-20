@@ -76,6 +76,7 @@
 {win}source/hsplash.prg
 {win}source/hsplit.prg
 {win}source/htab.prg
+{win}source/hpage.prg
 {win}source/htimer.prg
 {win}source/htree.prg
 {win}source/hrect.prg

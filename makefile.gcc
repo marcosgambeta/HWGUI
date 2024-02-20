@@ -83,6 +83,7 @@ $(LIB_DIR)/libhwgui.a : \
    $(OBJ_DIR)/hsplash.o \
    $(OBJ_DIR)/hsplit.o \
    $(OBJ_DIR)/htab.o \
+   $(OBJ_DIR)/hpage.o \
    $(OBJ_DIR)/htimer.o \
    $(OBJ_DIR)/htool.o \
    $(OBJ_DIR)/htrackbr.o \
