@@ -90,6 +90,7 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\hsplit.obj \
    $(OBJ_DIR)\htab.obj \
    $(OBJ_DIR)\hpage.obj \
+   $(OBJ_DIR)\hpainttab.obj \
    $(OBJ_DIR)\htimer.obj \
    $(OBJ_DIR)\htree.obj \
    $(OBJ_DIR)\hrect.obj \

@@ -170,6 +170,7 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\hsplit.obj \
    $(HWGUI_OBJ_DIR)\htab.obj \
    $(HWGUI_OBJ_DIR)\hpage.obj \
+   $(HWGUI_OBJ_DIR)\hpainttab.obj \
    $(HWGUI_OBJ_DIR)\htimer.obj \
    $(HWGUI_OBJ_DIR)\htree.obj \
    $(HWGUI_OBJ_DIR)\hrect.obj \

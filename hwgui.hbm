@@ -69,6 +69,7 @@
 {win}source/hprogres.prg
 {win}source/hradio.prg
 {win}source/hpager.prg
+{win}source/hpainttab.prg
 {win}source/hrebar.prg
 {win}source/hriched.prg
 {win}source/hsayimg.prg
