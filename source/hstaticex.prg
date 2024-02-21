@@ -306,6 +306,13 @@ METHOD Auto_Size(cValue) CLASS HStaticEx
          EXIT
       CASE SS_LEFT
          nLeft := ::nLeft
+         EXIT
+      #ifdef __XHARBOUR__
+      DEFAULT
+      #else
+      OTHERWISE
+      #endif
+         nLeft := ::nLeft
       ENDSWITCH
       ::nWidth := ASize[1] + 2
       ::nHeight := ASize[2]
