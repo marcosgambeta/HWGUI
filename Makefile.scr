@@ -85,6 +85,7 @@ $(LIB_DIR)/libhwgui.a : \
    $(OBJ_DIR)/hgroupex.o \
    $(OBJ_DIR)/hbuttonx.o \
    $(OBJ_DIR)/hstaticex.o \
+   $(OBJ_DIR)/hbutton.o \
    $(OBJ_DIR)/hbuttonex.o \
    $(OBJ_DIR)/hcwindow.o \
    $(OBJ_DIR)/hobject.o \

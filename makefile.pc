@@ -100,6 +100,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\hgroupex.obj \
    $(OBJ_DIR)\hbuttonx.obj \
    $(OBJ_DIR)\hstaticex.obj \
+   $(OBJ_DIR)\hbutton.obj \
    $(OBJ_DIR)\hbuttonex.obj \
    $(OBJ_DIR)\hcwindow.obj \
    $(OBJ_DIR)\hobject.obj \
@@ -235,6 +236,9 @@ $(OBJ_DIR)\hbuttonx.obj : $(OBJ_DIR)\hbuttonx.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hstaticex.obj : $(OBJ_DIR)\hstaticex.c
+   $(CC_EXE) $(CFLAGS) /Fo$@ $**
+
+$(OBJ_DIR)\hbutton.obj : $(OBJ_DIR)\hbutton.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hbuttonex.obj : $(OBJ_DIR)\hbuttonex.c

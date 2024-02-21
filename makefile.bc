@@ -141,6 +141,7 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\hgroupex.obj \
    $(HWGUI_OBJ_DIR)\hbuttonx.obj \
    $(HWGUI_OBJ_DIR)\hstaticex.obj \
+   $(HWGUI_OBJ_DIR)\hbutton.obj \
    $(HWGUI_OBJ_DIR)\hbuttonex.obj \
    $(HWGUI_OBJ_DIR)\hcwindow.obj \
    $(HWGUI_OBJ_DIR)\hobject.obj \
