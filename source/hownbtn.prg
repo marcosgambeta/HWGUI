@@ -148,7 +148,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HOwnButton
 
    IF msg == WM_THEMECHANGED
       IF ::Themed
-         IF ValType(::hTheme) == "P"
+         IF HB_ISPOINTER(::hTheme)
             hwg_closethemedata(::htheme)
             ::hTheme := NIL
          ENDIF
@@ -280,7 +280,7 @@ METHOD Paint() CLASS HOwnButton
    IF ::Themed .AND. ::m_bFirstTime
       ::m_bFirstTime := .F.
       IF (hwg_Isthemedload())
-         IF ValType(::hTheme) == "P"
+         IF HB_ISPOINTER(::hTheme)
             hwg_closethemedata(::htheme)
          ENDIF
          IF ::WindowsManifest

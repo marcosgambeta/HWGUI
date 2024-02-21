@@ -262,7 +262,7 @@ METHOD Add(nColor, nHatch) CLASS HBrush
    IF nHatch == Nil
       nHatch := 99
    ENDIF
-   IF ValType(nColor) == "P"
+   IF HB_ISPOINTER(nColor)
       nColor := hwg_Ptrtoulong(nColor)
    ENDIF
 #ifdef __XHARBOUR__

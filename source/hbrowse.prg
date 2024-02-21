@@ -545,7 +545,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
       ENDIF
       IF msg == WM_THEMECHANGED
          IF ::Themed
-            IF ValType(::hTheme) == "P"
+            IF HB_ISPOINTER(::hTheme)
                hwg_closethemedata(::htheme)
                ::hTheme := NIL
             ENDIF
@@ -830,7 +830,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
             Hwg_SetCursor(hwg_Loadcursor(IDC_ARROW))
          ENDIF
       ELSEIF msg == WM_DESTROY
-         IF ValType(::hTheme) == "P"
+         IF HB_ISPOINTER(::hTheme)
             hwg_closethemedata(::htheme)
             ::hTheme := NIL
          ENDIF
@@ -1315,7 +1315,7 @@ METHOD Paint(lLostFocus) CLASS HBrowse
    IF (::m_bFirstTime) .AND. ::Themed
       ::m_bFirstTime := .F.
       IF (hwg_Isthemedload())
-         IF ValType(::hTheme) == "P"
+         IF HB_ISPOINTER(::hTheme)
             hwg_closethemedata(::htheme)
          ENDIF
          IF ::WindowsManifest

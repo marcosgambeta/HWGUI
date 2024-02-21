@@ -62,7 +62,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
          ELSEIF !lNoActivate
             pArray[i]:lInit := .T.
          ENDIF
-         IF IIF(ValType(pArray[i]:handle) == "P", hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
+         IF IIF(HB_ISPOINTER(pArray[i]:handle), hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
             pArray[i]:handle := hwg_Getdlgitem(oWnd:handle, pArray[i]:id)
 
             // writelog("InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname)
