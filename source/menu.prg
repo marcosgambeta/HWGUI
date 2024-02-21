@@ -23,8 +23,8 @@ STATIC s_nWidthBmp, s_nHeightBmp, s_nbkColor
 CLASS HMenu INHERIT HObject
    DATA handle
    DATA aMenu
-   METHOD New()  INLINE Self
-   METHOD END()  INLINE Hwg_DestroyMenu(::handle)
+   METHOD New() INLINE Self
+   METHOD END() INLINE Hwg_DestroyMenu(::handle)
    METHOD Show(oWnd, xPos, yPos, lWnd)
 ENDCLASS
 

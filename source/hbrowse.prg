@@ -350,7 +350,7 @@ CLASS HBrowse INHERIT HControl
    METHOD PageDown()
    METHOD Bottom(lPaint)
    METHOD Top()
-   METHOD Home()  INLINE ::DoHScroll(SB_LEFT)
+   METHOD Home() INLINE ::DoHScroll(SB_LEFT)
    METHOD ButtonDown(lParam, lReturnRowCol)
    METHOD ButtonUp(lParam)
    METHOD ButtonDbl(lParam)

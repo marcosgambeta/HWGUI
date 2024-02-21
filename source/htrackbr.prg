@@ -38,7 +38,7 @@ CLASS HTrackBar INHERIT HControl
    METHOD Init()
    METHOD SetValue(nValue)
    METHOD GetValue()
-   METHOD GetNumTics()  INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
+   METHOD GetNumTics() INLINE hwg_Sendmessage(::handle, TBM_GETNUMTICS, 0, 0)
 
 ENDCLASS
 

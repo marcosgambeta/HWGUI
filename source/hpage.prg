@@ -14,8 +14,8 @@
 CLASS HPage INHERIT HObject
 
    DATA xCaption     HIDDEN
-   ACCESS Caption    INLINE ::xCaption
-   ASSIGN Caption(xC)  INLINE ::xCaption := xC, ::SetTabText(::xCaption)
+   ACCESS Caption INLINE ::xCaption
+   ASSIGN Caption(xC) INLINE ::xCaption := xC, ::SetTabText(::xCaption)
    DATA lEnabled  INIT .T. // HIDDEN
    DATA PageOrder INIT 1
    DATA oParent

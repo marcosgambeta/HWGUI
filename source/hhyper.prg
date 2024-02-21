@@ -67,7 +67,7 @@ CLASS VAR winclass INIT "STATIC"
    METHOD GetLinkUrl()
    METHOD SetVisitedColor(sVisitedColor)
    METHOD SetHoverColor(cHoverColor)
-   METHOD SetFireChild(lFlag)  INLINE ::m_bFireChild := lFlag
+   METHOD SetFireChild(lFlag) INLINE ::m_bFireChild := lFlag
    METHOD OnClicked()
    METHOD OnSetCursor(pWnd, nHitTest, message)
    METHOD SetLinkText(csLinkText)

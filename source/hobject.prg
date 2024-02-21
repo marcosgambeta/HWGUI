@@ -18,7 +18,7 @@ CLASS HObject
    DATA aObjects     INIT {}
    METHOD AddObject(oCtrl) INLINE AAdd(::aObjects, oCtrl)
    METHOD DelObject(oCtrl)
-   METHOD Release()  INLINE ::DelObject(Self)
+   METHOD Release() INLINE ::DelObject(Self)
 
 ENDCLASS
 

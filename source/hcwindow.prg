@@ -45,7 +45,7 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST)) SHARED
    DATA handle        INIT 0
    DATA oParent
    DATA title
-   ACCESS Caption  INLINE ::title
+   ACCESS Caption INLINE ::title
    ASSIGN Caption(x) INLINE ::SetTextClass(x)
    DATA Type       INIT 0
    DATA nTop, nLeft, nWidth, nHeight
@@ -82,8 +82,8 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST)) SHARED
    METHOD DelControl(oCtrl)
    METHOD AddEvent(nEvent, oCtrl, bAction, lNotify, cMethName)
    METHOD FindControl(nId, nHandle)
-   METHOD Hide()              INLINE (::lHide := .T., hwg_Hidewindow(::handle))
-   METHOD Show(nShow)       INLINE (::lHide := .F., hwg_Showwindow(::handle, nShow))
+   METHOD Hide() INLINE (::lHide := .T., hwg_Hidewindow(::handle))
+   METHOD Show(nShow) INLINE (::lHide := .F., hwg_Showwindow(::handle, nShow))
    METHOD Move(x1, y1, width, height, nRePaint)
    METHOD onEvent(msg, wParam, lParam)
    METHOD END()
@@ -92,7 +92,7 @@ CLASS VAR WindowsManifest INIT !EMPTY(hwg_Findresource(, 1, RT_MANIFEST)) SHARED
    METHOD Anchor(oCtrl, x, y, w, h)
    METHOD SetTextClass(x) HIDDEN
    METHOD Closable(lClosable) SETGET
-   METHOD Release()        INLINE ::DelControl(Self)
+   METHOD Release() INLINE ::DelControl(Self)
 
 ENDCLASS
 

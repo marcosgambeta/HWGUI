@@ -105,7 +105,7 @@ CLASS HTreeNode INHERIT HObject
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
    METHOD Delete(lInternal)
    METHOD FindChild(h)
-   METHOD GetText()  INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
+   METHOD GetText() INLINE hwg_Treegetnodetext(::oTree:handle, ::handle)
    METHOD SetText(cText) INLINE hwg_Treesetitem(::oTree:handle, ::handle, TREE_SETITEM_TEXT, cText), ::title := cText
    METHOD Checked(lChecked)  SETGET
    METHOD GetLevel(h)
@@ -285,13 +285,13 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD Select(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle), ::oItem := hwg_Treegetselected(::handle)}
    METHOD Clean()
    METHOD Notify(lParam)
-   METHOD END()   INLINE (::Super:END(), ReleaseTree(::aItems))
+   METHOD END() INLINE (::Super:END(), ReleaseTree(::aItems))
    METHOD isExpand(oNodo) INLINE !hwg_Checkbit(oNodo, TVE_EXPAND)
    METHOD onEvent(msg, wParam, lParam)
    METHOD ItemHeight(nHeight) SETGET
    METHOD SearchString(cText, iNivel, oNode, inodo)
    METHOD Selecteds(oItem, aSels)
-   METHOD Top()    INLINE IIF(!Empty(::aItems), (::Select(::aItems[1]), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam(0, SB_TOP), Nil)),)
+   METHOD Top() INLINE IIF(!Empty(::aItems), (::Select(::aItems[1]), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam(0, SB_TOP), Nil)),)
    METHOD Bottom() INLINE IIF(!Empty(::aItems), (::Select(::aItems[LEN(::aItems)]), hwg_Sendmessage(::Handle, WM_VSCROLL, hwg_Makewparam(0, SB_BOTTOM), Nil)),)
 
 ENDCLASS

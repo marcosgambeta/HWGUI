@@ -113,12 +113,12 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
    METHOD FindWindow(hWndTitle)
    METHOD GetMain()
    METHOD GetMdiMain() INLINE IIF(::GetMain() != Nil, ::aWindows[1], Nil)
-   METHOD Center()   INLINE Hwg_CenterWindow(::handle, ::Type)
-   METHOD Restore()  INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_RESTORE, 0)
+   METHOD Center() INLINE Hwg_CenterWindow(::handle, ::Type)
+   METHOD Restore() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_RESTORE, 0)
    METHOD Maximize() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_MAXIMIZE, 0)
    METHOD Minimize() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_MINIMIZE, 0)
-   METHOD Close()   INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_CLOSE, 0)
-   METHOD Release()  INLINE ::Close(), ::super:Release(), Self := Nil
+   METHOD Close() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_CLOSE, 0)
+   METHOD Release() INLINE ::Close(), ::super:Release(), Self := Nil
    METHOD isMaximized() INLINE hwg_Getwindowplacement(::handle) == SW_SHOWMAXIMIZED
    METHOD isMinimized() INLINE hwg_Getwindowplacement(::handle) == SW_SHOWMINIMIZED
    METHOD isNormal() INLINE hwg_Getwindowplacement(::handle) == SW_SHOWNORMAL
@@ -263,7 +263,7 @@ CLASS VAR aMessages INIT { ;
    METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate)
    METHOD onEvent(msg, wParam, lParam)
    METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip)
-   METHOD GetMdiActive()  INLINE ::FindWindow(IIF(::GetMain() != Nil, hwg_Sendmessage(::GetMain():handle, WM_MDIGETACTIVE, 0, 0), Nil))
+   METHOD GetMdiActive() INLINE ::FindWindow(IIF(::GetMain() != Nil, hwg_Sendmessage(::GetMain():handle, WM_MDIGETACTIVE, 0, 0), Nil))
 
 ENDCLASS
 

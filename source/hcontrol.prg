@@ -33,8 +33,8 @@ CLASS HControl INHERIT HCustomWindow
    DATA   DisableBrush
    DATA   xControlSource
    DATA   xName           HIDDEN
-   ACCESS Name            INLINE ::xName
-   ASSIGN Name(cName)   INLINE ::AddName(cName)
+   ACCESS Name INLINE ::xName
+   ASSIGN Name(cName) INLINE ::AddName(cName)
 
    METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
@@ -50,8 +50,8 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Enabled(lEnabled) SETGET
    METHOD SetFont(oFont)
    METHOD Setfocus(lValid)
-   METHOD GetText()     INLINE hwg_Getwindowtext(::handle)
-   METHOD SetText(c)  INLINE hwg_Setwindowtext(::Handle, c), ::title := c, ::Refresh()
+   METHOD GetText() INLINE hwg_Getwindowtext(::handle)
+   METHOD SetText(c) INLINE hwg_Setwindowtext(::Handle, c), ::title := c, ::Refresh()
    METHOD Refresh()     VIRTUAL
    METHOD onAnchor(x, y, w, h)
    METHOD SetToolTip(ctooltip)

@@ -124,7 +124,7 @@ CLASS HCtrlTmpl
    DATA aControls INIT {}
    DATA aProp, aMethods
 
-   METHOD New(oParent)   INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
+   METHOD New(oParent) INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
    METHOD F(nId)
 ENDCLASS
 
@@ -162,8 +162,8 @@ CLASS VAR maxId    INIT 0
 
    METHOD Read(fname, cId)
    METHOD Show(nMode, p1, p2, p3)
-   METHOD ShowMain(params)   INLINE ::Show(1, params)
-   METHOD ShowModal(params)  INLINE ::Show(2, params)
+   METHOD ShowMain(params) INLINE ::Show(1, params)
+   METHOD ShowModal(params) INLINE ::Show(2, params)
    METHOD Close()
    METHOD F(id, n)
    METHOD Find(cId)
@@ -1215,7 +1215,7 @@ CLASS HRepItem
    DATA y2
    DATA lMark INIT .F.
 
-   METHOD New(oParent)   INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
+   METHOD New(oParent) INLINE (::oParent := oParent, AAdd(oParent:aControls, Self), Self)
 ENDCLASS
 
 CLASS HRepTmpl
