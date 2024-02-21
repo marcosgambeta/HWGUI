@@ -587,7 +587,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
          IF !hwg_Checkbit(lParam, 32)
             nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
-            IF ::bKeyDown != NIL .AND. ValType(::bKeyDown) == "B" .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
+            IF ::bKeyDown != NIL .AND. HB_ISBLOCK(::bKeyDown) .AND. wParam != VK_TAB .AND. wParam != VK_RETURN
                IF Empty(nRet := Eval(::bKeyDown, Self, wParam, nShiftAltCtrl, msg)) .AND. nRet != NIL
                   RETURN 0
                ENDIF
@@ -652,7 +652,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBrowse
       ELSEIF msg == WM_KEYDOWN .AND. !::oParent:lSuspendMsgsHandling
          IF ((hwg_Checkbit(lParam, 25) .AND. wParam != 111) .OR. (wParam > 111 .AND. wParam < 124) .OR. ;
                wParam = VK_TAB .OR. wParam = VK_RETURN) .AND. ;
-               ::bKeyDown != NIL .AND. ValType(::bKeyDown) == "B"
+               ::bKeyDown != NIL .AND. HB_ISBLOCK(::bKeyDown)
             nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
             nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
             nShiftAltCtrl += iif(wParam > 111, 4, nShiftAltCtrl)

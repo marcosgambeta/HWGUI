@@ -1551,7 +1551,7 @@ STATIC FUNCTION onEnterIdle(oDlg, wParam, lParam)
 
 //add by sauli
 STATIC FUNCTION onCloseQuery(o)
-   IF ValType(o:bCloseQuery) = "B"
+   IF HB_ISBLOCK(o:bCloseQuery)
       IF Eval(o:bCloseQuery)
          hwg_ReleaseAllWindows(o:handle)
       END

@@ -169,7 +169,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HListBox
          hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
         //RETURN 0
       ENDIF
-         IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
+         IF ::bKeyDown != Nil .AND. HB_ISBLOCK(::bKeyDown)
          ::oparent:lSuspendMsgsHandling := .T.
          nEval := Eval(::bKeyDown, Self, wParam)
          IF (VALTYPE(nEval) == "L" .AND. !nEval) .OR. (nEval != -1 .AND. nEval != Nil)

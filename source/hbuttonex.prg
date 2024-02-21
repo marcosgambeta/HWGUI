@@ -273,13 +273,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
          wParam -= 48
       ENDIF
       IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
-         IF ValType(::bClick) == "B" .OR. ::id < 3
+         IF HB_ISBLOCK(::bClick) .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
       ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) = "C", (pos := At("&", o:title)) > 0 .AND. ;
             wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
          IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
-               ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
+               HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
          ENDIF
       ENDIF
@@ -462,13 +462,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
          wParam -= 48
       ENDIF
       IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
-         IF ValType(::bClick) == "B" .OR. ::id < 3
+         IF HB_ISBLOCK(::bClick) .OR. ::id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
          ENDIF
       ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) == "C", (pos := At("&", o:title)) > 0 .AND. ;
          wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
          IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
-            ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
+            HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ::oParent:aControls[nID]:handle)
          ENDIF
       ENDIF
@@ -480,13 +480,13 @@ METHOD onEvent(msg, wParam, lParam) CLASS HBUTTONEx
             wParam -= 48
          ENDIF
          IF !Empty(::title) .AND. (pos := At("&", ::title)) > 0 .AND. wParam == Asc(Upper(SubStr(::title, ++pos, 1)))
-            IF ValType(::bClick) == "B" .OR. ::id < 3
+            IF HB_ISBLOCK(::bClick) .OR. ::id < 3
                hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::id, BN_CLICKED), ::handle)
             ENDIF
          ELSEIF (nID := Ascan(::oparent:acontrols, {|o|iif(ValType(o:title) == "C", (pos := At("&", o:title)) > 0 .AND. ;
                wParam == Asc(Upper(SubStr(o:title, ++pos, 1))),)})) > 0
             IF __ObjHasMsg(::oParent:aControls[nID], "BCLICK") .AND. ;
-                  ValType(::oParent:aControls[nID]:bClick) == "B" .OR. ::oParent:aControls[nID]:id < 3
+                  HB_ISBLOCK(::oParent:aControls[nID]:bClick) .OR. ::oParent:aControls[nID]:id < 3
                hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makewparam(::oParent:aControls[nID]:id, BN_CLICKED), ;
                   ::oParent:aControls[nID]:handle)
             ENDIF

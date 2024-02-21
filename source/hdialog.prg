@@ -191,7 +191,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
    ELSEIF !::lActivated .AND. msg == WM_NCPAINT
       /* triggered on activate the modal dialog is visible only when */
       // ::lActivated := .T.
-      IF ::lModal .AND. ValType(::bOnActivate) == "B"
+      IF ::lModal .AND. HB_ISBLOCK(::bOnActivate)
          hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam(WA_ACTIVE, 0), ::handle)
       ENDIF
    ENDIF
@@ -265,7 +265,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HDialog
       IF !::lActivated
          /* triggered on activate the modal dialog is visible only when */
          // ::lActivated := .T.
-         IF ::lModal .AND. ValType(::bOnActivate) == "B"
+         IF ::lModal .AND. HB_ISBLOCK(::bOnActivate)
             hwg_Postmessage(::Handle, WM_ACTIVATE, hwg_Makewparam(WA_ACTIVE, 0), ::handle)
          ENDIF
       ENDIF
@@ -523,7 +523,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    ENDIF
 
    IF !oDlg:lModal
-      IF ValType(oDlg:bOnActivate) == "B"
+      IF HB_ISBLOCK(oDlg:bOnActivate)
          Eval(oDlg:bOnActivate, oDlg)
       ENDIF
    ENDIF
@@ -744,7 +744,7 @@ STATIC FUNCTION onActivate(oDlg, wParam, lParam)
       RETURN 0
    ENDIF
    IF iParLow == WA_ACTIVE .AND. hwg_Selffocus(lParam, oDlg:Handle)
-      IF ValType(oDlg:bOnActivate) == "B"
+      IF HB_ISBLOCK(oDlg:bOnActivate)
          //- oDlg:lSuspendMsgsHandling := .T.
          Eval(oDlg:bOnActivate, oDlg)
          //-oDlg:lSuspendMsgsHandling := .F.

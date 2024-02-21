@@ -388,7 +388,7 @@ METHOD Show(nMode, p1, p2, p3) CLASS HFormTmpl
    oDlg := ::oDlg
 
    FOR i := 1 TO Len(::aMethods)
-      IF (cType := ValType(::aMethods[i, 2])) == "B"
+      IF (cType := HB_ISBLOCK(::aMethods[i, 2]))
          block := ::aMethods[i, 2]
       ELSEIF cType == "A"
          block := ::aMethods[i, 2, 1]
@@ -944,7 +944,7 @@ STATIC FUNCTION CreateCtrl(oParent, oCtrlTmpl, oForm)
       ENDIF
    NEXT
    FOR i := 1 TO Len(oCtrlTmpl:aMethods)
-      IF (cType := ValType(oCtrlTmpl:aMethods[i, 2])) == "B"
+      IF (cType := HB_ISBLOCK(oCtrlTmpl:aMethods[i, 2]))
          __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2])
       ELSEIF cType == "A"
          __mvPut(oCtrlTmpl:aMethods[i, 1], oCtrlTmpl:aMethods[i, 2, 1])

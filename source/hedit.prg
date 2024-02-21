@@ -223,7 +223,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
             ENDIF
             RETURN 0
          ELSEIF msg == WM_CHAR
-            IF !hwg_Checkbit(lParam, 32) .AND. ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
+            IF !hwg_Checkbit(lParam, 32) .AND. ::bKeyDown != Nil .AND. HB_ISBLOCK(::bKeyDown)
                nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += iif(hwg_Checkbit(lParam, 28), 4, nShiftAltCtrl)
@@ -290,7 +290,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
 
          ELSEIF msg == WM_KEYDOWN
             IF ((hwg_Checkbit(lParam, 25) .AND. wParam != 111) .OR. (wParam > 111 .AND. wParam < 124)) .AND. ;
-                  ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
+                  ::bKeyDown != Nil .AND. HB_ISBLOCK(::bKeyDown)
                nShiftAltCtrl := iif(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += iif(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += iif(wParam > 111, 4, nShiftAltCtrl)
@@ -447,7 +447,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
          ELSEIF wParam == VK_ESCAPE
             RETURN - 1
          ENDIF
-         IF ::bKeyDown != Nil .AND. ValType(::bKeyDown) == "B"
+         IF ::bKeyDown != Nil .AND. HB_ISBLOCK(::bKeyDown)
             IF !Eval(::bKeyDown, Self, wParam)
                RETURN 0
             ENDIF
