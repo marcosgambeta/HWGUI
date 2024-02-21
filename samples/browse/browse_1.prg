@@ -43,7 +43,7 @@ FUNCTION BrowseTest()
             ON KEYDOWN {|o,key| BrowseKey(o, key) } ;
             ON UPDATE {|oBrow, Colpos| BrowseUpdate(oBrow, colpos) } ;
             ON POSCHANGE {|| BrowseMove() }
-   PUBLIC TENTA:=1
+   PUBLIC TENTA := 1
    ADD COLUMN FieldBlock(Fieldname(1) ) TO oBrowse ;
         HEADER "Code";
         TYPE "N";

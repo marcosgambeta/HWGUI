@@ -4,12 +4,12 @@
 **************************
 FUNCTION pesquisaglobal()
 **************************
-LOCAL oDlgPesq,getpesq,ocomb,atu:=1
+LOCAL oDlgPesq,getpesq,ocomb,atu := 1
 local oIcon := HIcon():AddRESOURCE("SEARCHICON")
-local oDir:=directory(DiskName()+":\*.","D",.T.) // pegando diretirio
-private rd_pesq:="",;
-        diretorio :={},;
-        resultado:="",;
+local oDir := directory(DiskName()+":\*.","D", .T.) // pegando diretirio
+private rd_pesq := "",;
+        diretorio := {},;
+        resultado := "",;
         get01
 //
 for f = 1 to len(oDir) // filtrando diretorios
@@ -19,13 +19,13 @@ for f = 1 to len(oDir) // filtrando diretorios
 next f
  //
 asort(diretorio)
-for g:= 1 to len(diretorio) // pegando diretorio atual
+for g := 1 to len(diretorio) // pegando diretorio atual
        if upper(diretorio[g]) =DiskName()+":\"+upper(curdir()+"\")
-          atu:=g
+          atu := g
        endif
 next g
  //
- oComb:=atu
+ oComb := atu
  //
  INIT DIALOG oDlgPesq TITLE "Pesquisa Gobal" ICON oIcon;
         AT 26, 136 SIZE 694, 456
@@ -42,37 +42,37 @@ RETURN
 *****************************
 function pesq(rd_dir,rd_text)
 *****************************
-local arquivos:=directory(rd_dir+"*.prg","D",.T.) // pegando arquivos
-local nom_arq:={}
-local s_lEof:=.F.
-private arq_contem:={},;
-        result:=""
+local arquivos := directory(rd_dir + "*.prg", "D", .T.) // pegando arquivos
+local nom_arq := {}
+local s_lEof := .F.
+private arq_contem := {},;
+        result := ""
 //
-for f:= 1 to len(arquivos) // filtrando arquivos
+for f := 1 to len(arquivos) // filtrando arquivos
     if arquivos[f, 1] != "." .and. arquivos[f, 1] != ".."
        aadd(nom_arq,arquivos[f, 1])
     endif
 next f
 //
 asort(nom_arq)
-resultado:=""
+resultado := ""
 get01:refresh()
 //
 for g := 1 to len(nom_arq)
-  arq:=FT_FUSE(rd_dir+nom_arq[g])
+  arq := FT_FUSE(rd_dir+nom_arq[g])
   //
-  resultado:=resultado+nom_arq[g]+chr(13)+chr(10)
+  resultado := resultado+nom_arq[g]+chr(13)+chr(10)
   get01:refresh()
   //
-  lin:=0
+  lin := 0
   while ! FT_FEOF()
-     linha :=upper(Substr(FT_FReadLn(@s_lEof), 1))
+     linha := upper(Substr(FT_FReadLn(@s_lEof), 1))
      //
-     texto:=upper(rd_text)
+     texto := upper(rd_text)
      //
      //hwg_Msginfo(linha)
      if at (texto,linha) != 0
-         resultado:=resultado+str(lin, 6)+":"+linha +chr(13)+chr(10)
+         resultado := resultado+str(lin, 6)+":"+linha +chr(13)+chr(10)
          get01:refresh()
      endif
      //

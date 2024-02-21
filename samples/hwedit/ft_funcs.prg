@@ -115,7 +115,7 @@ FUNCTION FT_FUSE(cFile AS STRING, nMode AS NUMERIC)
          theHandle := HBMake_FileBase():new(cFile):open()
       ENDIF
    ENDIF
-   nHandle:= theHandle:nHan
+   nHandle := theHandle:nHan
 RETURN nHandle
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
@@ -211,7 +211,7 @@ RETURN nil
 *+
 FUNCTION StrPos(cBuffer AS STRING)
 
-   LOCAL nPos AS NUMERIC :=0
+   LOCAL nPos AS NUMERIC := 0
    LOCAL x   AS NUMERIC
    LOCAL cChar AS STRING
    FOR x := 1 TO LEN(cBuffer)

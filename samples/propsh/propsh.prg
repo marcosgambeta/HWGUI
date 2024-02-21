@@ -30,7 +30,7 @@ Local aSample1 := {{"Alex", 17}, {"Victor", 42}, {"John", 31}}
 Local aSample2 := {{"Line 1", 10}, {"Line 2", 22}, {"Line 3", 40}}
 Local e1 := "Xxxx"
 
-   INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"),.T.}
+   INIT DIALOG aDlg1 FROM RESOURCE  "PAGE_1" ON EXIT {||hwg_Msginfo("Exit"), .T.}
    REDEFINE GET e1 ID 103
 
    INIT DIALOG aDlg2 FROM RESOURCE  "PAGE_2" ON EXIT {||.T.}

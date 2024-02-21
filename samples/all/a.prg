@@ -32,8 +32,8 @@ FUNCTION Main()
          MENUITEM "&New" ACTION CreateChildWindow()
          MENUITEM "&Open" ACTION FileOpen()
          SEPARATOR
-         MENUITEM "&Font" ACTION oFont:=HFont():Select(oFont)
-         MENUITEM "&Color" ACTION (nColor:=Hwg_ChooseColor(nColor,.F.), ;
+         MENUITEM "&Font" ACTION oFont := HFont():Select(oFont)
+         MENUITEM "&Color" ACTION (nColor := Hwg_ChooseColor(nColor, .F.), ;
                      hwg_Msginfo(Iif(nColor!=Nil,str(nColor),"--"),"Color value"))
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
@@ -51,7 +51,7 @@ FUNCTION Main()
          MENUITEM "&MdiChild from prg" ACTION MdiChildFromPrg()
          MENUITEM "&DOS print" ACTION PrintDos()
          // MENUITEM "&Windows print" ;
-         //       ACTION Iif(OpenReport("a.rpt","Simple"),PrintReport(,,.T.),.F.)
+         //       ACTION Iif(OpenReport("a.rpt", "Simple"), PrintReport(, , .T.), .F.)
          MENUITEM "&Print Preview" ACTION PrnTest()
          MENUITEM "&Sending e-mail using Outlook" ACTION Sendemail("test@test.com")
          MENUITEM "&Command ProgressBar" ACTION TestProgres()
@@ -86,7 +86,7 @@ FUNCTION CreateChildWindow()
    Local e1 := "Dialog from prg"
    Local e2 := Date()
    Local e3 := 10320.54
-   Local e4:="11222333444455"
+   Local e4 := "11222333444455"
    Local e5 := 10320.54
 
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
@@ -148,9 +148,9 @@ FUNCTION MdiChildFromPrg(o)
 
    RADIOGROUP
    @ 180, 90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("0000FF"), , .T.)}
    @ 180, 115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("FF0000"), , .T.)}
    END RADIOGROUP SELECTED 2
 
    @ 20, 120 COMBOBOX aCombo STYLE WS_TABSTOP SIZE 120, 24
@@ -181,7 +181,7 @@ RETURN NIL
 
 FUNCTION NoExit()
 
-   Local oDlg, oGet, vGet:="Dialog if no close in ENTER or EXIT"
+   Local oDlg, oGet, vGet := "Dialog if no close in ENTER or EXIT"
 
    INIT DIALOG oDlg TITLE "No Exit Enter and Esc" AT 190, 10 SIZE 360, 240 NOEXIT NOEXITESC
 
@@ -287,7 +287,7 @@ FUNCTION FileOpen()
          ON EXIT {|o|Fileclose(o)}
 
       MENU OF oModDlg
-         MENUITEM "&Font" ACTION (oBrw:oFont:=HFont():Select(oFont),oBrw:Refresh())
+         MENUITEM "&Font" ACTION (oBrw:oFont := HFont():Select(oFont),oBrw:Refresh())
          MENUITEM "&Exit" ACTION hwg_EndDialog(oModDlg:handle)
       ENDMENU
 
@@ -400,9 +400,9 @@ FUNCTION DialogFromPrg(o)
 
    RADIOGROUP
    @ 180, 90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("0000FF"), , .T.)}
    @ 180, 115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oEdit:SetColor(hwg_VColor("FF0000"), , .T.)}
    END RADIOGROUP SELECTED 2
 
    @ 20, 120 COMBOBOX aCombo STYLE WS_TABSTOP ;
@@ -458,8 +458,8 @@ hwg_Shellexecute("rundll32.exe", "open", ;
 FUNCTION TestTab()
 
    Local oDlg, oTAB
-   Local oGet1, oGet2, oVar1:="1", oVar2:="2"
-   Local oGet3, oGet4, oVar3:="3", oVar4:="4", oGet5, oVar5 := "5"
+   Local oGet1, oGet2, oVar1 := "1", oVar2 := "2"
+   Local oGet3, oGet4, oVar3 := "3", oVar4 := "4", oGet5, oVar5 := "5"
 
    INIT DIALOG oDlg CLIPPER NOEXIT AT 0, 0 SIZE 200, 200
 
@@ -510,7 +510,7 @@ FUNCTION TestProgres()
    ADD STATUS oStatus TO oDlg PARTS 400
 
    oBar   := HProgressBar():New(ostatus,, 0, 2, 200, 20, 200, 1000, hwg_Rgb(12, 143, 243),hwg_Rgb(243, 132, 143))
-   oCombo := HComboBox():New(ostatus,,,, 65536, 0, 2, 200, 20,aCombo,,,,,,,.F.,.F.,,,)
+   oCombo := HComboBox():New(ostatus,,,, 65536, 0, 2, 200, 20,aCombo,,,,,,, .F., .F.,,,)
 
    @ 10, 60  BUTTON "Test" SIZE 100, 32 ON CLICK {|| MudeProg(oBar) }
 
@@ -520,7 +520,7 @@ RETURN NIL
 
 FUNCTION MudeProg(ostatus)
 
-   Local ct:=1
+   Local ct := 1
 
    Do while ct<1001
       oProg:Step()

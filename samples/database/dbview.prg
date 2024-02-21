@@ -189,7 +189,7 @@ Memvar oBrw, oFont
        FONT oFont                   ;
        STYLE WS_BORDER+WS_VSCROLL + WS_HSCROLL ;
        ON SIZE {|o,x,y|o:Move(,,x,y)} ;
-       ON CLICK {|o|nChoice:=o:nCurrent,hwg_EndDialog(o:oParent:handle)}
+       ON CLICK {|o|nChoice := o:nCurrent,hwg_EndDialog(o:oParent:handle)}
 
    oBrowse:aArray := aIndex
    oBrowse:AddColumn(HColumn():New("OrdName", {|v,o|o:aArray[o:nCurrent, 1]}, "C", 10, 0))
@@ -236,7 +236,7 @@ Memvar oBrw
    @ 10, 135 SAY "Condition:" SIZE 100, 22
    @ 10, 157 GET cCond SIZE 280, 24
 
-   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @  30, 210  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T.,hwg_EndDialog()}
    @ 170, 210 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    oDlg:Activate()
@@ -380,7 +380,7 @@ Memvar oBrw, currentCP, currFname
    @ 200, 270 BUTTON "Change" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 3)}
    @ 290, 270 BUTTON "Remove" SIZE 80, 30 ON CLICK {||UpdStru(oBrowse,oGet1,oGet2,oGet3,oGet4, 4)}
 
-   @ 280, 10  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult:=.T.,hwg_EndDialog()}
+   @ 280, 10  BUTTON "Ok" SIZE 100, 32 ON CLICK {||oDlg:lResult := .T.,hwg_EndDialog()}
    @ 280, 50 BUTTON "Cancel" SIZE 100, 32 ON CLICK {||hwg_EndDialog()}
 
    ACTIVATE DIALOG oDlg

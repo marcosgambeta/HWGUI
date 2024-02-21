@@ -79,7 +79,7 @@ Function TestDosClass(oTest)
 
 If hwg_Msgyesno("Printing PrintDos Class to "+Iif(oTest==Nil,"LPT1",oTest),"PrintDos Class Demo")
 
-   oPrint:=Printdos():New(oTest)   //oTest=Nil LPT1  
+   oPrint := Printdos():New(oTest)   //oTest=Nil LPT1  
    
    oPrint:Say(0,  1,  "LINE 0 COL 1")
    oPrint:Say(10, 11, "LINE 10 COL 11")
@@ -166,7 +166,7 @@ Function TestPrinterFile(oTest)
 
 If hwg_Msgyesno("Printing File "+oTest)
 
-   oPrint:=Printdos():New()   //oTest=Nil LPT1
+   oPrint := Printdos():New()   //oTest=Nil LPT1
    oPrint:PrinterFile(oTest)
    oPrint:End()
 
@@ -177,7 +177,7 @@ Return Nil
 Function TestGraphic()
 Local oPrint, oPrint1
 
-oPrint:=Printdos():New("Graphic.txt")
+oPrint := Printdos():New("Graphic.txt")
 
 oPrint:Say(0, 0, "*************************************************************************************")
 oPrint:Say(1, 0, "* Example to conversion")
@@ -207,8 +207,8 @@ oPrint:Eject()
 oPrint:Say(0, 0, "New Page 02")
 oPrint:end()
 
-oPrint1:=Printdos():New("GRAPHIC")
-oPrint1:txttoGraphic("Graphic.txt", -6,.T.) //Parameters Name graphic, Size, Preview
+oPrint1 := Printdos():New("GRAPHIC")
+oPrint1:txttoGraphic("Graphic.txt", -6, .T.) //Parameters Name graphic, Size, Preview
 
 oPrint1:End()
 Return Nil
@@ -216,7 +216,7 @@ Return Nil
 Function TestPreview()
 Local oPrint, oPrint1
 
-oPrint:=Printdos():New("Preview.txt")
+oPrint := Printdos():New("Preview.txt")
 
 oPrint:Say(0, 0, "*************************************************************************************")
 oPrint:Say(1, 0, "* Example to conversion")
@@ -248,7 +248,7 @@ oPrint:Eject()
 oPrint:Say(0, 0, "New Page 03")
 oPrint:end()
 
-oPrint1:=Printdos():New("PREVIEW")
+oPrint1 := Printdos():New("PREVIEW")
 oPrint1:Preview("Preview.txt")
 oPrint1:End()
 
@@ -260,7 +260,7 @@ Local oPrinter
 If hwg_Msgyesno("Printing InkJet/DeskJet "+Iif(oTest==Nil,"LPT1",oTest),"PrintDos Class Demo")
 
    SET PRINTER TO oTest OF oPrinter
-   oPrinter:oPrintStyle:=3
+   oPrinter:oPrintStyle := 3
    oPrinter:Double()
    @  0,  1 PSAY  "LINE 0 COL 1"  OF oPrinter
    @ 10, 11 PSAY "LINE 10 COL 11" OF oPrinter

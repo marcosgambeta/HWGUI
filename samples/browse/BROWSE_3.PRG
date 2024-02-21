@@ -15,8 +15,8 @@
 
 FUNCTION Main()
 
-   Local oArq1:={{"COD", "C", 3, 0}}
-   Local oArq2:={{"COD1", "C", 3, 0},{"NOME", "C", 30, 0}}
+   Local oArq1 := {{"COD", "C", 3, 0}}
+   Local oArq2 := {{"COD1", "C", 3, 0},{"NOME", "C", 30, 0}}
    Local oDlg, i
 
    PRIVATE oBrowse, oSai, oConsulta
@@ -34,22 +34,22 @@ FUNCTION Main()
    index on COD1 to teste1
    Select Teste
    Append Blank
-   Teste->COD:="001"
+   Teste->COD := "001"
    Append Blank
-   Teste->COD:="002"
+   Teste->COD := "002"
    Append Blank
-   Teste->COD:="003"
+   Teste->COD := "003"
    Append Blank
-   Teste->COD:="004"
+   Teste->COD := "004"
    Select Teste1
    Append Blank
-   Teste1->COD1:="001"; Teste1->NOME:="PRIMEIRO NOME"
+   Teste1->COD1 := "001"; Teste1->NOME := "PRIMEIRO NOME"
    Append Blank
-   Teste1->COD1:="002"; Teste1->NOME:="SEGUNDO NOME"
+   Teste1->COD1 := "002"; Teste1->NOME := "SEGUNDO NOME"
    Append Blank
-   Teste1->COD1:="003"; Teste1->NOME:="TERCEIRO NOME"
+   Teste1->COD1 := "003"; Teste1->NOME := "TERCEIRO NOME"
    Append Blank
-   Teste1->COD1:="004"; Teste1->NOME:="QUARTO NOME"
+   Teste1->COD1 := "004"; Teste1->NOME := "QUARTO NOME"
 
    SELECT TESTE
 
@@ -66,13 +66,13 @@ FUNCTION Main()
 
    oBrowse:alias   := "Teste"
    oBrowse:aColumns := {}
-   oBrowse:nFootRows:=2
+   oBrowse:nFootRows := 2
 
    Teste_CreateColumn(oBrowse, "COD", "CODIGO", "TESTE", 1,"C", 3, 0)
    Teste_CreateColumn(oBrowse, "NOME","NOME",   "TESTE1", 1,"C", 30, 0)
-   oBrowse:acolumns[2]:footing:="test;test2"
-   oBrowse:acolumns[2]:bColorfoot:={|| {x_BLUE,x_RED}}
-   oBrowse:acolumns[2]:nJusFoot:=DT_CENTER
+   oBrowse:acolumns[2]:footing := "test;test2"
+   oBrowse:acolumns[2]:bColorfoot := {|| {x_BLUE,x_RED}}
+   oBrowse:acolumns[2]:nJusFoot := DT_CENTER
 
    oBrowse:Refresh()
 

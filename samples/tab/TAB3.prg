@@ -4,7 +4,7 @@ FUNCTION _Main()
 
    PRIVATE oRadiogroup1, oL     , oRadiobutton1, oRadiobutton2, oPage , oLabel1, oLabel4, oLabel3, oLabel2
 
-   cUser:="1"
+   cUser := "1"
 
    INIT DIALOG oDlg TITLE "Form1" ;
         AT 422, 66 SIZE 500, 400 ;
@@ -20,7 +20,7 @@ FUNCTION _Main()
 
    @ 315, 43 SAY oL      CAPTION "Label" SIZE 147, 22
    @ 27, 113 TAB oPage  ITEMS {} SIZE 455, 238   ;
-        ON INIT {|oCtrl| oCtrl:bChange:={|o,nPage|   Protek(o,nPage) } }
+        ON INIT {|oCtrl| oCtrl:bChange := {|o,nPage|   Protek(o,nPage) } }
   BEGIN PAGE "Tab1" OF oPage
    @ 40, 62 SAY oLabel1 CAPTION "Here Page 1" OF oPage  SIZE 225, 22
   END PAGE OF oPage
@@ -43,16 +43,16 @@ RETURN NIL
 
 STATIC function protek
  parameters o,n
- private lOpen:=.T.
+ private lOpen := .T.
 
 
  if cUser=="1" .and. n==2
-    lOpen:=.F.
+    lOpen := .F.
  endif
 
 
  if cUser=="2" .and. n==1
-    lOpen:=.F.
+    lOpen := .F.
  endif
 
 
@@ -78,12 +78,12 @@ oPage:ShowPage(4)
 RETURN Nil
 
 STATIC FUNCTION oRadiobutton1_onClick
-cUser:="1"
+cUser := "1"
 oL:settext("only 1,3")
 RETURN Nil
 
 STATIC FUNCTION oRadiobutton2_onClick
-cUser:="2"
+cUser := "2"
 oL:settext("only 2,3")
 
 RETURN Nil

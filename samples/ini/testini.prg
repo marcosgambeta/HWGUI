@@ -10,7 +10,7 @@
 FUNCTION Main()
 
    Local oMainWindow
-   Local cIniFile:="HwGui.ini"
+   Local cIniFile := "HwGui.ini"
 
    //Create the inifile
    if !file(cIniFile)
@@ -34,7 +34,7 @@ FUNCTION Main()
 RETURN NIL
 
 Function ReadIni()
-Local cIniFile:="HwGui.ini"
+Local cIniFile := "HwGui.ini"
 hwg_Msginfo(Hwg_GetIni("Config", "WallParer", , cIniFile))
 hwg_Msginfo(Hwg_GetIni("Config", "DirHwGUima",, cIniFile))
 hwg_Msginfo(Hwg_GetIni("Print",  "Spoll", , cIniFile))

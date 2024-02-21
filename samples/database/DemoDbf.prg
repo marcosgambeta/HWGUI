@@ -46,10 +46,10 @@ RETURN NIL
 *---------------------------------------------------------------------------------------
 Function Cadastro()
 *---------------------------------------------------------------------------------------
-Local Tel_Ferramentas, oPanel, oFontBtn, Titulo:="Tab Forneced"
+Local Tel_Ferramentas, oPanel, oFontBtn, Titulo := "Tab Forneced"
 Private Gt_Cod, Gt_Name, Gt_Adress, Gt_Fone, Gt_e_Mail
 Private oCod, oName, oAdress, oFone, oe_Mail //Declaracao das variaveis de tabela
-Private oOper:=1
+Private oOper := 1
 Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDelete, oBotClose, oBotPrint
 
    PREPARE FONT oFontBtn NAME "Arial" WIDTH 0 HEIGHT -12
@@ -172,21 +172,21 @@ Return Nil
 Function CreateVariable()
 *---------------------------------------------------------------------------------------
 
-oCod:=SPACE(5)
-oName:=SPACE(50)
-oAdress:=SPACE(50)
-oFone:=SPACE(50)
-oe_Mail:=SPACE(30)
+oCod := SPACE(5)
+oName := SPACE(50)
+oAdress := SPACE(50)
+oFone := SPACE(50)
+oe_Mail := SPACE(30)
 GetRefresh()
 OpenGets()
-oOper:=1 //Operacao para Inclusao
+oOper := 1 //Operacao para Inclusao
 Return Nil
 
 *---------------------------------------------------------------------------------------
 Function GetRefresh()
 *---------------------------------------------------------------------------------------
 
-Local oDlg:=hwg_GetModalHandle()
+Local oDlg := hwg_GetModalHandle()
 Gt_Cod:Refresh()
 Gt_Name:Refresh()
 Gt_Adress:Refresh()
@@ -198,11 +198,11 @@ Return Nil
 Function GetVars()
 *---------------------------------------------------------------------------------------
 
-oCod   :=TabDbf->Cod
-oName    :=TabDbf->Name
-oAdress :=TabDbf->Adress
-oFone :=TabDbf->Fone
-oe_Mail :=TabDbf->e_Mail
+oCod    := TabDbf->Cod
+oName    := TabDbf->Name
+oAdress := TabDbf->Adress
+oFone := TabDbf->Fone
+oe_Mail := TabDbf->e_Mail
 Return Nil
 
 *---------------------------------------------------------------------------------------
@@ -211,29 +211,29 @@ Function SaveTab()
 
 if oOper=1
    Select TabDbf
-   oCod:=StrZero(val(oCod), 3)
+   oCod := StrZero(val(oCod), 3)
    Seek oCod
    If Found()
       hwg_Msginfo("Cod."+oCod+" no valid...","Mensagem")
       Return Nil
    Endif
    Append Blank
-   TabDbf->Cod:=oCod
-   TabDbf->Name:=oName
-   TabDbf->Adress:=oAdress
-   TabDbf->Fone:=oFone
-   TabDbf->e_Mail:=oe_Mail
+   TabDbf->Cod := oCod
+   TabDbf->Name := oName
+   TabDbf->Adress := oAdress
+   TabDbf->Fone := oFone
+   TabDbf->e_Mail := oe_Mail
    Unlock
 Else
    RLock()
-   TabDbf->Name:=oName
-   TabDbf->Adress:=oAdress
-   TabDbf->Fone:=oFone
-   TabDbf->e_Mail:=oe_Mail
+   TabDbf->Name := oName
+   TabDbf->Adress := oAdress
+   TabDbf->Fone := oFone
+   TabDbf->e_Mail := oe_Mail
    Unlock
 EndIf
 CloseGets()
-oOper:=1
+oOper := 1
 Return Nil
 
  
@@ -277,9 +277,9 @@ Return Nil
 Function OpenDbf()
 *---------------------------------------------------------------------------------------
 
-Local vTab:={}
-Local vArq:=oDir+"FORNECED.DBF"
-Local vInd1:=oDir+"FORNECED.NTX"
+Local vTab := {}
+Local vArq := oDir+"FORNECED.DBF"
+Local vInd1 := oDir+"FORNECED.NTX"
 
 If !File(vArq)
    AADD(vTab,{"Cod    ", "C", 3, 0 })

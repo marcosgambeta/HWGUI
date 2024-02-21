@@ -41,9 +41,9 @@ Local aIP := {10, 1, 2, 3}
 
    GET RADIOGROUP r1
    @ 180, 90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"), , .T.)}
    @ 180, 115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"), , .T.)}
    END RADIOGROUP
 
    @ 20, 120 GET COMBOBOX cm ITEMS aCombo SIZE 100, 150

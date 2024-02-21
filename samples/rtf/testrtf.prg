@@ -8,7 +8,7 @@
 #include "richtext.ch"
 #include "hwgui.ch"
 
-STATIC oPrinter,aSize:={280, 220}
+STATIC oPrinter,aSize := {280, 220}
 
 FUNCTION Main()
 
@@ -48,7 +48,7 @@ LOCAL j, aMarca, lFormato := .F.
    //      Open the output file & set some defaults
 
 
-   cOutFile:=alltrim(cOutFile)
+   cOutFile := alltrim(cOutFile)
 
    oRtf := SetupRTF(cOutFile)
 
@@ -109,7 +109,7 @@ LOCAL j, aMarca, lFormato := .F.
         CHARACTER "*";//        AUTO;
         UPPER
 
-   cTexto:=".La unica forma que he encontrado para introducir imagenes. Sin utilizar"
+   cTexto := ".La unica forma que he encontrado para introducir imagenes. Sin utilizar"
    ctexto+=" C, es enlazandolas sin introducirlas en el documento realmente. Es por eso"
    ctexto+=" que esta posibilidad no se muestra aqui."
 
@@ -123,11 +123,11 @@ LOCAL j, aMarca, lFormato := .F.
    // Nueva definicion de tablas. Habia algunas propiedades de las celdas
    // que hacia que el MSWORD se quedara colgado.
 
-   anchos:={1.0, 1.0, 1.0, 1.2, 1.0, 1.0, 1.0, 1.5, 1.7}
+   anchos := {1.0, 1.0, 1.0, 1.2, 1.0, 1.0, 1.0, 1.5, 1.7}
    aMarca=ARRAY(9)
    AFILL(aMarca, 0)
-   aMarca[7]:=25
-   aMarca[9]:=25
+   aMarca[7] := 25
+   aMarca[9] := 25
 		DEFINE NEWTABLE oRTF ;              // Specify the RTF object
 			ALIGN CENTER ;                // Center table horizontally on page
 			FONTNUMBER 2 ;                // Use font #2 for the body rows
@@ -153,15 +153,15 @@ LOCAL j, aMarca, lFormato := .F.
                         FOR i=1 TO 40
                                        IF i==6
    // Se puede cambiar el formato de una celda individual en tiempo de ejecucion.
-			                        aMarca[5]:=1500
-			                        aMarca[7]:=2500
-			                        aMarca[9]:=2500
+			                        aMarca[5] := 1500
+			                        aMarca[7] := 2500
+			                        aMarca[9] := 2500
 						DEFINE CELL FORMAT oRTF ;
 							CELLSHADE aMarca
-			                        lFormato:=.T.
+			                        lFormato := .T.
 			                ELSEIF lFormato
 						DEFINE CELL FORMAT oRTF
-			                        lFormato:=.F.
+			                        lFormato := .F.
 			                ENDIF
 
                                 FOR j=1 TO 9
@@ -194,7 +194,7 @@ STATIC FUNCTION SetupRTF(cOutFile)
 * 01/28/97   TRM         Creation
 *
 *********************************************************************
-LOCAL oRTF,i,nWidth:=0,lLandScape:=.F.
+LOCAL oRTF,i,nWidth := 0,lLandScape := .F.
 LOCAL  ancpag
 MEMVAR nom_hosp1,nom_hosp2,nom_ser
 MEMVAR cNomUser

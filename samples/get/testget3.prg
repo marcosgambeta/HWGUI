@@ -25,7 +25,7 @@ Local cRes, aCombo := {"First", "Second"}
 Local oGet
 Local e1 := "Dialog from prg", c1 := .F., c2 := .T., r1 := 2, cm := 1
 Local upd := 12, d1 := Date()+1
-//Local aitem :={{2, 701, 0x04, 0x0000, 0, "teste1", {|x,y|DlgGet()}},{3, 702, 0x04, 0x0000, 0,"teste2",},{-1, 702, 0x04, 0x0000, 0,"teste3",}}
+//Local aitem := {{2, 701, 0x04, 0x0000, 0, "teste1", {|x,y|DlgGet()}},{3, 702, 0x04, 0x0000, 0,"teste2",},{-1, 702, 0x04, 0x0000, 0,"teste3",}}
 Local otool
 Local omenu,omenu1
 Local amenu
@@ -82,9 +82,9 @@ MENUBARITEM  amenu CAPTION "teste2" ON 906 ACTION {||.T.}
 
    GET RADIOGROUP r1
    @ 180, 130 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"), , .T.)}
    @ 180, 155 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"), , .T.)}
    END RADIOGROUP
 
    @ 20, 160 GET COMBOBOX cm ITEMS aCombo SIZE 100, 24
@@ -114,13 +114,13 @@ PROC HB_GT_DEFAULT_GUI; RETURN
 function CreateBar(oModDlg,otool)
 //Local hTool
 //Local aItem := {{-1, 701, 0x04, 0x0000, 0, "teste1"},{-1, 702, 0x04, 0x0000, 0, "teste2"},{-1, 703, 0x04, 0x0000, 0, "teste3"}}
-Local aitem :={{2, 701, 0x04, 0x0000, 0, "teste1",{|x,y|DlgGet()},"teste"},{3, 702, 0x04, 0x0000, 0, "teste2",,"rtrt"},{-1, 702, 0x04, 0x0000, 0, "teste3",,"teste222"}}
+Local aitem := {{2, 701, 0x04, 0x0000, 0, "teste1",{|x,y|DlgGet()},"teste"},{3, 702, 0x04, 0x0000, 0, "teste2",,"rtrt"},{-1, 702, 0x04, 0x0000, 0, "teste3",,"teste222"}}
 //Local pItem
 //
 //  hTool := hwg_Createtoolbar(oModDlg:handle, 700, 0, 0, 0, 50, 100)
-// //  pItem :=  hwg_Toolbaraddbuttons(hTool,aTool,len(aTool))
+// //  pItem := hwg_Toolbaraddbuttons(hTool,aTool,len(aTool))
  //
-//   otool:=Htoolbar():New(,,, 0, 0, 50, 100, "Input something:",,,,,,,,.F., aitem)
+//   otool := Htoolbar():New(,,, 0, 0, 50, 100, "Input something:",,,,,,,, .F., aitem)
 //   oTool:oParent:AddEvent(BN_CLICKED, 701,{|x,y|DlgGet()})
 /*   @ 0, 0 toolbar oTool of oModDlg size 50, 100 ID 700 items aItem
    
@@ -156,6 +156,6 @@ return nil
 #include "hbclass.ch"
 class mymenu
 data handle
-method new(c) inline ::handle :=c,self
+method new(c) inline ::handle := c,self
 endclass
 

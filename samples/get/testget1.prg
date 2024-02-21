@@ -37,9 +37,9 @@ Local h1 := hbitmap():addFile("..\image\exit.bmp")
 
    GET RADIOGROUP r1
    @ 180, 90 RADIOBUTTON "Radio 1"  ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("0000FF"), , .T.)}
    @ 180, 115 RADIOBUTTON "Radio 2" ;
-        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"),,.T.)}
+        SIZE 90, 20 ON CLICK {||oGet:SetColor(hwg_VColor("FF0000"), , .T.)}
    END RADIOGROUP
 
    @ 20, 120 GET COMBOBOXEX cm ITEMS aCombo SIZE 100, 150 CHECK {1, 3, 5}

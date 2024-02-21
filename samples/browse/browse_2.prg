@@ -60,7 +60,7 @@ RETURN NIL
 
 STATIC FUNCTION CreateDB()
 
-    Local i, letra:=100
+    Local i, letra := 100
 
     if file("test.dbf")
             FErase("test.dbf")

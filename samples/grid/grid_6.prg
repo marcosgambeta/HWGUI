@@ -33,14 +33,14 @@ FUNCTION Main()
 RETURN NIL
 
 Function Test()
-Local aHead :={}
+Local aHead := {}
 Local n
-Local aItems :={}
+Local aItems := {}
 Local aStru
 
 use test new
 aStru := dbstruct()
-for n :=1 to len(astru)
+for n := 1 to len(astru)
    aadd(aHead,aStru[n, 1])
 next
 go Top
@@ -72,7 +72,7 @@ enddo
              ADD COLUMN TO GRID oGrid HEADER aHead[3] WIDTH 150  bitmap 3
              ADD COLUMN TO GRID oGrid HEADER aHead[4] WIDTH 150  bitmap 4
 
-             for n:=1 to len(aItems)
+             for n := 1 to len(aItems)
                 ADDROWEX TO GRID oGrid ;
                    HEADER aItems[n, 1] BITMAP 0 COLOR hwg_Rgb(255, 12, 123) BACKCOLOR hwg_Rgb(192, 0, 255), ;
                    HEADER aItems[n, 2], ;

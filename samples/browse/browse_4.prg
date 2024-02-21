@@ -12,7 +12,7 @@
 
 FUNCTION Main()
 
-   Local aField:={{"CODIGO", "N", 3, 0},{"NOME", "C", 30, 0}}
+   Local aField := {{"CODIGO", "N", 3, 0},{"NOME", "C", 30, 0}}
    Local oDlg, i
 
    PRIVATE oBrowse, oSai, oConsulta
@@ -22,10 +22,10 @@ FUNCTION Main()
       dBCreate("browse_4.dbf", aField)
    end
    Use browse_4 Exclusiv alias TESTE  NEW
-   for i:=1 to 200
+   for i := 1 to 200
       Append Blank
-      Teste->CODIGO:=i
-      TESTE->NOME:= "NOME " + ALLTRIM(STR(I))
+      Teste->CODIGO := i
+      TESTE->NOME := "NOME " + ALLTRIM(STR(I))
    end
    go top
 

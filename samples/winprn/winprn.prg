@@ -55,17 +55,17 @@ Local oWinPrn, i
    oWinPrn:PrintLine()
    oWinPrn:PrintLine()
 
-   oWinPrn:SetMode(.F.,.T.)
+   oWinPrn:SetMode(.F., .T.)
    oWinPrn:PrintLine("A12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678Z")
    oWinPrn:PrintLine("A123456789012345678901234567890123456789012345678901234567890123456789012345678Z")
    oWinPrn:PrintLine()
    oWinPrn:PrintLine()
 
-   oWinPrn:SetMode(.T.,.T.)
+   oWinPrn:SetMode(.T., .T.)
    oWinPrn:PrintLine("A12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678Z")
    oWinPrn:PrintLine("A123456789012345678901234567890123456789012345678901234567890123456789012345678Z")
 
-   oWinPrn:SetMode(.F.,.F.)
+   oWinPrn:SetMode(.F., .F.)
    oWinPrn:NextPage()
    oWinPrn:PrintLine(oWinPrn:oFont:name + " " + Str(oWinPrn:oFont:height) + " " + Str(oWinPrn:nCharW) + " " + Str(oWinPrn:nLineHeight))
    FOR i := 1 TO 80
