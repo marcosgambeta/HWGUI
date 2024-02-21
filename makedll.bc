@@ -62,6 +62,7 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\hgroup.obj \
    $(OBJ_DIR)\hgroupex.obj \
    $(OBJ_DIR)\hbuttonx.obj \
+   $(OBJ_DIR)\hstatic.obj \
    $(OBJ_DIR)\hstaticex.obj \
    $(OBJ_DIR)\hbutton.obj \
    $(OBJ_DIR)\hbuttonex.obj \

@@ -47,6 +47,7 @@
 {win}source/hgroup.prg
 {win}source/hgroupex.prg
 {win}source/hbuttonx.prg
+{win}source/hstatic.prg
 {win}source/hstaticex.prg
 {win}source/hbutton.prg
 {win}source/hbuttonex.prg

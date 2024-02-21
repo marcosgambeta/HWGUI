@@ -36,6 +36,7 @@ PRG_SOURCES=\
 	hgroup.prg \
 	hgroupex.prg \
 	hbuttonx.prg \
+	hstatic.prg \
 	hstaticex.prg \
 	hbutton.prg \
 	hbuttonex.prg \
