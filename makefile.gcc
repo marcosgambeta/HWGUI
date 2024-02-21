@@ -47,6 +47,7 @@ $(LIB_DIR)/libhwgui.a : \
    $(OBJ_DIR)/hcheck.o \
    $(OBJ_DIR)/hcombo.o \
    $(OBJ_DIR)/hcontrol.o \
+   $(OBJ_DIR)/hstatus.o \
    $(OBJ_DIR)/hgroup.o \
    $(OBJ_DIR)/hgroupex.o \
    $(OBJ_DIR)/hbuttonx.o \

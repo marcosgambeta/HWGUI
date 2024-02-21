@@ -31,6 +31,7 @@ PRG_SOURCES=\
 	hcheck.prg \
 	hcombo.prg \
 	hcontrol.prg \
+	hstatus.prg \
 	hgroup.prg \
 	hgroupex.prg \
 	hbuttonx.prg \
