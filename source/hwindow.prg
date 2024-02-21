@@ -1198,7 +1198,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
    IF oWnd:aEvents != Nil .AND. !oWnd:lSuspendMsgsHandling .AND. ;
       (iItem := AScan(oWnd:aEvents, {|a|a[1] == iParHigh.AND.a[2] == iParLow})) > 0
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-   ELSEIF ValType(oWnd:menu) == "A" .AND. ;
+   ELSEIF HB_ISARRAY(oWnd:menu) .AND. ;
       (aMenu := Hwg_FindMenuItem(oWnd:menu, iParLow, @iCont)) != Nil
       IF Hwg_BitAnd(aMenu[1, iCont, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(, aMenu[1, iCont, 3], !hwg_Ischeckedmenuitem(, aMenu[1, iCont, 3]))

@@ -443,7 +443,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    HB_SYMBOL_UNUSED(lParam)
    HB_SYMBOL_UNUSED(wParam)
 
-   IF ValType(oDlg:menu) == "A"
+   IF HB_ISARRAY(oDlg:menu)
       hwg__SetMenu(oDlg:handle, oDlg:menu[5])
    ENDIF
 
@@ -664,7 +664,7 @@ STATIC FUNCTION onDlgCommand(oDlg, wParam, lParam)
       ELSEIF !oDlg:lExitOnEsc
          oDlg:nLastKey := 0
       ENDIF
-   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. ValType(oDlg:menu) == "A" .AND. ;
+   ELSEIF __ObjHasMsg(oDlg, "MENU") .AND. HB_ISARRAY(oDlg:menu) .AND. ;
          (aMenu := Hwg_FindMenuItem(oDlg:menu, iParLow, @i)) != NIL
       IF Hwg_BitAnd(aMenu[1, i, 4], FLAG_CHECK) > 0
          hwg_Checkmenuitem(, aMenu[1, i, 3], !hwg_Ischeckedmenuitem(, aMenu[1, i, 3]))

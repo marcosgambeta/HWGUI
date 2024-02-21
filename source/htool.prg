@@ -306,7 +306,7 @@ METHOD CREATETOOL() CLASS hToolBar
       IF ValType(::aItem[n, 7]) == "B"
           //::oParent:AddEvent(BN_CLICKED, ::aItem[n, 2], ::aItem[n, 7])
       ENDIF
-      IF ValType(::aItem[n, 9]) == "A"
+      IF HB_ISARRAY(::aItem[n, 9])
          ::aItem[n, 10] := hwg__CreatePopupMenu()
          ::aItem[n, 11]:hMenu := ::aItem[n, 10]
          aTemp := ::aItem[n, 9]
@@ -453,7 +453,7 @@ METHOD Notify(lParam) CLASS hToolBar
 
    ELSEIF nCode == TBN_DROPDOWN
       nId := hwg_Toolbar_submenuexgetid(lParam)
-      IF nId > 0 //valtype(::aItem[1, 9]) ="A"
+      IF nId > 0 // HB_ISARRAY(::aItem[1, 9])
 //       nid := hwg_Toolbar_submenuexgetid(lParam)
          nPos := AScan(::aItem, {|x|x[2] == nId})
          hwg_Toolbar_submenuex(lParam, ::aItem[nPos, 10], ::oParent:handle)

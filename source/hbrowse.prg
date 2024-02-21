@@ -3153,7 +3153,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
                   (::Alias)->(Eval(oColumn:block, ::varbuf, Self, fipos))
                   (::Alias)->(dbUnlock())
                ELSE
-                  IF ValType(::aArray[1]) == "A"
+                  IF HB_ISARRAY(::aArray[1])
                      AAdd(::aArray, Array(Len(::aArray[1])))
                      FOR fif := 2 TO Len((::aArray[1]))
                         ::aArray[Len(::aArray), fif] := ;
@@ -3545,7 +3545,7 @@ FUNCTION hwg_CREATEARLIST(oBrw, arr)
    oBrw:aArray := arr
    IF Len(oBrw:aColumns) == 0
       // oBrw:aColumns := {}
-      IF ValType(arr[1]) == "A"
+      IF HB_ISARRAY(arr[1])
          FOR i := 1 TO Len(arr[1])
             oBrw:AddColumn(HColumn():New(, hwg_ColumnArBlock()))
          NEXT

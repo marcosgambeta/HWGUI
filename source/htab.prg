@@ -442,7 +442,7 @@ METHOD GetActivePage(nFirst, nEnd) CLASS HTab
 
    IF ::nActive > 0
       IF !::lResourceTab
-         IF !Empty(::aPages) .AND. Valtype(::aPages[1]) == "A"
+         IF !Empty(::aPages) .AND. HB_ISARRAY(::aPages[1])
             nFirst := ::aPages[::nActive, 1] + 1
             nEnd   := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
          ELSE
