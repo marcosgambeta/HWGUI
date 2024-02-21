@@ -144,7 +144,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
 METHOD SetBitmap(hBitMap) CLASS HButtonEX
 
    DEFAULT hBitmap TO ::hBitmap
-   IF ValType(hBitmap) == "N"
+   IF HB_ISNUMERIC(hBitmap)
       ::hBitmap := hBitmap
       hwg_Sendmessage(::handle, BM_SETIMAGE, IMAGE_BITMAP, ::hBitmap)
       hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT)
@@ -155,7 +155,7 @@ METHOD SetBitmap(hBitMap) CLASS HButtonEX
 METHOD SetIcon(hIcon) CLASS HButtonEX
 
    DEFAULT hIcon TO ::hIcon
-   IF ValType(::hIcon) == "N"
+   IF HB_ISNUMERIC(::hIcon)
       ::hIcon := hIcon
       hwg_Sendmessage(::handle, BM_SETIMAGE, IMAGE_ICON, ::hIcon)
       hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_INTERNALPAINT)
@@ -737,7 +737,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
    ENDIF
 
    uAlign := 0 //DT_LEFT
-   IF ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N"
+   IF HB_ISNUMERIC(::hbitmap) .OR. HB_ISNUMERIC(::hicon)
       uAlign := DT_VCENTER // + DT_CENTER
    ENDIF
 
@@ -772,7 +772,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
 
    captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] }
    //
-   IF (ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N") .AND. lMultiline
+   IF (HB_ISNUMERIC(::hbitmap) .OR. HB_ISNUMERIC(::hicon)) .AND. lMultiline
       IF ::iStyle = ST_ALIGN_HORIZ
          captionRect := { drawInfo[4] + ::PictureMargin, drawInfo[5], drawInfo[6], drawInfo[7] }
       ELSEIF ::iStyle = ST_ALIGN_HORIZ_RIGHT
@@ -802,7 +802,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
    bHasTitle := ValType(::caption) == "C" .AND. !Empty(::Caption)
 
    //   hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
-   IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent .AND. (!bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT)
+   IF HB_ISNUMERIC(::hbitmap) .AND. ::m_bDrawTransparent .AND. (!bIsDisabled .OR. ::istyle = ST_ALIGN_HORIZ_RIGHT)
       bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, bIsPressed, ::hIcon, ::hbitmap, ::iStyle)
       IF ::istyle = ST_ALIGN_HORIZ_RIGHT
          bmpRect[1]     -= ::PictureMargin
@@ -813,7 +813,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
       ELSE
          hwg_Drawgraybitmap(dc, ::hbitmap, bmpRect[1], bmpRect[2])
       ENDIF
-   ELSEIF ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N"
+   ELSEIF HB_ISNUMERIC(::hbitmap) .OR. HB_ISNUMERIC(::hicon)
       IF ::istyle = ST_ALIGN_HORIZ_RIGHT
          captionRect[3] -= ::PictureMargin
       ENDIF
@@ -835,7 +835,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
       ENDIF
       // Center text
       centerRect := hwg_Copyrect(captionRect)
-      IF ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N"
+      IF HB_ISNUMERIC(::hicon) .OR. HB_ISNUMERIC(::hbitmap)
          IF !lmultiline .AND. ::iStyle != ST_ALIGN_OVERLAP
             // hwg_Drawtext(dc, ::caption, captionRect[1], captionRect[2], captionRect[3], captionRect[4], uAlign + DT_CALCRECT, @captionRect)
          ELSEIF !Empty(::caption)
@@ -857,7 +857,7 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
       centerRectHeight  := centerRect[4] - centerRect[2]
       hwg_Offsetrect(@captionRect, 0, (centerRectHeight - captionRectHeight) / 2)
       IF ::Themed
-         IF (ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N")
+         IF (HB_ISNUMERIC(::hicon) .OR. HB_ISNUMERIC(::hbitmap))
             IF lMultiLine .OR. ::iStyle = ST_ALIGN_OVERLAP
                captionRect := AClone(savecaptionRect)
             ENDIF
@@ -902,12 +902,12 @@ METHOD Paint(lpDis) CLASS HBUTTONEx
                   hwg_Fillrect(dc, fillRect[1], fillRect[2], fillRect[3], fillRect[4], ::m_crBrush[BTNST_COLOR_BK_OUT]:handle)
                ENDIF
             ENDIF
-            IF ValType(::hbitmap) == "N" .AND. ::m_bDrawTransparent
+            IF HB_ISNUMERIC(::hbitmap) .AND. ::m_bDrawTransparent
                hwg_Drawtransparentbitmap(dc, ::hbitmap, bmpRect[1], bmpRect[2])
-            ELSEIF ValType(::hbitmap) == "N" .OR. ValType(::hicon) == "N"
+            ELSEIF HB_ISNUMERIC(::hbitmap) .OR. HB_ISNUMERIC(::hicon)
                hwg_Drawtheicon(::handle, dc, bHasTitle, @itemRect1, @captionRect1, bIsPressed, bIsDisabled, ::hIcon, ::hbitmap, ::iStyle)
             ENDIF
-            IF (ValType(::hicon) == "N" .OR. ValType(::hbitmap) == "N")
+            IF (HB_ISNUMERIC(::hicon) .OR. HB_ISNUMERIC(::hbitmap))
                IF lmultiline .OR. ::iStyle = ST_ALIGN_OVERLAP
                   captionRect := AClone(savecaptionRect)
                ENDIF

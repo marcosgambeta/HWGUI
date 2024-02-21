@@ -99,7 +99,7 @@ ENDCLASS
 METHOD AddEvent(nEvent, oCtrl, bAction, lNotify, cMethName) CLASS HCustomWindow
 
    AAdd(IIf(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), ;
-         { nEvent, IIf(ValType(oCtrl) == "N", oCtrl, oCtrl:id), bAction })
+         { nEvent, IIf(HB_ISNUMERIC(oCtrl), oCtrl, oCtrl:id), bAction })
    IF bAction != Nil .AND. HB_ISOBJECT(oCtrl) //.AND. ValType(oCtrl) != "N"
       IF cMethName != Nil //.AND. !__objHasMethod(oCtrl, cMethName)
          __objAddInline(oCtrl, cMethName, bAction)

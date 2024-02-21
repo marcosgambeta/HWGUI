@@ -123,7 +123,7 @@ METHOD Activate(lNoModal, bOnActivate, nShow) CLASS HDialog
       iif((oWnd := HWindow():GetMain()) != NIL,    ;
       oWnd:handle, hwg_Getactivewindow()))
 
-   ::WindowState := iif(ValType(nShow) == "N", nShow, SW_SHOWNORMAL)
+   ::WindowState := iif(HB_ISNUMERIC(nShow), nShow, SW_SHOWNORMAL)
 
    IF ::Type == WND_DLG_RESOURCE
       IF lNoModal == NIL .OR. !lNoModal
@@ -790,7 +790,7 @@ FUNCTION hwg_onHelp(oDlg, wParam, lParam)
             nHelpId := iif(Empty(oParent:HelpId), oDlg:HelpId, oParent:HelpId)
          ENDIF
          IF "chm" $ Lower(CutPath(hwg_SetHelpFileName()))
-            nHelpId := iif(ValType(nHelpId) == "N", LTrim(Str(nHelpId)), nHelpId)
+            nHelpId := iif(HB_ISNUMERIC(nHelpId), LTrim(Str(nHelpId)), nHelpId)
             hwg_Shellexecute("hh.exe", "open", CutPath(hwg_SetHelpFileName()) + "::" + nHelpId + ".html", cDir)
          ELSE
             hwg_Winhelp(oDlg:handle, hwg_SetHelpFileName(), iif(Empty(nHelpId), 3, 1), nHelpId)

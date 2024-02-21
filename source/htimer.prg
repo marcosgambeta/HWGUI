@@ -49,7 +49,7 @@ METHOD New(oParent, nId, value, bAction) CLASS HTimer
       ENDDO
    ENDIF
    ::id      := nId
-   ::value   := IIF(VALTYPE(value) = "N", value, 0)
+   ::value   := IIF(HB_ISNUMERIC(value), value, 0)
    ::bAction := bAction
    /*
    IF ::value > 0

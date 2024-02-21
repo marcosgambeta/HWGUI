@@ -74,7 +74,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
    ::nHeight := iif(nHeight = NIL, 0, nHeight)
    ::oFont   := oFont
    ::bInit   := bInit
-   IF Valtype(bSize) == "N"
+   IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize   := bSize

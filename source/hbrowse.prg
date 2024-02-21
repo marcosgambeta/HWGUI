@@ -503,7 +503,7 @@ METHOD SetRowHeight(nPixels) CLASS HBrowse
 
    nOldPixels := ::forceHeight
 
-   IF ValType(nPixels) == "N"
+   IF HB_ISNUMERIC(nPixels)
       IF nPixels > 0
          ::forceHeight := nPixels
          IF nPixels != nOldPixels .AND. ::rowCurrCount > 0  //nando
@@ -3066,7 +3066,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
          IF oColumn:aList != NIL .AND. (oColumn:bWhen = NIL .OR. Eval(oColumn:bWhen))
             oModDlg:brush := - 1
             oModDlg:nHeight := ::height + 1 // * 5
-            IF ValType(::varbuf) == "N"
+            IF HB_ISNUMERIC(::varbuf)
                nChoic := ::varbuf
             ELSE
                ::varbuf := AllTrim(::varbuf)
@@ -3140,7 +3140,7 @@ METHOD Edit(wParam, lParam) CLASS HBrowse
 
          IF oModDlg:lResult
             IF oColumn:aList != NIL
-               IF ValType(::varbuf) == "N"
+               IF HB_ISNUMERIC(::varbuf)
                   ::varbuf := nChoic
                ELSE
                   ::varbuf := oColumn:aList[nChoic]

@@ -55,7 +55,7 @@ METHOD New(vari, bSetGet, bInit, bClick, bGFocus, nStyle) CLASS HRadioGroup
    ::bGetFocus := bGfocus
 
    IF vari != NIL
-      IF ValType(vari) == "N"
+      IF HB_ISNUMERIC(vari)
          ::nValue := vari
       ENDIF
       //::bSetGet := bSetGet
@@ -82,7 +82,7 @@ METHOD NewRg(oWndParent, nId, nStyle, vari, bSetGet, nLeft, nTop, nWidth, nHeigh
    ::bGetFocus := bGfocus
 
    IF vari != NIL
-      IF Valtype(vari) == "N"
+      IF HB_ISNUMERIC(vari)
          ::nValue := vari
       ENDIF
    ENDIF
@@ -292,7 +292,7 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ctooltip, 
    ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
    ::oFont   := oFont
    ::bInit   := bInit
-   IF Valtype(bSize) == "N"
+   IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
       ::bSize   := bSize

@@ -728,7 +728,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
        ::nFocus := hwg_Getfocus()
     ENDIF
 
-   IF VALTYPE(::TITLE) = "N" .AND. ::title = - 1   // screen
+   IF HB_ISNUMERIC(::TITLE) .AND. ::title = - 1   // screen
       RETURN .T.
    ENDIF
    IF lCentered

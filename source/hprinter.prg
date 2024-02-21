@@ -74,16 +74,16 @@ ENDCLASS
 METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn) CLASS HPrinter
    LOCAL aPrnCoors, cPrinterName
 
-   IF Valtype(nFormType) = "N"
+   IF HB_ISNUMERIC(nFormType)
       ::FormType := nFormType
    ENDIF
-   IF valtype(nBin) == "N"
+   IF HB_ISNUMERIC(nBin)
       ::BinNumber := nBin
    ENDIF
    IF Valtype(lLandScape) =="L"
       ::Landscape := lLandScape
    ENDIF
-   IF valtype(nCopies) == "N"
+   IF HB_ISNUMERIC(nCopies)
       IF nCopies > 0
          ::Copies := nCopies
       ENDIF

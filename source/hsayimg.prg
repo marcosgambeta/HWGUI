@@ -120,7 +120,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       IF lRes == NIL
          lRes := .F.
       ENDIF
-      ::oImage := IIf(lRes .OR. ValType(Image) == "N",     ;
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image),     ;
             HBitmap():AddResource(Image), ;
             IIf(ValType(Image) == "C",     ;
             HBitmap():AddFile(Image), Image))
@@ -145,7 +145,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip, lTransp) 
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf(lRes .OR. ValType(xImage) == "N",     ;
+   ::oImage := IIf(lRes .OR. HB_ISNUMERIC(xImage),     ;
          HBitmap():AddResource(xImage), ;
          IIf(ValType(xImage) == "C",     ;
          HBitmap():AddFile(xImage), xImage))
@@ -207,7 +207,7 @@ METHOD ReplaceBitmap(Image, lRes) CLASS HSayBmp
    IF lRes == NIL
       lRes := .F.
    ENDIF
-   ::oImage := IIf(lRes .OR. ValType(Image) == "N",     ;
+   ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image),     ;
          HBitmap():AddResource(Image), ;
          IIf(ValType(Image) == "C",     ;
          HBitmap():AddFile(Image), Image))
@@ -237,7 +237,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       lOEM := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf(lRes .OR. ValType(Image) == "N",  ;
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(Image),  ;
             HIcon():AddResource(Image,,,, lOEM),  ;
             IIf(ValType(Image) == "C",    ;
             HIcon():AddFile(Image), Image))
@@ -254,7 +254,7 @@ METHOD Redefine(oWndParent, nId, xImage, lRes, bInit, bSize, ctooltip) CLASS HSa
       lRes := .F.
    ENDIF
    IF ::oImage == NIL
-      ::oImage := IIf(lRes .OR. ValType(xImage) == "N",   ;
+      ::oImage := IIf(lRes .OR. HB_ISNUMERIC(xImage),   ;
             HIcon():AddResource(xImage), ;
             IIf(ValType(xImage) == "C",   ;
             HIcon():AddFile(xImage), xImage))
