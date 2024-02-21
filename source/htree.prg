@@ -279,7 +279,7 @@ CLASS VAR winclass   INIT "SysTreeView32"
    METHOD AddNode(cTitle, oPrev, oNext, bAction, aImages, lCheck, bClick)
    METHOD FindChild(h)
    METHOD FindChildPos(oNode, h)
-   METHOD GetSelected() INLINE IIF(VALTYPE(::oItem := hwg_Treegetselected(::handle)) = "O", ::oItem, Nil)
+   METHOD GetSelected() INLINE IIF(HB_ISOBJECT(::oItem := hwg_Treegetselected(::handle)), ::oItem, Nil)
    METHOD EditLabel(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EDITLABEL, 0, o:handle)}
    METHOD Expand(oNode, lAllNode)   //BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_EXPAND, TVE_EXPAND, o:handle), hwg_Redrawwindow(::handle, RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE)}
    METHOD Select(oNode) BLOCK {|Self, o|hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_CARET, o:handle), ::oItem := hwg_Treegetselected(::handle)}
@@ -565,7 +565,7 @@ METHOD Notify(lParam) CLASS HTree
    ELSEIF nCode == TVN_SELCHANGED //.OR. nCode == TVN_ITEMCHANGEDW
       ::oItemOld := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_OLDPARAM)
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
-      IF ValType(oItem) == "O"
+      IF HB_ISOBJECT(oItem)
          oItem:oTree:oSelected := oItem
          IF oItem != Nil .AND. !oItem:oTree:lEmpty
             IF oItem:bAction != Nil
@@ -588,7 +588,7 @@ METHOD Notify(lParam) CLASS HTree
       ::hTreeEdit := Nil
       IF !Empty(cText := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDIT))
          oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_EDITPARAM)
-         IF ValType(oItem) == "O"
+         IF HB_ISOBJECT(oItem)
             IF !cText == oItem:GetText() .AND. ;
                (oItem:oTree:bItemChange == Nil .OR. Eval(oItem:oTree:bItemChange, oItem, cText))
                hwg_Treesetitem(oItem:oTree:handle, oItem:handle, TREE_SETITEM_TEXT, cText)
@@ -599,7 +599,7 @@ METHOD Notify(lParam) CLASS HTree
       
    ELSEIF nCode == TVN_ITEMEXPANDING .OR. nCode == TVN_ITEMEXPANDINGW
       oItem := hwg_Treegetnotify(lParam, TREE_GETNOTIFY_PARAM)
-      IF ValType(oItem) == "O"
+      IF HB_ISOBJECT(oItem)
          IF ::bExpand != Nil
             RETURN IIf(Eval(oItem:oTree:bExpand, oItem, ;
                               hwg_Checkbit(hwg_Treegetnotify(lParam, TREE_GETNOTIFY_ACTION), TVE_EXPAND)), ;
@@ -670,7 +670,7 @@ METHOD Notify(lParam) CLASS HTree
       */
    ENDIF
 
-   IF ValType(oItem) == "O"
+   IF HB_ISOBJECT(oItem)
       ::oItem := oItem
    ENDIF
    RETURN 0

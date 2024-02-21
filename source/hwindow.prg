@@ -386,7 +386,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
          Eval(bActivate, Self)
       ENDIF
 
-      ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
+      ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
       ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
       IF !Empty(::nInitFocus)
          hwg_Setfocus(::nInitFocus)
@@ -418,7 +418,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
          Eval(bActivate, Self)
       ENDIF
 
-      ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
+      ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
       ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
       IF !Empty(::nInitFocus)
          hwg_Setfocus(::nInitFocus)
@@ -721,7 +721,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    ::handle := Hwg_CreateMdiChildWindow(Self)
 
-   ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
+   ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
    ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
    IF !Empty(::nInitFocus)
        hwg_Setfocus(::nInitFocus)
@@ -1010,7 +1010,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    hwg_Setfocus(::handle)
 
-   ::nInitFocus := IIF(VALTYPE(::nInitFocus) = "O", ::nInitFocus:Handle, ::nInitFocus)
+   ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
    ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
    IF !Empty(::nInitFocus)
      hwg_Setfocus(::nInitFocus)
@@ -1412,7 +1412,7 @@ STATIC FUNCTION onMdiCreate(oWnd, lParam)
       ENDIF
    ENDIF
    //draw rect focus
-   oWnd:nInitFocus := IIF(VALTYPE(oWnd:nInitFocus) = "O", oWnd:nInitFocus:Handle, oWnd:nInitFocus)
+   oWnd:nInitFocus := IIF(HB_ISOBJECT(oWnd:nInitFocus), oWnd:nInitFocus:Handle, oWnd:nInitFocus)
    hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEFOCUS), 0)
    hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEACCEL), 0)
    IF oWnd:WindowState > 0

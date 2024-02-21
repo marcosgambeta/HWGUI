@@ -566,7 +566,7 @@ METHOD Refresh() CLASS HEdit
 METHOD SetText(c) CLASS HEdit
 
    IF c != Nil
-      IF ValType(c) = "O"
+      IF HB_ISOBJECT(c)
          //in run time return object
          RETURN NIL
       ENDIF

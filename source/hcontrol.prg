@@ -205,7 +205,7 @@ METHOD DisableBackColor(DisableBColor)
 METHOD SetFont(oFont) CLASS HControl
 
    IF oFont != NIL
-      IF ValType(oFont) = "O"
+      IF HB_ISOBJECT(oFont)
          ::oFont := oFont:SetFontStyle()
          hwg_Setwindowfont(::Handle, ::oFont:Handle, .T.)
       ENDIF

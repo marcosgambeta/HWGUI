@@ -110,7 +110,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    ENDIF
    ::themed := IIF(themed = Nil, .F., themed)
    IF bmp != Nil
-      IF ValType(bmp) == "O"
+      IF HB_ISOBJECT(bmp)
          ::oBitmap := bmp
       ELSE
          ::oBitmap := IIf((lResour != Nil.AND.lResour) .OR.Valtype(bmp) == "N", ;
@@ -245,7 +245,7 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
    ENDIF
 
    IF bmp != Nil
-      IF ValType(bmp) == "O"
+      IF HB_ISOBJECT(bmp)
          ::oBitmap := bmp
       ELSE
          ::oBitmap := IIf(lResour, HBitmap():AddResource(bmp), HBitmap():AddFile(bmp))

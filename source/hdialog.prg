@@ -479,7 +479,7 @@ STATIC FUNCTION InitModalDlg(oDlg, wParam, lParam)
    ENDIF
    oDlg:lSuspendMsgsHandling := .F.
 
-   oDlg:nInitFocus := iif(ValType(oDlg:nInitFocus) == "O", oDlg:nInitFocus:Handle, oDlg:nInitFocus)
+   oDlg:nInitFocus := iif(HB_ISOBJECT(oDlg:nInitFocus), oDlg:nInitFocus:Handle, oDlg:nInitFocus)
    IF !Empty(oDlg:nInitFocus)
       IF hwg_Ptrtoulong(oDlg:FindControl(, oDlg:nInitFocus):oParent:Handle) == hwg_Ptrtoulong(oDlg:Handle)
          hwg_Setfocus(oDlg:nInitFocus)

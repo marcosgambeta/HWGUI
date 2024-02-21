@@ -1316,7 +1316,7 @@ METHOD Read(fname, cId) CLASS HRepTmpl
    RETURN Self
 
 METHOD Print(printer, lPreview, p1, p2, p3) CLASS HRepTmpl
-   LOCAL oPrinter := IIf(printer != NIL, IIf(ValType(printer) == "O", printer, HPrinter():New(printer, .T.)), HPrinter():New(, .T.))
+   LOCAL oPrinter := IIf(printer != NIL, IIf(HB_ISOBJECT(printer), printer, HPrinter():New(printer, .T.)), HPrinter():New(, .T.))
    LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1
    MEMVAR oReport
    PRIVATE oReport := Self

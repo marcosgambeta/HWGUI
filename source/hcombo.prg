@@ -1409,9 +1409,9 @@ METHOD MeasureItem(l) CLASS hCheckComboBox
    LOCAL metrics
    LOCAL pFont
 
-   //pFont := dc:Selectobject(IF(ValType(::oFont) == "O", ::oFont:handle, ::oParent:oFont:handle))
-   pFont := dc:Selectobject(iif(ValType(::oFont) == "O", ::oFont:handle, ;
-      iif(ValType(::oParent:oFont) == "O", ::oParent:oFont:handle,)))
+   //pFont := dc:Selectobject(IF(HB_ISOBJECT(::oFont), ::oFont:handle, ::oParent:oFont:handle))
+   pFont := dc:Selectobject(iif(HB_ISOBJECT(::oFont), ::oFont:handle, ;
+      iif(HB_ISOBJECT(::oParent:oFont), ::oParent:oFont:handle,)))
 
    IF !Empty(pFont)
 
