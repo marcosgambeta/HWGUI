@@ -32,6 +32,7 @@ PRG_SOURCES=\
 	hcombo.prg \
 	hcontrol.prg \
 	hstatus.prg \
+	hline.prg \
 	hgroup.prg \
 	hgroupex.prg \
 	hbuttonx.prg \
