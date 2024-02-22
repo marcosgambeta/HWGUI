@@ -467,7 +467,7 @@ Local nFirst, nEnd, i
    ELSE
       nFirst := ::aPages[nPage, 1] + 1
       nEnd   := ::aPages[nPage, 1] + ::aPages[nPage, 2]
-      FOR i := nFirst TO nEnd
+      FOR i := nEnd TO nFirst STEP -1
          ::DelControl(::aControls[i])
       NEXT
       FOR i := nPage + 1 TO Len(::aPages)
