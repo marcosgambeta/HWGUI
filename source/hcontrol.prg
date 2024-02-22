@@ -107,7 +107,7 @@ METHOD NewId() CLASS HControl
 METHOD AddName(cName) CLASS HControl
    LOCAL nPos
 
-   IF !Empty(cName) .AND. ValType(cName) == "C" .AND. ::oParent != Nil .AND. !"[" $ cName
+   IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. ::oParent != Nil .AND. !"[" $ cName
       IF (nPos := RAt(":", cName)) > 0 .OR. (nPos := RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF
@@ -217,7 +217,7 @@ METHOD SetFont(oFont) CLASS HControl
 
 METHOD SetToolTip(cToolTip) CLASS HControl
 
-   IF ValType(cToolTip) = "C" .AND. cToolTip != ::ToolTip
+   IF HB_ISCHAR(cToolTip) .AND. cToolTip != ::ToolTip
       hwg_Settooltiptitle(hwg_GetparentForm(Self):handle, ::handle, ctooltip)
       ::Tooltip := cToolTip
    ENDIF

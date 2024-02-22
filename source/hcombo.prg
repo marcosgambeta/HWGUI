@@ -487,7 +487,7 @@ METHOD SetItem(nPos) CLASS HComboBox
 METHOD SetValue(xItem) CLASS HComboBox
    LOCAL nPos
 
-   IF ::lText .AND. ValType(xItem) = "C"
+   IF ::lText .AND. HB_ISCHAR(xItem)
       IF ::columnBound = 2
          nPos := AScan(::aItemsBound, xItem)
       ELSE
@@ -551,7 +551,7 @@ METHOD GetValueBound(xItem) CLASS HComboBox
 METHOD DisplayValue(cValue) CLASS HComboBox
 
    IF cValue != Nil
-      IF ::lEdit .AND. ValType(cValue) = "C"
+      IF ::lEdit .AND. HB_ISCHAR(cValue)
          hwg_Setdlgitemtext(::oParent:handle, ::id, cValue)
          ::cDisplayValue := cValue
       ENDIF
@@ -562,7 +562,7 @@ METHOD DisplayValue(cValue) CLASS HComboBox
 METHOD DeleteItem(xIndex) CLASS HComboBox
    LOCAL nIndex
 
-   IF ::lText .AND. ValType(xIndex) = "C"
+   IF ::lText .AND. HB_ISCHAR(xIndex)
       nIndex := hwg_Sendmessage(::handle, CB_FINDSTRINGEXACT, -1, xIndex) + 1
    ELSE
       nIndex := xIndex
@@ -933,8 +933,8 @@ METHOD INIT() CLASS hCheckComboBox
          nSize := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0) - 5
          FOR i := 1 TO Len(::aImages)
             hImage := 0
-            IF (ValType(::aImages[i]) == "C" .OR. ::aImages[i] > 1) .AND. !Empty(::aImages[i])
-               IF ValType(::aImages[i]) == "C" .AND. At(".", ::aImages[i]) != 0
+            IF (HB_ISCHAR(::aImages[i]) .OR. ::aImages[i] > 1) .AND. !Empty(::aImages[i])
+               IF HB_ISCHAR(::aImages[i]) .AND. At(".", ::aImages[i]) != 0
                   IF File(::aImages[i])
                      hImage := HBITMAP():AddfILE(::aImages[i], , .T., 16, nSize):handle
                   ENDIF

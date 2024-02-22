@@ -348,7 +348,7 @@ Local arr := hb_aParams(), i, j, s := "", lConvert
 
    FOR i := 1 TO Len(arr)
       IF HB_ISARRAY(arr[i])
-         lConvert := (i > 1 .AND. Valtype(arr[i-1]) == "C" .AND. Left(arr[i - 1], 5) == "value")
+         lConvert := (i > 1 .AND. HB_ISCHAR(arr[i-1]) .AND. Left(arr[i - 1], 5) == "value")
          FOR j := 1 TO Len(arr[i])
             s += Iif(j>1.AND.lConvert, Str2Hex(arr[i, j]), arr[i, j]) + ","
          NEXT

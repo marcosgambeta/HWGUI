@@ -465,7 +465,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
    ENDIF
 
    IF HB_ISNUMERIC(::hbitmap)
-      bHasTitle := ValType(strtext) == "C" .AND. !Empty(strtext)
+      bHasTitle := HB_ISCHAR(strtext) .AND. !Empty(strtext)
       itemRect[4] := aBmpSize[2] + 1
       bmpRect := hwg_Prepareimagerect(::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle)
       itemRect[4] := drawInfo[7]

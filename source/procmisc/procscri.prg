@@ -118,7 +118,7 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
    IF scrSource == Nil
       han := Nil
       poz := 1
-   ELSEIF Valtype(scrSource) == "C"
+   ELSEIF HB_ISCHAR(scrSource)
       strbuf := Space(STR_BUFLEN)
       poz := STR_BUFLEN + 1
       IF DEF_CH_SEP $ scrSource
@@ -132,7 +132,7 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
       IF !lppNoInit
          ppScript(, .T.)
       ENDIF
-      IF Valtype(scrSource) == "C"
+      IF HB_ISCHAR(scrSource)
          WndOut("Compiling ...")
          WndOut("")
       ENDIF
@@ -140,7 +140,7 @@ LOCAL rezArray := Iif(lDebugInfo, { "", {}, {} }, { "", {} })
       IF !CompileScr(han, @strbuf, @poz, rezArray, scrSource)
          rezArray := Nil
       ENDIF
-      IF scrSource != Nil .AND. Valtype(scrSource) == "C"
+      IF scrSource != Nil .AND. HB_ISCHAR(scrSource)
          WndOut()
          Fclose(han)
       ENDIF
@@ -225,7 +225,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
          scom := UPPER(SUBSTR(stroka, 1, IIF(poz1 != 0, poz1 - 1, 999)))
          DO CASE
          CASE scom == "PRIVATE" .OR. scom == "PARAMETERS" .OR. scom == "LOCAL"
-            IF LEN(rezArray[2]) == 0 .OR. (i := VALTYPE(ATAIL(rezArray[2]))) == "C" ;
+            IF LEN(rezArray[2]) == 0 .OR. (i := HB_ISCHAR(ATAIL(rezArray[2]))) ;
                .OR. i == "A"
                IF Left(scom, 2) == "LO"
                   AADD(rezArray[2], " "+ALLTRIM(SUBSTR(stroka, 7)))
@@ -281,7 +281,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||EndScript("+Ltrim(Substr(stroka, 7))+")}"))
             RECOVER
-               IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
+               IF scrSource != Nil .AND. HB_ISCHAR(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -306,7 +306,7 @@ Local cLine, lDebug := (Len(rezArray) >= 3)
             BEGIN SEQUENCE
                AADD(rezArray[2], &("{||" + ALLTRIM(stroka) + "}"))
             RECOVER
-               IF scrSource != Nil .AND. VALTYPE(scrSource) == "C"
+               IF scrSource != Nil .AND. HB_ISCHAR(scrSource)
                   WndOut()
                   FCLOSE(han)
                ENDIF
@@ -455,7 +455,7 @@ PRIVATE iscr := 1, bOldError, doscr_RetValue := Nil
    ENDIF
    lDebug := (Len(aScript) >= 3)
    DO WHILE Valtype(aScript[2, iscr]) != "B"
-      IF Valtype(aScript[2, iscr]) == "C"
+      IF HB_ISCHAR(aScript[2, iscr])
          IF Left(aScript[2, iscr], 1) == "#"
             IF !lDebugger
                lSetDebugger := .T.

@@ -210,7 +210,7 @@ METHOD FindWindow(hWndTitle) CLASS HWindow
    IF cType != "C"
       i := AScan(::aWindows, {|o|hwg_Ptrtoulong(o:handle) == hwg_Ptrtoulong(hWndTitle)})
    ELSE
-      i := AScan(::aWindows, {|o|VALTYPE(o:Title) = "C" .AND. o:Title == hWndTitle})
+      i := AScan(::aWindows, {|o|HB_ISCHAR(o:Title) .AND. o:Title == hWndTitle})
    ENDIF
    RETURN IIf(i == 0, Nil, ::aWindows[i])
 

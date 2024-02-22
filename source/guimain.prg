@@ -235,7 +235,7 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       addY += 30
    ENDIF
 
-   IF ValType(arr) == "C"
+   IF HB_ISCHAR(arr)
       lArray := .F.
       aLen := RecCount()
       IF (nField := FieldPos(arr)) == 0
@@ -646,7 +646,7 @@ FUNCTION hwg_FindAccelerator(oCtrl, lParam)
      IF LEN(oCtrl:aControls[i]:aControls) > 0
          RETURN hwg_FindAccelerator(oCtrl:aControls[i], lParam)
 	   ENDIF
-     IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. VALTYPE(oCtrl:aControls[i]:title) = "C" .AND. ;
+     IF __ObjHasMsg(oCtrl:aControls[i], "TITLE") .AND. HB_ISCHAR(oCtrl:aControls[i]:title) .AND. ;
          !oCtrl:aControls[i]:lHide .AND. hwg_Iswindowenabled(oCtrl:aControls[i]:handle)
         IF (pos := At("&", oCtrl:aControls[i]:title)) > 0 .AND. Upper(Chr(hwg_loword(hwg_hiword(lParam)))) == Upper(SubStr(oCtrl:aControls[i]:title, ++pos, 1))
            RETURN oCtrl:aControls[i]
@@ -712,9 +712,9 @@ Function hwg_SetAll(oWnd, cProperty, Value, aControls, cClass)
    Local nLen, i
 
    aControls := IIF(EMPTY(aControls), oWnd:aControls, aControls)
-   nLen := IIF(VALTYPE(aControls) = "C", Len(oWnd:&aControls), LEN(aControls))
+   nLen := IIF(HB_ISCHAR(aControls), Len(oWnd:&aControls), LEN(aControls))
    FOR i = 1 TO nLen
-      IF VALTYPE(aControls) = "C"
+      IF HB_ISCHAR(aControls)
          oWnd:&aControls[i]:&cProperty := Value
       ELSEIF cClass == Nil .OR. UPPER(cClass) == aControls[i]:ClassName
          IF Value = Nil

@@ -279,7 +279,7 @@ METHOD EndPage() CLASS HTab
       // add news objects how property in tab
       FOR i = ::aPages[::nActive, 1] + 1 TO ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
          cName := ::aControls[i]:name
-         IF !Empty(cName) .AND. ValType(cName) == "C" .AND. !":" $ cName .AND. ;
+         IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. !":" $ cName .AND. ;
                !"->" $ cName .AND. !"[" $ cName
             __objAddData(::&cPage, cName)
             ::&cPage:&(::aControls[i]:name) := ::aControls[i]

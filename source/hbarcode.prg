@@ -434,7 +434,7 @@ METHOD InitCode128(cMode) CLASS HBarCode
    ENDIF
 
    IF .NOT. Empty(cMode)
-      IF ValType(cMode) = "C" .AND. Upper(cMode) $ "ABC"
+      IF HB_ISCHAR(cMode) .AND. Upper(cMode) $ "ABC"
          cMode := Upper(cMode)
       ELSE
          hwg_Msginfo("Code 128 modes are A,B o C. Character values.")

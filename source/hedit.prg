@@ -552,7 +552,7 @@ METHOD Refresh() CLASS HEdit
          vari := Transform(vari, ::cPicFunc + iif(Empty(::cPicFunc), "", " ") + ::cPicMask)
       ELSE
          vari := iif(::cType == "D", Dtoc(vari), iif(::cType == "N", Str(vari), ;
-            iif(::cType == "C" .AND. ValType(vari) == "C", Trim(vari), "")))
+            iif(::cType == "C" .AND. HB_ISCHAR(vari), Trim(vari), "")))
       ENDIF
       ::Title := vari
    ENDIF
@@ -1653,7 +1653,7 @@ FUNCTION hwg_SetColorinFocus(lDef, tcolor, bcolor, lFixed, lPersist)
 
 
    IF ValType(lDef) != "L"
-      lDef := (ValType(lDef) = "C" .AND. Upper(lDef) = "ON")
+      lDef := (HB_ISCHAR(lDef) .AND. Upper(lDef) = "ON")
    ENDIF
    lColorinFocus := lDef
    IF !lDef
@@ -1670,7 +1670,7 @@ FUNCTION hwg_SetDisableBackColor(lDef, bcolor)
 
 
    IF ValType(lDef) != "L"
-      lDef := (ValType(lDef) = "C" .AND. Upper(lDef) = "ON")
+      lDef := (HB_ISCHAR(lDef) .AND. Upper(lDef) = "ON")
    ENDIF
    IF !lDef
       bDisablecolor := Nil
