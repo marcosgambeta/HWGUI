@@ -8,13 +8,14 @@
 #include "richtext.ch"
 #include "hwgui.ch"
 
-STATIC oPrinter,aSize := {280, 220}
+STATIC oPrinter
+STATIC aSize := {280, 220}
 
 FUNCTION Main()
 
-   Private oMainWindow, oPanel
-   Private oFont := Nil, cDir := "\"+Curdir()+"\"
-   Private nColor, oBmp2
+   PRIVATE oMainWindow, oPanel
+   PRIVATE oFont := NIL, cDir := "\"+Curdir()+"\"
+   PRIVATE nColor, oBmp2
 
    INIT WINDOW oMainWindow MDI TITLE "Example" MENUPOS 3
 
@@ -25,7 +26,7 @@ FUNCTION Main()
          MENUITEM "&Exit" ACTION hwg_EndWindow()
       ENDMENU
       MENU TITLE "&Help"
-         MENUITEM "&About" ACTION hwg_Shellabout("Info","RTF Demo")
+         MENUITEM "&About" ACTION hwg_Shellabout("Info", "RTF Demo")
       ENDMENU
    ENDMENU
 
@@ -39,10 +40,10 @@ LOCAL j, aMarca, lFormato := .F.
 
    cOutFile := hwg_SaveFile("*.rtf", "RTF files( *.rtf )", "*.rtf")
    IF Empty(cOutFile)
-      Return Nil
+      RETURN NIL
    ENDIF
    IF File(cOutFile) .AND. !hwg_Msgyesno("Recreate it ?", cOutFile + " already exists!")
-      Return Nil
+      RETURN NIL
    ENDIF
 
    //      Open the output file & set some defaults
@@ -140,10 +141,10 @@ LOCAL j, aMarca, lFormato := .F.
 			CELLBORDERS SINGLE ;          // Outline cells with thin border
 			COLSHADE aMarca;               // Sombras en columnas
 			HEADERROWS 2;                // dos lineas de titulos
-                        HEADER {"Sala","Generador","","","","","ACTIVIDAD",;
-                        "NºEXPOSICIONES AÑO POR TUBO","CARGA DE TRABAJO mA. min/semana"},;
-			{"","Marca","Modelo","Tension Pico (kVp)","Intensidad (mA)",;
-			"Nº Tubos","","",""};       // Titulos. Cada linea es una matriz
+                        HEADER {"Sala", "Generador", "", "", "", "", "ACTIVIDAD", ;
+                        "NºEXPOSICIONES AÑO POR TUBO", "CARGA DE TRABAJO mA. min/semana"},;
+			{"", "Marca", "Modelo", "Tension Pico (kVp)", "Intensidad (mA)",;
+			"Nº Tubos", "", "", ""};       // Titulos. Cada linea es una matriz
 			HEADERSHADE 0;
 			HEADERFONTSIZE 10;
             HEADERHALIGN CENTER 
@@ -165,11 +166,11 @@ LOCAL j, aMarca, lFormato := .F.
 			                ENDIF
 
                                 FOR j=1 TO 9
-                                        if i==6 .AND. j==5
+                                        IF i==6 .AND. j==5
 						WRITE NEWCELL oRTF TEXT "sombra"
                                         else
 						WRITE NEWCELL oRTF TEXT ""
-                                        endif
+                                        ENDIF
                                 NEXT j
                         NEXT i
 
@@ -180,8 +181,6 @@ LOCAL j, aMarca, lFormato := .F.
    hwg_Msginfo(cOutFile + " is created !")
 
 RETURN NIL
-
-
 
 STATIC FUNCTION SetupRTF(cOutFile)
 *********************************************************************
@@ -201,7 +200,7 @@ MEMVAR cNomUser
 
 DEFINE RTF oRTF FILE cOutFile ;
 	FONTS "Times New Roman", "Arial", "Courier New" ;
-	FONTFAMILY "froman","fswiss","fmodern";
+	FONTFAMILY "froman", "fswiss", "fmodern";
         CHARSET 0, 0, 10;
 	FONTSIZE 12 ;
 	TWIPFACTOR 1440

@@ -63,11 +63,11 @@ FUNCTION Main()
     //oBrw2:SetRowHeight(100)
 
     // @ 400, 160 UPDOWN 10 RANGE 0, 50 SIZE 50, 32 STYLE WS_BORDER
-    @ 400, 160 BUTTONEX oButton1 CAPTION "Font" SIZE 50, 32 ON CLICK {|| oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -12, 400), oBrw1:Refresh()}
+    @ 400, 160 BUTTONEX oButton1 CAPTION "Font" SIZE 50, 32 ON CLICK {||oBrw1:oHeadFont := HFont():Add("Times New Roman", 0, -12, 400), oBrw1:Refresh()}
 
-    @ 400, 200 BUTTONEX oButton1 CAPTION "100" SIZE 50, 32 ON CLICK {|| oBrw1:SetRowHeight(100)}
-    @ 400, 240 BUTTONEX oButton1 CAPTION "70" SIZE 50, 32 ON CLICK {|| oBrw1:SetRowHeight(70) }
-    @ 400, 280 BUTTONEX oButton1 CAPTION "50" SIZE 50, 32 ON CLICK {|| oBrw1:SetRowHeight(50) }
+    @ 400, 200 BUTTONEX oButton1 CAPTION "100" SIZE 50, 32 ON CLICK {||oBrw1:SetRowHeight(100)}
+    @ 400, 240 BUTTONEX oButton1 CAPTION "70" SIZE 50, 32 ON CLICK {||oBrw1:SetRowHeight(70)}
+    @ 400, 280 BUTTONEX oButton1 CAPTION "50" SIZE 50, 32 ON CLICK {||oBrw1:SetRowHeight(50)}
 
    ACTIVATE WINDOW oWinMain
 

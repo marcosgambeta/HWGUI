@@ -2,7 +2,7 @@
 
 FUNCTION Main()
 
-   Local oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
+   LOCAL oMainWindow, oFont, oSplitV, oSplitH, oEdit1, oEdit2
 
    PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
 

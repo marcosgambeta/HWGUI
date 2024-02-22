@@ -19,7 +19,7 @@
 
 FUNCTION Main()
 
-   Local oWnd
+   LOCAL oWnd
 
    SET DATE BRITISH
    SET CENTURY ON
@@ -40,22 +40,21 @@ RETURN NIL
 
 //================================================================//
 
-Function Dlg1
+FUNCTION Dlg1
 
-   Local oDlg
-   Local oMC
-   Local oFont
+   LOCAL oDlg
+   LOCAL oMC
+   LOCAL oFont
 
-   INIT DIALOG oDlg TITLE "Calendário - Exemplo 1" ;
-      AT 20, 20 SIZE 500, 300
+   INIT DIALOG oDlg TITLE "Calendário - Exemplo 1" AT 20, 20 SIZE 500, 300
 
    PREPARE FONT oFont NAME "Arial" WIDTH 0 HEIGHT -12
 
    @ 20, 20 MONTHCALENDAR oMC ;
       SIZE 250, 250 ;
       INIT ctod("01/01/2004") ;
-      ON INIT {||hwg_Msginfo("Evento On Init","MonthCalendar")} ;
-      ON CHANGE {||hwg_Msginfo("Evento On Change","MonthCalendar")} ;
+      ON INIT {||hwg_Msginfo("Evento On Init", "MonthCalendar")} ;
+      ON CHANGE {||hwg_Msginfo("Evento On Change", "MonthCalendar")} ;
       NOTODAY NOTODAYCIRCLE WEEKNUMBERS ;
       FONT oFont ;
       TOOLTIP "MonthCalendar - NoToday - NoTodayCircle - WeekNumbers"
@@ -65,15 +64,15 @@ Function Dlg1
 
    ACTIVATE DIALOG oDlg
 
-   Return Nil
+   RETURN NIL
 
 //================================================================//
 
-Function Dlg2
+FUNCTION Dlg2
 
-   Local oDlg
-   Local oMC
-   Local oFont
+   LOCAL oDlg
+   LOCAL oMC
+   LOCAL oFont
 
    INIT DIALOG oDlg TITLE "Calendário - Exemplo 2" ;
       AT 20, 20 SIZE 500, 300
@@ -90,7 +89,7 @@ Function Dlg2
 
    ACTIVATE DIALOG oDlg
 
-   Return Nil
+   RETURN NIL
 
 //================================================================//
 

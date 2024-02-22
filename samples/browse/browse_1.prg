@@ -4,12 +4,12 @@
 
 #include "hwgui.ch"
 
-Static nCount := 0
-Static oBrowse
+STATIC nCount := 0
+STATIC oBrowse
 
 FUNCTION Main()
 
-   Local oMain
+   LOCAL oMain
 
    CreateDB()
 
@@ -28,7 +28,7 @@ RETURN NIL
 
 FUNCTION BrowseTest()
 
-   Local oForm, oFont
+   LOCAL oForm, oFont
 
    hwg_Settooltipballoon(.T.)
 
@@ -42,7 +42,7 @@ FUNCTION BrowseTest()
             APPEND ;
             ON KEYDOWN {|o,key| BrowseKey(o, key) } ;
             ON UPDATE {|oBrow, Colpos| BrowseUpdate(oBrow, colpos) } ;
-            ON POSCHANGE {|| BrowseMove() }
+            ON POSCHANGE {||BrowseMove()}
    PUBLIC TENTA := 1
    ADD COLUMN FieldBlock(Fieldname(1) ) TO oBrowse ;
         HEADER "Code";
@@ -108,7 +108,7 @@ STATIC FUNCTION BrowseUpdate(oBrow, colpos)
 
         hwg_Msgexclamation("Column " + ltrim(str(colpos)) + " Changed")
 
-        if colpos == 2
+        IF colpos == 2
                 oBrow:Append()
         else
                 oBrow:DoHScroll(SB_LINERIGHT)
@@ -129,7 +129,7 @@ RETURN .T.
 
 STATIC FUNCTION CreateDB()
 
-        if file("browse_1.dbf")
+        IF file("browse_1.dbf")
                 FErase("browse_1.dbf")
         end
 

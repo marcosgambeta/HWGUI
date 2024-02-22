@@ -12,7 +12,10 @@
 
 #include "hwgui.ch"
 
-Static oMain, oForm, oFont, oGrid
+STATIC oMain
+STATIC oForm
+STATIC oFont
+STATIC oGrid
 
 FUNCTION Main()
 
@@ -27,7 +30,8 @@ FUNCTION Main()
 
 RETURN NIL
 
-Function Test()
+FUNCTION Test()
+
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
         INIT DIALOG oForm CLIPPER NOEXIT TITLE "Grid Demo";
@@ -48,24 +52,23 @@ Function Test()
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 150
              ADD COLUMN TO GRID oGrid HEADER "Column 3" WIDTH 150
 
-             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {||oForm:Close()}
 
         ACTIVATE DIALOG oForm
 
-Return Nil
+RETURN NIL
 
-Function OnKey(o, k)
+FUNCTION OnKey(o, k)
 //    hwg_Msginfo(str(k))
-return nil
+RETURN NIL
 
-Function OnPosChange(o, row)
+FUNCTION OnPosChange(o, row)
 //    hwg_Msginfo(str(row))
-return nil
+RETURN NIL
 
-Function OnClick(o)
+FUNCTION OnClick(o)
 //    hwg_Msginfo("click")
-return nil
+RETURN NIL
 
-Function OnDispInfo(o, x, y)
-return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
-
+FUNCTION OnDispInfo(o, x, y)
+RETURN "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))

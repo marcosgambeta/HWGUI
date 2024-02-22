@@ -18,15 +18,15 @@
 
 FUNCTION Main()
 
-   Local oMainWindow, oFont
-   // Local hDCwindow
-   Private oToolBar, oImage, oSayMain, oSayScale
-   Private aScreen, nKoef, lScrollV := .F., lScrollH := .F., nStepV := 0, nStepH := 0
-   Private nVert, nHorz
-   
+   LOCAL oMainWindow, oFont
+   // LOCAL hDCwindow
+   PRIVATE oToolBar, oImage, oSayMain, oSayScale
+   PRIVATE aScreen, nKoef, lScrollV := .F., lScrollH := .F., nStepV := 0, nStepH := 0
+   PRIVATE nVert, nHorz
+
    #ifdef __FREEIMAGE__
       IF !hwg_Fi_init()
-         Return Nil
+         RETURN NIL
       ENDIF
    #endif
 
@@ -56,28 +56,21 @@ FUNCTION Main()
    @ 0, 0 PANEL oToolBar SIZE oMainWindow:nWidth, 28 ;
       ON SIZE {|o,x,y|hwg_Movewindow(o:handle, 0, 0, x, o:nHeight)}
 
+   @ 2, 2 OWNERBUTTON OF oToolBar ON CLICK {||FileOpen(oMainWindow)} SIZE 24, 24 ;
+      BITMAP "BMP_OPEN" FROM RESOURCE FLAT TOOLTIP "Open file"
+   @ 26, 2 OWNERBUTTON OF oToolBar ON CLICK {||Zoom(oMainWindow, 1)} SIZE 24, 24 ;
+      BITMAP "BMP_ZOUT" FROM RESOURCE FLAT TOOLTIP "Zoom out"
+   @ 50, 2 OWNERBUTTON OF oToolBar ON CLICK {||Zoom(oMainWindow, -1)} SIZE 24, 24 ;
+      BITMAP "BMP_ZIN" FROM RESOURCE FLAT TOOLTIP "Zoom in"
+   @ 74, 2 OWNERBUTTON OF oToolBar ON CLICK {||ImageInfo()} SIZE 24, 24 ;
+      BITMAP "BMP_INFO" FROM RESOURCE TRANSPARENT FLAT TOOLTIP "Info"
 
-
-   @ 2, 2 OWNERBUTTON OF oToolBar ON CLICK {||FileOpen(oMainWindow)} ;
-        SIZE 24, 24 BITMAP "BMP_OPEN" FROM RESOURCE FLAT             ;
-        TOOLTIP "Open file"
-   @ 26, 2 OWNERBUTTON OF oToolBar ON CLICK {||Zoom(oMainWindow, 1)} ;
-        SIZE 24, 24 BITMAP "BMP_ZOUT" FROM RESOURCE FLAT              ;
-        TOOLTIP "Zoom out"
-   @ 50, 2 OWNERBUTTON OF oToolBar ON CLICK {||Zoom(oMainWindow, -1)} ;
-        SIZE 24, 24 BITMAP "BMP_ZIN" FROM RESOURCE FLAT               ;
-        TOOLTIP "Zoom in"
-   @ 74, 2 OWNERBUTTON OF oToolBar ON CLICK {||ImageInfo()} ;
-        SIZE 24, 24 BITMAP "BMP_INFO" FROM RESOURCE TRANSPARENT FLAT  ;
-        TOOLTIP "Info"
-
-   @ 106, 3 SAY oSayScale CAPTION "" OF oToolBar SIZE 60, 22 STYLE WS_BORDER ;
-        FONT oFont BACKCOLOR 12507070
+   @ 106, 3 SAY oSayScale CAPTION "" OF oToolBar SIZE 60, 22 STYLE WS_BORDER FONT oFont BACKCOLOR 12507070
 
 #ifdef __FREEIMAGE__
-   @ 0,oToolBar:nHeight IMAGE oSayMain SHOW Nil SIZE oMainWindow:nWidth, oMainWindow:nHeight
+   @ 0, oToolBar:nHeight IMAGE oSayMain SHOW NIL SIZE oMainWindow:nWidth, oMainWindow:nHeight
 #else
-   @ 0,oToolBar:nHeight BITMAP oSayMain SHOW Nil SIZE oMainWindow:nWidth, oMainWindow:nHeight
+   @ 0, oToolBar:nHeight BITMAP oSayMain SHOW NIL SIZE oMainWindow:nWidth, oMainWindow:nHeight
 #endif
 
    aScreen := GetWorkareaRect()
@@ -87,8 +80,10 @@ FUNCTION Main()
 
 RETURN NIL
 
-Static Function MessagesProc(oWnd, msg, wParam, lParam)
-Local i, aItem
+STATIC FUNCTION MessagesProc(oWnd, msg, wParam, lParam)
+
+   LOCAL i
+   LOCAL aItem
 
    IF msg == WM_VSCROLL
       Vscroll(oWnd, hwg_Loword(wParam), hwg_Hiword(wParam))
@@ -106,10 +101,11 @@ Local i, aItem
       ENDIF
    ENDIF
 
-Return -1
+RETURN -1
 
-Static Function Vscroll(oWnd, nScrollCode, nNewPos)
-Local stepV
+STATIC FUNCTION Vscroll(oWnd, nScrollCode, nNewPos)
+
+   LOCAL stepV
 
    IF nScrollCode == SB_LINEDOWN
       IF nStepV < SCROLLVRANGE
@@ -137,10 +133,11 @@ Local stepV
       ENDIF
    ENDIF
 
-Return Nil
+RETURN NIL
 
-Static Function Hscroll(oWnd, nScrollCode, nNewPos)
-Local stepH
+STATIC FUNCTION Hscroll(oWnd, nScrollCode, nNewPos)
+
+   LOCAL stepH
 
    IF nScrollCode == SB_LINEDOWN
       IF nStepH < SCROLLHRANGE
@@ -169,12 +166,13 @@ Local stepH
 
    ENDIF
 
-Return Nil
+RETURN NIL
 
-Static Function FileOpen(oWnd)
-Local mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
-Local fname
-Local aCoors
+STATIC FUNCTION FileOpen(oWnd)
+
+   LOCAL mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
+   LOCAL fname
+   LOCAL aCoors
 
 #ifdef __FREEIMAGE__
    fname := hwg_SelectFile("Graphic files( *.jpg;*.png;*.psd;*.tif )", "*.jpg;*.png;*.psd;*.tif", mypath)
@@ -185,13 +183,13 @@ Local aCoors
       nKoef := 1
       nStepV := nStepH := 0
       IF lScrollH
-         hwg_Setscrollinfo(oWnd:handle, SB_HORZ, 1, nStepH+1, 1, SCROLLHRANGE)
+         hwg_Setscrollinfo(oWnd:handle, SB_HORZ, 1, nStepH + 1, 1, SCROLLHRANGE)
       ENDIF
       IF lScrollV
-         hwg_Setscrollinfo(oWnd:handle, SB_VERT, 1, nStepV+1, 1, SCROLLVRANGE)
+         hwg_Setscrollinfo(oWnd:handle, SB_VERT, 1, nStepV + 1, 1, SCROLLVRANGE)
       ENDIF
       /*
-      IF oImage != Nil
+      IF oImage != NIL
          oImage:Release()
       ENDIF
       */
@@ -242,14 +240,15 @@ Local aCoors
       oSayScale:SetValue(Str(nKoef * 100, 4) + " %")
    ENDIF
 
-Return Nil
+RETURN NIL
 
-Static Function Zoom(oWnd, nOp)
-Local aCoors
-Local stepV, stepH
+STATIC FUNCTION Zoom(oWnd, nOp)
 
-   IF oImage == Nil
-      Return Nil
+   LOCAL aCoors
+   LOCAL stepV, stepH
+
+   IF oImage == NIL
+      RETURN NIL
    ENDIF
    aCoors := hwg_Getclientrect(oWnd:handle)
    nVert := (oWnd:nHeight - aCoors[4])
@@ -303,14 +302,15 @@ Local stepV, stepH
    hwg_Showscrollbar(oWnd:handle, SB_HORZ, lScrollH)
    hwg_Showscrollbar(oWnd:handle, SB_VERT, lScrollV)
 
-Return Nil
+RETURN NIL
 
 /*
-Static Function hwg_Paintwindow(oWnd)
-Local stepV, stepH
-Local nOffsV, nOffsH
+STATIC FUNCTION hwg_Paintwindow(oWnd)
 
-   IF oImage == Nil
+   LOCAL stepV, stepH
+   LOCAL nOffsV, nOffsH
+
+   IF oImage == NIL
       Return -1
    ENDIF
 
@@ -337,13 +337,13 @@ Local nOffsV, nOffsH
 Return 0
 */
 
-Static Function ImageInfo()
+STATIC FUNCTION ImageInfo()
 
-   IF oImage == Nil
-      Return Nil
+   IF oImage == NIL
+      RETURN NIL
    ENDIF
 
-Return Nil
+RETURN NIL
 
 #pragma BEGINDUMP
 

@@ -17,8 +17,13 @@
 
 #translate hwg_Rgb(<nRed>, <nGreen>, <nBlue>) => (<nRed> + (<nGreen> * 256) + (<nBlue> * 65536))
 
-Static oMain, oForm, oFont, oGrid
-Static nCount := 50, conn, leof := .F.
+STATIC oMain
+STATIC oForm
+STATIC oFont
+STATIC oGrid
+STATIC nCount := 50
+STATIC conn
+STATIC leof := .F.
 
 FUNCTION Main()
 
@@ -38,14 +43,14 @@ FUNCTION Main()
         res := PQexec(conn, "CLOSE cursor_1")
         PQclear(res)
 
-        res = PQexec(conn, "END")
+        res := PQexec(conn, "END")
         PQclear(res)
 
         PQClose(conn)
 
 RETURN NIL
 
-Function Test()
+FUNCTION Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
         INIT DIALOG oForm CLIPPER NOEXIT TITLE "Postgres Demo";
@@ -63,43 +68,43 @@ Function Test()
                      BACKCOLOR hwg_VColor("BEBEBE")
 
                      /*
-                     ON LOSTFOCUS {|| hwg_Msginfo("lost focus") } ;
-                     ON GETFOCUS {|| hwg_Msginfo("get focus")  }
+                     ON LOSTFOCUS {||hwg_Msginfo("lost focus")} ;
+                     ON GETFOCUS {||hwg_Msginfo("get focus")}
                      */
 
              ADD COLUMN TO GRID oGrid HEADER "Code" WIDTH 50
              ADD COLUMN TO GRID oGrid HEADER "Date" WIDTH 80
              ADD COLUMN TO GRID oGrid HEADER "Description" WIDTH 100
                                                               
-             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {||oForm:Close()}
              
         ACTIVATE DIALOG oForm
                 
-Return Nil
+RETURN NIL
 
-Function OnKey(o, k)
+FUNCTION OnKey(o, k)
 //    hwg_Msginfo(str(k))
-return nil
+RETURN NIL
 
-Function OnPosChange(o, row)
+FUNCTION OnPosChange(o, row)
 //    hwg_Msginfo(str(row))
-return nil    
+RETURN NIL    
 
-Function OnClick(o)
+FUNCTION OnClick(o)
 //    hwg_Msginfo("click")
-return nil    
+RETURN NIL    
 
-Function OnDispInfo(o, x, y)
+FUNCTION OnDispInfo(o, x, y)
 
    LOCAL result := ""
    LOCAL i
     
-    if x > Lastrec() .and. ! lEof
+    IF x > Lastrec() .AND. !lEof
         res := PQexec(conn, "FETCH FORWARD 10 FROM cursor_1")
         
-        if ! ISCHARACTER(res)
+        IF !ISCHARACTER(res)
 
-            if PQLastrec(res) != 10
+            IF PQLastrec(res) != 10
                 lEof := .T.
             end
             
@@ -114,25 +119,25 @@ Function OnDispInfo(o, x, y)
             
             hwg_Msginfo(res)
         
-        endif
+        ENDIF
         PQclear(res)              
-    endif
+    ENDIF
     
-    if x <= Lastrec()
+    IF x <= Lastrec()
         dbgoto(x)
         
-        if y == 1
+        IF y == 1
             result := str(code)
-        elseif y == 2
+        ELSEIF y == 2
             result := dtoc(creation)
-        elseif y == 3
+        ELSEIF y == 3
             result := descr
         end            
-    endif        
+    ENDIF        
     
 Return result
 
-Function CriaBase()
+FUNCTION CriaBase()
         IF File("trash.dbf")
             FErase("trash.dbf")
         END
@@ -145,10 +150,10 @@ Function CriaBase()
         
         conn := PQConnect("test", "localhost", "Rodrigo", "moreno", 5432)
 
-        if ISCHARACTER(conn)
+        IF ISCHARACTER(conn)
             hwg_Msginfo(conn)
             quit
-        endif
+        ENDIF
 
         res := PQexec(conn, "drop table test")
         PQclear(res)    
@@ -161,31 +166,31 @@ Function CriaBase()
             PQclear(res)
         Next
         
-        res = PQexec(conn, "BEGIN")
+        res := PQexec(conn, "BEGIN")
         PQclear(res)    
 
         res := PQexec(conn, "DECLARE cursor_1 NO SCROLL CURSOR WITH HOLD FOR SELECT * FROM test")
         PQclear(res)
-return nil
+RETURN NIL
 
 
-Function MyVal(xValue, type)
+FUNCTION MyVal(xValue, type)
 
    LOCAL result
 
-    if valtype(xValue) == "U"
-        if type == "N"
+    IF valtype(xValue) == "U"
+        IF type == "N"
             result := 0
-        elseif type == "D"
+        ELSEIF type == "D"
             result := CtoD("")
-        elseif type == "C"
+        ELSEIF type == "C"
             result := ""
-        endif
-    elseif type == "N"
+        ENDIF
+    ELSEIF type == "N"
         result := val(xvalue)
-    elseif type == "C"
+    ELSEIF type == "C"
         result := xvalue
-    elseif type == "D"
+    ELSEIF type == "D"
         result := CtoD(xvalue)    
-    endif
+    ENDIF
 Return result

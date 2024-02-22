@@ -22,7 +22,7 @@ FUNCTION Main()
    LOCAL oPanel
    LOCAL mypath := curdrive() + ":\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
 
-   Private oFlash
+   PRIVATE oFlash
 
    INIT WINDOW oMainWnd TITLE "FlashPlayer example" AT 200, 0 SIZE 500, 400
 

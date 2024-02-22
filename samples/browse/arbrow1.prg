@@ -30,7 +30,7 @@ FUNCTION Main()
     oBrw:aColumns[1]:heading := "Campo"
     oBrw:aColumns[2]:heading := "Filtro"
 
-    oBrw:aColumns[2]:lEditable = .T.
+    oBrw:aColumns[2]:lEditable := .T.
 
     oBrw:tColor := hwg_Getsyscolor(COLOR_BTNTEXT)
     oBrw:tColorSel := 8404992

@@ -15,9 +15,9 @@
 
 FUNCTION Main()
 
-   Local oArq1 := {{"COD", "C", 3, 0}}
-   Local oArq2 := {{"COD1", "C", 3, 0},{"NOME", "C", 30, 0}}
-   Local oDlg, i
+   LOCAL oArq1 := {{"COD", "C", 3, 0}}
+   LOCAL oArq2 := {{"COD1", "C", 3, 0},{"NOME", "C", 30, 0}}
+   LOCAL oDlg, i
 
    PRIVATE oBrowse, oSai, oConsulta
    PRIVATE vConsulta
@@ -68,10 +68,10 @@ FUNCTION Main()
    oBrowse:aColumns := {}
    oBrowse:nFootRows := 2
 
-   Teste_CreateColumn(oBrowse, "COD", "CODIGO", "TESTE", 1,"C", 3, 0)
-   Teste_CreateColumn(oBrowse, "NOME","NOME",   "TESTE1", 1,"C", 30, 0)
+   Teste_CreateColumn(oBrowse, "COD", "CODIGO", "TESTE", 1, "C", 3, 0)
+   Teste_CreateColumn(oBrowse, "NOME", "NOME", "TESTE1", 1, "C", 30, 0)
    oBrowse:acolumns[2]:footing := "test;test2"
-   oBrowse:acolumns[2]:bColorfoot := {|| {x_BLUE,x_RED}}
+   oBrowse:acolumns[2]:bColorfoot := {||{x_BLUE,x_RED}}
    oBrowse:acolumns[2]:nJusFoot := DT_CENTER
 
    oBrowse:Refresh()
@@ -86,20 +86,20 @@ RETURN NIL
 
 STATIC FUNCTION Teste_CreateColumn(oBrw, oCol, oHead, oAr, seq, oType, oLen, oDec)
 
-   Local i
-   Local nArea := &oAr->(select())
+   LOCAL i
+   LOCAL nArea := &oAr->(select())
 
    oBrw:AddColumn(HColumn():New(oHead, FieldWBlock(oCol, nArea), oType, oLen, oDec, .F.))
                                     //"C",   30,   2
    oBrw:Refresh()
 
-RETURN Nil
+RETURN NIL
 
 STATIC FUNCTION BrowseKey(oBr, key)
 
    LOCAL xFun
 
-   IF key == 112 //.and. lHelp == .T.      && f1
+   IF key == 112 //.AND. lHelp == .T. && f1
       //D_HELP()
    ELSE
      hwg_Msginfo(Str(key))

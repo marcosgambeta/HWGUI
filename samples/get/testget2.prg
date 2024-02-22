@@ -9,8 +9,8 @@
 
 FUNCTION Main()
 
-   Local oMainWindow
-   Private var1 := 10320.54
+   LOCAL oMainWindow
+   PRIVATE var1 := 10320.54
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -19,37 +19,35 @@ FUNCTION Main()
       MENUITEM "&Get a value" ACTION DlgGet(.F.)
       MENUITEM "&Get using SetcolorinFocus" ACTION DlgGet(.T.)
       MENUITEM "&Text Ballon" ACTION TestBallon()
-      MENUITEM "&Hd Serial  " ACTION hwg_Msginfo(hwg_HdSerial("C:\"),"HD Serial number")
+      MENUITEM "&Hd Serial  " ACTION hwg_Msginfo(hwg_HdSerial("C:\"), "HD Serial number")
    ENDMENU
 
    ACTIVATE WINDOW oMainWindow
 
 RETURN NIL
 
-Function DlgGet(lColor)
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oTimer
-Local e1 := "Dialog from prg"
-Local e2 := Date()
-Local e3 := 10320.54
-Local e4 := "11222333444455"
-Local e5 := 10320.54
-Local e6 := "Max Lenght = 15"
-Local e7 := "Password"
+FUNCTION DlgGet(lColor)
+LOCAL oModDlg
+LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+LOCAL oTimer
+LOCAL e1 := "Dialog from prg"
+LOCAL e2 := Date()
+LOCAL e3 := 10320.54
+LOCAL e4 := "11222333444455"
+LOCAL e5 := 10320.54
+LOCAL e6 := "Max Lenght = 15"
+LOCAL e7 := "Password"
 
-Private oSayT
+PRIVATE oSayT
 
-   INIT DIALOG oModDlg CLIPPER NOEXIT TITLE "Get a value"  ;
-   AT 210, 10  SIZE 300, 320                  ;
-   FONT oFont ;
-   ON INIT {|| hwg_Settimer(oModDlg,@oTimer)}
+   INIT DIALOG oModDlg CLIPPER NOEXIT TITLE "Get a value" AT 210, 10 SIZE 300, 320 FONT oFont ;
+      ON INIT {||hwg_Settimer(oModDlg,@oTimer)}
 
    SET KEY FSHIFT,VK_F3 TO hwg_Msginfo("Shift-F3")
    SET KEY FCONTROL,VK_F3 TO hwg_Msginfo("Ctrl-F3")
    SET KEY 0,VK_F3 TO hwg_Msginfo("F3")
 
-   If lColor <> Nil
+   If lColor != NIL
       hwg_SetColorinFocus(lColor)
    EndIf
 
@@ -101,22 +99,23 @@ Private oSayT
                "Results:")
    ENDIF
 
-Return Nil
+RETURN NIL
 
-Static Function hwg_Settimer(oDlg, oTimer)
+STATIC FUNCTION hwg_Settimer(oDlg, oTimer)
 
    SET TIMER oTimer OF oDlg VALUE 1000 ACTION {||TimerFunc()}
-Return Nil
 
-Static Function TimerFunc()
+RETURN NIL
+
+STATIC FUNCTION TimerFunc()
 
    oSayT:SetValue(Time())
-Return Nil
 
+RETURN NIL
 
-Function TestBallon
+FUNCTION TestBallon
 
-   Local oWnd
+   LOCAL oWnd
 
    hwg_Settooltipballoon(.T.)
 
@@ -129,5 +128,5 @@ Function TestBallon
 
    ACTIVATE DIALOG oWnd
 
-   Return Nil
+   RETURN NIL
 

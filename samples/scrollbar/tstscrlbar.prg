@@ -18,11 +18,12 @@ FUNCTION Main()
 RETURN NIL
 
 STATIC FUNCTION stdScroll(oDlg, msg, wParam, lParam, nIncr)
+
    LOCAL nScrollCode := hwg_Loword(wParam)
    LOCAL nNewPos := hwg_Hiword(wParam)
    LOCAL x, y, xx, yy, pg
 
-   IF ! HB_IsNumeric(nIncr)
+   IF !HB_IsNumeric(nIncr)
       nIncr := 10
    ENDIF
    pg := Max(Round(nIncr / 5, 0), 2)

@@ -17,7 +17,12 @@
 
 #translate hwg_Rgb(<nRed>, <nGreen>, <nBlue>) => (<nRed> + (<nGreen> * 256) + (<nBlue> * 65536))
 
-Static oMain, oForm, oFont, oGrid, oServer, oQuery
+STATIC oMain
+STATIC oForm
+STATIC oFont
+STATIC oGrid
+STATIC oServer
+STATIC oQuery
 
 FUNCTION Main()
 
@@ -37,7 +42,8 @@ FUNCTION Main()
 
 RETURN NIL
 
-Function Test()
+FUNCTION Test()
+
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
         INIT DIALOG oForm CLIPPER NOEXIT TITLE "Postgres Sample";
@@ -54,47 +60,47 @@ Function Test()
              ADD COLUMN TO GRID oGrid HEADER "Column 1" WIDTH  50
              ADD COLUMN TO GRID oGrid HEADER "Column 2" WIDTH 200
              ADD COLUMN TO GRID oGrid HEADER "Column 3" WIDTH 100
-                                                              
-             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
-             
-        ACTIVATE DIALOG oForm
-Return Nil
 
-Function ConnectGrid()
-    Local cHost := "Localhost"
-    Local cDatabase := "test"
-    Local cUser := "Rodrigo"
-    Local cPass := "moreno"
-    Local oRow, i
-    
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {||oForm:Close()}
+
+        ACTIVATE DIALOG oForm
+RETURN NIL
+
+FUNCTION ConnectGrid()
+
+    LOCAL cHost := "Localhost"
+    LOCAL cDatabase := "test"
+    LOCAL cUser := "Rodrigo"
+    LOCAL cPass := "moreno"
+    LOCAL oRow, i
+
     oServer := TPQServer():New(cHost, cDatabase, cUser, cPass)
 
-    if oServer:NetErr()
+    IF oServer:NetErr()
         ? oServer:Error()
         quit
     end
-    
-    if oServer:TableExists("test")
+
+    IF oServer:TableExists("test")
         oServer:DeleteTable("Test")
-    endif        
-    
+    ENDIF
+
     oServer:CreateTable("Test", {{"col1", "N", 6, 0},;
                                  {"col2", "C", 40, 0},;
                                  {"col3", "D", 8, 0}})
-        
+
     oQuery := oServer:Query("SELECT * FROM test")
-                                     
+
     For i := 1 to 100
         oRow := oQuery:blank()
-        
+
         oRow:Fieldput(1, i)
         oRow:Fieldput(2, "teste line " + str(i))
         oRow:Fieldput(3, date() + i)
-        
-        oQuery:Append(oRow)
-    Next  
-    
-    oQuery:refresh()
-    
-return nil        
 
+        oQuery:Append(oRow)
+    Next
+
+    oQuery:refresh()
+
+RETURN NIL

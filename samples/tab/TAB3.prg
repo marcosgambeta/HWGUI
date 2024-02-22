@@ -2,21 +2,18 @@
 
 FUNCTION _Main()
 
-   PRIVATE oRadiogroup1, oL     , oRadiobutton1, oRadiobutton2, oPage , oLabel1, oLabel4, oLabel3, oLabel2
+   PRIVATE oRadiogroup1, oL, oRadiobutton1, oRadiobutton2, oPage, oLabel1, oLabel4, oLabel3, oLabel2
 
    cUser := "1"
 
-   INIT DIALOG oDlg TITLE "Form1" ;
-        AT 422, 66 SIZE 500, 400 ;
-        ON INIT {|| onDlgInit() }
+   INIT DIALOG oDlg TITLE "Form1" AT 422, 66 SIZE 500, 400 ON INIT {||onDlgInit()}
 
-
-  RADIOGROUP
-   @ 50, 50 RADIOBUTTON oRadiobutton1 CAPTION "User 1      " OF oRadiogroup1 SIZE 110, 22   ;
-        ON CLICK {|| oRadiobutton1_onClick() }
-   @ 159, 51 RADIOBUTTON oRadiobutton2 CAPTION "User 2      " OF oRadiogroup1 SIZE 110, 22   ;
-        ON CLICK {|| oRadiobutton2_onClick() }
-  END RADIOGROUP SELECTED 1
+   RADIOGROUP
+   @ 50, 50 RADIOBUTTON oRadiobutton1 CAPTION "User 1      " OF oRadiogroup1 SIZE 110, 22 ;
+        ON CLICK {||oRadiobutton1_onClick()}
+   @ 159, 51 RADIOBUTTON oRadiobutton2 CAPTION "User 2      " OF oRadiogroup1 SIZE 110, 22 ;
+        ON CLICK {||oRadiobutton2_onClick()}
+   END RADIOGROUP SELECTED 1
 
    @ 315, 43 SAY oL      CAPTION "Label" SIZE 147, 22
    @ 27, 113 TAB oPage  ITEMS {} SIZE 455, 238   ;
@@ -41,17 +38,18 @@ FUNCTION _Main()
 
 RETURN NIL
 
-STATIC function protek
+STATIC FUNCTION protek()
+
  parameters o,n
  private lOpen := .T.
 
 
- if cUser=="1" .and. n==2
+ if cUser=="1" .AND. n==2
     lOpen := .F.
  endif
 
 
- if cUser=="2" .and. n==1
+ if cUser=="2" .AND. n==1
     lOpen := .F.
  endif
 
@@ -65,25 +63,25 @@ STATIC function protek
  oPage:ChangePage(4)
  endif
 
+RETURN NIL
 
+STATIC FUNCTION onDlgInit()
 
+   oPage:settab(4)
+   oPage:ShowPage(4)
 
-Return Nil
+RETURN NIL
 
+STATIC FUNCTION oRadiobutton1_onClick()
 
-STATIC FUNCTION onDlgInit
-oPage:settab(4)
-oPage:ShowPage(4)
+   cUser := "1"
+   oL:settext("only 1,3")
 
-RETURN Nil
+RETURN NIL
 
-STATIC FUNCTION oRadiobutton1_onClick
-cUser := "1"
-oL:settext("only 1,3")
-RETURN Nil
+STATIC FUNCTION oRadiobutton2_onClick()
 
-STATIC FUNCTION oRadiobutton2_onClick
-cUser := "2"
-oL:settext("only 2,3")
+   cUser := "2"
+   oL:settext("only 2,3")
 
-RETURN Nil
+RETURN NIL

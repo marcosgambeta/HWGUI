@@ -17,7 +17,10 @@
 #define LVS_SMALLICON           0x0002
 #define LVS_LIST                0x0003
 
-Static oMain, oForm, oFont, oGrid
+STATIC oMain
+STATIC oForm
+STATIC oFont
+STATIC oGrid
 
 FUNCTION Main()
 
@@ -32,22 +35,23 @@ FUNCTION Main()
 
 RETURN NIL
 
-Function Test()
-Local aHead := {}
-Local n
-Local aItems := {}
-Local aStru
+FUNCTION Test()
 
-use test new
-aStru := dbstruct()
-for n := 1 to len(astru)
-   aadd(aHead,aStru[n, 1])
-next
-go Top
-while !eof()
- aadd(aItems,{first,last,city,str(salary, 10, 2)})
- skip
-enddo
+   LOCAL aHead := {}
+   LOCAL n
+   LOCAL aItems := {}
+   LOCAL aStru
+
+   use test new
+   aStru := dbstruct()
+   for n := 1 to len(astru)
+      aadd(aHead,aStru[n, 1])
+   next
+   go Top
+   DO WHILE !eof()
+      aadd(aItems, {first, last, city, str(salary, 10, 2)})
+      skip
+   ENDDO
 
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
@@ -80,28 +84,28 @@ enddo
                    HEADER aItems[n, 1] BITMAP 1 COLOR hwg_Rgb(123, 122, 123) BACKCOLOR hwg_Rgb(192, 0, 255)
              next
 
-             @ 0, 395 button "LVS_REPORT" size 95, 25 on click  {|| hwg_Listview_setview(oGrid:handle,LVS_REPORT)}
-             @ 100, 395 button "LVS_ICON" size 95, 25 on click  {|| hwg_Listview_setview(oGrid:handle,LVS_ICON)}
-             @ 200, 395 button "LVS_SMALLICON" size 95, 25 on click  {|| hwg_Listview_setview(oGrid:handle,LVS_SMALLICON)}
-             @ 300, 395 button "LVS_LIST" size 95, 25 on click  {|| hwg_Listview_setview(oGrid:handle,LVS_LIST)}
-             @ 700, 395 BUTTON "Close" SIZE 95, 25 ON CLICK {|| oForm:Close() }
+             @ 0, 395 button "LVS_REPORT" size 95, 25 on click  {||hwg_Listview_setview(oGrid:handle,LVS_REPORT)}
+             @ 100, 395 button "LVS_ICON" size 95, 25 on click  {||hwg_Listview_setview(oGrid:handle,LVS_ICON)}
+             @ 200, 395 button "LVS_SMALLICON" size 95, 25 on click  {||hwg_Listview_setview(oGrid:handle,LVS_SMALLICON)}
+             @ 300, 395 button "LVS_LIST" size 95, 25 on click  {||hwg_Listview_setview(oGrid:handle,LVS_LIST)}
+             @ 700, 395 BUTTON "Close" SIZE 95, 25 ON CLICK {||oForm:Close()}
              
         ACTIVATE DIALOG oForm 
                 
-Return Nil
+RETURN NIL
 
-Function OnKey(o, k)
+FUNCTION OnKey(o, k)
 //    hwg_Msginfo(str(k))
-return nil    
+RETURN NIL    
 
-Function OnPosChange(o, row)
+FUNCTION OnPosChange(o, row)
 //    hwg_Msginfo(str(row))
-return nil
+RETURN NIL
 
-Function OnClick(o)
+FUNCTION OnClick(o)
 //    hwg_Msginfo("click")
-return nil    
+RETURN NIL
 
-Function OnDispInfo(o, x, y)
-return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
+FUNCTION OnDispInfo(o, x, y)
+RETURN "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
 

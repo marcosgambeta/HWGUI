@@ -195,7 +195,7 @@ METHOD closefile() CLASS HBMake_FileBase
    /* Method:  retrieve
    Params:  N/A
    Returns: <cChar>
-   Purpose: To return the contents of the file at the current position based
+   Purpose: To RETURN the contents of the file at the current position based
             on the length of ::nSkipLength.
 */
 METHOD retrieve() CLASS HBMake_FileBase
@@ -422,7 +422,7 @@ METHOD WRITE(cChar) CLASS HBMake_FileBase
    /* Method:  getBuffer(<lDirection>)
    Params:  <lDirection>    Logical toggle for direction
    Returns: <nBytes>
-   Purpose: To return the number of bytes either forward or backward from
+   Purpose: To RETURN the number of bytes either forward or backward from
             the present file pointer position in which the next CRLF char
             appears.  If <lDirection> is a logical false (.F.) value, them
             the operation will go in reverse order; otherwise, it will go
@@ -486,7 +486,7 @@ METHOD Buffget(lForward) CLASS HBMake_FileBase
    Returns: Self
    Purpose: To append a blank CRLF delimited line at the end of the file.
             If <cLine> is not passed or if it an empty line with 0 bytes
-            in length, the function will not operate.
+            in length, the FUNCTION will not operate.
 */
 METHOD appendLine(cLine) CLASS HBMake_FileBase
 
@@ -530,13 +530,13 @@ METHOD SKIP(nRecords) CLASS HBMake_FileBase
    IF Self:noDosError() .AND. Self:nDosHandle > 0
       DO CASE
          CASE nRecords > 0              // It's positive movement
-            WHILE nCount++ != nRecords
+            DO WHILE nCount++ != nRecords
                ::fskip()
                ::nSkipLength := Self:Buffget()
             ENDDO
 
          CASE nRecords < 0              // It's negative movement
-            WHILE nCount-- != nRecords
+            DO WHILE nCount-- != nRecords
                ::nSkipLength := Self:Buffget(pFALSE)
                ::fskip(-1)
             ENDDO
@@ -566,12 +566,12 @@ METHOD GOTO(nValue) CLASS HBMake_FileBase
       IF nValue IS pNUMERIC
          IF nValue > 0                  // o.k. so far
             FSEEK(Self:nDosHandle, 0, 0)                  // start at the top
-            WHILE lContinue
+            DO WHILE lContinue
                cBuffer   := SPACE(pBUFFER_LENGTH)
                lContinue := (FREAD(Self:nDosHandle, @cBuffer, pBUFFER_LENGTH) == ;
                               pBUFFER_LENGTH )
                cBuffer := cLine + cBuffer
-               WHILE pCRLF $ cBuffer
+               DO WHILE pCRLF $ cBuffer
                   IF ++nCount == nValue
                      lContinue := pFALSE
                      EXIT

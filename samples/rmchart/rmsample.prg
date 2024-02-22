@@ -46,11 +46,11 @@ Return
 
 FUNCTION Main()
 
-   Local oMainWnd, oPanelTool, oPanelIE, oFont
-   Local cUrl, oIE
+   LOCAL oMainWnd, oPanelTool, oPanelIE, oFont
+   LOCAL cUrl, oIE
 
-   Private oEdit
-   Private oChart
+   PRIVATE oEdit
+   PRIVATE oChart
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -15
 
@@ -90,7 +90,7 @@ FUNCTION Main()
     oChart:RMCUserWatermark := "Test Test Test"
     oChart:AddRegion()
     r1 := oChart:Region(1)
-    r1:Footer = "hwgui does ocx too!"
+    r1:Footer := "hwgui does ocx too!"
     r1:AddCaption()
     WITH OBJECT r1 			// oChart:Region(1)
          WITH OBJECT :Caption()
@@ -111,7 +111,7 @@ FUNCTION Main()
          END
    END
    oChart:Draw2Clipboard(RMC_EMF)  // Copy in clipboard
-   ris = oChart:Draw(.T.)
+   ris := oChart:Draw(.T.)
    oChart:Enable()
    oChart:Show()
 

@@ -2,7 +2,7 @@
 
 FUNCTION Main()
 
-   Local oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")
+   LOCAL oMainWindow, oTrayMenu, oIcon := HIcon():AddResource("ICON_1")
 
    INIT WINDOW oMainWindow MAIN TITLE "Example"
 
@@ -12,7 +12,7 @@ FUNCTION Main()
       MENUITEM "Exit"  ACTION hwg_EndWindow()
    ENDMENU
 
-   oMainWindow:InitTray(oIcon,,oTrayMenu,"TestTray")
+   oMainWindow:InitTray(oIcon, , oTrayMenu, "TestTray")
 
    ACTIVATE WINDOW oMainWindow NOSHOW
    oTrayMenu:End()

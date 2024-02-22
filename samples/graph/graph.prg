@@ -2,7 +2,7 @@
 
 FUNCTION Main()
 
-   Local oMainWindow
+   LOCAL oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 100 COLOR COLOR_3DLIGHT
 
@@ -17,11 +17,12 @@ FUNCTION Main()
 
 RETURN NIL
 
-Static Function Graph1
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oGraph
-Local i, aGraph[1]
+STATIC FUNCTION Graph1()
+
+   LOCAL oModDlg
+   LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+   LOCAL oGraph
+   LOCAL i, aGraph[1]
 
    aGraph[1] := {}
    FOR i := -40 TO 40
@@ -41,13 +42,14 @@ Local i, aGraph[1]
 
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+RETURN NIL
 
-Static Function Graph2
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oGraph
-Local i, aGraph[1]
+STATIC FUNCTION Graph2()
+
+   LOCAL oModDlg
+   LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+   LOCAL oGraph
+   LOCAL i, aGraph[1]
 
    aGraph[1] := {}
    FOR i := 1 TO 6
@@ -67,13 +69,14 @@ Local i, aGraph[1]
 
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+RETURN NIL
 
-Static Function Graph3
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oGraph
-Local i, aGraph[1]
+STATIC FUNCTION Graph3()
+
+   LOCAL oModDlg
+   LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+   LOCAL oGraph
+   LOCAL i, aGraph[1]
 
    aGraph[1] := {}
    FOR i := 1 TO 6
@@ -93,4 +96,4 @@ Local i, aGraph[1]
 */
    ACTIVATE DIALOG oModDlg
 
-Return Nil
+RETURN NIL

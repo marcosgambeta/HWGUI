@@ -88,7 +88,8 @@ DECLARE  HBMAKE_FILEBASE ;
     OPEN()                           AS OBJECT;
     append(OPTIONAL cline AS STRING) AS OBJECT
 
-STATIC TheHandle As Object
+STATIC TheHandle AS OBJECT
+
 /****
 *   FT_FUSE(cFile,nMode)   ---> nHandle
 *   Open a File
@@ -96,20 +97,20 @@ STATIC TheHandle As Object
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FT_FUSE()
+*+    FUNCTION FT_FUSE()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
 FUNCTION FT_FUSE(cFile AS STRING, nMode AS NUMERIC)
-   Local nHandle as numeric
-   IF nMode == nil
+   LOCAL nHandle as numeric
+   IF nMode == NIL
       nMode := 2
    ENDIF
-   IF cFile == Nil
+   IF cFile == NIL
       theHandle:closefile()
    ENDIF
-   IF cFile <> Nil
-      IF nMode <> 0
+   IF cFile != NIL
+      IF nMode != 0
          theHandle := HBMake_FileBase():new(cFile):open()
       ELSE
          theHandle := HBMake_FileBase():new(cFile):open()
@@ -120,9 +121,9 @@ RETURN nHandle
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function ft_FEOF()
+*+    FUNCTION ft_FEOF()
 *+
-*+    Called from ( hbdoc.prg    )   1 - function readln()
+*+    Called from ( hbdoc.prg    )   1 - FUNCTION readln()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -132,9 +133,9 @@ RETURN lRETURN
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FReadLn()
+*+    FUNCTION FReadLn()
 *+
-*+    Called from ( ft_funcs.prg )   1 - function ft_freadln()
+*+    Called from ( ft_funcs.prg )   1 - FUNCTION ft_freadln()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -145,9 +146,9 @@ RETURN cLine
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FT_FReadLn()
+*+    FUNCTION FT_FReadLn()
 *+
-*+    Called from ( hbdoc.prg    )   1 - function readln()
+*+    Called from ( hbdoc.prg    )   1 - FUNCTION readln()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -163,10 +164,10 @@ RETURN cBuffer
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FT_FGotop()
+*+    FUNCTION FT_FGotop()
 *+
-*+    Called from ( genng.prg    )   1 - static function readfromtop()
-*+                ( genrtf.prg   )   1 - static function readfromtop()
+*+    Called from ( genng.prg    )   1 - static FUNCTION readfromtop()
+*+                ( genrtf.prg   )   1 - static FUNCTION readfromtop()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -177,20 +178,20 @@ RETURN NIL
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FT_FSKIP()
+*+    FUNCTION FT_FSKIP()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
 FUNCTION FT_FSKIP(n AS NUMERIC)
 
    TheHandle:Skip(n)
-RETURN nil
+RETURN NIL
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FT_MKDIR()
+*+    FUNCTION FT_MKDIR()
 *+
-*+    Called from ( hbdoc.prg    )   6 - function main()
+*+    Called from ( hbdoc.prg    )   6 - FUNCTION main()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -198,14 +199,14 @@ FUNCTION FT_MKDIR(CDIR AS STRING)
 
    MAKEDIR(cdir)
 
-RETURN nil
+RETURN NIL
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function StrPos()
+*+    FUNCTION StrPos()
 *+
-*+    Called from ( genhtm1.prg  )   1 - function prochtmtable()
-*+                ( genhtm2.prg  )   1 - function prochtmtable()
+*+    Called from ( genhtm1.prg  )   1 - FUNCTION prochtmtable()
+*+                ( genhtm2.prg  )   1 - FUNCTION prochtmtable()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -219,7 +220,7 @@ FUNCTION StrPos(cBuffer AS STRING)
       IF cChar >= CHR(64) .AND. cChar <= CHR(90) .OR. cChar >= CHR(97) ;
                  .AND. cChar <= CHR(122) .OR. cChar >= CHR(48) .AND. cChar <= CHR(57) ;
                  .OR. cChar == CHR(60) .OR. cchar == CHR(ASC("-")) ;
-                 .OR. cchar == CHR(ASC("(")) .OR. cchar = CHR(ASC("|")) .OR. ;
+                 .OR. cchar == CHR(ASC("(")) .OR. cchar == CHR(ASC("|")) .OR. ;
                  cchar == CHR(ASC(".")) .OR. cchar == CHR(ASC("*")) .OR. ;
                  cchar == CHR(ASC("#")) .OR. cchar == CHR(ASC(""")) .OR. ;
                  cchar == CHR(ASC("/")) .OR. cchar == CHR(ASC("@")) ;
@@ -238,11 +239,11 @@ RETURN nPos
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function GetNumberofTableItems()
+*+    FUNCTION GetNumberofTableItems()
 *+
-*+    Called from ( genhtm.prg   )   1 - function prochtmdesc()
-*+                ( genng.prg    )   1 - function procngdesc()
-*+                ( genng1.prg   )   1 - function procngdesc()
+*+    Called from ( genhtm.prg   )   1 - FUNCTION prochtmdesc()
+*+                ( genng.prg    )   1 - FUNCTION procngdesc()
+*+                ( genng1.prg   )   1 - FUNCTION procngdesc()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
@@ -269,10 +270,10 @@ FUNCTION GetNumberofTableItems(cBuffer)
 
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+
-*+    Function FREADline()
+*+    FUNCTION FREADline()
 *+
-*+    Called from ( genng.prg    )   1 - static function readfromtop()
-*+                ( genrtf.prg   )   1 - static function readfromtop()
+*+    Called from ( genng.prg    )   1 - static FUNCTION readfromtop()
+*+                ( genrtf.prg   )   1 - static FUNCTION readfromtop()
 *+
 *+北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北北
 *+

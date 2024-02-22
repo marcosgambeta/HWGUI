@@ -7,11 +7,11 @@
  * 07/07/2005
  * Demo for Browse using bColorBlock
  *
- *       oBrowse:aColumns[1]:bColorBlock := {|| IF (nNumber < 0, ;
+ *       oBrowse:aColumns[1]:bColorBlock := {||IIF(nNumber < 0, ;
  *       {textColor, backColor, textColorSel, backColorSel} ,;
- *       {textColor, backColor, textColorSel, backColorSel} ) }
+ *       {textColor, backColor, textColorSel, backColorSel})}
  *
- *       bColorBlock must return an array containing four colors values
+ *       bColorBlock must RETURN an array containing four colors values
  *
  */
 
@@ -89,19 +89,19 @@ STATIC FUNCTION BrwDbs(lEdit, lZebra)
            STYLE  WS_VSCROLL + WS_HSCROLL ;
            AUTOEDIT ;
            APPEND ;
-           ON UPDATE {|| oBrwDb:REFRESH() } ;
+           ON UPDATE {||oBrwDb:REFRESH()} ;
            ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
-           ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
+           ON POSCHANGE {||BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs")}
    ELSE
       @ 10, 10 BROWSE oBrwDb DATABASE SIZE 580, 385  ;
            STYLE  WS_VSCROLL + WS_HSCROLL ;
-           ON UPDATE {|| oBrwDb:REFRESH() } ;
+           ON UPDATE {||oBrwDb:REFRESH()} ;
            ON KEYDOWN {|oBrwDb, nKey| BrowseDbKey(oBrwDb, nKey, @nLast, oLbl2, "") } ;
-           ON POSCHANGE {|| BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs" ) }
+           ON POSCHANGE {||BrowseMove(oBrwDb, "NIL", oEdGoto, "Dbs")}
    END
 
    @ 260, 410 BUTTON oBtn1 CAPTION "&OK " SIZE 80, 26 ;
-         ON CLICK {|| hwg_EndDialog()}
+         ON CLICK {||hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
 
@@ -109,12 +109,12 @@ STATIC FUNCTION BrwDbs(lEdit, lZebra)
 
    @ 85, 5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20, 20     ;
         BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwDb, "Home", oEdGoto, "Dbs" ) };
+        ON CLICK {||BrowseMove(oBrwDb, "Home", oEdGoto, "Dbs")};
         TOOLTIP "First Record"
 
    @ 105, 5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20, 20    ;
         BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwDb, "Up", oEdGoto, "Dbs" ) } ;
+        ON CLICK {||BrowseMove(oBrwDb, "Up", oEdGoto, "Dbs")} ;
         TOOLTIP "Prior"
 
    @ 130, 4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80, 22 ;
@@ -126,12 +126,12 @@ STATIC FUNCTION BrwDbs(lEdit, lZebra)
 
    @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
         BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwDb, "Down", oEdGoto, "Dbs" ) } ;
+        ON CLICK {||BrowseMove(oBrwDb, "Down", oEdGoto, "Dbs")} ;
         TOOLTIP "Next"
 
    @ 235, 5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20, 20   ;
         BITMAP "End.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwDb, "End", oEdGoto, "Dbs" ) } ;
+        ON CLICK {||BrowseMove(oBrwDb, "End", oEdGoto, "Dbs")} ;
         TOOLTIP "Last Record"
 
    oBrwDb:bcolorSel := x_DARKBLUE
@@ -156,23 +156,21 @@ STATIC FUNCTION BrwDbs(lEdit, lZebra)
       oBrwDb:aColumns[5]:lEditable := .T.
    END
 
-//      {|| IF (nNumber < 0, ;
-//       {tColor, bColor, tColorSel, bColorSel} ,;
-//       {tColor, bColor, tColorSel, bColorSel}) }
+// {||IIF(nNumber < 0, {tColor, bColor, tColorSel, bColorSel}, {tColor, bColor, tColorSel, bColorSel})}
 
    IF lEdit
-      oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+      oBrwDb:aColumns[1]:bColorBlock := {||IIF(TSTB->FIELD1 < 0, ;
          {x_RED, x_WHITE, x_CYAN, x_GRAY}, ;
-         {x_BLUE, x_WHITE, x_BLACK, x_YELLOW })}
+         {x_BLUE, x_WHITE, x_BLACK, x_YELLOW})}
    ELSE
-      oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+      oBrwDb:aColumns[1]:bColorBlock := {||IIF(TSTB->FIELD1 < 0, ;
          {x_RED, x_WHITE, x_CYAN, x_DARKBLUE}, ;
-         {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
+         {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE})}
       IF lZebra
          FOR nI := 2 TO 5
-            oBrwDB:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwDB:nPaintRow, 2) = 0,;
+            oBrwDB:aColumns[nI]:bColorBlock := {||IIF(MOD(oBrwDB:nPaintRow, 2) == 0, ;
                {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
-               {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
+               {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE})}
          NEXT
       ENDIF
    END
@@ -239,7 +237,7 @@ STATIC FUNCTION CriaDbf()
    LOCAL i := 1
    LOCAL nIncrement := 10
 
-  IF ! FILE("TSTBRW.DBF")
+  IF !FILE("TSTBRW.DBF")
      AADD(Estrutura, {"FIELD1", "N", 10, 02})
      AADD(Estrutura, {"FIELD2", "C", 11, 00})
      AADD(Estrutura, {"FIELD3", "D", 08, 00})
@@ -293,19 +291,19 @@ STATIC FUNCTION BrwArr(lEdit, lZebra)
         STYLE  WS_VSCROLL + WS_HSCROLL ;
         AUTOEDIT ;
         APPEND ;
-        ON UPDATE {|| oBrwArr:REFRESH() } ;
+        ON UPDATE {||oBrwArr:REFRESH()} ;
         ON KEYDOWN {|oBrwArr, nKey| BrowseDbKey(oBrwArr, nKey, @nLast, oLbl2, "") } ;
-        ON POSCHANGE {|| BrowseMove(oBrwArr, "NIL", oEdGoto, "Array" ) }
+        ON POSCHANGE {||BrowseMove(oBrwArr, "NIL", oEdGoto, "Array")}
   ELSE
    @ 10, 10 BROWSE oBrwArr ARRAY SIZE 580, 385  ;
         STYLE  WS_VSCROLL + WS_HSCROLL ;
-        ON UPDATE {|| oBrwArr:REFRESH() } ;
+        ON UPDATE {||oBrwArr:REFRESH()} ;
         ON KEYDOWN {|oBrwArr, nKey| BrowseDbKey(oBrwArr, nKey, @nLast, oLbl2, "") } ;
-        ON POSCHANGE {|| BrowseMove(oBrwArr, "NIL", oEdGoto, "Array" ) }
+        ON POSCHANGE {||BrowseMove(oBrwArr, "NIL", oEdGoto, "Array")}
   END
 
    @ 260, 410 BUTTON oBtn1 CAPTION "&OK " SIZE 80, 26 ;
-         ON CLICK {|| hwg_EndDialog()}
+         ON CLICK {||hwg_EndDialog()}
 
    @ 0, 445 PANEL oTbar1 SIZE 600, 26
 
@@ -313,12 +311,12 @@ STATIC FUNCTION BrwArr(lEdit, lZebra)
 
    @ 85, 5 OWNERBUTTON o_Obtn1 OF oTbar1 SIZE 20, 20     ;
         BITMAP "Home.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwArr, "Home", oEdGoto, "Array" ) };
+        ON CLICK {||BrowseMove(oBrwArr, "Home", oEdGoto, "Array")};
         TOOLTIP "First Record"
 
    @ 105, 5 OWNERBUTTON o_Obtn2 OF oTbar1 SIZE 20, 20    ;
         BITMAP "Up.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwArr, "Up", oEdGoto, "Array" ) } ;
+        ON CLICK {||BrowseMove(oBrwArr, "Up", oEdGoto, "Array")} ;
         TOOLTIP "Prior"
 
    @ 130, 4 GET oEdGoto VAR nRec OF oTbar1 SIZE 80, 22 ;
@@ -330,12 +328,12 @@ STATIC FUNCTION BrwArr(lEdit, lZebra)
 
    @ 215, 5 OWNERBUTTON o_Obtn3 OF oTbar1 SIZE 20, 20   ;
         BITMAP "Down.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwArr, "Down", oEdGoto, "Array" ) } ;
+        ON CLICK {||BrowseMove(oBrwArr, "Down", oEdGoto, "Array")} ;
         TOOLTIP "Next"
 
    @ 235, 5 OWNERBUTTON o_Obtn4 OF oTbar1 SIZE 20, 20   ;
         BITMAP "End.bmp";// TRANSPARENT COORDINATES 0, 2, 0, 0 ;
-        ON CLICK {|| BrowseMove(oBrwArr, "End", oEdGoto, "Array" ) } ;
+        ON CLICK {||BrowseMove(oBrwArr, "End", oEdGoto, "Array")} ;
         TOOLTIP "Last Record"
 
        hwg_CREATEARLIST(oBrwArr, aArrayTst)
@@ -368,9 +366,7 @@ STATIC FUNCTION BrwArr(lEdit, lZebra)
         oBrwArr:aColumns[5]:lEditable := .T.
         END
 
-//      {|| IF (nNumber < 0, ;
-//       {tColor, bColor, tColorSel, bColorSel}, ;
-//       {tColor, bColor, tColorSel, bColorSel}) }
+//      {||IIF(nNumber < 0, {tColor, bColor, tColorSel, bColorSel}, {tColor, bColor, tColorSel, bColorSel})}
        IF lEdit
        oBrwArr:aColumns[1]:bColorBlock := {|n| IF(aArrayTst[oBrwArr:nCurrent][1] < 0, ;
            {x_RED, x_WHITE, x_CYAN, x_BLUE}, ;
@@ -381,17 +377,17 @@ STATIC FUNCTION BrwArr(lEdit, lZebra)
            {x_BLUE, x_WHITE, x_WHITE, x_BLUE })}
           IF lZebra
              FOR nI := 2 TO 5
-                oBrwArr:aColumns[nI]:bColorBlock := {|| IF(MOD(oBrwArr:nCurrent, 2) = 0,;
+                oBrwArr:aColumns[nI]:bColorBlock := {||IIF(MOD(oBrwArr:nCurrent, 2) == 0, ;
                        {x_BLACK, x_GRAY, x_CYAN, x_DARKBLUE}, ;
-                       {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE })}
+                       {x_BLACK, x_WHITE, x_WHITE, x_DARKBLUE})}
              NEXT
           ENDIF
        END
 
 /*
-        oBrwDb:aColumns[1]:bColorBlock := {|| IF(TSTB->FIELD1 < 0, ;
+        oBrwDb:aColumns[1]:bColorBlock := {||IIF(TSTB->FIELD1 < 0, ;
          {x_VERMELHO, x_BRANCO, x_CYAN, x_CINZA50}, ;
-         {x_AZUL, x_BRANCO, x_LARANJA, x_AMARELO })}
+         {x_AZUL, x_BRANCO, x_LARANJA, x_AMARELO})}
 */
    oDlg:Activate()
 

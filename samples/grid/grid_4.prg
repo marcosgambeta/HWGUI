@@ -13,7 +13,10 @@
 #include "hwgui.ch"
 #include "common.ch"
 
-Static oMain, oForm, oFont, oGrid
+STATIC oMain
+STATIC oForm
+STATIC oFont
+STATIC oGrid
 
 FUNCTION Main()
 
@@ -36,7 +39,7 @@ FUNCTION Main()
 
 RETURN NIL
 
-Function Test()
+FUNCTION Test()
         PREPARE FONT oFont NAME "Courier New" WIDTH 0 HEIGHT -11
 
         INIT DIALOG oForm CLIPPER NOEXIT TITLE "File Viewer";
@@ -52,21 +55,21 @@ Function Test()
 
              ADD COLUMN TO GRID oGrid HEADER "" WIDTH  800
 
-             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {|| oForm:Close() }
+             @ 620, 395 BUTTON "Close" SIZE 75, 25 ON CLICK {||oForm:Close()}
 
         ACTIVATE DIALOG oForm
-Return Nil
+RETURN NIL
 
-Function OnDispInfo(o, x, y)
-    Local result := ""
+FUNCTION OnDispInfo(o, x, y)
+    LOCAL result := ""
 
     DBGoto(x)
 
     result := field->line
 Return result
 
-Function FileOpen()
-        Local fname
+FUNCTION FileOpen()
+        LOCAL fname
         fname := hwg_SelectFile("Select File", "*.*")
 
         Zap

@@ -5,8 +5,8 @@ request nicebuttproc
 
 FUNCTION Main()
 
-   local o
-   Local o1
+   LOCAL o
+   LOCAL o1
 
    init dialog o from resource DIALOG_1 title "nice button test"
 

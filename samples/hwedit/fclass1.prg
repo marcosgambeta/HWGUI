@@ -163,7 +163,7 @@ METHOD writeAll() CLASS FileMan
    /* Method:  ::getFileName(<nId>)
    Params:  <nId>           DOS File handle / ID
    Returns: <cName>         File name store with that ID handle
-   Purpose: This method will return the file's name found
+   Purpose: This method will RETURN the file's name found
             within the table of this class.
 */
 METHOD getFileName(nId) CLASS FileMan                     // Obtains the name of the file based on ID
@@ -185,7 +185,7 @@ METHOD getFileName(nId) CLASS FileMan                     // Obtains the name of
    /* Method:  ::getFileId(<cName>)
    Params:  <cName>         File names used to store item to stack
    Returns: <nId>           DOS File handle or ID associated with name
-   Purpose: This method will return the file's ID or DOS handle found
+   Purpose: This method will RETURN the file's ID or DOS handle found
             within the table of this class.
 */
 METHOD getFileId(cName) CLASS FileMan                     // Obtains the ID based on file name
@@ -207,9 +207,9 @@ METHOD getFileId(cName) CLASS FileMan                     // Obtains the ID base
    /* Method:  ::getFilePath(<xItem>)
    Params:  <xItem>         DOS File handle / ID or stored file name
    Returns: <cPath>         Associated file path
-   Purpose: This method will return the associated DOS path for either the
+   Purpose: This method will RETURN the associated DOS path for either the
             given file name or DOS file handle / ID.  If there is no file
-            path or if there is an error with the method, the return value
+            path or if there is an error with the method, the RETURN value
             will be a NULL character byte.
 */
 METHOD getFilePath(xItem) CLASS FileMan                   // Obtains file path based on either ID or name
@@ -247,7 +247,7 @@ METHOD getFilePath(xItem) CLASS FileMan                   // Obtains file path b
    Purpose: This method will add the DOS file ID and name to the internal
             stack.  It will not work if either of the the first two
             parameters are not passed to the method OR if the value of
-            ::nLastDosMessage is 0.  The return value of the method will
+            ::nLastDosMessage is 0.  The RETURN value of the method will
             be the object itself.
 */
 METHOD addItem(nDos, cFile, cPath) CLASS FileMan
@@ -269,7 +269,7 @@ METHOD addItem(nDos, cFile, cPath) CLASS FileMan
             valud DOS file handle.  If <xItem> is character, then it will
             be assumed the name of the file.  If <xItem> is neither numeric
             or character or if the value of ::nLastDosMessage is not 0,
-            then the method will return a logical false (.F.) value;
+            then the method will RETURN a logical false (.F.) value;
             otherwise, a logical true (.T.) will be returned.
 */
 
@@ -286,11 +286,11 @@ METHOD delItem(xItem) CLASS FileMan
          CASE (xItem IS pNUMERIC)     // It's a DOS file handle
             nPosition := ASCAN(::aDosHandles, {|aItem|xItem == aItem[pDOS_HANDLE]})
             IF nPosition == 0
-               // Don't remove and set the return value of the function
+               // Don't remove and set the RETURN value of the function
                lSuccess := pFALSE
             ELSE
                // Since we have a position, remove from the table and keep the
-               // default return value
+               // default RETURN value
                ADEL(::aDosHandles, nPosition)
                ASIZE(::aDosHandles, LEN(::aDosHandles) - 1)
             ENDIF
@@ -298,11 +298,11 @@ METHOD delItem(xItem) CLASS FileMan
          CASE (xItem IS pCHARACTER)   // It's a file name
             nPosition := ASCAN(::aDosHandles, {|aItem|xItem == aItem[pDOS_FILE]})
             IF nPosition == 0
-               // Don't remove and set the return value of the function
+               // Don't remove and set the RETURN value of the function
                lSuccess := pFALSE
             ELSE
                // Since we have a position, remove from the table and keep the
-               // default return value
+               // default RETURN value
                ADEL(::aDosHandles, nPosition)
                ASIZE(::aDosHandles, LEN(::aDosHandles) - 1)
             ENDIF
@@ -322,7 +322,7 @@ METHOD delItem(xItem) CLASS FileMan
    /* Method:  noDosError()
    Params:  N/A
    Returns: <lNoError>
-   Purpose: To return a logical true (.T.) if there is no existing error
+   Purpose: To RETURN a logical true (.T.) if there is no existing error
             state within the system
 */
 

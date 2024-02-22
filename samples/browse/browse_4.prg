@@ -12,8 +12,8 @@
 
 FUNCTION Main()
 
-   Local aField := {{"CODIGO", "N", 3, 0},{"NOME", "C", 30, 0}}
-   Local oDlg, i
+   LOCAL aField := {{"CODIGO", "N", 3, 0},{"NOME", "C", 30, 0}}
+   LOCAL oDlg, i
 
    PRIVATE oBrowse, oSai, oConsulta
    PRIVATE vConsulta
@@ -34,9 +34,10 @@ FUNCTION Main()
    @  9, 8 BROWSE oBrowse DATABASE SIZE 466, 196 STYLE   WS_VSCROLL + WS_HSCROLL;
       MULTISELECT
 
-   @ 9, 214 say "Pressione a tecla CTRL e clique no registro a selecionar," + chr(13) + chr(10) + "se clicar sem o CTRL a multiseleção é limpa" SIZE 466, 42
+   @ 9, 214 SAY "Pressione a tecla CTRL e clique no registro a selecionar," + chr(13) + chr(10) + ;
+      "se clicar sem o CTRL a multiseleção é limpa" SIZE 466, 42
 
-   @ 393, 214 BUTTON oSai CAPTION "Sair"  ON CLICK {|| sair()} SIZE 80, 32
+   @ 393, 214 BUTTON oSai CAPTION "Sair"  ON CLICK {||sair()} SIZE 80, 32
 
    oBrowse:alias   := "Teste"
    oBrowse:aColumns := {}

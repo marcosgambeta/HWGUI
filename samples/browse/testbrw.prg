@@ -2,7 +2,7 @@
 
 FUNCTION Main()
 
-   Local oMainWindow
+   LOCAL oMainWindow
 
    INIT WINDOW oMainWindow MAIN TITLE "Example" AT 200, 0 SIZE 400, 150
 
@@ -17,9 +17,9 @@ RETURN NIL
 
 FUNCTION DlgGet()
 
-   Local oModDlg, oBrw1, oBrw2
-   Local aSample1 := {{"Alex", 17}, {"Victor", 42}, {"John", 31}}
-   Local aSample2 := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
+   LOCAL oModDlg, oBrw1, oBrw2
+   LOCAL aSample1 := {{"Alex", 17}, {"Victor", 42}, {"John", 31}}
+   LOCAL aSample2 := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
 
    INIT DIALOG oModDlg TITLE "About" AT 190, 10 SIZE 400, 240
 
@@ -29,7 +29,7 @@ FUNCTION DlgGet()
    @ 210, 30 BROWSE oBrw2 ARRAY SIZE 180, 110 ;
         STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
 
-   @ 80, 180 OWNERBUTTON ON CLICK {|| hwg_EndDialog()} ;
+   @ 80, 180 OWNERBUTTON ON CLICK {||hwg_EndDialog()} ;
        SIZE 180, 35 FLAT                                  ;
        TEXT "Close" COLOR hwg_VColor("0000FF")
 

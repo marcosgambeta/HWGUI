@@ -2,11 +2,11 @@
 
 FUNCTION Main()
 
-   Local oMainWindow, oBtn, aCombo := {"First","Second" }, cTool := "Example", oFont
-   Local aTabs := {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}, oTab
-   Local acho := {{"First item", 180}, {"Second item", 200} }
-   Local oEdit, oGetTab, oTree, oItem
-   Private aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
+   LOCAL oMainWindow, oBtn, aCombo := {"First", "Second"}, cTool := "Example", oFont
+   LOCAL aTabs := {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}, oTab
+   LOCAL acho := {{"First item", 180}, {"Second item", 200} }
+   LOCAL oEdit, oGetTab, oTree, oItem
+   PRIVATE aGetsTab := {"", "", "", "", "", "", "", "", "", "", "", "", "", ""}
 
    // PREPARE FONT oFont NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT -17 CHARSET 4
@@ -47,14 +47,14 @@ FUNCTION Main()
       MENU TITLE "File"
          MENUITEM "Ps" ACTION Ps1(oMainWindow)
          SEPARATOR
-         MENUITEM "YYYYY" ACTION hwg_MsgGet("Example","Input anything")
+         MENUITEM "YYYYY" ACTION hwg_MsgGet("Example", "Input anything")
       ENDMENU
       MENU TITLE "Help"
          MENUITEM "About" ACTION hwg_Msginfo("About")
          MENUITEM "Info" ACTION hwg_Msgtemp("")
       ENDMENU
       MENU TITLE "Third"
-         MENUITEM "Wchoice" ACTION hwg_WChoice(acho,"Select",,,,, 15132390,,hwg_VColor("008000"))
+         MENUITEM "Wchoice" ACTION hwg_WChoice(acho, "Select", , , , , 15132390, , hwg_VColor("008000"))
          MENUITEM "SelectFolder" ACTION hwg_Msginfo(hwg_Selectfolder("!!!"))
          MENU TITLE "Submenu"
             MENUITEM "ShellExecute" ACTION (hwg_Shellexecute("d:\temp\podst.doc"),hwg_Msginfo(str(oMainWindow:handle)))
@@ -68,7 +68,7 @@ FUNCTION Main()
      {{{{||hwg_Msginfo("Xxxx")}, "XXXXX", 130}, ;
          {, , 131}, ;
          {{||hwg_Msginfo("Yyyy")}, "YYYYY", 132} ;
-       },"File", 120 }, ;
+       }, "File", 120}, ;
      {{||hwg_Msginfo("Help")}, "Help", 121} ;
    }
    hwg_BuildMenu(aMenu, hWnd, aMainWindow)
@@ -78,19 +78,19 @@ FUNCTION Main()
 
 RETURN NIL
 
-Static Function ChangeTab(oWnd, oGet, n)
+STATIC FUNCTION ChangeTab(oWnd, oGet, n)
 
-   Static lastTab := 1
+   STATIC lastTab := 1
 
    aGetsTab[lastTab] := hwg_Getedittext(oGet:oParent:handle,oGet:id)
    hwg_Setdlgitemtext(oGet:oParent:handle,oGet:id,aGetsTab[n])
    lastTab := n
 
-Return Nil
+RETURN NIL
 
-Function PS1(oWnd)
+FUNCTION PS1(oWnd)
 
-   Local oDlg1, oDlg2
+   LOCAL oDlg1, oDlg2
 
    INIT DIALOG oDlg1 TITLE "PAGE_1" STYLE WS_CHILD + WS_VISIBLE + WS_BORDER
    @ 20, 15 EDITBOX "" SIZE 160, 26 STYLE WS_BORDER

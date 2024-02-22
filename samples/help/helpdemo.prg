@@ -2,7 +2,7 @@
 
 FUNCTION Main()
 
-   Local oMain
+   LOCAL oMain
 
    INIT WINDOW oMain MAIN TITLE "Help Demo" HELP "helpdemo.hlp" ;
       AT 0, 0 SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
@@ -16,11 +16,12 @@ FUNCTION Main()
 
 RETURN NIL
 
-Static Function Test()
-    Local cVar := Space(30)
-    Local oVar
-    Local oModDlg
-    Local xVar := Space(50)
+STATIC FUNCTION Test()
+
+    LOCAL cVar := Space(30)
+    LOCAL oVar
+    LOCAL oModDlg
+    LOCAL xVar := Space(50)
     
     INIT DIALOG oModDlg TITLE "Press F1 to invoke Context Help"  ;
         AT 210, 10  SIZE 300, 300 HELPID 3        
@@ -36,5 +37,5 @@ Static Function Test()
        oVar:helpid := 4
    
     ACTIVATE DIALOG oModDlg
-Return Nil
 
+RETURN NIL

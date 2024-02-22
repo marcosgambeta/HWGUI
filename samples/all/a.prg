@@ -13,9 +13,9 @@
 
 FUNCTION Main()
 
-   Private oMainWindow, oPanel
-   Private oFont := Nil, cImageDir := "..\image\"
-   Private nColor, oBmp2
+   PRIVATE oMainWindow, oPanel
+   PRIVATE oFont := NIL, cImageDir := "..\image\"
+   PRIVATE nColor, oBmp2
 
    // hb_SetCodepage("RU1251")
 
@@ -34,7 +34,7 @@ FUNCTION Main()
          SEPARATOR
          MENUITEM "&Font" ACTION oFont := HFont():Select(oFont)
          MENUITEM "&Color" ACTION (nColor := Hwg_ChooseColor(nColor, .F.), ;
-                     hwg_Msginfo(Iif(nColor!=Nil,str(nColor),"--"),"Color value"))
+                     hwg_Msginfo(Iif(nColor!=NIL,str(nColor), "--"), "Color value"))
          SEPARATOR
          MENUITEM "&Move Main Window" ACTION oMainWindow:Move(50, 60, 200, 300)
          MENUITEM "&Exit" ACTION hwg_EndWindow()
@@ -46,7 +46,7 @@ FUNCTION Main()
          MENUITEM "&Class HRect" ACTION RRectangle()
          SEPARATOR
          MENUITEM "&MsgGet" ;
-               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample","Input table name"))
+               ACTION hwg_Copystringtoclipboard(hwg_MsgGet("Dialog Sample", "Input table name"))
          MENUITEM "&Dialog from prg" ACTION DialogFromPrg()
          MENUITEM "&MdiChild from prg" ACTION MdiChildFromPrg()
          MENUITEM "&DOS print" ACTION PrintDos()
@@ -82,12 +82,12 @@ RETURN NIL
 
 FUNCTION CreateChildWindow()
 
-   Local oChildWnd, oPanel, oFontBtn, oBoton1, oBoton2
-   Local e1 := "Dialog from prg"
-   Local e2 := Date()
-   Local e3 := 10320.54
-   Local e4 := "11222333444455"
-   Local e5 := 10320.54
+   LOCAL oChildWnd, oPanel, oFontBtn, oBoton1, oBoton2
+   LOCAL e1 := "Dialog from prg"
+   LOCAL e2 := Date()
+   LOCAL e3 := 10320.54
+   LOCAL e4 := "11222333444455"
+   LOCAL e5 := 10320.54
 
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -12
 
@@ -126,12 +126,12 @@ RETURN NIL
 
 FUNCTION MdiChildFromPrg(o)
 
-   Local cTitle := "MdiChild from prg", cText := "Input something"
-   Local oChildWnd
-   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-   Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
-   // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
-   Local oCmd1, oCmd2, oCmd3
+   LOCAL cTitle := "MdiChild from prg", cText := "Input something"
+   LOCAL oChildWnd
+   LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+   LOCAL cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
+   // LOCAL aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
+   LOCAL oCmd1, oCmd2, oCmd3
 
    INIT WINDOW oChildWnd MDICHILD TITLE "Child" AT 210, 10 SIZE 350, 350 FONT oFont ;
       STYLE WS_CHILD + WS_OVERLAPPEDWINDOW ;
@@ -142,7 +142,7 @@ FUNCTION MdiChildFromPrg(o)
    oEdit:anchor := 11
 
    @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
-   @ 20, 95 CHECKBOX "Check 2" SIZE 90, 20 COLOR Iif(nColor==Nil,hwg_VColor("0000FF"),nColor)
+   @ 20, 95 CHECKBOX "Check 2" SIZE 90, 20 COLOR Iif(nColor == NIL, hwg_VColor("0000FF"), nColor)
 
    @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
@@ -181,13 +181,13 @@ RETURN NIL
 
 FUNCTION NoExit()
 
-   Local oDlg, oGet, vGet := "Dialog if no close in ENTER or EXIT"
+   LOCAL oDlg, oGet, vGet := "Dialog if no close in ENTER or EXIT"
 
    INIT DIALOG oDlg TITLE "No Exit Enter and Esc" AT 190, 10 SIZE 360, 240 NOEXIT NOEXITESC
 
    @ 10, 10 GET oGet VAR vGET SIZE 200, 32
    @ 20, 190  BUTTON "Ok" SIZE 100, 32;
-   ON CLICK {|| oDlg:Close()}
+   ON CLICK {||oDlg:Close()}
 
    ACTIVATE DIALOG oDlg
 
@@ -195,10 +195,10 @@ RETURN NIL
 
 FUNCTION OpenAbout()
 
-   Local oModDlg, oFontBtn, oFontDlg, oBrw
-   Local aSample := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
-   Local oBmp, oIcon := HIcon():AddFile("image\PIM.ICO")
-   Local oSay
+   LOCAL oModDlg, oFontBtn, oFontDlg, oBrw
+   LOCAL aSample := {{.T., "Line 1", 10}, {.T., "Line 2", 22}, {.F., "Line 3", 40}}
+   LOCAL oBmp, oIcon := HIcon():AddFile("image\PIM.ICO")
+   LOCAL oSay
 
    PREPARE FONT oFontDlg NAME "MS Sans Serif" WIDTH 0 HEIGHT -13
    PREPARE FONT oFontBtn NAME "MS Sans Serif" WIDTH 0 HEIGHT -13 ITALIC UNDERLINE
@@ -226,14 +226,14 @@ FUNCTION OpenAbout()
 
    @ 160, 30 BROWSE oBrw ARRAY SIZE 180, 110 STYLE WS_BORDER + WS_VSCROLL + WS_HSCROLL
 
-   @ 80, 180 OWNERBUTTON ON CLICK {|| hwg_EndDialog()}        ;
+   @ 80, 180 OWNERBUTTON ON CLICK {||hwg_EndDialog()}        ;
        SIZE 180, 35 FLAT                                  ;
        TEXT "Close" COLOR hwg_VColor("0000FF") FONT oFontBtn ;
        BITMAP cImageDir+"door.bmp" COORDINATES 40, 10, 0, 0
        //
 
    hwg_CREATEARLIST(oBrw,aSample)
-   oBrw:bColorSel    := 12507070  // 15149157449
+   oBrw:bColorSel := 12507070  // 15149157449
 
    oBmp := HBitmap():AddStandard(OBM_LFARROWI)
    oBrw:aColumns[1]:aBitmaps := {{{|l|l}, oBmp}}
@@ -248,7 +248,7 @@ RETURN NIL
 
 STATIC FUNCTION About2()
 
-   IF oBmp2 == Nil
+   IF oBmp2 == NIL
       RETURN NIL
    ENDIF
 
@@ -271,10 +271,10 @@ RETURN .T.
 
 FUNCTION FileOpen()
 
-   Local oModDlg, oBrw
-   Local mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
-   Local fname := hwg_SelectFile("xBase files( *.dbf )", "*.dbf", mypath)
-   Local nId
+   LOCAL oModDlg, oBrw
+   LOCAL mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
+   LOCAL fname := hwg_SelectFile("xBase files( *.dbf )", "*.dbf", mypath)
+   LOCAL nId
 
    IF !Empty(fname)
       mypath := "\" + CURDIR() + IIF(EMPTY(CURDIR()), "", "\")
@@ -298,7 +298,7 @@ FUNCTION FileOpen()
             ON GETFOCUS {|n,o|dbSelectArea(o:alias)}
       hwg_CreateList(oBrw, .T.)
       oBrw:bScrollPos := {|o,n,lEof,nPos|hwg_VScrollPos(o,n,lEof,nPos)}
-      IF oFont != Nil
+      IF oFont != NIL
          oBrw:ofont := oFont
       ENDIF
       AEval(oBrw:aColumns, {|o| o:bHeadClick := {|oB, n| hwg_Msginfo("Column number "+Str(n))}})
@@ -310,7 +310,7 @@ RETURN NIL
 
 FUNCTION FileClose(oDlg)
 
-   Local oBrw := oDlg:FindControl(111)
+   LOCAL oBrw := oDlg:FindControl(111)
 
    dbSelectArea(oBrw:alias)
    dbCloseArea()
@@ -319,26 +319,26 @@ RETURN .T.
 
 FUNCTION printdos()
 
-   Local han := fcreate("LPT1", 0)
+   LOCAL han := fcreate("LPT1", 0)
 
-  if han != -1
+   IF han != -1
      fwrite(han, Chr(10)+Chr(13)+"Example of dos printing ..."+Chr(10)+Chr(13))
      fwrite(han, "Line 2 ..."+Chr(10)+Chr(13))
      fwrite(han, "---------------------------"+Chr(10)+Chr(13)+Chr(12))
      fclose(han)
-  else
-     hwg_Msgstop("Can't open printer port!")
-  endif
+   ELSE
+      hwg_Msgstop("Can't open printer port!")
+   ENDIF
 
 RETURN NIL
 
 FUNCTION PrnTest()
 
-   Local oPrinter, oFont
+   LOCAL oPrinter, oFont
 
    INIT PRINTER oPrinter
-   IF oPrinter == Nil
-      Return Nil
+   IF oPrinter == NIL
+      RETURN NIL
    ENDIF
 
    oFont := oPrinter:AddFont("Times New Roman", 10)
@@ -376,13 +376,13 @@ RETURN NIL
 
 FUNCTION DialogFromPrg(o)
 
-   Local cTitle := "Dialog from prg", cText := "Input something"
-   Local oModDlg
-   Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-   Local cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
-   // Local aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
+   LOCAL cTitle := "Dialog from prg", cText := "Input something"
+   LOCAL oModDlg
+   LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+   LOCAL cRes, aCombo := {"First", "Second"}, oEdit, vard := "Monday"
+   // LOCAL aTabs := {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
 
-   // o:bGetFocus := Nil
+   // o:bGetFocus := NIL
 
    INIT DIALOG oModDlg TITLE cTitle AT 210, 10 SIZE 300, 300 FONT oFont ;
       ON EXIT {||hwg_Msgyesno("Really exit ?")}
@@ -394,7 +394,7 @@ FUNCTION DialogFromPrg(o)
 
    @ 20, 70 CHECKBOX "Check 1" SIZE 90, 20
    @ 20, 95 CHECKBOX "Check 2"  ;
-        SIZE 90, 20 COLOR Iif(nColor==Nil,hwg_VColor("0000FF"),nColor)
+        SIZE 90, 20 COLOR Iif(nColor == NIL, hwg_VColor("0000FF"), nColor)
 
    @ 160, 70 GROUPBOX "RadioGroup" SIZE 130, 75
 
@@ -437,7 +437,8 @@ RETURN NIL
 
 STATIC FUNCTION CreateC(oDlg)
 
-   Static lFirst := .F., o
+   STATIC lFirst := .F.
+   STATIC o
 
    IF !lFirst
       @ 50, 200 DATEPICKER o SIZE 80, 24
@@ -457,9 +458,9 @@ hwg_Shellexecute("rundll32.exe", "open", ;
 
 FUNCTION TestTab()
 
-   Local oDlg, oTAB
-   Local oGet1, oGet2, oVar1 := "1", oVar2 := "2"
-   Local oGet3, oGet4, oVar3 := "3", oVar4 := "4", oGet5, oVar5 := "5"
+   LOCAL oDlg, oTAB
+   LOCAL oGet1, oGet2, oVar1 := "1", oVar2 := "2"
+   LOCAL oGet3, oGet4, oVar3 := "3", oVar4 := "4", oGet5, oVar5 := "5"
 
    INIT DIALOG oDlg CLIPPER NOEXIT AT 0, 0 SIZE 200, 200
 
@@ -488,20 +489,20 @@ RETURN NIL
 
 FUNCTION ActiveTopMost(nHandle, lActive)
 
-    if lActive
+    IF lActive
        lSucess := hwg_Settopmost(nHandle)    // Set TopMost
     else
        lSucess := hwg_Removetopmost(nHandle) // Remove TopMost
-    endif
+    ENDIF
 
 RETURN lSucess
 
 FUNCTION TestProgres()
 
-   Local oDlg,ostatus,oBar
-   Local cRes, aCombo := {"First", "Second"}
+   LOCAL oDlg,ostatus,oBar
+   LOCAL cRes, aCombo := {"First", "Second"}
 
-   Private oProg
+   PRIVATE oProg
 
    INIT DIALOG oDlg TITLE "Progress Bar" AT 190, 10 SIZE 360, 240
 
@@ -512,7 +513,7 @@ FUNCTION TestProgres()
    oBar   := HProgressBar():New(ostatus,, 0, 2, 200, 20, 200, 1000, hwg_Rgb(12, 143, 243),hwg_Rgb(243, 132, 143))
    oCombo := HComboBox():New(ostatus,,,, 65536, 0, 2, 200, 20,aCombo,,,,,,, .F., .F.,,,)
 
-   @ 10, 60  BUTTON "Test" SIZE 100, 32 ON CLICK {|| MudeProg(oBar) }
+   @ 10, 60 BUTTON "Test" SIZE 100, 32 ON CLICK {||MudeProg(oBar)}
 
    ACTIVATE DIALOG oDlg
 
@@ -520,27 +521,30 @@ RETURN NIL
 
 FUNCTION MudeProg(ostatus)
 
-   Local ct := 1
+   LOCAL ct := 1
 
-   Do while ct<1001
+   DO WHILE ct < 1001
       oProg:Step()
       ostatus:step()
       ++ct
-   EndDo
+   ENDDO
 
 RETURN NIL
 
 FUNCTION RRectangle()
 
-   Local oDlg, oR1, oR2, oR3
+   LOCAL oDlg
+   LOCAL oR1
+   LOCAL oR2
+   LOCAL oR3
 
    INIT DIALOG oDlg TITLE "Sample HRect" AT 190, 10 SIZE 600, 400
 
-          @ 230,  10, 400, 100 RECT oR1 of oDlg PRESS
-          @  10,  10, 200, 100 RECT oR2 of oDlg RECT_STYLE 3
-          @  10, 130, 100, 230 RECT oR3 of oDlg PRESS RECT_STYLE 2
+   @ 230,  10, 400, 100 RECT oR1 OF oDlg PRESS
+   @  10,  10, 200, 100 RECT oR2 OF oDlg RECT_STYLE 3
+   @  10, 130, 100, 230 RECT oR3 OF oDlg PRESS RECT_STYLE 2
 
-          hwg_Rect(oDlg, 10, 250, 590, 320, , 1 )
+   hwg_Rect(oDlg, 10, 250, 590, 320, , 1)
 
    ACTIVATE DIALOG oDlg
 

@@ -15,9 +15,9 @@
 
 FUNCTION Main()
 
-   Private oMain, temp1
-   Private oDlg
-   Private oFont := Nil
+   PRIVATE oMain, temp1
+   PRIVATE oDlg
+   PRIVATE oFont := NIL
 
    INIT WINDOW oMain MAIN TITLE "Demo Maximize"
 

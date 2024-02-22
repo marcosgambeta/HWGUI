@@ -8,9 +8,9 @@
 
 FUNCTION Main()
 
-   Local oMainWindow, oFont
-   Local oIco1 := HIcon():AddFile("..\image\ok.ico")
-   Local oIco2 := HIcon():AddFile("..\image\cancel.ico")
+   LOCAL oMainWindow, oFont
+   LOCAL oIco1 := HIcon():AddFile("..\image\ok.ico")
+   LOCAL oIco2 := HIcon():AddFile("..\image\cancel.ico")
 
    PREPARE FONT oFont NAME "Times New Roman" WIDTH 0 HEIGHT 15
 

@@ -16,7 +16,7 @@ the Direct and Indirect way
 
 FUNCTION Main()
 
-   Local oMain
+   LOCAL oMain
 
    INIT WINDOW oMain MAIN TITLE "Browse Example - Database" AT 0, 0 ;
       SIZE hwg_Getdesktopwidth(), hwg_Getdesktopheight() - 28
@@ -32,29 +32,29 @@ FUNCTION Main()
 RETURN .T.
 
 FUNCTION IndirectDialog
-Local iDialog
+LOCAL iDialog
 
    INIT DIALOG iDialog CLIPPER NOEXIT TITLE "Intermediate Dialog"  ;
      STYLE WS_VISIBLE + WS_POPUP + WS_CAPTION + WS_SYSMENU  ;
      AT 210, 10  SIZE 300, 300
 
-   @ 20, 35 BUTTON "Open form" ON CLICK {|| TestForm()  }
+   @ 20, 35 BUTTON "Open form" ON CLICK {||TestForm()}
 
    ACTIVATE DIALOG iDialog
 
 
-function TestForm()
-Local cTitle := "Dialog from prg"
-Local oModDlg
-Local oFont := HFont():Add("MS Sans Serif", 0, -13)
-Local oRadio1, oRadio2, onome, ocodigo, wcodigo, wnome, wfracao
-Local bInit
+FUNCTION TestForm()
+LOCAL cTitle := "Dialog from prg"
+LOCAL oModDlg
+LOCAL oFont := HFont():Add("MS Sans Serif", 0, -13)
+LOCAL oRadio1, oRadio2, onome, ocodigo, wcodigo, wnome, wfracao
+LOCAL bInit
 
 wfracao := 1
 wcodigo := "XXXX"
 wnome   := "Nome"
 
-   bInit := {|o|hwg_Movewindow(o:handle,x1,y1,nWidth,o:nHeight+1)}
+   bInit := {|o|hwg_Movewindow(o:handle, x1, y1, nWidth, o:nHeight + 1)}
 
    INIT DIALOG oModDlg CLIPPER NOEXIT TITLE cTitle           ;
      STYLE DS_CENTER + WS_POPUP + WS_VISIBLE + WS_CAPTION + WS_SYSMENU  ;
@@ -64,11 +64,11 @@ wnome   := "Nome"
 
    @ 20, 35 GET ocodigo VAR wcodigo PICTURE "@!" SIZE 100, 22 ;
      NOBORDER STYLE ES_AUTOHSCROLL ;
-     WHEN {|| hwg_Msginfo("WHEN codigo"), .T.  } ;
-     VALID {|| hwg_Msginfo("VALID codigo"), .F.  }
+     WHEN {||hwg_Msginfo("WHEN codigo"), .T.} ;
+     VALID {||hwg_Msginfo("VALID codigo"), .F.}
 
    ACTIVATE DIALOG oModDlg
 
    oFont:Release()
 
-Return Nil
+RETURN NIL

@@ -13,10 +13,10 @@
 
 FUNCTION Main()
 
-   Local oFontBtn
-   Local oFont := Nil
-   Local nColor, oSplah
-   Private Form_Main
+   LOCAL oFontBtn
+   LOCAL oFont := NIL
+   LOCAL nColor, oSplah
+   PRIVATE Form_Main
    
    Public oDir := "\"+Curdir()+"\"
    
@@ -35,7 +35,7 @@ FUNCTION Main()
          MENUITEM "&Exit" ACTION {||dbCloseAll(), hwg_EndWindow()}
       ENDMENU
       MENU TITLE "&Help"
-         MENUITEM "&As" ACTION hwg_Msginfo("HwGUI Harbour Win32 GUI","Copyright (c) Alexander Kresin")
+         MENUITEM "&As" ACTION hwg_Msginfo("HwGUI Harbour Win32 GUI", "Copyright (c) Alexander Kresin")
       ENDMENU
    ENDMENU
 
@@ -44,13 +44,13 @@ FUNCTION Main()
 RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function Cadastro()
+FUNCTION Cadastro()
 *---------------------------------------------------------------------------------------
-Local Tel_Ferramentas, oPanel, oFontBtn, Titulo := "Tab Forneced"
-Private Gt_Cod, Gt_Name, Gt_Adress, Gt_Fone, Gt_e_Mail
-Private oCod, oName, oAdress, oFone, oe_Mail //Declaracao das variaveis de tabela
-Private oOper := 1
-Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDelete, oBotClose, oBotPrint
+LOCAL Tel_Ferramentas, oPanel, oFontBtn, Titulo := "Tab Forneced"
+PRIVATE Gt_Cod, Gt_Name, Gt_Adress, Gt_Fone, Gt_e_Mail
+PRIVATE oCod, oName, oAdress, oFone, oe_Mail //Declaracao das variaveis de tabela
+PRIVATE oOper := 1
+PRIVATE oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDelete, oBotClose, oBotPrint
 
    PREPARE FONT oFontBtn NAME "Arial" WIDTH 0 HEIGHT -12
 
@@ -66,7 +66,7 @@ Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDe
    CreateGets()
 
 
-    @ 2, 3 OWNERBUTTON oBotNew OF Tel_Ferramentas  ON CLICK {|| CreateVariable(), CloseBotons(), Gt_Cod:Setfocus()  } ;
+    @ 2, 3 OWNERBUTTON oBotNew OF Tel_Ferramentas  ON CLICK {||CreateVariable(), CloseBotons(), Gt_Cod:Setfocus()} ;
        SIZE 44, 38 FLAT ;
        TEXT "New"
 
@@ -109,9 +109,9 @@ Private oBotNew, oBotEdit,oBotRet, oBotNext, oBotSave, oBottop, oBotBott, oBotDe
 
    ACTIVATE DIALOG Tel_Ferramentas
 
-Return Nil
+RETURN NIL
 *---------------------------------------------------------------------------------------
-Function OpenBotons
+FUNCTION OpenBotons
 *---------------------------------------------------------------------------------------
 oBotNew:Enable()
 oBotEdit:Enable()
@@ -123,9 +123,9 @@ oBotBott:Enable()
 oBotDelete:Enable()
 oBotClose:Enable()
 oBotPrint:Enable()
-Return Nil
+RETURN NIL
 *---------------------------------------------------------------------------------------
-Function CloseBotons
+FUNCTION CloseBotons
 *---------------------------------------------------------------------------------------
 oBotNew:Disable()
 oBotEdit:Disable()
@@ -137,9 +137,9 @@ oBotBott:Disable()
 oBotDelete:Disable()
 oBotClose:Enable()
 oBotPrint:Disable()
-Return Nil
+RETURN NIL
 *---------------------------------------------------------------------------------------
-Function CreateGets()
+FUNCTION CreateGets()
 *---------------------------------------------------------------------------------------
 
 @ 2, 60 Say "Cod"  SIZE 40, 20
@@ -157,19 +157,19 @@ Function CreateGets()
 @ 2, 160 Say "e_Mail" SIZE 50, 20
 @65, 160 Get Gt_e_Mail VAR oe_Mail PICTURE REPLICATE("X", 30)  STYLE WS_DISABLED  SIZE 190, 20
 
-Return Nil
+RETURN NIL
 
  
 *---------------------------------------------------------------------------------------
-Function EditRecord()
+FUNCTION EditRecord()
 *---------------------------------------------------------------------------------------
 CloseBotons()
 OpenGets()
 Gt_Name:Setfocus()
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function CreateVariable()
+FUNCTION CreateVariable()
 *---------------------------------------------------------------------------------------
 
 oCod := SPACE(5)
@@ -180,22 +180,22 @@ oe_Mail := SPACE(30)
 GetRefresh()
 OpenGets()
 oOper := 1 //Operacao para Inclusao
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function GetRefresh()
+FUNCTION GetRefresh()
 *---------------------------------------------------------------------------------------
 
-Local oDlg := hwg_GetModalHandle()
+LOCAL oDlg := hwg_GetModalHandle()
 Gt_Cod:Refresh()
 Gt_Name:Refresh()
 Gt_Adress:Refresh()
 Gt_Fone:Refresh()
 Gt_e_Mail:Refresh()
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function GetVars()
+FUNCTION GetVars()
 *---------------------------------------------------------------------------------------
 
 oCod    := TabDbf->Cod
@@ -203,10 +203,10 @@ oName    := TabDbf->Name
 oAdress := TabDbf->Adress
 oFone := TabDbf->Fone
 oe_Mail := TabDbf->e_Mail
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function SaveTab()
+FUNCTION SaveTab()
 *---------------------------------------------------------------------------------------
 
 if oOper=1
@@ -214,8 +214,8 @@ if oOper=1
    oCod := StrZero(val(oCod), 3)
    Seek oCod
    If Found()
-      hwg_Msginfo("Cod."+oCod+" no valid...","Mensagem")
-      Return Nil
+      hwg_Msginfo("Cod." + oCod + " no valid...", "Mensagem")
+      RETURN NIL
    Endif
    Append Blank
    TabDbf->Cod := oCod
@@ -234,11 +234,11 @@ Else
 EndIf
 CloseGets()
 oOper := 1
-Return Nil
+RETURN NIL
 
  
 *---------------------------------------------------------------------------------------
-Function SkipTab(oSalto)
+FUNCTION SkipTab(oSalto)
 *---------------------------------------------------------------------------------------
 CloseGets()
 Select TabDbf
@@ -253,10 +253,10 @@ Else
 Endif 
 GetVars()
 GetRefresh()
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function DeleteRecord()
+FUNCTION DeleteRecord()
 *---------------------------------------------------------------------------------------
 
 Select TabDbf
@@ -271,15 +271,15 @@ EndIf
 Go Bottom
 GetVars()
 GetRefresh()
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function OpenDbf()
+FUNCTION OpenDbf()
 *---------------------------------------------------------------------------------------
 
-Local vTab := {}
-Local vArq := oDir+"FORNECED.DBF"
-Local vInd1 := oDir+"FORNECED.NTX"
+LOCAL vTab := {}
+LOCAL vArq := oDir+"FORNECED.DBF"
+LOCAL vInd1 := oDir+"FORNECED.NTX"
 
 If !File(vArq)
    AADD(vTab,{"Cod    ", "C", 3, 0 })
@@ -297,25 +297,25 @@ If !File(vInd1)
 Else
    Set Index to (vInd1)
 EndIf
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function OpenGets
+FUNCTION OpenGets
 *---------------------------------------------------------------------------------------
 Gt_Cod:Enable()
 Gt_Name:Enable()
 Gt_Adress:Enable()
 Gt_Fone:Enable()
 Gt_e_Mail:Enable()
-Return Nil
+RETURN NIL
 
 *---------------------------------------------------------------------------------------
-Function CloseGets
+FUNCTION CloseGets
 *---------------------------------------------------------------------------------------
 Gt_Cod:Disable()
 Gt_Name:Disable()
 Gt_Adress:Disable()
 Gt_Fone:Disable()
 Gt_e_Mail:Disable()
-Return Nil
+RETURN NIL
  
