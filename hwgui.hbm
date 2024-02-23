@@ -41,6 +41,7 @@
 {win}source/hbrowse.prg
 {win}source/hcheck.prg
 {win}source/hcombo.prg
+{win}source/hcheckcombobox.prg
 {win}source/hcontrol.prg
 {win}source/hstatus.prg
 {win}source/hline.prg

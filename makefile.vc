@@ -73,6 +73,7 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\hbrowse.obj \
    $(HWGUI_OBJ_DIR)\hcheck.obj \
    $(HWGUI_OBJ_DIR)\hcombo.obj \
+   $(HWGUI_OBJ_DIR)\hcheckcombobox.obj \
    $(HWGUI_OBJ_DIR)\hcontrol.obj \
    $(HWGUI_OBJ_DIR)\hstatus.obj \
    $(HWGUI_OBJ_DIR)\hline.obj \
