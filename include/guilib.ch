@@ -74,7 +74,6 @@
 // Commands for windows, dialogs handling
 
 #include "_window.ch"
-
 #include "_dialog.ch"
 
 #xcommand MENU FROM RESOURCE OF <oWnd> ON <id1> ACTION <b1>      ;
@@ -90,63 +89,35 @@
 // Commands for control handling
 
 #include "_progressbar.ch"
-
 #include "_status.ch"
-
 #include "_sayex.ch"
-
 #include "_say.ch"
-
 #include "_bitmap.ch"
-
 #include "_icon.ch"
-
 #include "_image.ch"
-
 #include "_line.ch"
-
 #include "_editbox.ch"
-
 #include "_richedit.ch"
-
 #include "_buttonx.ch"
-
 #include "_button.ch"
-
 #include "_buttonex.ch"
-
 #include "_groupboxex.ch"
-
 #include "_groupbox.ch"
-
 #include "_tree.ch"
-
 #include "_tab.ch"
-
 #include "_checkbox.ch"
-
 #include "_radiogroup.ch"
-
 #include "_radiobutton.ch"
-
 #include "_combobox.ch"
-
+#include "_comboboxex.ch"
 #include "_updown.ch"
-
 #include "_panel.ch"
-
 #include "_browse.ch"
-
 #include "_grid.ch"
-
 #include "_ownerbutton.ch"
-
 #include "_shadebutton.ch"
-
 #include "_datepicker.ch"
-
 #include "_splitter.ch"
-
 #include "_font.ch"
 
 /* Print commands */
@@ -214,15 +185,10 @@
 #include "_printer.ch"
 
 #include "_monthcalendar.ch"
-
 #include "_listbox.ch"
-
 #include "_splash.ch"
-
 #include "_nicebutton.ch"
-
 #include "_trackbar.ch"
-
 #include "_animation.ch"
 
 //Contribution   Ricardo de Moura Marques
@@ -272,5 +238,4 @@
 //Contribution Luis Fernando Basso
 
 #include "_shape.ch"
-
 #include "_container.ch"
