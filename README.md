@@ -11,6 +11,14 @@ Fork of the HWGUI v2.17
 
 ## Building
 
+### Harbour
+
+```
+hbmk2 hwguiall.hbp -gc3
+```
+
+The parameter -gc3 is optional. The binaries are bigger, but more faster.
+
 ### xHarbour and BCC
 
 Option 1:
