@@ -3,5 +3,5 @@
 #xcommand SET TIMER <oTimer> [ OF <oWnd> ] [ ID <id> ] ;
              VALUE <value> ACTION <bAction> ;
           => ;
-          <oTimer> := HTimer():New( <oWnd>, <id>, <value>, <bAction> );;
-          [ <oTimer>:name := <(oTimer)> ]
+          <oTimer> := HTimer():New( <oWnd>, <id>, <value>, <bAction> );
+          [; <oTimer>:name := <(oTimer)> ]

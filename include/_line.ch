@@ -13,5 +13,5 @@
              [ ON SIZE <bSize> ]       ;
           => ;
           [<oLine> := ] HLine():New( <oWnd>,<nId>,<.lVert.>,<nX>,<nY>,<length>,<bSize>, <bInit>,;
-                                                      <color>, <nHeight>, <cSlant>,<nBorder>  );;
-          [ <oLine>:name := <(oLine)> ]
+                                                      <color>, <nHeight>, <cSlant>,<nBorder>  );
+          [; <oLine>:name := <(oLine)> ]

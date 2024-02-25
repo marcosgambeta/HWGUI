@@ -18,8 +18,8 @@
           => ;
           [<oTab> := ] HTab():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<aItems>,<bChange>, <aBmp>, <.res.>,<nBC>,;
-             <bClick>, <bGetFocus>, <bLostFocus>, <bRClick> ) ;;
-          [ <oTab>:name := <(oTab)> ]
+             <bClick>, <bGetFocus>, <bLostFocus>, <bRClick> );
+          [; <oTab>:name := <(oTab)> ]
 
 #xcommand BEGIN PAGE <cname> OF <oTab> ;
             [ <enable: DISABLED> ]     ;

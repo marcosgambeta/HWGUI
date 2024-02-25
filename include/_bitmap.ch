@@ -15,8 +15,8 @@
              [ STYLE <nStyle> ]         ;
           => ;
           [<oBmp> := ] HSayBmp():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<bitmap>,<.res.>,<bInit>,<bSize>,<ctoolt>,<bClick>,<bDblClick>, <.lTransp.>,<nStretch>, <nStyle> );;
-          [ <oBmp>:name := <(oBmp)> ]
+             <nHeight>,<bitmap>,<.res.>,<bInit>,<bSize>,<ctoolt>,<bClick>,<bDblClick>, <.lTransp.>,<nStretch>, <nStyle> );
+          [; <oBmp>:name := <(oBmp)> ]
 
 #xcommand REDEFINE BITMAP [ <oBmp> SHOW ] <bitmap> ;
              [<res: FROM RESOURCE>]     ;

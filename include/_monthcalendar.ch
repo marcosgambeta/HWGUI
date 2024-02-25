@@ -22,5 +22,5 @@ Added by Marcos Antonio Gambeta
           => ;
           [<oMonthCalendar> :=] HMonthCalendar():New( <oWnd>,<nId>,<dInit>,<nStyle>,;
              <nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bChange>,<cTooltip>,;
-             <.notoday.>,<.notodaycircle.>,<.weeknumbers.>,<bSelect> );;
-          [ <oMonthCalendar>:name := <(oMonthCalendar)> ]
+             <.notoday.>,<.notodaycircle.>,<.weeknumbers.>,<bSelect> );
+          [; <oMonthCalendar>:name := <(oMonthCalendar)> ]

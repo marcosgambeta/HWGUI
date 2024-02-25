@@ -15,8 +15,8 @@
           => ;
           [<oSay> := ] HStatic():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<ctoolt>, ;
-             <color>,<bcolor> );;
-          [ <oSay>:name := <(oSay)> ]
+             <color>,<bcolor> );
+          [; <oSay>:name := <(oSay)> ]
 
 #xcommand REDEFINE SAY   [ <oSay> CAPTION ] <cCaption>   ;
              [ OF <oWnd> ]              ;
@@ -55,8 +55,8 @@
           => ;
           [<oSay> := ] HStaticLink():New( <oWnd>, <nId>, <nStyle>, <nX>, <nY>, <nWidth>, ;
              <nHeight>, <caption>, <oFont>, <bInit>, <bSize>, <bDraw>, <ctoolt>, ;
-             <color>, <bcolor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor>,<hbit>, <bClick>  );;
-          [ <oSay>:name := <(oSay)> ]
+             <color>, <bcolor>, <.lTransp.>, <cLink>, <vcolor>, <lcolor>, <hcolor>,<hbit>, <bClick>  );
+          [; <oSay>:name := <(oSay)> ]
 
 #xcommand REDEFINE SAY [ <oSay> CAPTION ] <cCaption>      ;
              [ OF <oWnd> ]              ;

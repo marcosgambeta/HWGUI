@@ -27,5 +27,5 @@
              <nHeight>,<bInit>,<bSize>,<bDraw>,<bClick>,<.flat.>,<cText>,<color>, ;
              <font>,<xt>,<yt>,<bmp>,<.res.>,<xb>,<yb>,<widthb>,<heightb>,<.ltr.>, ;
              <trcolor>,<ctoolt>,!<.enable.>,<shadeID>,<palet>,<granul>,<highl>, ;
-             <coloring>,<shcolor> );;
-          [ <oShBtn>:name := <(oShBtn)> ]
+             <coloring>,<shcolor> );
+          [; <oShBtn>:name := <(oShBtn)> ]

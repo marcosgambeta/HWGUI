@@ -11,5 +11,5 @@
              [ TOOLTIP <ctoolt> ]       ;
           => ;
           [<oGraph> := ] HGraph():New( <oWnd>,<nId>,<aData>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<oFont>,<bSize>,<ctoolt>,<color>,<bcolor> );;
-          [ <oGraph>:name := <(oGraph)> ]
+             <nHeight>,<oFont>,<bSize>,<ctoolt>,<color>,<bcolor> );
+          [; <oGraph>:name := <(oGraph)> ]

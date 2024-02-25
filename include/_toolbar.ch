@@ -17,8 +17,8 @@
             [ ITEMS <aItems> ]          ;
           => ;
     [<oTool> := ]  Htoolbar():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, <nHeight>,<btnwidth>,<oFont>,;
-              <bInit>,<bSize>,,,,,<.lTransp.>,<.lVertical.>,<aItems>,<bmpwidth>,<bmpheight>,<nIndent>,<nIDB>) ;;
-    [ <oTool>:name := <(oTool)> ]
+              <bInit>,<bSize>,,,,,<.lTransp.>,<.lVertical.>,<aItems>,<bmpwidth>,<bmpheight>,<nIndent>,<nIDB>);
+    [; <oTool>:name := <(oTool)> ]
 
 #xcommand REDEFINE TOOLBAR  <oSay>     ;
              [ OF <oWnd> ]              ;

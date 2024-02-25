@@ -18,8 +18,8 @@
           => ;
           [<oPick> :=] HDatePicker():New( <oWnd>,<nId>,<dInit>,,<nStyle>,<nX>,<nY>, ;
              <nWidth>,<nHeight>,<oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<ctoolt>, ;
-             <color>,<bcolor>,<.lShowTime.>  );;
-          [ <oPick>:name := <(oPick)> ]
+             <color>,<bcolor>,<.lShowTime.>  );
+          [; <oPick>:name := <(oPick)> ]
 
 #xcommand REDEFINE DATEPICKER [ <oPick> VAR  ] <vari> ;
              [ OF <oWnd> ]              ;
@@ -60,5 +60,5 @@
           [<oPick> :=] HDatePicker():New( <oWnd>,<nId>,<vari>,    ;
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},      ;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
-             <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<ctoolt>,<color>,<bcolor>,<.lShowTime.>  );;
-          [ <oPick>:name := <(oPick)> ]
+             <oFont>,<bInit>,<bGfocus>,<bLfocus>,<bChange>,<ctoolt>,<color>,<bcolor>,<.lShowTime.>  );
+          [; <oPick>:name := <(oPick)> ]

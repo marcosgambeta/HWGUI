@@ -29,8 +29,8 @@
              <oFont>, <{bInit}>, <{bSize}>, <{bPaint}>, <{bEnter}>,;
              <{bGfocus}>, <{bLfocus}>, <.lNoScroll.>, <.lNoBord.>,;
              <{bKeyDown}>, <{bPosChg}>, <{bDispInfo}>, <nItemCount>,;
-             <.lNoLines.>, <color>, <bkcolor>, <.lNoHeader.> ,<aBit>,<a>);;
-          [ <oGrid>:name := <(oGrid)> ]
+             <.lNoLines.>, <color>, <bkcolor>, <.lNoHeader.> ,<aBit>,<a>);
+          [; <oGrid>:name := <(oGrid)> ]
 
 #xcommand ADDROW TO GRID <oGrid>    ;
              [ HEADER <cHeader> ]        ;

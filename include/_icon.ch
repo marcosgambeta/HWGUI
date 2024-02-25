@@ -13,8 +13,8 @@
              [<oem: OEM>]     ;
           => ;
           [<oIco> := ] HSayIcon():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<icon>,<.res.>,<bInit>,<bSize>,<ctoolt>,<.oem.>,<bClick>,<bDblClick> );;
-          [ <oIco>:name := <(oIco)> ]                                                              
+             <nHeight>,<icon>,<.res.>,<bInit>,<bSize>,<ctoolt>,<.oem.>,<bClick>,<bDblClick> );
+          [; <oIco>:name := <(oIco)> ]
 
 #xcommand REDEFINE ICON [ <oIco> SHOW ] <icon> ;
              [<res: FROM RESOURCE>]     ;

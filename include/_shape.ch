@@ -14,5 +14,5 @@
              [ ON SIZE <bSize> ]        ;
           => ;
           [ <oShape> := ] HShape():New(<oWnd>, <nId>, <nX>, <nY>, <nWidth>, <nHeight>, ;
-             <nBorder>, <nCurvature>, <nbStyle>,<nfStyle>, <tcolor>, <bcolor>, <bSize>,<bInit>,<nbackStyle>);;
-          [ <oShape>:name := <(oShape)> ]
+             <nBorder>, <nCurvature>, <nbStyle>,<nfStyle>, <tcolor>, <bcolor>, <bSize>,<bInit>,<nbackStyle>);
+          [; <oShape>:name := <(oShape)> ]

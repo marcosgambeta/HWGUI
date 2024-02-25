@@ -13,8 +13,8 @@
              [ PARTS <aparts,...> ] ;
           => ;
           [ <oStat> := ] HStatus():New( <oWnd>,<nId>,<nStyle>,<oFont>,\{<aparts>\},<bInit>,;
-             <bSize>,<bDraw>, <bRClick>, <bDblClick>, <nHeight> );;
-          [ <oStat>:name := <(oStat)> ]
+             <bSize>,<bDraw>, <bRClick>, <bDblClick>, <nHeight> );
+          [; <oStat>:name := <(oStat)> ]
 
 #xcommand REDEFINE STATUS  <oSay>  ;
              [ OF <oWnd> ]              ;

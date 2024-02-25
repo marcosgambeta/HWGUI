@@ -22,8 +22,8 @@
           => ;
           [<oEdit> := ] HEdit():New( <oWnd>,<nId>,<caption>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<bGfocus>, ;
-             <bLfocus>,<ctoolt>,<color>,<bcolor>,,<.lnoborder.>,,<.lPassword.>,<bKeyDown>, <bChange>,<bOther> );;
-          [ <oEdit>:name := <(oEdit)> ]
+             <bLfocus>,<ctoolt>,<color>,<bcolor>,,<.lnoborder.>,,<.lPassword.>,<bKeyDown>, <bChange>,<bOther> );
+          [; <oEdit>:name := <(oEdit)> ]
 
 #xcommand REDEFINE EDITBOX [ <oEdit> ] ;
              [ OF <oWnd> ]              ;
@@ -69,8 +69,8 @@
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},             ;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,<bSize> ,,  ;
              <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor>,<cPicture>,;
-             <.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange>,<bOther>);;
-          [ <oEdit>:name := <(oEdit)> ]
+             <.lnoborder.>,<nMaxLength>,<.lPassword.>,<bKeyDown>,<bChange>,<bOther>);
+          [; <oEdit>:name := <(oEdit)> ]
 
 /* Added MULTILINE: AJ: 11-03-2007*/
 #xcommand REDEFINE GET [ <oEdit> VAR ] <vari>  ;

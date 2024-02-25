@@ -27,8 +27,8 @@
              [ ON GETFOCUS <bWhen> ]           ;
           => [<ogr> := ] HRadioGroup():NewRG( <oWnd>,<nId>,<nStyle>,<vari>,;
                   {|v|Iif(v==Nil,<vari>,<vari>:=v)},<nX>,<nY>,<nWidth>,<nHeight>,<caption>,<oFont>,;
-                  <bInit>,<bSize>,<color>,<bcolor>,<bClick>,<bWhen>,<.lTransp.>);;
-          [ <ogr>:name := <(ogr)> ]
+                  <bInit>,<bSize>,<color>,<bcolor>,<bClick>,<bWhen>,<.lTransp.>);
+          [; <ogr>:name := <(ogr)> ]
 
 
 #xcommand END RADIOGROUP [ SELECTED <nSel> ] ;
@@ -37,5 +37,5 @@
 
 #xcommand END RADIOGROUP <oGr> [ SELECTED <nSel> ]  ;
           => ;
-          <oGr>:EndGroup( <nSel> );;
-          [ <oGr>:name := <(oGr)> ]
+          <oGr>:EndGroup( <nSel> );
+          [; <oGr>:name := <(oGr)> ]

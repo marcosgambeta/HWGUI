@@ -10,8 +10,8 @@
              [ TYPE <ctype>     ]       ;
           => ;
           [<oImage> := ] HSayFImage():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<image>,<bInit>,<bSize>,<ctoolt>,<ctype> );;
-          [ <oImage>:name := <(oImage)> ]                                                              
+             <nHeight>,<image>,<bInit>,<bSize>,<ctoolt>,<ctype> );
+          [; <oImage>:name := <(oImage)> ]
 
 #xcommand REDEFINE IMAGE [ <oImage> SHOW ] <image> ;
              [ OF <oWnd> ]              ;

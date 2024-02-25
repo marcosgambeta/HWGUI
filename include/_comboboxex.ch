@@ -28,8 +28,8 @@
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
              <aItems>,<oFont>,,,,<bChange>,<ctoolt>, ;
              <.edit.>,<.text.>,<bWhen>,<color>,<bcolor>, ;
-                                                 <bValid>,<acheck>,<nDisplay>,<nhItem>,<ncWidth>, <aImages> );;
-          [ <oCombo>:name := <(oCombo)> ]
+                                                 <bValid>,<acheck>,<nDisplay>,<nhItem>,<ncWidth>, <aImages> );
+          [; <oCombo>:name := <(oCombo)> ]
 
 // TODO: HComboBox -> HCheckComboBox
 #xcommand REDEFINE GET COMBOBOXEX [ <oCombo> VAR ] <vari> ;

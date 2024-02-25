@@ -27,8 +27,8 @@
           [<oCombo> := ] HComboBox():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<ctoolt>,;
              <.edit.>,<.text.>,<bGfocus>,<color>,<bcolor>, <bLfocus>,<bIChange>,;
-                                                 <nDisplay>,<nhItem>,<ncWidth>,<nMaxLength>);;
-          [ <oCombo>:name := <(oCombo)> ]
+                                                 <nDisplay>,<nhItem>,<ncWidth>,<nMaxLength>);
+          [; <oCombo>:name := <(oCombo)> ]
 
 #xcommand REDEFINE COMBOBOX [ <oCombo> ITEMS ] <aItems> ;
             [ OF <oWnd> ]              ;
@@ -78,8 +78,8 @@
                     <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,      ;
                     <aItems>,<oFont>,<bInit>,,,<bChange>,<ctoolt>, ;
                     <.edit.>,<.text.>,<bGfocus>,<color>,<bcolor>,;
-                                                                                <bLfocus>,<bIChange>,<nDisplay>,<nhItem>,<ncWidth>,<nMaxLength> );;
-    [ <oCombo>:name := <(oCombo)> ]
+                                                                                <bLfocus>,<bIChange>,<nDisplay>,<nhItem>,<ncWidth>,<nMaxLength> );
+    [; <oCombo>:name := <(oCombo)> ]
 
 #xcommand REDEFINE GET COMBOBOX [ <oCombo> VAR ] <vari> ;
             ITEMS  <aItems>            ;

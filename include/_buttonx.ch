@@ -16,8 +16,8 @@
              [ TOOLTIP <ctoolt> ]       ;
           => ;
           [<oBut> := ] HButtonX():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor>,<bGfocus> );;
-          [ <oBut>:name := <(oBut)> ]
+             <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor>,<bGfocus> );
+          [; <oBut>:name := <(oBut)> ]
 
 #xcommand REDEFINE BUTTON [ <lExt: EXTENDED,EXT> ] [ <oBut> ]   ;
              [ OF <oWnd> ]              ;

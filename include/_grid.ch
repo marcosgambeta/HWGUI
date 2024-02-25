@@ -28,8 +28,8 @@
              <oFont>, <{bInit}>, <{bSize}>, <{bPaint}>, <{bEnter}>,;
              <{bGfocus}>, <{bLfocus}>, <.lNoScroll.>, <.lNoBord.>,;
              <{bKeyDown}>, <{bPosChg}>, <{bDispInfo}>, <nItemCount>,;
-             <.lNoLines.>, <color>, <bkcolor>, <.lNoHeader.> ,<aBit>);;
-          [ <oGrid>:name := <(oGrid)> ]
+             <.lNoLines.>, <color>, <bkcolor>, <.lNoHeader.> ,<aBit>);
+          [; <oGrid>:name := <(oGrid)> ]
 
 #xcommand ADD COLUMN TO GRID <oGrid>    ;
              [ HEADER <cHeader> ]        ;

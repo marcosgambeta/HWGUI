@@ -15,8 +15,8 @@
              [ BLUE <b> ];
           => ;
           [<oBut> := ] HNicebutton():New( <oWnd>,<nId>,<nStyle>,<nStyleEx>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<bInit>,<bClick>,<caption>,<ctoolt>,<r>,<g>,<b> );;
-          [ <oBut>:name := <(oBut)> ]
+             <nHeight>,<bInit>,<bClick>,<caption>,<ctoolt>,<r>,<g>,<b> );
+          [; <oBut>:name := <(oBut)> ]
 
 #xcommand REDEFINE NICEBUTTON [ <oBut> CAPTION ] <caption> ;
              [ OF <oWnd> ]              ;

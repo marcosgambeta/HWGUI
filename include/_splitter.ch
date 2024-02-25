@@ -13,5 +13,5 @@
              [ DIVIDE <aLeft> FROM <aRight> ] ;
           => ;
           [<oSplit> :=] HSplitter():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>,<nHeight>,<bSize>,<bDraw>,;
-             <color>,<bcolor>,<aLeft>,<aRight>, <.lTransp.>, <.lScroll.> );;
-          [ <oSplit>:name := <(oSplit)> ]
+             <color>,<bcolor>,<aLeft>,<aRight>, <.lTransp.>, <.lScroll.> );
+          [; <oSplit>:name := <(oSplit)> ]

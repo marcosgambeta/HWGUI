@@ -24,8 +24,8 @@
           => ;
           [<oTree> := ] HTree():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
                 <nHeight>,<oFont>,<bInit>,<bSize>,<color>,<bcolor>,<aBmp>,<.res.>,<.lEdit.>,<bClick>,<nBC>, ;
-                <bRClick>, <bDClick>, <.lCheck.>, <bCheck>, <.lDragDrop.>, <bDrag>, <bDrop>, <bOther> );;
-          [ <oTree>:name := <(oTree)> ]
+                <bRClick>, <bDClick>, <.lCheck.>, <bCheck>, <.lDragDrop.>, <bDrag>, <bDrop>, <bOther> );
+          [; <oTree>:name := <(oTree)> ]
 
 #xcommand INSERT NODE [ <oNode> CAPTION ] <cTitle>  ;
              TO <oTree>                            ;

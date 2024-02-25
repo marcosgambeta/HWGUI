@@ -13,5 +13,5 @@
              [ < transparent: TRANSPARENT > ]    ;
           => ;
           [<oAnimation> :=] HAnimation():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
-             <nWidth>,<nHeight>,<cFile>,<.autoplay.>,<.center.>,<.transparent.>,<xResID>);;
-          [ <oAnimation>:name := <(oAnimation)> ]
+             <nWidth>,<nHeight>,<cFile>,<.autoplay.>,<.center.>,<.transparent.>,<xResID>);
+          [; <oAnimation>:name := <(oAnimation)> ]

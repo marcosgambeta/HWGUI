@@ -20,8 +20,8 @@
           => ;
           [<oUpd> := ] HUpDown():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<oFont>,<bInit>,<bSize>,<bDraw>,<bGfocus>,         ;
-             <bLfocus>,<ctoolt>,<color>,<bcolor>,<nUpDWidth>,<nLower>,<nUpper>,<nIncr> );;
-          [ <oUpd>:name := <(oUpd)> ]
+             <bLfocus>,<ctoolt>,<color>,<bcolor>,<nUpDWidth>,<nLower>,<nUpper>,<nIncr> );
+          [; <oUpd>:name := <(oUpd)> ]
 
 /* SAY ... GET system     */
 
@@ -51,5 +51,5 @@
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>,<bInit>,,,;
              <bGfocus>,<bLfocus>,<ctoolt>,<color>,<bcolor>, ;
              <nUpDWidth>,<nLower>,<nUpper>,<nIncr>,<cPicture>,<.lnoborder.>,;
-             <nMaxLength>,<bKeyDown>,<bChange>,<bOther>,,);;
-          [ <oUpd>:name := <(oUpd)> ]
+             <nMaxLength>,<bKeyDown>,<bChange>,<bOther>,,);
+          [; <oUpd>:name := <(oUpd)> ]

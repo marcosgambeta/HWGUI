@@ -25,8 +25,8 @@
           => ;
           [<oBut> := ] __IIF(<.class.>, <classname>,HButtonEx)():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>,<ctoolt>,<color>,<bcolor>,<hbit>, ;
-             <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> );;
-          [ <oBut>:name := <(oBut)> ]
+             <nBStyle>,<hIco>, <.lTransp.>,<bGfocus>,<nMargin>,<.lnoTheme.>, <bOther> );
+          [; <oBut>:name := <(oBut)> ]
 
 #xcommand REDEFINE BUTTONEX [ <oBut> ]   ;
              [ OF <oWnd> ]              ;

@@ -10,5 +10,5 @@
              [ ON GETFOCUS <bGfocus> ]      ;
              [ ON LOSTFOCUS <bLfocus> ]     ;
           => ;
-          [<oIp> := ] HIpEdit():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus> );;
-          [ <oIp>:name := <(oIp)> ]
+          [<oIp> := ] HIpEdit():New( <oWnd>,<nId>,<vari>,{|v| iif(v==Nil,<vari>,<vari>:=v)},<nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<oFont>, <bGfocus>, <bLfocus> );
+          [; <oIp>:name := <(oIp)> ]

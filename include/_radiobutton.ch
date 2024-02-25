@@ -18,8 +18,8 @@
           => ;
           [<oRadio> := ] HRadioButton():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>, ;
              <nWidth>,<nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<bClick>, ;
-             <ctoolt>,<color>,<bcolor>,<bWhen>,<.lTransp.> );;
-          [ <oRadio>:name := <(oRadio)> ]
+             <ctoolt>,<color>,<bcolor>,<bWhen>,<.lTransp.> );
+          [; <oRadio>:name := <(oRadio)> ]
 
 #xcommand REDEFINE RADIOBUTTON [ <oRadio> ] ;
              [ OF <oWnd> ]              ;

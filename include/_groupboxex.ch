@@ -14,5 +14,5 @@
              [ STYLE <nStyle> ]         ;
           => ;
           [<oGroup> := ] HGroupEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<color>,<bcolor>,<.lTransp.>);;
-          [ <oGroup>:name := <(oGroup)> ]
+             <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<color>,<bcolor>,<.lTransp.>);
+          [; <oGroup>:name := <(oGroup)> ]

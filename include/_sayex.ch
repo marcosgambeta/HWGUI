@@ -19,8 +19,8 @@
           => ;
           [<oSay> := ] HStaticEx():New( <oWnd>,<nId>,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<caption>,<oFont>,<bInit>,<bSize>,<bDraw>,<ctoolt>, ;
-             <color>,<bcolor>,<.lTransp.>,<bClick>,<bDblClick>,<bOther> );;
-          [ <oSay>:name := <(oSay)> ]
+             <color>,<bcolor>,<.lTransp.>,<bClick>,<bDblClick>,<bOther> );
+          [; <oSay>:name := <(oSay)> ]
 
 #xcommand REDEFINE SAY [ <lExt: EXTENDED,EXT> ] [ <oSay> CAPTION ] <cCaption>   ;
              [ OF <oWnd> ]              ;

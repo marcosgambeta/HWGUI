@@ -15,5 +15,5 @@
              [ TOOLTIP <ctooltip> ]              ;
           => ;
           <oPBar> :=  HProgressBar():New( <oWnd>,<nId>,<nX>,<nY>,<nWidth>, ;
-             <nHeight>,<maxpos>,<nRange>, <bInit>,<bSize>,<bDraw>,<ctooltip>,<nAnimat>,<.lVert.> );;
-          [ <oPBar>:name := <(oPBar)> ]
+             <nHeight>,<maxpos>,<nRange>, <bInit>,<bSize>,<bDraw>,<ctooltip>,<nAnimat>,<.lVert.> );
+          [; <oPBar>:name := <(oPBar)> ]

@@ -22,8 +22,8 @@
           => ;
           [<oListbox> := ] HListBox():New( <oWnd>,<nId>,<nInit>,,<nStyle>,<nX>,<nY>,<nWidth>, ;
              <nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>,<bChange>,<ctoolt>,;
-             <color>,<bcolor>, <bGfocus>,<bLfocus>,<bKeyDown>,<bDblClick>,<bOther> ) ;;
-          [ <oListbox>:name := <(oListbox)> ]
+             <color>,<bcolor>, <bGfocus>,<bLfocus>,<bKeyDown>,<bDblClick>,<bOther> );
+          [; <oListbox>:name := <(oListbox)> ]
 
 #xcommand REDEFINE LISTBOX [ <oListbox> ITEMS ] <aItems> ;
              [ OF <oWnd> ]                 ;
@@ -66,5 +66,5 @@
           [<oListbox> := ] HListBox():New( <oWnd>,<nId>,<vari>,;
              {|v|Iif(v==Nil,<vari>,<vari>:=v)},;
              <nStyle>,<nX>,<nY>,<nWidth>,<nHeight>,<aItems>,<oFont>,<bInit>,<bSize>,<bDraw>, ;
-             <bChange>,<ctoolt>,<color>,<bcolor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);;
-          [ <oListbox>:name := <(oListbox)> ]
+             <bChange>,<ctoolt>,<color>,<bcolor>,<bGFocus>,<bLFocus>,<bKeyDown>,<bDblClick>,<bOther>);
+          [; <oListbox>:name := <(oListbox)> ]
