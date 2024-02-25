@@ -55,8 +55,10 @@ ilink32.exe @C:\Users\marco\AppData\Local\Temp\8naiv0.lnk
 ### Harbour++ and MinGW
 
 ```
-hbmk2 hwguiall.hbp -cflag=-fpermissive
+hbmk2 hwguiall.hbp -cflag=-fpermissive -gc3
 ```
+
+The parameter -gc3 is optional. The binaries are bigger, but more faster.
 
 ## Notes
 
