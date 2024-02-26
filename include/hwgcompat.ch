@@ -226,7 +226,6 @@
 #xtranslate Fillrect([<n,...>])               => hwg_Fillrect(<n>)
 #xtranslate Roundrect([<n,...>])              => hwg_Roundrect(<n>)
 #xtranslate Redrawwindow([<n,...>])           => hwg_Redrawwindow(<n>)
-#xtranslate Redrawwindow([<n,...>])           => hwg_Redrawwindow(<n>)
 #xtranslate Drawbutton([<n,...>])             => hwg_Drawbutton(<n>)
 #xtranslate Drawedge([<n,...>])               => hwg_Drawedge(<n>)
 #xtranslate Loadicon([<n,...>])               => hwg_Loadicon(<n>)
