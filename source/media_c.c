@@ -66,9 +66,9 @@ HB_FUNC(HWG_MCISENDSTRING)
 
 HB_FUNC(HWG_MCISENDCOMMAND)
 {
-  hb_retnl(mciSendCommand(hb_parni(1),         // Device ID
-                          hb_parni(2),         // Command Message
-                          hb_parnl(3),         // Flags
+  hb_retnl(mciSendCommand(hb_parni(1),             // Device ID
+                          hb_parni(2),             // Command Message
+                          hb_parnl(3),             // Flags
                           (DWORD_PTR)hb_parc(4))); // Parameter Block
 }
 
@@ -145,3 +145,13 @@ HB_FUNC(HWG_NMCIWINDOW)
   hb_retnl(mciSendCommand(hb_parni(1), MCI_WINDOW, MCI_ANIM_WINDOW_HWND | MCI_ANIM_WINDOW_DISABLE_STRETCH,
                           (LONG_PTR)(LPMCI_ANIM_WINDOW_PARMS)&mciWindowParms));
 }
+
+#ifdef HWG_DEPRECATED_FUNCTIONS_ON
+HB_FUNC_TRANSLATE(PLAYSOUND, HWG_PLAYSOUND)
+HB_FUNC_TRANSLATE(MCISENDSTRING, HWG_MCISENDSTRING)
+HB_FUNC_TRANSLATE(MCISENDCOMMAND, HWG_MCISENDCOMMAND)
+HB_FUNC_TRANSLATE(MCIGETERRORSTRING, HWG_MCIGETERRORSTRING)
+HB_FUNC_TRANSLATE(NMCIOPEN, HWG_NMCIOPEN)
+HB_FUNC_TRANSLATE(NMCIPLAY, HWG_NMCIPLAY)
+HB_FUNC_TRANSLATE(NMCIWINDOW, HWG_NMCIWINDOW)
+#endif

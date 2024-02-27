@@ -149,8 +149,8 @@ LRESULT CALLBACK NiceButtProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
   if ((pSymTest = hb_dynsymFind("HWG_NICEBUTTPROC")) != NULL)
   {
     hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
-    hb_vmPushNil();            /* places NIL at self */
-    //hb_vmPushLong((LONG)hWnd); /* pushes parameters on to the hvm stack */
+    hb_vmPushNil(); /* places NIL at self */
+    // hb_vmPushLong((LONG)hWnd); /* pushes parameters on to the hvm stack */
     HB_PUSHITEM(hWnd);
     hb_vmPushLong((LONG)message);
     hb_vmPushLong((LONG)wParam);
@@ -278,3 +278,16 @@ HB_FUNC(HWG_SETBKMODE)
 {
   hb_retni(SetBkMode(hwg_par_HDC(1), hb_parni(2)));
 }
+
+#ifdef HWG_DEPRECATED_FUNCTIONS_ON
+HB_FUNC_TRANSLATE(CREATEROUNDRECTRGN, HWG_CREATEROUNDRECTRGN)
+HB_FUNC_TRANSLATE(SETWINDOWRGN, HWG_SETWINDOWRGN)
+HB_FUNC_TRANSLATE(CREATENICEBTN, HWG_CREATENICEBTN)
+HB_FUNC_TRANSLATE(ISMOUSEOVER, HWG_ISMOUSEOVER)
+HB_FUNC_TRANSLATE(RGB, HWG_RGB)
+HB_FUNC_TRANSLATE(DRAW_GRADIENT, HWG_DRAW_GRADIENT)
+HB_FUNC_TRANSLATE(GRADIENT, HWG_GRADIENT)
+HB_FUNC_TRANSLATE(MAKELONG, HWG_MAKELONG)
+HB_FUNC_TRANSLATE(GETWINDOWLONG, HWG_GETWINDOWLONG)
+HB_FUNC_TRANSLATE(SETBKMODE, HWG_SETBKMODE)
+#endif
