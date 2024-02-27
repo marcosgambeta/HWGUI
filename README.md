@@ -76,7 +76,7 @@ with the flag HWG_DEPRECATED_FUNCTIONS_ON:
 hbmk2 hwguiall.hbp -cflag=-DHWG_DEPRECATED_FUNCTIONS_ON
 ```
 
-If you have problems compiling/using this repository, open a issue. Dont forget to tell the tools and versions that you are using.
+If you have problems compiling/using this repository, open a issue. Don't forget to tell the tools and versions that you are using.
 
 This repository is a fork. The original code can be found at the link below:
 
