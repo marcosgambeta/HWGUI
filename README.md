@@ -69,6 +69,13 @@ is being revised, the flag will remain disabled. But you can active in the file 
 #-cflag=-DHWG_USE_POINTER_ITEM
 ```
 
+If your project use deprecated functions (functions without the prefix hwg_), you can compile the HWGUI libraries
+with the flag HWG_DEPRECATED_FUNCTIONS_ON:
+
+```
+hbmk2 hwguiall.hbp -cflag=-DHWG_DEPRECATED_FUNCTIONS_ON
+```
+
 If you have problems compiling/using this repository, open a issue. Dont forget to tell the tools and versions that you are using.
 
 This repository is a fork. The original code can be found at the link below:
