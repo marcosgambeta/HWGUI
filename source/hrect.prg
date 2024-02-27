@@ -471,3 +471,11 @@ METHOD Paint(lpdis) CLASS HContainer
    RETURN 1
 
 // END NEW CLASSE
+
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+HB_FUNC_TRANSLATE(RECT, HWG_RECT)
+
+#pragma ENDDUMP

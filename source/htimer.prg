@@ -117,3 +117,10 @@ EXIT PROCEDURE CleanTimers
 
    RETURN
 
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+HB_FUNC_TRANSLATE(TIMERPROC, HWG_TIMERPROC)
+
+#pragma ENDDUMP

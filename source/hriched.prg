@@ -311,3 +311,10 @@ Local oEdit
 Return -1
 */
 
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+//HB_FUNC_TRANSLATE(DEFRICHPROC, HWG_DEFRICHPROC)
+
+#pragma ENDDUMP

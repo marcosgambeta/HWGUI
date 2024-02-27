@@ -278,3 +278,11 @@ FUNCTION hwg_ListViewNotify(oCtrl, lParam)
    ENDSWITCH
 
    RETURN 0
+
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+HB_FUNC_TRANSLATE(LISTVIEWNOTIFY, HWG_LISTVIEWNOTIFY)
+
+#pragma ENDDUMP

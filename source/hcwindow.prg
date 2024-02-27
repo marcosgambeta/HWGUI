@@ -615,3 +615,11 @@ FUNCTION hwg_onTrackScroll(oWnd, msg, wParam, lParam)
    ENDIF
 
    RETURN -1
+
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+HB_FUNC_TRANSLATE(ONTRACKSCROLL, HWG_ONTRACKSCROLL)
+
+#pragma ENDDUMP

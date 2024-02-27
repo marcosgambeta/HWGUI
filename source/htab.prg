@@ -1027,18 +1027,26 @@ STATIC FUNCTION SetTabFocus(oCtrl, nPage, nKeyDown) // TODO: duplicated in hpage
 
    RETURN nPage
 
-// FUNCTION hwg_FindTabAccelerator(oPage, nKey) // TODO: duplicated in hpage.prg
-//
-//    LOCAL i, pos, cKey
-//
-//    cKey := Upper(Chr(nKey))
-//    FOR i = 1 TO Len(oPage:aPages)
-//       IF (pos := At("&", oPage:Pages[i]:caption)) > 0 .AND. cKey  == Upper(SubStr(oPage:Pages[i]:caption, ++pos, 1))
-//          IF oPage:pages[i]:Enabled
-//             hwg_Sendmessage(oPage:handle, TCM_SETCURFOCUS, i - 1, 0)
-//          ENDIF
-//          RETURN  i
-//       ENDIF
-//    NEXT
-//
-//    RETURN 0
+FUNCTION hwg_FindTabAccelerator(oPage, nKey)
+
+   LOCAL i, pos, cKey
+
+   cKey := Upper(Chr(nKey))
+   FOR i = 1 TO Len(oPage:aPages)
+      IF (pos := At("&", oPage:Pages[i]:caption)) > 0 .AND. cKey  == Upper(SubStr(oPage:Pages[i]:caption, ++pos, 1))
+         IF oPage:pages[i]:Enabled
+            hwg_Sendmessage(oPage:handle, TCM_SETCURFOCUS, i - 1, 0)
+         ENDIF
+         RETURN  i
+      ENDIF
+   NEXT
+
+   RETURN 0
+
+#pragma BEGINDUMP
+
+#include <hbapi.h>
+
+HB_FUNC_TRANSLATE(FINDTABACCELERATOR, HWG_FINDTABACCELERATOR)
+
+#pragma ENDDUMP

@@ -137,7 +137,8 @@ STATIC FUNCTION SetTabFocus(oCtrl, nPage, nKeyDown)
 
    RETURN nPage
 
-FUNCTION hwg_FindTabAccelerator(oPage, nKey)
+#if 0
+FUNCTION hwg_FindTabAccelerator(oPage, nKey) // using hwg_FindTabAccelerator from htab.prg
 
    LOCAL i, pos, cKey
 
@@ -152,3 +153,4 @@ FUNCTION hwg_FindTabAccelerator(oPage, nKey)
    NEXT
 
    RETURN 0
+#endif
