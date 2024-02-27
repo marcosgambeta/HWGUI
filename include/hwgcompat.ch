@@ -294,7 +294,6 @@
 #xtranslate Settransparentmode([<n,...>])     => hwg_Settransparentmode(<n>)
 #xtranslate Gettextcolor([<n,...>])           => hwg_Gettextcolor(<n>)
 #xtranslate Getbkcolor([<n,...>])             => hwg_Getbkcolor(<n>)
-#xtranslate Gettextsize([<n,...>])            => hwg_Gettextsize(<n>)
 #xtranslate Exttextout([<n,...>])             => hwg_Exttextout(<n>)
 #xtranslate Writestatuswindow([<n,...>])      => hwg_Writestatuswindow(<n>)
 #xtranslate Windowfromdc([<n,...>])           => hwg_Windowfromdc(<n>)
