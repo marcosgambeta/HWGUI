@@ -20,7 +20,7 @@ CLASS HPager INHERIT HControl
 
    DATA winclass INIT "SysPager"
    DATA TEXT, id, nTop, nLeft, nwidth, nheight
-   CLASSDATA oSelected INIT Nil
+   CLASSDATA oSelected INIT NIL
    DATA ExStyle
    DATA bClick
    DATA lVert
@@ -96,14 +96,14 @@ METHOD Activate() CLASS HPager
 
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD INIT() CLASS HPager
 
    IF !::lInit
       ::Super:Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Notify(lParam) CLASS HPager
 

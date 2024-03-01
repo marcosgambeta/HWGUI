@@ -210,7 +210,7 @@ METHOD CheckValue(lValue) CLASS HDatePicker
    IF HWG_BITAND(::Style, DTS_SHOWNONE) = 0
        RETURN .F.
    ENDIF
-   IF lValue != Nil
+   IF lValue != NIL
       IF IIF(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.) != lValue
          IF !lValue
             hwg_Sendmessage(::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0)

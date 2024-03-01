@@ -59,10 +59,10 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, ;
            tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) CLASS HRichEdit
 
-   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER)
-                        IIf(lNoBorder = Nil.OR. !lNoBorder, WS_BORDER, 0))
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE + WS_TABSTOP + ; // WS_BORDER)
+                        IIf(lNoBorder = NIL .OR. !lNoBorder, WS_BORDER, 0))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
-              bSize, bPaint, ctooltip, tcolor, IIf(bcolor == Nil, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
+              bSize, bPaint, ctooltip, tcolor, IIf(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
    ::title   := vari
    ::bOther  := bOther
@@ -74,12 +74,12 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
 
    ::Activate()
 
-   IF bGfocus != Nil
+   IF bGfocus != NIL
       //::oParent:AddEvent(EN_SETFOCUS, Self, bGfocus,, "onGotFocus")
       ::bGetFocus := bGfocus
       ::oParent:AddEvent(EN_SETFOCUS, Self, {|o|::When(o)}, , "onGotFocus")
    ENDIF
-   IF bLfocus != Nil
+   IF bLfocus != NIL
       //::oParent:AddEvent(EN_KILLFOCUS, Self, bLfocus,, "onLostFocus")
       ::bLostFocus := bLfocus
       ::oParent:AddEvent(EN_KILLFOCUS, Self, {|o|::Valid(o)}, , "onLostFocus")
@@ -93,7 +93,7 @@ METHOD Activate() CLASS HRichEdit
                                   ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HRichEdit
    IF !::lInit
@@ -102,12 +102,12 @@ METHOD Init() CLASS HRichEdit
       Hwg_InitRichProc(::handle)
       ::Super:Init()
       ::SetColor(::tColor, ::bColor)
-      IF ::bChange != Nil
+      IF ::bChange != NIL
          hwg_Sendmessage(::handle, EM_SETEVENTMASK, 0, ENM_SELCHANGE + ENM_CHANGE)
          ::oParent:AddEvent(EN_CHANGE, ::id, {||::onChange()})
       ENDIF
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD onEvent(msg, wParam, lParam) CLASS HRichEdit
    LOCAL nDelta, nret
@@ -144,7 +144,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRichEdit
        IF !hwg_IsCtrlShift(.T., .F.)
          ::lChanged := .T.
       ENDIF
-   ELSEIF ::bOther != Nil
+   ELSEIF ::bOther != NIL
       nret := Eval(::bOther, Self, msg, wParam, lParam)
       IF ValType(nret) != "N" .OR. nret > - 1
          RETURN nret
@@ -168,7 +168,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRichEdit
           RETURN 0
       ENDIF
       IF wParam == VK_ESCAPE .AND. hwg_GetParentForm(Self):Handle != ::oParent:handle
-         IF hwg_Getparent(::oParent:handle) != Nil
+         IF hwg_Getparent(::oParent:handle) != NIL
             //hwg_Sendmessage(hwg_Getparent(::oParent:handle), WM_CLOSE, 0, 0)
          ENDIF
          RETURN 0
@@ -200,7 +200,7 @@ METHOD SetColor(tColor, bColor, lRedraw) CLASS HRichEdit
 
 METHOD ReadOnly(lreadOnly)
 
-   IF lreadOnly != Nil
+   IF lreadOnly != NIL
       IF !EMPTY(hwg_Sendmessage(::handle, EM_SETREADONLY, IIF(lReadOnly, 1, 0), 0))
           ::lReadOnly := lReadOnly
       ENDIF
@@ -222,12 +222,12 @@ METHOD UpdatePos() CLASS HRichEdit
 
 METHOD onChange() CLASS HRichEdit
 
-   IF ::bChange != Nil
+   IF ::bChange != NIL
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChange, ::gettext(), Self)
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD onGotFocus() CLASS HRichEdit
   RETURN ::When()
@@ -250,7 +250,7 @@ METHOD When() CLASS HRichEdit
 
 METHOD Valid() CLASS HRichEdit
 
-   IF ::bLostFocus != Nil .AND. !hwg_CheckFocus(Self, .T.)
+   IF ::bLostFocus != NIL .AND. !hwg_CheckFocus(Self, .T.)
        RETURN .T.
    ENDIF
    ::title := ::GetText()
@@ -280,7 +280,7 @@ METHOD OpenFile(cFile) CLASS HRichEdit
 
 METHOD Print() CLASS HRichEdit
 
-   IF ::hDCPrinter = Nil
+   IF ::hDCPrinter = NIL
     //  ::hDCPrinter := hwg_Printsetup()
    ENDIF
    IF HWG_STARTDOC(::hDCPrinter) != 0
@@ -305,7 +305,7 @@ Local oEdit
       IF wParam == 46     // Del
          oEdit:lChanged := .T.
       ENDIF
-   ELSEIF oEdit:bOther != Nil
+   ELSEIF oEdit:bOther != NIL
       Return Eval(oEdit:bOther, oEdit, msg, wParam, lParam)
    ENDIF
 Return -1

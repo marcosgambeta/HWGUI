@@ -84,7 +84,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    
    nStyle := Hwg_BitOR(nStyle, SS_NOTIFY + SS_RIGHT)
    ::lAllUnderline := IIF(EMPTY(cLink), .F., ::lAllUnderline)
-   ::title := IIF(cCaption != Nil, cCaption, "HWGUI HomePage")
+   ::title := IIF(cCaption != NIL, cCaption, "HWGUI HomePage")
    ::hbitmap := hbitmap
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
@@ -99,7 +99,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
-   ::title := IIf(cCaption == Nil, "", cCaption)
+   ::title := IIf(cCaption == NIL, "", cCaption)
 
    // Test The Font the underline must be 1
    IF ::oFont == NIL
@@ -459,7 +459,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
       hwg_Drawfocusrect(dc, focusRect)
       IF hwg_Isthemedload() .AND. ::WindowsManifest
          hTheme := hwg_openthemedata(::handle, "MENU")
-         hwg_drawthemebackground(hTheme, dc, MENU_POPUPITEM, MPI_HOT, focusRect, Nil)
+         hwg_drawthemebackground(hTheme, dc, MENU_POPUPITEM, MPI_HOT, focusRect, NIL)
          hwg_closethemedata(htheme)
       ENDIF
    ENDIF
@@ -523,11 +523,11 @@ METHOD Resize(x, y) CLASS HStaticLink
    LOCAL aBmpSize, aTxtSize
    LOCAL nHeight := ::nHeight
    
-   IF x != Nil .AND. x + y = 0
-      RETURN Nil
+   IF x != NIL .AND. x + y = 0
+      RETURN NIL
    ENDIF
 
-   x := iif(x == Nil, 0, x - ::nWidth + 1)
+   x := iif(x == NIL, 0, x - ::nWidth + 1)
    aBmpSize := IIF(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap), {0, 0})
    aBmpSize[1] += IIF(aBmpSize[1] > 0, 6, 0)
    ::Move(, , ::nWidth + x, , 0)
@@ -547,4 +547,4 @@ METHOD Resize(x, y) CLASS HStaticLink
       hwg_Invalidaterect(::Handle, 0)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

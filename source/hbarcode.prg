@@ -250,7 +250,7 @@ METHOD ShowBarcode() CLASS HBarCode
       ::CreateBarcode(cCode2)
    ENDIF
 
-   RETURN (NIL)
+   RETURN NIL
 
 
 *-- METHOD -------------------------------------------------------------------
@@ -309,7 +309,7 @@ METHOD CreateBarcode(cCode) CLASS HBarCode
    Rich_SelectObject(::hDC, hOldBrush)
    hwg_Deleteobject(hBrush)
 
-   RETURN (NIL)
+   RETURN NIL
 
 
 *-- METHOD -------------------------------------------------------------------

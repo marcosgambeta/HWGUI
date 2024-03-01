@@ -33,7 +33,7 @@ ENDCLASS
 METHOD RedefineScrollbars() CLASS HScrollArea
 
    ::rect := hwg_Getclientrect(::handle)
-   IF ::nScrollBars > - 1 .AND. ::bScroll = Nil
+   IF ::nScrollBars > - 1 .AND. ::bScroll = NIL
       IF ::nVscrollPos = 0
           ::ncurHeight := 0                                                              //* 4
           AEval(::aControls, {|o|::ncurHeight := INT(Max(o:nTop + o:nHeight + VERT_PTS * 1, ;
@@ -47,16 +47,16 @@ METHOD RedefineScrollbars() CLASS HScrollArea
       ::ResetScrollbars()
       ::SetupScrollbars()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 
 METHOD SetupScrollbars() CLASS HScrollArea
    LOCAL tempRect, nwMax, nhMax, aMenu, nPos
 
    tempRect := hwg_Getclientrect(::handle)
-   aMenu := IIF(__objHasData(Self, "MENU"), ::menu, Nil)
+   aMenu := IIF(__objHasData(Self, "MENU"), ::menu, NIL)
     // Calculate how many scrolling increments for the client area
-   IF ::Type = WND_MDICHILD //.AND. ::aRectSave != Nil
+   IF ::Type = WND_MDICHILD //.AND. ::aRectSave != NIL
       nwMax := Max(::ncurWidth, tempRect[3]) //::maxWidth
       nhMax := Max(::ncurHeight, tempRect[4]) //::maxHeight
       ::nHorzInc := INT((nwMax - tempRect[3]) / HORZ_PTS)
@@ -66,7 +66,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
       nhMax := Max(::ncurHeight, ::Rect[4])
       ::nHorzInc := INT((nwMax - tempRect[3]) / HORZ_PTS + HORZ_PTS)
       ::nVertInc := INT((nhMax - tempRect[4]) / VERT_PTS + VERT_PTS - ;
-                      IIF(amenu != Nil, hwg_Getsystemmetrics(SM_CYMENU), 0))  // MENU
+                      IIF(amenu != NIL, hwg_Getsystemmetrics(SM_CYMENU), 0))  // MENU
    ENDIF
     // Set the vertical and horizontal scrolling info
    IF ::nScrollBars = 0 .OR. ::nScrollBars = 2
@@ -106,7 +106,7 @@ METHOD SetupScrollbars() CLASS HScrollArea
          ENDIF
       ENDIF
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD ResetScrollbars() CLASS HScrollArea
     // Reset our window scrolling information
@@ -118,4 +118,4 @@ METHOD ResetScrollbars() CLASS HScrollArea
       ::nHscrollPos := 0
       ::nVscrollPos := 0
    ENDIF
-   RETURN Nil
+   RETURN NIL

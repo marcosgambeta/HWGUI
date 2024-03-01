@@ -77,7 +77,7 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
            bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo, ;
            nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) CLASS HGrid
 
-   nStyle := Hwg_BitOr(IIf(nStyle == Nil, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL)
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), LVS_SHOWSELALWAYS + WS_TABSTOP + IIf(lNoBord, 0, WS_BORDER) + LVS_REPORT + LVS_OWNERDATA + LVS_SINGLESEL)
    ::Super:New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, ;
               bSize, bPaint)
    DEFAULT aBit TO {}
@@ -111,7 +111,7 @@ METHOD Activate() CLASS HGrid
 
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HGrid
    LOCAL i, nPos
@@ -170,7 +170,7 @@ METHOD Init() CLASS HGrid
          hwg_Listview_settextbkcolor(::handle, ::bkcolor)
       ENDIF
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS HGrid
    LOCAL iFirst, iLast
@@ -180,7 +180,7 @@ METHOD Refresh() CLASS HGrid
    iLast := iFirst + hwg_Listview_getcountperpage(::handle)
 
    hwg_Listview_redrawitems(::handle, iFirst, iLast)
-   RETURN Nil
+   RETURN NIL
 
 METHOD Notify(lParam) CLASS HGrid
    RETURN hwg_ListViewNotify(Self, lParam)

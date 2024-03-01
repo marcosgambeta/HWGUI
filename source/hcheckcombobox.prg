@@ -78,8 +78,8 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, ;
       bValid, acheck, nDisplay, nhItem, ncWidth, aImages) CLASS hCheckComboBox
 
-   ::acheck := iif(acheck == Nil, {}, acheck)
-   ::lCheck := iif(aImages == Nil, .T., .F.)
+   ::acheck := iif(acheck == NIL, {}, acheck)
+   ::lCheck := iif(aImages == NIL, .T., .F.)
    ::aImages := aImages
 
    IF HB_ISNUMERIC(nStyle)
@@ -121,7 +121,7 @@ METHOD INIT() CLASS hCheckComboBox
       ENDIF
       ::nCurPos := hwg_Sendmessage(::handle, CB_GETCURSEL, 0, 0)
       // LOAD IMAGES COMBO
-      IF ::aImages != Nil .AND. Len(::aImages) > 0
+      IF ::aImages != NIL .AND. Len(::aImages) > 0
          ::aHImages := {}
          nSize := hwg_Sendmessage(::handle, CB_GETITEMHEIGHT, -1, 0) - 5
          FOR i := 1 TO Len(::aImages)
@@ -140,7 +140,7 @@ METHOD INIT() CLASS hCheckComboBox
       ENDIF
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 #if 0 // old code for reference (to be deleted)
 METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
@@ -203,7 +203,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS hCheckComboBox
             Ascan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,) , ;
             RAscan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ,))
          IF nPos - 1 != ::nCurPos
-            hwg_Setfocus(Nil)
+            hwg_Setfocus(NIL)
             hwg_Sendmessage(::handle, CB_SETCURSEL, nPos - 1, 0)
             hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)
             ::nCurPos := nPos - 1
@@ -392,13 +392,13 @@ METHOD Requery() CLASS hCheckComboBox
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Refresh() CLASS hCheckComboBox
 
    ::Super:refresh()
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD SetCheck(nIndex, bFlag) CLASS hCheckComboBox
 
@@ -521,7 +521,7 @@ METHOD Paint(lpDis) CLASS hCheckComboBox
          rcText[1]   := rcBitmap[3]
          ::nWidthCheck := rcBitmap[3]
 
-      ELSEIF ::aHImages != Nil .AND. DrawInfo[1] + 1 <= Len(::aHImages) .AND. ;
+      ELSEIF ::aHImages != NIL .AND. DrawInfo[1] + 1 <= Len(::aHImages) .AND. ;
             !Empty(::aHImages[DrawInfo[1] + 1])
          nIndent := iif(!lDroped, 1, (Len(strText) - Len(LTrim(strText))) * hwg_TxtRect("a", Self, ::oFont)[1])
          strtext := LTrim(strtext)
@@ -662,8 +662,8 @@ METHOD GetAllCheck() CLASS hCheckComboBox
 METHOD EnabledItem(nItem, lEnabled) CLASS hCheckComboBox
    LOCAL cItem
 
-   IF lEnabled != Nil
-      IF nItem != Nil .AND. nItem > 0
+   IF lEnabled != NIL
+      IF nItem != NIL .AND. nItem > 0
          IF lEnabled .AND. Left(::aItems[nItem], 2) == "\]"
             cItem := SubStr(::aItems[nItem], 3)
          ELSEIF !lEnabled .AND. Left(::aItems[nItem], 2) != "\]" .AND. Left(::aItems[nItem], 2) != "\-"
@@ -689,7 +689,7 @@ METHOD SkipItems(nNav) CLASS hCheckComboBox
          Ascan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos + 2), ;
          RAscan(::aItems, {|a|!Left(a[1], 2) $ "\-" + Chr(0) + "\]"}, ::nCurPos - 1,))
       nPos := iif(nPos = 0, ::nCurPos, nPos - 1)
-      hwg_Setfocus(Nil)
+      hwg_Setfocus(NIL)
       hwg_Sendmessage(::handle, CB_SETCURSEL, nPos, 0)
       IF nPos != ::nCurPos
          hwg_Sendmessage(::oParent:handle, WM_COMMAND, hwg_Makelong(::id, CBN_SELCHANGE), ::handle)

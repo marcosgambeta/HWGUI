@@ -25,8 +25,8 @@ Static cPseudoChar := "ƒÕ≥∫⁄…’÷øª∑∏¿»”‘ŸºΩæ¬À—“¡ œ–√Ã∆«¥πµ∂≈Œ◊ÿ"
 
 CLASS HWinPrn INHERIT HObject
 
-   CLASS VAR nStdHeight SHARED  INIT Nil
-   CLASS VAR cPrinterName SHARED  INIT Nil
+   CLASS VAR nStdHeight SHARED  INIT NIL
+   CLASS VAR cPrinterName SHARED  INIT NIL
    DATA   oPrinter
    DATA   oFont
    DATA   nLineHeight, nLined
@@ -67,9 +67,9 @@ ENDCLASS
 
 METHOD New(cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies) CLASS HWinPrn
 
-   ::oPrinter := HPrinter():New(Iif(cPrinter==Nil, "", cPrinter), .F., nFormType, nBin, lLandScape, nCopies)
-   IF ::oPrinter == Nil
-      Return Nil
+   ::oPrinter := HPrinter():New(Iif(cPrinter == NIL, "", cPrinter), .F., nFormType, nBin, lLandScape, nCopies)
+   IF ::oPrinter == NIL
+      Return NIL
    ENDIF
    ::cpFrom := cpFrom
    ::cpTo   := cpTo
@@ -78,27 +78,27 @@ Return Self
 
 METHOD InitValues(lElite, lCond, nLineInch, lBold, lItalic, lUnder) CLASS HWinPrn
 
-   IF lElite != Nil
+   IF lElite != NIL
       ::lElite := lElite
    ENDIF
-   IF lCond != Nil
+   IF lCond != NIL
       ::lCond := lCond
    ENDIF
-   IF nLineInch != Nil
+   IF nLineInch != NIL
       ::nLineInch := nLineInch
    ENDIF
-   IF lBold != Nil
+   IF lBold != NIL
       ::lBold := lBold
    ENDIF
-   IF lItalic != Nil
+   IF lItalic != NIL
       ::lItalic := lItalic
    ENDIF
-   IF lUnder != Nil
+   IF lUnder != NIL
       ::lUnder := lUnder
    ENDIF
    ::lChanged := .T.
 
-Return Nil
+Return NIL
 
 METHOD SetMode(lElite, lCond, nLineInch, lBold, lItalic, lUnder) CLASS HWinPrn
 #ifdef __GTK__
@@ -113,7 +113,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
 
    IF ::lPageStart
 
-      IF ::nStdHeight == Nil .OR. ::cPrinterName != ::oPrinter:cPrinterName
+      IF ::nStdHeight == NIL .OR. ::cPrinterName != ::oPrinter:cPrinterName
          ::nStdHeight := STD_HEIGHT
          ::cPrinterName := ::oPrinter:cPrinterName
          nPWidth := ::oPrinter:nWidth / ::oPrinter:nHRes - 10
@@ -158,7 +158,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
       oFont := ::oPrinter:AddFont("Lucida Console", ::nLineHeight, ::lBold, ::lItalic, ::lUnder, 204)
 #endif
 
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          ::oFont:Release()
       ENDIF
       ::oFont := oFont
@@ -169,7 +169,7 @@ Local nMode := 0, oFont, nWidth, nPWidth
 
    ENDIF
 
-Return Nil
+Return NIL
 
 METHOD StartDoc(lPreview, cMetaName) CLASS HWinPrn
 
@@ -177,12 +177,12 @@ METHOD StartDoc(lPreview, cMetaName) CLASS HWinPrn
    ::oPrinter:StartDoc(lPreview, cMetaName)
    ::NextPage()
 
-Return Nil
+Return NIL
 
 METHOD NextPage() CLASS HWinPrn
 
    IF !::lDocStart
-      Return Nil
+      Return NIL
    ENDIF
    IF ::lPageStart
       ::oPrinter:EndPage()
@@ -191,7 +191,7 @@ METHOD NextPage() CLASS HWinPrn
    ::lPageStart := .T.
    ::oPrinter:StartPage()
 
-   IF ::oFont == Nil
+   IF ::oFont == NIL
       ::SetMode()
    ELSE
       ::oPrinter:SetFont(::oFont)
@@ -200,7 +200,7 @@ METHOD NextPage() CLASS HWinPrn
    ::y := ::nTop * ::oPrinter:nVRes - ::nLineHeight - ::nLined
    ::lFirstLine := .T.
 
-Return Nil
+Return NIL
 
 METHOD PrintLine(cLine, lNewLine) CLASS HWinPrn
 Local i, i0, j, slen, c
@@ -215,11 +215,11 @@ Local i, i0, j, slen, c
    ::x := ::nLeft * ::oPrinter:nHRes
    IF ::lFirstLine
       ::lFirstLine := .F.
-   ELSEIF lNewLine == Nil .OR. lNewLine
+   ELSEIF lNewLine == NIL .OR. lNewLine
       ::y += ::nLineHeight + ::nLined
    ENDIF
 
-   IF cLine != Nil .AND. !Empty(cLine)
+   IF cLine != NIL .AND. !Empty(cLine)
       slen := Len(cLine)
       i := 1
       i0 := 0
@@ -290,7 +290,7 @@ Local i, i0, j, slen, c
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 METHOD PrintText(cText) CLASS HWinPrn
 
@@ -301,7 +301,7 @@ METHOD PrintText(cText) CLASS HWinPrn
             ::x, ::y, ::oPrinter:nWidth, ::y+::nLineHeight+::nLined)
    ::x += (::nCharW * Len(cText))
 
-Return Nil
+Return NIL
 
 METHOD PutCode(cLine) CLASS HWinPrn
 Static aCodes := {   ;
@@ -343,12 +343,12 @@ METHOD EndDoc() CLASS HWinPrn
       ENDIF
    ENDIF
 
-Return Nil
+Return NIL
 
 METHOD End() CLASS HWinPrn
 
    ::EndDoc()
    ::oFont:Release()
    ::oPrinter:End()
-Return Nil
+Return NIL
 

@@ -51,7 +51,7 @@ METHOD New(oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont, ;
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, oFont,, ;
               bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
-              IIf(tcolor == Nil, hwg_VColor("FFFFFF"), tcolor), IIf(bcolor == Nil, 0, bcolor))
+              IIf(tcolor == NIL, hwg_VColor("FFFFFF"), tcolor), IIf(bcolor == NIL, 0, bcolor))
 
    ::aValues := aValues
    ::nType   := 1
@@ -66,7 +66,7 @@ METHOD Redefine(oWndParent, nId, aValues, oFont, ;
 
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, 0, 0, 0, 0, oFont,, ;
               bSize, {|o, lpdis|o:Paint(lpdis)}, ctooltip, ;
-              IIf(tcolor == Nil, hwg_VColor("FFFFFF"), tcolor), IIf(bcolor == Nil, 0, bcolor))
+              IIf(tcolor == NIL, hwg_VColor("FFFFFF"), tcolor), IIf(bcolor == NIL, 0, bcolor))
 
    ::aValues := aValues
 
@@ -78,20 +78,20 @@ METHOD Activate() CLASS HGraph
                                 ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Init() CLASS HGraph
    IF !::lInit
       ::Super:Init()
       ::CalcMinMax()
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD CalcMinMax() CLASS HGraph
    LOCAL i, j, nLen
 
    IF ::nType == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
    ::xmax := ::xmin := ::ymax := ::ymin := 0
    IF !Empty(::ymaxSet)
@@ -108,7 +108,7 @@ METHOD CalcMinMax() CLASS HGraph
          NEXT
       ELSEIF ::nType == 2
          FOR j := 1 TO nLen
-            IF ::aValues[i, j, 2] != Nil
+            IF ::aValues[i, j, 2] != NIL
               ::ymax := Max(::ymax, ::aValues[i, j, 2])
               ::ymin := Min(::ymin, ::aValues[i, j, 2])
             ENDIF
@@ -121,7 +121,7 @@ METHOD CalcMinMax() CLASS HGraph
       ENDIF
    NEXT
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Paint(lpdis) CLASS HGraph
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
@@ -130,7 +130,7 @@ METHOD Paint(lpdis) CLASS HGraph
    LOCAL x0, y0, px1, px2, py1, py2, nWidth
 
    IF ::nType == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    x1 += ::x1Def
@@ -143,10 +143,10 @@ METHOD Paint(lpdis) CLASS HGraph
       ::scaleY := (::ymax - ::ymin) / (y2 - y1)
    ENDIF
 
-   IF ::oPenCoor == Nil
+   IF ::oPenCoor == NIL
       ::oPenCoor := HPen():Add(PS_SOLID, 1, ::colorCoor)
    ENDIF
-   IF ::oPen == Nil
+   IF ::oPen == NIL
       ::oPen := HPen():Add(PS_SOLID, 2, ::tcolor)
    ENDIF
    x0 := x1 + (0 - ::xmin) / ::scaleX
@@ -174,13 +174,13 @@ METHOD Paint(lpdis) CLASS HGraph
                ENDIF
             NEXT
          ELSEIF ::nType == 2
-            IF ::tbrush == Nil
+            IF ::tbrush == NIL
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
             // nWidth := Round((x2 - x1) / (nLen * 2 + 1), 0)
             nWidth := Round((x2 - x1) / (nLen), 0)
             FOR j := 1 TO nLen
-               IF ::aValues[i, j, 2] != Nil
+               IF ::aValues[i, j, 2] != NIL
                   // px1 := Round(x1 + nWidth * (j * 2 - 1), 0)
                   px1 := Round(x1 + nWidth * (j - 1) + 1, 0)
                   py1 := Round(y2 - 2 - (::aValues[i, j, 2] - ::ymin) / ::scaleY, 0)
@@ -188,7 +188,7 @@ METHOD Paint(lpdis) CLASS HGraph
                ENDIF
             NEXT
          ELSEIF ::nType == 3
-            IF ::tbrush == Nil
+            IF ::tbrush == NIL
                ::tbrush := HBrush():Add(::tcolor)
             ENDIF
             hwg_Selectobject(hDC, ::oPenCoor:handle)
@@ -200,7 +200,7 @@ METHOD Paint(lpdis) CLASS HGraph
 
    hwg_Selectobject(hDC, ::oPenCoor:handle)
    IF !Empty(::aSignY)
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
       hwg_Settextcolor(hDC, ::colorCoor)
@@ -208,7 +208,7 @@ METHOD Paint(lpdis) CLASS HGraph
          py1 := Round(y2 - 2 - (::aSignY[i, 1] - ::ymin) / ::scaleY, 0)
          IF py1 > y1 .AND. py1 < y2
             hwg_Drawline(hDC, x0-4, py1, x0+1, py1)
-            IF ::aSignY[i, 2] != Nil
+            IF ::aSignY[i, 2] != NIL
                hwg_Drawtext(hDC, Iif(HB_ISCHAR(::aSignY[i, 2]),::aSignY[i, 2], ;
                      Ltrim(Str(::aSignY[i, 2]))), drawInfo[4], py1-8, x0-4, py1+8, DT_RIGHT)
                IF ::lGridY
@@ -220,14 +220,14 @@ METHOD Paint(lpdis) CLASS HGraph
    ENDIF
    IF !Empty(::aSignX)
       nWidth := Round((x2 - x1) / Len(::aValues[1]), 0)
-      IF ::oFont != Nil
+      IF ::oFont != NIL
          hwg_Selectobject(hDC, ::oFont:handle)
       ENDIF
       hwg_Settextcolor(hDC, ::colorCoor)
       FOR i := 1 TO Len(::aSignX)
          px1 := Round(x0 + nWidth * ::aSignX[i, 1] + Iif(::lGridXMid, nWidth/2, 0), 0)
          hwg_Drawline(hDC, px1, y0+4, px1, y0-1)
-         IF ::aSignX[i, 2] != Nil
+         IF ::aSignX[i, 2] != NIL
             hwg_Drawtext(hDC, Iif(HB_ISCHAR(::aSignX[i, 2]),::aSignX[i, 2], ;
                   Ltrim(Str(::aSignX[i, 2]))), px1-40, y0+4, px1+40, y0+20, DT_CENTER)
             IF ::lGridX
@@ -237,12 +237,12 @@ METHOD Paint(lpdis) CLASS HGraph
       NEXT
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 METHOD Rebuild(aValues, nType) CLASS HGraph
 
    ::aValues := aValues
-   IF nType != Nil
+   IF nType != NIL
       ::nType := nType
    ENDIF
    IF ::nType != 0
@@ -250,4 +250,4 @@ METHOD Rebuild(aValues, nType) CLASS HGraph
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_INTERNALPAINT + RDW_UPDATENOW)
    ENDIF
 
-   RETURN Nil
+   RETURN NIL

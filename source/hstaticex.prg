@@ -57,7 +57,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       cCaption, oFont, bInit, bSize, bPaint, cTooltip, tcolor, ;
       bColor, lTransp, bClick, bDblClick, bOther) CLASS HStaticEx
 
-   nStyle := iif(nStyle = Nil, 0, nStyle)
+   nStyle := iif(nStyle = NIL, 0, nStyle)
    ::nStyleHS := nStyle - Hwg_BitAND(nStyle, WS_VISIBLE + WS_DISABLED + WS_CLIPSIBLINGS + ;
       WS_CLIPCHILDREN + WS_BORDER + WS_DLGFRAME + ;
       WS_VSCROLL + WS_HSCROLL + WS_THICKFRAME + WS_TABSTOP)

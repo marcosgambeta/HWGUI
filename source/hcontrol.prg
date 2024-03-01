@@ -107,7 +107,7 @@ METHOD NewId() CLASS HControl
 METHOD AddName(cName) CLASS HControl
    LOCAL nPos
 
-   IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. ::oParent != Nil .AND. !"[" $ cName
+   IF !Empty(cName) .AND. HB_ISCHAR(cName) .AND. ::oParent != NIL .AND. !"[" $ cName
       IF (nPos := RAt(":", cName)) > 0 .OR. (nPos := RAt(">", cName)) > 0
          cName := SubStr(cName, nPos + 1)
       ENDIF

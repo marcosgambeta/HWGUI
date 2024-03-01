@@ -100,8 +100,8 @@ METHOD AddEvent(nEvent, oCtrl, bAction, lNotify, cMethName) CLASS HCustomWindow
 
    AAdd(IIf(lNotify == NIL .OR. !lNotify, ::aEvents, ::aNotify), ;
          { nEvent, IIf(HB_ISNUMERIC(oCtrl), oCtrl, oCtrl:id), bAction })
-   IF bAction != Nil .AND. HB_ISOBJECT(oCtrl) //.AND. ValType(oCtrl) != "N"
-      IF cMethName != Nil //.AND. !__objHasMethod(oCtrl, cMethName)
+   IF bAction != NIL .AND. HB_ISOBJECT(oCtrl) //.AND. ValType(oCtrl) != "N"
+      IF cMethName != NIL //.AND. !__objHasMethod(oCtrl, cMethName)
          __objAddInline(oCtrl, cMethName, bAction)
       ENDIF
    ENDIF
@@ -123,7 +123,7 @@ METHOD FindControl(nId, nHandle) CLASS HCustomWindow
       ENDIF
       i --
    ENDDO
-   RETURN Nil
+   RETURN NIL
 
 METHOD DelControl(oCtrl) CLASS HCustomWindow
    LOCAL h := oCtrl:handle, id := oCtrl:id
@@ -176,7 +176,7 @@ METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
                  IIF(Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics(SM_CXVSCROLL), 0)
    ENDIF
 
-   IF nRePaint = Nil
+   IF nRePaint = NIL
       hwg_Movewindow(::handle, x1, y1, Width + nWx, Height + nHx)
    ELSE
       hwg_Movewindow(::handle, x1, y1, Width + nWx, Height + nHx, nRePaint)
@@ -300,8 +300,8 @@ LOCAL aControls, i, nLen
 METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
    LOCAL nlen, i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
 
-	 oCtrl := IIF(oCtrl == Nil, Self, oCtrl)
-	 lAll  := IIF(lAll  == Nil, .F., lAll)
+	 oCtrl := IIF(oCtrl == NIL, Self, oCtrl)
+	 lAll  := IIF(lAll  == NIL, .F., lAll)
 	 nLen  := LEN(oCtrl:aControls)
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
@@ -314,7 +314,7 @@ METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
   	            ::Refresh(lAll, oCtrlTmp)
 		        ELSEIF !Empty(lRefresh) .AND. (lAll .OR. ASCAN(::GetList, {|o|o:Handle == oCtrlTmp:handle}) > 0)
                oCtrlTmp:Refresh()
-               IF oCtrlTmp:bRefresh != Nil  
+               IF oCtrlTmp:bRefresh != NIL  
                   EVAL(oCtrlTmp:bRefresh, oCtrlTmp)
                ENDIF   
             ELSEIF hwg_Iswindowenabled(oCtrlTmp:Handle) .AND. !oCtrlTmp:lHide .AND. !lRefresh
@@ -322,13 +322,13 @@ METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
 				    ENDIF  
          ENDIF
       NEXT
-      IF oCtrl:bRefresh != Nil .AND. oCtrl:handle != hCtrl
+      IF oCtrl:bRefresh != NIL .AND. oCtrl:handle != hCtrl
          Eval(oCtrl:bRefresh, Self)
       ENDIF
-   ELSEIF oCtrl:bRefresh != Nil
+   ELSEIF oCtrl:bRefresh != NIL
       Eval(oCtrl:bRefresh, Self)
    ENDIF  
-   RETURN Nil
+   RETURN NIL
 
 
 METHOD SetTextClass(x) CLASS HCustomWindow
@@ -362,12 +362,12 @@ METHOD SetColor(tcolor, bColor, lRepaint) CLASS HCustomWindow
    IF lRepaint != NIL .AND. lRepaint
       hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)
    ENDIF
-   RETURN Nil
+   RETURN NIL
 
 METHOD Anchor(oCtrl, x, y, w, h) CLASS HCustomWindow
    LOCAL nlen, i, x1, y1
 
-   IF oCtrl = Nil .OR.;
+   IF oCtrl = NIL .OR.;
        ASCAN(oCtrl:aControls, {|o|__ObjHasMsg(o, "ANCHOR") .AND. o:Anchor > 0}) = 0
       RETURN .F.
    ENDIF
@@ -388,7 +388,7 @@ METHOD Anchor(oCtrl, x, y, w, h) CLASS HCustomWindow
 METHOD Closable(lClosable) CLASS HCustomWindow
    Local hMenu
 
-   IF lClosable != Nil
+   IF lClosable != NIL
       IF !lClosable
          hMenu := hwg_Enablemenusystemitem(::Handle, SC_CLOSE, .F.)
       ELSE
@@ -455,20 +455,20 @@ STATIC FUNCTION onCtlColor(oWnd, wParam, lParam)
    LOCAL oCtrl
    oCtrl := oWnd:FindControl(, lParam)
 
-   IF oCtrl != Nil .AND. VALTYPE(oCtrl) != "N"
+   IF oCtrl != NIL .AND. VALTYPE(oCtrl) != "N"
       IF oCtrl:tcolor != NIL
          hwg_Settextcolor(wParam, oCtrl:tcolor)
       ENDIF
       hwg_Setbkmode(wParam, oCtrl:backstyle)
-      IF !oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != Nil
+      IF !oCtrl:IsEnabled() .AND. oCtrl:Disablebrush != NIL
          hwg_Setbkmode(wParam, TRANSPARENT)
          hwg_Setbkcolor(wParam, oCtrl:DisablebColor)
          RETURN oCtrl:disablebrush:handle
       ELSEIF oCtrl:bcolor != NIL .AND. oCtrl:BackStyle = OPAQUE
          hwg_Setbkcolor(wParam, oCtrl:bcolor)
-         IF oCtrl:brush != Nil
+         IF oCtrl:brush != NIL
             RETURN oCtrl:brush:handle
-         ELSEIF oCtrl:oParent:brush != Nil
+         ELSEIF oCtrl:oParent:brush != NIL
             RETURN oCtrl:oParent:brush:handle
          ENDIF
       ELSEIF oCtrl:BackStyle = TRANSPARENT
@@ -506,7 +506,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
          oForm:nFocus := IIF(hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), oForm:Handle), hwg_Getfocus(), oForm:nFocus)
       ENDIF
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
-      IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl(, hwg_Getfocus()) = Nil .AND. ;
+      IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl(, hwg_Getfocus()) = NIL .AND. ;
          !Empty(oForm:nFocus) .AND. !hwg_Selffocus(hwg_Getactivewindow())
          hwg_Setfocus(oForm:nFocus)
       ENDIF
@@ -526,10 +526,10 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
       oWnd:nHeight := aCoors[4] - aCoors[2]
    ELSE
       nWindowState := oWnd:WindowState
-      IF wParam != 1 .AND. (oWnd:GETMDIMAIN() != Nil .AND. !oWnd:GETMDIMAIN():IsMinimized()) //SIZE_MINIMIZED
+      IF wParam != 1 .AND. (oWnd:GETMDIMAIN() != NIL .AND. !oWnd:GETMDIMAIN():IsMinimized()) //SIZE_MINIMIZED
          oWnd:nWidth  := aCoors[3] - aCoors[1]
          oWnd:nHeight := aCoors[4] - aCoors[2]
-         IF oWnd:Type = WND_MDICHILD .AND. oWnd:GETMDIMAIN() != Nil .AND. wParam != 1 .AND. oWnd:GETMDIMAIN():WindowState = 2
+         IF oWnd:Type = WND_MDICHILD .AND. oWnd:GETMDIMAIN() != NIL .AND. wParam != 1 .AND. oWnd:GETMDIMAIN():WindowState = 2
              nWindowState := SW_SHOWMINIMIZED
          ENDIF 
       ENDIF
