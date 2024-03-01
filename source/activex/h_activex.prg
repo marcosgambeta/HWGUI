@@ -50,8 +50,11 @@ ENDCLASS
 
 METHOD New(oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) CLASS HActiveX
    LOCAL nStyle, nExStyle, cClsName, hSink
-   LOCAL i, a, h, n
+   //LOCAL i, a, h, n (variables not used)
    LOCAL oError, bErrorBlock
+
+   // parameter not used
+   HB_SYMBOL_UNUSED(bSize)
 
    nStyle   := WS_CHILD + WS_VISIBLE + WS_CLIPCHILDREN
    nExStyle := 0
@@ -99,7 +102,7 @@ Return ::Super:Release()
 *-----------------------------------------------------------------------------* 
 METHOD __Error(...) CLASS HActiveX 
 *-----------------------------------------------------------------------------* 
-Local cMessage, uRet 
+Local cMessage //, uRet (variable not used)
 cMessage := __GetMessage() 
 
    IF SubStr(cMessage, 1, 1) == "_"
