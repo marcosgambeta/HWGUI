@@ -104,6 +104,10 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       lText := .F.
    ENDIF
 
+   IF ValType(vari) == "C" .AND. lText == .F.
+      lText := .T.
+   ENDIF
+
    ::nDisplay := nDisplay
    ::nhItem := nhItem
    ::ncWidth := ncWidth
