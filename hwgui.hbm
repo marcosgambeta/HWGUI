@@ -139,3 +139,10 @@
 
 source/procmisc/*.c
 source/procmisc/*.prg
+
+#
+# $Id: hbxml.hbp 2076 2013-06-13 15:37:33Z druzus $
+#
+
+source/xml/*.c
+source/xml/*.prg

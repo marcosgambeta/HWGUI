@@ -1,7 +1,7 @@
 -hbcontainer
 
 hbactivex.hbp
-hbxml.hbp
+#hbxml.hbp
 hwg_contrib.hbp
 hwgdebug.hbp
 #procmisc.hbp
