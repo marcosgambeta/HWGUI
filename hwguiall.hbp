@@ -4,6 +4,6 @@ hbactivex.hbp
 hbxml.hbp
 hwg_contrib.hbp
 hwgdebug.hbp
-procmisc.hbp
+#procmisc.hbp
 hwgui.hbp
 hwguidyn.hbp
