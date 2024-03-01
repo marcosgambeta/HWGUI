@@ -262,7 +262,6 @@ PHB_ITEM hbxml_pp(unsigned char *ptr, HB_ULONG ulLen)
 
 PHB_ITEM hbxml_getattr(unsigned char **pBuffer, HB_BOOL *lSingle)
 {
-
   unsigned char *ptr, cQuo;
   int nlen;
   PHB_ITEM pArray = hb_itemNew(NULL);
