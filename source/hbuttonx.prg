@@ -1,8 +1,6 @@
 /*
- * $Id: hctrlex.prg 2076 2013-06-13 15:37:33Z druzus $
- *
  * HWGUI - Harbour Win32 GUI library source code:
- * HButtonX
+ * HButtonX class
  *
  * Copyright 2007 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br >
  * www - http://sites.uol.com.br/culikr/
@@ -13,55 +11,56 @@
 #include "guilib.ch"
 #include "common.ch"
 
-#translate :hBitmap       => :m_csbitmaps\[1\]
-#translate :dwWidth       => :m_csbitmaps\[2\]
-#translate :dwHeight      => :m_csbitmaps\[3\]
-#translate :hMask         => :m_csbitmaps\[4\]
-#translate :crTransparent => :m_csbitmaps\[5\]
+#translate :hBitmap       => :m_csbitmaps\[1\] // (not used here)
+#translate :dwWidth       => :m_csbitmaps\[2\] // (not used here)
+#translate :dwHeight      => :m_csbitmaps\[3\] // (not used here)
+#translate :hMask         => :m_csbitmaps\[4\] // (not used here)
+#translate :crTransparent => :m_csbitmaps\[5\] // (not used here)
 
-#define TRANSPARENT 1
-#define BTNST_COLOR_BK_IN     1            // Background color when mouse is INside
-#define BTNST_COLOR_FG_IN     2            // Text color when mouse is INside
-#define BTNST_COLOR_BK_OUT    3             // Background color when mouse is OUTside
-#define BTNST_COLOR_FG_OUT    4             // Text color when mouse is OUTside
-#define BTNST_COLOR_BK_FOCUS  5           // Background color when the button is focused
-#define BTNST_COLOR_FG_FOCUS  6            // Text color when the button is focused
-#define BTNST_MAX_COLORS      6
-#define WM_SYSCOLORCHANGE               0x0015
-#define BS_TYPEMASK SS_TYPEMASK
-#define OFS_X 10 // distance from left/right side to beginning/end of text
+#define TRANSPARENT 1                                                                      // (not used here)
+#define BTNST_COLOR_BK_IN     1             // Background color when mouse is INside       // (not used here)
+#define BTNST_COLOR_FG_IN     2             // Text color when mouse is INside             // (not used here)
+#define BTNST_COLOR_BK_OUT    3             // Background color when mouse is OUTside      // (not used here)
+#define BTNST_COLOR_FG_OUT    4             // Text color when mouse is OUTside            // (not used here)
+#define BTNST_COLOR_BK_FOCUS  5             // Background color when the button is focused // (not used here)
+#define BTNST_COLOR_FG_FOCUS  6             // Text color when the button is focused       // (not used here)
+#define BTNST_MAX_COLORS      6                                                            // (not used here)
+#define WM_SYSCOLORCHANGE               0x0015                                             // (not used here)
+#define BS_TYPEMASK SS_TYPEMASK                                                            // (not used here)
+#define OFS_X 10 // distance from left/right side to beginning/end of text                 // (not used here)
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 CLASS HButtonX INHERIT HButton
 
-   CLASS VAR winclass   INIT "BUTTON"
+   CLASS VAR winclass INIT "BUTTON"
+
    DATA bClick
-   DATA cNote  HIDDEN
+   DATA cNote HIDDEN
    DATA lFlat INIT .F.
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus)
-   METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
-      cTooltip, tcolor, bColor, cCaption, bGFocus)
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ;
+      cTooltip, tcolor, bColor, bGFocus)
+   METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption, bGFocus)
    METHOD Init()
    METHOD onClick()
    METHOD onGetFocus()
    METHOD onLostFocus()
    METHOD onEvent(msg, wParam, lParam)
-   METHOD NoteCaption(cNote)  SETGET
+   METHOD NoteCaption(cNote) SETGET
 
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-      tcolor, bColor, bGFocus) CLASS HButtonX
+//-------------------------------------------------------------------------------------------------------------------//
+
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ;
+   cTooltip, tcolor, bColor, bGFocus) CLASS HButtonX
 
    nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON + BS_NOTIFY)
    ::lFlat := Hwg_BitAND(nStyle, BS_FLAT) != 0
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-      cCaption, oFont, bInit, bSize, bPaint,, cTooltip, ;
-      tcolor, bColor, bGFocus)
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, , ;
+      cTooltip, tcolor, bColor, bGFocus)
 
    ::bClick := bClick
    ::bGetFocus := bGFocus
@@ -77,13 +76,14 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       ENDIF
    ENDIF
 
-   RETURN Self
+RETURN Self
 
-METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
-      cTooltip, tcolor, bColor, cCaption, bGFocus) CLASS HButtonX
+//-------------------------------------------------------------------------------------------------------------------//
 
-   HControl():New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-      bSize, bPaint, cTooltip, tcolor, bColor)
+METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption, ;
+   bGFocus) CLASS HButtonX
+
+   HControl():New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
    ::title := cCaption
    ::bGetFocus := bGFocus
@@ -99,14 +99,16 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
       ENDIF
    ENDIF
 
-   RETURN Self
+RETURN Self
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD Init() CLASS HButtonX
 
    IF !::lInit
       IF !(hwg_GetParentForm(Self):classname == ::oParent:classname .AND. ;
-            hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE) .OR. ;
-            !hwg_GetParentForm(Self):lModal .OR. ::nHolder = 1
+         hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE) .OR. ;
+         !hwg_GetParentForm(Self):lModal .OR. ::nHolder = 1
          ::nHolder := 1
          hwg_Setwindowobject(::handle, Self)
          HWG_INITBUTTONPROC(::handle)
@@ -114,8 +116,11 @@ METHOD Init() CLASS HButtonX
       ::Super:init()
    ENDIF
 
-   RETURN  NIL
+RETURN  NIL
 
+//-------------------------------------------------------------------------------------------------------------------//
+
+#if 0 // old code for reference (to be deleted)
 METHOD onevent(msg, wParam, lParam) CLASS HButtonX
 
    IF msg = WM_SETFOCUS .AND. ::oParent:oParent = NIL
@@ -150,12 +155,73 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
       IF wParam = VK_RETURN .OR. wParam = VK_TAB
       ELSEIF hwg_Getdlgmessage(lParam) = WM_KEYDOWN .AND. wParam != VK_ESCAPE
       ELSEIF hwg_Getdlgmessage(lParam) = WM_CHAR .OR. wParam = VK_ESCAPE
-         RETURN - 1
+         RETURN -1
       ENDIF
       RETURN DLGC_WANTMESSAGE
    ENDIF
 
-   RETURN - 1
+RETURN -1
+#else
+METHOD onevent(msg, wParam, lParam) CLASS HButtonX
+
+   SWITCH msg
+
+   //CASE WM_SETFOCUS
+   //   IF ::oParent:oParent == NIL
+   //   ENDIF
+   //   EXIT
+
+   CASE WM_KILLFOCUS
+      IF hwg_GetParentForm(Self):handle != ::oParent:Handle
+         hwg_Invalidaterect(::handle, 0)
+         hwg_Sendmessage(::handle, BM_SETSTYLE, BS_PUSHBUTTON, 1)
+      ENDIF
+      EXIT
+
+   CASE WM_KEYDOWN
+      IF wParam == VK_RETURN .OR. wParam == VK_SPACE
+         hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
+         RETURN 0
+      ENDIF
+      IF !hwg_ProcKeyList(Self, wParam)
+         IF wParam == VK_TAB
+            hwg_GetSkip(::oparent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            RETURN 0
+         ELSEIF wParam == VK_LEFT .OR. wParam == VK_UP
+            hwg_GetSkip(::oparent, ::handle, , -1)
+            RETURN 0
+         ELSEIF wParam == VK_RIGHT .OR. wParam == VK_DOWN
+            hwg_GetSkip(::oparent, ::handle, , 1)
+            RETURN 0
+         ENDIF
+      ENDIF
+      EXIT
+
+   CASE WM_KEYUP
+      IF wParam == VK_RETURN .OR. wParam == VK_SPACE
+         hwg_Sendmessage(::handle, WM_LBUTTONUP, 0, hwg_Makelparam(1, 1))
+         RETURN 0
+      ENDIF
+      EXIT
+
+   CASE WM_GETDLGCODE
+      IF !Empty(lParam)
+         IF wParam == VK_RETURN .OR. wParam == VK_TAB
+            //
+         ELSEIF hwg_Getdlgmessage(lParam) == WM_KEYDOWN .AND. wParam != VK_ESCAPE
+            //
+         ELSEIF hwg_Getdlgmessage(lParam) == WM_CHAR .OR. wParam == VK_ESCAPE
+            RETURN -1
+         ENDIF
+         RETURN DLGC_WANTMESSAGE
+      ENDIF
+
+   ENDSWITCH
+
+RETURN -1
+#endif
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD onClick() CLASS HButtonX
 
@@ -164,7 +230,9 @@ METHOD onClick() CLASS HButtonX
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD NoteCaption(cNote) CLASS HButtonX
 
@@ -175,16 +243,21 @@ METHOD NoteCaption(cNote) CLASS HButtonX
       ::cNote := cNote
    ENDIF
 
-   RETURN ::cNote
+RETURN ::cNote
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD onGetFocus() CLASS HButtonX
-   LOCAL res := .T., nSkip
+
+   LOCAL res := .T.
+   LOCAL nSkip
 
    IF !hwg_CheckFocus(Self, .F.) .OR. ::bGetFocus = NIL
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
+      nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), ;
+         -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
       ::oParent:lSuspendMsgsHandling := .F.
@@ -196,7 +269,9 @@ METHOD onGetFocus() CLASS HButtonX
       ENDIF
    ENDIF
 
-   RETURN res
+RETURN res
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD onLostFocus() CLASS HButtonX
 
@@ -210,4 +285,6 @@ METHOD onLostFocus() CLASS HButtonX
       ::oparent:lSuspendMsgsHandling := .F.
    ENDIF
 
-   RETURN NIL
+RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
