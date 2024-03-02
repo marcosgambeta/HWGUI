@@ -55,15 +55,15 @@ ENDCLASS
 METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
       oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime) CLASS HDatePicker
 
-   nStyle := Hwg_BitOr(Iif(nStyle == NIL, 0, nStyle), IIF(bSetGet != NIL, WS_TABSTOP, 0) + ;
-         IIF(lShowTime == NIL .OR. !lShowTime, 0, DTS_TIMEFORMAT))
+   nStyle := Hwg_BitOr(Iif(nStyle == NIL, 0, nStyle), IIf(bSetGet != NIL, WS_TABSTOP, 0) + ;
+         IIf(lShowTime == NIL .OR. !lShowTime, 0, DTS_TIMEFORMAT))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
          ,, ctooltip, tcolor, bcolor)
 
    ::lShowTime := Hwg_BitAnd(nStyle, DTS_TIMEFORMAT) > 0
-   ::dValue    := IIF(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
-   ::tValue    := IIF(vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari)
-   ::title     := IIF(!::lShowTime, ::dValue, ::tValue)
+   ::dValue := IIf(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
+   ::tValue := IIf(vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari)
+   ::title := IIf(!::lShowTime, ::dValue, ::tValue)
 
    ::bSetGet := bSetGet
    ::bChange := bChange
@@ -96,8 +96,8 @@ METHOD Redefine(oWndParent, nId, vari, bSetGet, oFont, bSize, bInit, ;
          bSize,, ctooltip, tcolor, bcolor)
 
    HWG_InitCommonControlsEx()
-   ::dValue   := IIf(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
-   ::tValue    := IIF(vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari)
+   ::dValue := IIf(vari == NIL .OR. ValType(vari) != "D", CToD(Space(8)), vari)
+   ::tValue := IIf(vari == NIL .OR. Valtype(vari) != "C", SPACE(6), vari)
    ::bSetGet := bSetGet
    ::bChange := bChange
    ::lShowTime := lShowTime
@@ -149,7 +149,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
    ENDIF
    IF msg == WM_CHAR
       IF wParam = VK_TAB
-        hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+        hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
         RETURN 0
       ELSEIF wParam == VK_RETURN
          hwg_GetSkip(::oParent, ::handle, , 1)
@@ -181,7 +181,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
    CASE WM_CHAR
       IF wParam == VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wParam == VK_RETURN
          hwg_GetSkip(::oParent, ::handle, , 1)
@@ -211,7 +211,7 @@ METHOD CheckValue(lValue) CLASS HDatePicker
        RETURN .F.
    ENDIF
    IF lValue != NIL
-      IF IIF(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.) != lValue
+      IF IIf(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.) != lValue
          IF !lValue
             hwg_Sendmessage(::Handle, DTM_SETSYSTEMTIME, GDT_NONE, 0)
          ELSE
@@ -219,7 +219,7 @@ METHOD CheckValue(lValue) CLASS HDatePicker
          ENDIF
       ENDIF
    ENDIF
-   RETURN IIF(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.)
+   RETURN IIf(hwg_Getdatepicker(::handle, GDT_NONE) = GDT_NONE, .F., .T.)
 
 METHOD Value(Value) CLASS HDatePicker
 
@@ -227,11 +227,11 @@ METHOD Value(Value) CLASS HDatePicker
       ::SetValue(Value)
    ENDIF
 
-   RETURN IIF(::lShowTime, ::tValue, ::dValue)
+   RETURN IIf(::lShowTime, ::tValue, ::dValue)
 
 METHOD GetValue() CLASS HDatePicker
 
-   RETURN IIF(!::lShowTime, hwg_Getdatepicker(::handle), hwg_Gettimepicker(::handle))
+   RETURN IIf(!::lShowTime, hwg_Getdatepicker(::handle), hwg_Gettimepicker(::handle))
 
 METHOD SetValue(xValue) CLASS HDatePicker
 
@@ -244,9 +244,9 @@ METHOD SetValue(xValue) CLASS HDatePicker
    ENDIF
    ::dValue := hwg_Getdatepicker(::handle)
    ::tValue := hwg_Gettimepicker(::handle)
-   ::title := IIF(::lShowTime, ::tValue, ::dValue)
+   ::title := IIf(::lShowTime, ::tValue, ::dValue)
    IF ::bSetGet != NIL
-      Eval(::bSetGet, IIF(::lShowTime, ::tValue,::dValue), Self)
+      Eval(::bSetGet, IIf(::lShowTime, ::tValue,::dValue), Self)
    ENDIF
 
    RETURN NIL
@@ -282,11 +282,11 @@ METHOD onChange(nMess) CLASS HDatePicker
       ::dValue := hwg_Getdatepicker(::handle)
       ::tValue := hwg_Gettimepicker(::handle)
       IF ::bSetGet != NIL
-         Eval(::bSetGet, IIF(::lShowTime, ::tValue, ::dValue), Self)
+         Eval(::bSetGet, IIf(::lShowTime, ::tValue, ::dValue), Self)
       ENDIF
       IF ::bChange != NIL
          ::oparent:lSuspendMsgsHandling := .T.
-         Eval(::bChange, IIF(::lShowTime, ::tValue, ::dValue), Self)
+         Eval(::bChange, IIf(::lShowTime, ::tValue, ::dValue), Self)
          ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
    ENDIF
@@ -303,7 +303,7 @@ METHOD When() CLASS HDatePicker
       nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
-      res := Eval(::bGetFocus, IIF(::lShowTime, ::tValue, ::dValue), Self)
+      res := Eval(::bGetFocus, IIf(::lShowTime, ::tValue, ::dValue), Self)
       ::lnoValid := !res
       ::oParent:lSuspendMsgsHandling := .F.
       IF VALTYPE(res) = "L" .AND. !res
@@ -324,12 +324,12 @@ METHOD Valid() CLASS HDatePicker
    ENDIF
    ::dValue := hwg_Getdatepicker(::handle)
    IF ::bSetGet != NIL
-      Eval(::bSetGet, IIF(::lShowTime, ::tValue,::dValue), Self)
+      Eval(::bSetGet, IIf(::lShowTime, ::tValue,::dValue), Self)
    ENDIF
    IF ::bLostFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.
-      res := Eval(::bLostFocus, IIF(::lShowTime, ::tValue, ::dValue), Self)
-      res := IIF(ValType(res) == "L", res, .T.)
+      res := Eval(::bLostFocus, IIf(::lShowTime, ::tValue, ::dValue), Self)
+      res := IIf(ValType(res) == "L", res, .T.)
       ::oparent:lSuspendMsgsHandling := .F.
       IF !res
          hwg_Postmessage(::handle, WM_KEYDOWN, VK_RIGHT, 0)

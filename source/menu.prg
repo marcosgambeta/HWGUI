@@ -35,8 +35,8 @@ METHOD Show(oWnd, xPos, yPos, lWnd) CLASS HMenu
    IF PCount() == 1 .OR. lWnd == NIL .OR. !lWnd
       IF PCount() == 1
          aCoor := hwg_GetCursorPos()
-         xPos  := aCoor[1]
-         yPos  := aCoor[2]
+         xPos := aCoor[1]
+         yPos := aCoor[2]
       ENDIF
       Hwg_trackmenu(::handle, xPos, yPos, oWnd:handle)
    ELSE
@@ -184,17 +184,17 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp)
    LOCAL aMenu, i
    IF oWnd != NIL
       _aMenuDef := {}
-      _aAccel   := {}
-      _oBitmap  := {}
-      _oWnd     := oWnd
-      _oMenu    := NIL
-      _nLevel   := 0
-      _Id       := IIf(nId == NIL, MENU_FIRST_ID, nId)
-      s_nWidthBmp  := IIF(nWidthBmp = NIL .OR. !HWG_ISWIN7(), hwg_Getsystemmetrics(SM_CXMENUCHECK), nWidthBmp)
-      s_nHeightBmp := IIF(nHeightBmp = NIL .OR. !HWG_ISWIN7(), hwg_Getsystemmetrics(SM_CYMENUCHECK), nHeightBmp)
-      s_nbkColor   := nbkColor 
+      _aAccel := {}
+      _oBitmap := {}
+      _oWnd := oWnd
+      _oMenu := NIL
+      _nLevel := 0
+      _Id := IIf(nId == NIL, MENU_FIRST_ID, nId)
+      s_nWidthBmp := IIf(nWidthBmp = NIL .OR. !HWG_ISWIN7(), hwg_Getsystemmetrics(SM_CXMENUCHECK), nWidthBmp)
+      s_nHeightBmp := IIf(nHeightBmp = NIL .OR. !HWG_ISWIN7(), hwg_Getsystemmetrics(SM_CYMENUCHECK), nHeightBmp)
+      s_nbkColor := nbkColor 
    ELSE
-      nId   := IIf(nId == NIL, ++_Id, nId)
+      nId := IIf(nId == NIL, ++_Id, nId)
       aMenu := _aMenuDef
       FOR i := 1 TO _nLevel
          aMenu := ATail(aMenu)[1]
@@ -206,7 +206,7 @@ FUNCTION Hwg_BeginMenu(oWnd, nId, cTitle, nbkColor, nWidthBmp, nHeightBmp)
 
 FUNCTION Hwg_ContextMenu()
    _aMenuDef := {}
-   _oBitmap  := {}
+   _oBitmap := {}
    _oWnd := NIL
    _nLevel := 0
    _Id := CONTEXTMENU_FIRST_ID
@@ -215,7 +215,7 @@ FUNCTION Hwg_ContextMenu()
 
 FUNCTION Hwg_EndMenu()
    IF _nLevel > 0
-      _nLevel --
+      _nLevel--
    ELSE
       hwg_BuildMenu(AClone(_aMenuDef), IIf(_oWnd != NIL, _oWnd:handle, NIL), ;
                  _oWnd,, IIf(_oWnd != NIL, .F., .T.))
@@ -223,10 +223,10 @@ FUNCTION Hwg_EndMenu()
          _oWnd:hAccel := hwg_Createacceleratortable(_aAccel)
       ENDIF
       _aMenuDef := NIL
-      _oBitmap  := NIL
-      _aAccel   := NIL
-      _oWnd     := NIL
-      _oMenu    := NIL
+      _oBitmap := NIL
+      _aAccel := NIL
+      _oWnd := NIL
+      _oMenu := NIL
    ENDIF
    RETURN .T.
 

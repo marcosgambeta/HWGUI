@@ -62,7 +62,7 @@ FUNCTION hwg_InitControls(oWnd, lNoActivate)
          ELSEIF !lNoActivate
             pArray[i]:lInit := .T.
          ENDIF
-         IF IIF(HB_ISPOINTER(pArray[i]:handle), hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
+         IF IIf(HB_ISPOINTER(pArray[i]:handle), hwg_Ptrtoulong(pArray[i]:handle), pArray[i]:handle) <= 0
             pArray[i]:handle := hwg_Getdlgitem(oWnd:handle, pArray[i]:id)
 
             // writelog("InitControl2"+str(pArray[i]:handle)+"/"+pArray[i]:classname)
@@ -286,8 +286,8 @@ FUNCTION hwg_WChoice(arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBS
       oBrw:AddColumn(HColumn():New(, {|value, o|HB_SYMBOL_UNUSED(value), (o:Alias) ->(FieldGet(nField))}, "C", nLen))
    ENDIF
 
-   oBrw:oFont  := oFont
-   oBrw:bSize  := {|o, x, y|hwg_Movewindow(o:handle, addX / 2, 10, x - addX, y - addY)}
+   oBrw:oFont := oFont
+   oBrw:bSize := {|o, x, y|hwg_Movewindow(o:handle, addX / 2, 10, x - addX, y - addY)}
    oBrw:bEnter := {|o|nChoice := o:nCurrent, hwg_EndDialog(o:oParent:handle)}
    oBrw:bKeyDown := {|o, key|HB_SYMBOL_UNUSED(o), Iif(key==27, (hwg_EndDialog(oDlg:handle), .F.), .T.)}
 
@@ -377,8 +377,8 @@ FUNCTION hwg_EndWindow()
 FUNCTION hwg_HdSerial(cDrive)
 
 
-   LOCAL n       := hwg_HDGETSERIAL(cDrive)
-   LOCAL cHex    := HB_NUMTOHEX(n)
+   LOCAL n := hwg_HDGETSERIAL(cDrive)
+   LOCAL cHex := HB_NUMTOHEX(n)
    LOCAL cResult
    cResult := SubStr(cHex, 1, 4) + "-" + SubStr(cHex, 5, 4)
 
@@ -474,16 +474,16 @@ FUNCTION hwg_TxtRect(cTxt, oWin, oFont)
    LOCAL ASize
    LOCAL hFont
 
-   oFont := IIF(oFont != NIL, oFont, oWin:oFont)
+   oFont := IIf(oFont != NIL, oFont, oWin:oFont)
 
-   hDC       := hwg_Getdc(oWin:handle)
+   hDC := hwg_Getdc(oWin:handle)
    IF oFont == NIL .AND. oWin:oParent != NIL
       oFont := oWin:oParent:oFont
    ENDIF
    IF oFont != NIL
       hFont := hwg_Selectobject(hDC, oFont:handle)
    ENDIF
-   ASize     := hwg_Gettextsize(hDC, cTxt)
+   ASize := hwg_Gettextsize(hDC, cTxt)
    IF oFont != NIL
       hwg_Selectobject(hDC, hFont)
    ENDIF
@@ -564,9 +564,9 @@ LOCAL oParent, nCtrl, nPos
       RETURN .F.
    ENDIF
    IF wParam != VK_SHIFT .AND. wParam != VK_CONTROL .AND. wParam != VK_MENU
-      oParent := IIF(oMain != NIL, oMain, hwg_GetParentForm(oCtrl))
+      oParent := IIf(oMain != NIL, oMain, hwg_GetParentForm(oCtrl))
       IF oParent != NIL .AND. !Empty(oParent:KeyList)
-         nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, iif(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0))
+         nctrl := IIf(hwg_IsCtrlShift(.T., .F.), FCONTROL, IIf(hwg_IsCtrlShift(.F., .T.), FSHIFT, 0))
          IF (nPos := AScan(oParent:KeyList, {|a|a[1] == nctrl.AND.a[2] == wParam})) > 0
             Eval(oParent:KeyList[nPos, 3], oCtrl)
             RETURN .T.
@@ -581,7 +581,7 @@ LOCAL oParent, nCtrl, nPos
 FUNCTION hwg_ProcOkCancel(oCtrl, nKey, lForce)
 
    Local oWin := hwg_GetParentForm(oCtrl), lEscape
-   Local iParHigh := IIF(nKey = VK_RETURN, IDOK, IDCANCEL)
+   Local iParHigh := IIf(nKey = VK_RETURN, IDOK, IDCANCEL)
    LOCAL oCtrlFocu := oCtrl
 
    lForce := !Empty(lForce)
@@ -692,7 +692,7 @@ Function  hwg_SetFontStyle(oWnd, lBold, lItalic, lUnderline)
       IF oFont == NIL .AND. lBold == NIL .AND. lItalic == NIL .AND. lUnderline == NIL
          RETURN .T.
       ENDIF
-      oWnd:oFont := IIF(oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic != NIL, Iif(lItalic, 1, 0), NIL), Iif(lUnderline != NIL, Iif(lUnderline, 1, 0), NIL)), ;
+      oWnd:oFont := IIf(oFont != NIL, HFont():Add(oFont:name, oFont:Width,,,, Iif(lItalic != NIL, Iif(lItalic, 1, 0), NIL), Iif(lUnderline != NIL, Iif(lUnderline, 1, 0), NIL)), ;
             HFont():Add("", 0,, Iif(lBold != NIL, Iif(lBold, FW_BOLD, FW_REGULAR), NIL),, Iif(lItalic != NIL, Iif(lItalic, 1, 0), NIL), Iif(lUnderline != NIL, Iif(lUnderline, 1, 0), NIL)))
    ENDIF
    IF lBold != NIL .OR. lItalic != NIL .OR. lUnderline != NIL
@@ -711,8 +711,8 @@ Function hwg_SetAll(oWnd, cProperty, Value, aControls, cClass)
  // cClass baseclass hwgui
    Local nLen, i
 
-   aControls := IIF(EMPTY(aControls), oWnd:aControls, aControls)
-   nLen := IIF(HB_ISCHAR(aControls), Len(oWnd:&aControls), LEN(aControls))
+   aControls := IIf(EMPTY(aControls), oWnd:aControls, aControls)
+   nLen := IIf(HB_ISCHAR(aControls), Len(oWnd:&aControls), LEN(aControls))
    FOR i = 1 TO nLen
       IF HB_ISCHAR(aControls)
          oWnd:&aControls[i]:&cProperty := Value
@@ -736,8 +736,8 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
 
    nSBCode := hwg_Loword(wParam)
    IF msg == WM_MOUSEWHEEL
-      nSBCode = IIF(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
-      nSBCode = IIF(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
+      nSBCode = IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+      nSBCode = IIf(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
    ENDIF
    IF (msg = WM_VSCROLL) .OR.msg == WM_MOUSEWHEEL
      // Handle vertical scrollbar messages
@@ -820,8 +820,8 @@ FUNCTION HWG_ScrollHV(oForm, msg, wParam, lParam)
    CASE WM_VSCROLL
    CASE WM_MOUSEWHEEL
       IF msg == WM_MOUSEWHEEL
-         nSBCode = IIF(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
-         nSBCode = IIF(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
+         nSBCode = IIf(hwg_Hiword(wParam) > 32768, hwg_Hiword(wParam) - 65535, hwg_Hiword(wParam))
+         nSBCode = IIf(nSBCode < 0, SB_LINEDOWN, SB_LINEUP)
       ENDIF
       // Handle vertical scrollbar messages
       SWITCH nSBCode

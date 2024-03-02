@@ -46,9 +46,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
       oFont, bInit, bSize, bPaint, tcolor, bColor, lTransp, oRGroup) CLASS HGroupEx
 
    ::oRGroup := oRGroup
-   ::oBrush := iif(bColor != NIL, ::brush, NIL)
-   ::lTransparent := iif(lTransp != NIL, lTransp, .F.)
-   ::backStyle := iif((lTransp != NIL .AND. lTransp) .OR. ::bColor != NIL, TRANSPARENT, OPAQUE)
+   ::oBrush := IIf(bColor != NIL, ::brush, NIL)
+   ::lTransparent := IIf(lTransp != NIL, lTransp, .F.)
+   ::backStyle := IIf((lTransp != NIL .AND. lTransp) .OR. ::bColor != NIL, TRANSPARENT, OPAQUE)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, ;
       oFont, bInit, bSize, bPaint, tcolor, bColor)
 
@@ -64,7 +64,7 @@ METHOD Init() CLASS HGroupEx
          nbs := HWG_GETWINDOWSTYLE(::handle)
          nbs := hwg_Modstyle(nbs, BS_TYPEMASK, BS_OWNERDRAW + WS_DISABLED)
          HWG_SETWINDOWSTYLE(::handle, nbs)
-         ::bPaint   := {|o, p|o:paint(p)}
+         ::bPaint := {|o, p|o:paint(p)}
       ENDIF
       IF ::oRGroup != NIL
          ::oRGroup:Handle := ::handle
@@ -88,7 +88,7 @@ METHOD PAINT(lpdis) CLASS HGroupEx
    LOCAL DC := drawInfo[3]
    LOCAL ppnOldPen, pnFrmDark, pnFrmLight, iUpDist
    LOCAL szText, aSize, dwStyle
-   LOCAL rc  := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6] - 1, drawInfo[7] - 1 })
+   LOCAL rc := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6] - 1, drawInfo[7] - 1 })
    LOCAL rcText
 
    // determine text length
@@ -112,8 +112,8 @@ METHOD PAINT(lpdis) CLASS HGroupEx
    hwg_Setbkmode(dc, TRANSPARENT)
 
    IF Hwg_BitAND(dwStyle, BS_FLAT) != 0  // "flat" frame
-      //pnFrmDark  := hwg_Createpen(PS_SOLID, 1, hwg_Rgb(0, 0, 0)))
-      pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Rgb(64, 64, 64))
+      //pnFrmDark := hwg_Createpen(PS_SOLID, 1, hwg_Rgb(0, 0, 0)))
+      pnFrmDark := HPen():Add(PS_SOLID, 1, hwg_Rgb(64, 64, 64))
       pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
       ppnOldPen := hwg_Selectobject(dc, pnFrmDark:Handle)
       hwg_Moveto(dc, rcText[1] - 2, rcText[2])
@@ -130,7 +130,7 @@ METHOD PAINT(lpdis) CLASS HGroupEx
       hwg_Lineto(dc, rc[3] - 1, rcText[4] + 1)
       hwg_Lineto(dc, rcText[3], rcText[4] + 1)
    ELSE // 3D frame
-      pnFrmDark  := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
+      pnFrmDark := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
       pnFrmLight := HPen():Add(PS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
       ppnOldPen := hwg_Selectobject(dc, pnFrmDark:handle)
       hwg_Moveto(dc, rcText[1] - 2, rcText[2])

@@ -36,22 +36,22 @@ METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, bInit, tcolor, n
       bSize, {|o, lp|o:Paint(lp)} , , tcolor)
 
    ::title := ""
-   ::lVert := iif(lVert == NIL, .F., lVert)
-   ::LineSlant := iif(Empty(cSlant) .OR. !cSlant $ "/\", "", cSlant)
-   ::nBorder := iif(Empty(nBorder), 1, nBorder)
+   ::lVert := IIf(lVert == NIL, .F., lVert)
+   ::LineSlant := IIf(Empty(cSlant) .OR. !cSlant $ "/\", "", cSlant)
+   ::nBorder := IIf(Empty(nBorder), 1, nBorder)
 
    IF Empty(::LineSlant)
       IF ::lVert
-         ::nWidth  := ::nBorder + 1 //10
-         ::nHeight := iif(nLength == NIL, 20, nLength)
+         ::nWidth := ::nBorder + 1 //10
+         ::nHeight := IIf(nLength == NIL, 20, nLength)
       ELSE
-         ::nWidth  := iif(nLength == NIL, 20, nLength)
+         ::nWidth := IIf(nLength == NIL, 20, nLength)
          ::nHeight := ::nBorder + 1 //10
       ENDIF
       ::oPenLight := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DHILIGHT))
-      ::oPenGray  := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
+      ::oPenGray := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(COLOR_3DSHADOW))
    ELSE
-      ::nWidth  := nLength
+      ::nWidth := nLength
       ::nHeight := nHeight
       ::oPenLight := HPen():Add(BS_SOLID, ::nBorder, tColor)
    ENDIF
@@ -73,8 +73,8 @@ METHOD Activate() CLASS HLine
 METHOD Paint(lpdis) CLASS HLine
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpdis)
    LOCAL hDC := drawInfo[3]
-   LOCAL x1  := drawInfo[4], y1 := drawInfo[5]
-   LOCAL x2  := drawInfo[6], y2 := drawInfo[7]
+   LOCAL x1 := drawInfo[4], y1 := drawInfo[5]
+   LOCAL x2 := drawInfo[6], y2 := drawInfo[7]
 
    hwg_Selectobject(hDC, ::oPenLight:handle)
 

@@ -176,7 +176,7 @@ METHOD Drag(lParam) CLASS HSplitter
 METHOD DragAll(lScroll) CLASS HSplitter
    LOCAL i, oCtrl, xDiff := 0, yDiff := 0
 
-   lScroll := IIF(Len(::aLeft) = 0 .OR. Len(::aRight) = 0, .F., lScroll)
+   lScroll := IIf(Len(::aLeft) = 0 .OR. Len(::aRight) = 0, .F., lScroll)
 
    FOR i := 1 TO Len(::aRight)
       oCtrl := ::aRight[i]

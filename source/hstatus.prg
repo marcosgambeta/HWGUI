@@ -41,15 +41,15 @@ ENDCLASS
 
 METHOD New(oWndParent, nId, nStyle, oFont, aParts, bInit, bSize, bPaint, bRClick, bDblClick, nHeight) CLASS HStatus
 
-   bSize  := iif(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight)})
+   bSize := IIf(bSize != NIL, bSize, {|o, x, y|o:Move(0, y - ::nStatusHeight, x, ::nStatusHeight)})
    nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), ;
       WS_CHILD + WS_VISIBLE + WS_OVERLAPPED + WS_CLIPSIBLINGS)
    ::Super:New(oWndParent, nId, nStyle, 0, 0, 0, 0, oFont, bInit, ;
       bSize, bPaint)
-   ::nStatusHeight := iif(nHeight = NIL, ::nStatusHeight, nHeight)
-   ::aParts    := aParts
+   ::nStatusHeight := IIf(nHeight = NIL, ::nStatusHeight, nHeight)
+   ::aParts := aParts
    ::bDblClick := bDblClick
-   ::bRClick   := bRClick
+   ::bRClick := bRClick
 
    ::Activate()
 
@@ -164,7 +164,7 @@ METHOD SetIconPanel(nPart, cIcon, nWidth, nHeight) CLASS HStatus
    IF HB_IsNumeric(cIcon) .OR. At(".", cIcon) = 0
       //oIcon := HIcon():addResource(cIcon, nWidth, nHeight)
       oIcon := HIcon():addResource(cIcon, nWidth, nHeight, LR_LOADMAP3DCOLORS + ;
-         iif(Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0))
+         IIf(Empty(HWG_GETWINDOWTHEME(::handle)), LR_LOADTRANSPARENT, 0))
    ELSE
       oIcon := HIcon():addFile(cIcon, nWidth, nHeight)
    ENDIF

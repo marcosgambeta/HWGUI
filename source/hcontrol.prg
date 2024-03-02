@@ -41,8 +41,8 @@ CLASS HControl INHERIT HCustomWindow
    METHOD Init()
    METHOD AddName(cName) HIDDEN
    METHOD NewId()
-   METHOD Show(nShow) INLINE ::Super:Show(nShow), iif(::oParent:lGetSkipLostFocus, ;
-      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, iif(::oParent:FindControl(, hwg_Getfocus()) != NIL, 0, ::handle), 1), .T.)
+   METHOD Show(nShow) INLINE ::Super:Show(nShow), IIf(::oParent:lGetSkipLostFocus, ;
+      hwg_Postmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, IIf(::oParent:FindControl(, hwg_Getfocus()) != NIL, 0, ::handle), 1), .T.)
    METHOD Hide() INLINE (::oParent:lGetSkipLostFocus := .F., ::Super:Hide())
    METHOD Disable() INLINE (iif(hwg_Selffocus(::Handle), hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0),), hwg_Enablewindow(::handle, .F.))
    METHOD Enable()
@@ -64,22 +64,22 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, ;
       bInit, bSize, bPaint, cTooltip, tcolor, bColor) CLASS HControl
 
-   ::oParent := iif(oWndParent == NIL, ::oDefaultParent, oWndParent)
-   ::id      := iif(nId == NIL, ::NewId(), nId)
-   ::style   := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), ;
+   ::oParent := IIf(oWndParent == NIL, ::oDefaultParent, oWndParent)
+   ::id := IIf(nId == NIL, ::NewId(), nId)
+   ::style := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), ;
       WS_VISIBLE + WS_CHILD)
-   ::nLeft   := iif(nLeft = NIL, 0, nLeft)
-   ::nTop    := iif(nTop = NIL, 0, nTop)
-   ::nWidth  := iif(nWidth = NIL, 0, nWidth)
-   ::nHeight := iif(nHeight = NIL, 0, nHeight)
-   ::oFont   := oFont
-   ::bInit   := bInit
+   ::nLeft := IIf(nLeft = NIL, 0, nLeft)
+   ::nTop := IIf(nTop = NIL, 0, nTop)
+   ::nWidth := IIf(nWidth = NIL, 0, nWidth)
+   ::nHeight := IIf(nHeight = NIL, 0, nHeight)
+   ::oFont := oFont
+   ::bInit := bInit
    IF HB_ISNUMERIC(bSize)
       ::Anchor := bSize
    ELSE
-      ::bSize   := bSize
+      ::bSize := bSize
    ENDIF
-   ::bPaint  := bPaint
+   ::bPaint := bPaint
    ::tooltip := cTooltip
    ::Setcolor(tcolor, bColor)
    ::oParent:AddControl(Self)
@@ -95,10 +95,10 @@ METHOD NewId() CLASS HControl
       i++
    ENDDO
    IF AScan(::oParent:aControls, {|o|o:id == nId}) != 0
-      nId --
+      nId--
       DO WHILE nId >= CONTROL_FIRST_ID .AND. ;
             AScan(::oParent:aControls, {|o|o:id == nId}) != 0
-         nId --
+         nId--
       ENDDO
    ENDIF
 
@@ -155,17 +155,17 @@ METHOD Setfocus(lValid) CLASS HControl
    LOCAL lSuspend := ::oParent:lSuspendMsgsHandling
 
    IF !hwg_Iswindowenabled(::Handle)
-      ::oParent:lSuspendMsgsHandling  := .T.
+      ::oParent:lSuspendMsgsHandling := .T.
       hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, 0, 0)
-      ::oParent:lSuspendMsgsHandling  := lSuspend
+      ::oParent:lSuspendMsgsHandling := lSuspend
    ELSE
-      ::oParent:lSuspendMsgsHandling  := !Empty(lValid)
+      ::oParent:lSuspendMsgsHandling := !Empty(lValid)
       IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          hwg_Setfocus(::handle)
       ELSE
          hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1)
       ENDIF
-      ::oParent:lSuspendMsgsHandling  := lSuspend
+      ::oParent:lSuspendMsgsHandling := lSuspend
    ENDIF
    IF hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
       hwg_GetParentForm(Self):nFocus := ::Handle
@@ -179,7 +179,7 @@ METHOD Enable() CLASS HControl
    hwg_Enablewindow(::handle, .T.)
    IF ::oParent:lGetSkipLostFocus .AND. !lEnable .AND. Hwg_BitaND(HWG_GETWINDOWSTYLE(::Handle), WS_TABSTOP) > 0
       nNext := Ascan(::oParent:aControls, {|o|hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(hwg_Getfocus())})
-      nPos  := Ascan(::oParent:acontrols, {|o|hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(::handle)})
+      nPos := Ascan(::oParent:acontrols, {|o|hwg_Ptrtoulong(o:Handle) = hwg_Ptrtoulong(::handle)})
       IF nPos < nNext
          hwg_Sendmessage(hwg_Getactivewindow(), WM_NEXTDLGCTL, ::handle, 1)
       ENDIF
@@ -242,7 +242,7 @@ METHOD ControlSource(cControlSource) CLASS HControl
    IF cControlSource != NIL .AND. !Empty(cControlSource) .AND. __objHasData(Self, "BSETGETFIELD")
       ::xControlSource := cControlSource
       temp := SubStr(cControlSource, At("->", cControlSource) + 2)
-      ::bSetGetField := iif("->" $ cControlSource, FieldWBlock(temp, Select(SubStr(cControlSource, 1, At("->", cControlSource) - 1))), FieldBlock(cControlSource))
+      ::bSetGetField := IIf("->" $ cControlSource, FieldWBlock(temp, Select(SubStr(cControlSource, 1, At("->", cControlSource) - 1))), FieldBlock(cControlSource))
    ENDIF
 
    RETURN ::xControlSource
@@ -351,8 +351,8 @@ METHOD onAnchor(x, y, w, h) CLASS HControl
    // REDRAW AND INVALIDATE SCREEN
    IF (x1 != X9 .OR. y1 != y9 .OR. w1 != w9 .OR. h1 != h9)
       IF hwg_Iswindowvisible(::handle)
-         nCxv := iif(HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics(SM_CXVSCROLL) + 1, 3)
-         nCyh := iif(HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics(SM_CYHSCROLL) + 1, 3)
+         nCxv := IIf(HWG_BITAND(::style, WS_VSCROLL) != 0, hwg_Getsystemmetrics(SM_CXVSCROLL) + 1, 3)
+         nCyh := IIf(HWG_BITAND(::style, WS_HSCROLL) != 0, hwg_Getsystemmetrics(SM_CYHSCROLL) + 1, 3)
          IF (x1 != x9 .OR. y1 != y9) .AND. x9 < ::oParent:nWidth
             hwg_Invalidaterect(::oParent:handle, 1, Max(x9 - 1, 0), Max(y9 - 1, 0), ;
                x9 + w9 + nCxv, y9 + h9 + nCyh)

@@ -81,10 +81,10 @@ METHOD New(oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor) CLASS HR
    //::title := ""
    ::lVert := IIf(lVert == NIL, .F., lVert)
    IF ::lVert
-      ::nWidth  := 10
+      ::nWidth := 10
       ::nHeight := IIf(nLength == NIL, 20, nLength)
    ELSE
-      ::nWidth  := IIf(nLength == NIL, 20, nLength)
+      ::nWidth := IIf(nLength == NIL, 20, nLength)
       ::nHeight := 10
    ENDIF
    ::oPen := HPen():Add(BS_SOLID, 1, hwg_Getsyscolor(nColor))
@@ -180,13 +180,13 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor,
 
    HB_SYMBOL_UNUSED(ncStyle)
 
-   ::bPaint   := {|o, p|o:paint(p)}
+   ::bPaint := {|o, p|o:paint(p)}
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, ,;
          bInit, bSize, ::bPaint, , tcolor, bColor) //= NIL
 
    //::title := ""
    // OPAQUE DEFAULT
-   ::backStyle := IIF(nbackStyle = NIL, OPAQUE, nbackStyle)
+   ::backStyle := IIf(nbackStyle = NIL, OPAQUE, nbackStyle)
    ::lnoBorder := lnoBorder
    ::nBorder := nBorder
    ::nbStyle := nbStyle
@@ -321,15 +321,15 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize
       lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) CLASS HContainer  //, bClick, bDblClick)
 
    ::lTABSTOP := nStyle = WS_TABSTOP
-   ::bPaint   := {|o, p|o:paint(p)}
-   nStyle := SS_OWNERDRAW + IIF(nStyle = WS_TABSTOP, WS_TABSTOP, 0) + Hwg_Bitand(nStyle, SS_NOTIFY)
+   ::bPaint := {|o, p|o:paint(p)}
+   nStyle := SS_OWNERDRAW + IIf(nStyle = WS_TABSTOP, WS_TABSTOP, 0) + Hwg_Bitand(nStyle, SS_NOTIFY)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, , ;
          bInit, bSize, ::bPaint,, tcolor, bColor)
 
    //::title := ""
-   ::ncStyle := IIF(ncStyle = NIL .AND. nStyle < WS_TABSTOP, 3, ncStyle)
-   ::lnoBorder := IIF(lnoBorder = NIL, .F., lnoBorder)
-   ::backStyle := IIF(nbackStyle = NIL, OPAQUE, nbackStyle) // OPAQUE DEFAULT
+   ::ncStyle := IIf(ncStyle = NIL .AND. nStyle < WS_TABSTOP, 3, ncStyle)
+   ::lnoBorder := IIf(lnoBorder = NIL, .F., lnoBorder)
+   ::backStyle := IIf(nbackStyle = NIL, OPAQUE, nbackStyle) // OPAQUE DEFAULT
    ::bLoad := bLoad
    ::bRefresh := bRefresh
    ::bOther := bOther
@@ -404,7 +404,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HContainer
          ELSEIF wParam = VK_UP
             hwg_GetSkip(::oparent, ::handle, , -1)
          ELSEIF wParam = VK_TAB
-            hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          ENDIF
          RETURN 0
       ELSEIF msg = WM_SYSKEYUP
@@ -433,10 +433,10 @@ METHOD Paint(lpdis) CLASS HContainer
 
    drawInfo := hwg_Getdrawiteminfo(lpdis)
    hDC := drawInfo[3]
-   x1  := drawInfo[4]
-   y1  := drawInfo[5]
-   x2  := drawInfo[6]
-   y2  := drawInfo[7]
+   x1 := drawInfo[4]
+   y1 := drawInfo[5]
+   x2 := drawInfo[6]
+   y2 := drawInfo[7]
 
    hwg_Selectobject(hDC, ::oPen:handle)
 

@@ -56,7 +56,7 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               ,, cTooltip)
 
-   ::value   := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
+   ::value := IIf(ValType(vari) == "D" .And. !Empty(vari), vari, Date())
 
    ::bChange := bChange
    ::bSelect := bSelect

@@ -75,7 +75,7 @@ CLASS VAR winclass INIT "SYSLISTVIEW32"
    METHOD AddRow(a, bUpdate)
    METHOD Notify(lParam)
 
-   METHOD DELETEROW() INLINE IIF(::bFlag, (hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F.), .T.)
+   METHOD DELETEROW() INLINE IIf(::bFlag, (hwg_Sendmessage(::HANDLE, LVM_DELETEITEM, ::iRowSelect, 0), ::bFlag := .F.), .T.)
    METHOD DELETEALLROW() INLINE ::aItems := NIL, ::aColors := {}, hwg_Sendmessage(::Handle, LVM_DELETEALLITEMS, 0, 0)
    METHOD SELECTALL() INLINE hwg_Listviewselectall(::Handle)
    METHOD SELECTLAST() INLINE hwg_Listviewselectlastitem(::handle)
@@ -102,17 +102,17 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
    ::bGfocus := bGfocus
    ::bLfocus := bLfocus
 
-   ::color   := color
+   ::color := color
    ::bkcolor := bkcolor
 
    ::lNoScroll := lNoScroll
    ::lNoBorder := lNoBord
-   ::lNoLines  := lNoLines
+   ::lNoLines := lNoLines
    ::lNoHeader := lNoHeader
 
-   ::bEnter    := bEnter
-   ::bKeyDown  := bKeyDown
-   ::bPosChg   := bPosChg
+   ::bEnter := bEnter
+   ::bKeyDown := bKeyDown
+   ::bPosChg := bPosChg
    ::bDispInfo := bDispInfo
 
 
@@ -184,7 +184,7 @@ METHOD Init() CLASS HGridEx
       hwg_Listview_init(::handle, ::ItemCount, ::lNoLines)
 
       FOR i := 1 TO Len(::aColumns)
-         hwg_Listview_addcolumnex(::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIF(::aColumns[i, 4] != NIL, ::aColumns[i, 4], -1))
+         hwg_Listview_addcolumnex(::handle, i, ::aColumns[i, 1], ::aColumns[i, 2], ::aColumns[i, 3], IIf(::aColumns[i, 4] != NIL, ::aColumns[i, 4], -1))
 
       NEXT
       IF Len(::aRow) > 0
@@ -231,12 +231,12 @@ METHOD AddRow(a, bupdate) CLASS HGRIDEX
    DEFAULT bupdate TO .F.
    FOR n := 1 TO nLen STEP 4
       AAdd(aTmp1, a[n])
-      AAdd(aTmp, IIF(HB_ISNUMERIC(a[n + 1]), a[n + 1], -1))
+      AAdd(aTmp, IIf(HB_ISNUMERIC(a[n + 1]), a[n + 1], -1))
 
-      AAdd(aTmp2, IIF(HB_ISNUMERIC(a[n + 2]), a[n + 2], hwg_Rgb(12, 15, 46)))
+      AAdd(aTmp2, IIf(HB_ISNUMERIC(a[n + 2]), a[n + 2], hwg_Rgb(12, 15, 46)))
 
 
-      AAdd(aTmp2, IIF(HB_ISNUMERIC(a[n + 3]), a[n + 3], hwg_Rgb(192, 192, 192)))
+      AAdd(aTmp2, IIf(HB_ISNUMERIC(a[n + 3]), a[n + 3], hwg_Rgb(192, 192, 192)))
 
       AAdd(::aColors, aTmp2)
       aTmp2 := {}
@@ -361,7 +361,7 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    HWG_InitCommonControlsEx()
    ::arow := aItem
 
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
 
    RETURN Self
 

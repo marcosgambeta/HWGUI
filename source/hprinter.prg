@@ -52,7 +52,7 @@ CLASS HPrinter INHERIT HObject
    METHOD SetFont(oFont) INLINE hwg_Selectobject(::hDC, oFont:handle)
    METHOD Settextcolor(nColor) INLINE hwg_Settextcolor(::hDC, nColor)
    METHOD SetTBkColor(nColor) INLINE hwg_Setbkcolor(::hDC, nColor)
-   METHOD Setbkmode(lmode) INLINE hwg_Setbkmode(::hDC, IIF(lmode, 1, 0))
+   METHOD Setbkmode(lmode) INLINE hwg_Setbkmode(::hDC, IIf(lmode, 1, 0))
    METHOD StartDoc(lPreview, cMetaName)
    METHOD EndDoc()
    METHOD StartPage()
@@ -123,18 +123,18 @@ METHOD New(cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, h
          ENDIF
       ENDIF
       aPrnCoors := hwg_GetDeviceArea(::hDCPrn)
-      ::nWidth  := IIf(::lmm, aPrnCoors[3], aPrnCoors[1])
+      ::nWidth := IIf(::lmm, aPrnCoors[3], aPrnCoors[1])
       ::nHeight := IIf(::lmm, aPrnCoors[4], aPrnCoors[2])
-      ::nPWidth  := IIf(::lmm, aPrnCoors[8], aPrnCoors[1])
+      ::nPWidth := IIf(::lmm, aPrnCoors[8], aPrnCoors[1])
       ::nPHeight := IIf(::lmm, aPrnCoors[9], aPrnCoors[2])
-      ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
-      ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
-      ::PixelsPerInchY   := aPrnCoors[6]
-      ::PixelsPerInchX   := aPrnCoors[5]
-      ::TopMargin        := aPrnCoors[10]
-      ::BottomMargin     := (::nPHeight - ::TopMargin)+1
-      ::LeftMargin       := aPrnCoors[11]
-      ::RightMargin      := (::nPWidth - ::LeftMargin)+1
+      ::nHRes := aPrnCoors[1] / aPrnCoors[3]
+      ::nVRes := aPrnCoors[2] / aPrnCoors[4]
+      ::PixelsPerInchY := aPrnCoors[6]
+      ::PixelsPerInchX := aPrnCoors[5]
+      ::TopMargin := aPrnCoors[10]
+      ::BottomMargin := (::nPHeight - ::TopMargin)+1
+      ::LeftMargin := aPrnCoors[11]
+      ::RightMargin := (::nPWidth - ::LeftMargin)+1
       // writelog(::cPrinterName + str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]))
    ENDIF
 
@@ -151,12 +151,12 @@ METHOD SetMode(nOrientation) CLASS HPrinter
       ::hDCPrn := hDC
       ::hPrinter := hPrinter
       aPrnCoors := hwg_GetDeviceArea(::hDCPrn)
-      ::nWidth  := IIf(::lmm, aPrnCoors[3], aPrnCoors[1])
+      ::nWidth := IIf(::lmm, aPrnCoors[3], aPrnCoors[1])
       ::nHeight := IIf(::lmm, aPrnCoors[4], aPrnCoors[2])
-      ::nPWidth  := IIf(::lmm, aPrnCoors[8], aPrnCoors[1])
+      ::nPWidth := IIf(::lmm, aPrnCoors[8], aPrnCoors[1])
       ::nPHeight := IIf(::lmm, aPrnCoors[9], aPrnCoors[2])
-      ::nHRes   := aPrnCoors[1] / aPrnCoors[3]
-      ::nVRes   := aPrnCoors[2] / aPrnCoors[4]
+      ::nHRes := aPrnCoors[1] / aPrnCoors[3]
+      ::nVRes := aPrnCoors[2] / aPrnCoors[4]
       // writelog(":"+str(aPrnCoors[1])+str(aPrnCoors[2])+str(aPrnCoors[3])+str(aPrnCoors[4])+str(aPrnCoors[5])+str(aPrnCoors[6])+str(aPrnCoors[8])+str(aPrnCoors[9]))
       RETURN .T.
    ENDIF
@@ -383,7 +383,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[1], "Exit Preview")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 1 .AND. aBitmaps[2] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[2]), HBitmap():AddFile(aBitmaps[2]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -394,7 +394,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[2], "Print file")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 2 .AND. aBitmaps[3] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[3]), HBitmap():AddFile(aBitmaps[3]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -407,7 +407,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[3], "First page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 3 .AND. aBitmaps[4] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[4]), HBitmap():AddFile(aBitmaps[4]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -416,7 +416,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[4], "Next page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 4 .AND. aBitmaps[5] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[5]), HBitmap():AddFile(aBitmaps[5]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -425,7 +425,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[5], "Previous page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 5 .AND. aBitmaps[6] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[6]), HBitmap():AddFile(aBitmaps[6]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -434,7 +434,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[6], "Last page")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 6 .AND. aBitmaps[7] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[7]), HBitmap():AddFile(aBitmaps[7]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -445,7 +445,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[7], "Zoom out")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 7 .AND. aBitmaps[8] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[8]), HBitmap():AddFile(aBitmaps[8]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -454,7 +454,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
          TOOLTIP IIf(aTooltips != NIL, aTooltips[8], "Zoom in")
    IF aBitmaps != NIL .AND. Len(aBitmaps) > 8 .AND. aBitmaps[9] != NIL
       oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBitmaps[9]), HBitmap():AddFile(aBitmaps[9]))
-      oBtn:title   := NIL
+      oBtn:title := NIL
       oBtn:lTransp := lTransp
    ENDIF
 
@@ -474,7 +474,7 @@ METHOD Preview(cTitle, aBitmaps, aTooltips, aBootUser) CLASS HPrinter
 
       IF aBootUser[2] != NIL
          oBtn:oBitmap := IIf(aBitmaps[1], HBitmap():AddResource(aBootUser[2]), HBitmap():AddFile(aBootUser[2]))
-         oBtn:title   := NIL
+         oBtn:title := NIL
          oBtn:lTransp := lTransp
       ENDIF
 
@@ -514,7 +514,7 @@ METHOD ChangePage(oSayPage, n, nPage) CLASS hPrinter
       ELSEIF n == 1 .AND. ::nCurrPage < Len(::aMeta)
          ::nCurrPage++
       ELSEIF n == - 1 .AND. ::nCurrPage > 1
-         ::nCurrPage --
+         ::nCurrPage--
       ENDIF
       oSayPage:SetItem(::nCurrPage)
    ELSE
@@ -718,13 +718,13 @@ METHOD PlayMeta(oWnd) CLASS HPrinter
             ::memDC:Createcompatibledc(hDC)
             ::memBitmap := hwg_Createcompatiblebitmap(hDC, rect[3] - rect[1], rect[4] - rect[2])
             ::memDC:Selectobject(::memBitmap)
-            Brush           := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
-            BrushWhite      := HBrush():Add(hwg_Rgb(255, 255, 255)):handle
-            BrushBlack      := HBrush():Add(hwg_Rgb(0, 0, 0)):handle
-            BrushLine       := HBrush():Add(hwg_Rgb(102, 100, 92)):handle
+            Brush := HBrush():Add(hwg_Getsyscolor(COLOR_3DHILIGHT + 1)):handle
+            BrushWhite := HBrush():Add(hwg_Rgb(255, 255, 255)):handle
+            BrushBlack := HBrush():Add(hwg_Rgb(0, 0, 0)):handle
+            BrushLine := HBrush():Add(hwg_Rgb(102, 100, 92)):handle
             BrushBackground := HBrush():Add(hwg_Rgb(204, 200, 184)):handle
-            BrushShadow     := HBrush():Add(hwg_Rgb(178, 175, 161)):handle
-            BrushBorder     := HBrush():Add(hwg_Rgb(129, 126, 115)):handle
+            BrushShadow := HBrush():Add(hwg_Rgb(178, 175, 161)):handle
+            BrushBorder := HBrush():Add(hwg_Rgb(129, 126, 115)):handle
          ENDIF
 
          IF ::NeedsRedraw

@@ -121,7 +121,7 @@ METHOD FindControl(nId, nHandle) CLASS HCustomWindow
       IF Eval(bSearch, ::aControls[i])
          RETURN ::aControls[i]
       ENDIF
-      i --
+      i--
    ENDDO
    RETURN NIL
 
@@ -164,16 +164,16 @@ METHOD DelControl(oCtrl) CLASS HCustomWindow
 METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
    LOCAL rect, nHx := 0, nWx := 0
 
-   x1     := IIF(x1     = NIL, ::nLeft, x1)
-   y1     := IIF(y1     = NIL, ::nTop, y1)
-   width  := IIF(width  = NIL, ::nWidth, width)
-   height := IIF(height = NIL, ::nHeight, height)
+   x1 := IIf(x1 == NIL, ::nLeft, x1)
+   y1 := IIf(y1 == NIL, ::nTop, y1)
+   width := IIf(width == NIL, ::nWidth, width)
+   height := IIf(height == NIL, ::nHeight, height)
    IF Hwg_BitAnd(::style, WS_CHILD) = 0
       rect := hwg_Getwindowrect(::Handle)
       nHx := rect[4] - rect[2]  - hwg_Getclientrect(::Handle)[4] - ;
-                 IIF(Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics(SM_CYHSCROLL), 0)
+                 IIf(Hwg_BitAnd(::style, WS_HSCROLL) > 0, hwg_Getsystemmetrics(SM_CYHSCROLL), 0)
       nWx := rect[3] - rect[1]  - hwg_Getclientrect(::Handle)[3] - ;
-                 IIF(Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics(SM_CXVSCROLL), 0)
+                 IIf(Hwg_BitAnd(::style, WS_VSCROLL) > 0, hwg_Getsystemmetrics(SM_CXVSCROLL), 0)
    ENDIF
 
    IF nRePaint = NIL
@@ -186,7 +186,7 @@ METHOD Move(x1, y1, width, height, nRePaint) CLASS HCustomWindow
       ::nLeft := x1
    //ENDIF
    //IF y1 != NIL
-      ::nTop  := y1
+      ::nTop := y1
    //ENDIF
    //IF width != NIL
       ::nWidth := width
@@ -300,9 +300,9 @@ LOCAL aControls, i, nLen
 METHOD Refresh(lAll, oCtrl) CLASS HCustomWindow
    LOCAL nlen, i, hCtrl := hwg_Getfocus(), oCtrlTmp, lRefresh
 
-	 oCtrl := IIF(oCtrl == NIL, Self, oCtrl)
-	 lAll  := IIF(lAll  == NIL, .F., lAll)
-	 nLen  := LEN(oCtrl:aControls)
+	 oCtrl := IIf(oCtrl == NIL, Self, oCtrl)
+	 lAll := IIf(lAll  == NIL, .F., lAll)
+	 nLen := LEN(oCtrl:aControls)
 
    IF hwg_Iswindowvisible(::Handle) .OR. nLen > 0
       FOR i = 1 to nLen
@@ -435,7 +435,7 @@ STATIC FUNCTION onNotify(oWnd, wParam, lParam)
 
 STATIC FUNCTION onDestroy(oWnd)
    LOCAL aControls := oWnd:aControls
-   LOCAL i, nLen   := Len(aControls)
+   LOCAL i, nLen := Len(aControls)
 
    FOR i := 1 TO nLen
       aControls[i]:END()
@@ -503,7 +503,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       (iItem := AScan(oWnd:aEvents, {|a|a[1] == iParHigh .AND. ;
                                         a[2] == iParLow})) > 0
       IF oForm:Type < WND_DLG_RESOURCE .AND. !Empty(oForm:nFocus)
-         oForm:nFocus := IIF(hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), oForm:Handle), hwg_Getfocus(), oForm:nFocus)
+         oForm:nFocus := IIf(hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), oForm:Handle), hwg_Getfocus(), oForm:nFocus)
       ENDIF
       Eval(oWnd:aEvents[iItem, 3], oWnd, iParLow)
       IF oForm:Type < WND_DLG_RESOURCE .AND. oForm:FindControl(, hwg_Getfocus()) = NIL .AND. ;
@@ -522,12 +522,12 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    nh1 := oWnd:nHeight
    aCoors := hwg_Getwindowrect(oWnd:handle)
    IF EMPTY(oWnd:Type)
-      oWnd:nWidth  := aCoors[3] - aCoors[1]
+      oWnd:nWidth := aCoors[3] - aCoors[1]
       oWnd:nHeight := aCoors[4] - aCoors[2]
    ELSE
       nWindowState := oWnd:WindowState
       IF wParam != 1 .AND. (oWnd:GETMDIMAIN() != NIL .AND. !oWnd:GETMDIMAIN():IsMinimized()) //SIZE_MINIMIZED
-         oWnd:nWidth  := aCoors[3] - aCoors[1]
+         oWnd:nWidth := aCoors[3] - aCoors[1]
          oWnd:nHeight := aCoors[4] - aCoors[2]
          IF oWnd:Type = WND_MDICHILD .AND. oWnd:GETMDIMAIN() != NIL .AND. wParam != 1 .AND. oWnd:GETMDIMAIN():WindowState = 2
              nWindowState := SW_SHOWMINIMIZED

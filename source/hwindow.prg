@@ -26,7 +26,7 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
    ENDIF
    oWnd:Super:onEvent(WM_SIZE, wParam, lParam)
 
-   oWnd:nWidth  := aCoors[3] - aCoors[1]
+   oWnd:nWidth := aCoors[3] - aCoors[1]
    oWnd:nHeight := aCoors[4] - aCoors[2]
 
    IF ISBLOCK(oWnd:bSize)
@@ -36,11 +36,11 @@ STATIC FUNCTION onSize(oWnd, wParam, lParam)
       aCoors := hwg_Getclientrect(oWnd:handle)
       hwg_Setwindowpos(HWindow():aWindows[2]:handle, NIL, oWnd:aOffset[1], oWnd:aOffset[2], aCoors[3] - oWnd:aOffset[1] - oWnd:aOffset[3], aCoors[4] - oWnd:aOffset[2] - oWnd:aOffset[4], SWP_NOZORDER + SWP_NOACTIVATE + SWP_NOSENDCHANGING)
       aCoors := hwg_Getwindowrect(HWindow():aWindows[2]:handle)
-      HWindow():aWindows[2]:nWidth  := aCoors[3] - aCoors[1]
+      HWindow():aWindows[2]:nWidth := aCoors[3] - aCoors[1]
       HWindow():aWindows[2]:nHeight := aCoors[4] - aCoors[2]
       // ADDED                                                   =
       IF !Empty(oWnd:Screen)
-          oWnd:Screen:nWidth  := aCoors[3] - aCoors[1]
+          oWnd:Screen:nWidth := aCoors[3] - aCoors[1]
           oWnd:Screen:nHeight := aCoors[4] - aCoors[2]
           hwg_Setwindowpos(oWnd:screen:handle, NIL, 0, 0, oWnd:Screen:nWidth, oWnd:Screen:nHeight, SWP_NOACTIVATE + SWP_NOSENDCHANGING + SWP_NOZORDER)
           IF hwg_Iswindowvisible(oWnd:screen:handle)
@@ -112,7 +112,7 @@ CLASS VAR szAppName  SHARED INIT "HwGUI_App"
    METHOD DelItem(oWnd)
    METHOD FindWindow(hWndTitle)
    METHOD GetMain()
-   METHOD GetMdiMain() INLINE IIF(::GetMain() != NIL, ::aWindows[1], NIL)
+   METHOD GetMdiMain() INLINE IIf(::GetMain() != NIL, ::aWindows[1], NIL)
    METHOD Center() INLINE Hwg_CenterWindow(::handle, ::Type)
    METHOD Restore() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_RESTORE, 0)
    METHOD Maximize() INLINE hwg_Sendmessage(::handle, WM_SYSCOMMAND, SC_MAXIMIZE, 0)
@@ -137,27 +137,27 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
    HB_SYMBOL_UNUSED(cHelp)
 
    ::oDefaultParent := Self
-   ::title    := cTitle
-   ::style    := IIf(nStyle == NIL, 0, nStyle)
-   ::oIcon    := oIcon
-   ::oBmp     := oBmp
-   ::bmpStretch := IIF(nBmpStretch = NIL, ::bmpStretch, nBmpStretch)
-   ::nTop     := IIf(y == NIL, 0, y)
-   ::nLeft    := IIf(x == NIL, 0, x)
-   ::nWidth   := IIf(width == NIL, 0, width)
-   ::nHeight  := IIf(height == NIL, 0, height)
-   ::oFont    := oFont
-   ::bInit    := bInit
+   ::title := cTitle
+   ::style := IIf(nStyle == NIL, 0, nStyle)
+   ::oIcon := oIcon
+   ::oBmp := oBmp
+   ::bmpStretch := IIf(nBmpStretch = NIL, ::bmpStretch, nBmpStretch)
+   ::nTop := IIf(y == NIL, 0, y)
+   ::nLeft := IIf(x == NIL, 0, x)
+   ::nWidth := IIf(width == NIL, 0, width)
+   ::nHeight := IIf(height == NIL, 0, height)
+   ::oFont := oFont
+   ::bInit := bInit
    ::bDestroy := bExit
-   ::bSize    := bSize
-   ::bPaint   := bPaint
-   ::bGetFocus  := bGfocus
+   ::bSize := bSize
+   ::bPaint := bPaint
+   ::bGetFocus := bGfocus
    ::bLostFocus := bLfocus
-   ::bOther     := bOther
+   ::bOther := bOther
    ::bCloseQuery := bCloseQuery
-   ::bRefresh   := bRefresh
-   ::lChild    := IIF(EMPTY(lChild), ::lChild, lChild)
-   ::lClipper  := IIF(EMPTY(lClipper), ::lClipper, lClipper)
+   ::bRefresh := bRefresh
+   ::lChild := IIf(EMPTY(lChild), ::lChild, lChild)
+   ::lClipper := IIf(EMPTY(lClipper), ::lClipper, lClipper)
    ::lClosable := Iif(EMPTY(lnoClosable), .T., !lnoClosable)
 
    /*
@@ -223,7 +223,7 @@ METHOD GetMain() CLASS HWindow
 METHOD Paint() CLASS  HWindow
 
    IF ::bPaint = NIL .AND. ::oBmp = NIL .AND. ::type != WND_MDI .AND. hwg_Getupdaterect(::handle) > 0
-      hwg_Paintwindow(::handle, IIF(::brush != NIL, ::brush:handle, NIL))
+      hwg_Paintwindow(::handle, IIf(::brush != NIL, ::brush:handle, NIL))
    ENDIF
    RETURN -1
 
@@ -279,7 +279,7 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
    IF lType == WND_MDI
 
       //::nMenuPos := nPos
-      ::nMenuPos := IIF(nPos = NIL, -1, nPos)     //don't show menu
+      ::nMenuPos := IIf(nPos = NIL, -1, nPos)     //don't show menu
       ::bMdiMenu := bMdiMenu
       ::Style := nStyle
       ::tColor := clr
@@ -297,7 +297,7 @@ METHOD New(lType, oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, nPos, 
       ::Screen := HMdiChildWindow():New(, ::tcolor, WS_CHILD + WS_MAXIMIZE + MB_USERICON + WS_DISABLED,;
                       0, 0, ::nWidth * 1, ::nheight * 1 - hwg_Getsystemmetrics(SM_CYSMCAPTION) - hwg_Getsystemmetrics(SM_CYSMCAPTION), ;
                      -1,,,,,::bSize,,,,,,::oBmp,,,,,,)
-      ::Screen:Type    := WND_MDICHILD
+      ::Screen:Type := WND_MDICHILD
 
       ::oDefaultParent := Self
 
@@ -321,7 +321,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    DEFAULT lMaximized := .F.
    DEFAULT lMinimized := .F.
-   lCentered  := (!lMaximized .AND. !EMPTY(lCentered) .AND. lCentered) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
+   lCentered := (!lMaximized .AND. !EMPTY(lCentered) .AND. lCentered) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
    DEFAULT lShow := .T.
    hwg_CreateGetList(Self)
    AEVAL(::aControls, {|o|o:lInit := .F.})
@@ -386,8 +386,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
          Eval(bActivate, Self)
       ENDIF
 
-      ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
-      ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
+      ::nInitFocus := IIf(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
+      ::nInitFocus := IIf(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
       IF !Empty(::nInitFocus)
          hwg_Setfocus(::nInitFocus)
          ::nFocus := hwg_Getfocus()
@@ -418,8 +418,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
          Eval(bActivate, Self)
       ENDIF
 
-      ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
-      ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
+      ::nInitFocus := IIf(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
+      ::nInitFocus := IIf(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
       IF !Empty(::nInitFocus)
          hwg_Setfocus(::nInitFocus)
          ::nFocus := hwg_Getfocus()
@@ -637,7 +637,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMainWindow
 
 METHOD InitTray(oNotifyIcon, bNotify, oNotifyMenu, cTooltip) CLASS HMainWindow
 
-   ::bNotify     := bNotify
+   ::bNotify := bNotify
    ::oNotifyMenu := oNotifyMenu
    ::oNotifyIcon := oNotifyIcon
    hwg_Shellnotifyicon(.T., ::handle, oNotifyIcon:handle, cTooltip)
@@ -693,11 +693,11 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    lMinimized := !EMPTY(lMinimized) .AND. lMinimized .AND. Hwg_BitAnd(::style, WS_MINIMIZE) != 0
    lMaximized := !EMPTY(lMaximized) .AND. lMaximized .AND. ;
                  (Hwg_BitAnd(::style, WS_MAXIMIZE) != 0 .OR. Hwg_BitAnd(::style, WS_SIZEBOX) != 0)
-   lCentered  := (!lMaximized .AND. !EMPTY(lCentered) .AND. lCentered) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
-   ::lModal   := !EMPTY(lModal) .AND. lModal
-   ::lChild   := ::lModal .OR. ::lChild .OR. ::minWidth  > -1 .OR. ::maxWidth  > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
+   lCentered := (!lMaximized .AND. !EMPTY(lCentered) .AND. lCentered) .OR. Hwg_BitAND(::Style, DS_CENTER) != 0
+   ::lModal := !EMPTY(lModal) .AND. lModal
+   ::lChild := ::lModal .OR. ::lChild .OR. ::minWidth  > -1 .OR. ::maxWidth  > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
    ::lSizeBox := Hwg_BitAnd(::style, WS_SIZEBOX) != 0
-   ::WindowState := IIF(lMinimized, SW_SHOWMINIMIZED, IIF(lMaximized, SW_SHOWMAXIMIZED, IIF(lShow, SW_SHOWNORMAL, 0)))
+   ::WindowState := IIf(lMinimized, SW_SHOWMINIMIZED, IIf(lMaximized, SW_SHOWMAXIMIZED, IIf(lShow, SW_SHOWNORMAL, 0)))
 
    hwg_CreateGetList(Self)
 
@@ -708,7 +708,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    ::oClient := HWindow():aWindows[2]
    IF lCentered
       ::nLeft := (::oClient:nWidth - ::nWidth) / 2
-      ::nTop  := (::oClient:nHeight - ::nHeight) / 2
+      ::nTop := (::oClient:nHeight - ::nHeight) / 2
    ENDIF
    ::aRectSave := { ::nLeft, ::nTop, ::nwidth, ::nHeight }
    IF Hwg_BitAND(::Style, DS_3DLOOK) > 0
@@ -716,13 +716,13 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
       ::Style -= DS_3DLOOK
       l3d := .T.
     ENDIF
-   ::Style := Hwg_BitOr(::Style, WS_VISIBLE) - IIF(!lshow .OR. (lMaximized .AND. (::lChild .OR. ::lModal)), WS_VISIBLE, 0) + ;
-                        IIF(lMaximized .AND. !::lChild .AND. !::lModal, WS_MAXIMIZE, 0)
+   ::Style := Hwg_BitOr(::Style, WS_VISIBLE) - IIf(!lshow .OR. (lMaximized .AND. (::lChild .OR. ::lModal)), WS_VISIBLE, 0) + ;
+                        IIf(lMaximized .AND. !::lChild .AND. !::lModal, WS_MAXIMIZE, 0)
 
    ::handle := Hwg_CreateMdiChildWindow(Self)
 
-   ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
-   ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
+   ::nInitFocus := IIf(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
+   ::nInitFocus := IIf(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
    IF !Empty(::nInitFocus)
        hwg_Setfocus(::nInitFocus)
        ::nFocus := hwg_Getfocus()
@@ -733,14 +733,14 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    ENDIF
    IF lCentered
       ::nLeft := (::oClient:nWidth - ::nWidth) / 2
-      ::nTop  := (::oClient:nHeight - ::nHeight) / 2
+      ::nTop := (::oClient:nHeight - ::nHeight) / 2
    ENDIF
 
    IF l3D
       // does not allow resizing
-      ::minWidth  := ::nWidth
+      ::minWidth := ::nWidth
       ::minHeight := ::nHeight
-      ::maxWidth  := ::nWidth
+      ::maxWidth := ::nWidth
       ::maxHeight := ::nHeight
    ENDIF
 
@@ -776,10 +776,10 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
    IF msg = WM_GETMINMAXINFO //= &H24
       IF ::minWidth  > -1 .OR. ::maxWidth  > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
          hwg_Minmaxwindow(::handle, lParam,;
-         IIF(::minWidth  > -1, ::minWidth, NIL),;
-         IIF(::minHeight > -1, ::minHeight, NIL),;
-         IIF(::maxWidth  > -1, ::maxWidth, NIL),;
-         IIF(::maxHeight > -1, ::maxHeight, NIL))
+         IIf(::minWidth  > -1, ::minWidth, NIL),;
+         IIf(::minHeight > -1, ::minHeight, NIL),;
+         IIf(::maxWidth  > -1, ::maxWidth, NIL),;
+         IIf(::maxHeight > -1, ::maxHeight, NIL))
          RETURN 0
 
       ENDIF
@@ -834,10 +834,10 @@ METHOD onEvent(msg, wParam, lParam) CLASS HMDIChildWindow
    CASE WM_GETMINMAXINFO
       IF ::minWidth > -1 .OR. ::maxWidth > -1 .OR. ::minHeight > -1 .OR. ::maxHeight > -1
          hwg_Minmaxwindow(::handle, lParam, ;
-            IIF(::minWidth  > -1, ::minWidth, NIL), ;
-            IIF(::minHeight > -1, ::minHeight, NIL), ;
-            IIF(::maxWidth  > -1, ::maxWidth, NIL), ;
-            IIF(::maxHeight > -1, ::maxHeight, NIL))
+            IIf(::minWidth  > -1, ::minWidth, NIL), ;
+            IIf(::minHeight > -1, ::minHeight, NIL), ;
+            IIf(::maxWidth  > -1, ::maxWidth, NIL), ;
+            IIf(::maxHeight > -1, ::maxHeight, NIL))
          RETURN 0
       ENDIF
       EXIT
@@ -998,7 +998,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    IF !EMPTY(lCentered) .AND. lCentered
       IF !EMPTY(::oParent)
         ::nLeft := (::oParent:nWidth - ::nWidth) / 2
-        ::nTop  := (::oParent:nHeight - ::nHeight) / 2
+        ::nTop := (::oParent:nHeight - ::nHeight) / 2
       ENDIF
    ENDIF
 
@@ -1010,8 +1010,8 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
 
    hwg_Setfocus(::handle)
 
-   ::nInitFocus := IIF(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
-   ::nInitFocus := IIF(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
+   ::nInitFocus := IIf(HB_ISOBJECT(::nInitFocus), ::nInitFocus:Handle, ::nInitFocus)
+   ::nInitFocus := IIf(Empty(::nInitFocus), FindInitFocus(::aControls), ::nInitFocus)
    IF !Empty(::nInitFocus)
      hwg_Setfocus(::nInitFocus)
      ::nFocus := hwg_Getfocus()
@@ -1157,7 +1157,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       IF wParam >= FIRST_MDICHILD_ID
          hwg_Setwindowpos(ownd:Screen:HANDLE, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOREDRAW + SWP_NOACTIVATE + SWP_NOMOVE + SWP_NOSIZE)
       ENDIF
-      //-wParam += IIF(hwg_Iswindowenabled(oWnd:Screen:handle), 0, 1)
+      //-wParam += IIf(hwg_Iswindowenabled(oWnd:Screen:handle), 0, 1)
    ENDIF
    IF wParam == SC_CLOSE
       IF Len(HWindow():aWindows) > 2 .AND. (nHandle := hwg_Sendmessage(HWindow():aWindows[2]:handle, WM_MDIGETACTIVE, 0, 0)) > 0
@@ -1217,7 +1217,7 @@ STATIC FUNCTION onCommand(oWnd, wParam, lParam)
       Eval(aMenu[1, iCont, 1], iCont, wParam)
    ELSEIF wParam != SC_CLOSE .AND. wParam != SC_MINIMIZE .AND. wParam != SC_MAXIMIZE .AND.;
            wParam != SC_RESTORE .AND. oWnd:Type = WND_MDI //.AND. oWnd:bMdiMenu != NIL
-      RETURN IIF(!Empty(oWnd:Screen), -1, 0)
+      RETURN IIf(!Empty(oWnd:Screen), -1, 0)
    ENDIF
 
    RETURN 0
@@ -1227,7 +1227,7 @@ FUNCTION hwg_onMove(oWnd)
    LOCAL aControls := hwg_Getwindowrect(oWnd:handle)
 
    oWnd:nLeft := aControls[1]
-   oWnd:nTop  := aControls[2]
+   oWnd:nTop := aControls[2]
    IF oWnd:type == WND_MDICHILD .AND. !oWnd:lMaximized
       //oWnd:aRectSave := { oWnd:nLeft, oWnd:nTop, oWnd:nWidth, oWnd:nHeight }
       IF oWnd:nHeight > hwg_Getsystemmetrics(SM_CYCAPTION) + 6
@@ -1246,9 +1246,9 @@ STATIC FUNCTION onEraseBk(oWnd, wParam)
    LOCAL oWndArea
 
    IF oWnd:oBmp != NIL .AND. oWnd:type != WND_MDI
-       oWndArea := IIF(oWnd:type != WND_MAIN, oWnd:oClient, oWnd)
+       oWndArea := IIf(oWnd:type != WND_MAIN, oWnd:oClient, oWnd)
        IF oWnd:bmpStretch = 2 .OR. oWnd:lBmpCenter
-          hwg_Centerbitmap(wParam, oWndArea:handle, oWnd:oBmp:handle, , IIF(oWnd:brush = NIL, oWnd:nBmpClr, oWnd:brush:handle))
+          hwg_Centerbitmap(wParam, oWndArea:handle, oWnd:oBmp:handle, , IIf(oWnd:brush = NIL, oWnd:nBmpClr, oWnd:brush:handle))
        ELSEIF oWnd:bmpStretch = 1
           hwg_Spreadbitmap(wParam, oWndArea:handle, oWnd:oBmp:handle)
        ELSEIF oWnd:bmpStretch = 0
@@ -1412,7 +1412,7 @@ STATIC FUNCTION onMdiCreate(oWnd, lParam)
       ENDIF
    ENDIF
    //draw rect focus
-   oWnd:nInitFocus := IIF(HB_ISOBJECT(oWnd:nInitFocus), oWnd:nInitFocus:Handle, oWnd:nInitFocus)
+   oWnd:nInitFocus := IIf(HB_ISOBJECT(oWnd:nInitFocus), oWnd:nInitFocus:Handle, oWnd:nInitFocus)
    hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEFOCUS), 0)
    hwg_Sendmessage(oWnd:handle, WM_UPDATEUISTATE, hwg_Makelong(UIS_CLEAR, UISF_HIDEACCEL), 0)
    IF oWnd:WindowState > 0

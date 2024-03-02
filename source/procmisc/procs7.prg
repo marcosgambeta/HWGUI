@@ -12,21 +12,21 @@ FUNCTION RDSTR(han, strbuf, poz, buflen)
 LOCAL stro := "", rez, oldpoz, poz1
 
    oldpoz := poz
-   poz    := At(Chr(10), Substr(strbuf, poz))
+   poz := At(Chr(10), Substr(strbuf, poz))
    IF poz = 0
-      IF han != Nil
+      IF han != NIL
          stro += Substr(strbuf, oldpoz)
-         rez  := Fread(han, @strbuf, buflen)
+         rez := Fread(han, @strbuf, buflen)
          IF rez = 0
             RETURN ""
          ELSEIF rez < buflen
             strbuf := Substr(strbuf, 1, rez) + Chr(10) + Chr(13)
          ENDIF
-         poz  := At(Chr(10), strbuf)
+         poz := At(Chr(10), strbuf)
          stro += Substr(strbuf, 1, poz)
       ELSE
          stro += Rtrim(Substr(strbuf, oldpoz))
-         poz  := oldpoz + Len(stro)
+         poz := oldpoz + Len(stro)
          IF Len(stro) == 0
             RETURN ""
          ENDIF
@@ -54,10 +54,10 @@ LOCAL varName, iPosEnd, iPos3
       IF (iPosEnd := Find_Z(stroka)) == 0
          iPosEnd := Iif(Right(stroka, 1) = ";", Len(stroka), Len(stroka) + 1)
       ENDIF
-      ipos3    := Find_Z(Left(stroka, iPosEnd - 1), ":")
-      varName  := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
-      varValue := Iif(iPos3 != 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), Nil)
-      stroka   := Substr(stroka, iPosEnd + 1)
+      ipos3 := Find_Z(Left(stroka, iPosEnd - 1), ":")
+      varName := Rtrim(Ltrim(Left(stroka, Iif(ipos3 = 0, iPosEnd, iPos3) - 1)))
+      varValue := Iif(iPos3 != 0, Ltrim(Substr(stroka, iPos3 + 2, iPosEnd - iPos3 - 2)), NIL)
+      stroka := Substr(stroka, iPosEnd + 1)
    ENDIF
 RETURN varName
 
@@ -65,7 +65,7 @@ FUNCTION FIND_Z(stroka, symb)
 
 LOCAL poz, poz1 := 1, i, j, ms1 := "(){}[]'" + '"', ms2 := { 0, 0, 0, 0, 0, 0, 0, 0 }
 
-   symb := Iif(symb = Nil, ",", symb)
+   symb := Iif(symb = NIL, ",", symb)
    DO WHILE .T.
       poz := At(symb, Substr(stroka, poz1))
       IF poz = 0
@@ -127,10 +127,10 @@ FUNCTION NextItem(stroka, lFirst, cSep)
 STATIC nPos
 LOCAL i, oldPos
 
-   IF (lFirst != Nil .AND. lFirst) .OR. nPos == Nil
+   IF (lFirst != NIL .AND. lFirst) .OR. nPos == NIL
       nPos := 1
    ENDIF
-   IF cSep == Nil 
+   IF cSep == NIL
       cSep := ";"
    ENDIF
    IF nPos != 99999

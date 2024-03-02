@@ -36,12 +36,12 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, bInit, ;
       bSize, ctooltip, bClick, bDblClick) CLASS HSayImage
 
-   nStyle := Hwg_BitOr(nStyle, IIF(ISBLOCK(bClick) .OR. ISBLOCK(bDblClick), SS_NOTIFY, 0))
+   nStyle := Hwg_BitOr(nStyle, IIf(ISBLOCK(bClick) .OR. ISBLOCK(bDblClick), SS_NOTIFY, 0))
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop,               ;
          IIf(nWidth != NIL, nWidth, 0), IIf(nHeight != NIL, nHeight, 0),, ;
          bInit, bSize,, ctooltip)
 
-   ::title   := ""
+   ::title := ""
    ::bClick := bClick
    ::oParent:AddEvent(STN_CLICKED, Self, {||::onClick()})
    ::bDblClick := bDblClick
@@ -106,7 +106,7 @@ ENDCLASS
 METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
       bSize, ctooltip, bClick, bDblClick, lTransp, nStretch, nStyle) CLASS HSayBmp
 
-   nStyle := IIF(nStyle = NIL, 0, nStyle)
+   nStyle := IIf(nStyle = NIL, 0, nStyle)
    ::Super:New(oWndParent, nId, SS_OWNERDRAW + nStyle, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip, bClick, bDblClick)
 
    ::bPaint := {|o, lpdis|o:Paint(lpdis)}
@@ -125,7 +125,7 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, lRes, bInit, ;
             IIf(HB_ISCHAR(Image),     ;
             HBitmap():AddFile(Image), Image))
       IF nWidth == NIL .OR. nHeight == NIL
-         ::nWidth  := ::oImage:nWidth
+         ::nWidth := ::oImage:nWidth
          ::nHeight := ::oImage:nHeight
          ::nStretch = 2
       ENDIF

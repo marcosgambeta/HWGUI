@@ -72,7 +72,7 @@ METHOD New(cPrinter, cpFrom, cpTo, nFormType, nBin, lLandScape, nCopies) CLASS H
       Return NIL
    ENDIF
    ::cpFrom := cpFrom
-   ::cpTo   := cpTo
+   ::cpTo := cpTo
 
 Return Self
 

@@ -36,15 +36,15 @@ ENDCLASS
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
            cFilename, lAutoPlay, lCenter, lTransparent, xResID) CLASS HAnimation
 
-   nStyle     := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE)
-   nStyle     := nStyle + IIf(lAutoPlay == NIL .OR. lAutoPlay, ACS_AUTOPLAY, 0)
-   nStyle     := nStyle + IIf(lCenter == NIL .OR. !lCenter, 0, ACS_CENTER)
-   nStyle     := nStyle + IIf(lTransparent == NIL .OR. !lTransparent, 0, ACS_TRANSPARENT)
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_CHILD + WS_VISIBLE)
+   nStyle := nStyle + IIf(lAutoPlay == NIL .OR. lAutoPlay, ACS_AUTOPLAY, 0)
+   nStyle := nStyle + IIf(lCenter == NIL .OR. !lCenter, 0, ACS_CENTER)
+   nStyle := nStyle + IIf(lTransparent == NIL .OR. !lTransparent, 0, ACS_TRANSPARENT)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight)
-   ::xResID    := xResID
+   ::xResID := xResID
    ::cFilename := cFilename
-   ::brush     := ::oParent:brush
-   ::bColor    := ::oParent:bColor
+   ::brush := ::oParent:brush
+   ::bColor := ::oParent:bColor
    HWG_InitCommonControlsEx()
    ::Activate()
 
@@ -78,8 +78,8 @@ METHOD Open(cFileName) CLASS HAnimation
 
 METHOD Play(nFrom, nTo, nRep) CLASS HAnimation
    nFrom := IIf(nFrom == NIL, 0, nFrom)
-   nTo   := IIf(nTo   == NIL, -1, nTo)
-   nRep  := IIf(nRep  == NIL, -1, nRep)
+   nTo := IIf(nTo   == NIL, -1, nTo)
+   nRep := IIf(nRep  == NIL, -1, nRep)
    hwg_Animate_Play(::handle, nFrom, nTo, nRep)
    RETURN Self
 

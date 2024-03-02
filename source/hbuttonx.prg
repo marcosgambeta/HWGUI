@@ -64,7 +64,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
       tcolor, bColor, bGFocus)
 
    ::bClick := bClick
-   ::bGetFocus  := bGFocus
+   ::bGetFocus := bGFocus
    ::oParent:AddEvent(BN_SETFOCUS, Self, {||::onGetFocus()})
    ::oParent:AddEvent(BN_KILLFOCUS, self, {||::onLostFocus()})
 
@@ -85,11 +85,11 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
    HControl():New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
       bSize, bPaint, cTooltip, tcolor, bColor)
 
-   ::title   := cCaption
-   ::bGetFocus  := bGFocus
+   ::title := cCaption
+   ::bGetFocus := bGFocus
    ::oParent:AddEvent(BN_SETFOCUS, Self, {||::onGetFocus()})
    ::oParent:AddEvent(BN_KILLFOCUS, self, {||::onLostFocus()})
-   ::bClick  := bClick
+   ::bClick := bClick
    IF ::id > IDCANCEL .OR. ::bClick != NIL
       IF ::id < IDABORT
          hwg_GetParentForm(Self):AddEvent(BN_CLICKED, Self, {||::onClick()})
@@ -131,7 +131,7 @@ METHOD onevent(msg, wParam, lParam) CLASS HButtonX
       ENDIF
       IF !hwg_ProcKeyList(Self, wParam)
          IF wParam = VK_TAB
-            hwg_GetSkip(::oparent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            hwg_GetSkip(::oparent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0
          ELSEIF wParam = VK_LEFT .OR. wParam = VK_UP
             hwg_GetSkip(::oparent, ::handle, , -1)
@@ -184,7 +184,7 @@ METHOD onGetFocus() CLASS HButtonX
       RETURN .T.
    ENDIF
    IF ::bGetFocus != NIL
-      nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
+      nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
       ::oParent:lSuspendMsgsHandling := .F.

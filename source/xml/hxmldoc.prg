@@ -269,7 +269,7 @@ METHOD Read(fname, buffer) CLASS HXMLDoc
          ::nLastErr := hbxml_GetDoc(Self, han)
          FClose(han)
       ENDIF
-   ELSEIF buffer != Nil
+   ELSEIF buffer != NIL
       ::nLastErr := hbxml_GetDoc(Self, buffer)
    ELSE
       RETURN NIL

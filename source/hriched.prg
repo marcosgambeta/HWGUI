@@ -64,10 +64,10 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, ;
               bSize, bPaint, ctooltip, tcolor, IIf(bcolor == NIL, hwg_Getsyscolor(COLOR_BTNHIGHLIGHT), bcolor))
 
-   ::title   := vari
-   ::bOther  := bOther
+   ::title := vari
+   ::bOther := bOther
    ::bChange := bChange
-   ::lAllowTabs := IIF(EMPTY(lAllowTabs), ::lAllowTabs, lAllowTabs)
+   ::lAllowTabs := IIf(EMPTY(lAllowTabs), ::lAllowTabs, lAllowTabs)
    ::lReadOnly := Hwg_BitAnd(nStyle, ES_READONLY) != 0
 
    hwg_InitRichEdit()
@@ -154,14 +154,14 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRichEdit
      IF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type < WND_DLG_RESOURCE
          IF hwg_IsCtrlShift(.T., .F.)
             hwg_GetSkip(::oParent, ::handle, , ;
-                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+                      IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0
          ENDIF
       ENDIF
    ELSEIF msg == WM_KEYDOWN
       IF wParam = VK_TAB .AND. (hwg_IsCtrlShift(.T., .F.) .OR. !::lAllowTabs)
          hwg_GetSkip(::oParent, ::handle, , ;
-                      iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+                      IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wParam = VK_TAB .AND. hwg_GetParentForm(Self):Type >= WND_DLG_RESOURCE
          hwg_Re_inserttext(::handle, CHR(VK_TAB))
@@ -201,7 +201,7 @@ METHOD SetColor(tColor, bColor, lRedraw) CLASS HRichEdit
 METHOD ReadOnly(lreadOnly)
 
    IF lreadOnly != NIL
-      IF !EMPTY(hwg_Sendmessage(::handle, EM_SETREADONLY, IIF(lReadOnly, 1, 0), 0))
+      IF !EMPTY(hwg_Sendmessage(::handle, EM_SETREADONLY, IIf(lReadOnly, 1, 0), 0))
           ::lReadOnly := lReadOnly
       ENDIF
    ENDIF

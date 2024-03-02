@@ -63,11 +63,11 @@ METHOD New(oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight, ;
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, ;
          bInit, bSize, bPaint, cTooltip)
 
-   ::value      := IIf(HB_ISNUMERIC(vari), vari, 0)
-   ::bChange    := bChange
+   ::value := IIf(HB_ISNUMERIC(vari), vari, 0)
+   ::bChange := bChange
    ::bThumbDrag := bDrag
-   ::nLow       := IIf(nLow == NIL, 0, nLow)
-   ::nHigh      := IIf(nHigh == NIL, 100, nHigh)
+   ::nLow := IIf(nLow == NIL, 0, nLow)
+   ::nHigh := IIf(nHigh == NIL, 100, nHigh)
 
    HWG_InitCommonControlsEx()
    ::Activate()
@@ -109,7 +109,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    ELSEIF msg == WM_CHAR
       IF wParam = VK_TAB
          hwg_GetSkip(::oParent, ::handle, , ;
-               iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+               IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ENDIF
     ELSEIF msg = WM_KEYDOWN
@@ -156,7 +156,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
 
    CASE WM_CHAR
       IF wParam == VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ENDIF
       EXIT

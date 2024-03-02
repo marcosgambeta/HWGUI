@@ -42,15 +42,15 @@ ENDCLASS
 METHOD New(oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, ;
            oFont, bGetFocus, bKillFocus) CLASS HIPedit
 
-   nStyle   := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
+   nStyle := Hwg_BitOr(IIf(nStyle == NIL, 0, nStyle), WS_TABSTOP)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont)
 
-   ::title   := ""
+   ::title := ""
 
    ::bSetGet := bSetGet
    DEFAULT aValue := { 0, 0, 0, 0 }
-   ::aValue  := aValue
-   ::bGetFocus  := bGetFocus
+   ::aValue := aValue
+   ::bGetFocus := bGetFocus
    ::bKillFocus := bKillFocus
 
    HWG_InitCommonControlsEx()

@@ -80,8 +80,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
    nStyle := Hwg_BitOr(iif(nStyle == NIL, 0, nStyle), WS_CHILD + WS_CLIPSIBLINGS + WS_TABSTOP + TCS_TOOLTIPS)
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint)
    ::title := ""
-   ::oFont := iif(oFont == NIL, ::oParent:oFont, oFont)
-   ::aTabs := iif(aTabs == NIL, {}, aTabs)
+   ::oFont := IIf(oFont == NIL, ::oParent:oFont, oFont)
+   ::aTabs := IIf(aTabs == NIL, {}, aTabs)
    ::bChange := bChange
    ::bChange2 := bChange
    ::bGetFocus := bGetFocus
@@ -93,7 +93,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, 
       ::aImages := {}
       FOR i := 1 TO Len(aImages)
          //AAdd(::aImages, Upper(aImages[i]))
-         aImages[i] := iif(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
+         aImages[i] := IIf(lResour, hwg_Loadbitmap(aImages[i]), hwg_Openbitmap(aImages[i]))
          AAdd(::aImages, aImages[i])
       NEXT
       ::aBmpSize := hwg_Getbitmapsize(aImages[1])
@@ -149,7 +149,7 @@ METHOD Init() CLASS HTab
    LOCAL x := 0
 
    IF !::lInit
-      hwg_Inittabcontrol(::handle, ::aTabs, iif(::himl != NIL, ::himl, 0))
+      hwg_Inittabcontrol(::handle, ::aTabs, IIf(::himl != NIL, ::himl, 0))
       hwg_Sendmessage(::HANDLE, TCM_SETMINTABWIDTH, 0, 0)
       IF Hwg_BitAnd(::Style, TCS_FIXEDWIDTH) != 0
          ::TabHeightSize := 25 - (::oFont:Height + 12)
@@ -452,7 +452,7 @@ METHOD Refresh(lAll) CLASS HTab
 
    IF ::nActive != 0
       IF !::lResourceTab
-         lAll := iif(lAll == NIL, .F., lAll)
+         lAll := IIf(lAll == NIL, .F., lAll)
          nFirst := ::aPages[::nActive, 1] + 1
          nEnd := ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
          FOR i := nFirst TO nEnd
@@ -483,7 +483,7 @@ METHOD RedrawControls() CLASS HTab
          ::oParent:lSuspendMsgsHandling := .T.
          FOR i := ::aPages[::nActive, 1] + 1 TO ::aPages[::nActive, 1] + ::aPages[::nActive, 2]
             IF hwg_Iswindowvisible(::aControls[i]:Handle)
-               hwg_Redrawwindow(::aControls[i]:handle, iif(::classname != ::aControls[i]:classname, ;
+               hwg_Redrawwindow(::aControls[i]:handle, IIf(::classname != ::aControls[i]:classname, ;
                   RDW_NOERASE + RDW_FRAME + RDW_INVALIDATE + RDW_NOINTERNALPAINT, RDW_NOERASE + RDW_INVALIDATE))
             ENDIF
          NEXT
@@ -770,7 +770,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
       RETURN -1
    ELSEIF msg == WM_LBUTTONUP
       IF hwg_Selffocus(::Handle)
-         ::nPrevPage := iif(::nPrevPage == 0, ::nActive, ::nPrevPage)
+         ::nPrevPage := IIf(::nPrevPage == 0, ::nActive, ::nPrevPage)
          ::lClick := ::nPrevPage != -1
       ENDIF
    ELSEIF msg == WM_MOUSEMOVE //.OR. (::nPaintHeight == 0 .AND. msg == WM_NCHITTEST)
@@ -795,7 +795,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    ELSEIF msg == WM_SIZE
       AEval(::Pages, {|p, i|p:aItemPos := hwg_Tabitempos(::Handle, i - 1)})
       ::oPaint:nHeight := ::nPaintHeight
-      ::oPaint:Anchor := iif(::nPaintHeight > 1, 15, 0)
+      ::oPaint:Anchor := IIf(::nPaintHeight > 1, 15, 0)
       IF ::nPaintHeight > 1
          hwg_Postmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
       ENDIF
@@ -815,7 +815,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
          hwg_GetSkip(Self, ::handle, , 1)
          RETURN 0
       ELSEIF wParam == VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
          RETURN 0
       ELSEIF wparam == VK_UP .AND. ::nActive > 0  //
          hwg_GetSkip(::oParent, ::handle, , -1)
@@ -896,7 +896,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
 
    CASE WM_LBUTTONUP
       IF hwg_Selffocus(::Handle)
-         ::nPrevPage := iif(::nPrevPage == 0, ::nActive, ::nPrevPage)
+         ::nPrevPage := IIf(::nPrevPage == 0, ::nActive, ::nPrevPage)
          ::lClick := ::nPrevPage != -1
       ENDIF
       EXIT
@@ -931,7 +931,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    CASE WM_SIZE
       AEval(::Pages, {|p, i|p:aItemPos := hwg_Tabitempos(::Handle, i - 1)})
       ::oPaint:nHeight := ::nPaintHeight
-      ::oPaint:Anchor := iif(::nPaintHeight > 1, 15, 0)
+      ::oPaint:Anchor := IIf(::nPaintHeight > 1, 15, 0)
       IF ::nPaintHeight > 1
          hwg_Postmessage(::handle, WM_PRINT, hwg_Getdc(::handle), PRF_CHECKVISIBLE)
       ENDIF
@@ -958,7 +958,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
             hwg_GetSkip(Self, ::handle, , 1)
             RETURN 0
          ELSEIF wParam == VK_TAB
-            hwg_GetSkip(::oParent, ::handle, , iif(hwg_IsCtrlShift(.F., .T.), -1, 1))
+            hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
             RETURN 0
          ELSEIF wparam == VK_UP .AND. ::nActive > 0
             hwg_GetSkip(::oParent, ::handle, , -1)
@@ -1037,8 +1037,8 @@ METHOD ShowDisablePage(nPageEnable, nEvent) CLASS HTab
    IF !hwg_Iswindowvisible(::handle) .OR. (Ascan(::Pages, {|p|!p:lEnabled}) == 0 .AND. nPageEnable == NIL)
       RETURN -1
    ENDIF
-   nPageEnable := iif(nPageEnable == NIL, 0, nPageEnable)
-   nEvent := iif(nEvent == NIL, 0, nEvent)
+   nPageEnable := IIf(nPageEnable == NIL, 0, nPageEnable)
+   nEvent := IIf(nEvent == NIL, 0, nEvent)
    IF hwg_Ptrtoulong(nPageEnable) > 128
       pt[1] := hwg_Loword(nPageEnable)
       pt[2] := hwg_Hiword(nPageEnable)
@@ -1090,8 +1090,8 @@ STATIC FUNCTION SetTabFocus(oCtrl, nPage, nKeyDown) // TODO: duplicated in hpage
    LOCAL nPageAcel
 
    IF nKeyDown == VK_LEFT .OR. nKeyDown == VK_RIGHT  // 37,39
-      nEnd := iif(nKeyDown == VK_LEFT, 1, Len(oCtrl:aPages))
-      nSkip := iif(nKeyDown == VK_LEFT, -1, 1)
+      nEnd := IIf(nKeyDown == VK_LEFT, 1, Len(oCtrl:aPages))
+      nSkip := IIf(nKeyDown == VK_LEFT, -1, 1)
       nStart := nPage + nSkip
       FOR i := nStart TO nEnd STEP nSkip
          IF oCtrl:pages[i]:enabled

@@ -56,7 +56,7 @@ METHOD AddFile(name) CLASS HFreeImage
       RETURN NIL
    ENDIF
    ::name := name
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -68,7 +68,7 @@ METHOD AddFromVar(cImage, cType) CLASS HFreeImage
       RETURN NIL
    ENDIF
    ::name := LTrim(Str(::handle))
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -78,7 +78,7 @@ METHOD FromBitmap(oBitmap) CLASS HFreeImage
 
    ::handle := hwg_Fi_bmp2fi(oBitmap:handle)
    ::name := LTrim(Str(oBitmap:handle))
-   ::nWidth  := hwg_Fi_getwidth(::handle)
+   ::nWidth := hwg_Fi_getwidth(::handle)
    ::nHeight := hwg_Fi_getheight(::handle)
    AAdd(::aImages, Self)
 
@@ -93,7 +93,7 @@ METHOD Draw(hDC, nLeft, nTop, nWidth, nHeight) CLASS HFreeImage
 METHOD Release() CLASS HFreeImage
    LOCAL i, nlen := Len(::aImages)
 
-   ::nCounter --
+   ::nCounter--
    IF ::nCounter == 0
       #ifdef __XHARBOUR__
          FOR EACH i IN ::aImages
@@ -146,14 +146,14 @@ METHOD New(oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit, ;
       ::oImage := IIf(HB_ISCHAR(Image), ;
                       IIf(cType != NIL, HFreeImage():AddFromVar(Image, cType), HFreeImage():AddFile(Image)), Image)
       IF nWidth == NIL
-         nWidth  := ::oImage:nWidth
+         nWidth := ::oImage:nWidth
          nHeight := ::oImage:nHeight
       ENDIF
    ENDIF
    ::Super:New(oWndParent, nId, SS_OWNERDRAW, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip)
    // ::classname:= "HSAYFIMAGE"
 
-   ::bPaint  := {|o, lpdis|o:Paint(lpdis)}
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
 
    ::Activate()
 
@@ -165,7 +165,7 @@ METHOD Redefine(oWndParent, nId, Image, bInit, bSize, ctooltip) CLASS HSayFImage
 
    ::Super:Redefine(oWndParent, nId, bInit, bSize, ctooltip)
 
-   ::bPaint  := {|o, lpdis|o:Paint(lpdis)}
+   ::bPaint := {|o, lpdis|o:Paint(lpdis)}
 
    RETURN Self
 

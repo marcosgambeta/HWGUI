@@ -39,11 +39,11 @@ METHOD New(cDevice, cFileName) CLASS TMci
 
    DEFAULT cDevice TO ""
 
-   ::nError    = 0
-   ::nId       = 0
-   ::cType     = cDevice
-   ::cFileName = cFileName
-   ::cBuffer   = Space(BUF_SIZE)
+   ::nError := 0
+   ::nId := 0
+   ::cType := cDevice
+   ::cFileName := cFileName
+   ::cBuffer := Space(BUF_SIZE)
 
    RETURN Self
 

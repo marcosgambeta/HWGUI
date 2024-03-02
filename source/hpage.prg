@@ -40,8 +40,8 @@ ENDCLASS
 
 METHOD New(cCaption, nPage, lEnabled, tcolor, bcolor, cTooltip) CLASS HPage
 
-   cCaption := iif(cCaption == NIL, "New Page", cCaption)
-   ::lEnabled := iif(lEnabled != NIL, lEnabled, .T.)
+   cCaption := IIf(cCaption == NIL, "New Page", cCaption)
+   ::lEnabled := IIf(lEnabled != NIL, lEnabled, .T.)
    ::Pageorder := nPage
    ::Tooltip := cTooltip
    ::Setcolor(tColor, bColor)
@@ -111,8 +111,8 @@ STATIC FUNCTION SetTabFocus(oCtrl, nPage, nKeyDown)
    LOCAL i, nSkip, nStart, nEnd, nPageAcel
 
    IF nKeyDown = VK_LEFT .OR. nKeyDown = VK_RIGHT  // 37,39
-      nEnd := iif(nKeyDown = VK_LEFT, 1, Len(oCtrl:aPages))
-      nSkip := iif(nKeyDown = VK_LEFT, -1, 1)
+      nEnd := IIf(nKeyDown = VK_LEFT, 1, Len(oCtrl:aPages))
+      nSkip := IIf(nKeyDown = VK_LEFT, -1, 1)
       nStart := nPage + nSkip
       FOR i = nStart TO nEnd STEP nSkip
          IF oCtrl:pages[i]:enabled

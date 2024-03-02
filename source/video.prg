@@ -35,16 +35,16 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
    DEFAULT nWidth TO 200, nHeight TO 200, cFileName TO "", ;
    lNoBorder TO .F.
 
-   ::nTop      := nRow *  VID_CHARPIX_H  // 8
-   ::nLeft     := nCol * VID_CHARPIX_W   // 14
-   ::nHeight   := ::nTop  + nHeight - 1
-   ::nWidth    := ::nLeft + nWidth + 1
-   ::Style     := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIF(!lNoBorder, WS_BORDER, 0))
+   ::nTop := nRow *  VID_CHARPIX_H  // 8
+   ::nLeft := nCol * VID_CHARPIX_W   // 14
+   ::nHeight := ::nTop  + nHeight - 1
+   ::nWidth := ::nLeft + nWidth + 1
+   ::Style := hwg_bitOR(WS_CHILD + WS_VISIBLE + WS_TABSTOP, IIf(!lNoBorder, WS_BORDER, 0))
 
-   ::oParent   := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
-   ::id        := IIf(nid == NIL, ::NewId(), nid)
-   ::cAviFile  := cFileName
-   ::oMci      := TMci():New("avivideo", cFileName)
+   ::oParent := IIf(oWnd == NIL, ::oDefaultParent, oWnd)
+   ::id := IIf(nid == NIL, ::NewId(), nid)
+   ::cAviFile := cFileName
+   ::oMci := TMci():New("avivideo", cFileName)
    ::Initiate()
 
    IF !Empty(::oparent:handle)
@@ -59,12 +59,12 @@ METHOD New(nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) CLASS T
 //----------------------------------------------------------------------------//
 METHOD ReDefine(nId, cFileName, oDlg, bWhen, bValid) CLASS TVideo
 
-   ::nId      = nId
-   ::cAviFile = cFileName
-   ::bWhen    = bWhen
-   ::bValid   = bValid
-   ::oWnd     = oDlg
-   ::oMci     = TMci():New("avivideo", cFileName)
+   ::nId := nId
+   ::cAviFile := cFileName
+   ::bWhen := bWhen
+   ::bValid := bValid
+   ::oWnd := oDlg
+   ::oMci := TMci():New("avivideo", cFileName)
 
    oDlg:AddControl(Self)
 

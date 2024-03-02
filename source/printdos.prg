@@ -85,28 +85,28 @@ CLASS PrintDos
 ENDCLASS
 
 METHOD New(oPorta) CLASS PrintDos
-   LOCAL oDouble  := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
-   LOCAL oNormal  := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
+   LOCAL oDouble := { oMATRIXDOUBLE, oINKJETDOUBLE, oLASER10CPI }
+   LOCAL oNormal := { oMATRIXNORMAL, oINKJETNORMAL, oLASER12CPI }
    LOCAL oCompress := { oMATRIXCOMPRESS, oINKJETCOMPRESS, oLASER18CPI }
-   LOCAL oBold    := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD  }       //Added by  por Fernando Athayde
-   LOCAL oUnBold  := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
+   LOCAL oBold := { oMATRIXBOLD, oINKJETBOLD, oLASERBOLD  }       //Added by  por Fernando Athayde
+   LOCAL oUnBold := { oMATRIXUNBOLD, oINKJETUNBOLD, oLASERUNBOLD }       //Added by  por Fernando Athayde
    LOCAL oPtrSetup, oPtrName
 
-   ::cCompr   := oCompress[::oPrintStyle]
-   ::cNormal  := oNormal[::oPrintStyle]
-   ::cDouble  := oDouble[::oPrintStyle]
-   ::cBold    := oBold[::oPrintStyle]       //Added by  por Fernando Athayde
-   ::cUnBold  := oUnBold[::oPrintStyle]       //Added by  por Fernando Athayde
-   ::cEject   := oFORMFEED
-   ::nProw    := 0
-   ::nPcol    := 0
-   ::oTopMar  := 0
+   ::cCompr := oCompress[::oPrintStyle]
+   ::cNormal := oNormal[::oPrintStyle]
+   ::cDouble := oDouble[::oPrintStyle]
+   ::cBold := oBold[::oPrintStyle]       //Added by  por Fernando Athayde
+   ::cUnBold := oUnBold[::oPrintStyle]       //Added by  por Fernando Athayde
+   ::cEject := oFORMFEED
+   ::nProw := 0
+   ::nPcol := 0
+   ::oTopMar := 0
    ::oAns2Oem := .T.
    ::oLeftMar := 0
-   ::oText    := ""
+   ::oText := ""
 
    IF Empty(oPorta) //
-      ::oPorta       := "LPT1"
+      ::oPorta := "LPT1"
    ELSE
       IF oPorta == "DEFAULT"
          oPtrName := hwg_PrintPortName()
@@ -140,7 +140,7 @@ METHOD New(oPorta) CLASS PrintDos
             ENDIF
          ENDIF
       ELSE
-         ::oPorta     := oPorta
+         ::oPorta := oPorta
       ENDIF
    ENDIF
 
@@ -510,8 +510,8 @@ METHOD Preview(fName, cTitle) CLASS PrintDos
 //   @ 88, 19 EDITBOX oEdit ID 1001 SIZE 548, 465 STYLE WS_VSCROLL + WS_HSCROLL + ES_AUTOHSCROLL + ES_MULTILINE ;
 //        COLOR oColor1 BACKCOLOR oColor2 FONT oFont //Blue to Black  //Added by  por Fernando Athayde
 //       COLOR 16711680 BACKCOLOR 16777215  //Black to Write
-   @ 6, 30 BUTTON "<<"    ON CLICK {||nPage := PrintDosAnt(nPage, oText)} SIZE 69, 32  STYLE IIF(nPage = 1, WS_DISABLED, 0)
-   @ 6, 80 BUTTON ">>"    ON CLICK {||nPage := PrintDosNext(oPage, nPage, oText)} SIZE 69, 32 STYLE IIF(nPage = 1, WS_DISABLED, 0)
+   @ 6, 30 BUTTON "<<"    ON CLICK {||nPage := PrintDosAnt(nPage, oText)} SIZE 69, 32  STYLE IIf(nPage = 1, WS_DISABLED, 0)
+   @ 6, 80 BUTTON ">>"    ON CLICK {||nPage := PrintDosNext(oPage, nPage, oText)} SIZE 69, 32 STYLE IIf(nPage = 1, WS_DISABLED, 0)
    @ 6, 130 BUTTON "Imprimir" ON CLICK {||PrintDosPrint(oText, oPrt)} SIZE 69, 32
 //   @ 6, 180 BUTTON "Grafico" on Click {||hwg_EndDialog(), oDos2:TxttoGraphic(fName, 2, .T.), oDos2:end()} SIZE 69, 32
    @ 6, 230 BUTTON "Fechar" ON CLICK {||hwg_EndDialog()} SIZE 69, 32

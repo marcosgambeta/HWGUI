@@ -83,8 +83,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    LOCAL oPrevFont
    
    nStyle := Hwg_BitOR(nStyle, SS_NOTIFY + SS_RIGHT)
-   ::lAllUnderline := IIF(EMPTY(cLink), .F., ::lAllUnderline)
-   ::title := IIF(cCaption != NIL, cCaption, "HWGUI HomePage")
+   ::lAllUnderline := IIf(EMPTY(cLink), .F., ::lAllUnderline)
+   ::title := IIf(cCaption != NIL, cCaption, "HWGUI HomePage")
    ::hbitmap := hbitmap
 
    ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, ;
@@ -94,8 +94,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
    DEFAULT lColor TO hwg_Rgb(0, 0, 255)
    DEFAULT hColor TO hwg_Rgb(255, 0, 0)
    ::m_csUrl := cLink
-   ::m_sHoverColor   := hColor
-   ::m_sLinkColor    := lColor
+   ::m_sHoverColor := hColor
+   ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
 
    ::state := LBL_INIT
@@ -107,7 +107,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
          ::oFont := HFONT():Add(::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height, ;
                                  ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut)
       ELSE
-         ::oFont := HFONT():Add("Arial", 0, -12, , , , IIF(::lAllUnderline, 1,),)
+         ::oFont := HFONT():Add("Arial", 0, -12, , , , IIf(::lAllUnderline, 1,),)
       ENDIF
    ELSE
       IF ::oFont:Underline  == 0 .AND. ::lAllUnderline
@@ -138,8 +138,8 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
    DEFAULT hColor TO hwg_Rgb(255, 0, 0)
    ::state := LBL_INIT
    ::m_csUrl := cLink
-   ::m_sHoverColor   := hColor
-   ::m_sLinkColor    := lColor
+   ::m_sHoverColor := hColor
+   ::m_sLinkColor := lColor
    ::m_sVisitedColor := vColor
 
    IF ::oFont == NIL
@@ -156,8 +156,8 @@ METHOD Redefine(oWndParent, nId, cCaption, oFont, bInit, ;
       ENDIF
    ENDIF
 
-   ::title   := cCaption
-   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::title := cCaption
+   ::style := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
 
    IF lTransp != NIL .AND. lTransp
       //::extStyle += WS_EX_TRANSPARENT
@@ -215,7 +215,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       ELSEIF wParam = VK_UP
          hwg_GetSkip(::oparent, ::handle,, -1)
       ELSEIF wParam = VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDIF
       RETURN 0
    ELSEIF msg == WM_KEYUP
@@ -227,7 +227,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       ENDIF
       */
    ELSEIF msg = WM_GETDLGCODE
-      RETURN IIF(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
+      RETURN IIf(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
 
    ENDIF
    RETURN - 1
@@ -287,7 +287,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
          hwg_GetSkip(::oparent, ::handle,, -1)
          EXIT
       CASE VK_TAB
-         hwg_GetSkip(::oParent, ::handle, , IIF(hwg_IsCtrlShift(.F., .T.), -1, 1))
+         hwg_GetSkip(::oParent, ::handle, , IIf(hwg_IsCtrlShift(.F., .T.), -1, 1))
       ENDSWITCH
       RETURN 0
 
@@ -301,7 +301,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HStaticLink
       */
 
    CASE WM_GETDLGCODE
-      RETURN IIF(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
+      RETURN IIf(wParam == VK_RETURN, DLGC_WANTMESSAGE, DLGC_WANTARROWS + DLGC_WANTTAB)
 
    ENDSWITCH
 
@@ -396,7 +396,7 @@ METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 
    LOCAL xPos
    LOCAL yPos
-   LOCAL res  := .F.
+   LOCAL res := .F.
 
    HB_SYMBOL_UNUSED(nFlags)
 
@@ -434,7 +434,7 @@ METHOD OnMouseMove(nFlags, lParam) CLASS HStaticLink
 METHOD PAint(lpDis) CLASS HStaticLink
    LOCAL drawInfo := hwg_Getdrawiteminfo(lpDis)
    LOCAL dc := drawInfo[3]
-   LOCAL strtext    := ::Title
+   LOCAL strtext := ::Title
 //   LOCAL nOldBkMode
    LOCAL dwFlags
 //   LOCAL clrOldText
@@ -442,8 +442,8 @@ METHOD PAint(lpDis) CLASS HStaticLink
 //   LOCAL POLDFONT
 //   LOCAL DWSTYLE
    LOCAL bHasTitle
-   LOCAL aBmpSize    := IIF(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap),{0, 0})
-   LOCAL itemRect    := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
+   LOCAL aBmpSize := IIf(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap),{0, 0})
+   LOCAL itemRect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
    LOCAL captionRect := { drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7]  }
    LOCAL bmpRect, focusRect, hTheme
    
@@ -451,7 +451,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
       ::State := LBL_NORMAL
    ENDIF
    focusrect := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
-   rcClient  := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
+   rcClient := hwg_Copyrect({ drawInfo[4], drawInfo[5], drawInfo[6], drawInfo[7] })
 
    // Draw the focus rect
    IF hwg_Selffocus(::handle) .AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
@@ -474,7 +474,7 @@ METHOD PAint(lpDis) CLASS HStaticLink
       ELSE
          hwg_Drawbitmap(dc, ::hbitmap, , bmpRect[1], bmpRect[2] + 1)
       ENDIF
-      rcclient[1] += IIF(::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1)
+      rcclient[1] += IIf(::iStyle = ST_ALIGN_HORIZ, aBmpSize[1] + 8, 1)
       rcclient[2] += 2
    ELSEIF Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       rcclient[1] += 3
@@ -482,12 +482,12 @@ METHOD PAint(lpDis) CLASS HStaticLink
    ENDIF
    hwg_Setbkmode(DC, ::backstyle)
    IF ::backstyle != TRANSPARENT
-      hwg_Setbkcolor(DC, IIF(::bColor = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::bcolor))
+      hwg_Setbkcolor(DC, IIf(::bColor = NIL, hwg_Getsyscolor(COLOR_3DFACE), ::bcolor))
       hwg_Fillrect(dc, rcclient[1], rcclient[2], rcclient[3], rcclient[4]) //, ::brush:handle)
    ENDIF
-   dwFlags    := DT_LEFT + DT_WORDBREAK
-   //dwstyle    := ::style
-   dwFlags  += (DT_VCENTER + DT_END_ELLIPSIS)
+   dwFlags := DT_LEFT + DT_WORDBREAK
+   //dwstyle := ::style
+   dwFlags += (DT_VCENTER + DT_END_ELLIPSIS)
    
    //::dc:Selectobject(::oFont:handle)
    hwg_Selectobject(dc, ::oFont:handle)
@@ -527,18 +527,18 @@ METHOD Resize(x, y) CLASS HStaticLink
       RETURN NIL
    ENDIF
 
-   x := iif(x == NIL, 0, x - ::nWidth + 1)
-   aBmpSize := IIF(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap), {0, 0})
-   aBmpSize[1] += IIF(aBmpSize[1] > 0, 6, 0)
+   x := IIf(x == NIL, 0, x - ::nWidth + 1)
+   aBmpSize := IIf(!EMPTY(::hbitmap), hwg_Getbitmapsize(::hbitmap), {0, 0})
+   aBmpSize[1] += IIf(aBmpSize[1] > 0, 6, 0)
    ::Move(, , ::nWidth + x, , 0)
    aTxtSize := hwg_TxtRect(::Title, Self)
-   aTxtSize[2] += IIF(::lAllUnderline, 0, 3)
+   aTxtSize[2] += IIf(::lAllUnderline, 0, 3)
    IF aTxtSize[1] + 1  <  ::nWidth - aBmpSize[1] //tava 20
       ::nHeight := aTxtSize[2] + 2
    ELSE
       ::nHeight := aTxtSize[2] * 2 + 1
    ENDIF
-   ::nWidthOver  := MIN(aTxtSize[1] + 1 + aBmpSize[1], ::nWidth)
+   ::nWidthOver := MIN(aTxtSize[1] + 1 + aBmpSize[1], ::nWidth)
    ::nHeight := MAX(::nHeight, aTxtSize[2])
    ::nHeight := MAX(::nHeight, aBmpSize[2] + 4)
 

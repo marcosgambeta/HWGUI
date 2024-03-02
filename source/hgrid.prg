@@ -86,17 +86,17 @@ METHOD New(oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, 
    ::bGfocus := bGfocus
    ::bLfocus := bLfocus
 
-   ::color   := color
+   ::color := color
    ::bkcolor := bkcolor
 
    ::lNoScroll := lNoScroll
    ::lNoBorder := lNoBord
-   ::lNoLines  := lNoLines
+   ::lNoLines := lNoLines
    ::lNoHeader := lNoHeader
 
-   ::bEnter    := bEnter
-   ::bKeyDown  := bKeyDown
-   ::bPosChg   := bPosChg
+   ::bEnter := bEnter
+   ::bKeyDown := bKeyDown
+   ::bPosChg := bPosChg
    ::bDispInfo := bDispInfo
 
    HWG_InitCommonControlsEx()
@@ -157,7 +157,7 @@ METHOD Init() CLASS HGrid
       hwg_Listview_init(::handle, ::ItemCount, ::lNoLines)
 
       FOR i := 1 TO Len(::aColumns)
-         hwg_Listview_addcolumn(::handle, i, ::aColumns[i, 2], ::aColumns[i, 1], ::aColumns[i, 3], IIF(::aColumns[i, 4] != NIL, ::aColumns[i, 4], 0))
+         hwg_Listview_addcolumn(::handle, i, ::aColumns[i, 2], ::aColumns[i, 1], ::aColumns[i, 3], IIf(::aColumns[i, 4] != NIL, ::aColumns[i, 4], 0))
       NEXT
 
       IF ::color != NIL

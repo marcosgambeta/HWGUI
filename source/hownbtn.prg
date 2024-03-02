@@ -82,24 +82,24 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    IF oFont == NIL
       ::oFont := ::oParent:oFont
    ENDIF
-   ::lflat   := IIf(lflat == NIL, .F., lflat)
-   ::bClick  := bClick
+   ::lflat := IIf(lflat == NIL, .F., lflat)
+   ::bClick := bClick
    ::bGetFocus := bGFocus
    ::bLostFocus := bLfocus
 
-   ::state   := OBTN_INIT
-   ::nOrder  := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
+   ::state := OBTN_INIT
+   ::nOrder := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
-   ::title   := cText
-   ::tcolor  := IIf(color == NIL, hwg_Getsyscolor(COLOR_BTNTEXT), color)
+   ::title := cText
+   ::tcolor := IIf(color == NIL, hwg_Getsyscolor(COLOR_BTNTEXT), color)
    IF bColor != NIL
-      ::bcolor  := bcolor
+      ::bcolor := bcolor
       ::brush := HBrush():Add(bcolor)
    ENDIF
 
-   ::xt      := IIf(xt == NIL, 0, xt)
-   ::yt      := IIf(yt == NIL, 0, yt)
-   ::widtht  := IIf(widtht == NIL, 0, widtht)
+   ::xt := IIf(xt == NIL, 0, xt)
+   ::yt := IIf(yt == NIL, 0, yt)
+   ::widtht := IIf(widtht == NIL, 0, widtht)
    ::heightt := IIf(heightt == NIL, 0, heightt)
 
    IF lEnabled != NIL
@@ -108,7 +108,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
    IF lCheck != NIL
       ::lCheck := lCheck
    ENDIF
-   ::themed := IIF(themed = NIL, .F., themed)
+   ::themed := IIf(themed = NIL, .F., themed)
    IF bmp != NIL
       IF HB_ISOBJECT(bmp)
          ::oBitmap := bmp
@@ -118,9 +118,9 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
                            HBitmap():AddFile(IIf(::cPath != NIL, ::cPath + bmp, bmp)))
       ENDIF
    ENDIF
-   ::xb      := xb
-   ::yb      := yb
-   ::widthb  := IIf(widthb == NIL, 0, widthb)
+   ::xb := xb
+   ::yb := yb
+   ::widthb := IIf(widthb == NIL, 0, widthb)
    ::heightb := IIf(heightb == NIL, 0, heightb)
    ::lTransp := IIf(lTr != NIL, lTr, .F.)
    ::trColor := trColor
@@ -134,8 +134,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,   ;
 
 METHOD Activate() CLASS HOwnButton
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ;
-                                ::nLeft, ::nTop, ::nWidth, ::nHeight)
+      ::handle := hwg_Createownbtn(::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight)
       ::Init()
       IF !::lEnabled
          hwg_Enablewindow(::handle, .F.)
@@ -222,16 +221,16 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
 
    ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0,, bInit, bSize, bPaint, cTooltip)
 
-   ::lflat   := IIf(lflat == NIL, .F., lflat)
-   ::bClick  := bClick
-   ::state   := OBTN_INIT
+   ::lflat := IIf(lflat == NIL, .F., lflat)
+   ::bClick := bClick
+   ::state := OBTN_INIT
 
-   ::title   := cText
-   ::tcolor  := IIf(color == NIL, hwg_Getsyscolor(COLOR_BTNTEXT), color)
-   ::ofont   := font
-   ::xt      := IIf(xt == NIL, 0, xt)
-   ::yt      := IIf(yt == NIL, 0, yt)
-   ::widtht  := IIf(widtht == NIL, 0, widtht)
+   ::title := cText
+   ::tcolor := IIf(color == NIL, hwg_Getsyscolor(COLOR_BTNTEXT), color)
+   ::ofont := font
+   ::xt := IIf(xt == NIL, 0, xt)
+   ::yt := IIf(yt == NIL, 0, yt)
+   ::widtht := IIf(widtht == NIL, 0, widtht)
    ::heightt := IIf(heightt == NIL, 0, heightt)
 
    IF lEnabled != NIL
@@ -251,9 +250,9 @@ METHOD Redefine(oWndParent, nId, bInit, bSize, bPaint, bClick, lflat, ;
          ::oBitmap := IIf(lResour, HBitmap():AddResource(bmp), HBitmap():AddFile(bmp))
       ENDIF
    ENDIF
-   ::xb      := xb
-   ::yb      := yb
-   ::widthb  := IIf(widthb == NIL, 0, widthb)
+   ::xb := xb
+   ::yb := yb
+   ::widthb := IIf(widthb == NIL, 0, widthb)
    ::heightb := IIf(heightb == NIL, 0, heightb)
    ::lTransp := IIf(lTr != NIL, lTr, .F.)
    hwg_RegOwnBtn()
@@ -274,7 +273,7 @@ METHOD Paint() CLASS HOwnButton
       ::state := OBTN_NORMAL
    ENDIF
    IF ::nWidth != aCoors[3] .OR. ::nHeight != aCoors[4]
-      ::nWidth  := aCoors[3]
+      ::nWidth := aCoors[3]
       ::nHeight := aCoors[4]
    ENDIF
    IF ::Themed .AND. ::m_bFirstTime
@@ -286,7 +285,7 @@ METHOD Paint() CLASS HOwnButton
          IF ::WindowsManifest
             ::hTheme := hwg_openthemedata(::handle, "BUTTON")
          ENDIF
-         ::hTheme := IIF(EMPTY(::hTheme), NIL, ::hTheme)
+         ::hTheme := IIf(EMPTY(::hTheme), NIL, ::hTheme)
       ENDIF
       IF Empty(::hTheme)
          ::Themed := .F.
@@ -296,7 +295,7 @@ METHOD Paint() CLASS HOwnButton
       IF !::lEnabled
          state := PBS_DISABLED
       ELSE
-         state := IIF(::state == OBTN_PRESSED, PBS_PRESSED, PBS_NORMAL)
+         state := IIf(::state == OBTN_PRESSED, PBS_PRESSED, PBS_NORMAL)
       ENDIF
       IF ::lCheck
          state := OBTN_PRESSED
@@ -452,8 +451,8 @@ METHOD MDown() CLASS HOwnButton
 METHOD MUp() CLASS HOwnButton
 //   IF ::state == OBTN_PRESSED
       IF !::lPress
-         //::state := OBTN_NORMAL  // IIF(::lFlat, OBTN_MOUSOVER, OBTN_NORMAL)
-         ::state := IIF(::lFlat, OBTN_MOUSOVER, OBTN_NORMAL)
+         //::state := OBTN_NORMAL  // IIf(::lFlat, OBTN_MOUSOVER, OBTN_NORMAL)
+         ::state := IIf(::lFlat, OBTN_MOUSOVER, OBTN_NORMAL)
       ENDIF
       IF ::lCheck
          IF ::lPress
@@ -492,7 +491,7 @@ METHOD onGetFocus() CLASS HOwnButton
    IF ::bGetFocus == NIL .OR. !hwg_CheckFocus(Self, .F.)
       RETURN .T.
    ENDIF
-   nSkip := iif(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
+   nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
    IF ::bGetFocus != NIL
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
@@ -547,7 +546,7 @@ METHOD Enable() CLASS HOwnButton
 
 METHOD Disable() CLASS HOwnButton
 
-   ::state   := OBTN_INIT
+   ::state := OBTN_INIT
    ::lEnabled := .F.
    hwg_Invalidaterect(::handle, 0)
    hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE)

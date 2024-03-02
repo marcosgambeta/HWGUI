@@ -47,8 +47,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
          Iif(nHeight == NIL, 0, nHeight), oParent:oFont, bInit, ;
          bSize, bPaint,,, bcolor)
 
-   ::lBorder  := IIF(Hwg_Bitand(nStyle, WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F.)
-   ::bPaint   := bPaint
+   ::lBorder := IIf(Hwg_Bitand(nStyle, WS_BORDER) + Hwg_Bitand(nStyle, WS_DLGFRAME) > 0, .T., .F.)
+   ::bPaint := bPaint
    ::lResizeX := (::nWidth == 0)
    ::lResizeY := (::nHeight == 0)
    /*
@@ -84,7 +84,7 @@ METHOD Redefine(oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) 
          Iif(nHeight != NIL, nHeight, 0), oParent:oFont, bInit, ;
          bSize, bPaint,,, bcolor)
 
-   ::bPaint   := bPaint
+   ::bPaint := bPaint
    ::lResizeX := (::nWidth == 0)
    ::lResizeY := (::nHeight == 0)
    hwg_RegPanel()
@@ -180,7 +180,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
    ENDIF
    IF ::bOther != NIL
       IF Valtype(nRet := Eval(::bOther, Self, msg, wParam, lParam)) != "N"
-         nRet := IIF(VALTYPE(nRet) = "L" .AND. !nRet, 0, -1)
+         nRet := IIf(VALTYPE(nRet) = "L" .AND. !nRet, 0, -1)
       ENDIF
       IF nRet >= 0
          RETURN -1
@@ -189,7 +189,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
    IF msg = WM_NCPAINT .AND. !Empty(hwg_GetParentForm(Self):nInitFocus) .AND. ;
          (hwg_Selffocus(hwg_Getparent(hwg_GetParentForm(Self):nInitFocus), ::Handle) .OR. ;
          hwg_Selffocus(hwg_Getparent(hwg_GetParentForm(Self):nInitFocus), hwg_Getparent(::Handle)))
-      hwg_GetSkip(::oParent, hwg_GetParentForm(Self):nInitFocus, , IIF(hwg_Selffocus(hwg_GetParentForm(Self):nInitFocus, ::Handle), 1, 0))
+      hwg_GetSkip(::oParent, hwg_GetParentForm(Self):nInitFocus, , IIf(hwg_Selffocus(hwg_GetParentForm(Self):nInitFocus, ::Handle), 1, 0))
       hwg_GetParentForm(Self):nInitFocus := 0
    ELSEIF msg = WM_SETFOCUS .AND. EMPTY(hwg_GetParentForm(Self):nInitFocus) .AND. !::lSuspendMsgsHandling  //.AND. Hwg_BitaND(::sTyle, WS_TABSTOP) != 0
       hwg_GetSkip(::oParent, ::handle, , ::nGetSkip)
@@ -216,8 +216,8 @@ METHOD Paint() CLASS HPanel
       Eval(::bPaint, Self)
       RETURN NIL
    ENDIF
-   pps    := hwg_Definepaintstru()
-   hDC    := hwg_Beginpaint(::handle, pps)
+   pps := hwg_Definepaintstru()
+   hDC := hwg_Beginpaint(::handle, pps)
    aCoors := hwg_Getclientrect(::handle)
    hwg_Setbkmode(hDC, ::backStyle)
    IF ::backstyle = OPAQUE .AND. ::nrePaint = -1
@@ -338,7 +338,7 @@ METHOD Show() CLASS HPanel
 METHOD Resize() CLASS HPanel
    LOCAL aCoors := hwg_Getwindowrect(::handle)
    Local nHeight := aCoors[4] - aCoors[2]
-   Local nWidth  := aCoors[3] - aCoors[1]
+   Local nWidth := aCoors[3] - aCoors[1]
 
    IF !hwg_Iswindowvisible(::handle) .OR. (::nHeight = nHeight .AND. ::nWidth = nWidth)
       Return NIL
@@ -363,7 +363,7 @@ METHOD Resize() CLASS HPanel
       RETURN NIL
    ENDIF
    */
-   ::nWidth  := aCoors[3] - aCoors[1]
+   ::nWidth := aCoors[3] - aCoors[1]
    ::nHeight := aCoors[4] - aCoors[2]
    //  hwg_Redrawwindow(::handle, RDW_ERASE + RDW_INVALIDATE + RDW_FRAME + RDW_INTERNALPAINT + RDW_UPDATENOW)  // Force a complete redraw
 
@@ -373,24 +373,24 @@ METHOD Resize() CLASS HPanel
 METHOD ResizeOffSet(nMode) CLASS HPanel
    LOCAL aCoors := hwg_Getwindowrect(::handle)
    LOCAL nHeight := aCoors[4] - aCoors[2]
-   LOCAL nWidth  := aCoors[3] - aCoors[1]
+   LOCAL nWidth := aCoors[3] - aCoors[1]
    LOCAL nWinc := nWidth  - ::nWidth
    LOCAL nHinc := nHeight - ::nHeight
    LOCAL lres := .F.
 
-   nWinc := IIF(nMode = 1, nWinc, IIF(nMode = 2, ::nWidth, nWidth))
-   nHinc := IIF(nMode = 1, nHinc, IIF(nMode = 2, ::nHeight, nHeight))
+   nWinc := IIf(nMode = 1, nWinc, IIf(nMode = 2, ::nWidth, nWidth))
+   nHinc := IIf(nMode = 1, nHinc, IIf(nMode = 2, ::nHeight, nHeight))
    DEFAULT nMode := 0
 
    IF __ObjHasMsg(::oParent, "AOFFSET") .AND. ::oParent:type == WND_MDI
       IF (::nWidth > ::nHeight .OR. ::nWidth == 0) //.AND. ::oParent:aOffset[2] > 0 //::nWidth = ::oParent:nWidth)
-         ::oParent:aOffset[2] += IIF(nMode != 3, nHinc, - nHinc)
+         ::oParent:aOffset[2] += IIf(nMode != 3, nHinc, - nHinc)
          lRes := .T.
       ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
          IF ::nLeft == 0
-            ::oParent:aOffset[1] += IIF(nMode != 3, nWinc, - nWinc)
+            ::oParent:aOffset[1] += IIf(nMode != 3, nWinc, - nWinc)
          ELSE
-            ::oParent:aOffset[3] += IIF(nMode != 3, nWinc, - nWinc)
+            ::oParent:aOffset[3] += IIf(nMode != 3, nWinc, - nWinc)
          ENDIF
          lRes := .T.
       ENDIF

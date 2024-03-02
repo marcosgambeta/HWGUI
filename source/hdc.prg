@@ -26,7 +26,7 @@ ENDCLASS
 METHOD NEW(nWnd) CLASS HPAINTDC
 
    ::Super:new()
-   ::m_ps   := hwg_Definepaintstru()
+   ::m_ps := hwg_Definepaintstru()
    ::m_hWnd := nWnd
    ::Attach(hwg_Beginpaint(::m_hWnd, ::m_ps))
 
@@ -35,7 +35,7 @@ METHOD NEW(nWnd) CLASS HPAINTDC
 METHOD END () CLASS HPAINTDC
 
    hwg_Endpaint(::m_hWnd, ::m_ps)
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN NIL
@@ -78,7 +78,7 @@ ENDCLASS
 
 METHOD NEW() CLASS HDC
 
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN Self
@@ -304,7 +304,7 @@ METHOD NEW(nWnd) CLASS HCLIENTDC
 METHOD END () CLASS HCLIENTDC
 
    hwg_Releasedc(::m_hWnd, ::m_hDC)
-   ::m_hDC       := NIL
+   ::m_hDC := NIL
    ::m_hAttribDC := NIL
 
    RETURN NIL

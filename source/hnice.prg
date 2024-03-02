@@ -64,18 +64,18 @@ METHOD New(oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight, ;
    DEFAULT b := ::b
 
    DEFAULT r := ::r
-   ::lFlat  := .T.
+   ::lFlat := .T.
    ::bClick := bClick
-   ::nOrder  := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
+   ::nOrder := IIf(oWndParent == NIL, 0, Len(oWndParent:aControls))
 
    ::ExStyle := nStyleEx
-   ::text    := cText
-   ::r       := r
-   ::g       := g
-   ::b       := b
-   ::nTop    := nTop
-   ::nLeft   := nLeft
-   ::nWidth  := nWidth
+   ::text := cText
+   ::r := r
+   ::g := g
+   ::b := b
+   ::nTop := nTop
+   ::nLeft := nLeft
+   ::nWidth := nWidth
    ::nHeight := nHeight
 
    hwg_Regnice()
@@ -94,15 +94,15 @@ METHOD Redefine(oWndParent, nId, nStyleEx, ;
    DEFAULT b := ::b
    DEFAULT r := ::r
 
-   ::lFlat  := .T.
+   ::lFlat := .T.
 
    ::bClick := bClick
 
    ::ExStyle := nStyleEx
-   ::text    := cText
-   ::r       := r
-   ::g       := g
-   ::b       := b
+   ::text := cText
+   ::r := r
+   ::g := g
+   ::b := b
 
    hwg_Regnice()
 
@@ -162,9 +162,9 @@ METHOD Create() CLASS HNICEButton
    LOCAL w
    LOCAL h
 
-   Rct    := hwg_Getclientrect(::handle)
-   w      := Rct[3] - Rct[1]
-   h      := Rct[4] - Rct[2]
+   Rct := hwg_Getclientrect(::handle)
+   w := Rct[3] - Rct[1]
+   h := Rct[4] - Rct[2]
    Region := hwg_Createroundrectrgn(0, 0, w, h, h * 0.90, h * 0.90)
    hwg_Setwindowrgn(::Handle, Region, .T.)
    hwg_Invalidaterect(::Handle, 0, 0)
@@ -246,8 +246,8 @@ METHOD MDown() CLASS HNICEButton
 
 METHOD PAINT() CLASS HNICEButton
 
-   LOCAL ps        := hwg_Definepaintstru()
-   LOCAL hDC       := hwg_Beginpaint(::Handle, ps)
+   LOCAL ps := hwg_Definepaintstru()
+   LOCAL hDC := hwg_Beginpaint(::Handle, ps)
    LOCAL Rct
    LOCAL Size
    LOCAL T
@@ -259,14 +259,14 @@ METHOD PAINT() CLASS HNICEButton
    LOCAL h
    //  *******************
 
-   Rct  := hwg_Getclientrect(::Handle)
-   x    := Rct[1]
-   y    := Rct[2]
-   w    := Rct[3] - Rct[1]
-   h    := Rct[4] - Rct[2]
+   Rct := hwg_Getclientrect(::Handle)
+   x := Rct[1]
+   y := Rct[2]
+   w := Rct[3] - Rct[1]
+   h := Rct[4] - Rct[2]
    XCtr := (Rct[1] + Rct[3]) / 2
    YCtr := (Rct[2] + Rct[4]) / 2
-   T    := hwg_Getwindowtext(::Handle)
+   T := hwg_Getwindowtext(::Handle)
    // **********************************
    //         Draw our control
    // **********************************
@@ -299,7 +299,7 @@ METHOD END () CLASS HNiceButton
 METHOD RELEASE() CLASS HNiceButton
 
    ::lPress := .F.
-   ::state  := OBTN_NORMAL
+   ::state := OBTN_NORMAL
    hwg_Invalidaterect(::handle, 0)
    hwg_Postmessage(::handle, WM_PAINT, 0, 0)
 

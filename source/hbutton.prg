@@ -22,27 +22,23 @@ CLASS HButton INHERIT HControl
 
    DATA bClick
 
-   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-              cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-              tcolor, bColor)
+   METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ;
+      cTooltip, tcolor, bColor)
    METHOD Activate()
-   METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-                    tcolor, bColor, cCaption)
+   METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption)
    METHOD Init()
+
 ENDCLASS
 
-METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
-           cCaption, oFont, bInit, bSize, bPaint, bClick, cTooltip, ;
-           tcolor, bColor) CLASS HButton
+METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ;
+   cTooltip, tcolor, bColor) CLASS HButton
 
    nStyle := Hwg_BitOr(IIF(nStyle == NIL, 0, nStyle), BS_PUSHBUTTON)
 
-   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, ;
-              IIF(nWidth  == NIL, 90, nWidth), ;
-              IIF(nHeight == NIL, 30, nHeight), ;
-              oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
-   ::bClick  := bClick
-   ::title   := cCaption
+   ::Super:New(oWndParent, nId, nStyle, nLeft, nTop, IIf(nWidth == NIL, 90, nWidth), IIf(nHeight == NIL, 30, nHeight), ;
+      oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
+   ::bClick := bClick
+   ::title := cCaption
    ::Activate()
 
    IF bClick != NIL
@@ -56,25 +52,24 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ;
 RETURN Self
 
 METHOD Activate() CLASS HButton
+
    IF !Empty(::oParent:handle)
-      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ;
-                                ::nLeft, ::nTop, ::nWidth, ::nHeight, ;
-                                ::title)
+      ::handle := hwg_Createbutton(::oParent:handle, ::id, ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title)
       ::Init()
    ENDIF
+
 RETURN NIL
 
-METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, ;
-                 cTooltip, tcolor, bColor, cCaption) CLASS HButton
+METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption) CLASS HButton
 
-   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, ;
-              bSize, bPaint, cTooltip, tcolor, bColor)
+   ::Super:New(oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, cTooltip, tcolor, bColor)
 
-   ::title   := cCaption
+   ::title := cCaption
 
    IF bClick != NIL
       ::oParent:AddEvent(0, ::id, bClick)
    ENDIF
+
 RETURN Self
 
 METHOD Init() CLASS HButton
@@ -83,4 +78,5 @@ METHOD Init() CLASS HButton
    IF ::title != NIL
       hwg_Setwindowtext(::handle, ::title)
    ENDIF
-RETURN  NIL
+
+RETURN NIL

@@ -88,8 +88,8 @@ FUNCTION main
    lTransparent := .F.
    nPinWidth := 1
 
-   nWidth    := 200
-   nHeight   := 40
+   nWidth := 200
+   nHeight := 40
 
    oBC := HBarcode():New(hwg_Getdc(oMainWindow:handle), "993198042124", nTop, nLeft, ;
                          nWidth, nHeight, nBCodeType, ;
@@ -167,30 +167,30 @@ ENDCLASS
 METHOD New(hDC, cText, nTop, nLeft, nWidth, nHeight, nBCodeType, ;
            nColText, nColPane, lHorz, lTransparent, nPinWidth) CLASS HBarcode
 
-   DEFAULT nWidth       := 200
-   DEFAULT nHeight      := 20
+   DEFAULT nWidth := 200
+   DEFAULT nHeight := 20
 
-   DEFAULT nColText     := 0
-   DEFAULT nColPane     := hwg_Rgb(255, 255, 255)
-   DEFAULT lHorz        := .T.
+   DEFAULT nColText := 0
+   DEFAULT nColPane := hwg_Rgb(255, 255, 255)
+   DEFAULT lHorz := .T.
    DEFAULT lTransparent := .F.
-   DEFAULT nPinWidth    := 1
+   DEFAULT nPinWidth := 1
 
 
-   //DEFAULT hDC    := hwg_Getdc(hwg_Getactivewindow())
+   //DEFAULT hDC := hwg_Getdc(hwg_Getactivewindow())
 
-   ::hDC          := hDC
-   ::cText        := cText
-   ::nTop         := nTop
-   ::nLeft        := nLeft
-   ::nWidth       := nWidth
-   ::nHeight      := nHeight
-   ::nBCodeType   := nBCodeType
-   ::nColText     := nColText
-   ::nColPane     := nColPane
-   ::lHorizontal  := lHorz
+   ::hDC := hDC
+   ::cText := cText
+   ::nTop := nTop
+   ::nLeft := nLeft
+   ::nWidth := nWidth
+   ::nHeight := nHeight
+   ::nBCodeType := nBCodeType
+   ::nColText := nColText
+   ::nColPane := nColPane
+   ::lHorizontal := lHorz
    ::lTransparent := lTransparent
-   ::nPinWidth    := nPinWidth
+   ::nPinWidth := nPinWidth
 
    RETURN (Self)
 
@@ -217,29 +217,29 @@ METHOD ShowBarcode() CLASS HBarCode
    CASE ::nBCodeType = 6
       cCode := ::InitCode128("C")
    CASE ::nBCodeType = 7
-      cCode  := ::InitUPC(7)
+      cCode := ::InitUPC(7)
       cCode2 := ::InitE13BL(8)
    CASE ::nBCodeType = 8
       cCode := ::InitEAN13()
    CASE ::nBCodeType = 9
-      cCode  := ::InitUPC(11)
+      cCode := ::InitUPC(11)
       cCode2 := ::InitE13BL(12)
    CASE ::nBCodeType = 10
-      cCode  := ::InitCodabar()
+      cCode := ::InitCodabar()
    CASE ::nBCodeType = 11
-      cCode  := ::InitSub5()
+      cCode := ::InitSub5()
    CASE ::nBCodeType = 12
-      cCode  := ::InitIndustrial25(.F.)
+      cCode := ::InitIndustrial25(.F.)
    CASE ::nBCodeType = 13
-      cCode  := ::InitIndustrial25(.T.)
+      cCode := ::InitIndustrial25(.T.)
    CASE ::nBCodeType = 14
-      cCode  := ::InitInterleave25(.F.)
+      cCode := ::InitInterleave25(.F.)
    CASE ::nBCodeType = 15
-      cCode  := ::InitInterleave25(.T.)
+      cCode := ::InitInterleave25(.T.)
    CASE ::nBCodeType = 16
-      cCode  := ::InitMatrix25(.F.)
+      cCode := ::InitMatrix25(.F.)
    CASE ::nBCodeType = 17
-      cCode  := ::InitMatrix25(.T.)
+      cCode := ::InitMatrix25(.T.)
    OTHERWISE
       cCode := ::InitCode39(.T.)
    ENDCASE
@@ -261,11 +261,11 @@ METHOD CreateBarcode(cCode) CLASS HBarCode
 
    LOCAL i, hPen, hOldPen, hBrush, hOldBrush
 
-   LOCAL nX    := ::nTop
-   LOCAL nY    := ::nLeft
+   LOCAL nX := ::nTop
+   LOCAL nY := ::nLeft
 
-   //nX    := ::nLeft
-   //nY    := ::nTop
+   //nX := ::nLeft
+   //nY := ::nTop
 
    IF ::lTransparent = .F. .AND. ::nColPane != hwg_Rgb(255, 255, 255)
 
@@ -277,9 +277,9 @@ METHOD CreateBarcode(cCode) CLASS HBarCode
 
    ENDIF
 
-   hPen      := Rich_CreatePen(, , ::nColText)
-   hOldPen   := Rich_SelectObject(::hDC, hPen)
-   hBrush    := Rich_CreateSolidBrush(::nColText)
+   hPen := Rich_CreatePen(, , ::nColText)
+   hOldPen := Rich_SelectObject(::hDC, hPen)
+   hBrush := Rich_CreateSolidBrush(::nColText)
    hOldBrush := Rich_SelectObject(::hDC, hBrush)
 
    IIf(::nPinWidth < 1, ::nPinWidth := 1,)
@@ -318,7 +318,7 @@ METHOD CreateBarcode(cCode) CLASS HBarCode
 *-----------------------------------------------------------------------------
 METHOD InitCode39(lCheck) CLASS HBarCode
 
-   LOCAL cCars   := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
+   LOCAL cCars := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *$/+%"
    LOCAL aBarras := { "1110100010101110", ;
          "1011100010101110", ;
          "1110111000101010", ;
@@ -366,7 +366,7 @@ METHOD InitCode39(lCheck) CLASS HBarCode
 
    LOCAL cCar, m, n
    LOCAL cBarra := ""
-   LOCAL cCode  := ::cText
+   LOCAL cCode := ::cText
    LOCAL nCheck := 0
 
    DEFAULT lCheck := .F.
@@ -381,7 +381,7 @@ METHOD InitCode39(lCheck) CLASS HBarCode
 
    FOR n := 1 TO Len(cCode)
       cCar := SubStr(cCode, n, 1)
-      m    := At(cCar, cCars)
+      m := At(cCar, cCars)
       IF n > 0
          cBarra := cBarra + aBarras[m]
          nCheck += (m - 1)
@@ -421,10 +421,10 @@ METHOD InitCode128(cMode) CLASS HBarCode
          "411131", "211412", "211214", "211232", "2331112" }
 
    LOCAL cBarra, cCar, cTemp, n, nCar
-   LOCAL cCode  := ::cText
+   LOCAL cCode := ::cText
    LOCAL lCodeC := .F.
    LOCAL lCodeA := .F.
-   LOCAL nSum   := 0
+   LOCAL nSum := 0
    LOCAL nCount := 0
 
    // Errors
@@ -445,33 +445,33 @@ METHOD InitCode128(cMode) CLASS HBarCode
       // autodetect mode
       IF Str(Val(cCode), Len(cCode)) = cCode
          lCodeC := .T.
-         cTemp  := aCode[106]
-         nSum   := 105
+         cTemp := aCode[106]
+         nSum := 105
       ELSE
          FOR n := 1 TO Len(cCode)
-            nCount += IIF(Asc(SubStr(cCode, n, 1)) > 31, 1, 0) // no cars. de control
+            nCount += IIf(Asc(SubStr(cCode, n, 1)) > 31, 1, 0) // no cars. de control
          NEXT
          IF nCount < Len(cCode) / 2
             lCodeA := .T.
-            cTemp  := aCode[104]
-            nSum   := 103
+            cTemp := aCode[104]
+            nSum := 103
          ELSE
             cTemp := aCode[105]
-            nSum  := 104
+            nSum := 104
          ENDIF
       ENDIF
    ELSE
       IF cMode == "C"
          lCodeC := .T.
-         cTemp  := aCode[106]
-         nSum   := 105
+         cTemp := aCode[106]
+         nSum := 105
       ELSEIF cMode == "A"
          lCodeA := .T.
-         cTemp  := aCode[104]
-         nSum   := 103
+         cTemp := aCode[104]
+         nSum := 103
       ELSE
          cTemp := aCode[105]
-         nSum  := 104
+         nSum := 104
       ENDIF
    ENDIF
 
@@ -514,7 +514,7 @@ METHOD InitCode128(cMode) CLASS HBarCode
 
    NEXT
 
-   nSum  := nSum % 103 + 1
+   nSum := nSum % 103 + 1
    cTemp := cTemp + aCode[nSum] + aCode[107]
    cBarra := ""
 
@@ -533,8 +533,8 @@ METHOD InitCode128(cMode) CLASS HBarCode
 METHOD InitEAN13() CLASS HBarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
-   LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
-   LOCAL izda2   := [0100111011001100110110100001001110101110010000101001000100010010010111]
+   LOCAL izda1 := [0001101001100100100110111101010001101100010101111011101101101110001011]
+   LOCAL izda2 := [0100111011001100110110100001001110101110010000101001000100010010010111]
    LOCAL primero := [ooooooooeoeeooeeoeooeeeooeooeeoeeooeoeeeoooeoeoeoeoeeooeeoeo]
 
    LOCAL l, s1, s2, control, n, cadena, Numero
@@ -604,7 +604,7 @@ METHOD InitEAN13() CLASS HBarCode
 METHOD InitUPC(nLen) CLASS HBarCode
 
    LOCAL derecha := [1110010110011011011001000010101110010011101010000100010010010001110100]
-   LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
+   LOCAL izda1 := [0001101001100100100110111101010001101100010101111011101101101110001011]
 
    LOCAL l, s1, s2, control, n, cadena, Numero
    LOCAL Izda, Dcha, k
@@ -705,13 +705,13 @@ METHOD InitCodabar() CLASS HBarCode
 *-----------------------------------------------------------------------------
 METHOD InitSub5() CLASS HBarCode
 
-   LOCAL izda1   := [0001101001100100100110111101010001101100010101111011101101101110001011]
-   LOCAL izda2   := [0100111011001100110110100001001110101110010000101001000100010010010111]
+   LOCAL izda1 := [0001101001100100100110111101010001101100010101111011101101101110001011]
+   LOCAL izda2 := [0100111011001100110110100001001110101110010000101001000100010010010111]
    LOCAL primero := [ooooooooeoeeooeeoeooeeeooeooeeoeeooeoeeeoooeoeoeoeoeeooeeoeo]
-//   LOCAL parity  := [eeoooeoeooeooeoeoooeoeeooooeeooooeeoeoeooeooeooeoe]
+//   LOCAL parity := [eeoooeoeooeooeoeoooeoeeooooeeooooeeoeoeooeooeooeoe]
 
    LOCAL k, control, n, nCar
-   LOCAL cCode   := ::cText
+   LOCAL cCode := ::cText
    LOCAL cBarras := "1011"
 
    k := Left(AllTrim(cCode) + "00000", 5) // padding with '0'
@@ -743,14 +743,13 @@ METHOD InitSub5() CLASS HBarCode
 METHOD InitIndustrial25(lCheck) CLASS HBarCode
 
    LOCAL n
-   LOCAL aBar     := { "00110", "10001", "01001", "11000", "00101", ;
-         "10100", "01100", "00011", "10010", "01010" }
+   LOCAL aBar := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cInStart := "110" // industrial 2 of 5 start
-   LOCAL cInStop  := "101" // industrial 2 of 5 stop
-   LOCAL cBar     := ""
-   LOCAL cBarra   := ""
-   LOCAL nCheck   := 0
-   LOCAL cCode    := trans(::cText, "@9") // only digits
+   LOCAL cInStop := "101" // industrial 2 of 5 stop
+   LOCAL cBar := ""
+   LOCAL cBarra := ""
+   LOCAL nCheck := 0
+   LOCAL cCode := trans(::cText, "@9") // only digits
 
    DEFAULT lCheck := .F.
 
@@ -787,21 +786,21 @@ METHOD InitIndustrial25(lCheck) CLASS HBarCode
 METHOD InitInterleave25(lMode) CLASS HBarCode
 
    LOCAL n, m
-   LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
+   LOCAL aBar := { "00110", "10001", "01001", "11000", "00101", ;
                      "10100", "01100", "00011", "10010", "01010" }
    LOCAL cStart := "0000"
-   LOCAL cStop  := "100"
-   LOCAL cBar   := ""
+   LOCAL cStop := "100"
+   LOCAL cBar := ""
    LOCAL cIz
    LOCAL cBarra := ""
    LOCAL cDer
    LOCAL nLen
    LOCAL nCheck := 0
-   LOCAL cCode  := trans(::cText, "@9") // only digits
+   LOCAL cCode := trans(::cText, "@9") // only digits
 
    DEFAULT lMode := .F.
 
-   nLen   := Len(cCode)
+   nLen := Len(cCode)
    IF (nLen % 2 = 1 .AND. !lMode)
       nLen++
       cCode += "0"
@@ -817,7 +816,7 @@ METHOD InitInterleave25(lMode) CLASS HBarCode
 
    // preencoding .. interlaving
    FOR n := 1 TO nLen STEP 2
-      cIz  := aBar[Val(SubStr(cCode, n, 1)) + 1]
+      cIz := aBar[Val(SubStr(cCode, n, 1)) + 1]
       cDer := aBar[Val(SubStr(cCode, n + 1, 1)) + 1]
       FOR m := 1 TO 5
          cBarra += SubStr(cIz, m, 1) + SubStr(cDer, m, 1)
@@ -849,13 +848,12 @@ METHOD InitInterleave25(lMode) CLASS HBarCode
 METHOD InitMatrix25(lCheck) CLASS HBarCode
 
    LOCAL n
-   LOCAL aBar   := { "00110", "10001", "01001", "11000", "00101", ;
-                     "10100", "01100", "00011", "10010", "01010" }
-   LOCAL cMtSt  := "10000" // matrix start/stop
-   LOCAL cBar   := ""
+   LOCAL aBar := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
+   LOCAL cMtSt := "10000" // matrix start/stop
+   LOCAL cBar := ""
    LOCAL cBarra := ""
    LOCAL nCheck := 0
-   LOCAL cCode  := trans(::cText, "@9") // only digits
+   LOCAL cCode := trans(::cText, "@9") // only digits
 
    DEFAULT lCheck := .F.
 
