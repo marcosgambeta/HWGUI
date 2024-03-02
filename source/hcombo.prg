@@ -165,6 +165,14 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::oParent:AddEvent(CBN_SELENDOK, Self, {|o, id|::onSelect(o:FindControl(id))}, , "onSelect")
    ::oParent:AddEvent(CBN_DROPDOWN, Self, {|o, id|::onDropDown(o:FindControl(id))}, , "ondropdown")
    ::oParent:AddEvent(CBN_CLOSEUP, Self, {||::ldropshow := .F.}, ,)
+   
+   // workaround for problem reported in issue 15
+   // https://github.com/marcosgambeta/HWGUI/issues/15
+   IF Empty(::value)
+      IF Len(aItems) > 0
+         ::SetItem(1)
+      ENDIF
+   ENDIF
 
 RETURN Self
 
