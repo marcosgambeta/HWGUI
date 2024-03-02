@@ -11,10 +11,10 @@
 #include "guilib.ch"
 #include "common.ch"
 
-#define  CONTROL_FIRST_ID   34000
-#define TRANSPARENT 1
+//#define CONTROL_FIRST_ID 34000 (not used here)
+//#define TRANSPARENT 1 (not used here)
 
-   // - HButton
+//-------------------------------------------------------------------------------------------------------------------//
 
 CLASS HButton INHERIT HControl
 
@@ -29,6 +29,8 @@ CLASS HButton INHERIT HControl
    METHOD Init()
 
 ENDCLASS
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit, bSize, bPaint, bClick, ;
    cTooltip, tcolor, bColor) CLASS HButton
@@ -51,6 +53,8 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFon
 
 RETURN Self
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 METHOD Activate() CLASS HButton
 
    IF !Empty(::oParent:handle)
@@ -59,6 +63,8 @@ METHOD Activate() CLASS HButton
    ENDIF
 
 RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, tcolor, bColor, cCaption) CLASS HButton
 
@@ -72,6 +78,8 @@ METHOD Redefine(oWndParent, nId, oFont, bInit, bSize, bPaint, bClick, cTooltip, 
 
 RETURN Self
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 METHOD Init() CLASS HButton
 
    ::super:Init()
@@ -80,3 +88,5 @@ METHOD Init() CLASS HButton
    ENDIF
 
 RETURN NIL
+
+//-------------------------------------------------------------------------------------------------------------------//
