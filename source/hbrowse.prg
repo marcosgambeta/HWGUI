@@ -199,7 +199,7 @@ METHOD Value(xValue) CLASS HColumn
          Eval(::block, varbuf, ::oParent, ::Column)
       ENDIF
       /* Execute block after changes are made */
-      IF ::oParent:bUpdate != NIL .AND. !::oParent:lSuspendMsgsHandling
+      IF hb_IsBlock(::oParent:bUpdate) .AND. !::oParent:lSuspendMsgsHandling
          ::oParent:lSuspendMsgsHandling := .T.
          Eval(::oParent:bUpdate, ::oParent, ::Column)
          ::oParent:lSuspendMsgsHandling := .F.
