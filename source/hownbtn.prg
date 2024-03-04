@@ -160,7 +160,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HOwnButton
    ELSEIF msg == WM_ERASEBKGND
       RETURN 0
    ELSEIF msg == WM_PAINT
-      IF ::bPaint != NIL
+      IF hb_IsBlock(::bPaint)
          Eval(::bPaint, Self)
       ELSE
          ::Paint()
@@ -175,14 +175,14 @@ METHOD onEvent(msg, wParam, lParam) CLASS HOwnButton
       ::END()
    ELSEIF msg == WM_SETFOCUS
       /*
-      IF !Empty(::bGetfocus)
+      IF hb_IsBlock(::bGetfocus)
          Eval(::bGetfocus, Self, msg, wParam, lParam)
       ENDIF
       */
       ::onGetFocus()
    ELSEIF msg == WM_KILLFOCUS
       /*
-      IF !Empty(::bLostfocus)
+      IF hb_IsBlock(::bLostfocus)
          Eval(::bLostfocus, Self, msg, wParam, lParam)
       ENDIF
       */
@@ -197,7 +197,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HOwnButton
          ::Release()
       ENDIF
    ELSE
-      IF !Empty(::bOther)
+      IF hb_IsBlock(::bOther)
          Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
    ENDIF
@@ -461,7 +461,7 @@ METHOD MUp() CLASS HOwnButton
             ::Press()
          ENDIF
       ENDIF
-      IF ::bClick != NIL
+      IF hb_IsBlock(::bClick)
          hwg_Releasecapture()
          Eval(::bClick, ::oParent, ::id)
          Release()
@@ -492,7 +492,7 @@ METHOD onGetFocus() CLASS HOwnButton
       RETURN .T.
    ENDIF
    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
-   IF ::bGetFocus != NIL
+   IF hb_IsBlock(::bGetFocus)
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval(::bGetFocus, ::title, Self)
       IF res != NIL .AND. EMPTY(res)
@@ -507,7 +507,7 @@ METHOD onLostFocus() CLASS HOwnButton
     IF ::bLostFocus != NIL .AND. !hwg_CheckFocus(Self, .T.)
        RETURN .T.
    ENDIF
-    IF ::bLostFocus != NIL
+    IF hb_IsBlock(::bLostFocus)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -515,7 +515,7 @@ METHOD onLostFocus() CLASS HOwnButton
     RETURN NIL
 
 METHOD onClick() CLASS HOwnButton
-   IF ::bClick != NIL
+   IF hb_IsBlock(::bClick)
       //::oParent:lSuspendMsgsHandling := .T.
       Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.

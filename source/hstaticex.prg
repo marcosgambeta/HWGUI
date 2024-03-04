@@ -140,7 +140,7 @@ METHOD Init() CLASS HStaticEx
 METHOD OnEvent(msg, wParam, lParam) CLASS  HStaticEx
    LOCAL nEval, pos
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
@@ -172,7 +172,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HStaticEx
    LOCAL nEval
    LOCAL pos
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
          RETURN 0
       ENDIF
@@ -270,7 +270,7 @@ METHOD Paint(lpDis) CLASS HStaticEx
 
 METHOD onClick() CLASS HStaticEx
 
-   IF ::bClick != NIL
+   IF hb_IsBlock(::bClick)
       //::oParent:lSuspendMsgsHandling := .T.
       Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
@@ -280,7 +280,7 @@ METHOD onClick() CLASS HStaticEx
 
 METHOD onDblClick() CLASS HStaticEx
 
-   IF ::bDblClick != NIL
+   IF hb_IsBlock(::bDblClick)
       Eval(::bDblClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF

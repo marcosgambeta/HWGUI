@@ -264,7 +264,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HButtonEx
       ::CancelHover()
       RETURN 0
    ENDIF
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != - 1 .AND. nEval != NIL
          RETURN 0
       ENDIF
@@ -446,7 +446,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HButtonEx
 
    ENDSWITCH
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != -1 .AND. nEval != NIL
          RETURN 0
       ENDIF

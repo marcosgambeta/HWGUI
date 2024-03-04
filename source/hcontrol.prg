@@ -138,7 +138,7 @@ METHOD INIT() CLASS HControl
          // fix init position in FORM reduce  flickering
          hwg_Setwindowpos(::Handle, NIL, ::nLeft, ::nTop, ::nWidth, ::nHeight, SWP_NOACTIVATE + SWP_NOSIZE + SWP_NOZORDER + SWP_NOOWNERZORDER + SWP_NOSENDCHANGING) //+ SWP_DRAWFRAME)
       ENDIF
-      IF ISBLOCK(::bInit)
+      IF hb_IsBlock(::bInit)
          ::oparent:lSuspendMsgsHandling := .T.
          Eval(::bInit, Self)
          ::oparent:lSuspendMsgsHandling := .F.

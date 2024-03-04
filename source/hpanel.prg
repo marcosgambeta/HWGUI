@@ -178,7 +178,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
       ::Super:onEvent(WM_DESTROY)
       RETURN 0
    ENDIF
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Valtype(nRet := Eval(::bOther, Self, msg, wParam, lParam)) != "N"
          nRet := IIf(VALTYPE(nRet) = "L" .AND. !nRet, 0, -1)
       ENDIF
@@ -212,7 +212,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HPanel
 METHOD Paint() CLASS HPanel
    LOCAL pps, hDC, aCoors, oPenLight, oPenGray
 
-   IF ::bPaint != NIL
+   IF hb_IsBlock(::bPaint)
       Eval(::bPaint, Self)
       RETURN NIL
    ENDIF

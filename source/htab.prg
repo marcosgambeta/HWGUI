@@ -366,7 +366,7 @@ RETURN NIL
 
 METHOD onChange() CLASS HTab
 
-   IF ::bChange2 != NIL
+   IF hb_IsBlock(::bChange2)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChange2, Self, ::nActive)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -595,8 +595,8 @@ METHOD Notify(lParam) CLASS HTab
          RETURN 0
       ENDIF
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
-      IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
+      Eval(::bChange, Self, hwg_Getcurrenttab(::handle)) // TODO: check codeblock ?
+      IF hb_IsBlock(::bGetFocus) .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
          Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
          ::nActivate := 0
       ENDIF
@@ -604,7 +604,7 @@ METHOD Notify(lParam) CLASS HTab
    CASE nCode == TCN_SELCHANGING .AND. ::nPrevPage > 0
       // DEACTIVATE PAGE //ocorre antes de trocar o focu
       ::nPrevPage := ::nActive //npage
-      IF ::bLostFocus != NIL
+      IF hb_IsBlock(::bLostFocus)
          ::oparent:lSuspendMsgsHandling := .T.
          Eval(::bLostFocus, ::nPrevPage, Self) // TODO: order of the parameters
          ::oparent:lSuspendMsgsHandling := .F.
@@ -614,25 +614,25 @@ METHOD Notify(lParam) CLASS HTab
       RETURN 0
    CASE nCode == TCN_RCLICK
       IF !Empty(::pages) .AND. ::nActive > 0 .AND. ::pages[::nActive]:enabled
-         IF ::bRClick != NIL
+         IF hb_IsBlock(::bRClick)
             ::oparent:lSuspendMsgsHandling := .T.
             Eval(::bRClick, Self, hwg_Getcurrenttab(::handle))
             ::oparent:lSuspendMsgsHandling := .F.
          ENDIF
       ENDIF
    CASE nCode == TCN_SETFOCUS
-      IF ::bGetFocus != NIL .AND. !::Pages[nPage]:Enabled
+      IF hb_IsBlock(::bGetFocus) .AND. !::Pages[nPage]:Enabled
          Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
    CASE nCode == TCN_KILLFOCUS
-      IF ::bLostFocus != NIL
+      IF hb_IsBlock(::bLostFocus)
          Eval(::bLostFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
    ENDCASE
    IF (nCode == TCN_CLICK .AND. ::nPrevPage > 0 .AND. ::pages[::nPrevPage]:enabled) .OR. ;
       (::lClick .AND. nCode == TCN_SELCHANGE)
       ::oparent:lSuspendMsgsHandling := .T.
-      IF ::bAction != NIL .AND. ::lClick
+      IF hb_IsBlock(::bAction) .AND. ::lClick
          Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
@@ -687,7 +687,7 @@ METHOD Notify(lParam) CLASS HTab
          RETURN 0
       ENDIF
       ::oparent:lSuspendMsgsHandling := .T.
-      Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
+      Eval(::bChange, Self, hwg_Getcurrenttab(::handle)) // TODO: check codeblock ?
       IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
          Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
          ::nActivate := 0
@@ -699,7 +699,7 @@ METHOD Notify(lParam) CLASS HTab
       IF ::nPrevPage > 0
          // DEACTIVATE PAGE //ocorre antes de trocar o focu
          ::nPrevPage := ::nActive //npage
-         IF ::bLostFocus != NIL
+         IF hb_IsBlock(::bLostFocus)
             ::oparent:lSuspendMsgsHandling := .T.
             Eval(::bLostFocus, ::nPrevPage, Self) // TODO: order of the parameters
             ::oparent:lSuspendMsgsHandling := .F.
@@ -712,7 +712,7 @@ METHOD Notify(lParam) CLASS HTab
 
    CASE TCN_RCLICK
       IF !Empty(::pages) .AND. ::nActive > 0 .AND. ::pages[::nActive]:enabled
-         IF ::bRClick != NIL
+         IF hb_IsBlock(::bRClick)
             ::oparent:lSuspendMsgsHandling := .T.
             Eval(::bRClick, Self, hwg_Getcurrenttab(::handle))
             ::oparent:lSuspendMsgsHandling := .F.
@@ -721,13 +721,13 @@ METHOD Notify(lParam) CLASS HTab
       EXIT
 
    CASE TCN_SETFOCUS
-      IF ::bGetFocus != NIL .AND. !::Pages[nPage]:Enabled
+      IF hb_IsBlock(::bGetFocus) .AND. !::Pages[nPage]:Enabled
          Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
       EXIT
 
    CASE TCN_KILLFOCUS
-      IF ::bLostFocus != NIL
+      IF hb_IsBlock(::bLostFocus)
          Eval(::bLostFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
       ENDIF
 
@@ -737,7 +737,7 @@ METHOD Notify(lParam) CLASS HTab
    IF (nCode == TCN_CLICK .AND. ::nPrevPage > 0 .AND. ::pages[::nPrevPage]:enabled) .OR. ;
       (::lClick .AND. nCode == TCN_SELCHANGE)
       ::oparent:lSuspendMsgsHandling := .T.
-      IF ::bAction != NIL .AND. ::lClick
+      IF hb_IsBlock(::bAction) .AND. ::lClick
          Eval(::bAction, Self, hwg_Getcurrenttab(::handle))
       ENDIF
       ::oparent:lSuspendMsgsHandling := .F.
@@ -837,7 +837,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
       ENDIF
    ENDIF
    IF msg == WM_NOTIFY .AND. hwg_Iswindowvisible(::oParent:handle) .AND. ::nActivate == NIL
-      IF ::bGetFocus != NIL
+      IF hb_IsBlock(::bGetFocus)
          ::oParent:lSuspendMsgsHandling := .T.
          Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
          ::oParent:lSuspendMsgsHandling := .F.
@@ -846,7 +846,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
       ::nActivate := hwg_Getfocus()
    ENDIF
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       ::oparent:lSuspendMsgsHandling := .T.
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          // RETURN 0
@@ -988,7 +988,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
    ENDSWITCH
 
    IF msg == WM_NOTIFY .AND. hwg_Iswindowvisible(::oParent:handle) .AND. ::nActivate == NIL
-      IF ::bGetFocus != NIL
+      IF hb_IsBlock(::bGetFocus)
          ::oParent:lSuspendMsgsHandling := .T.
          Eval(::bGetFocus, Self, hwg_Getcurrenttab(::handle))
          ::oParent:lSuspendMsgsHandling := .F.
@@ -997,7 +997,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HTab
       ::nActivate := hwg_Getfocus()
    ENDIF
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       ::oparent:lSuspendMsgsHandling := .T.
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          //RETURN 0

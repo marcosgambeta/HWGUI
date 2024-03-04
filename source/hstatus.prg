@@ -102,11 +102,11 @@ METHOD Notify(lParam) CLASS HStatus
    DO CASE
    CASE nCode == NM_CLICK
    CASE nCode == NM_DBLCLK
-      IF ::bdblClick != NIL
+      IF hb_IsBlock(::bdblClick)
          Eval(::bdblClick, Self, nParts)
       ENDIF
    CASE nCode == NM_RCLICK
-      IF ::bRClick != NIL
+      IF hb_IsBlock(::bRClick)
          Eval(::bRClick, Self, nParts)
       ENDIF
    ENDCASE

@@ -89,7 +89,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    LOCAL aCoors
 
    IF msg == WM_PAINT
-      IF ::bPaint != NIL
+      IF hb_IsBlock(::bPaint)
          Eval(::bPaint, Self)
          RETURN 0
       ENDIF
@@ -116,7 +116,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
        IF hwg_ProcKeyList(Self, wParam)
           RETURN 0
       ENDIF
-   ELSEIF ::bOther != NIL
+   ELSEIF hb_IsBlock(::bOther)
       RETURN Eval(::bOther, Self, msg, wParam, lParam)
    ENDIF
 
@@ -130,7 +130,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    SWITCH msg
 
    CASE WM_PAINT
-      IF ::bPaint != NIL
+      IF hb_IsBlock(::bPaint)
          Eval(::bPaint, Self)
          RETURN 0
       ENDIF
@@ -173,7 +173,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTrackBar
    OTHERWISE
    #endif
 
-      IF ::bOther != NIL
+      IF hb_IsBlock(::bOther)
          RETURN Eval(::bOther, Self, msg, wParam, lParam)
       ENDIF
 

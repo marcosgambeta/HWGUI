@@ -224,7 +224,7 @@ METHOD SetValue(nValue) CLASS HUpDown
    ::nValue := nValue
    ::title := Str(::nValue)
    hwg_Setupdown(::hwndUpDown, ::nValue)
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::nValue, Self)
    ENDIF
 
@@ -232,7 +232,7 @@ METHOD SetValue(nValue) CLASS HUpDown
 
 METHOD Refresh() CLASS HUpDown
 
-   IF ::bSetGet != NIL //.AND. ::nValue != NIL
+   IF hb_IsBlock(::bSetGet) //.AND. ::nValue != NIL
       ::nValue := Eval(::bSetGet, , Self)
       IF Str(::nValue) != ::title
          //::title := Str(::nValue)
@@ -260,7 +260,7 @@ METHOD Valid() CLASS HUpDown
    /*
    ::title := hwg_Getedittext(::oParent:handle, ::oEditUpDown:id)
    ::nValue := Val(Ltrim(::title))
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::nValue)
    ENDIF
    */

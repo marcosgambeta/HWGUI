@@ -335,7 +335,7 @@ METHOD New(oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize
    ::bOther := bOther
    ::SetColor(::tColor, ::bColor)
    ::Activate()
-   IF ::bLoad != NIL
+   IF hb_IsBlock(::bLoad)
       // SET ENVIRONMENT
       Eval(::bLoad, Self)
    ENDIF
@@ -385,7 +385,7 @@ METHOD Init() CLASS HContainer
 METHOD onEvent(msg, wParam, lParam) CLASS HContainer
    LOCAL nEval
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != NIL .AND. nEval != -1
          RETURN 0
       ENDIF

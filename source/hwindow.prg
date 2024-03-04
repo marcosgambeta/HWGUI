@@ -355,7 +355,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
       ENDIF
 
       hwg_InitControls(Self)
-      IF ::bInit != NIL
+      IF hb_IsBlock(::bInit)
          lres := Eval(::bInit, Self)
          IF ValType(lres) = "L" .AND. !lres
             hwg_Sendmessage(::handle, WM_DESTROY, 0, 0)
@@ -397,7 +397,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate) CLASS HMain
 
    ELSEIF ::Type == WND_MAIN
 
-      IF ::bInit != NIL
+      IF hb_IsBlock(::bInit)
          lres := Eval(::bInit, Self)
          IF ValType(lres) = "L" .AND. !lres
             hwg_Sendmessage(::handle, WM_DESTROY, 0, 0)
@@ -958,7 +958,7 @@ METHOD New(oIcon, clr, nStyle, x, y, width, height, cTitle, cMenu, oFont, ;
       RETURN NIL
    ENDIF
    /*
-   IF ::bInit != NIL
+   IF hb_IsBlock(::bInit)
       Eval(::bInit, Self)
    ENDIF
     */
@@ -979,7 +979,7 @@ METHOD Activate(lShow, lMaximized, lMinimized, lCentered, bActivate, lModal) CLA
    hwg_InitControls(SELF)
    hwg_InitObjects(Self, .T.)
 
-   IF ::bInit != NIL
+   IF hb_IsBlock(::bInit)
       //::hide()
       IF Valtype(nReturn := Eval(::bInit, Self)) != "N"
          IF VALTYPE(nReturn) == "L" .AND. !nReturn

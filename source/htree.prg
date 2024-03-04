@@ -376,7 +376,7 @@ METHOD Activate() CLASS HTree
 METHOD onEvent(msg, wParam, lParam) CLASS HTree
    Local nEval, hitemNew, htiParent, htiPrev, htiNext
    
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF (nEval := Eval(::bOther, Self, msg, wParam, lParam)) != NIL .AND. nEval != - 1
          RETURN 0
       ENDIF
@@ -391,7 +391,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
          ::oItem := ::oSelected
          IF ::lEditLabels .AND. ::bDblClick = NIL
             ::EditLabel(::oSelected)
-         ELSEIF ::bDblClick != NIL
+         ELSEIF hb_IsBlock(::bDblClick)
             ::Setfocus()
             Eval(::bDblClick, ::oItem, Self)
             //hwg_Sendmessage(::handle, WM_LBUTTONDBLCLK, 0, hwg_Makelparam(1, 1))
@@ -422,7 +422,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
       ::lDragging := .F.
       hwg_Sendmessage(::handle, TVM_SELECTITEM, TVGN_DROPHILITE, NIL)
 
-      IF ::bDrag != NIL
+      IF hb_IsBlock(::bDrag)
          nEval := Eval(::bDrag, Self, ::hitemDrag, ::hitemDrop)
          nEval := IIf(VALTYPE(nEval) = "L", nEval, .T.)
          IF !nEval
@@ -469,7 +469,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HTree
       ::hitemDrag:delete()
       ::Select(hitemNew)
 
-      IF ::bDrop != NIL
+      IF hb_IsBlock(::bDrop)
          Eval(::bDrop, Self, hitemNew, ::hitemDrop)
       ENDIF
 
@@ -625,7 +625,7 @@ METHOD Notify(lParam) CLASS HTree
             ::Select(oItem)
             ::oItem := oItem
          ENDIF
-         IF ::bCheck != NIL
+         IF hb_IsBlock(::bCheck)
             lEval := Eval(::bCheck, !::oItem:checked, ::oItem, Self)
          ENDIF
          IF lEval == NIL .OR. !EMPTY(lEval)
@@ -642,7 +642,7 @@ METHOD Notify(lParam) CLASS HTree
       ENDIF
 	
    ELSEIF nCode == NM_DBLCLK
-      IF ::bDblClick != NIL
+      IF hb_IsBlock(::bDblClick)
          oItem := hwg_Treehittest(::handle,,, @nAct)
          IF oItem = NIL
             oItem := ::oItem
@@ -651,7 +651,7 @@ METHOD Notify(lParam) CLASS HTree
          Eval(::bDblClick, oItem, Self, nAct)
       ENDIF
    ELSEIF nCode == NM_RCLICK
-      IF ::bRClick != NIL
+      IF hb_IsBlock(::bRClick)
          oItem := hwg_Treehittest(::handle,,, @nAct)
          Eval(::bRClick, oItem, Self, nAct)
       ENDIF
@@ -659,7 +659,7 @@ METHOD Notify(lParam) CLASS HTree
       /* working only windows 7
    ELSEIF nCode == - 24 .AND. ::oitem != NIL
       //nhitem := hwg_Treehittest(::handle,,, @nAct)
-      IF ::bCheck != NIL
+      IF hb_IsBlock(::bCheck)
          lEval := Eval(::bCheck, !::oItem:checked, ::oItem, Self)
       ENDIF
       IF lEval == NIL .OR. !EMPTY(lEval)

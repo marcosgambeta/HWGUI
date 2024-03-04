@@ -144,7 +144,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HRichEdit
        IF !hwg_IsCtrlShift(.T., .F.)
          ::lChanged := .T.
       ENDIF
-   ELSEIF ::bOther != NIL
+   ELSEIF hb_IsBlock(::bOther)
       nret := Eval(::bOther, Self, msg, wParam, lParam)
       IF ValType(nret) != "N" .OR. nret > - 1
          RETURN nret
@@ -222,7 +222,7 @@ METHOD UpdatePos() CLASS HRichEdit
 
 METHOD onChange() CLASS HRichEdit
 
-   IF ::bChange != NIL
+   IF hb_IsBlock(::bChange)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChange, ::gettext(), Self)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -243,19 +243,19 @@ METHOD When() CLASS HRichEdit
    ENDIF
    ::title := ::GetText()
    ::oparent:lSuspendMsgsHandling := .T.
-   Eval(::bGetFocus, ::title, Self)
+   Eval(::bGetFocus, ::title, Self) // TODO: check codeblock ?
    ::oparent:lSuspendMsgsHandling := .F.
  RETURN .T.
 
 
 METHOD Valid() CLASS HRichEdit
 
-   IF ::bLostFocus != NIL .AND. !hwg_CheckFocus(Self, .T.)
+   IF hb_IsBlock(::bLostFocus) .AND. !hwg_CheckFocus(Self, .T.)
        RETURN .T.
    ENDIF
    ::title := ::GetText()
    ::oparent:lSuspendMsgsHandling := .T.
-   Eval(::bLostFocus, ::title, Self)
+   Eval(::bLostFocus, ::title, Self) // TODO: check codeblock ?
    ::oparent:lSuspendMsgsHandling := .F.
 
   RETURN .T.

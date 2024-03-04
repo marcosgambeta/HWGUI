@@ -225,7 +225,7 @@ RETURN -1
 
 METHOD onClick() CLASS HButtonX
 
-   IF ::bClick != NIL
+   IF hb_IsBlock(::bClick)
       Eval(::bClick, Self, ::id)
       ::oParent:lSuspendMsgsHandling := .F.
    ENDIF
@@ -255,7 +255,7 @@ METHOD onGetFocus() CLASS HButtonX
    IF !hwg_CheckFocus(Self, .F.) .OR. ::bGetFocus = NIL
       RETURN .T.
    ENDIF
-   IF ::bGetFocus != NIL
+   IF hb_IsBlock(::bGetFocus)
       nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), ;
          -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
@@ -279,7 +279,7 @@ METHOD onLostFocus() CLASS HButtonX
       hwg_Invalidaterect(::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
    ENDIF
    ::lnoWhen := .F.
-   IF ::bLostFocus != NIL .AND. hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), hwg_getparentform(Self):Handle)
+   IF hb_IsBlock(::bLostFocus) .AND. hwg_Selffocus(hwg_Getparent(hwg_Getfocus()), hwg_getparentform(Self):Handle)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bLostFocus, ::title, Self)
       ::oparent:lSuspendMsgsHandling := .F.

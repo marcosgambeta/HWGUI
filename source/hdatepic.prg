@@ -142,7 +142,7 @@ METHOD Init() CLASS HDatePicker
 #if 0 // old code for reference (to be deleted)
 METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
@@ -171,7 +171,7 @@ METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
 METHOD OnEvent(msg, wParam, lParam) CLASS HDatePicker
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
@@ -245,7 +245,7 @@ METHOD SetValue(xValue) CLASS HDatePicker
    ::dValue := hwg_Getdatepicker(::handle)
    ::tValue := hwg_Gettimepicker(::handle)
    ::title := IIf(::lShowTime, ::tValue, ::dValue)
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, IIf(::lShowTime, ::tValue,::dValue), Self)
    ENDIF
 
@@ -253,7 +253,7 @@ METHOD SetValue(xValue) CLASS HDatePicker
 
 METHOD Refresh() CLASS HDatePicker
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       IF !::lShowTime
          ::dValue := Eval(::bSetGet,, Self)
       ELSE
@@ -281,10 +281,10 @@ METHOD onChange(nMess) CLASS HDatePicker
       ENDIF
       ::dValue := hwg_Getdatepicker(::handle)
       ::tValue := hwg_Gettimepicker(::handle)
-      IF ::bSetGet != NIL
+      IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, IIf(::lShowTime, ::tValue, ::dValue), Self)
       ENDIF
-      IF ::bChange != NIL
+      IF hb_IsBlock(::bChange)
          ::oparent:lSuspendMsgsHandling := .T.
          Eval(::bChange, IIf(::lShowTime, ::tValue, ::dValue), Self)
          ::oparent:lSuspendMsgsHandling := .F.
@@ -299,7 +299,7 @@ METHOD When() CLASS HDatePicker
    IF !hwg_CheckFocus(Self, .F.)
       RETURN .T.
    ENDIF
-   IF ::bGetFocus != NIL
+   IF hb_IsBlock(::bGetFocus)
       nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
       ::oParent:lSuspendMsgsHandling := .T.
       ::lnoValid := .T.
@@ -323,10 +323,10 @@ METHOD Valid() CLASS HDatePicker
       RETURN .T.
    ENDIF
    ::dValue := hwg_Getdatepicker(::handle)
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, IIf(::lShowTime, ::tValue,::dValue), Self)
    ENDIF
-   IF ::bLostFocus != NIL
+   IF hb_IsBlock(::bLostFocus)
       ::oparent:lSuspendMsgsHandling := .T.
       res := Eval(::bLostFocus, IIf(::lShowTime, ::tValue, ::dValue), Self)
       res := IIf(ValType(res) == "L", res, .T.)

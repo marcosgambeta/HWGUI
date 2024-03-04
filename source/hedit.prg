@@ -193,7 +193,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
    LOCAL nextHandle, nShiftAltCtrl, lRes
    LOCAL cClipboardText
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Eval(::bOther, Self, msg, wParam, lParam) != - 1
          RETURN 0
       ENDIF
@@ -223,7 +223,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
             ENDIF
             RETURN 0
          ELSEIF msg == WM_CHAR
-            IF !hwg_Checkbit(lParam, 32) .AND. ::bKeyDown != NIL .AND. HB_ISBLOCK(::bKeyDown)
+            IF !hwg_Checkbit(lParam, 32) .AND. hb_IsBlock(::bKeyDown)
                nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += IIf(hwg_Checkbit(lParam, 28), 4, nShiftAltCtrl)
@@ -290,7 +290,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
 
          ELSEIF msg == WM_KEYDOWN
             IF ((hwg_Checkbit(lParam, 25) .AND. wParam != 111) .OR. (wParam > 111 .AND. wParam < 124)) .AND. ;
-                  ::bKeyDown != NIL .AND. HB_ISBLOCK(::bKeyDown)
+                  hb_IsBlock(::bKeyDown)
                nShiftAltCtrl := IIf(hwg_IsCtrlShift(.F., .T.), 1, 0)
                nShiftAltCtrl += IIf(hwg_IsCtrlShift(.T., .F.), 2, nShiftAltCtrl)
                nShiftAltCtrl += IIf(wParam > 111, 4, nShiftAltCtrl)
@@ -447,7 +447,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
          ELSEIF wParam == VK_ESCAPE
             RETURN - 1
          ENDIF
-         IF ::bKeyDown != NIL .AND. HB_ISBLOCK(::bKeyDown)
+         IF hb_IsBlock(::bKeyDown)
             IF !Eval(::bKeyDown, Self, wParam)
                RETURN 0
             ENDIF
@@ -458,7 +458,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HEdit
 
    IF (msg == WM_KEYUP .OR. msg == WM_SYSKEYUP) .AND. wParam != VK_ESCAPE     /* BETTER FOR DESIGNER */
       IF !hwg_ProcKeyList(Self, wParam)
-         IF ::bKeyUp != NIL
+         IF hb_IsBlock(::bKeyUp)
             IF !Eval(::bKeyUp, Self, wParam)
                RETURN - 1
             ENDIF
@@ -545,7 +545,7 @@ METHOD Value(Value) CLASS HEdit
 METHOD Refresh() CLASS HEdit
    LOCAL vari
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       vari := Eval(::bSetGet, , Self)
       IF !Empty(::cPicFunc) .OR. !Empty(::cPicMask)
          vari := IIf(vari = NIL, "", Vari)
@@ -579,7 +579,7 @@ METHOD SetText(c) CLASS HEdit
       IF hwg_Iswindowvisible(::handle) .AND. !Empty(hwg_GetWindowParent(::handle))
          hwg_Redrawwindow(::Handle, RDW_NOERASE + RDW_INVALIDATE + RDW_UPDATENOW)
       ENDIF
-      IF ::bSetGet != NIL
+      IF hb_IsBlock(::bSetGet)
          Eval(::bSetGet, c, Self)
       ENDIF
    ENDIF
@@ -1077,7 +1077,7 @@ METHOD When() CLASS HEdit
    ::lFirst := .T.
    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 ;
       .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
-   IF ::bGetFocus != NIL
+   IF hb_IsBlock(::bGetFocus)
       ::lnoValid := .T.
       IF ::cType == "D"
          vari := CToD(::title)
@@ -1106,7 +1106,7 @@ METHOD Valid() CLASS HEdit
    IF (!hwg_CheckFocus(Self, .T.) .OR. ::lNoValid) .AND. ::bLostFocus != NIL
       RETURN .T.
    ENDIF
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       IF (oDlg := hwg_GetParentForm(Self)) == NIL .OR. oDlg:nLastKey != 27
          vari := ::UnTransform(hwg_Getedittext(::oParent:handle, ::id))
          ::title := vari
@@ -1135,12 +1135,12 @@ METHOD Valid() CLASS HEdit
          IF oDlg != NIL
             oDlg:nLastKey := 27
          ENDIF
-         IF ::bLostFocus != NIL .OR. ::oUpDown != NIL
+         IF hb_IsBlock(::bLostFocus) .OR. ::oUpDown != NIL
             ::oparent:lSuspendMsgsHandling := .T.
             IF ::oUpDown != NIL // updown control
                ::oUpDown:nValue := vari
             ENDIF
-            IF ::bLostFocus != NIL
+            IF hb_IsBlock(::bLostFocus)
                res := Eval(::bLostFocus, vari, IIf(::oUpDown = NIL, Self, ::oUpDown))
                res := IIf(ValType(res) == "L", res, .T.)
             ENDIF
@@ -1167,9 +1167,9 @@ METHOD Valid() CLASS HEdit
       IF ::lMultiLine
          ::title := ::GetText()
       ENDIF
-      IF ::bLostFocus != NIL .OR. ::oUpDown != NIL
+      IF hb_IsBlock(::bLostFocus) .OR. ::oUpDown != NIL
          ::oparent:lSuspendMsgsHandling := .T.
-         IF ::bLostFocus != NIL
+         IF hb_IsBlock(::bLostFocus)
             res := Eval(::bLostFocus, vari, Self)
             res := IIf(ValType(res) == "L", res, .T.)
          ENDIF
@@ -1198,10 +1198,10 @@ METHOD onChange(lForce) CLASS HEdit
       RETURN NIL
    ENDIF
    vari := ::Value()
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, vari, Self)
    ENDIF
-   IF ::bChange != NIL
+   IF hb_IsBlock(::bChange)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChange, vari, Self)
       ::oparent:lSuspendMsgsHandling := .F.

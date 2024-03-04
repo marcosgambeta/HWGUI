@@ -122,7 +122,7 @@ METHOD GetValue() CLASS HMonthCalendar
 
 METHOD onChange() CLASS HMonthCalendar
 
-   IF ::bChange != NIL .AND. !::oparent:lSuspendMsgsHandling
+   IF hb_IsBlock(::bChange) .AND. !::oparent:lSuspendMsgsHandling
       hwg_Sendmessage(::handle, WM_LBUTTONDOWN, 0, hwg_Makelparam(1, 1))
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bChange, ::value, Self)
@@ -133,7 +133,7 @@ METHOD onChange() CLASS HMonthCalendar
 
 METHOD onSelect() CLASS HMonthCalendar
 
-   IF ::bSelect != NIL .AND. !::oparent:lSuspendMsgsHandling
+   IF hb_IsBlock(::bSelect) .AND. !::oparent:lSuspendMsgsHandling
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bSelect, ::value, Self)
       ::oparent:lSuspendMsgsHandling := .F.

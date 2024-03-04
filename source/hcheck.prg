@@ -117,7 +117,7 @@ METHOD Init() CLASS HCheckButton
 METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
    LOCAL oCtrl
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
@@ -166,7 +166,7 @@ METHOD onEvent(msg, wParam, lParam) CLASS HCheckButton
 
    LOCAL oCtrl
 
-   IF ::bOther != NIL
+   IF hb_IsBlock(::bOther)
       IF Eval(::bOther, Self, msg, wParam, lParam) != -1
          RETURN 0
       ENDIF
@@ -228,7 +228,7 @@ METHOD SetValue(lValue) CLASS HCheckButton
 
    hwg_Sendmessage(::handle, BM_SETCHECK, IIf(EMPTY(lValue), 0, 1), 0)
    ::lValue := IIf(lValue = NIL .OR. Valtype(lValue) != "L", .F., lValue)
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
        Eval(::bSetGet, lValue, Self)
    ENDIF
    ::Refresh()
@@ -246,7 +246,7 @@ METHOD Value(lValue) CLASS HCheckButton
 METHOD Refresh() CLASS HCheckButton
    LOCAL var
 
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       var := Eval(::bSetGet,, Self)
       IF var = NIL .OR. Valtype(var) != "L"
          var := hwg_Sendmessage(::handle, BM_GETCHECK, 0, 0) == 1
@@ -304,7 +304,7 @@ METHOD killFocus() CLASS HCheckButton
       ::SetValue(!::GetValue())
       ::VALID()
    ENDIF
-   IF ::bLostFocus != NIL
+   IF hb_IsBlock(::bLostFocus)
       ::oparent:lSuspendMsgsHandling := .T.
       Eval(::bLostFocus, Self, ::lValue)
       ::oparent:lSuspendMsgsHandling := .F.
@@ -319,10 +319,10 @@ METHOD When() CLASS HCheckButton
       RETURN .T.
    ENDIF
    nSkip := IIf(hwg_Getkeystate(VK_UP) < 0 .OR. (hwg_Getkeystate(VK_TAB) < 0 .AND. hwg_Getkeystate(VK_SHIFT) < 0), -1, 1)
-   IF ::bGetFocus != NIL
+   IF hb_IsBlock(::bGetFocus)
       ::lnoValid := .T.
       ::oParent:lSuspendMsgsHandling := .T.
-      IF ::bSetGet != NIL
+      IF hb_IsBlock(::bSetGet)
          res := Eval(::bGetFocus, Eval(::bSetGet, , Self), Self)
       ELSE
          res := Eval(::bGetFocus,::lValue, Self)
@@ -349,10 +349,10 @@ METHOD Valid() CLASS HCheckButton
    ELSE
       ::lValue := (l == 1)
    ENDIF
-   IF ::bSetGet != NIL
+   IF hb_IsBlock(::bSetGet)
       Eval(::bSetGet, ::lValue, Self)
    ENDIF
-   IF ::bClick != NIL
+   IF hb_IsBlock(::bClick)
       ::oparent:lSuspendMsgsHandling := .T.
        Eval(::bClick, Self, ::lValue)
        ::oparent:lSuspendMsgsHandling := .F.

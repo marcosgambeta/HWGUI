@@ -75,7 +75,7 @@ METHOD Caption(cText) CLASS HToolButton
    RETURN ::Title
 
 METHOD onClick() CLASS HToolButton
-  IF ::bClick != NIL
+  IF hb_IsBlock(::bClick)
       Eval(::bClick, self, ::id)
    ENDIF
 RETURN NIL
