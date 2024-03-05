@@ -424,7 +424,7 @@ METHOD InitCode128(cMode) CLASS HBarCode
    LOCAL cCode := ::cText
    LOCAL lCodeC := .F.
    LOCAL lCodeA := .F.
-   LOCAL nSum := 0
+   LOCAL nSum //:= 0 (value not used)
    LOCAL nCount := 0
 
    // Errors
@@ -634,7 +634,7 @@ METHOD InitUPC(nLen) CLASS HBarCode
    nLen++
 
    // preparacion de la cadena de impresion
-   cadena := []
+   //cadena := [] (value not used)
    Dcha := Right(k, nLen / 2)
    Izda := Left(k, nLen / 2)
 
@@ -746,7 +746,7 @@ METHOD InitIndustrial25(lCheck) CLASS HBarCode
    LOCAL aBar := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cInStart := "110" // industrial 2 of 5 start
    LOCAL cInStop := "101" // industrial 2 of 5 stop
-   LOCAL cBar := ""
+   LOCAL cBar //:= "" (value not used)
    LOCAL cBarra := ""
    LOCAL nCheck := 0
    LOCAL cCode := trans(::cText, "@9") // only digits
@@ -792,7 +792,7 @@ METHOD InitInterleave25(lMode) CLASS HBarCode
    LOCAL cStop := "100"
    LOCAL cBar := ""
    LOCAL cIz
-   LOCAL cBarra := ""
+   LOCAL cBarra //:= "" (value not used)
    LOCAL cDer
    LOCAL nLen
    LOCAL nCheck := 0
@@ -850,7 +850,7 @@ METHOD InitMatrix25(lCheck) CLASS HBarCode
    LOCAL n
    LOCAL aBar := {"00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010"}
    LOCAL cMtSt := "10000" // matrix start/stop
-   LOCAL cBar := ""
+   LOCAL cBar //:= "" (value not used)
    LOCAL cBarra := ""
    LOCAL nCheck := 0
    LOCAL cCode := trans(::cText, "@9") // only digits
