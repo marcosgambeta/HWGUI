@@ -1493,7 +1493,7 @@ HB_FUNC(HWG_ANSITOUNICODE)
 HB_FUNC(HWG_CLEARKEYBOARD)
 {
   BYTE kbBuffer[256];
-  int i = 1;
+  int i;
   int lClear = TRUE;
 
   while (lClear == TRUE)
