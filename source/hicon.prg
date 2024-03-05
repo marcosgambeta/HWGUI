@@ -1,8 +1,6 @@
 /*
- * $Id: drawwidg.prg 2052 2013-05-28 07:39:48Z alkresin $
- *
  * HWGUI - Harbour Win32 GUI library source code:
- * Icons handling
+ * HIcon class
  *
  * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
  * www - http://kresin.belgorod.su
@@ -12,24 +10,33 @@
 #include "windows.ch"
 #include "guilib.ch"
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 CLASS HIcon INHERIT HObject
 
-   CLASS VAR aIcons   INIT {}
-   CLASS VAR lSelFile   INIT .T.
+   CLASS VAR aIcons INIT {}
+   CLASS VAR lSelFile INIT .T.
+
    DATA handle
    DATA name
-   DATA nWidth, nHeight
-   DATA nCounter   INIT 1
+   DATA nWidth
+   DATA nHeight
+   DATA nCounter INIT 1
 
    METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM)
    METHOD AddFile(name, nWidth, nHeight)
    METHOD Draw(hDC, x, y) INLINE hwg_Drawicon(hDC, ::handle, x, y)
-   METHOD RELEASE()
+   METHOD Release()
 
 ENDCLASS
 
+//-------------------------------------------------------------------------------------------------------------------//
+
 METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
-   LOCAL lPreDefined := .F., i, aIconSize
+
+   LOCAL lPreDefined := .F.
+   LOCAL i
+   LOCAL aIconSize
 
    IF nWidth == NIL
       nWidth := 0
@@ -43,7 +50,7 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
    IF lOEM == NIL
       lOEM := .F.
    ENDIF
-   IF HB_ISNUMERIC(name)
+   IF hb_IsNumeric(name)
       name := LTrim(Str(name))
       lPreDefined := .T.
    ENDIF
@@ -75,10 +82,16 @@ METHOD AddResource(name, nWidth, nHeight, nFlags, lOEM) CLASS HIcon
 
    AAdd(::aIcons, Self)
 
-   RETURN Self
+RETURN Self
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
-   LOCAL i, aIconSize, cname := CutPath(name), cCurDir
+
+   LOCAL i
+   LOCAL aIconSize
+   LOCAL cname := CutPath(name)
+   LOCAL cCurDir
 
    IF nWidth == NIL
       nWidth := 0
@@ -87,7 +100,7 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
       nHeight := 0
    ENDIF
 #ifdef __XHARBOUR__
-   FOR EACH i IN  ::aIcons
+   FOR EACH i IN ::aIcons
       IF i:name == cname
          i:nCounter++
          RETURN i
@@ -118,10 +131,14 @@ METHOD AddFile(name, nWidth, nHeight) CLASS HIcon
 
    AAdd(::aIcons, Self)
 
-   RETURN Self
+RETURN Self
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 METHOD RELEASE() CLASS HIcon
-   LOCAL i, nlen := Len(::aIcons)
+
+   LOCAL i
+   LOCAL nlen := Len(::aIcons)
 
    ::nCounter--
    IF ::nCounter == 0
@@ -146,13 +163,18 @@ METHOD RELEASE() CLASS HIcon
 #endif
    ENDIF
 
-   RETURN NIL
+RETURN NIL
 
-EXIT PROCEDURE CleanDrawWidg
+//-------------------------------------------------------------------------------------------------------------------//
+
+EXIT PROCEDURE CleanIcons
+
    LOCAL i
 
    FOR i := 1 TO Len(HIcon():aIcons)
       hwg_Deleteobject(HIcon():aIcons[i]:handle)
    NEXT
 
-   RETURN
+RETURN
+
+//-------------------------------------------------------------------------------------------------------------------//
