@@ -164,7 +164,7 @@ METHOD New(oPorta) CLASS PrintDos
 METHOD Comando(oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7, ;
                 oComm8, oComm9, oComm10) CLASS PrintDos
 
-   LOCAL oStr := oComm1
+   LOCAL oStr //:= oComm1 (value not used)
 
    oStr := Chr(Val(oComm1))
 
