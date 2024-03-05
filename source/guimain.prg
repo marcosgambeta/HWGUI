@@ -17,7 +17,7 @@
    #xtranslate hb_NumToHex([<n, ...>])      => NumToHex(<n>)
 #endif
 
-STATIC _winwait
+//STATIC _winwait (variable not used)
 
 FUNCTION hwg_InitObjects(oWnd)
 
