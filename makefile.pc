@@ -86,7 +86,7 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\theme.obj \
    $(OBJ_DIR)\window.obj \
    $(OBJ_DIR)\wprint.obj \
-   $(OBJ_DIR)\drawwidg.obj \
+   $(OBJ_DIR)\hicon.obj \
    $(OBJ_DIR)\hbitmap.obj \
    $(OBJ_DIR)\hbrush.obj \
    $(OBJ_DIR)\hfont.obj \
@@ -169,10 +169,10 @@ $(XML_LIB) : $(XML_LIB_OBJS)
 # ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ?
 #  ßßßßßßßßßßßßßßßßßßßßßßßßßß
 
-$(OBJ_DIR)\drawwidg.c : $(SRC_DIR)\drawwidg.prg
+$(OBJ_DIR)\hicon.c : $(SRC_DIR)\hicon.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
-$(OBJ_DIR)\drawwidg.obj : $(OBJ_DIR)\drawwidg.c
+$(OBJ_DIR)\hicon.obj : $(OBJ_DIR)\hicon.c
    $(CC_EXE) $(CFLAGS) /Fo$@ $**
 
 $(OBJ_DIR)\hbitmap.c : $(SRC_DIR)\hbitmap.prg

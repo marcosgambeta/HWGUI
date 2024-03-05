@@ -35,7 +35,7 @@
 {win}source/herrsys.prg
 
 {win}source/hipedit.prg
-{win}source/drawwidg.prg
+{win}source/hicon.prg
 {win}source/hbitmap.prg
 {win}source/hbrush.prg
 {win}source/hfont.prg

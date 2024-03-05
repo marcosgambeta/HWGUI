@@ -72,7 +72,7 @@ $(LIB_DIR)/libhwgui.a : \
    $(OBJ_DIR)/theme.o \
    $(OBJ_DIR)/window.o \
    $(OBJ_DIR)/wprint.o \
-   $(OBJ_DIR)/drawwidg.o \
+   $(OBJ_DIR)/hicon.o \
    $(OBJ_DIR)/hbitmap.o \
    $(OBJ_DIR)/hbrush.o \
    $(OBJ_DIR)/hfont.o \

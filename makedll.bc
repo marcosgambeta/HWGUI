@@ -51,7 +51,7 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\shellapi.obj  \
    $(OBJ_DIR)\window.obj \
    $(OBJ_DIR)\wprint.obj \
-   $(OBJ_DIR)\drawwidg.obj \
+   $(OBJ_DIR)\hicon.obj \
    $(OBJ_DIR)\hbitmap.obj \
    $(OBJ_DIR)\hbrush.obj \
    $(OBJ_DIR)\hfont.obj \
