@@ -83,6 +83,10 @@ HWGUI_LIB_OBJS = \
    $(OBJ_DIR)\window.obj \
    $(OBJ_DIR)\wprint.obj \
    $(OBJ_DIR)\drawwidg.obj \
+   $(OBJ_DIR)\hbitmap.obj \
+   $(OBJ_DIR)\hbrush.obj \
+   $(OBJ_DIR)\hfont.obj \
+   $(OBJ_DIR)\hpen.obj \
    $(OBJ_DIR)\herrsys.obj \
    $(OBJ_DIR)\guimain.obj \
    $(OBJ_DIR)\hbarcode.obj \
@@ -168,6 +172,30 @@ $(OBJ_DIR)\drawwidg.c : $(SRC_DIR)\drawwidg.prg
    $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
 
 $(OBJ_DIR)\drawwidg.obj : $(OBJ_DIR)\drawwidg.c
+   $(CC_EXE) $(CFLAGS) -fo$@ $**
+
+$(OBJ_DIR)\hbitmap.c : $(SRC_DIR)\hbitmap.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
+$(OBJ_DIR)\hbitmap.obj : $(OBJ_DIR)\hbitmap.c
+   $(CC_EXE) $(CFLAGS) -fo$@ $**
+
+$(OBJ_DIR)\hbrush.c : $(SRC_DIR)\hbrush.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
+$(OBJ_DIR)\hbrush.obj : $(OBJ_DIR)\hbrush.c
+   $(CC_EXE) $(CFLAGS) -fo$@ $**
+
+$(OBJ_DIR)\hfont.c : $(SRC_DIR)\hfont.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
+$(OBJ_DIR)\hfont.obj : $(OBJ_DIR)\hfont.c
+   $(CC_EXE) $(CFLAGS) -fo$@ $**
+
+$(OBJ_DIR)\hpen.c : $(SRC_DIR)\hpen.prg
+   $(HARBOUR_EXE) $(HARBOURFLAGS) $** -o$@
+
+$(OBJ_DIR)\hpen.obj : $(OBJ_DIR)\hpen.c
    $(CC_EXE) $(CFLAGS) -fo$@ $**
 
 $(OBJ_DIR)\herrsys.c : $(SRC_DIR)\herrsys.prg

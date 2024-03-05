@@ -52,6 +52,10 @@ $(LIB_DIR)\hwgui-b32.dll:   \
    $(OBJ_DIR)\window.obj \
    $(OBJ_DIR)\wprint.obj \
    $(OBJ_DIR)\drawwidg.obj \
+   $(OBJ_DIR)\hbitmap.obj \
+   $(OBJ_DIR)\hbrush.obj \
+   $(OBJ_DIR)\hfont.obj \
+   $(OBJ_DIR)\hpen.obj \
    $(OBJ_DIR)\guimain.obj \
    $(OBJ_DIR)\hbrowse.obj \
    $(OBJ_DIR)\hcheck.obj \

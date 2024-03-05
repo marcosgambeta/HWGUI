@@ -68,6 +68,10 @@ HWGUI_LIB_OBJS = \
    $(HWGUI_OBJ_DIR)\window.obj \
    $(HWGUI_OBJ_DIR)\wprint.obj \
    $(HWGUI_OBJ_DIR)\drawwidg.obj \
+   $(HWGUI_OBJ_DIR)\hbitmap.obj \
+   $(HWGUI_OBJ_DIR)\hbrush.obj \
+   $(HWGUI_OBJ_DIR)\hfont.obj \
+   $(HWGUI_OBJ_DIR)\hpen.obj \
    $(HWGUI_OBJ_DIR)\guimain.obj \
    $(HWGUI_OBJ_DIR)\hbarcode.obj \
    $(HWGUI_OBJ_DIR)\hbrowse.obj \

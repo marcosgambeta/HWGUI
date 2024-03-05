@@ -25,6 +25,10 @@ C_SOURCES=\
 	
 PRG_SOURCES=\
 	drawwidg.prg \
+	hbitmap.prg \
+	hbrush.prg \
+	hfont.prg \
+	hpen.prg \
 	errorsys.prg \
 	guimain.prg \
 	hbrowse.prg \

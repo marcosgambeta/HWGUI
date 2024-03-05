@@ -36,6 +36,10 @@
 
 {win}source/hipedit.prg
 {win}source/drawwidg.prg
+{win}source/hbitmap.prg
+{win}source/hbrush.prg
+{win}source/hfont.prg
+{win}source/hpen.prg
 {win}source/guimain.prg
 {win}source/hbarcode.prg
 {win}source/hbrowse.prg
