@@ -12,7 +12,7 @@
 -olib/${hb_plat}/${hb_comp}/hwgui
 -n
 -q0
--w2
+-w3
 -es2
 -iinclude
 

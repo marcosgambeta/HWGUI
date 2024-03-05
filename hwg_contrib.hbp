@@ -7,7 +7,7 @@
 -hblib
 -olib/${hb_plat}/${hb_comp}/hwg_contrib
 
--n -q0 -w2 -es2
+-n -q0 -w3 -es2
 
 -iinclude
 
