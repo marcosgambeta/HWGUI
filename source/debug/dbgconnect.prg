@@ -114,19 +114,20 @@ Function hwg_dbg_New()
    ENDIF
 
    IF File(cFile + ".d1") .AND. File(cFile + ".d2")
-   
+
       IF (handl1 := FOpen(cFile + ".d1", FO_READ + FO_SHARED)) != -1
          IF (i := FRead(handl1, @cBuffer, Len(cBuffer))) > 0 .AND. ;
                Left(cBuffer, 4) == "init"
+            HB_SYMBOL_UNUSED(i)
             handl2 := FOpen(cFile + ".d2", FO_READWRITE + FO_SHARED)
             IF handl2 != -1
                lDebugRun := .T.
                Return NIL
             ENDIF
-         ENDIF      
+         ENDIF
          FClose(handl1)
       ENDIF
-    
+
    ENDIF
 
    IF !Empty(cDir)
@@ -135,6 +136,7 @@ Function hwg_dbg_New()
          IF (handl1 := FOpen(cDir + cDebugger + ".d1", FO_READ + FO_SHARED)) != -1
             IF (i := FRead(handl1, @cBuffer, Len(cBuffer))) > 0 .AND. ;
                   Left(cBuffer, 4) == "init"
+               HB_SYMBOL_UNUSED(i)
                handl2 := FOpen(cDir + cDebugger + ".d2", FO_READWRITE + FO_SHARED)
                IF handl2 != -1
                   lDebugRun := .T.
@@ -169,6 +171,7 @@ Function hwg_dbg_New()
       cExe := cDebugger
    ENDIF
    lRun := ((hProcess := hb_processOpen(cExe + ' -c"' + cFile + '"')) > 0)
+   HB_SYMBOL_UNUSED(hProcess)
 #endif
    IF !lRun
       hwg_dbg_Alert(cExe + " isn't available...")
