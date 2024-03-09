@@ -104,9 +104,9 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
       lText := .F.
    ENDIF
 
-   IF ValType(vari) == "C" .AND. lText == .F.
-      lText := .T.
-   ENDIF
+   //IF ValType(vari) == "C" .AND. lText == .F.
+   //   lText := .T.
+   //ENDIF
 
    ::nDisplay := nDisplay
    ::nhItem := nhItem
@@ -165,14 +165,14 @@ METHOD New(oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,
    ::oParent:AddEvent(CBN_SELENDOK, Self, {|o, id|::onSelect(o:FindControl(id))}, , "onSelect")
    ::oParent:AddEvent(CBN_DROPDOWN, Self, {|o, id|::onDropDown(o:FindControl(id))}, , "ondropdown")
    ::oParent:AddEvent(CBN_CLOSEUP, Self, {||::ldropshow := .F.}, ,)
-   
+
    // workaround for problem reported in issue 15
    // https://github.com/marcosgambeta/HWGUI/issues/15
-   IF Empty(::value)
-      IF Len(aItems) > 0
-         ::SetItem(1)
-      ENDIF
-   ENDIF
+   //IF Empty(::value)
+   //   IF Len(aItems) > 0
+   //      ::SetItem(1)
+   //   ENDIF
+   //ENDIF
 
 RETURN Self
 
@@ -283,7 +283,11 @@ METHOD INIT() CLASS HComboBox
                hwg_Sendmessage(::handle, CB_SELECTSTRING, -1, ::value)
                hwg_Sendmessage(::handle, CB_SETEDITSEL, -1, 0)
             ELSE
+               #ifdef __XHARBOUR__
                hwg_Combosetstring(::handle, AScan(::aItems, ::value, , , .T.))
+               #else
+               hwg_Combosetstring(::handle, hb_AScan(::aItems, ::value, , , .T.))
+               #endif
             ENDIF
             hwg_Setwindowtext(::handle, ::value)
          ELSE
@@ -459,7 +463,11 @@ METHOD Refresh() CLASS HComboBox
          hwg_Setdlgitemtext(hwg_GetModalHandle(), ::id, ::value)
          hwg_Sendmessage(::handle, CB_SETEDITSEL, 0, ::SelStart)
       ENDIF
+      #ifdef __XHARBOUR__
       hwg_Combosetstring(::handle, AScan(::aItems, ::value, , , .T.))
+      #else
+      hwg_Combosetstring(::handle, hb_AScan(::aItems, ::value, , , .T.))
+      #endif
    ELSE
       hwg_Combosetstring(::handle, ::value)
    ENDIF
@@ -556,10 +564,18 @@ METHOD GetValueBound(xItem) CLASS HComboBox
    ENDIF
    IF xItem == NIL
       IF ::lText
+         #ifdef __XHARBOUR__
          nPos := IIf(::Value == NIL, 0, AScan(::aItems, ::value, , , .T.))
+         #else
+         nPos := IIf(::Value == NIL, 0, hb_AScan(::aItems, ::value, , , .T.))
+         #endif
       ENDIF
    ELSE
+      #ifdef __XHARBOUR__
       nPos := AScan(::aItemsBound, xItem, , , .T.)
+      #else
+      nPos := hb_AScan(::aItemsBound, xItem, , , .T.)
+      #endif
       ::setItem(nPos)
       RETURN IIf(nPos > 0, ::aItems[nPos], xItem)
    ENDIF
