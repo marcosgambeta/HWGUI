@@ -688,13 +688,15 @@ METHOD Notify(lParam) CLASS HTab
       IF nPage == ::nPrevPage
          RETURN 0
       ENDIF
-      ::oparent:lSuspendMsgsHandling := .T.
-      Eval(::bChange, Self, hwg_Getcurrenttab(::handle)) // TODO: check codeblock ?
-      IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
-         Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
-         ::nActivate := 0
+      IF hb_IsBlock(::bChange)
+         ::oparent:lSuspendMsgsHandling := .T.
+         Eval(::bChange, Self, hwg_Getcurrenttab(::handle))
+         IF ::bGetFocus != NIL .AND. nPage != ::nPrevPage .AND. ::Pages[nPage]:Enabled .AND. ::nActivate > 0
+            Eval(::bGetFocus, hwg_Getcurrenttab(::handle), Self) // TODO: order of the parameters
+            ::nActivate := 0
+         ENDIF
+         ::oparent:lSuspendMsgsHandling := .F.
       ENDIF
-      ::oparent:lSuspendMsgsHandling := .F.
       EXIT
 
    CASE TCN_SELCHANGING // -552
